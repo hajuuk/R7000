@@ -4,7 +4,7 @@ lang_ori_english="Auto English German Chinese Korean Russian Spanish Polish Fren
 ////////////////////////////////Please keep the line below as it is ///////////////////////////////////////////////////////////////
 lang_ori="Auto English Deutsch 中文 한국어 Русский Español Polski Français Italiano Svenska Dansk Nederlands Ελληνικά Norsk Čeština Slovenščina Português Magyar Română Suomi Slovenčina Türkiye 日本語"
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-version="1.0.3.56_2.1.38.1"
+version="1.0.3.60_2.1.38.1"
 language="English"
 support_url="http://kbserver.netgear.com/main.asp"
 
@@ -529,6 +529,8 @@ ddns_netgear_error_115="You have reached the maximum number of hostnames that yo
 ddns_netgear_error_register_112="The email has already been registered with a different password"
 ddns_netgear_error_apply_112="The password specified is not correct"
 ddns_netgear_error_other="Unable to complete the job, reason:"
+ddns_netgear_error_200="The email/account specified is banned by No-IP"
+ddns_netgear_error_201="The email/account specified is pending on activation, please try again in 30 seconds"
 
 ddns_netgear_confirm_mail="Confirmation email is on its way!\n\nA confirmation email has been sent to the email\naddress you provided. The confirmation email will\ninclude a link that you must click on to verify your\nemail address. Once your account is confirmed\nyou will be able to login and use our services."
 ddns_netgear_hostname_format="The hostname is not valid. The characters allowed here are '0'~'9', 'a'~'z', 'A'~'Z', and hyphen '-'"

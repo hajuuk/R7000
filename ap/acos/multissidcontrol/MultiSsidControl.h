@@ -36,8 +36,8 @@
 #define SAMBA_PORT2      138
 #define SAMBA_PORT3      139
 #define SAMBA_PORT4      445    /*stanley add 01/13/2010 add samba port*/
-#define SOAP_API_PORT    5000   
-#define TELNET_PORT      23     
+#define SOAP_API_PORT    5000   /* pling added 10/22/2013, SOAP API port */
+#define TELNET_PORT      23     /* Bob added 02/27/2014, telnet port */
 
 /* Foxconn added start, Wins, 03/18/2011, @AP_MODE */
 #if defined(AP_MODE)             

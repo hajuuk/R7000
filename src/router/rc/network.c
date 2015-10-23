@@ -1251,7 +1251,8 @@ start_wl(void)
       eval("wl", "-i", "eth2", "frameburst", "1");
 	  }
       eval("wl", "assert_type", "1");
-      
+
+    /* Foxconn added start by Antony 02/26/2014 The wifi driver could receive/transmit all multicast packets */      
     if(nvram_match("enable_sta_mode","1"))
     {
         system("wl -i eth1 allmulti 1");
@@ -1262,6 +1263,8 @@ start_wl(void)
         system("wl -i eth1 allmulti 0");
         system("wl -i eth2 allmulti 0");
     }
+    /* Fxoconn added end by Antony 02/26/2014  */
+
     /*Foxconn add start by Antony start 09/13/2013 Add rf support of Russia Region */
     if (nvram_match("wla_region", "14"))
     {

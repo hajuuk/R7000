@@ -73,7 +73,14 @@
         var imgSrc=document.getElementById('help-button');
         pane.jScrollPane({showArrows:true});
 
-        $(".help-frame-div").hide();
+	    if((navigator.appName.indexOf("Internet Explorer")!=-1) ||
+        (navigator.appVersion.indexOf("MSIE 9")!=-1))
+	   	{
+			$(".help-frame-div").show();
+		}else
+		{
+			$(".help-frame-div").hide();
+		}
         if ((loadhelp2.arguments.length == 1 ) || (anchname == "" ))
            window.frames["helpframe"].location.href=fname+"_h.htm";
         else

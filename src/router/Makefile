@@ -481,7 +481,7 @@ ifeq (2_6_36,$(LINUX_VERSION))
 obj-y += udev
 obj-y += hotplug2
 endif
-#obj-$(CONFIG_LLD2D) += lltd/wrt54g-linux
+obj-$(CONFIG_LLD2D) += lltd/wrt54g-linux
 obj-$(CONFIG_ACL_LOGD) += acl_log
 obj-$(CONFIG_GPIO) += gpio
 obj-$(CONFIG_SWRESETD) += swresetd

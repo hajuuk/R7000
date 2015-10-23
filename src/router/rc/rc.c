@@ -2069,12 +2069,12 @@ sysinit(void)
         /* Foxconn added end pling 02/11/2011 */
 
         /*Foxconn lawrence added start, 2013/03/06, Restore wifi_on_off button for default*/
-	    //nvram_set("wifi_on_off", "1"); 
+	//nvram_set("wifi_on_off", "1"); Tab Tseng removed, 2014/02/27
         /*Foxconn lawrence added end, 2013/03/06, Restore wifi_on_off button for default*/
 		
-		/* Read ethernet MAC, RF params, etc */
+        /* Read ethernet MAC, RF params, etc */
 		eval("read_bd");
-		/* foxconn modified end, zacker, 08/06/2010 */
+        /* foxconn modified end, zacker, 08/06/2010 */
 
 		/* Load ctf */
     /* Foxconn added start pling 08/19/2010 */
@@ -2143,7 +2143,12 @@ sysinit(void)
         nvram_unset("wl1_rxchain_pwrsave_enable");
         /* foxconn added end by Bob 12/12/2013, BRCM suggest not to enable rxchain power save */
         
+        /* foxconn added start by Bob 03/10/2014, BRCM's workaround for bridge mode connect fail issue. */
+        /* Reduce transmit power at 5G band, HT20,  OFDM MCS 0,1,2 Reduce from 21.5db to 20 db. */
         nvram_set("pci/2/1/mcsbw205ghpo", "0xBA768888");
+        /* foxconn added end by Bob 03/10/2014, BRCM's workaround for bridge mode connect fail issue. */
+        
+        
                 
 		//modules = nvram_get("kernel_mods") ? : "et bcm57xx wl";
 		/*Foxconn modify start by Hank for insert dpsta 08/27/2012*/

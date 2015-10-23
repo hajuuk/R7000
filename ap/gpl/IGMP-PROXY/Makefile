@@ -19,7 +19,7 @@ SRCDIR:=$(TOP_DIR)/src
 
 # Compiler flags
 #CFLAGS+=-D@OS@ 
-CFLAGS+=-O2 -Wall 
+CFLAGS+= -s -O2 -Wall -Wstrict-prototypes
 CFLAGS+= -I$(SRCDIR)/include -I../../acos/include -I../../acos/shared
 
 ifeq ($(CONFIG_STATIC_PPPOE),y)
@@ -36,17 +36,21 @@ THREAD_LIBS= -lpthread
 # Linker flags
 LDFLAGS += $(THREAD_LIBS)
 LDFLAGS	+= -L$(ROUTERDIR)/nvram -L$(INSTALLDIR)/nvram/usr/lib -lnvram
-LDFLAGS += -L../../acos/shared -L$(TARGETDIR)/shared/usr/lib -lacos_shared
-#Foxconn add start by Hank 07/30/2012
-#For Kernel 2.6.36
-ifeq ($(CONFIG_KERNEL_2_6_36),y)
-LDFLAGS	+= -lgcc_s
-endif
-#Foxconn add end by Hank 07/30/2012
+#LDFLAGS += -L../../acos/shared -L$(TARGETDIR)/shared/usr/lib -lacos_shared
 
 # Object files
 OBJ_ALL=*.o
 SRC=$(wildcard $(SRCDIR)/*.c)
+
+ifeq ($(CONFIG_RALINK_SDK),y)
+CFLAGS += -I../../../project/gpl/igmpproxy
+CFLAGS += -I$(LINUXDIR)/include
+CFLAGS += -I$(LINUXDIR)/drivers/net/raeth
+#CFLAGS += -DWIFI_IGMPSNOOP_SUPPORT
+#CFLAGS += -DSEARCH_CLIENT_IN_WIFI_MACTABLE
+SRC += $(wildcard ../../../project/gpl/igmpproxy/*.c)
+endif
+
 # The following will expand to the full path of every .o file:
 OBJS=$(SRC:.c=.o)
 
@@ -67,7 +71,6 @@ OBJS=$(SRC:.c=.o)
 
 # Default target :
 all: $(EXEC)
-
 
 $(EXEC): $(OBJS)
 	$(CC) $(LDFLAGS) -o $(EXEC) $(OBJS)
@@ -102,6 +105,7 @@ install:
 
 clean:
 	-rm -rf $(TOP_DIR)/src/*.o $(TOP_DIR)/$(EXEC)
+	-rm -rf ../../../project/gpl/igmpproxy/*.o
 # Make ignore return status of commands begining with '-'
 mrproper: clean
 	-rm $(TOP_DIR)/$(EXEC) 
