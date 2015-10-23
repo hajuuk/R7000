@@ -493,6 +493,8 @@ obj-$(CONFIG_IPROUTE2) += iproute2
 obj-$(CONFIG_IPUTILS) += iputils
 obj-$(CONFIG_DHCPV6S) += dhcp6s
 obj-$(CONFIG_DHCPV6C) += dhcp6c
+obj-$(CONFIG_TASKSET) += taskset
+#speed up USB throughput
 
 # BUZZZ tools: function call tracing, performance monitoring, event history
 obj-$(CONFIG_BUZZZ) += buzzz
@@ -641,6 +643,7 @@ ifeq ($(PROFILE),R7000)
 	install usbprinter/KC_PRINT $(TARGETDIR)/usr/bin
 	install -d $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/ufsd
 	install ufsd/ufsd.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/ufsd
+	install arm-uclibc/netgear-streaming-db $(TARGETDIR)/etc
 	install prebuilt/AccessCntl.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
 	install prebuilt/opendns.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
 	install prebuilt/acos_nat.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
@@ -654,6 +657,7 @@ ifeq ($(PROFILE),R7000)
 	install arm-uclibc/netgear-streaming-db $(TARGETDIR)/etc
 
 endif
+
 
 ifneq (2_4,$(LINUX_VERSION))
 ifeq ("$(CONFIG_USBAP)","y")

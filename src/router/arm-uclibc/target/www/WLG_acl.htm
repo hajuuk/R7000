@@ -103,7 +103,7 @@ function valid_add()
 {
  if(document.forms[0].MacSelect && parseInt(document.forms[0].MacSelect.length)==64)
  {
-   alert("<%1569%>");
+   alert("<%1571%>");
    return false;
  }
  return true;
@@ -115,9 +115,9 @@ function valid_edit(type)
  if(cf.macaddr.value.length == 0)//not select
  {
  if(type == 0)
- alert("<%1570%>");
+ alert("<%1572%>");
  else if(type == 1)
- alert("<%1571%>"); 
+ alert("<%1573%>"); 
  return false;
  }
  return true;
@@ -141,13 +141,13 @@ function showWpsAlert()
 function checkData()
 {
     var cf = document.forms[0];
-    var acl_mac_num = "<%1572%>";
+    var acl_mac_num = "<%1574%>";
     var needGrayOutWPS = 0;
 
     if (cf.accessLimit.checked) {
         if (acl_mac_num == "0")
         {
-            //if (!confirm("<%1573%>")){
+            //if (!confirm("<%1575%>")){
               //  return false;
             //}
             needGrayOutWPS = 1;
@@ -178,7 +178,7 @@ function checkData()
 <form id="target"  action="wlan_acl.cgi" method="post" name="formname">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
   <img class="subtop-image" src="img/subhead2-top.gif">
-<div class="subhead2"> <%1446%></div>
+<div class="subhead2"> <%1448%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
@@ -192,7 +192,7 @@ function checkData()
     
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <TR>
-      <TD align="left" nowrap colspan="2" ><input type="checkbox" name="accessLimit" value="1" <%1574%> ><a href="javascript:loadhelp('WLG_acl','control')" tabindex="-1"><b><%1575%></b></a></td></tr>
+      <TD align="left" nowrap colspan="2" ><input type="checkbox" name="accessLimit" value="1" <%1576%> ><a href="javascript:loadhelp('WLG_acl','control')" tabindex="-1"><b><%1577%></b></a></td></tr>
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <tr>
       <td align="center" colspan="2" >
@@ -202,7 +202,7 @@ function checkData()
             <td nowrap width="10%" align="center"><span class="thead">&nbsp;</span></td>
             <td nowrap width="45%" align="center"><span class="thead"><%624%></span></td>
             <td nowrap width="45%" align="center"><span class="thead"><%625%></span></td></tr>
-          <%1576%></table>
+          <%1578%></table>
         </td></tr>
     <TR>
       <TD nowrap align=center colspan="2" >

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%1586%>
-<title><%1617%></title> 
+<%1588%>
+<title><%1619%></title> 
 <link rel="stylesheet" href="css/table.css">
 <link rel="stylesheet" href="css/scrollbar.css">
 <link rel="stylesheet" href="css/button.css">
@@ -97,30 +97,30 @@ function wdsWaring()
 	var cf = document.forms[0];
 	if (cf.wds_enable.checked) {
 		if (cf.wla_secu_type.value == "WPA2-PSK" || cf.wla_secu_type.value == "WPA-AUTO-PSK" || cf.wla_secu_type.value == "WPA-PSK") {
-			alert("<%1587%>"); 
+			alert("<%1589%>"); 
             cf.wds_enable.checked = false;
             //update_wds_sel();
-            location.href="<%1618%>";
+            location.href="<%1620%>";
 		}
 		if (cf.wla_channel.value == "0") {
 			alert("<%41%>"); 
 			cf.wds_enable.checked = false;
 			//update_wds_sel();
-			location.href="<%1618%>";
+			location.href="<%1620%>";
 		}
 	}
 	if (cf.wds_enable_an.checked) {
 		if (cf.wlg_secu_type.value == "WPA2-PSK" || cf.wlg_secu_type.value == "WPA-AUTO-PSK" || cf.wlg_secu_type.value == "WPA-PSK") {
-			alert("<%1587%>"); 
+			alert("<%1589%>"); 
             cf.wds_enable_an.checked = false;
             //update_wds_sel();
-            location.href="<%1618%>";
+            location.href="<%1620%>";
 		}
 		if (cf.wlg_channel.value == "0") {
 			alert("<%41%>");
 			cf.wds_enable_an.checked = false;
 			//update_wds_sel();
-			location.href="<%1618%>";
+			location.href="<%1620%>";
 		}
 	}
 }
@@ -550,12 +550,12 @@ function checkData(){
 		if (getwds_mode()==1) {
 			if("<%369%>" == "0") {
 				if(checkIP(cf.sysLANIPAddr1,cf.sysLANIPAddr2,cf.sysLANIPAddr3,cf.sysLANIPAddr4,254)||(parseInt(cf.sysLANIPAddr4.value)==0)||parseInt(cf.sysLANIPAddr1.value)>224) {
-					alert("<%1588%>");
+					alert("<%1590%>");
 					return false;   
 				}			
 			}
 			if (ptp_mac.length==0) {
-				alert("<%1589%>");
+				alert("<%1591%>");
 				return false;   
 			}
 			if (!check_mac(cf.ptp_mac_1, cf.ptp_mac_2, cf.ptp_mac_3, cf.ptp_mac_4, cf.ptp_mac_5, cf.ptp_mac_6))
@@ -564,7 +564,7 @@ function checkData(){
 		} else if(getwds_mode()==2) {
 			if ((pmp_mac1.length==0) && (pmp_mac2.length==0)&&
 				(pmp_mac3.length==0) && (pmp_mac4.length==0)) {
-				alert("<%1590%>");
+				alert("<%1592%>");
 				return false;   
 			}
 
@@ -680,12 +680,12 @@ function checkData(){
 		if (getwds_mode_an()==1) {
 			if("<%369%>" == "0") {
 				if((checkIP(cf.sysLANIPAddr1_an,cf.sysLANIPAddr2_an,cf.sysLANIPAddr3_an,cf.sysLANIPAddr4_an,254)||(parseInt(cf.sysLANIPAddr4_an.value)==0)||parseInt(cf.sysLANIPAddr1_an.value)>224) ) {
-					alert("<%1588%>");
+					alert("<%1590%>");
 					return false;   
 				}			
 			}
 			if (ptp_mac.length==0) {
-				alert("<%1589%>");
+				alert("<%1591%>");
 				return false;   
 			}
 			if (!check_mac(cf.ptp_mac_1_an, cf.ptp_mac_2_an, cf.ptp_mac_3_an, cf.ptp_mac_4_an, cf.ptp_mac_5_an, cf.ptp_mac_6_an))
@@ -694,7 +694,7 @@ function checkData(){
 		} else if(getwds_mode_an()==2) {
 			if ((pmp_mac1.length==0) && (pmp_mac2.length==0)&&
 				(pmp_mac3.length==0) && (pmp_mac4.length==0)) {
-				alert("<%1590%>");
+				alert("<%1592%>");
 				return false;   
 			}
 
@@ -918,7 +918,7 @@ function showWpsAlert()
 <form id="target"  method="POST" action="wds.cgi" NAME=general>
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
   <img class="subtop-image" src="img/subhead2-top.gif">
-<div class="subhead2"> <%1049%></div>
+<div class="subhead2"> <%1051%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
@@ -932,25 +932,25 @@ function showWpsAlert()
     
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <TR>
-       <TD colspan="2" nowrap valign=top><input type=checkbox NAME=wds_enable value="1" onclick='click_endis_wds();wdsWaring();'><a href="javascript:loadhelp('WLG_wds','en_repeat')" tabindex="-1"> <b><%1619%></b></a></td>
+       <TD colspan="2" nowrap valign=top><input type=checkbox NAME=wds_enable value="1" onclick='click_endis_wds();wdsWaring();'><a href="javascript:loadhelp('WLG_wds','en_repeat')" tabindex="-1"> <b><%1621%></b></a></td>
     </tr>
     <TR>
        <TD colspan=2>&nbsp;</td>
     </tr>
  
     <TR>
-        <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><%1592%> <b><%1620%></b></a></td>
+        <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><%1594%> <b><%1622%></b></a></td>
 	</tr>
      <TR>
        <TD colspan=2>&nbsp;</td>
     </tr>
    
     <TR>
-        <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><input type=radio NAME=wds_mode value="1"  onclick='click_repeater_basic()'><a href="javascript:loadhelp('WLG_wds','repeat')" tabindex="-1"> <b><%1594%></b></a></td>
+        <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><input type=radio NAME=wds_mode value="1"  onclick='click_repeater_basic()'><a href="javascript:loadhelp('WLG_wds','repeat')" tabindex="-1"> <b><%1596%></b></a></td>
 	</tr>
 
 	<tr>
-    <TD nowrap align="right" valign="middle" width="50%"><div style="padding-right:16px"><%1595%></div></td>
+    <TD nowrap align="right" valign="middle" width="50%"><div style="padding-right:16px"><%1597%></div></td>
     <TD>
     <input type="text" name="sysLANIPAddr1" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.
     <input type="text" name="sysLANIPAddr2" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
@@ -959,10 +959,10 @@ function showWpsAlert()
 </tr>
 	
     <TR>
-        <td colspan="2"><img src="spacer.gif" width="40" height="2" border="0"><input type="checkbox" NAME="ptp_sta" value="1"><%1596%></td>
+        <td colspan="2"><img src="spacer.gif" width="40" height="2" border="0"><input type="checkbox" NAME="ptp_sta" value="1"><%1598%></td>
     </tr>
     <TR>
-       <TD nowrap align="right" valign="middle" width="50%"><div style="padding-right:16px"><%1597%></div></td>
+       <TD nowrap align="right" valign="middle" width="50%"><div style="padding-right:16px"><%1599%></div></td>
        <TD>
          <input type=text class="num" name=ptp_mac_1 value="" size="2" maxlength="2">:
          <input type=text class="num" name=ptp_mac_2 value="" size="2" maxlength="2">:
@@ -973,13 +973,13 @@ function showWpsAlert()
        </td>
     </tr>
     <TR>
-       <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><input type=radio NAME=wds_mode value="2"  onclick='click_repeater_basic()'><a href="javascript:loadhelp('WLG_wds','base')" tabindex="-1"> <b><%1598%></b></a></td>
+       <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><input type=radio NAME=wds_mode value="2"  onclick='click_repeater_basic()'><a href="javascript:loadhelp('WLG_wds','base')" tabindex="-1"> <b><%1600%></b></a></td>
     </tr>
     <TR>
-       <td colspan="2"><img src="spacer.gif" width="40" height="2" border="0"><input type=checkbox NAME="pmp_sta" value="1"> <%1596%></td>
+       <td colspan="2"><img src="spacer.gif" width="40" height="2" border="0"><input type=checkbox NAME="pmp_sta" value="1"> <%1598%></td>
     </tr>
     <TR>
-       <TD nowrap align="right" valign="middle"><%1599%> &nbsp;</td>
+       <TD nowrap align="right" valign="middle"><%1601%> &nbsp;</td>
        <TD>
          <input type=text class="num" name=pmp_mac1_1 value="" size="2" maxlength="2">:
          <input type=text class="num" name=pmp_mac1_2 value="" size="2" maxlength="2">:
@@ -990,7 +990,7 @@ function showWpsAlert()
        </td>
     </tr>
     <TR>
-       <TD nowrap align="right" valign="middle"><%1600%> &nbsp;</td>
+       <TD nowrap align="right" valign="middle"><%1602%> &nbsp;</td>
        <TD>
          <input type=text class="num" name=pmp_mac2_1 value="" size="2" maxlength="2">:
          <input type=text class="num" name=pmp_mac2_2 value="" size="2" maxlength="2">:
@@ -1002,7 +1002,7 @@ function showWpsAlert()
        </td>
     </tr>
     <TR>
-       <TD nowrap align="right" valign="middle"><%1601%> &nbsp;</td>
+       <TD nowrap align="right" valign="middle"><%1603%> &nbsp;</td>
        <TD>
          <input type=text class="num" name=pmp_mac3_1 value="" size="2" maxlength="2">:
          <input type=text class="num" name=pmp_mac3_2 value="" size="2" maxlength="2">:
@@ -1013,7 +1013,7 @@ function showWpsAlert()
        </td>
     </tr>
     <TR>
-       <TD nowrap align="right" valign="middle"><%1602%> &nbsp;</td>
+       <TD nowrap align="right" valign="middle"><%1604%> &nbsp;</td>
        <TD>
          <input type=text class="num" name=pmp_mac4_1 value="" size="2" maxlength="2">:
          <input type=text class="num" name=pmp_mac4_2 value="" size="2" maxlength="2">:
@@ -1026,25 +1026,25 @@ function showWpsAlert()
 
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <TR>
-       <TD colspan="2" nowrap valign=top><input type=checkbox NAME=wds_enable_an value="1" onclick='click_endis_wds_a();wdsWaring();'><a href="javascript:loadhelp('WLG_wds','en_repeat')" tabindex="-1"> <b><%1621%></b></a></td>
+       <TD colspan="2" nowrap valign=top><input type=checkbox NAME=wds_enable_an value="1" onclick='click_endis_wds_a();wdsWaring();'><a href="javascript:loadhelp('WLG_wds','en_repeat')" tabindex="-1"> <b><%1623%></b></a></td>
     </tr>
     <TR>
        <TD colspan=2>&nbsp;</td>
     </tr>
  
     <TR>
-        <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><%1592%> <b><%1622%></b></a></td>
+        <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><%1594%> <b><%1624%></b></a></td>
 	</tr>
      <TR>
        <TD colspan=2>&nbsp;</td>
     </tr>
    
     <TR>
-        <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><input type=radio NAME=wds_mode_an value="1"  onclick='click_repeater_basic_a()'><a href="javascript:loadhelp('WLG_wds','repeat')" tabindex="-1"> <b><%1594%></b></a></td>
+        <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><input type=radio NAME=wds_mode_an value="1"  onclick='click_repeater_basic_a()'><a href="javascript:loadhelp('WLG_wds','repeat')" tabindex="-1"> <b><%1596%></b></a></td>
 	</tr>
 
 	<tr>
-    <TD nowrap align="right" valign="middle" width="50%"><div style="padding-right:16px"><%1595%></div></td>
+    <TD nowrap align="right" valign="middle" width="50%"><div style="padding-right:16px"><%1597%></div></td>
     <TD>
     <input type="text" name="sysLANIPAddr1_an" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.
     <input type="text" name="sysLANIPAddr2_an" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
@@ -1053,10 +1053,10 @@ function showWpsAlert()
 </tr>
 	
     <TR>
-        <td colspan="2"><img src="spacer.gif" width="40" height="2" border="0"><input type="checkbox" NAME="ptp_sta_an" value="1"><%1596%></td>
+        <td colspan="2"><img src="spacer.gif" width="40" height="2" border="0"><input type="checkbox" NAME="ptp_sta_an" value="1"><%1598%></td>
     </tr>
     <TR>
-       <TD nowrap align="right" valign="middle" width="50%"><div style="padding-right:16px"><%1597%></div></td>
+       <TD nowrap align="right" valign="middle" width="50%"><div style="padding-right:16px"><%1599%></div></td>
        <TD>
          <input type=text class="num" name=ptp_mac_1_an value="" size="2" maxlength="2">:
          <input type=text class="num" name=ptp_mac_2_an value="" size="2" maxlength="2">:
@@ -1067,13 +1067,13 @@ function showWpsAlert()
        </td>
     </tr>
     <TR>
-       <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><input type=radio NAME=wds_mode_an value="2"  onclick='click_repeater_basic_a()'><a href="javascript:loadhelp('WLG_wds','base')" tabindex="-1"> <b><%1598%></b></a></td>
+       <TD colspan="2" nowrap valign=top><img src="spacer.gif" width="20" height="2" border="0"><input type=radio NAME=wds_mode_an value="2"  onclick='click_repeater_basic_a()'><a href="javascript:loadhelp('WLG_wds','base')" tabindex="-1"> <b><%1600%></b></a></td>
     </tr>
     <TR>
-       <td colspan="2"><img src="spacer.gif" width="40" height="2" border="0"><input type=checkbox NAME="pmp_sta_an" value="1"> <%1596%></td>
+       <td colspan="2"><img src="spacer.gif" width="40" height="2" border="0"><input type=checkbox NAME="pmp_sta_an" value="1"> <%1598%></td>
     </tr>
     <TR>
-       <TD nowrap align="right" valign="middle"><%1599%> &nbsp;</td>
+       <TD nowrap align="right" valign="middle"><%1601%> &nbsp;</td>
        <TD>
          <input type=text class="num" name=pmp_mac1_1_an value="" size="2" maxlength="2">:
          <input type=text class="num" name=pmp_mac1_2_an value="" size="2" maxlength="2">:
@@ -1084,7 +1084,7 @@ function showWpsAlert()
        </td>
     </tr>
     <TR>
-       <TD nowrap align="right" valign="middle"><%1600%> &nbsp;</td>
+       <TD nowrap align="right" valign="middle"><%1602%> &nbsp;</td>
        <TD>
          <input type=text class="num" name=pmp_mac2_1_an value="" size="2" maxlength="2">:
          <input type=text class="num" name=pmp_mac2_2_an value="" size="2" maxlength="2">:
@@ -1096,7 +1096,7 @@ function showWpsAlert()
        </td>
     </tr>
     <TR>
-       <TD nowrap align="right" valign="middle"><%1601%> &nbsp;</td>
+       <TD nowrap align="right" valign="middle"><%1603%> &nbsp;</td>
        <TD>
          <input type=text class="num" name=pmp_mac3_1_an value="" size="2" maxlength="2">:
          <input type=text class="num" name=pmp_mac3_2_an value="" size="2" maxlength="2">:
@@ -1107,7 +1107,7 @@ function showWpsAlert()
        </td>
     </tr>
     <TR>
-       <TD nowrap align="right" valign="middle"><%1602%> &nbsp;</td>
+       <TD nowrap align="right" valign="middle"><%1604%> &nbsp;</td>
        <TD>
          <input type=text class="num" name=pmp_mac4_1_an value="" size="2" maxlength="2">:
          <input type=text class="num" name=pmp_mac4_2_an value="" size="2" maxlength="2">:
@@ -1136,31 +1136,31 @@ function showWpsAlert()
 
 
 <INPUT name=wds_ena type=hidden value= "<%231%>">
-<INPUT name=wds_type type=hidden value= "<%1603%>">
-<INPUT name=ptp_mac type=hidden value= "<%1604%>">
-<INPUT name=ptp_sta_assoc type=hidden value= "<%1605%>">
-<INPUT name=pmp_mac1 type=hidden value= "<%1606%>">
-<INPUT name=pmp_mac2 type=hidden value= "<%1607%>">
-<INPUT name=pmp_mac3 type=hidden value= "<%1608%>">
-<INPUT name=pmp_mac4 type=hidden value= "<%1609%>">
-<INPUT name=pmp_sta_assoc type=hidden value= "<%1610%>">
+<INPUT name=wds_type type=hidden value= "<%1605%>">
+<INPUT name=ptp_mac type=hidden value= "<%1606%>">
+<INPUT name=ptp_sta_assoc type=hidden value= "<%1607%>">
+<INPUT name=pmp_mac1 type=hidden value= "<%1608%>">
+<INPUT name=pmp_mac2 type=hidden value= "<%1609%>">
+<INPUT name=pmp_mac3 type=hidden value= "<%1610%>">
+<INPUT name=pmp_mac4 type=hidden value= "<%1611%>">
+<INPUT name=pmp_sta_assoc type=hidden value= "<%1612%>">
 <INPUT name=wla_secu_type type=hidden value= "<%234%>">
-<INPUT name=wla_channel type=hidden value= "<%1611%>">
+<INPUT name=wla_channel type=hidden value= "<%1613%>">
 <INPUT name=lan_ipaddr type=hidden value= "<%258%>">
-<INPUT name=wla_repeater_ip type=hidden value= "<%1612%>">
+<INPUT name=wla_repeater_ip type=hidden value= "<%1614%>">
 <INPUT name=wds_ena_an type=hidden value= "<%232%>">
-<INPUT name=wds_type_an type=hidden value= "<%1623%>">
-<INPUT name=ptp_mac_an type=hidden value= "<%1624%>">
-<INPUT name=ptp_sta_assoc_an type=hidden value= "<%1625%>">
-<INPUT name=pmp_mac1_an type=hidden value= "<%1626%>">
-<INPUT name=pmp_mac2_an type=hidden value= "<%1627%>">
-<INPUT name=pmp_mac3_an type=hidden value= "<%1628%>">
-<INPUT name=pmp_mac4_an type=hidden value= "<%1629%>">
-<INPUT name=pmp_sta_assoc_an type=hidden value= "<%1630%>">
+<INPUT name=wds_type_an type=hidden value= "<%1625%>">
+<INPUT name=ptp_mac_an type=hidden value= "<%1626%>">
+<INPUT name=ptp_sta_assoc_an type=hidden value= "<%1627%>">
+<INPUT name=pmp_mac1_an type=hidden value= "<%1628%>">
+<INPUT name=pmp_mac2_an type=hidden value= "<%1629%>">
+<INPUT name=pmp_mac3_an type=hidden value= "<%1630%>">
+<INPUT name=pmp_mac4_an type=hidden value= "<%1631%>">
+<INPUT name=pmp_sta_assoc_an type=hidden value= "<%1632%>">
 <INPUT name=wlg_secu_type type=hidden value= "<%235%>">
-<INPUT name=wlg_channel type=hidden value= "<%1631%>">
+<INPUT name=wlg_channel type=hidden value= "<%1633%>">
 <INPUT name=lan_ipaddr_an type=hidden value= "<%258%>">
-<INPUT name=wlg_repeater_ip type=hidden value= "<%1632%>">
+<INPUT name=wlg_repeater_ip type=hidden value= "<%1634%>">
 <input type="hidden" name="show_wps_alert" value="<%233%>">
 <a name="helpframe-anchor"></a>
 </form>

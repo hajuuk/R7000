@@ -139,6 +139,14 @@ function checkData()
 {
 	var cf = document.forms[0];
 	var msg = "";
+	var openvpnEnable = "<%412%>";
+
+
+	
+	if(openvpnEnable == "enable"){
+		alert("<%2298%>");
+		return false;
+	}
 }
 
 function loadSettings()
@@ -158,29 +166,29 @@ function loadSettings()
 <form id="target"  name="formname" method="POST" action="ipv6_passthrough.cgi" >
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
 <img class="subtop-image" src="img/subhead2-top.gif">
-<div class="subhead2"> <%1026%></div>
+<div class="subhead2"> <%1028%></div>
 <table border="0"     class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-<button type="submit" value="SUBMIT"  onClick="buttonClick(this,'<%59%>');" name="apply" class="button-apply" style="padding-left:10px"> <span class="roundleft_apply" ><%60%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+<button type="submit" value="SUBMIT"  onClick="buttonClick(this,'<%59%>');return checkData()" name="apply" class="button-apply" style="padding-left:10px"> <span class="roundleft_apply" ><%60%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
 <button type="button" value="BUTTON"  onClick="buttonClick(this,'<%61%>');reset();loadSettings();" name="Cancel" class="button-rule" style="padding-left:10px" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%62%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
 <tr><td colspan="2" class="scrollpane-table-seperate-border"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
 <tr>
- <td width="50%"><a><b><%2291%></b></a></td>
+ <td width="50%"><a><b><%2300%></b></a></td>
  <td width="50%" align="right">
     <select name="login_type" onChange="setServer()">
         <option><%496%></option>
-        <option><%2292%></option>
-        <option><%2293%></option>
-        <option selected><%2294%></option>
-        <option ><%2295%></option>
-        <option ><%2296%></option>
+        <option><%2301%></option>
+        <option><%2302%></option>
+        <option selected><%2303%></option>
+        <option ><%2304%></option>
+        <option ><%2305%></option>
         <option ><%469%></option>
-        <option ><%2297%></option>
+        <option ><%2306%></option>
     </select>
  </td>
 </tr>

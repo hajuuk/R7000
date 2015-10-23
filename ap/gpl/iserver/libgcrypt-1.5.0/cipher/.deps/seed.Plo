@@ -43,7 +43,7 @@ seed.lo: seed.c ../config.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/alloca.h \
  ../src/types.h ../src/g10lib.h ../src/visibility.h ../src/gcrypt.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/string.h \
- /home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/gpg-error.h \
+ /disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/ap/gpl/iserver/build/usr/include/gpg-error.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/sys/socket.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/sys/uio.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/bits/uio.h \
@@ -161,7 +161,7 @@ seed.lo: seed.c ../config.h \
 
 /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/string.h:
 
-/home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/gpg-error.h:
+/disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/ap/gpl/iserver/build/usr/include/gpg-error.h:
 
 /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/sys/socket.h:
 

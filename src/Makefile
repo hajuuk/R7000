@@ -30,12 +30,12 @@ endif
 install: all
 	install -d $(RELEASEDIR)/image
 	$(MAKE) -C router install PLT=$(PLT)
-	#-cp router/$(PLT)/linux.trx $(RELEASEDIR)/image/linux-glibc.trx
-	#-cp router/$(PLT)-uclibc/linux.trx $(RELEASEDIR)/image/linux.trx
+	-cp router/$(PLT)/linux.trx $(RELEASEDIR)/image/linux-glibc.trx
+	-cp router/$(PLT)-uclibc/linux.trx $(RELEASEDIR)/image/linux.trx
 	-cp router/$(PLT)-uclibc/linux-gzip.trx $(RELEASEDIR)/image/linux-gzip.trx
 	-cp router/$(PLT)-uclibc/linux.bin $(RELEASEDIR)/image/linux.bin
-	#-cp dongle/rte/wl/builds/4322-bmac-usbap/roml-ag-nodis/rtecdc.exe $(RELEASEDIR)/image/rtecdc-4323.exe
-	#-cp dongle/rte/wl/builds/43236-bmac-usbap/roml-ag-nodis/rtecdc.exe $(RELEASEDIR)/image/rtecdc-43236.exe
+	-cp dongle/rte/wl/builds/4322-bmac-usbap/roml-ag-nodis/rtecdc.exe $(RELEASEDIR)/image/rtecdc-4323.exe
+	-cp dongle/rte/wl/builds/43236-bmac-usbap/roml-ag-nodis/rtecdc.exe $(RELEASEDIR)/image/rtecdc-43236.exe
 	# Create linux-apsta.trx or linux-ap.trx sibling
 	$(MAKE) -C router sibling SIBLING_INSTALL_DIR=$(RELEASEDIR)/image
 ifneq ($(wildcard cfe),)

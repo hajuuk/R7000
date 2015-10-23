@@ -55,8 +55,8 @@ avahi_daemon-static-services.o: static-services.c ../config.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/bits/waitflags.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/bits/waitstatus.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/alloca.h \
- /home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/expat.h \
- /home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/expat_external.h \
+ /disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/ap/gpl/iserver/build/usr/include/expat.h \
+ /disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/ap/gpl/iserver/build/usr/include/expat_external.h \
  ../avahi-common/llist.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/assert.h \
  ../avahi-common/cdecl.h ../avahi-common/malloc.h \
@@ -189,9 +189,9 @@ avahi_daemon-static-services.o: static-services.c ../config.h \
 
 /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/alloca.h:
 
-/home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/expat.h:
+/disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/ap/gpl/iserver/build/usr/include/expat.h:
 
-/home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/expat_external.h:
+/disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/ap/gpl/iserver/build/usr/include/expat_external.h:
 
 ../avahi-common/llist.h:
 

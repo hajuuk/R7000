@@ -1642,7 +1642,7 @@ static int decode_frame(AVCodecContext * avctx, void *data, int *got_frame_ptr,
 
     header = AV_RB32(buf);
     if (ff_mpa_check_header(header) < 0) {
-        av_log(avctx, AV_LOG_ERROR, "Header missing\n");
+        //av_log(avctx, AV_LOG_ERROR, "Header missing\n");
         return AVERROR_INVALIDDATA;
     }
 

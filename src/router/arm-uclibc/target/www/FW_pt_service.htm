@@ -20,8 +20,8 @@
 <%13%>
 <script language="javascript" type="text/javascript">
 <!-- hide script from old browsers
-var df_sel = <%1646%>;
-var fwpt_action = <%1647%>;
+var df_sel = <%1648%>;
+var fwpt_action = <%1649%>;
 
   
     $(document).ready(function()
@@ -129,7 +129,7 @@ function setDisable(disable)
 function loadSettings()
 {
 	var cf = document.forms[0];
-	var src_ip_type = "<%1648%>";
+	var src_ip_type = "<%1650%>";
 	if (src_ip_type == "2")
 	{
 		var src_ip = cf.src_ip.value.split(".");
@@ -149,22 +149,22 @@ function loadSettings()
 	}
 	setsrc();
 
-	var pt_type = "<%1649%>";
+	var pt_type = "<%1651%>";
 	if (pt_type == "17")
 		cf.pt_type.selectedIndex = 1;
 	else
 		cf.pt_type.selectedIndex = 0;
-	cf.pt_port.value = "<%1650%>";
+	cf.pt_port.value = "<%1652%>";
 
-	var in_port_type = "<%1651%>";
+	var in_port_type = "<%1653%>";
 	if (in_port_type == "6")
 		cf.in_port_type.selectedIndex = 1;
 	else if (in_port_type == "17")
 		cf.in_port_type.selectedIndex = 2;
 	else
 		cf.in_port_type.selectedIndex = 0;
-	cf.in_port_start.value = "<%1652%>";
-	cf.in_port_end.value = "<%1653%>";
+	cf.in_port_start.value = "<%1654%>";
+	cf.in_port_end.value = "<%1655%>";
 
 	if (df_sel)
 		setDisable(true);
@@ -178,7 +178,7 @@ function checkPort(name, port)
 	if (port.length == 0)
 		msg = name + " <%1%>";
 	if (isNaN(portNum) || portNum < 1 || portNum > 65534 || !_isNumeric(portNum))
-		msg = "<%1654%>" + name + "<%1655%>";
+		msg = "<%1656%>" + name + "<%1657%>";
 	return msg;
 }
 
@@ -188,11 +188,11 @@ function checkData()
 	var msg = "";
 
 	if (cf.pt_name.value.length == 0)
-		msg += "<%1656%>";
+		msg += "<%1658%>";
 
 	if(cf.pt_name.value==""||cf.pt_name.value.match( /[^\x20-\x7E]/ ))
 	{
-		alert("<%832%>");
+		alert("<%834%>");
 		cf.pt_name.focus();
 		return false;
 	}
@@ -210,15 +210,15 @@ function checkData()
 		}
 	}
 
-	msg += checkPort("<%1657%>", cf.pt_port.value);
+	msg += checkPort("<%1659%>", cf.pt_port.value);
 
-	msg += checkPort("<%1658%>", cf.in_port_start.value);
+	msg += checkPort("<%1660%>", cf.in_port_start.value);
 
 	if (cf.in_port_end.value.length > 0)
 	{
-		msg += checkPort("<%1659%>", cf.in_port_end.value);
+		msg += checkPort("<%1661%>", cf.in_port_end.value);
 		if (parseInt(cf.in_port_end.value,10) < parseInt(cf.in_port_start.value,10))
-			msg += "<%1660%>";
+			msg += "<%1662%>";
 	}
 
 	if (msg.length > 0)
@@ -249,7 +249,7 @@ function checkData()
 <form id="target"  name="formname" action="fwpt_service.cgi" method="POST">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
 <img class="subtop-image" src="img/subhead2-top.gif">
-<div class="subhead2"> <%1661%></div>
+<div class="subhead2"> <%1663%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
@@ -266,17 +266,17 @@ function checkData()
 <td colspan="2">
 	<table border ="0" cellpadding ="0" cellspacing ="0" width="100%">
 	<tr>
-	<td colspan="2"><tabindex="-1"><b><%1662%></b></a></td></tr>
+	<td colspan="2"><tabindex="-1"><b><%1664%></b></a></td></tr>
 	<tr>
-	<TD NOWRAP width="37%"><%818%></td>
-	<TD NOWRAP width="63%"><input type="text" name="pt_name" size="15" maxlength="30" value="<%1663%>"></td>
+	<TD NOWRAP width="37%"><%820%></td>
+	<TD NOWRAP width="63%"><input type="text" name="pt_name" size="15" maxlength="30" value="<%1665%>"></td>
 	</tr>
 	<tr>
-	<td nowrap width="37%"><%1641%></td>
+	<td nowrap width="37%"><%1643%></td>
 	<td nowrap width="63%">
 	<select name="src_ip_type" onChange="setsrc();">
-		<option value=1><%1664%></option>
-		<option value=2><%1665%></option>
+		<option value=1><%1666%></option>
+		<option value=2><%1667%></option>
 	</select>
 	</td>
 	</tr>
@@ -296,13 +296,13 @@ function checkData()
 		</SELECT></TD>
 	</TR>
 	<tr>
-	<TD NOWRAP width="37%"><%1657%></td>
+	<TD NOWRAP width="37%"><%1659%></td>
 	<TD NOWRAP width="63%"><input type="text" class="num" name="pt_port" size="6" maxlength="5" >(1~65534)</td>
 	</tr>
 	<tr>
 	<td colspan="2" background="liteblue.gif" height="12">&nbsp; </td></tr>
 	<tr>
-	<td colspan="2"><tabindex="-1"><b><%1640%></b></a></td></tr>
+	<td colspan="2"><tabindex="-1"><b><%1642%></b></a></td></tr>
 	<tr>
 	<TD NOWRAP width="37%"><%644%>:</td>
 	<TD NOWRAP width="63%">
@@ -339,7 +339,7 @@ function checkData()
 
 
 
-<input type="hidden" name="src_ip" value="<%1666%>">
+<input type="hidden" name="src_ip" value="<%1668%>">
 <input type="hidden" name="out_port_type" value="0">
 <a name="helpframe-anchor"></a>
 </form>

@@ -873,10 +873,11 @@ bcm5301x_usb_power_on(int coreid)
 {
 	int enable_usb;
 
+    /* foxconn modified start, 09/10/2013, enable usb later to avoid boot up failed if USB 3.0 storage is connected to USB 3.0 port */
 	if (coreid == NS_USB20_CORE_ID) {
 		enable_usb = getgpiopin(NULL, "usbport1", GPIO_PIN_NOTDEFINED);
 		if (enable_usb != GPIO_PIN_NOTDEFINED) {
-			int enable_usb_mask = 1 << enable_usb;
+			int enable_usb_mask = 0 << enable_usb;
 
 			si_gpioout(sih, enable_usb_mask, enable_usb_mask, GPIO_DRV_PRIORITY);
 			si_gpioouten(sih, enable_usb_mask, enable_usb_mask, GPIO_DRV_PRIORITY);
@@ -884,21 +885,30 @@ bcm5301x_usb_power_on(int coreid)
 
 		enable_usb = getgpiopin(NULL, "usbport2", GPIO_PIN_NOTDEFINED);
 		if (enable_usb != GPIO_PIN_NOTDEFINED) {
-			int enable_usb_mask = 1 << enable_usb;
+			int enable_usb_mask = 0 << enable_usb;
 
 			si_gpioout(sih, enable_usb_mask, enable_usb_mask, GPIO_DRV_PRIORITY);
 			si_gpioouten(sih, enable_usb_mask, enable_usb_mask, GPIO_DRV_PRIORITY);
 		}
 	}
 	else if (coreid == NS_USB30_CORE_ID) {
+	    
+	    enable_usb = getgpiopin(NULL, "usbport1", GPIO_PIN_NOTDEFINED);
+		if (enable_usb != GPIO_PIN_NOTDEFINED) {
+			int enable_usb_mask = 0 << enable_usb;
+
+			si_gpioout(sih, enable_usb_mask, enable_usb_mask, GPIO_DRV_PRIORITY);
+			si_gpioouten(sih, enable_usb_mask, enable_usb_mask, GPIO_DRV_PRIORITY);
+		}
 		enable_usb = getgpiopin(NULL, "usbport2", GPIO_PIN_NOTDEFINED);
 		if (enable_usb != GPIO_PIN_NOTDEFINED) {
-			int enable_usb_mask = 1 << enable_usb;
+			int enable_usb_mask = 0 << enable_usb;
 
 			si_gpioout(sih, enable_usb_mask, enable_usb_mask, GPIO_DRV_PRIORITY);
 			si_gpioouten(sih, enable_usb_mask, enable_usb_mask, GPIO_DRV_PRIORITY);
 		}
 	}
+	/* foxconn modified end, 09/10/2013, enable usb later to avoid boot up failed if USB 3.0 storage is connected to USB 3.0 port*/
 }
 
 static void

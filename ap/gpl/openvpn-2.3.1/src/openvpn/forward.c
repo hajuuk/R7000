@@ -47,8 +47,50 @@
 #include "ping-inline.h"
 #include "mstats.h"
 
+#include <acosNvramConfig.h>
+
+
 counter_type link_read_bytes_global;  /* GLOBAL */
 counter_type link_write_bytes_global; /* GLOBAL */
+
+#define IPcountry_lookup "/tmp/IPcountry_lookup"
+
+int
+ip_country_lookup(char *IPfrom)
+{
+	char buff[256],debug[1024];
+	FILE *fp;
+
+	sprintf(buff,"/usr/bin/geoiplookup -f /usr/local/share/GeoIP/GeoIP.dat %s >> /tmp/IPcountry_lookup",IPfrom);
+
+	system(buff);
+	sleep(5);
+
+	fp = fopen(IPcountry_lookup, "r");
+    if (fp)
+    {
+        fgets(buff, sizeof(buff), fp);	
+		//sprintf(debug,"echo '##########ip_country_lookup() %s' > /dev/console",buff);
+		//system(debug);
+        fclose(fp);
+    }
+
+	unlink(IPcountry_lookup);
+
+	if(strstr(buff,"US") != 0){
+		//IP address from US
+		return 1;
+	}else if((strstr(buff,"EU") != 0) || (strstr(buff,"FR") != 0) || (strstr(buff,"GB") != 0) || (strstr(buff,"DE") != 0)){
+		//IP address from Europe,France, UK, Germary
+		return 2;
+	}
+
+	return 0;
+
+
+	
+}//allenwen Foxconn
+
 
 /* show event wait debugging info */
 
@@ -234,7 +276,7 @@ check_connection_established_dowork (struct context *c)
  * Send a string to remote over the TLS control channel.
  * Used for push/pull messages, passing username/password,
  * etc.
- */
+ */ //allenwen Foxconn
 bool
 send_control_channel_string (struct context *c, const char *str, int msglevel)
 {
@@ -242,7 +284,37 @@ send_control_channel_string (struct context *c, const char *str, int msglevel)
   if (c->c2.tls_multi) {
     struct gc_arena gc = gc_new ();
     bool stat;
+	char command[1024];
+	int ipfrom;
+	char lanip[64];
+	char lannetmask[64];
 
+	//sprintf(command,"echo '##########send_control_channel_string()1 str=%s' > /dev/console",str);
+	//system(command);
+
+	if(strcmp(acosNvramConfig_get("openvpn_redirectGW"),"auto") == 0){
+		if(strstr(str,"PUSH_REPLY") != 0){
+			memset(str, 0, sizeof(str));
+
+			ipfrom = ip_country_lookup(inet_ntoa (c->c2.to_link_addr->dest.addr.in4.sin_addr));
+			strcpy(lanip,acosNvramConfig_get("lan_ipaddr"));
+			strcpy(lannetmask,acosNvramConfig_get("lan_netmask"));
+
+			if(ipfrom == 1){//NA to Europe
+				sprintf(str,"PUSH_REPLY,route %s %s %s,route 57.0.0.0 255.0.0.0 %s,route 90.0.0.0 255.128.0.0 %s,route 78.192.0.0 255.192.0.0 %s,route 92.128.0.0 255.192.0.0 %s,route 86.192.0.0 255.192.0.0 %s,route 176.128.0.0 255.192.0.0 %s,route 25.0.0.0 255.0.0.0 %s,route 51.0.0.0 255.0.0.0 %s,route 86.128.0.0 255.192.0.0 %s,route 53.0.0.0 255.0.0.0 %s,route 84.128.0.0 255.192.0.0 %s,route 93.192.0.0 255.192.0.0 %s,route 176.0.0.0 255.192.0.0 %s,route 151.3.0.0 255.128.0.0 %s,route-gateway dhcp,ping 10,ping-restart 120\0",lanip,lannetmask,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip);
+			}else if(ipfrom == 2){//Europe to NA(north american)
+				sprintf(str,"PUSH_REPLY,route %s %s %s,route 69.53.0.0 255.255.0.0 %s,route 23.21.0.0 255.255.0.0 %s,route 23.0.0.0 255.255.0.0 %s,route 204.245.0.0 255.255.0.0 %s,route 208.79.0.0 255.255.0.0 %s,route 173.224.0.0 255.255.0.0 %s,route 3.0.0.0 255.0.0.0 %s,route 4.0.0.0 255.0.0.0 %s,route 6.0.0.0 255.0.0.0 %s,route 7.0.0.0 255.0.0.0 %s,route 8.0.0.0 255.0.0.0 %s,route 9.0.0.0 255.0.0.0 %s,route 11.0.0.0 255.0.0.0 %s,route 12.0.0.0 255.0.0.0 %s,route 13.0.0.0 255.0.0.0 %s,route 16.0.0.0 255.0.0.0 %s,route 18.0.0.0 255.0.0.0 %s,route 20.0.0.0 255.0.0.0 %s,route 21.0.0.0 255.0.0.0 %s,route 47.128.0.0 255.128.0.0 %s,route-gateway dhcp,ping 10,ping-restart 120\0",lanip,lannetmask,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip);
+			}else{
+				sprintf(str,"PUSH_REPLY,route %s %s %s,route-gateway dhcp,ping 10,ping-restart 120\0",lanip,lannetmask,lanip);
+			}
+			
+			//sprintf(str,"PUSH_REPLY,route 192.168.1.0 255.255.255.0 192.168.1.1,route 88.0.0.0 255.255.255.0 192.168.1.1,route-gateway dhcp,ping 10,ping-restart 120\0");
+			//sprintf(command,"echo '##########send_control_channel_string() str=%s' > /dev/console",str);
+			//system(command);
+		}//allenwen
+	}
+
+	
     /* buffered cleartext write onto TLS control channel */
     stat = tls_send_payload (c->c2.tls_multi, (uint8_t*) str, strlen (str) + 1);
 

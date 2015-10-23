@@ -71,7 +71,7 @@ libgcrypt_la-ath.lo: ath.c ../config.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/bits/sockaddr.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/asm/socket.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/asm/sockios.h \
- /home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/gpg-error.h
+ /disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/ap/gpl/iserver/build/usr/include/gpg-error.h
 
 ../config.h:
 
@@ -219,4 +219,4 @@ ath.h:
 
 /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/asm/sockios.h:
 
-/home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/gpg-error.h:
+/disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/ap/gpl/iserver/build/usr/include/gpg-error.h:

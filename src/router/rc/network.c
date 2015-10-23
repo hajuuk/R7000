@@ -1234,6 +1234,8 @@ start_wl(void)
         system("wl -i eth2 radarthrs 0x6a8 0x30 0x6a8 0x30 0x6a8 0x30 0x6a8 0x30 0x6a8 0x30 0x6a8 0x30");
     }
     
+    system("wl -i eth1 pspretend_threshold 4");
+    
 }
 
 #ifdef __CONFIG_NAT__

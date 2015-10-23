@@ -159,7 +159,7 @@ function is_email_on()
     var cf = document.forms[0];
     if(cf.email_on.value == 0)
     {
-        alert("<%852%>");
+        alert("<%854%>");
         return false;
     }
     return true;
@@ -196,7 +196,7 @@ function sendLog()
     var cf = document.forms[0];
     if(cf.log_detail.value < 5)
     {
-        alert("<%853%>");
+        alert("<%855%>");
         return false;
     }
     cf.log_send.value=1;
@@ -226,13 +226,13 @@ function sendLog()
 
 <tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
 		
-<%854%>
+<%856%>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
- <td colspan="2"><input type="checkbox" name="enable_log" <%855%> onclick="SetEnableValue();"><b>Turn logging on</b>
+ <td colspan="2"><input type="checkbox" name="enable_log" <%857%> onclick="SetEnableValue();"><b>Turn logging on</b>
 </tr>
-<%856%>
+<%858%>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
@@ -240,12 +240,12 @@ function sendLog()
  <td colspan="2" align="center">
  <table border="0" cellspacing="0" cellpadding="0">
  <tr>
- <td colspan="2"><b><%857%>: <%858%></b>
+ <td colspan="2"><b><%859%>: <%860%></b>
  </td>
  </tr>
  <tr>
  <td colspan="2">
-<TEXTAREA NAME="log_detail" class="smallfix" ROWS="15" cols="60" WRAP="vitural" READONLY tabindex="-1"><%859%>
+<TEXTAREA NAME="log_detail" class="smallfix" ROWS="15" cols="60" WRAP="vitural" READONLY tabindex="-1"><%861%>
 </textarea></td>
  </tr>
  </table>
@@ -257,40 +257,40 @@ function sendLog()
 <tr>
  <td colspan="2" align="center" height="35">
     &nbsp;&nbsp;&nbsp;<button type=submit value="<%622%>" name=action_Refresh class="button-rule" onClick="buttonClick(this,'<%622%>');refreshLog()"><span class="roundleft_button">&nbsp;&nbsp; <%622%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> &nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;<button type=submit value="<%860%>" name=action_Clear class="button-rule" onClick="buttonClick(this,'<%860%>');clearLog()"><span class="roundleft_button">&nbsp;&nbsp; <%860%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> &nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;<button type=submit value="<%861%>" name=action_Send class="button-rule" onclick="buttonClick(this,'<%861%>');if(!is_email_on()) return false; if(!sendLog()) return false;"><span class="roundleft_button">&nbsp;&nbsp; <%861%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type=submit value="<%862%>" name=action_Clear class="button-rule" onClick="buttonClick(this,'<%862%>');clearLog()"><span class="roundleft_button">&nbsp;&nbsp; <%862%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> &nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;<button type=submit value="<%863%>" name=action_Send class="button-rule" onclick="buttonClick(this,'<%863%>');if(!is_email_on()) return false; if(!sendLog()) return false;"><span class="roundleft_button">&nbsp;&nbsp; <%863%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </tr>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-    <td colspan="2"><b><%862%></b></td></tr>
+    <td colspan="2"><b><%864%></b></td></tr>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_1 type=checkbox value=checkboxValue><%863%></TD></TR>
+        <INPUT name=log_cat_1 type=checkbox value=checkboxValue><%865%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_2 type=checkbox value=checkboxValue><%864%></TD></TR>
+        <INPUT name=log_cat_2 type=checkbox value=checkboxValue><%866%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_3 type=checkbox value=checkboxValue><%865%></TD></TR>
+        <INPUT name=log_cat_3 type=checkbox value=checkboxValue><%867%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_4 type=checkbox value=checkboxValue><%866%></TD></TR>
+        <INPUT name=log_cat_4 type=checkbox value=checkboxValue><%868%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_5 type=checkbox value=checkboxValue><%867%></TD></TR>
+        <INPUT name=log_cat_5 type=checkbox value=checkboxValue><%869%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_6 type=checkbox value=checkboxValue><%868%></TD></TR>
+        <INPUT name=log_cat_6 type=checkbox value=checkboxValue><%870%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_7 type=checkbox value=checkboxValue><%869%></TD></TR>
+        <INPUT name=log_cat_7 type=checkbox value=checkboxValue><%871%></TD></TR>
 <TR>
     <TD colSpan=2>
-        <INPUT name=log_cat_8 type=checkbox value=checkboxValue><%870%></TD></TR>
+        <INPUT name=log_cat_8 type=checkbox value=checkboxValue><%872%></TD></TR>
 <TR>
     <TD colSpan=2>
-        <INPUT name=log_cat_9 type=checkbox value=checkboxValue><%871%></TD></TR>
+        <INPUT name=log_cat_9 type=checkbox value=checkboxValue><%873%></TD></TR>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
@@ -310,12 +310,12 @@ function sendLog()
 
 
 
-    <INPUT name=email_on type=hidden value="<%872%>">
+    <INPUT name=email_on type=hidden value="<%874%>">
     <INPUT name=log_refresh type=hidden value= 0>
-    <INPUT name=log_send type=hidden value= "<%873%>">
+    <INPUT name=log_send type=hidden value= "<%875%>">
     <INPUT name=log_clear type=hidden value= 0>
-    <INPUT name=log_enable type=hidden value= "<%874%>">
-    <INPUT name=log_filter type=hidden value="<%875%>">
+    <INPUT name=log_enable type=hidden value= "<%876%>">
+    <INPUT name=log_filter type=hidden value="<%877%>">
 <a name="helpframe-anchor"></a>
 </form>
 

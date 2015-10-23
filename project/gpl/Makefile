@@ -38,8 +38,15 @@ SUBDIRS += bzip2
 #SUBDIRS +=lzo-2.06
 ifeq ($(CONFIG_OPENVPN),y)
 SUBDIRS +=openvpn-2.3.1
+SUBDIRS +=GeoIP-1.5.1
 endif
 # allenwen add for openvpn
+
+ifeq ($(CONFIG_TCPDUMP),y)
+SUBDIRS +=libpcap-1.4.0
+SUBDIRS +=tcpdump-4.4.0
+endif
+
 
 ifeq ($(CONFIG_RIP),y)
 SUBDIRS	+= zebra
@@ -72,7 +79,8 @@ SUBDIRS += zeroconf-0.9
 
 #water, 10/30/2008, @samba
 ifeq ($(SAMBA_ENABLE_FLAG),y)
-SUBDIRS	+= samba-3.0.13
+#SUBDIRS	+= samba-3.0.13
+SUBDIRS	+= samba-3.0.25b
 SUBDIRS	+= bftpd-1.6.6
 endif
 
@@ -125,7 +133,29 @@ ifeq ($(CONFIG_WGET),y)
 endif
 	# Foxconn add end by Hank for ecosystem support 08/14/2012	
 
-config: openvpn_config
+config: GeoIP_config openvpn_config tcpdump_config
+
+libpcap_config:
+	if [ ! -f ./libpcap-1.4.0/Makefile ];then \
+        cd libpcap-1.4.0 && (CC=$(CROSS_COMPILE)gcc CFLAGS="$(CFLAGS)" \
+	$(CONFIGURE) --with-pcap=linux --prefix=$(SRCBASE)/../ap/gpl/libpcap-1.4.0/lib); \
+        fi
+
+libpcap_make: libpcap_config
+	cd libpcap-1.4.0 && make install
+
+tcpdump_config: libpcap_make
+	if [ ! -f ./tcpdump-4.4.0/Makefile ];then \
+        cd tcpdump-4.4.0 && (CC=$(CROSS_COMPILE)gcc CFLAGS="$(CFLAGS)" \
+        $(CONFIGURE) ac_cv_linux_vers=2 --prefix=$(TARGETDIR)/usr); \
+        fi
+
+GeoIP_config:
+	if [ ! -f ./GeoIP-1.5.1/Makefile ];then \
+	cd GeoIP-1.5.1 && (CC=$(CROSS_COMPILE)gcc \
+	ac_cv_func_malloc_0_nonnull=yes ac_cv_func_realloc_0_nonnull=yes CFLAGS="$(CFLAGS)" \
+	$(CONFIGURE) --with-gnu-ld --prefix=$(TARGETDIR)/usr); \
+	fi
 
 lzo_config:
 	if [ ! -f ./lzo-2.06/Makefile ];then \
@@ -139,7 +169,9 @@ lzo_make: lzo_config
 openvpn_config: lzo_make
 	if [ ! -f ./openvpn-2.3.1/Makefile ];then \
 	cd openvpn-2.3.1 && (CC=$(CROSS_COMPILE)gcc LZO_CFLAGS=-I$(TARGETDIR)/usr/local/include \
-	LZO_LIBS="-L$(TARGETDIR)/usr/local/lib -llzo2" CFLAGS="$(CFLAGS)" \
+	LZO_LIBS="-L$(TARGETDIR)/usr/local/lib -llzo2" \
+	CFLAGS="$(CFLAGS) -I$(SRCBASE)/../ap/acos/include" \
+	LDFLAGS="-L$(ROUTERDIR)/nvram -L$(INSTALLDIR)/nvram/usr/lib -lnvram" \
 	$(CONFIGURE) --prefix=$(TARGETDIR)/usr/local --disable-pam-dlopen \
 	--disable-plugin-auth-pam); \
 	fi 

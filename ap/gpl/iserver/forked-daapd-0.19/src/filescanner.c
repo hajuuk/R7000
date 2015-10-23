@@ -299,6 +299,7 @@ fixup_tags(struct media_file_info *mfi)
     normalize_fixup_tag(&mfi->composer_sort, mfi->composer);
 }
 
+int static file_number=0;
 
 static void
 process_media_file(char *file, time_t mtime, off_t size, int compilation)
@@ -309,6 +310,10 @@ process_media_file(char *file, time_t mtime, off_t size, int compilation)
   time_t stamp;
   int id;
   int ret;
+
+
+if(file_number>=10000)
+    return;
 
   db_file_stamp_bypath(file, &stamp, &id);
 
@@ -416,7 +421,9 @@ process_media_file(char *file, time_t mtime, off_t size, int compilation)
   unicode_fixup_mfi(&mfi);
 
   fixup_tags(&mfi);
-
+    
+  file_number++;
+ 
   if (mfi.id == 0)
     db_file_add(&mfi);
   else

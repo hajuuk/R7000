@@ -271,6 +271,7 @@ function chgDns()
 			document.getElementById("Netgear_img_account_host_no").style.display="none";
 			document.getElementById("text_host_result_account_id").style.display="none";
 			document.getElementById("text_pass_result_register_id").style.display="none";
+			document.getElementById("register_error").style.display="none";
 			grayout_button("NRegister");
 
 			$('#helpframe').attr('src', 'DNS_ddns_Netgear_no_h.htm')
@@ -279,6 +280,9 @@ function chgDns()
 			cf.sysDNSHost_Netgear.value="";
 			cf.sysDNSEmail_Netgear.value="";
 			cf.sysDNSPassword_Netgear.value="";
+			cf.email_graycheck.value="-1";
+			cf.password_graycheck.value="-1";
+			cf.host_graycheck.value="-1";
 			//cf.sysDNSConfirmPassword_Netgear.value="";
 			//statusChange(1);
 		}
@@ -427,7 +431,10 @@ function statusChange(Index)
 		document.getElementById("text_pass_result_account_id").style.display="none";
 		document.getElementById("Netgear_img_account_host_no").style.display="none";
 		document.getElementById("text_host_result_account_id").style.display="none";
-		grayout_button("NRegister");
+		
+			
+		if(cf.sysDNSHost_Netgear.value == "" && cf.sysDNSEmail_Netgear.value == "" && cf.sysDNSPassword_Netgear.value == "")		
+			grayout_button("NRegister");
 		
 	
 	
@@ -627,11 +634,12 @@ function register_check()
 }
 
 
-
+var respflag="0";
 function sendhostcheck()
 {
 		var cf = document.forms[0];
 		var hostname=cf.sysDNSHost_Netgear.value;
+		
 				
 		if(hostname != "")
 		{
@@ -653,34 +661,42 @@ function sendhostcheck()
 				
 				
 					// Call local PHP file on the device, which handles encryption and sending response
-        		$.ajax({
-    				url: 'host_check.php',
-    				method: 'POST',
-    				data: {
-    					hostname: hostname
-    				},
-                    success: function(resp) {
-					
-						if(resp == "available" && cf.sysDNSHost_Netgear.value != "")
-						{
-							document.getElementById("Netgear_img").style.display="block";
-							document.getElementById("Netgear_img_no").style.display="none";
-						}
-						else if(resp == "unavailable" && cf.sysDNSHost_Netgear.value != "")
-						{
+				if(respflag == "0")
+				{
+					respflag = "-1";
+						$.ajax({
+							url: 'host_check.php',
+							method: 'POST',
+							data: {
+								hostname: hostname
+							},
+							success: function(resp) {
 							
-							document.getElementById("Netgear_img").style.display="none";
-							document.getElementById("Netgear_img_no").style.display="block";
-						}else
-						{
-						
-							document.getElementById("Netgear_img_no").style.display="none";
-							document.getElementById("Netgear_img").style.display="none";
-						}
-						
-    				}
-    			});
-				
+								if(resp == "available" && cf.sysDNSHost_Netgear.value != "")
+								{
+									document.getElementById("Netgear_img").style.display="block";
+									document.getElementById("Netgear_img_no").style.display="none";
+									respflag = "0";
+									if( hostname != cf.sysDNSHost_Netgear.value)
+										sendhostcheck();
+								}
+								else if(resp == "unavailable" && cf.sysDNSHost_Netgear.value != "")
+								{
+									document.getElementById("Netgear_img").style.display="none";
+									document.getElementById("Netgear_img_no").style.display="block";
+									respflag = "0";
+									if( hostname != cf.sysDNSHost_Netgear.value)
+										sendhostcheck();
+								}else
+								{
+									document.getElementById("Netgear_img_no").style.display="none";
+									document.getElementById("Netgear_img").style.display="none";
+									respflag = "0";
+								}
+								
+							}
+						});
+				}
 				
 			}
 		}else
@@ -1108,21 +1124,12 @@ function loadSettings()
 		
 		netgear_create_result="<%698%>";
 		email_confirm="<%699%>";
-		if(netgear_create_result != "-1")
-		{
-			//alert("netgear_create_result:"+netgear_create_result);
-			netgear_hostcheck_status="2";
-			cf.host_graycheck.value="-1";
-		}else
-		{	
-			//alert("hostname:"+hostname+"email:"+email);
-			//cf.sysDNSHost_Netgear.value=hostname;
-			//cf.host_graycheck.value="0";
-			netgear_hostcheck_status="2";
-			cf.host_graycheck.value="-1";
-			//cf.sysDNSEmail_Netgear.value=email;
-			window.open("http://www.noip.com/","noipowin","toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes");
-		}	
+		
+		
+		
+
+		
+
 		
 		if(netgear_haveaccount == "1")
 		{
@@ -1141,10 +1148,27 @@ function loadSettings()
 	 	}
 		else if(netgear_haveaccount == "0")
 		{
+	
 			
-			grayout_button("NRegister");
-			cf.email_graycheck.value="-1";
-			cf.password_graycheck.value="-1";
+			if(netgear_create_result != "-1")
+			{
+				grayout_button("NRegister");
+				cf.email_graycheck.value="-1";
+				cf.password_graycheck.value="-1";
+				cf.host_graycheck.value="-1";
+			}else
+			{
+				cf.sysDNSHost_Netgear.value = hostname;
+				cf.sysDNSEmail_Netgear.value = email;
+				cf.sysDNSPassword_Netgear.value = pawd;
+				cf.email_graycheck.value="0";
+				cf.password_graycheck.value="0";
+				cf.host_graycheck.value="0";
+				ungrayout_button("NRegister");
+				
+			}
+			
+		
 			
 			//cf.confirmpass_graycheck.value="-1";
 			//alert(cf.email_graycheck.value+":"+cf.password_graycheck.value+":"+cf.confirmpass_graycheck.value);
@@ -1156,19 +1180,10 @@ function loadSettings()
 			cf.account[1].checked = true;
 	 		statusChange(0);
 			document.getElementById("register_error").style.display="block";
-			if(netgear_hostcheck_status == "1")
-			{
-				document.getElementById("Netgear_img").style.display="block";
-				document.getElementById("Netgear_img_no").style.display="none";
-			}else if(netgear_hostcheck_status == "0")
-			{
+	
 				document.getElementById("Netgear_img").style.display="none";
 				document.getElementById("Netgear_img_no").style.display="none";
-			}else
-			{
-				document.getElementById("Netgear_img").style.display="none";
-				document.getElementById("Netgear_img_no").style.display="none";
-			}
+		
 			
 
 		
@@ -1325,7 +1340,7 @@ function loadSettings()
 
 	<tr>
 	    <td width="50%" align="left" nowrap><%685%></td>
-	 <td width="50%" align="right"><input type="text" name="sysDNSHost_Netgear" size="16" maxlength="114"  onkeyup="return sendhostcheck()">.mynetgear.com</td><!---->
+	 <td width="50%" align="right"><input type="text" name="sysDNSHost_Netgear" size="16" maxlength="114"   onkeyup="return sendhostcheck()">.mynetgear.com</td><!---->
 	 <td width="50%" align="right" id="Netgear_img" style="display: block;"> <img  src="DDNS_Yes.png"></td>
 	 <td width="50%" align="right" id="Netgear_img_no" style="display: block;"> <img  src="DDNS_No.png"></td>
 	</tr>

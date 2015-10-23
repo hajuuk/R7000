@@ -23,7 +23,7 @@ LDFLAGS += -L.
 OBJS := bcmgpio.o
 
 
-all: 
+all:
 
 install: all
 	install -d $(INSTALLDIR)/usr/lib

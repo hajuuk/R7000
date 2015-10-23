@@ -11,7 +11,7 @@ use warnings;
 use Cwd;
 use File::Path;
 
-our $WGETPATH = "/home/antony/R7000/GPL/V1.0.0.96/ap/gpl/wget-1.12/src/wget";
+our $WGETPATH = "/disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/ap/gpl/wget-1.12/src/wget";
 
 my @unexpected_downloads = ();
 

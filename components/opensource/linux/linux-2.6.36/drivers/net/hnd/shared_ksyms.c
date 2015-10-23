@@ -36,6 +36,7 @@ extern void srom_parsecis; EXPORT_SYMBOL(srom_parsecis);
 extern void srom_read; EXPORT_SYMBOL(srom_read);
 extern void srom_var_deinit; EXPORT_SYMBOL(srom_var_deinit);
 extern void srom_var_init; EXPORT_SYMBOL(srom_var_init);
+extern void srom_write; EXPORT_SYMBOL(srom_write);
 extern void _bcmutils_dummy_fn; EXPORT_SYMBOL(_bcmutils_dummy_fn);
 extern void bcm_atoi; EXPORT_SYMBOL(bcm_atoi);
 extern void bcm_binit; EXPORT_SYMBOL(bcm_binit);
@@ -179,6 +180,8 @@ extern void si_pmu_wait_for_res_pending; EXPORT_SYMBOL(si_pmu_wait_for_res_pendi
 extern void si_pmu_wait_for_steady_state; EXPORT_SYMBOL(si_pmu_wait_for_steady_state);
 extern void si_pmu_waitforclk_on_backplane; EXPORT_SYMBOL(si_pmu_waitforclk_on_backplane);
 extern void si_sdiod_drive_strength_init; EXPORT_SYMBOL(si_sdiod_drive_strength_init);
+extern void ares_check_skbp; EXPORT_SYMBOL(ares_check_skbp);
+extern void ares_check_skbp_index; EXPORT_SYMBOL(ares_check_skbp_index);
 extern void g_assert_type; EXPORT_SYMBOL(g_assert_type);
 extern void insert_func_to_IP_PRE_ROUTE; EXPORT_SYMBOL(insert_func_to_IP_PRE_ROUTE);
 extern void ip_pre_insert_hook; EXPORT_SYMBOL(ip_pre_insert_hook);

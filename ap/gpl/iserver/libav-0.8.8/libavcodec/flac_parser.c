@@ -322,8 +322,8 @@ static int check_header_mismatch(FLACParseContext  *fpc,
             deduction_expected = deduction ? 0 : 1;
 
         deduction += FLAC_HEADER_CHANGED_PENALTY;
-        av_log(fpc->avctx, AV_LOG_WARNING + log_level_offset,
-                   "sample/frame number mismatch in adjacent frames\n");
+        //av_log(fpc->avctx, AV_LOG_WARNING + log_level_offset,
+        //           "sample/frame number mismatch in adjacent frames\n");
     }
 
     /* If we have suspicious headers, check the CRC between them */

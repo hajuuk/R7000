@@ -914,8 +914,9 @@ static int config_iptv_params(void)
         nvram_set("lan1_ifname", "");
 
 #ifdef __CONFIG_IGMP_SNOOPING__
-        if (nvram_match("emf_enable", "1"))
-        {
+        /* foxconn Bob modified start 08/26/2013, not to bridge eth0 and vlan1 in the same bridge */
+        if (nvram_match("emf_enable", "1") || nvram_match("enable_ap_mode", "1") ) {
+        /* foxconn Bob modified end 08/26/2013, not to bridge eth0 and vlan1 in the same bridge */
 #if ( defined(R7000))
             nvram_set("vlan2ports", "0 5");
 #else
@@ -1111,9 +1112,11 @@ static void config_switch(void)
     struct nvram_tuple *u = generic;
     int commit = 0;
 
-    if (nvram_match("emf_enable", "1")) {
+    /* foxconn Bob modified start 08/26/2013, not to bridge eth0 and vlan1 in the same bridge */
+    if (nvram_match("emf_enable", "1") || nvram_match("enable_ap_mode", "1") ) {
         u = vlan;
     }
+    /* foxconn Bob modified end 08/26/2013, not to bridge eth0 and vlan1 in the same bridge */
 
     /* don't need vlan in repeater mode */
     if (nvram_match("wla_repeater", "1")
@@ -2127,6 +2130,10 @@ sysinit(void)
         nvram_unset("wl1_vifs");
         /* Foxconn added end pling 02/11/2011 */
 
+        /*Foxconn lawrence added start, 2013/03/06, Restore wifi_on_off button for default*/
+		nvram_set("wifi_on_off", "1");
+		/*Foxconn lawrence added end, 2013/03/06, Restore wifi_on_off button for default*/
+		
 		/* Read ethernet MAC, RF params, etc */
 		eval("read_bd");
 		/* foxconn modified end, zacker, 08/06/2010 */
@@ -2145,9 +2152,7 @@ sysinit(void)
 		wapi_mtd_restore();
 #endif /* __CONFIG_WAPI__ || __CONFIG_WAPI_IAS__ */
 
-     	/*Foxconn lawrence added start, 2013/03/06, Restore wifi_on_off button for default*/
-			nvram_set("wifi_on_off", "1");
-		/*Foxconn lawrence added end, 2013/03/06, Restore wifi_on_off button for default*/
+     	
 
 
 /* #ifdef BCMVISTAROUTER */
@@ -2338,6 +2343,9 @@ sysinit(void)
 			system("echo 2 > /proc/irq/112/smp_affinity");
 		}
 	}
+	
+	system("echo 20480 > /proc/sys/vm/min_free_kbytes");    /*Bob added on 09/05/2013, Set min free memory to 20Mbytes in case allocate memory failed */
+	
 	/* Set a sane date */
 	stime(&tm);
 
@@ -3180,8 +3188,11 @@ main_loop(void)
 					sigsuspend(&sigset);
 				}
 #ifdef LINUX26
-				//system("echo 1 > /proc/sys/vm/drop_caches");
-				system("echo 8192 > /proc/sys/vm/min_free_kbytes");
+				/*Foxconn modify start by Hank 07/31/2013*/
+				/*for speed up USB3.0 throughput*/
+				system("echo 1 > /proc/sys/vm/drop_caches");
+				//system("echo 4096 > /proc/sys/vm/min_free_kbytes");
+				/*Foxconn modify end by Hank 07/31/2013*/
 #elif defined(__CONFIG_SHRINK_MEMORY__)
 				eval("cat", "/proc/shrinkmem");
 #endif	/* LINUX26 */

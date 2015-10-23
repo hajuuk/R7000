@@ -846,6 +846,10 @@ hotplug_block(void)
 		USB_UNLOCK();
         /* foxconn wklin modified end, 01/17/2011 */
 		hotplug_dbg("err = %d\n", err);
+		/*Foxconn add start by Hank 08/27/2013*/
+		/*add for change read_ahead_kb to speed up USB throughput*/
+		optimize_block_device(devname);
+		/*Foxconn add end by Hank 08/27/2013*/
 
 		if (err) {
 			hotplug_dbg("unsuccess %d!\n", err);
