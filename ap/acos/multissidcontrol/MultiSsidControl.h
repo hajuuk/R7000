@@ -36,10 +36,16 @@
 #define SAMBA_PORT2      138
 #define SAMBA_PORT3      139
 #define SAMBA_PORT4      445    /*stanley add 01/13/2010 add samba port*/
+#define SOAP_API_PORT    5000   
+#define TELNET_PORT      23     
 
 /* Foxconn added start, Wins, 03/18/2011, @AP_MODE */
 #if defined(AP_MODE)             
+#if defined(WNDR3400v3)
+#define WAN_IFNAME          "vlan2"
+#else
 #define WAN_IFNAME          "eth0"
+#endif
 #define WL0_GUEST1_IFNAME   "wl0.1"
 #define WL0_GUEST2_IFNAME   "wl0.2"
 #define WL0_GUEST3_IFNAME   "wl0.3"

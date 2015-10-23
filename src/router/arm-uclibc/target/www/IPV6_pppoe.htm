@@ -158,9 +158,9 @@ function checkData()
 {
     var cf = document.forms[0];
     var msg = "";
-	var openvpnEnable = "<%427%>";
+	var openvpnEnable = "<%426%>";
     
-    msg+= checkBlank(cf.pppoe_username, "<%478%>");
+    msg+= checkBlank(cf.pppoe_username, "<%477%>");
 
     if (cf.useInterfaceId.checked)
     {
@@ -178,7 +178,7 @@ function checkData()
 	else
 		cf.ipv6_interfaceid_enable.value = 0;	
        	    
-    if(<%1365%><1280){
+    if(<%1364%><1280){
          msg+="MTU should not less than 1280 when IPV6 enable. Please change setting in WAN Setup.";
     }
     if (msg.length > 1)
@@ -226,7 +226,7 @@ function loadSettings()
 <form id="target"  name="formname" method="POST" action="ipv6_pppoe.cgi" >
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
 <img class="subtop-image" src="<%64%>">
-<div class="subhead2"> <%1061%></div>
+<div class="subhead2"> <%1060%></div>
 <table border="0"     class="subhead2-table">
 
 <tr align="left" valign="middle">
@@ -243,24 +243,24 @@ function loadSettings()
  <td width="50%"><a><b><%2384%></b></a></td>
  <td width="50%" align="right">
     <select name="login_type" onChange="setServer()">
-        <option><%512%></option>
+        <option><%511%></option>
         <option><%2385%></option>
         <option><%2386%></option>
         <option><%2387%></option>
         <option><%2388%></option>
         <option><%2389%></option>
-        <option selected><%485%></option>
+        <option selected><%484%></option>
         <option ><%2390%></option>
     </select>
  </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-	<td><b><%490%></b></td>
+	<td><b><%489%></b></td>
 	<td align="right"><input type="text" name="pppoe_username" size="15" maxlength="63" value="<%2442%>"></td>
 </tr>
 <tr>
-	<td><b><%492%></b></td>
+	<td><b><%491%></b></td>
 	<td align="right"><input type="password" name="pppoe_passwd" size="15" maxlength="63" value="<%2443%>"></td>
 </tr>
 
@@ -270,12 +270,12 @@ function loadSettings()
 </tr>
 
 <tr>
-<td width="50%" nowrap><b><%496%></b></td>
+<td width="50%" nowrap><b><%495%></b></td>
 <td width="50%" align="right">
     <select name="pppoe_dod" onChange="" size="1">
-        <option value=0><%497%></option>
-        <option value=1><%498%></option>
-        <option value=2><%499%></option>
+        <option value=0><%496%></option>
+        <option value=1><%497%></option>
+        <option value=2><%498%></option>
     </select></td>
 </tr>
 
@@ -336,7 +336,7 @@ function loadSettings()
 <input type="hidden" name="ipv6_interfaceid_enable" value="">
 <input type="hidden" name="ipv6_interface_id" value="<%2402%>">
 <INPUT type="hidden" name="ipv6_proto" value= "pppoe">
-<INPUT type="hidden" name="wan_proto" value= "<%403%>">
+<INPUT type="hidden" name="wan_proto" value= "<%402%>">
 <a name="helpframe-anchor"></a>
 </form>
 

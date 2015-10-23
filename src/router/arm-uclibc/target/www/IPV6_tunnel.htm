@@ -171,24 +171,24 @@ function checkData()
 {
     var cf = document.forms[0];
     var msg = "";
-	var openvpnEnable = "<%427%>";
+	var openvpnEnable = "<%426%>";
 	
 	if (cf.relay[1].checked)
 	{
 	    if(cf.WIp1.value.length<=0 || cf.WIp2.value.length<=0 || cf.WIp3.value.length<=0 || cf.WIp4.value.length<=0)
         {
-            msg+= "<%480%>";
+            msg+= "<%479%>";
         }		
         else if(checkIP(cf.WIp1,cf.WIp2,cf.WIp3,cf.WIp4,254)
             || (parseInt(cf.WIp4.value,10) == 0))
         {
-            msg+= "<%480%>";
+            msg+= "<%479%>";
         }
         else
         {
             /*Not Sure if the relay IP text is number*/
             if(checkIP(cf.WIp1,cf.WIp2,cf.WIp3,cf.WIp4,254)){
-				msg+="<%480%>";
+				msg+="<%479%>";
 				cf.WIp1.value = "";
 				cf.WIp2.value = "";
 				cf.WIp3.value = "";
@@ -282,7 +282,7 @@ function loadSettings()
 <form id="target"  name="formname" method="POST" action="ipv6_tunnel.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
 <img class="subtop-image" src="<%64%>">
-<div class="subhead2"> <%1061%></div>
+<div class="subhead2"> <%1060%></div>
 <table border="0"     class="subhead2-table">
 
 <tr align="left" valign="middle">
@@ -299,13 +299,13 @@ function loadSettings()
  <td width="60%"><a><b><%2384%></b></a></td>
  <td width="40%" align="right">
     <select name="login_type" onChange="setServer()">
-        <option><%512%></option>
+        <option><%511%></option>
         <option><%2385%></option>
         <option selected><%2386%></option>
         <option><%2387%></option>
         <option><%2388%></option>
         <option><%2389%></option>
-        <option><%485%></option>
+        <option><%484%></option>
         <option ><%2390%></option>
     </select>
  </td>
@@ -377,9 +377,9 @@ function loadSettings()
 <input type="hidden" name="ipv6_interface_id" value="<%2402%>">
 <input type="hidden" name="ipv6_static_ip" value="<%2451%>">
 <INPUT type="hidden" name="ipv6_proto" value= "6to4">
-<INPUT type="hidden" name="wan_proto" value= "<%403%>">
-<INPUT type="hidden" name="wan_pppoe_dod" value= "<%470%>">
-<INPUT type="hidden" name="wan_pptp_dod" value= "<%527%>">
+<INPUT type="hidden" name="wan_proto" value= "<%402%>">
+<INPUT type="hidden" name="wan_pppoe_dod" value= "<%469%>">
+<INPUT type="hidden" name="wan_pptp_dod" value= "<%526%>">
 <INPUT type="hidden" name="wan_l2tp_dod" value= "<%2368%>">
 <a name="helpframe-anchor"></a>
 </form>

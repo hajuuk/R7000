@@ -1225,15 +1225,15 @@ start_wl(void)
     system("wl -i eth2 txcore -o 7 -s 1 -c 7 -s 2 -c 7 -s 3 -c 7"); /* change to MIMO mode */
     if(acosNvramConfig_match("ce_dfs_ch_enable","1") && ((region == 5) || (region == 4)))
     {
-	    system("wl -i eth2 radarthrs 0x6BD 0x30 0x6BD 0x30 0x6BD 0x30 0x6BD 0x30 0x6BD 0x30 0x6BD 0x30");
+	    system("wl -i eth2 radarthrs 0x690 0x30 0x690 0x30 0x688 0x30 0x690 0x30 0x690 0x30 0x690 0x30");
     }
 	else if(acosNvramConfig_match("fcc_dfs_ch_enable","1") && (region == 11))
     {
-        system("wl -i eth2 radarthrs 0x6B8 0x30 0x6B8 0x30 0x6B8 0x30 0x6B8 0x30 0x6B8 0x30 0x6B8 0x30");
+        system("wl -i eth2 radarthrs 0x690 0x30 0x690 0x30 0x688 0x30 0x690 0x30 0x690 0x30 0x690 0x30");
     }
     else if(acosNvramConfig_match("telec_dfs_ch_enable","1") && (region == 7))
     {
-        system("wl -i eth2 radarthrs 0x6a8 0x30 0x6a8 0x30 0x6a8 0x30 0x6a8 0x30 0x6a8 0x30 0x6a8 0x30");
+        system("wl -i eth2 radarthrs 0x690 0x30 0x690 0x30 0x688 0x30 0x690 0x30 0x690 0x30 0x690 0x30");
     }
     
     system("wl -i eth1 pspretend_threshold 4");
@@ -1252,6 +1252,16 @@ start_wl(void)
 	  }
       eval("wl", "assert_type", "1");
       
+    if(nvram_match("enable_sta_mode","1"))
+    {
+        system("wl -i eth1 allmulti 1");
+        system("wl -i eth2 allmulti 1");
+    }
+    else
+    {
+        system("wl -i eth1 allmulti 0");
+        system("wl -i eth2 allmulti 0");
+    }
     /*Foxconn add start by Antony start 09/13/2013 Add rf support of Russia Region */
     if (nvram_match("wla_region", "14"))
     {

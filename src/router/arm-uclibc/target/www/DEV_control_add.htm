@@ -115,7 +115,7 @@ function checkData()
 	if( checkMacStr(cf.mac_addr) || MacStrallf(cf.mac_addr) )
 		msg += "<%0%>\n";
 	if (cf.dev_name.value.match( /[^\x20-\x7E]/ ))
-		msg+="<%687%>\n";
+		msg+="<%686%>\n";
 	if (msg.length > 1) {
 		alert(msg);
 		return false;
@@ -152,11 +152,11 @@ function checkData()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
-<td nowrap><%688%></td>
+<td nowrap><%687%></td>
 <td nowrap><input type="text" size="17" maxlength="17" name="mac_addr"></td>
 </tr>
 <tr>
-<td nowrap><%689%></td>
+<td nowrap><%688%></td>
 <td nowrap><input type="text" size="24" maxlength="24" name="dev_name"></td>
 </tr>
 
@@ -180,7 +180,7 @@ function checkData()
       </div>
 
 
-    <input name="access_control_add_type" type="hidden" value="<%690%>">
+    <input name="access_control_add_type" type="hidden" value="<%689%>">
 
 </form>
 

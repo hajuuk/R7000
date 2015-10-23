@@ -54,7 +54,9 @@ var Band4Channel_40M = new Array (149,153,157,161);
 var Band3Channel_CA_40M = new Array (100,104,108,112);
 var Band1Channel_TW_20M = new Array (56,60,64); 
 var Band1Channel_TW_40M = new Array (60,64);
-var Band3Channel_JP_80M = new Array (100,104,108,112);
+var Band3Channel_JP_20M = new Array (100,104,108,112,116,120,124,128,132,136,140);
+var Band3Channel_JP_40M = new Array (100,104,108,112,116,120,124,128,132,136);
+var Band3Channel_JP_80M = new Array (100,104,108,112,116,120,124,128);
 var Band3Channel_CE_80M = new Array (100,104,108,112);
 
 var OpMode_BG_TEXT;
@@ -755,10 +757,10 @@ function setChannel()
 					            }
 					            else
 					            {
-							            for (b3=0; b3<Band3Channel_40M.length; b3++)
+							            for (b3=0; b3<Band3Channel_JP_40M.length; b3++)
 							            {
-								              cf.w_channel_an.options[b0+b1+b2+b3].text = Band3Channel_40M[b3];
-								              cf.w_channel_an.options[b0+b1+b2+b3].value = Band3Channel_40M[b3];
+								              cf.w_channel_an.options[b0+b1+b2+b3].text = Band3Channel_JP_40M[b3];
+								              cf.w_channel_an.options[b0+b1+b2+b3].value = Band3Channel_JP_40M[b3];
 							            }
 						          }
                    } 
@@ -799,11 +801,16 @@ function setChannel()
                 {
                     if(index == 22 || wlaRegion == 11) 
                     { 
-                        for (b2=0; b2<Band2Channel_40M.length; b2++)
+                        for (b2=0; b2<Band2Channel_40M.length; b2++)       
                         {
-                            cf.w_channel_an.options[b0+b1+b2+b3].text = Band3Channel_CA_40M[b2];
-                            cf.w_channel_an.options[b0+b1+b2+b3].value = Band3Channel_CA_40M[b2];
+                            cf.w_channel_an.options[b0+b1+b2].text = Band2Channel_40M[b2];
+                            cf.w_channel_an.options[b0+b1+b2].value = Band2Channel_40M[b2];
                         }
+                        for (b3=0; b3<Band3Channel_CA_40M.length; b3++)
+                        {
+                            cf.w_channel_an.options[b0+b1+b2+b3].text = Band3Channel_CA_40M[b3];
+                            cf.w_channel_an.options[b0+b1+b2+b3].value = Band3Channel_CA_40M[b3];
+                        }      
                     }
                     
                     if(index == 6) /* Europe */
@@ -906,10 +913,10 @@ function setChannel()
                     
                     if(index == 9 || (wlaRegion == 7 && sku == "JP")) /* Japan */
                     {
-                        for (b3=0; b3<Band3Channel_20M.length; b3++)
+                        for (b3=0; b3<Band3Channel_JP_20M.length; b3++)
                         {
-                            cf.w_channel_an.options[b0+b1+b2+b3].text = Band3Channel_20M[b3];
-                            cf.w_channel_an.options[b0+b1+b2+b3].value = Band3Channel_20M[b3];
+                            cf.w_channel_an.options[b0+b1+b2+b3].text = Band3Channel_JP_20M[b3];
+                            cf.w_channel_an.options[b0+b1+b2+b3].value = Band3Channel_JP_20M[b3];
                         }
                     }
                 }
@@ -1050,6 +1057,7 @@ function checkChannel()
     {
         if( curr_channel_an_value != new_channel_an_value)
         {
+            setTimeout(function(){
             if(new_channel_an_value == "52" || new_channel_an_value == "56" ||
                new_channel_an_value == "60" || new_channel_an_value == "64" ||
                new_channel_an_value == "100" || new_channel_an_value == "104" ||
@@ -1063,6 +1071,7 @@ function checkChannel()
                     cf.w_channel_an.selectedIndex = curr_channel_an_index;
                     return false;
                 }
+             },10);
         }
     }
 
@@ -1076,6 +1085,7 @@ function checkChannel()
                 (curr_channel_an_value == "157") || (curr_channel_an_value == "161") ||
                 (curr_channel_an_value == "165"))
             {
+                setTimeout(function(){
                 if ((new_channel_an_value != "0") &&
                     (new_channel_an_value != "149") && (new_channel_an_value != "153") &&
                     (new_channel_an_value != "157") && (new_channel_an_value != "161") &&
@@ -1088,6 +1098,7 @@ function checkChannel()
                         return false;
                     }
                 }
+                },10);
             }
             curr_channel_an_index = new_channel_an_index;
             curr_channel_an_value = cf.w_channel_an.options[new_channel_an_index].value;
@@ -1212,7 +1223,9 @@ function securityCheck(band)
                 /* we add a redundant assignment here so that the 
                    following warning alert wouldn't appear twice */
                 cf.opmode.selectedIndex = 0;
+				setTimeout(function(){
                 alert("<%35%>");
+				},10);   
                 cf.opmode.selectedIndex = 0;
                 document.getElementById("wep_radio_2G").style.display="block";
                 document.getElementById("wpa_radio_2G").style.display="none";
@@ -1236,7 +1249,9 @@ function securityCheck(band)
             if ((cf.opmode.selectedIndex != 0) && (cf.opmode.selectedIndex!=selected2))
             {
                 selected2=cf.opmode.selectedIndex;
+				setTimeout(function(){
                 alert("<%35%>");
+				},10);   
             }
             document.getElementById("wpa_2G").style.display="block";
             document.getElementById("wep_2G").style.display="none";
@@ -1250,7 +1265,9 @@ function securityCheck(band)
             if ((cf.opmode.selectedIndex != 0) && (cf.opmode.selectedIndex!=selected2))
             {
                 selected2=cf.opmode.selectedIndex;
+                setTimeout(function(){
                 alert("<%36%>");
+                },10);
             }
             document.getElementById("wpa_en_2G").style.display="block";
             document.getElementById("wpa_2G").style.display="none";
@@ -1296,7 +1313,9 @@ function securityCheck(band)
                 /* we add a redundant assignment here so that the 
                    following warning alert wouldn't appear twice */
                 cf.opmode_an.selectedIndex = 0;
+                setTimeout(function(){
                 alert("<%35%>");
+                },10);
                 setChannel();
                 document.getElementById("wep_radio_5G").style.display="block";
                 cf.opmode_an.selectedIndex = 0;
@@ -1320,13 +1339,17 @@ function securityCheck(band)
             if ((cf.support_ac_mode.value == "1") && (cf.opmode_an.selectedIndex!=selected3))
             {
                 selected3=cf.opmode_an.selectedIndex;
+                setTimeout(function(){
                 alert("<%37%>");
+                },10);
             }
             else
             if ((cf.opmode_an.selectedIndex != 0) && (cf.opmode_an.selectedIndex!=selected3))
             {
                 selected3=cf.opmode_an.selectedIndex;
+                setTimeout(function(){
                 alert("<%38%>");
+                },10);
             }
             document.getElementById("wpa_5G").style.display="block";
             document.getElementById("wep_5G").style.display="none";
@@ -1341,14 +1364,18 @@ function securityCheck(band)
             {
                 selected3=cf.opmode_an.selectedIndex;
                 //alert("<%37%>");
+                setTimeout(function(){
 				alert("<%36%>");
+                },10);
             }
             else
             if ((cf.opmode_an.selectedIndex != 0) && (cf.opmode_an.selectedIndex!=selected3))
             {
                 selected3=cf.opmode_an.selectedIndex;
                 //alert("<%38%>");
+                setTimeout(function(){
 				alert("<%36%>");
+                },10);
             }
             document.getElementById("wpa_5G").style.display="none";
             document.getElementById("wep_5G").style.display="none";
@@ -1510,12 +1537,10 @@ function checkData()
         //Foxconn modified start, Wins, 06/22/2011, @WPS v2.0
         if (wps_version == "2.0")
         {   
-	    /* Foxconn modified start, Kent Huang, 05/22/2012, replace wep_or_wps_v20 with tkip_or_wps_v20 */
             if (!confirm("<%47%>")){
                 return false;
             }
             show_tkip_or_wps_v20_msg = true;
-            /* Foxconn modified end, Kent Huang, 05/22/2012 */
             needGrayOutWPS = 1;
         }
         else
@@ -1583,14 +1608,12 @@ function checkData()
         //Foxconn modified start, Wins, 06/22/2011, @WPS v2.0
         if (wps_version == "2.0")
         {
-	    /* Foxconn modified start, Kent Huang, 05/22/2012, replace wep_or_wps_v20 with tkip_or_wps_v20 */
             if (!show_tkip_or_wps_v20_msg) {
                 if (!confirm("<%47%>")){
                     return false;
                 }
             }
             show_tkip_or_wps_v20_msg = true;
-            /* Foxconn modified end, Kent Huang, 05/22/2012 */
             needGrayOutWPS = 1;
         }
         else

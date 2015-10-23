@@ -2069,8 +2069,8 @@ sysinit(void)
         /* Foxconn added end pling 02/11/2011 */
 
         /*Foxconn lawrence added start, 2013/03/06, Restore wifi_on_off button for default*/
-		nvram_set("wifi_on_off", "1");
-		/*Foxconn lawrence added end, 2013/03/06, Restore wifi_on_off button for default*/
+	    //nvram_set("wifi_on_off", "1"); 
+        /*Foxconn lawrence added end, 2013/03/06, Restore wifi_on_off button for default*/
 		
 		/* Read ethernet MAC, RF params, etc */
 		eval("read_bd");
@@ -2143,6 +2143,7 @@ sysinit(void)
         nvram_unset("wl1_rxchain_pwrsave_enable");
         /* foxconn added end by Bob 12/12/2013, BRCM suggest not to enable rxchain power save */
         
+        nvram_set("pci/2/1/mcsbw205ghpo", "0xBA768888");
                 
 		//modules = nvram_get("kernel_mods") ? : "et bcm57xx wl";
 		/*Foxconn modify start by Hank for insert dpsta 08/27/2012*/

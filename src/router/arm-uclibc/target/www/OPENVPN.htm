@@ -92,10 +92,10 @@ function check_ca()
 {
 	if(document.forms[0].openvpnCA.value.length == 0)
 	{
-		alert("<%386%>");
+		alert("<%385%>");
 		return false;
 	}
-	if(confirm("<%387%>"))
+	if(confirm("<%386%>"))
 		return true;
 	else
 		return false;
@@ -103,41 +103,41 @@ function check_ca()
 
 function apply_check()
 {
-	var pingEnable = "<%755%>";
-	var ntp_sync = "<%756%>";
-	var ddns_enable_check = "<%717%>";
-	var old_protocol = "<%757%>";
+	var pingEnable = "<%754%>";
+	var ntp_sync = "<%755%>";
+	var ddns_enable_check = "<%716%>";
+	var old_protocol = "<%756%>";
 	var new_protocol;
-	var service_port = "<%758%>";
-	var redirectGW = "<%759%>";
-	var ipv6_protocol = "<%524%>";
+	var service_port = "<%757%>";
+	var redirectGW = "<%758%>";
+	var ipv6_protocol = "<%523%>";
 	var new_redirectGW;
 	var cf = document.forms[0];
 /*	
 	if(pingEnable == 0)
 	{
-		alert("<%760%>");
+		alert("<%759%>");
 	}else{
 	//do noting
 	}
 
 	if(ntp_sync == 0){
-		alert("<%761%>");
+		alert("<%760%>");
 	}
 */
 if(cf.openvpnActive.checked){
 	if(ddns_enable_check == 0){
-		alert("<%762%>");
+		alert("<%761%>");
 	}
 
 	if((cf.openvpn_service_port.value < 1) || (cf.openvpn_service_port.value >= 65535)){
-		alert("<%763%>");
+		alert("<%762%>");
 		cf.openvpn_service_port.focus();
 		return false;
 	}
 
 	if(ipv6_protocol != "disable"){
-		alert("<%764%>");
+		alert("<%763%>");
 		cf.openvpnActive.focus();
 		return false;
 	}
@@ -155,7 +155,7 @@ if(cf.openvpnActive.checked){
 		new_redirectGW = 'auto';
 
 	if((new_protocol != old_protocol) || (cf.openvpn_service_port.value != service_port) || (new_redirectGW != redirectGW)){
-		alert("<%765%>");
+		alert("<%764%>");
 	}
 	}
 	return true;
@@ -163,19 +163,19 @@ if(cf.openvpnActive.checked){
 
 function ddns_check()
 {
-	var ddns_enable_check = "<%717%>";
-	var openvpnEnable = "<%427%>";
+	var ddns_enable_check = "<%716%>";
+	var openvpnEnable = "<%426%>";
 	
 	var cf = document.forms[0];
 
 	if(openvpnEnable == "disable"){
-		alert("<%766%>");
+		alert("<%765%>");
 		cf.openvpnActive.focus();
 		return false;
 	}
 
 	if(ddns_enable_check == 0){
-		alert("<%767%>");
+		alert("<%766%>");
 	}
 
 	return true;
@@ -194,7 +194,7 @@ function ddns_check()
 <img class="subtop-image" src="<%64%>">
 <div class="subhead2"> <%360%></div>
 
-<%768%>
+<%767%>
 
 <table border="0"    style="height:370px"  class="subhead2-table">
 
@@ -210,13 +210,13 @@ function ddns_check()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
     <td colspan="2">
-    <input type="checkbox" name="openvpnActive" value="openvpnEnable" <%769%>> <b><%770%></b>
+    <input type="checkbox" name="openvpnActive" value="openvpnEnable" <%768%>> <b><%769%></b>
     </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <TR>
-<TD nowrap><%771%>
+<TD nowrap><%770%>
 </TR>
 <tr>
 	<td colspan="2" align="left">
@@ -226,7 +226,7 @@ function ddns_check()
 	
 </tr>
 <TR>
-<TD nowrap><%772%>
+<TD nowrap><%771%>
 </TR>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
@@ -234,35 +234,35 @@ function ddns_check()
 
 <tr>
 
-	<td align="left"><b><h2><%773%></h2></b></td>
+	<td align="left"><b><h2><%772%></h2></b></td>
 </tr>
 
 <TR style="display:none">
-<TD nowrap><%774%>
-<input type="radio" name="openvpn_iface_type" value="tun" > <%775%> 
-<input type="radio" name="openvpn_iface_type" value="tap" checked > <%776%> </TD>
+<TD nowrap><%773%>
+<input type="radio" name="openvpn_iface_type" value="tun" > <%774%> 
+<input type="radio" name="openvpn_iface_type" value="tap" checked > <%775%> </TD>
 </TR>
 
 <TR>
-<TD nowrap><%777%>
-<input type="radio" name="openvpn_protocol" value="udp" <%778%> > <%602%> 
-<input type="radio" name="openvpn_protocol" value="tcp" <%779%> > <%601%> </TD>
+<TD nowrap><%776%>
+<input type="radio" name="openvpn_protocol" value="udp" <%777%> > <%601%> 
+<input type="radio" name="openvpn_protocol" value="tcp" <%778%> > <%600%> </TD>
 </TR>
 
 <tr>
-    <td width="50%" align="left" nowrap><%780%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="openvpn_service_port" value = "<%758%>" size="6" height="12" maxlength="8"></td>
+    <td width="50%" align="left" nowrap><%779%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="openvpn_service_port" value = "<%757%>" size="6" height="12" maxlength="8"></td>
 </tr>
 
 <TR>
-<TD nowrap><%781%>
-<input type="radio" name="openvpn_redirectGW" value="all" <%782%> > <%783%> 
-<input type="radio" name="openvpn_redirectGW" value="onlylan" <%784%> > <%785%>
-<input type="radio" name="openvpn_redirectGW" value="auto" <%786%> > <%787%> </TD>
+<TD nowrap><%780%>
+<input type="radio" name="openvpn_redirectGW" value="all" <%781%> > <%782%> 
+<input type="radio" name="openvpn_redirectGW" value="onlylan" <%783%> > <%784%>
+<input type="radio" name="openvpn_redirectGW" value="auto" <%785%> > <%786%> </TD>
 </TR>
 
 <tr style="display:none">
 
-	<td align="left"><%788%></td>
+	<td align="left"><%787%></td>
 
 	<td colspan="2" align="center">
 	&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="CA.CRT" name="ca_download" class="button-rule" onclick="buttonClick(this,'CA.CRT');window.location.href = 'ca.crt';"><span class="roundleft_button">&nbsp;&nbsp; CA.CRT</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
@@ -274,7 +274,7 @@ function ddns_check()
 
 <tr style="display:none">
 
-	<td align="left"><%789%></td>
+	<td align="left"><%788%></td>
 
 	<td colspan="2" align="center">
 	&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="CLIENT1_CONFIG" name="client1_download" class="button-rule" onclick="buttonClick(this,'CLIENT1_CONFIG');window.location.href = 'client1.ovpn';"><span class="roundleft_button">&nbsp;&nbsp; CLIENT1_CONFIG</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
