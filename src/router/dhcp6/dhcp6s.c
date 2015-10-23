@@ -874,7 +874,7 @@ server6_react_message(ifp, pi, dh6, optinfo, from, fromlen)
 			addr_flag = ADDR_UPDATE;
 		if (dh6->dh6_msgtype == DH6_RELEASE)
 			addr_flag = ADDR_REMOVE;
-		if (dh6->dh6_msgtype == DH6_CONFIRM) {
+		if (dh6->dh6_msgtype == DH6_CONFIRM || dh6->dh6_msgtype == DH6_RENEW)  {
 			/* DNS server */
 			addr_flag = ADDR_VALIDATE;
 			if (dhcp6_copy_list(&roptinfo.dns_list.addrlist, &dnslist.addrlist)) {
@@ -1039,6 +1039,32 @@ server6_react_message(ifp, pi, dh6, optinfo, from, fromlen)
 	return -1;
 }
 
+static int get_client_mac(char *link_local_addr, char *mac)
+{
+	FILE *fp = NULL;
+	char line[256];
+	char *tmp;
+	int  found = 0;
+
+	system("/usr/sbin/ip -6 neigh > /tmp/ip6_neigh");
+	fp = fopen("/tmp/ip6_neigh", "r");
+	if (fp) {
+		while (!feof(fp)) {
+			fgets(line, sizeof(line), fp);
+			if (strstr(line, link_local_addr)) {
+				tmp = strstr(line, "lladdr");
+				tmp += strlen("lladdr") + 1;
+				memcpy(mac, tmp, 17);
+				found = 1;
+				break;
+			}
+		}
+		fclose(fp);
+	}
+	unlink("/tmp/ip6_neigh");
+
+	return found;
+}
 static int
 server6_send(type, ifp, origmsg, optinfo, from, fromlen, roptinfo)
 	int type;
@@ -1117,6 +1143,29 @@ server6_send(type, ifp, origmsg, optinfo, from, fromlen, roptinfo)
 
 	dprintf(LOG_DEBUG, "%s" "transmit %s to %s", FNAME,
 		dhcp6msgstr(type), addr2str((struct sockaddr *)&dst));
+	if (type == DH6_REPLY)
+	{
+		char command[256];
+		unsigned char client_mac[32];
+		unsigned char link_local_addr[128];
+		struct dhcp6_listval *dp;
+				
+		memset(&client_mac, 0, sizeof(client_mac));
+		if (!TAILQ_EMPTY(&roptinfo->addr_list)) {
+			for (dp = TAILQ_FIRST(&roptinfo->addr_list); dp; 
+				 dp = TAILQ_NEXT(dp, link)) {
+				sprintf(link_local_addr, "%s", addr2str((struct sockaddr *)&dst));
+				dprintf(LOG_DEBUG, "%s" "Global address is %s, lladdr is %s " , FNAME, 
+					in6addr2str(&dp->val_dhcp6addr.addr,0), link_local_addr);
+				if (get_client_mac(link_local_addr, client_mac)) {
+					sprintf(command, "/usr/sbin/ip -6 neigh replace %s lladdr %s dev br0", 
+							in6addr2str(&dp->val_dhcp6addr.addr,0), client_mac);
+					dprintf(LOG_DEBUG, "%s" "Command is '%s' ", FNAME, command);
+					system(command);
+				}
+			}
+		}
+	}
 
 	return 0;
 }

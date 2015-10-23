@@ -2993,6 +2993,8 @@ typedef struct {
 	uint32	rxdrop20s;	/* drop secondary cnt */
 	uint32	pciereset;	/* Secondary Bus Reset issued by driver */
 	uint32	cfgrestore;	/* configspace restore by driver */
+ 	uint32	rxf0ovfl_snapshot;	/* count for rx dma */
+	uint32  reset_countdown;
 } wl_cnt_t;
 
 #ifndef LINUX_POSTMOGRIFY_REMOVAL

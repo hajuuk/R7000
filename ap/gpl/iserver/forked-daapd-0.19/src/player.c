@@ -3840,8 +3840,9 @@ player_init(void)
   dev_list = NULL;
 
   master_volume = -1;
+  laudio_enabled = 0;
 
-  laudio_enabled = cfg_getbool(cfg_getsec(cfg, "general"), "laudio_enable");
+//  laudio_enabled = cfg_getbool(cfg_getsec(cfg, "general"), "laudio_enable");
 //  laudio_enabled = 1;
   laudio_selected = 0;
   laudio_status = LAUDIO_CLOSED;

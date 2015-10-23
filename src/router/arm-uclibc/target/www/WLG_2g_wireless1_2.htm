@@ -240,7 +240,7 @@ function checkKey(evt)
     if ((lastkeypressed != 13) && (lastkeypressed != 8) && ( keyTooBig ))
     {
         keyTooBig = false;
-        alert("<%1432%> " + keysize + " <%1433%>");
+        alert("<%1426%> " + keysize + " <%1427%>");
         chkSize(lastObj); // for NS 6/7
         return false;
     }
@@ -279,19 +279,19 @@ function keyCheck(fobj)
 <tr>
 <td colspan="2" background="liteblue.gif" height="12">&nbsp; </td></tr>
 <tr>
-<td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','wireless')" tabindex="-1"><b><%128%> - <%1578%></b></a></td>
+<td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','wireless')" tabindex="-1"><b><%122%> - <%1578%></b></a></td>
 </tr>
 <tr>
 <td align="left"><input type="checkbox" name="enable_bssid" value="1"><%1579%></td>
 </tr>
 <tr>
-<td align="left"><input type="checkbox" name="enable_ssid_bc" value="1"><%134%></td>
+<td align="left"><input type="checkbox" name="enable_ssid_bc" value="1"><%128%></td>
 </tr>
-<%129%>
+<%123%>
 <tr>
 <td align="left"><input type="checkbox" name="allow_see_access" value="1"><%1580%></td>
 </tr>
-<%132%>
+<%126%>
 <tr>
 <td width="50%" align="left"><%1581%>:</td>
 <td width="50%">
@@ -301,55 +301,55 @@ function keyCheck(fobj)
 <tr>
     <td colspan="2" background="liteblue.gif" height="12">&nbsp; </td></tr>
 <tr>
-    <td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','security')" tabindex="-1"><b><%141%> - <%1578%></b></a></td></tr>
+    <td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','security')" tabindex="-1"><b><%135%> - <%1578%></b></a></td></tr>
 
 <tr><td colspan="2">
 <table cellpadding="0" cellspacing="3" width="100%">
 <tr>
-        <td colspan="2"><input type="radio" name="security_type" value="Disable" onClick="buttonFilter();this.form.submit();" ><%142%><td></tr>
+        <td colspan="2"><input type="radio" name="security_type" value="Disable" onClick="buttonFilter();this.form.submit();" ><%136%><td></tr>
 <tr>
-        <td colspan="2"><input type="radio" name="security_type" value="WEP" checked ><%143%></td></tr>
+        <td colspan="2"><input type="radio" name="security_type" value="WEP" checked ><%137%></td></tr>
 <!--
 <tr>
-    <td colspan="2"><input type="radio" name="security_type" value="WPA-PSK" <%144%> onClick="wpapskCheck();" ><%145%></td></tr>
+    <td colspan="2"><input type="radio" name="security_type" value="WPA-PSK" <%138%> onClick="wpapskCheck();" ><%139%></td></tr>
 -->
 <tr>
-        <td colspan="2"><input type="radio" name="security_type" value="WPA2-PSK" <%144%> onClick="buttonFilter();this.form.submit();" ><%146%></td></tr>
+        <td colspan="2"><input type="radio" name="security_type" value="WPA2-PSK" <%138%> onClick="buttonFilter();this.form.submit();" ><%140%></td></tr>
 <tr>
-        <td colspan="2"><input type="radio" name="security_type" value="AUTO-PSK" <%144%> onClick="autopskCheck();" ><%147%></td></tr>
+        <td colspan="2"><input type="radio" name="security_type" value="AUTO-PSK" <%138%> onClick="autopskCheck();" ><%141%></td></tr>
 </table>
 </td></tr>
 
     <tr>
       <td colspan="2" background="liteblue.gif" height="12">&nbsp; </td></tr>
     <tr>
-      <td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','wep')" tabindex="-1"><b><%149%></b></a></td></tr>
+      <td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','wep')" tabindex="-1"><b><%143%></b></a></td></tr>
     <tr>
-      <td nowrap><%150%>:</td>
+      <td nowrap><%144%>:</td>
       <td>
-          <select name="authAlgm" size=1><option value="automatic"><%151%></option><!--<option selected value="opensystem">Open System</option>--><option value="sharedkey"><%152%></option></select></td></tr>
+          <select name="authAlgm" size=1><option value="automatic"><%145%></option><!--<option selected value="opensystem">Open System</option>--><option value="sharedkey"><%146%></option></select></td></tr>
     <tr>
-      <td nowrap><%153%>:</td>
-	  <td><select name="wepenc" size=1 onchange="setKeys();"><option <%1583%> value="1"><%155%></option><option <%1584%> value="2"><%157%></option></select></td></tr>
+      <td nowrap><%147%>:</td>
+	  <td><select name="wepenc" size=1 onchange="setKeys();"><option <%1583%> value="1"><%149%></option><option <%1584%> value="2"><%151%></option></select></td></tr>
     <tr>
       <td colspan="2" background="liteblue.gif" height="12">&nbsp; </td></tr>
     <tr>
-      <td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','wepkey')" tabindex="-1"><b><%158%></b></a></td></tr>
+      <td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','wepkey')" tabindex="-1"><b><%152%></b></a></td></tr>
     <tr>
       <td colspan="2">
         <table>
           <tr>
-            <td><%159%>:<input type="radio"  checked name="wep_key_no" value="1"></td>
+            <td><%153%>:<input type="radio"  checked name="wep_key_no" value="1"></td>
             <td align=left><input type="text" name="KEY1" autocomplete="off"  maxLength=32 size=34 value="<%1585%>" onkeydown="keyCheck(this)" onfocus="this.form.wep_key_no[0].checked=true;"></td></tr>
           <tr>
-            <td><%161%>:<input type="radio" name="wep_key_no" value="2"></td>
+            <td><%155%>:<input type="radio" name="wep_key_no" value="2"></td>
             <td align=left><input type="text" name="KEY2" autocomplete="off"  maxLength=32 size=34 value="<%1586%>" onkeydown="keyCheck(this)" onfocus="this.form.wep_key_no[1].checked=true;"></td></tr>
           <tr>
-            <td><%163%>:<input type="radio" name="wep_key_no" value="3"></td>
+            <td><%157%>:<input type="radio" name="wep_key_no" value="3"></td>
             <td align=left><input type="text" name="KEY3" autocomplete="off"  maxLength=32 size=34 value="<%1587%>" onkeydown="keyCheck(this)" onfocus="this.form.wep_key_no[2].checked=true;"></td>
             <td></td></tr>
           <tr>
-            <td><%165%>:<input type="radio" name="wep_key_no" value="4"></td>
+            <td><%159%>:<input type="radio" name="wep_key_no" value="4"></td>
             <td align=left><input type="text" name="KEY4" autocomplete="off"  maxLength=32 size=34 value="<%1588%>" onkeydown="keyCheck(this)" onfocus="this.form.wep_key_no[3].checked=true;"></td></tr>
         </table></td></TR>
   </table>
@@ -359,7 +359,7 @@ function keyCheck(fobj)
   <input type="hidden" name="bssid_enable" value="<%1591%>">
   <input type="hidden" name="ssid_bc_enable" value="<%1592%>">
   <input type="hidden" name="enable_allow_see_access" value="<%1593%>"> 
-  <input type="hidden" name="enable_apmode" value="<%390%>">
+  <input type="hidden" name="enable_apmode" value="<%384%>">
 </form>
 </body>
 </html>

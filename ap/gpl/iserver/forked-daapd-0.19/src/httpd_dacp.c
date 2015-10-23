@@ -626,10 +626,13 @@ dacp_propset_userrating(const char *value, struct evkeyvalq *query)
       return;
     }
 
-  param = evhttp_find_header(query, "item-spec");
+  param = evhttp_find_header(query, "item-spec"); // Remote
+  if (!param)
+    param = evhttp_find_header(query, "song-spec"); // Retune
+
   if (!param)
     {
-      DPRINTF(E_LOG, L_DACP, "Missing item-spec parameter in dacp.userrating query\n");
+      DPRINTF(E_LOG, L_DACP, "Missing item-spec/song-spec parameter in dacp.userrating query\n");
 
       return;
     }
@@ -637,7 +640,7 @@ dacp_propset_userrating(const char *value, struct evkeyvalq *query)
   param = strchr(param, ':');
   if (!param)
     {
-      DPRINTF(E_LOG, L_DACP, "Malformed item-spec parameter in dacp.userrating query\n");
+      DPRINTF(E_LOG, L_DACP, "Malformed item-spec/song-spec parameter in dacp.userrating query\n");
 
       return;
     }
@@ -646,7 +649,7 @@ dacp_propset_userrating(const char *value, struct evkeyvalq *query)
   ret = safe_hextou32(param, &itemid);
   if (ret < 0)
     {
-      DPRINTF(E_LOG, L_DACP, "Couldn't convert item-spec to an integer in dacp.userrating (%s)\n", param);
+      DPRINTF(E_LOG, L_DACP, "Couldn't convert item-spec/song-spec to an integer in dacp.userrating (%s)\n", param);
 
       return;
     }

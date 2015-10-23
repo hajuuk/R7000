@@ -808,7 +808,7 @@ artwork_get_group(int id, int max_w, int max_h, int format, struct evbuffer *evb
  files_art:
   memset(&qp, 0, sizeof(struct query_params));
 
-  qp.type = Q_GROUPITEMS;
+  qp.type = Q_GROUP_ITEMS;
   qp.id = id;
 
   ret = db_query_start(&qp);

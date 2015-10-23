@@ -667,9 +667,9 @@ ifeq ($(PROFILE),R7000)
 	install utelnetd/utelnetd $(TARGETDIR)/bin
 	install arm-uclibc/netgear-streaming-db $(TARGETDIR)/etc
 	install utelnetd/ookla $(TARGETDIR)/bin
-	$(STRIP) $(TARGETDIR)/usr/bin/wsdl2h
-	$(STRIP) $(TARGETDIR)/usr/bin/xmllint
-	$(STRIP) $(TARGETDIR)/usr/bin/xmlcatalog
+#	$(STRIP) $(TARGETDIR)/usr/bin/wsdl2h
+#	$(STRIP) $(TARGETDIR)/usr/bin/xmllint
+#	$(STRIP) $(TARGETDIR)/usr/bin/xmlcatalog
 	$(STRIP) $(TARGETDIR)/lib/libssl.so
 	$(STRIP) $(TARGETDIR)/lib/libcrypto.so
 	$(STRIP) $(TARGETDIR)/usr/local/sbin/openvpn

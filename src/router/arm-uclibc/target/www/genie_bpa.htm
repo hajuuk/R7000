@@ -21,12 +21,12 @@ function checkData()
 	var cf = document.forms[0];
 	var msg = "";
 
-	msg+= checkBlank(cf.bpa_username, "<%488%>");
-	msg+= checkBlank(cf.bpa_server, "<%1419%>");
+	msg+= checkBlank(cf.bpa_username, "<%482%>");
+	msg+= checkBlank(cf.bpa_server, "<%1413%>");
 	if(cf.bpa_idletime.value.length<=0)
-	 msg+= "<%485%>";
+	 msg+= "<%479%>";
 	else if(!_isNumeric(cf.bpa_idletime.value))
-	 msg+= "<%486%>";
+	 msg+= "<%480%>";
 	if (msg.length > 1)
 	{
 		alert(msg);
@@ -60,23 +60,23 @@ function checkData()
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td NOWRAP class="inputRow centerTd" tabindex="-1" onFocus="this.blur()"style="background:url(roundedcornr_input.gif) no-repeat 270px top;padding-top:8px;"><span style="display:-moz-inline-box;display:inline-block;width:240px;text-align:right;padding-bottom:5px;padding-right:10px"><%2634%></span><input type="text" name="pppoe_username" style="width:150px;position:relative; left:20px;top:-2px;height:18px" type="text" name="bpa_username" size="15" maxlength="60" value="<%1422%>"></td>
+	<td NOWRAP class="inputRow centerTd" tabindex="-1" onFocus="this.blur()"style="background:url(roundedcornr_input.gif) no-repeat 270px top;padding-top:8px;"><span style="display:-moz-inline-box;display:inline-block;width:240px;text-align:right;padding-bottom:5px;padding-right:10px"><%2634%></span><input type="text" name="pppoe_username" style="width:150px;position:relative; left:20px;top:-2px;height:18px" type="text" name="bpa_username" size="15" maxlength="60" value="<%1416%>"></td>
 	&nbsp;</td>
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td NOWRAP class="inputRow centerTd" tabindex="-1" onFocus="this.blur()"style="background:url(roundedcornr_input.gif) no-repeat 270px top;padding-top:8px;"><span style="display:-moz-inline-box;display:inline-block;width:240px;text-align:right;padding-bottom:5px;padding-right:10px"><%2635%></span><input type="password" style="width:150px;position:relative; left:20px;top:-2px;height:18px" name="bpa_passwd" size="15" maxlength="50" value="<%1423%>"></td>
+	<td NOWRAP class="inputRow centerTd" tabindex="-1" onFocus="this.blur()"style="background:url(roundedcornr_input.gif) no-repeat 270px top;padding-top:8px;"><span style="display:-moz-inline-box;display:inline-block;width:240px;text-align:right;padding-bottom:5px;padding-right:10px"><%2635%></span><input type="password" style="width:150px;position:relative; left:20px;top:-2px;height:18px" name="bpa_passwd" size="15" maxlength="50" value="<%1417%>"></td>
 	<td>&nbsp;</td>
 </tr>
 
 <tr>
 	<td>&nbsp;</td>
-	<td NOWRAP class="inputRow centerTd" tabindex="-1" onFocus="this.blur()"style="background:url(roundedcornr_input.gif) no-repeat 270px top;padding-top:8px;"><span style="display:-moz-inline-box;display:inline-block;width:240px;text-align:right;padding-bottom:5px;padding-right:10px"><%2651%></span><input type="text" style="width:150px;position:relative; left:20px;top:-2px;height:18px" name="bpa_server" size="15" maxlength="128" value="<%1424%>"></td>
+	<td NOWRAP class="inputRow centerTd" tabindex="-1" onFocus="this.blur()"style="background:url(roundedcornr_input.gif) no-repeat 270px top;padding-top:8px;"><span style="display:-moz-inline-box;display:inline-block;width:240px;text-align:right;padding-bottom:5px;padding-right:10px"><%2651%></span><input type="text" style="width:150px;position:relative; left:20px;top:-2px;height:18px" name="bpa_server" size="15" maxlength="128" value="<%1418%>"></td>
 	<td>&nbsp;</td>
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td NOWRAP class="inputRow centerTd" tabindex="-1" onFocus="this.blur()"style="background:url(roundedcornr_input.gif) no-repeat 270px top;padding-top:8px;"><span style="display:-moz-inline-box;display:inline-block;width:240px;text-align:right;padding-bottom:5px;padding-right:10px"><%2647%></span><input type="text" style="width:150px;position:relative; left:20px;top:-2px;height:18px" class="num" name="bpa_idletime" size="4" maxlength="3" value="<%1420%>"></td>
+	<td NOWRAP class="inputRow centerTd" tabindex="-1" onFocus="this.blur()"style="background:url(roundedcornr_input.gif) no-repeat 270px top;padding-top:8px;"><span style="display:-moz-inline-box;display:inline-block;width:240px;text-align:right;padding-bottom:5px;padding-right:10px"><%2647%></span><input type="text" style="width:150px;position:relative; left:20px;top:-2px;height:18px" class="num" name="bpa_idletime" size="4" maxlength="3" value="<%1414%>"></td>
 	<td>&nbsp;</td>
 </tr>
 <tr style="height:10px">
@@ -91,7 +91,7 @@ function checkData()
 </tr>
 </table>
 <form name="formname" method="POST" action="genie_bpa.cgi"> 
-<input type="hidden" name="runtest" value="<%467%>">
+<input type="hidden" name="runtest" value="<%461%>">
 </form>
 </body>
 </html>

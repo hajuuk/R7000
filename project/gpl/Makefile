@@ -25,11 +25,11 @@ SUBDIRS3 := timemachine
 
 SUBDIRS += curl
 
-SUBDIRS += lua
+#SUBDIRS += lua
 #SUBDIRS += lsync
-SUBDIRS += libxml2-2.7.2
-SUBDIRS += gsoap
-SUBDIRS += libpng
+#SUBDIRS += libxml2-2.7.2
+#SUBDIRS += gsoap
+#SUBDIRS += libpng
 
 ifeq ($(CONFIG_TIMEMACHINE),y)
 SUBDIRS += timemachine

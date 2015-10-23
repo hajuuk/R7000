@@ -27,7 +27,7 @@ function checkData()
 		cf.WPethr4.value = parseInt(cf.WPethr4.value,10);
 	}
 	if(checkIP(cf.WMask1,cf.WMask2,cf.WMask3,cf.WMask4,255))
-		msg+= "<%439%>";
+		msg+= "<%433%>";
 	else
 	{
 		cf.WMask1.value = parseInt(cf.WMask1.value,10);
@@ -36,7 +36,7 @@ function checkData()
 		cf.WMask4.value = parseInt(cf.WMask4.value,10);
 	}
 	if(checkIP(cf.WGateway1,cf.WGateway2,cf.WGateway3,cf.WGateway4,254)||(parseInt(cf.WGateway4.value,10)==0))
-		msg+= "<%440%>";
+		msg+= "<%434%>";
 	else
 	{
 		cf.WGateway1.value = parseInt(cf.WGateway1.value,10);
@@ -45,7 +45,7 @@ function checkData()
 		cf.WGateway4.value = parseInt(cf.WGateway4.value,10);
 	}
 	if(checkIP(cf.DAddr1,cf.DAddr2,cf.DAddr3,cf.DAddr4,254)||(parseInt(cf.DAddr4.value,10)==0))
-		msg+= "<%443%>";
+		msg+= "<%437%>";
 	else
 	{
 		cf.DAddr1.value = parseInt(cf.DAddr1.value,10);
@@ -56,7 +56,7 @@ function checkData()
 	if(cf.PDAddr1.value.length>0 || cf.PDAddr2.value.length>0 || cf.PDAddr3.value.length>0 || cf.PDAddr4.value.length>0)
 	{
 		if(checkIP(cf.PDAddr1,cf.PDAddr2,cf.PDAddr3,cf.PDAddr4,254)||(parseInt(cf.PDAddr4.value,10)==0))
-			msg+= "<%444%>";
+			msg+= "<%438%>";
 		else
 		{
 			cf.PDAddr1.value = parseInt(cf.PDAddr1.value,10);
@@ -186,12 +186,12 @@ class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()">.<in
 	<td>&nbsp;</td>
 </tr>
 </table>
-  <INPUT name=wan_ipaddr type=hidden value= "<%265%>">
-  <INPUT name=wan_netmask type=hidden value= "<%266%>">
-  <INPUT name=wan_gateway type=hidden value= "<%468%>">
+  <INPUT name=wan_ipaddr type=hidden value= "<%259%>">
+  <INPUT name=wan_netmask type=hidden value= "<%260%>">
+  <INPUT name=wan_gateway type=hidden value= "<%462%>">
   <INPUT name=DNSAssign type=hidden value= "1">
-  <INPUT name=wan_dns1_pri type=hidden value= "<%470%>">
-  <INPUT name=wan_dns1_sec type=hidden value= "<%471%>">
+  <INPUT name=wan_dns1_pri type=hidden value= "<%464%>">
+  <INPUT name=wan_dns1_sec type=hidden value= "<%465%>">
 </form>
 <p></p>
 </body>

@@ -64,7 +64,7 @@ do_register()
 	USER_PASS=$2
 	temp_dir=$3
 	XAGENT_ID=$(readycloud_nvram get x_agent_id)
-	MODEL=$(hostname)
+	MODEL=$(remote_smb_conf -get_model_name)
 	USE_XCLOUD=$(readycloud_nvram get readycloud_use_xcloud)
 
 	FIRMWARE_VERSION=`version | sed -n 2p | awk -F "/" '{print $2}' | sed -r 's/^.{1}//'`
@@ -147,7 +147,7 @@ do_updatealias()
 
 	comm_post "${DATA}" && {
 		if [ "xSUCCESS" = "x$COMM_RESULT" ]; then
-
+			pidof leafp2p | xargs kill -USR1
 # 			$readycloud_nvram set leafp2p_device_alias="${ALIAS}"
 # 			$readycloud_nvram commit >/dev/null
 # 			echo "Updated Device Alias Successfully"

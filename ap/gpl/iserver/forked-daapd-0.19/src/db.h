@@ -21,6 +21,7 @@ enum sort_type {
   S_NAME,
   S_ALBUM,
   S_ARTIST,
+  S_PLAYLIST,
 };
 
 #define Q_F_BROWSE (1 << 15)
@@ -33,10 +34,19 @@ enum query_type {
   Q_BROWSE_ALBUMS    = Q_F_BROWSE | (1 << 4),
   Q_BROWSE_GENRES    = Q_F_BROWSE | (1 << 5),
   Q_BROWSE_COMPOSERS = Q_F_BROWSE | (1 << 6),
-  Q_GROUPS           = (1 << 7),
-  Q_GROUPITEMS       = (1 << 8),
-  Q_GROUP_DIRS       = Q_F_BROWSE | (1 << 9),
+  Q_GROUP_ALBUMS     = (1 << 7),
+  Q_GROUP_ARTISTS    = (1 << 8),
+  Q_GROUP_ITEMS      = (1 << 9),
+  Q_GROUP_DIRS       = Q_F_BROWSE | (1 << 10),
 };
+
+#define ARTWORK_UNKNOWN   0
+#define ARTWORK_NONE      1
+#define ARTWORK_EMBEDDED  2
+#define ARTWORK_OWN       3
+#define ARTWORK_DIR       4
+#define ARTWORK_PARENTDIR 5
+#define ARTWORK_SPOTIFY   6
 
 struct query_params {
   /* Query parameters, filled in by caller */
@@ -44,6 +54,7 @@ struct query_params {
   enum index_type idx_type;
   enum sort_type sort;
   int id;
+  int64_t persistentid;
   int offset;
   int limit;
 
@@ -96,6 +107,7 @@ struct media_file_info {
   uint32_t time_played;
 
   uint32_t play_count;
+  uint32_t seek;
   uint32_t rating;
   uint32_t db_timestamp;
 
@@ -111,6 +123,7 @@ struct media_file_info {
   uint32_t data_kind;    /* dmap.datakind (asdk) */
   uint64_t sample_count;
   char compilation;
+  char artwork;
 
   /* iTunes 5+ */
   uint32_t contentrating;
@@ -128,6 +141,7 @@ struct media_file_info {
 
   char *album_artist;
 
+  int64_t songartistid;
   int64_t songalbumid;
 
   char *title_sort;
@@ -178,9 +192,12 @@ struct db_playlist_info {
 struct group_info {
   uint32_t id;           /* integer id (miid) */
   uint64_t persistentid; /* ulonglong id (mper) */
-  char *itemname;        /* playlist name as displayed in iTunes (minm) */
+  char *itemname;        /* album or album_artist (minm) */
+  char *itemname_sort;   /* album_sort or album_artist_sort (~mshc) */
   uint32_t itemcount;    /* number of items (mimc) */
+  uint32_t groupalbumcount; /* number of albums (agac) */
   char *songalbumartist; /* song album artist (asaa) */
+  uint64_t songartistid; /* song artist id (asri) */
 };
 
 #define gri_offsetof(field) offsetof(struct group_info, field)
@@ -189,8 +206,11 @@ struct db_group_info {
   char *id;
   char *persistentid;
   char *itemname;
+  char *itemname_sort;
   char *itemcount;
+  char *groupalbumcount;
   char *songalbumartist;
+  char *songartistid;
 };
 
 #define dbgri_offsetof(field) offsetof(struct db_group_info, field)
@@ -221,8 +241,10 @@ struct db_media_file_info {
   char *total_discs;
   char *bpm;
   char *compilation;
+  char *artwork;
   char *rating;
   char *play_count;
+  char *seek;
   char *data_kind;
   char *item_kind;
   char *description;
@@ -244,6 +266,7 @@ struct db_media_file_info {
   char *tv_series_name;
   char *tv_episode_num_str;
   char *tv_network_name;
+  char *songartistid;
   char *songalbumid;
   char *title_sort;
   char *artist_sort;
@@ -293,6 +316,16 @@ db_hook_post_scan(void);
 void
 db_purge_cruft(time_t ref);
 
+void
+db_purge_all(void);
+
+/* Transactions */
+void
+db_transaction_begin(void);
+
+void
+db_transaction_end(void);
+
 /* Queries */
 int
 db_query_start(struct query_params *qp);
@@ -319,6 +352,12 @@ db_query_fetch_string_sort(struct query_params *qp, char **string, char **sortst
 int
 db_files_get_count(void);
 
+int
+db_files_get_count_bymatch(char *path);
+
+void
+db_files_update_songartistid(void);
+
 void
 db_files_update_songalbumid(void);
 
@@ -328,11 +367,17 @@ db_file_inc_playcount(int id);
 void
 db_file_ping(int id);
 
+void
+db_file_ping_bymatch(char *path, int isdir);
+
 char *
 db_file_path_byid(int id);
 
 int
 db_file_id_bypath(char *path);
+
+int
+db_file_id_bymatch(char *path);
 
 int
 db_file_id_byfilebase(char *filename, char *base);
@@ -374,6 +419,9 @@ db_pl_get_count(void);
 void
 db_pl_ping(int id);
 
+void
+db_pl_ping_bymatch(char *path, int isdir);
+
 struct playlist_info *
 db_pl_fetch_bypath(char *path);
 
@@ -391,6 +439,9 @@ db_pl_add_item_byid(int plid, int fileid);
 
 void
 db_pl_clear_items(int id);
+
+int
+db_pl_update(char *title, char *path, int id);
 
 void
 db_pl_delete(int id);
@@ -411,8 +462,8 @@ db_pl_enable_bycookie(uint32_t cookie, char *path);
 int
 db_groups_clear(void);
 
-enum group_type
-db_group_type_byid(int id);
+int
+db_group_persistentid_byid(int id, int64_t *persistentid);
 
 /* Remotes */
 int
@@ -420,6 +471,28 @@ db_pairing_add(struct pairing_info *pi);
 
 int
 db_pairing_fetch_byguid(struct pairing_info *pi);
+
+#ifdef HAVE_SPOTIFY_H
+/* Spotify */
+void
+db_spotify_purge(void);
+
+void
+db_spotify_pl_delete(int id);
+#endif
+
+/* Admin */
+int
+db_admin_add(const char *key, const char *value);
+
+char *
+db_admin_get(const char *key);
+
+int
+db_admin_update(const char *key, const char *value);
+
+int
+db_admin_delete(const char *key);
 
 /* Speakers */
 int
@@ -452,6 +525,9 @@ db_watch_delete_bycookie(uint32_t cookie);
 
 int
 db_watch_get_bywd(struct watch_info *wi);
+
+int
+db_watch_get_bypath(struct watch_info *wi);
 
 void
 db_watch_mark_bypath(char *path, char *strip, uint32_t cookie);

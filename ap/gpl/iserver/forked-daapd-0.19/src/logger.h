@@ -26,6 +26,7 @@
 #define L_LAUDIO  17
 #define L_DMAP    18
 #define L_DBPERF  19
+#define L_CACHE  22
 
 #define N_LOGDOMAINS  20
 
