@@ -1240,7 +1240,7 @@ function checkData()
         if (wps_version == "2.0")
         {   
 	    /* Foxconn modified start, Kent Huang, 05/22/2012, replace wep_or_wps_v20 with tkip_or_wps_v20 */
-            if (!confirm("<%1538%>")){
+            if (!confirm("<%1543%>")){
                 return false;
             }
             show_tkip_or_wps_v20_msg = true;
@@ -1314,7 +1314,7 @@ function checkData()
         {
 	    /* Foxconn modified start, Kent Huang, 05/22/2012, replace wep_or_wps_v20 with tkip_or_wps_v20 */
             if (!show_tkip_or_wps_v20_msg) {
-                if (!confirm("<%1538%>")){
+                if (!confirm("<%1543%>")){
                     return false;
                 }
             }
@@ -1368,7 +1368,7 @@ function checkData()
         {
             if (cf.security_type_2G.value == "WPA-PSK")
             {
-                if (!confirm("<%1538%>")){
+                if (!confirm("<%1543%>")){
                     return false;
                 }
                 show_tkip_or_wps_v20_msg = true;
@@ -1410,15 +1410,15 @@ function checkData()
         {
             cf.ssid_bc.value = "";
         }
-        if("<%1439%>" == "checked")
+        if("<%1444%>" == "checked")
         {
             cf.security_type.value = "WPA-PSK";
         }
-        else if("<%1440%>" == "checked")
+        else if("<%1445%>" == "checked")
         {
             cf.security_type.value = "WPA2-PSK";
         }
-        else if("<%1441%>" == "checked")
+        else if("<%1446%>" == "checked")
         {
             cf.security_type.value = "AUTO-PSK";
         }
@@ -1434,7 +1434,7 @@ function checkData()
             if (cf.security_type_5G.value == "WPA-PSK")
             {
                 if (!show_tkip_or_wps_v20_msg) {
-                    if (!confirm("<%1538%>")){
+                    if (!confirm("<%1543%>")){
                         return false;
                     }
                 }
@@ -1480,15 +1480,15 @@ function checkData()
         {
             cf.ssid_bc_an.value = "";
         }
-        if("<%1539%>" == "checked")
+        if("<%1544%>" == "checked")
         {
             cf.security_type_an.value = "WPA-PSK";
         }
-        else if("<%1540%>" == "checked")
+        else if("<%1545%>" == "checked")
         {
             cf.security_type_an.value = "WPA2-PSK";
         }
-        else if("<%1541%>" == "checked")
+        else if("<%1546%>" == "checked")
         {
             cf.security_type_an.value = "AUTO-PSK";
         }
@@ -1515,7 +1515,7 @@ function showWpsAlert()
 
 function ShowWEPAlert()
 {
-	alert("<%1542%>");
+	alert("<%1547%>");
 }
 
 // -->
@@ -1681,7 +1681,7 @@ function ShowWEPAlert()
     <tr>
       <td nowrap colspan="2">
         <%162%>: <input type="text" autocomplete="off" name="passphraseStr" size="14" maxlength="32" value=""> &nbsp;
-        &nbsp;&nbsp;&nbsp;<button type="button" value="<%1432%>" name="keygen" class="button-rule" onClick="buttonClick(this,'<%1432%>');calcPassphrase(this.form)"><span class="roundleft_button">&nbsp;&nbsp; <%1432%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
+        &nbsp;&nbsp;&nbsp;<button type="button" value="<%1437%>" name="keygen" class="button-rule" onClick="buttonClick(this,'<%1437%>');calcPassphrase(this.form)"><span class="roundleft_button">&nbsp;&nbsp; <%1437%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
     <tr>
       <td nowrap="nowrap" colspan="2">
           <tr>
@@ -1844,7 +1844,7 @@ function ShowWEPAlert()
     <tr>
       <td nowrap colspan="2">
         <%162%>: <input type="text" name="passphraseStr_an" autocomplete="off" size="14" maxlength="32" value=""> &nbsp;
-        &nbsp;&nbsp;&nbsp;<button type="button" value="<%1432%>" name="Generate_an" class="button-rule" onClick="buttonClick(this,'<%1432%>');calcPassphrase_an(this.form)"><span class="roundleft_button">&nbsp;&nbsp; <%1432%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
+        &nbsp;&nbsp;&nbsp;<button type="button" value="<%1437%>" name="Generate_an" class="button-rule" onClick="buttonClick(this,'<%1437%>');calcPassphrase_an(this.form)"><span class="roundleft_button">&nbsp;&nbsp; <%1437%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
     <tr>
       <td nowrap="nowrap" colspan="2">
           <tr>

@@ -17,7 +17,7 @@ old_library=''
 inherited_linker_flags=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -L/build/usr/lib /usr/lib/libunistring.la -L/mnt/old_186/home/antony/R7000/V1.0.4.12_1.1.48/ap/gpl/iserver/build/usr/lib /libiconv.la -L/mnt/old_186/home/antony/R7000/V1.0.4.12_1.1.48/ap/gpl/iserver/build/lib /usr/lib/libiconv.la'
+dependency_libs=' -L/build/usr/lib /usr/lib/libunistring.la -L/home/cs.hsu/Project/R7000/V1.0.4.30_1.1.67/ap/gpl/iserver/build/usr/lib /libiconv.la -L/home/cs.hsu/Project/R7000/V1.0.4.30_1.1.67/ap/gpl/iserver/build/lib /usr/lib/libiconv.la'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''

@@ -17,14 +17,6 @@
 <script language="javascript" type="text/javascript">
 <!-- hide script from old browsers
 
-
-
-
-
-
-
-
-
     $(document).ready(function()
     {	
         $("#target").submit(function() {
@@ -59,21 +51,26 @@ function goHome(){
              parent.$('#adv-home').addClass('noSubActive');  
              parent.$('.subHeader:visible').slideUp('fast');
              window.location.href="ADV_home.htm";        
-		    /*window.location.href="<%1720%>";*/
+		    /*window.location.href="<%1725%>";*/
          }
     }
 }
+
+
 //-->
 </script>
 </head>
-<body  style="margin:0px;background-color:#e5e5e5">
+<body  onload="change_size();" style="margin:0px;background-color:#e5e5e5">
 <form id="target"  name="formname" method="POST" action="ver_result.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
 <table border="0"   width="100%">
 
 <tr>
-<td colspan="2">
-	<h1><%1716%></H1>
+<td class="scrollpane-table-seperate-border" colspan="2">
+<div class="scroll-pane" style="height:100px;overflow:auto;scrolling:auto">
+<table style="border-collapse:collapse;width:97%">
+
+	<h1><%1721%></H1>
 </td>
 </tr>
 
@@ -82,24 +79,24 @@ function goHome(){
 </tr>
 
 <tr>
-    <td colspan="2"><b><%1721%></b></td>
+    <td colspan="2"><b><%1726%></b></td>
 </tr>
 <tr></tr>
 <tr>
-	<td width="50%"><%1722%></td>
-        <td width="50%"><%1723%></td>
+	<td width="50%"><%1727%></td>
+        <td width="50%"><%1728%></td>
 </tr>
 <tr></tr>
 <tr>
-	<td width="50%"><%1724%></td>
-        <td width="50%"><%1725%></td>
+	<td width="50%"><%1729%></td>
+        <td width="50%"><%1730%></td>
 </tr>
 <tr></tr>
 <tr>
 <tr></tr>
-    <td><b><%1726%></b></td>
+    <td><b><%1731%></b></td>
 </tr>
-	<%1727%>
+	<%1732%>
 
 <tr>
  <td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
@@ -110,7 +107,11 @@ function goHome(){
 		&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="<%402%>" name="No" class="button-rule" onClick="buttonClick(this,'<%402%>');goHome();"><span class="roundleft_button">&nbsp;&nbsp; <%402%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 	</td></tr>
 </table>
-<input type="hidden" name="call_by_genie" value="<%1718%>">
+</div>
+</td>
+</tr>
+</table>
+<input type="hidden" name="call_by_genie" value="<%1723%>">
 </form>
 <p></p>
 </body>

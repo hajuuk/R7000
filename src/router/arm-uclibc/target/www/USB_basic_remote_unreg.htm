@@ -94,6 +94,82 @@
 
                 }
     }
+    
+function applyCheck()
+{
+    var cf = document.forms[0];
+    if(cf.wan_protocol.value=="pppoe")
+    {
+          if(cf.pppoe_dod.value==1)
+          {
+              if(!confirm("<%2188%>"))
+              {
+                  return false;
+              }
+              else
+                  cf.dod_type_change.value="1";
+          }
+          else if(cf.pppoe_dod.value==2)
+          {
+              if(cf.manually_on.value==0)
+              {
+                  alert("<%2189%>");
+                  return false;
+              }
+              else
+                  alert("<%2190%>");
+          }
+
+    }
+    else if(cf.wan_protocol.value=="l2tp")
+    {
+          if(cf.l2tp_dod.value==1)
+          {
+              if(!confirm("<%2188%>"))
+              {
+                  return false;
+              }
+              else
+                  cf.dod_type_change.value="1";
+          }
+          else if(cf.l2tp_dod.value==2)
+          {
+              if(cf.manually_on.value==0)
+              {
+                  alert("<%2189%>");
+                  return false;
+              }
+              else
+                  alert("<%2190%>");
+          }
+
+    }
+    else if(cf.wan_protocol.value=="pptp")
+    {
+          if(cf.pptp_dod.value==1)
+          {
+              if(!confirm("<%2188%>"))
+              {
+                  return false;
+              }
+              else
+                  cf.dod_type_change.value="1";
+          }
+          else if(cf.pptp_dod.value==2)
+          {
+              if(cf.manually_on.value==0)
+              {
+                  alert("<%2189%>");
+                  return false;
+              }
+              else
+                  alert("<%2190%>");
+          }
+
+    }
+    return true;
+}
+    
 //-->
 </script></head>
 <body onload="change_size();"  class="subpage-body" onResize="change_size();" >
@@ -104,9 +180,9 @@
 <form id="target"  name="frmService" method="post" action="usb_remote_invite.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
     <img class="subtop-image" src="<%59%>">
-<%2173%>
-<div class="subhead2"><%2174%></div>
-<%2175%>
+<%2178%>
+<div class="subhead2"><%2179%></div>
+<%2180%>
 
 <table border="0"    style="height:370px"  class="subhead2-table">
 
@@ -118,7 +194,7 @@
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
-    <td colspan="2" ><%2176%></td>
+    <td colspan="2" ><%2181%></td>
 </tr>
 
 
@@ -128,15 +204,15 @@
 <tr>
     <td colspan="2" >
 		<table border="0">
-			<tr><td colspan="2"><b><%2183%></b></td></tr>
-			<tr><td colspan="2"><%2184%></td></tr>
-			<tr><td><%2185%>:&nbsp;&nbsp;&nbsp;</td><td><input type="text" name="username" size="64"></td></tr>
-			<tr><td><%496%>:&nbsp;&nbsp;&nbsp;</td><td><input type="password" name="password" size="64"></td></tr>
+			<tr><td colspan="2"><b><%2191%></b></td></tr>
+			<tr><td colspan="2"><%2192%></td></tr>
+			<tr><td><%2193%>:&nbsp;&nbsp;&nbsp;</td><td><input type="text" name="username" size="64"></td></tr>
+			<tr><td><%497%>:&nbsp;&nbsp;&nbsp;</td><td><input type="password" name="password" size="64"></td></tr>
 			<tr>
 				<td></td>
 				<td>
-					<button value="Register" onclick="buttonClick(this,'do_register');" type="submit" name="Register" class="button-rule" ><span class="roundleft_button">&nbsp;&nbsp;&nbsp;&nbsp; <%2186%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-					<%2187%>
+					<button value="Register" onclick="buttonClick(this,'do_register');return applyCheck();" type="submit" name="Register" class="button-rule" ><span class="roundleft_button">&nbsp;&nbsp;&nbsp;&nbsp; <%2194%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+					<%2195%>
 				</td>
 			</tr>
 		</table>    
@@ -145,7 +221,7 @@
 <tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr><td colspan="2" height="12" >
-    <%2182%>
+    <%2187%>
 </td></tr>
 <tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
 
@@ -160,6 +236,13 @@
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
     <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
       </div>
+
+<INPUT name="wan_protocol" type=hidden value= "<%404%>">
+<INPUT name="pppoe_dod" type=hidden value= "<%474%>">
+<INPUT name="l2tp_dod" type=hidden value= "<%798%>">
+<INPUT name="pptp_dod" type=hidden value= "<%532%>">
+<INPUT name="manually_on" type=hidden value= "<%2196%>">
+<INPUT name="dod_type_change" type=hidden value= "0">
 
 <a name="helpframe-anchor"></a>
 </form>

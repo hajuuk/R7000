@@ -118,7 +118,7 @@ function check_ca()
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
 &nbsp;&nbsp;&nbsp;<button value="<%61%>"  onClick="buttonClick(this,'<%61%>');" type="SUBMIT" name="cfAlert_Apply" class="button-apply" > <span class="roundleft_apply" ><%62%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
 &nbsp;&nbsp;&nbsp;<button value="<%63%>" onClick="buttonClick(this,'<%63%>');" type="BUTTOn" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%64%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button  onClick="buttonClick(this,'<%702%>');" type="button" name="Button" value=<%702%> class="button-rule" ><span class="roundleft_button">&nbsp;&nbsp;  <%702%> </span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button  onClick="buttonClick(this,'<%704%>');" type="button" name="Button" value=<%704%> class="button-rule" ><span class="roundleft_button">&nbsp;&nbsp;  <%704%> </span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -127,80 +127,80 @@ function check_ca()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
     <td colspan="2">
-    <input type="checkbox" name="openvpnActive" value="openvpnEnable" <%773%>> <b><%774%></b>
+    <input type="checkbox" name="openvpnActive" value="openvpnEnable" <%777%>> <b><%778%></b>
     </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <TR>
-<TD nowrap><%778%>
-<input type="radio" name="openvpn_iface_type" value="tun" <%794%> > <%779%> 
-<input type="radio" name="openvpn_iface_type" value="tap" <%795%> > <%780%> </TD>
+<TD nowrap><%782%>
+<input type="radio" name="openvpn_iface_type" value="tun" <%799%> > <%783%> 
+<input type="radio" name="openvpn_iface_type" value="tap" <%800%> > <%784%> </TD>
 </TR>
 
 <TR>
-<TD nowrap><%781%>
-<input type="radio" name="openvpn_protocol" value="udp" <%782%> > <%605%> 
-<input type="radio" name="openvpn_protocol" value="tcp" <%783%> > <%604%> </TD>
+<TD nowrap><%785%>
+<input type="radio" name="openvpn_protocol" value="udp" <%786%> > <%607%> 
+<input type="radio" name="openvpn_protocol" value="tcp" <%787%> > <%606%> </TD>
 </TR>
 
 <tr>
-    <td width="50%" align="left" nowrap><%784%></td>
- <td width="100%" align="right"><input type="text" name="openvpn_service_port" value = "<%762%>" size="6" height="12" maxlength="8"></td>
+    <td width="50%" align="left" nowrap><%788%></td>
+ <td width="100%" align="right"><input type="text" name="openvpn_service_port" value = "<%764%>" size="6" height="12" maxlength="8"></td>
 </tr>
 
 <tr>
     <td width="50%" align="left" nowrap>server bridge IP range</td>
- <td width="100%" align="right"><input type="text" name="openvpn_br_ip_start" value = "<%796%>" size="16" height="12" maxlength="16">-<input type="text" name="openvpn_br_ip_end" value = "<%797%>" size="16" height="12" maxlength="16"></td>
+ <td width="100%" align="right"><input type="text" name="openvpn_br_ip_start" value = "<%801%>" size="16" height="12" maxlength="16">-<input type="text" name="openvpn_br_ip_end" value = "<%802%>" size="16" height="12" maxlength="16"></td>
 </tr>
 
 <tr>
     <td width="50%" align="left" nowrap>server IP domain</td>
- <td width="100%" align="right"><input type="text" name="openvpn_server_ip" value = "<%798%>" size="16" height="12" maxlength="16"></td>
+ <td width="100%" align="right"><input type="text" name="openvpn_server_ip" value = "<%803%>" size="16" height="12" maxlength="16"></td>
 </tr>
 
 <tr>
     <td colspan="2">
-    <input type="checkbox" name="openvpnRedirect" value="Redirect" <%799%>> <b>Redirect Gateway</b>
+    <input type="checkbox" name="openvpnRedirect" value="Redirect" <%804%>> <b>Redirect Gateway</b>
     </td>
 </tr>
 
  <tr>
- <td width="50%" align="left"><%800%></td>
+ <td width="50%" align="left"><%805%></td>
  <td colspan="2" width="100%" align="right">
-<TEXTAREA NAME="openvpn_ca" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%801%>
+<TEXTAREA NAME="openvpn_ca" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%806%>
 </textarea></td>
  </tr>
 
 <tr>
- <td width="50%" align="left"><%802%></td>
+ <td width="50%" align="left"><%807%></td>
  <td colspan="2" width="100%" align="right">
-<TEXTAREA NAME="openvpn_server_ca" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%803%>
+<TEXTAREA NAME="openvpn_server_ca" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%808%>
 </textarea></td>
 </tr>
 
 <tr>
- <td width="50%" align="left"><%804%></td>
+ <td width="50%" align="left"><%809%></td>
  <td colspan="2" width="100%" align="right">
-<TEXTAREA NAME="openvpn_server_key" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%805%>
+<TEXTAREA NAME="openvpn_server_key" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%810%>
 </textarea></td>
 </tr>
 
 <tr>
- <td width="50%" align="left"><%806%></td>
+ <td width="50%" align="left"><%811%></td>
  <td colspan="2" width="100%" align="right">
-<TEXTAREA NAME="openvpn_server_dh" class="smallfix" ROWS="10" cols="64" WRAP="vitural" tabindex="-1"><%807%>
+<TEXTAREA NAME="openvpn_server_dh" class="smallfix" ROWS="10" cols="64" WRAP="vitural" tabindex="-1"><%812%>
 </textarea></td>
 </tr>
 
 <tr>
     <td width="50%" align="left">push command1</td>
-    <td width="100%" align="right"><input type="text"name="openvpn_push1" value = "<%808%>" size="80" maxlength="256"></td>
+    <td width="100%" align="right"><input type="text"name="openvpn_push1" value = "<%813%>" size="80" maxlength="256"></td>
 </tr>
 
 <tr>
     <td width="50%" align="left">push command2</td>
-    <td width="100%" align="right"><input type="text" name="openvpn_push2" value = "<%735%>" size="80" maxlength="256"></td>
+    <td width="100%" align="right"><input type="text" name="openvpn_push2" value = "<%737%>" size="80" maxlength="256"></td>
 </tr>
 
 <tr><td colspan="2">

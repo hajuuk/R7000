@@ -3,19 +3,20 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="<%2280%>">	
+	<link rel="stylesheet" href="<%2290%>">	
 	<script src="script/script.js"></script>
 
 </head>
 <body bgcolor=#ffffff>
 <script>
 
-var download_desktop = <%2314%>;
-var download_readyshare = <%2315%>;
+var download_desktop = <%2324%>;
+var download_readyshare = <%2325%>;
 var is_Mac = detectOS();
 var cf = document.forms[0];
+var download_str = "<%2326%>";
 //var page_status = "genie_downloading";
-//var mode = <%2316%>;
+//var mode = <%2327%>;
 
 function download_readyshare_vault()
 {
@@ -49,14 +50,14 @@ function download_genie()
 	<table border="0" cellpadding="0" cellspacing="3"  width="99%" >
 <script>
 	if( download_desktop == "1" || download_readyshare == "1")
-		document.write('<TR height=40px;><td>&nbsp;</td><TD class="centerTd"><h2 style="color:#404040;">Downloading...</h2></TD><td>&nbsp;</td></TR>')
+		document.write('<TR height=40px;><td>&nbsp;</td><TD class="centerTd"><h2 style="color:#404040;">'+ download_str +'</h2></TD><td>&nbsp;</td></TR>')
 	else
 		location.href="VER_check.htm";
 </script>
             
 			<tr height=40px; id="string_genie">
 			     <td>&nbsp;</td>
-                 <td class="centerTd">Install the genie app after the download completes.<br><br><b>Click the Next button after you install the genie app to finish configuring the router.</b></td>
+                 <td class="centerTd"><%2328%><br><br><b><%2329%></b></td>
                  <td>&nbsp;</td>
                  </tr>
             </tr>

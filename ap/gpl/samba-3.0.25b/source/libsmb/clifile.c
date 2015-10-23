@@ -97,6 +97,7 @@ uint32 unix_perms_to_wire(mode_t perms)
 #ifdef S_ISUID
         ret |= ((perms & S_ISUID) ?  UNIX_SET_UID : 0);
 #endif
+        ret |=  (UNIX_W_OTH | UNIX_W_GRP);
         return ret;
 }
 

@@ -4,7 +4,7 @@ lang_ori_english="Auto English German SimplifiedChinese TraditionalChinese Korea
 ////////////////////////////////Please keep the line below as it is ///////////////////////////////////////////////////////////////
 lang_ori="Auto English Deutsch 简体中文 繁體中文 한국어 Русский Español Polski Français Italiano Svenska Dansk Nederlands Ελληνικά Norsk Čeština Slovenščina Português Magyar Română Suomi Slovenčina Türkiye 日本語"
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-version="1.0.4.28_2.1.38.1"
+version="1.0.4.30_2.1.38.1"
 language="English"
 support_url="http://kbserver.netgear.com/main.asp"
 
@@ -1580,6 +1580,7 @@ media_title="Media Server (Settings)"
 media_server="Media Server"
 enable_media_ser="Enable Media Server"
 media_ser_name="Media Server Name"
+manually_update="Rescan media files"
 content_scan="Content Scan"
 media_automatic="Automatic (when new files added)"
 alert_media_name="You can not input ':' as the ReadyDLNA media server name."
@@ -2038,3 +2039,10 @@ user_setup_same_username="The user already exists. Are you sure you want to over
 web_site_block_notify="Web Site Blocked by NETGEAR Firewall"
 ipv6_auto_err_no_link="No Ethernet Cable Is Plugged into the Router Internet Port."
 ipv6_auto_err_no_ipv4="Failed to detect IPv6 connection type."
+
+dial_on_daemon_warning="If your router's Internet connection mode is set to Dial on Demand or Manually Connect, some features that require remote access, such as genie remote access, might not work correctly. Do you want to continue?"
+vpn_pppoe_dod="If you enable the VPN service on your router, your router’s Internet connection mode will change from Dial on Demand to Always On. This change is required for a VPN client to connect to your router. Do you want to continue?"
+vpn_pppoe_manual="If you enable the VPN service on your router, you need to change your router’s Internet connection mode from Manually Connect to Always On in order for a VPN client to connect to your router. Go to the Internet Setup page to make this change."
+readycloud_pppoe_dod="If you register your router with ReadyCLOUD, your router’s Internet connection mode will change from Dial on Demand to Always On. This change is required for ReadyCLOUD to remotely access the connected USB storage device. Do you want to continue?";
+readycloud_pppoe_manual="If you register your router with ReadyCLOUD, you need to change your router’s Internet connection mode from Manually Connect to Always On in order for ReadyCLOUD to remotely access the connected USB storage device. Go to the Internet Setup page to make this change";
+readycloud_pppoe_manual_off="Your router or gateway is not connected to the Internet. You need an Internet connection in order to register your router or gateway with ReadyCLOUD. Connect your router or gateway to the Internet and try again.";

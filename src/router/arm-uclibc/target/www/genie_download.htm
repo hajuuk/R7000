@@ -22,12 +22,22 @@ var OSType = detectOS();
 var RS_num=1;
 var genie_mac_num=1;
 var genie_num=1;
-var mode = <%2316%>;
+var mode = <%2327%>;
 
 function downloadSoftware()
 {
     if(OSType != "Win" && OSType != "Mac"){
     window.location.href='VER_check.htm';
+    }
+    if(OSType != "Win")
+    {
+         document.getElementById("OS_WIN").style.display="none";
+         document.getElementById("OS_MAC").style.display="block";
+    }
+    else
+    {
+         document.getElementById("OS_WIN").style.display="block";
+         document.getElementById("OS_MAC").style.display="none";
     }
 }
 function choose_RS(n, cf)
@@ -76,14 +86,23 @@ function click_next(cf)
 {
 	if( OSType == "Mac" )
 		cf.download_readyshare.value = "0";
-	
+
 	cf.submit();
 }
 
 function do_submit(cf)
 {
        cf.exit_genie.value = "exit"; 
+       if(OSType == "Mac")
+           cf.download_readyshare.value = "0";
+       	cf.submit();
+}
 
+function do_submit2(cf)
+{
+       cf.exit_genie.value = "previous"; 
+       if(OSType == "Mac")
+           cf.download_readyshare.value = "0";
        	cf.submit();
 }
 
@@ -94,62 +113,56 @@ function do_submit(cf)
 	<tr style="height:10px">
 		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
 	</tr>
-	<TR height=40px;> 
-	    <script>
-	    if( OSType == "Mac")
-	    {
-            document.write(' <td>&nbsp;</td><TD class="centerTd"><B><%2317%> </B></TD><td>&nbsp;</td> ');
-        }
-        else
-        {
-            document.write(' <td>&nbsp;</td><TD class="centerTd"><B><%2318%> </B></TD><td>&nbsp;</td> ');
-        }
-        </script>
-        
+  </table>
+   <div id="OS_MAC" style="display:none">
+   <table border="0" cellpadding="0" cellspacing="3"  width="99%">
+   	<tr>
+      <td>&nbsp;</td><TD class="centerTd"><B><%2330%> </B></TD><td>&nbsp;</td>
     </TR>
-	<tr>
-		<td>&nbsp;</td><td></td><td>&nbsp;</td>
-        </tr>
     <tr>
-		<script>
-            if( OSType == "Mac")
-                {
-                    document.write(' <td>&nbsp;</td><td class="textRow centerTd" nowrap height=25px; width=25px;>')
-                    document.write(' <div id="genie_mac" class="checked" onclick="genie_mac_choose(genie_mac_num, document.forms[0]);genie_mac_num++;"> </div> ')
-                    document.write(' <b class="choice_font"><a style="cursor:pointer;" href="http://www.netgear.com/genie" target="_blank"><%2319%></a> <%2320%></b></td><td>&nbsp;</td>');
-                }
-                else
-                {
-                    document.write('<td>&nbsp;</td><td class="textRow centerTd" nowrap height=25px; width=25px; >')
-                    document.write('<div id="genie_chice" class="checked" onclick="genie_choose(genie_num, document.forms[0]);genie_num++;"></div>')
-                    document.write('<b class="choice_font"><a style="cursor:pointer;" href="http://www.netgear.com/genie" target="_blank"><%2321%></a> <%2320%></b></td><td>&nbsp;</td>');
-                }
-        </script>
+		  <td>&nbsp;</td><td></td><td>&nbsp;</td>
     </tr>
-	<tr>
-		<td>&nbsp;</td><td></td><td>&nbsp;</td>
-        </tr>
-	<tr>
-		<script>
-			if( OSType != "Mac" )
-			{
-				document.write('<td>&nbsp;</td><td class="textRow centerTd" nowrap height=25px; width=25px;>');
-				document.write('<div id="RS_choose" class="checked"  src="checked.jpg" onclick="choose_RS(RS_num, document.forms[0]);RS_num++;"></div>');
-				document.write('<b class="choice_font"><a style="cursor:pointer;" href="http://www.netgear.com/readyshare" target="_blank"><%2322%></a> <%2323%></b></td><td>&nbsp;</td>');
-			}
-			else
-			{
-				//document.write('<td>&nbsp;</td><td class="textRow centerTd" height=40px;><b class="choice_font"><%2324%></b></td><td>&nbsp;</td>');
-			}
-		</script>
-	</tr>	
+    <tr>
+      <td>&nbsp;</td>
+      <td class="textRow centerTd" nowrap height=25px; width=25px;>
+        <div id="genie_mac" class="checked" onclick="genie_mac_choose(genie_mac_num, document.forms[0]);genie_mac_num++;"> </div>
+          <b class="choice_font"><a style="cursor:pointer;" href="http://www.netgear.com/genie" target="_blank"><%2331%></a> <%2332%></b>
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr><td>&nbsp;</td><td></td><td>&nbsp;</td></tr><tr>
+   </table>
+ </div>
+ <div id="OS_WIN" style="display:none">
+   <table border="0" cellpadding="0" cellspacing="3"  width="99%">
+	   <TR height=40px;> 
+       <td>&nbsp;</td><TD class="centerTd"><B><%2333%> </B></TD><td>&nbsp;</td>
+    </TR>
+ 	  <tr>
+		  <td>&nbsp;</td><td></td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td><td class="textRow centerTd" nowrap height=25px; width=25px; >
+      <div id="genie_chice" class="checked" onclick="genie_choose(genie_num, document.forms[0]);genie_num++;"></div>
+      <b class="choice_font"><a style="cursor:pointer;" href="http://www.netgear.com/genie" target="_blank"><%2334%></a> <%2332%></b></td><td>&nbsp;</td>
+      </tr><tr><td>&nbsp;</td><td></td><td>&nbsp;</td></tr><tr>
+      <td>&nbsp;</td><td class="textRow centerTd" nowrap height=25px; width=25px;>
+        <div id="RS_choose" class="checked"  src="checked.jpg" onclick="choose_RS(RS_num, document.forms[0]);RS_num++;"></div>
+          <b class="choice_font"><a style="cursor:pointer;" href="http://www.netgear.com/readyshare" target="_blank"><%2335%></a> <%2336%></b>
+      </td>
+      <td>&nbsp;</td>
+  	</tr>	
     	<tr>
-		<td>&nbsp;</td><td></td><td>&nbsp;</td>
-        </tr>
-        	<tr>
-		<td>&nbsp;</td><td></td><td>&nbsp;</td>
-        </tr>
-        </table>
+   </table>
+ </div>
+   <table border="0" cellpadding="0" cellspacing="3"  width="99%">
+   	<tr>
+      <td>&nbsp;</td><td></td><td>&nbsp;</td>;
+     </tr>
+   	<tr>
+   		<td>&nbsp;</td><td></td><td>&nbsp;</td>
+    </tr>
+    </table>
 <table border="0" cellpadding="0" cellspacing="3"  width="99%">
     <TR><td>&nbsp;</td><td class="textRow centerTd" colspan=2></td><td>&nbsp;</td></TR>
     <TR><td>&nbsp;</td><td class="textRow centerTd" colspan=2></td><td>&nbsp;</td></TR>
@@ -157,11 +170,11 @@ function do_submit(cf)
     <TR>
             <td>&nbsp;</td>
 	        <TD nowrap width="300px"  align=left>
-            <button value="submit" class="purpleBtn2" name="exit" onClick="do_submit(document.forms[0]);" type="button"><span>&nbsp;&nbsp;&nbsp;<%2325%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+            <button value="submit" class="purpleBtn2" name="exit" onClick="do_submit(document.forms[0]);" type="button"><span>&nbsp;&nbsp;&nbsp;<%2337%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
             </TD>
             <TD nowrap width="300px"  align=right>
-            <button value="submit" class="purpleBtn2" name="previous" onClick="do_submit(document.forms[0]);" type="button"><span>< <%2326%> &nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <button value="submit" class ="purpleBtn2" name="next" onclick="click_next( document.forms[0]);" type="submit"><span>&nbsp;&nbsp;&nbsp;<%2298%> >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+            <button value="submit" class="purpleBtn2" name="previous" onClick="do_submit2(document.forms[0]);" type="button"><span>< <%2338%> &nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button value="submit" class ="purpleBtn2" name="next" onclick="click_next( document.forms[0]);" type="submit"><span>&nbsp;&nbsp;&nbsp;<%2308%> >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
             </TD>
             <td >&nbsp;</td>
     </TR>

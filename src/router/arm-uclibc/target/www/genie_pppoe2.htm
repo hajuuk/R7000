@@ -4,7 +4,7 @@
 <%11%>
 <title>NETGEAR   Genie</title>
 <%14%>
-<link rel="stylesheet" href="<%2280%>">
+<link rel="stylesheet" href="<%2290%>">
 
 
 <script language="javascript" type="text/javascript">
@@ -14,7 +14,7 @@ var DisableFixedDNS = false;
 function goBasic()
 {
      var ret;
-     ret = confirm("<%2616%>");
+     ret = confirm("<%2627%>");
      if(ret==1){
          top.location.href="genie_basic.htm";
      }else{
@@ -55,7 +55,7 @@ function checkData()
 	var cf = document.forms[0];
 	var msg = "";
 	
-	msg+= checkBlank(cf.pppoe_username, "<%482%>");
+	msg+= checkBlank(cf.pppoe_username, "<%483%>");
 	if(cf.pppoe_idletime.value.length<=0)
 		msg+= "<%479%>";
 	else if(!_isNumeric(cf.pppoe_idletime.value))
@@ -64,7 +64,7 @@ function checkData()
 	if(cf.WANAssign[1].checked)
 	{
 		if(checkIP(cf.WPethr1,cf.WPethr2,cf.WPethr3,cf.WPethr4,254)||(parseInt(cf.WPethr4.value,10)==0))
-			msg+= "<%484%>";
+			msg+= "<%485%>";
 		else
 		{
 			cf.WPethr1.value = parseInt(cf.WPethr1.value,10);
@@ -124,7 +124,7 @@ function loadSettings()
 	var wan_dns1_pri = cf.wan_dns1_pri.value.split(".");
 	var wan_dns1_sec = cf.wan_dns1_sec.value.split(".");
 
-	cf.pppoe_idletime.value = <%486%> / 60;
+	cf.pppoe_idletime.value = <%487%> / 60;
 
 	if (cf.pppoe_localip.value == "0.0.0.0")
 		cf.WANAssign[0].checked = true;
@@ -192,14 +192,14 @@ function setSession()
 <tr>
 	<td>&nbsp;</td>
 	<td colspan="2" class="centerTd">
-		<h2 style="color:#ff0000;"><%2692%></h2>
+		<h2 style="color:#ff0000;"><%2703%></h2>
         </td>
 	<td>&nbsp;</td>
 
 </tr>
 <tr>	
 	<td>&nbsp;</td>
-	<td colspan="2" class="textRow centerTd"><p><%2693%></p></td>
+	<td colspan="2" class="textRow centerTd"><p><%2704%></p></td>
 	<td>&nbsp;</td>
 </tr>
 <tr style="height:10px">
@@ -207,12 +207,12 @@ function setSession()
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td NOWRAP class="inputRow" tabindex="-1" onFocus="this.blur()" style="height:40px;width:260px;padding-left:20px"><%2634%></td><td style="width:340px;background:url(roundedcornr_input.gif) no-repeat left;"><input type="text" name="pppoe_username" style="width:150px;position:relative; margin-left:20px;height:18px" size="15" maxlength="60" value=""></td>
+	<td NOWRAP class="inputRow" tabindex="-1" onFocus="this.blur()" style="height:40px;width:260px;padding-left:20px"><%2645%></td><td style="width:340px;background:url(roundedcornr_input.gif) no-repeat left;"><input type="text" name="pppoe_username" style="width:150px;position:relative; margin-left:20px;height:18px" size="15" maxlength="60" value=""></td>
 	<td>&nbsp;</td>
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td NOWRAP class="inputRow" tabindex="-1" onFocus="this.blur()" style="height:40px;width:260px;padding-left:20px"><%2635%></td><td style="width:340px;background:url(roundedcornr_input.gif) no-repeat left;"><input type="password" name="pppoe_passwd" style="width:150px;position:relative;height:18px;margin-left:20px;" size="15" maxlength="50" value=""></td>
+	<td NOWRAP class="inputRow" tabindex="-1" onFocus="this.blur()" style="height:40px;width:260px;padding-left:20px"><%2646%></td><td style="width:340px;background:url(roundedcornr_input.gif) no-repeat left;"><input type="password" name="pppoe_passwd" style="width:150px;position:relative;height:18px;margin-left:20px;" size="15" maxlength="50" value=""></td>
 	<td>&nbsp;</td>
 </tr>
 <tr style="height:10px">
@@ -224,21 +224,21 @@ function setSession()
 <tr>
 	<td>&nbsp;</td>
 	<td colspan="2" class="textRow centerTd2">
-		<button class="purpleBtn" name="Next" onClick="goBasic();" type="button"><span><%2694%></span></button>
+		<button class="purpleBtn" name="Next" onClick="goBasic();" type="button"><span><%2705%></span></button>
 		<span style="display:-moz-inline-box;display:inline-block;width:20px;"></span>
-	        <button value="submit" width=150px class="purpleBtn"  name="Next" onClick="return checkData()" type="submit"><span><%2675%></span></button>
+	        <button value="submit" width=150px class="purpleBtn"  name="Next" onClick="return checkData()" type="submit"><span><%2686%></span></button>
 	</td>
 	<td>&nbsp;</td>
 </tr>
 </table>
 <table>
 <tr style="visibility:hidden">
-	<td nowrap><%498%></a> &nbsp;</td>
-	<td align="right"><input type="text" name="pppoe_servicename" maxlength="50" size="15" value="<%499%>"></td>
+	<td nowrap><%499%></a> &nbsp;</td>
+	<td align="right"><input type="text" name="pppoe_servicename" maxlength="50" size="15" value="<%500%>"></td>
 </tr>
 
 <tr style="visibility:hidden">
-	<td nowrap><%504%></a></td>
+	<td nowrap><%505%></a></td>
 	<td align="right"><input type="text" class="num" name="pppoe_idletime" size="3" maxlength="3" value="5"></td>
 </tr>
 <tr style="visibility:hidden"> 
@@ -291,20 +291,20 @@ function setSession()
 	<input type="text" name="PDAddr3" class="num" size="4" maxlength="3">.
 	<input type="text" name="PDAddr4" class="num" size="4" maxlength="3"></td>
 </tr>
-<%491%>
+<%492%>
 <tr style="visibility:hidden">
 	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
 </tr>
 <tr>
- <td width="50%" style="visibility:hidden"><b><%1407%></b></td>
+ <td width="50%" style="visibility:hidden"><b><%1412%></b></td>
  <td width="50%" style="visibility:hidden" align="right"><select name="session_type" onChange="setSession()">
-        <option selected value=0><%516%></option>
-        <OPTION value=1><%1408%></OPTION>
-        <option value=2><%1409%></option>
-        <OPTION value=3><%489%></OPTION>
+        <option selected value=0><%517%></option>
+        <OPTION value=1><%1413%></OPTION>
+        <option value=2><%1414%></option>
+        <OPTION value=3><%490%></OPTION>
       </select></td>
 </tr>
-<%493%>
+<%494%>
 <tr style="visibility:hidden"> <!-- RULE -->
  <td colspan="2" height="12"> &nbsp;</td>
 </tr>
@@ -315,9 +315,9 @@ function setSession()
 
 </table>
 <INPUT name=pppoe_localip type=hidden value= "<%481%>">
-<%491%>
+<%492%>
 <INPUT name=pppoe_temp type=hidden value= "4">
-<%493%>
+<%494%>
   <INPUT name=wan_dns_sel type=hidden value= "<%463%>">
   <INPUT name=wan_dns1_pri type=hidden value= "<%464%>">
   <INPUT name=wan_dns1_sec type=hidden value= "<%465%>">
