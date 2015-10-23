@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -20,21 +20,23 @@
 #ifndef _version_h_
 #define _version_h_
 
-#define	ROUTER_MAJOR_VERSION		6
+#define	ROUTER_MAJOR_VERSION		7
 
-#define	ROUTER_MINOR_VERSION		30
+#define	ROUTER_MINOR_VERSION		14
 
-#define	ROUTER_RC_NUMBER		163
+#define	ROUTER_RC_NUMBER		89
 
-#define	ROUTER_INCREMENTAL_NUMBER	30
+#define	ROUTER_INCREMENTAL_NUMBER	2602
 
 #define	ROUTER_BUILD_NUMBER		0
 
-#define	ROUTER_VERSION			6, 30, 163, 30
+#define	ROUTER_VERSION			7, 14, 89, 2602
 
-#define	ROUTER_VERSION_NUM		0x061ea31e
+#define	ROUTER_VERSION_NUM		0x070e59a2a
 
 /* Version String, ASCII, 32 chars max */
-#define	ROUTER_VERSION_STR		"6.30.163.30"
+#define	ROUTER_VERSION_STR		"7.14.89.2602"
+
+#define ROUTER_PACKAGE_VERSION 		7.14.89.2602
 
 #endif /* _version_h_ */

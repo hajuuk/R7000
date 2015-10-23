@@ -1,7 +1,7 @@
 #
 # Linux router shared code Makefile
 #
-# Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+# Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
 # 
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -15,12 +15,12 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-# $Id: Makefile 341899 2012-06-29 04:06:38Z $
+# $Id: Makefile 502280 2014-09-12 09:45:12Z $
 #
 
 include $(SRCBASE)/router/.config
 
-CFLAGS	+= -I. -I../httpd -I$(SRCBASE)/include -Wall -fPIC
+CFLAGS	+= -I. -I../httpd -I$(SRCBASE)/include -Wall -fPIC -I$(SRCBASE)/shared/bcmwifi/include
 CFLAGS	+= $(WLAN_ComponentIncPath)
 ifneq (2_4,$(LINUX_VERSION))
 CFLAGS += -I$(LINUXDIR)/include
@@ -36,15 +36,15 @@ endif
 LDFLAGS += -L.
 
 
-OBJS := nvparse.o shutils.o wl.o wl_linux.o linux_timer.o defaults.o wlif_utils.o
-
-ifneq ($(CONFIG_WAPI)$(CONFIG_CIFS),)
-OBJS += confmtd_utils.o
-endif
+OBJS := nvparse.o shutils.o wl.o wl_linux.o linux_timer.o defaults.o wlif_utils.o  et_linux.o confmtd_utils.o common_utils.o passpoint_nvparse.o ../../shared/bcmwifi/src/bcmwifi_channels.o
 
 ifeq ($(CONFIG_PLC),y)
 OBJS += dict.o
 endif
+
+# Actually all builds use the new 11ac ratespec/chanspec
+CFLAGS  += -DD11AC_IOTYPES
+vpath %.c $(WLAN_StdSrcDirsA) $(WLAN_ComponentSrcDirs)
 
 all: libshared.so
 

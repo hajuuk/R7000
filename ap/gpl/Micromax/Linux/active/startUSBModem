@@ -1,0 +1,46 @@
+#!/bin/bash
+#  pls add rules to udev, this can execute our background program automatically.
+#  wangxiaoming 201012
+#  SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9905*", KERNEL=="ttyACM*", ATTRS{bInterfaceNumber}=="00", ATTRS{bInterfaceProtocol}=="01", NAME="ttyUSB_lct_modem", RUN+="/bin/sh /sbin/startUSBModem"
+
+export DISPLAY=":0"
+export XAUTHLOCALNAME=`hostname`
+LOGFILE="/tmp/lcActiveUSBModem.log"
+
+echo " start to active USBModem!!! ====" > $LOGFILE
+
+if [ "$(ps aux | grep -v grep | grep USBModem.jar  | awk '{print $2}')" != "" ]
+then
+	echo " USBModem has been started up!!! ====" > $LOGFILE
+	exit 0
+fi
+
+echo " start to check $1!!! ====" >> $LOGFILE
+if [ "$1" != "" ]
+then 
+	exec $1
+	exit 0
+fi
+
+echo " start to check /etc/default/locale!!! ====" >> $LOGFILE
+if [ -r /etc/default/locale ]; then
+  . /etc/default/locale
+  export LANG LANGUAGE
+elif [ -r /etc/environment ]; then
+  . /etc/environment
+  export LANG LANGUAGE
+fi
+
+echo " start to check /etc/lcUSBCard!!! ====" >> $LOGFILE
+if [ -f /etc/lcUSBCard ]
+then
+    . /etc/lcUSBCard
+    echo ""$path/$name""
+    if [ -x "$path/$name" ]
+    then
+       echo " start to execute $path/$name!!! ====" >> $LOGFILE
+       exec "$path/$name"
+       exit 0
+    fi
+fi
+echo " check /etc/lcUSBCard failure!!! ====" >> $LOGFILE

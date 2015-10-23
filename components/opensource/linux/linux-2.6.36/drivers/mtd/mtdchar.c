@@ -1092,6 +1092,7 @@ static void __exit cleanup_mtdchar(void)
 	__unregister_chrdev(MTD_CHAR_MAJOR, 0, 1 << MINORBITS, "mtd");
 }
 
+/* Foxconn modified start, John Ou, 12/10/2014, for new debug page */
 #ifdef KERNEL_CRASH_DUMP_TO_MTD
 
 extern char *get_logbuf(void);
@@ -1111,13 +1112,73 @@ int flash_write_buffer()
 		return -ENODEV;
 	}
 	
+    int mtd5_crash_dump_num, mtd5_start, bitmap;
+    char buffer2[13],buffer3[75];
+
+    nvram_mtd->read(nvram_mtd, 0, 12, &len, buffer2);
+    buffer2[12] = '\0';
+    sscanf(buffer2,"%d %10d",&mtd5_crash_dump_num,&mtd5_start);
+    bitmap = mtd5_start % 1000;
+	if(bitmap < 0)	bitmap =0;
+    mtd5_start /= 1000;	
+    if(mtd5_crash_dump_num < 1 || mtd5_crash_dump_num > 9)
+    {
+        mtd5_crash_dump_num = 0;
+        mtd5_start = 12;
+    }
+	
+    buf_len = get_logsize();
+    sprintf(buffer2,"%d %10d",++mtd5_crash_dump_num,(mtd5_start+74+buf_len)*1000+bitmap);
+    nvram_mtd->write(nvram_mtd, 0, 12, &len, buffer2);
+    sprintf(buffer3,"\n==========================Kernel crash log==============================\n");
+    nvram_mtd->write(nvram_mtd, mtd5_start, 74, &len, buffer3);	
+    buffer = get_logbuf();
+    nvram_mtd->write(nvram_mtd, mtd5_start+74, buf_len, &len, buffer);
+	
+    /*
 	buf_len = get_logsize();
     buffer = get_logbuf();
 	nvram_mtd->write(nvram_mtd, 0, buf_len, &len, buffer);
+    */
 done:
 	return 0;
 }
+
+int flash_write_reboot_reason(int choice)
+{
+    struct mtd_info *nvram_mtd;
+    int len;
+    int mtd5_crash_dump_num, mtd5_start, bitmap;
+    char buffer[13];
+
+    nvram_mtd = get_mtd_device(NULL, 5);
+    nvram_mtd->read(nvram_mtd, 0, 12, &len, buffer);
+    buffer[12] = '\0';
+    sscanf(buffer,"%d %10d",&mtd5_crash_dump_num,&mtd5_start);
+    bitmap = mtd5_start % 1000;
+	if(bitmap < 0)	bitmap = 0;
+    mtd5_start /= 1000;
+	if(mtd5_start < 0)	mtd5_start = 0;
+	
+    if(bitmap == 0 || bitmap > 63)
+        bitmap = 1;
+			
+    if(!choice)    //0 for kernel crash, 1 for user manual reboot
+	    bitmap = (bitmap << 1) + 0;
+    else	
+        bitmap = (bitmap << 1) + 1;
+		
+	if(bitmap & 64)
+	{
+		bitmap = bitmap & 31;
+		bitmap |= 32;
+	}
+		
+    sprintf(buffer,"%d %10d",mtd5_crash_dump_num,mtd5_start*1000+bitmap);
+    nvram_mtd->write(nvram_mtd, 0, 12, &len, buffer);
+}
 #endif //KERNEL_CRASH_DUMP_TO_MTD
+/* Foxconn modified end, John Ou, 12/10/2014, for new debug page */
 
 module_init(init_mtdchar);
 module_exit(cleanup_mtdchar);

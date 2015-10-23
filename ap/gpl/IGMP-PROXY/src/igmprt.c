@@ -28,6 +28,12 @@ extern int wan_version_timer;
 int wan_igmp_socket;
 /* Foxconn add end by aspen Bai, 12/07/2007 */
 //unsigned long upstream;
+#ifdef BT_IGMP_SUPPORT
+int duplicate_igmp_on_vlan2=0;
+int wan_igmp_socket2;
+int vlan2_vif;
+#endif
+
 
 #ifdef STATIC_PPPOE
 int sec_wan_status = 0;
@@ -457,6 +463,11 @@ igmp_interface_create(
 		   ifp->igmpi_type = UPSTREAM;
 		   upstream = ifp->igmpi_addr.s_addr;
 		   wan_index = index;
+       if((strcmp(ifp->igmpi_name,"vlan2")==0) && acosNvramConfig_match("wan_proto","pppoe") && duplicate_igmp_on_vlan2 )
+       {       	
+    		   wan_igmp_socket2 = ifp->igmpi_socket;
+    	 }
+       else
 		   wan_igmp_socket = ifp->igmpi_socket;
 		}
 		else
@@ -522,6 +533,13 @@ igmp_interface_create(
 	/* Tell the kernel this interface belongs to a multicast router */
 	mrouter_onoff(ifp->igmpi_socket,1);
 	//k_proxy_add_vif(ifp->igmpi_socket, ifp->igmpi_addr.s_addr, index);
+printf("name =%s index=%d\n",ifname,index);
+
+#ifdef BT_IGMP_SUPPORT
+  if(strcmp(ifname,"vlan2")==0)
+      vlan2_vif=index;
+#endif
+
 	ifp->igmpi_index = index;	
 	/* Set the interface flags to receive all multicast packets */
 	ifp->igmpi_save_flags = get_interface_flags(ifname);
@@ -677,7 +695,7 @@ igmp_interface_membership_report_v12(
 			    == (lan_ipaddr & lan_netmask)) 
 				&& (src.s_addr != lan_ipaddr))
     {
-        k_proxy_chg_mfc(router->igmprt_socket,mulsrc.igmps_addr.s_addr,gp->igmpg_addr.s_addr,wan_index,1);
+        k_proxy_chg_mfc(router,router->igmprt_socket,mulsrc.igmps_addr.s_addr,gp->igmpg_addr.s_addr,wan_index,1);
     }
 	igmp_info_print(router, (char *)__FUNCTION__);
     /* Foxconn add end by aspen Bai, 12/07/2007 */
@@ -932,6 +950,7 @@ igmprt_interface_add(
 {
 	igmp_interface_t *ifp;
 
+printf("add interface %s\n",ifname);
 	/* Return the interface if it's already in the set */
 	if ((ifp = igmprt_interface_lookup(igmprt, ifaddr)))
 		return ifp;
@@ -1490,31 +1509,52 @@ main(int argc, char *argv[])
 	igmprt_init(&router);
 	k_init_proxy(((igmp_router_t *) &router)->igmprt_socket);
 
+#ifdef BT_IGMP_SUPPORT
+  if(argc==2 && (strcmp(argv[1],"bt_igmp")==0))
+  {
+      router.igmprt_bt_igmp=1;
+      duplicate_igmp_on_vlan2=1;
+  }
+  else
+      router.igmprt_bt_igmp=0;
+#endif
 	int numvifs = 0;
 	/* Add all the multicast enabled ipv4 interfaces */
 
 	ifl = get_interface_list(AF_INET, IFF_MULTICAST, IFF_LOOPBACK);
 	for (vifi=0,ifp=ifl;ifp;ifp=ifp->ifl_next,vifi++) {
 		psin = (struct sockaddr_in*) &ifp->ifl_addr;
+printf("ifp->ifl_name=%s\n",ifp->ifl_name);		
 #ifdef STATIC_PPPOE
 		/* foxconn modified, zacker, 07/08/2011 */
 		if (sec_wan_status && (strcmp(ifp->ifl_name, "ppp0") == 0)
-		       && (acosNvramConfig_match ("gui_region", "Russian")
-		       || acosNvramConfig_match("sku_name", "RU"))
-	           )
-	           /* foxconn modified, zacker, 07/08/2011 */
-	        {
-	             printf("igmp: Skip interface %s(ppp0)\n", inet_ntoa(psin->sin_addr));
-	             continue;
-	        }
-                else
+			&& (acosNvramConfig_match ("gui_region", "Russian")
+			|| acosNvramConfig_match("sku_name", "RU"))
+			)
+			/* foxconn modified, zacker, 07/08/2011 */
+		{
+			printf("igmp: Skip interface %s(ppp0)\n", inet_ntoa(psin->sin_addr));
+			continue;
+		}
+		else
 #endif
+		/* Foxconn added start pling 07/01/2015 */
+		/* Bypass openvpn interface */
+#if (defined OPENVPN_SUPPORT)
+		if (strncmp(ifp->ifl_name, "tun", 3) == 0)
+		{
+			printf("igmp: Skip OpenVPN interface %s(%s)\n", ifp->ifl_name, inet_ntoa(psin->sin_addr));
+		}
+		else
+#endif	/* OPENVPN_SUPPORT */
+		/* Foxconn added end pling 07/01/2015 */
 		{
 			igmprt_interface_add(&router, psin->sin_addr, ifp->ifl_name,vifi);
 			k_proxy_add_vif(((igmp_router_t *) &router)->igmprt_socket,psin->sin_addr.s_addr,vifi);
 			numvifs++;
 		}
 	}
+
 	
 	free_interface_list(ifl);
 	/* Print the status of the router */

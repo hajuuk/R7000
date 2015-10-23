@@ -6,6 +6,21 @@
  * Documents:
  * Northstar_top_power_uarch_v1_0.pdf
  *
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
+ * 
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+ * SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+ * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+ * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ *
+ * $Id: $
  */
 #include <linux/kernel.h>
 #include <linux/init.h>
@@ -31,7 +46,7 @@ static struct resource dmu_regs = {
 	.name = "dmu_regs",
 	.start = SOC_DMU_BASE_PA,
 	.end = SOC_DMU_BASE_PA + SZ_4K -1,
-        .flags = IORESOURCE_MEM,
+	.flags = IORESOURCE_MEM,
 };
 
 /*
@@ -368,29 +383,56 @@ static struct clk_lookup soc_clk_lookups[] = {
 };
 void dmu_gpiomux_init(void)
 {
-#ifdef CONFIG_PLAT_MUX_CONSOLE
+#if defined(CONFIG_PLAT_MUX_CONSOLE) || defined(CONFIG_PLAT_MUX_CONSOLE_CCB) || \
+	defined(CONFIG_SOUND) || defined(CONFIG_SPI_BCM5301X) || defined(CONFIG_I2C_BCM5301X)
 	void * __iomem reg_addr;
 	u32 reg;
 
 	/* CRU_RESET register */
 	reg_addr = (void *)(SOC_DMU_BASE_VA + 0x1c0);
+#endif /* CONFIG_PLAT_MUX_CONSOLE || CONFIG_PLAT_MUX_CONSOLE_CCB || CONFIG_SOUND || CONFIG_SPI_BCM5301X || CONFIG_I2C_BCM5301X */
 
+#ifdef CONFIG_PLAT_MUX_CONSOLE
 	/* set iproc_reset_n to 0 to use UART1, but it never comes back */
 	reg = readl(reg_addr);
 	reg &= ~((u32)0xf << 12);
 	writel(reg, reg_addr);
 #endif /* CONFIG_PLAT_MUX_CONSOLE */
+#ifdef CONFIG_PLAT_MUX_CONSOLE_CCB
+	/* UART port 2 (ChipCommonB UART0) is multiplexed with GPIO[16:17] */
+	reg = readl(reg_addr);
+	reg &= ~((u32)0x3 << 16);
+	writel(reg, reg_addr);
+#endif /* CONFIG_PLAT_MUX_CONSOLE_CCB */	
+#ifdef CONFIG_SOUND
+	/* I2S XTAL out */
+	reg = readl(reg_addr);
+	reg &= ~((u32)0x1 << 18);
+	writel(reg, reg_addr);
+#endif /* CONFIG_SOUND */
+#ifdef CONFIG_SPI_BCM5301X
+	/* SPI out */
+	reg = readl(reg_addr);
+	reg &= ~((u32)0xF << 0);
+	writel(reg, reg_addr);
+#endif /* CONFIG_SPI_BCM5301X */
+#ifdef CONFIG_I2C_BCM5301X
+	/* I2C out */
+	reg = readl(reg_addr);
+	reg &= ~((u32)0x3 << 4);
+	writel(reg, reg_addr);
+#endif /* CONFIG_I2C_BCM5301X */
 }
 
 /* 
  * Install above clocks into clock lookup table 
  * and initialize the register base address for each
 */
-static void __init soc_clocks_init( 
-		void * __iomem cru_regs_base, 
-		struct clk * clk_ref
-		)
+static void __init soc_clocks_init(void * __iomem cru_regs_base,
+	struct clk * clk_ref)
 {
+	void * __iomem reg;
+	u32 val;
 
 	/* registers are already mapped with the rest of DMU block */
 	/* Update register base address */
@@ -412,8 +454,48 @@ static void __init soc_clocks_init(
 #endif
 
 	/* Install clock sources into the lookup table */
-	clkdev_add_table(soc_clk_lookups, 
-			ARRAY_SIZE(soc_clk_lookups));
+	clkdev_add_table(soc_clk_lookups, ARRAY_SIZE(soc_clk_lookups));
+
+	/* Correct GMAC 2.66G line rate issue, it should be 2Gbps */
+	/* This incorrect setting only exist in OTP present 4708 chip */
+	/* is a OTPed 4708 chip which Ndiv == 0x50 */
+	reg = clk_genpll.regs_base + 0x14;
+	val = readl(reg);
+	if (((val >> 20) & 0x3ff) == 0x50) {
+		/* CRU_CLKSET_KEY, unlock */
+		reg = clk_genpll.regs_base + 0x40;
+		val = 0x0000ea68;
+		writel(val, reg);
+
+		/* Change CH0_MDIV to 8 */
+		/* After changing the CH0_MDIV to 8, the customer has been reporting that
+		 * there are differences between input throughput vs. output throughput.
+		 * The output throughput is slightly lower (927.537 mbps input rate vs. 927.49
+		 * mbps output rate).  Below is the solution to fix it.
+		 * 1. Change the oscillator on WLAN reference board from 25.000 to 25.001
+		 * 2. Change the CH0_MDIV to 7
+		 */
+		reg = clk_genpll.regs_base + 0x18;
+		val = readl(reg);
+		val &= ~((u32)0xff << 16);
+		val |= ((u32)0x7 << 16);
+		writel(val, reg);
+
+		/* Load Enable CH0 */
+		reg = clk_genpll.regs_base + 0x4;
+		val = readl(reg);
+		val &= ~(u32)0x1;
+		writel(val, reg);
+		val |= (u32)0x1;
+		writel(val, reg);
+		val &= ~(u32)0x1;
+		writel(val, reg);
+
+		/* CRU_CLKSET_KEY, lock */
+		reg = clk_genpll.regs_base + 0x40;
+		val = 0x0;
+		writel(val, reg);
+	}
 }
 
 void __init soc_dmu_init( struct clk *	clk_ref )

@@ -1,0 +1,166 @@
+<html><head>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<script language="javascript" type="text/javascript" src="funcs.js"></script>
+<script language="javascript" type="text/javascript" src="RU_mac_spoof.js"></script>
+<script language="javascript" type="text/javascript">
+
+var isp_type=parent.isp_type;
+var wan_factory_mac="<%2392%>";
+var wan_remote_mac="<%553%>";
+
+function loadvalue()
+{
+	var cf=document.forms[0];
+
+	cf.MACAssign[0].checked = true;
+	setMAC(cf, wan_factory_mac);
+}
+
+</script>
+</head>
+
+<body onload="loadvalue();" bgcolor="#ffffff">
+<form method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_isp_spoof">
+<input type=hidden name=submit_flag value="setup">
+<input type=hidden name=submit_wan value="0">
+
+<input name="welcome_wan_type" type="hidden">
+<input name="conflict_wanlan" type="hidden">
+<input name="basic_type" type="hidden">
+<input name="ppp_login_type" type="hidden">
+<input name="run_test" type="hidden">
+<input name="DNSAssign" type="hidden">
+<input name="change_wan_type" value="0" type="hidden">
+<input name="WANAssign" type="hidden">
+<input name="STATIC_DNS" type="hidden">
+
+<!-- DHCP & Static -->
+<input name="ether_ipaddr" type="hidden">
+<input name="ether_subnet" type="hidden">
+<input name="ether_gateway" type="hidden">
+<input name="ether_dnsaddr1" type="hidden">
+<input name="ether_dnsaddr2" type="hidden">
+<input name="system_name" value="<%525%>" type="hidden">
+<input name="domain_name" value="" type="hidden">
+
+<!-- PPPoE -->
+<input name="pppoe_username" type="hidden">
+<input name="pppoe_passwd" type="hidden">
+<input name="pppoe_servername" type="hidden">
+<input name="pppoe_ipaddr" type="hidden">
+<input name="dual_access" type="hidden">
+<input name="pppoe_dod" type="hidden">
+<input name="pppoe_dual_ipaddr" type="hidden">
+<input name="pppoe_dual_subnet" type="hidden">
+<input name="pppoe_dual_gateway" type="hidden">
+<input name="pppoe_dual_assign" type="hidden">
+<input name="hidden_pppoe_idle_time" type="hidden">
+<input name="pppoe_dnsaddr1" type="hidden">
+<input name="pppoe_dnsaddr2" type="hidden">
+
+<!-- PPTP -->
+<input name="pptp_username" type="hidden">
+<input name="pptp_passwd" type="hidden">
+<input name="pptp_myip" type="hidden">
+<input name="pptp_serv_ip" type="hidden">
+<input name="pptp_gateway" type="hidden">
+<input name="pptp_conn_id" type="hidden">
+<input name="pptp_dnsaddr1" type="hidden">
+<input name="pptp_dnsaddr2" type="hidden">
+<input name="pptp_dod" type="hidden">
+<input name="pptp_mynetmask" type="hidden">
+<input name="hidden_pptp_idle_time" type="hidden">
+
+<!-- L2TP -->
+<input name="l2tp_username" type="hidden">
+<input name="l2tp_passwd" type="hidden">
+<input name="l2tp_myip" type="hidden">
+<input name="l2tp_serv_ip" type="hidden">
+<input name="l2tp_gateway" type="hidden">
+<input name="l2tp_conn_id" type="hidden">
+<input name="l2tp_dnsaddr1" type="hidden">
+<input name="l2tp_dnsaddr2" type="hidden">
+<input name="l2tp_dod" type="hidden">
+<input name="l2tp_mynetmask" type="hidden">
+<input name="hidden_l2tp_idle_time" type="hidden">
+
+
+
+<div>
+<div>
+<table border="0" cellpadding="0" cellspacing="0" align="center" style="width:76%">
+<tbody>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<tr>
+<td colspan="2" class="left_text"><h2><%2379%></h2></td>
+</tr>
+
+<tr>
+<td colspan="2" class="left_text"><%2393%></td>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+<!--tr>
+	<TD colspan=2 class="RU_radio">
+	<input type="radio" name="macspoof" value="0" ><%542%>
+	</TD>
+</tr>
+<tr>
+	<TD colspan=2 class="RU_radio">
+	<input type="radio" name="macspoof" value="1" checked ><%543%>
+	</TD>
+</tr>
+<tr>
+	<TD colspan=2 class="RU_radio">
+	<input type="radio" name="macspoof" value="2" ><%544%>
+	</TD>
+	<td><input type=text name=thismac></td>
+</tr-->
+
+
+<tr id="mac_default">
+	<td class="centerTd" nowrap="nowrap">
+		<input checked="checked" name="MACAssign" value="0" onclick="setMAC(document.forms[0], wan_factory_mac)" type="radio"><%542%>
+	</td>
+</tr>
+<tr id="mac_comp">
+	<td class="centerTd" nowrap="nowrap">
+		<input name="MACAssign" value="1" onclick="setMAC(document.forms[0], wan_remote_mac)" type="radio"><%543%>
+	</td>
+</tr>
+<tr id="mac_this">
+	<td class="centerTd" nowrap="nowrap">
+		<input name="MACAssign" value="2" onclick="setMAC(document.forms[0], '00:00:00:00:00:00')" type="radio"><%544%>
+	</td>
+	<td align="right" nowrap="nowrap">
+		<input disabled="disabled" value="<%552%>" name="Spoofmac" maxlength="17" size="20" onkeypress="return getkey('mac',event)" type="text">
+	</td>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<tr>
+	<td colspan="2" align="center" class="text-align:center;">
+		<button class="purpleBtn" type="button" style="width:100px" name="back" value="submit" onclick="RU_spoof_back()"><span><%1570%></span></button>
+		<button class="purpleBtn" type="button" style="width:100px" name="next" value="submit" onclick="RU_check_spoof();"><span><%1572%></span></button>
+	</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</form>
+</body>
+</html>

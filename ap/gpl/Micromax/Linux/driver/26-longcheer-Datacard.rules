@@ -1,0 +1,42 @@
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9e00", ATTRS{serial}=="000000000002", ACTION=="add", PROGRAM=="longcheer-cm55-testcd", RUN+="/lib/udev/longcheer-cm55-ejectcd %N 1"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9e00", ACTION=="add", RUN+="/sbin/modprobe lctserial"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9e00", ACTION=="remove", RUN+="/sbin/rmmod lctserial"
+
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="f000", ENV{DEVTYPE}=="usb_device", ACTION=="add", PROGRAM=="longcheer-cm55-testcd", OPTIONS+="last_rule", RUN+="/lib/udev/lcdoshift -p f000"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="f001", ENV{DEVTYPE}=="usb_device", ACTION=="add", PROGRAM=="longcheer-cm55-testcd", OPTIONS+="last_rule", RUN+="/lib/udev/lcdoshift -p f001"
+
+#SUBSYSTEM=="usb", ENV{ID_FS_LABEL}!="Web+", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="98ff", ENV{DEVTYPE}=="usb_device",ACTION=="add",  PROGRAM=="longcheer-cm55-testcd", OPTIONS+="last_rule", RUN+="/lib/udev/lcdoshift -p 98ff"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9605", ACTION=="add", RUN+="/lib/udev/load_driver.sh ins 9605"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9605", ACTION=="remove", RUN+="/lib/udev/load_driver.sh rmm"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9803", ACTION=="add", RUN+="/lib/udev/load_driver.sh ins 9803"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9803", ACTION=="remove", RUN+="/lib/udev/load_driver.sh rmm"
+
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9801", ACTION=="add", RUN+="/lib/udev/load_driver.sh ins 9801"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9801", ACTION=="remove", RUN+="/lib/udev/load_driver.sh rmm"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9800", ACTION=="add", RUN+="/lib/udev/load_driver.sh ins 9800"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9800", ACTION=="remove", RUN+="/lib/udev/load_driver.sh rmm"
+
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9b01", ACTION=="add", RUN+="/lib/udev/load_driver.sh ins 9b01"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9b01", ACTION=="remove", RUN+="/lib/udev/load_driver.sh rmm"
+
+ACTION!="add|change", GOTO="modeswitch_rules_end"
+
+SUBSYSTEM!="block", GOTO="modeswitch_rules_end"
+
+IMPORT{program}="/sbin/blkid -o udev -p %N"
+ATTRS{bInterfaceNumber}!="0[059]", GOTO="modeswitch_rules_end"
+
+ENV{ID_FS_LABEL}=="Web+", GOTO="modeswitch_rules_end"
+ATTRS{bDeviceClass}=="08", GOTO="modeswitch_rules_begin"
+ATTRS{bInterfaceClass}=="0[38]", GOTO="modeswitch_rules_begin"
+GOTO="modeswitch_rules_end"
+
+
+LABEL="modeswitch_rules_begin"
+
+# LongCheer device
+ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9bfe", RUN+="/lib/udev/lcdoshift -p 9bfe"
+ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="98ff", RUN+="/lib/udev/lcdoshift -p 98ff"
+ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="f001", RUN+="/lib/udev/lcdoshift -p f001"
+
+LABEL="modeswitch_rules_end"

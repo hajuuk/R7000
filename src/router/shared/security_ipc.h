@@ -1,7 +1,7 @@
 /*
  * Broadcom security module ipc ports file
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: security_ipc.h 300516 2011-12-04 17:39:44Z $
+ * $Id: security_ipc.h 484299 2014-06-12 23:27:53Z $
  */
 
 #ifndef __SECURITY_IPC_H__
@@ -76,6 +76,10 @@
 #define EAPD_WKSP_BSD_UDP_PORT		45000
 #define EAPD_WKSP_BSD_UDP_RPORT 	EAPD_WKSP_BSD_UDP_PORT
 #define EAPD_WKSP_BSD_UDP_SPORT 	EAPD_WKSP_BSD_UDP_PORT + EAPD_WKSP_SPORT_OFFSET
+
+#define EAPD_WKSP_SSD_UDP_PORT		46000
+#define EAPD_WKSP_SSD_UDP_RPORT 	EAPD_WKSP_SSD_UDP_PORT
+#define EAPD_WKSP_SSD_UDP_SPORT 	EAPD_WKSP_SSD_UDP_PORT + EAPD_WKSP_SPORT_OFFSET
 
 /*
  * UPNP module

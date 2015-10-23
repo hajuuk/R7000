@@ -1,0 +1,81 @@
+#!/usr/bin/perl -w
+# Eject using mode change
+# $Rev: 114 $ $Date: 2009-10-19 14:01:11 +0100 (Mon, 19 Oct 2009) $
+
+use Fcntl;
+use Config;
+use Sys::Syslog;
+
+$dev = shift @ARGV;
+$method = shift @ARGV;
+
+#
+# Use the old eject method if specified
+#
+
+if (! $method)
+{
+    # Use classic eject method
+    -x "/usr/sbin/eject" and exec "/usr/sbin/eject $dev";
+    -x "/usr/bin/eject" and exec "/usr/bin/eject $dev";
+    -x "/bin/eject" and exec "/bin/eject $dev";
+    system "eject $dev";
+    exit 0;
+}
+
+openlog( $0, "nofatal", "local0" );
+
+#
+# Some time sensitive condition exists on some versions of some distributions.
+# Have a few attempts at finding the device before sending the IOCTL command.
+# Sleep for a second after each failed attempt and give up after 5.
+#
+
+$found_dev = 0;
+for ($i=0 ; $i<5 ; $i++ )
+{
+    if (sysopen(USB, $dev, O_RDWR))
+    {
+        $found_dev = 1;
+        next;
+    }
+    else
+    {
+        sleep 1;
+    } 
+}
+
+if (! $found_dev)
+{
+    syslog( "error", "Unable to find given device: $dev\n" );
+    syslog( "error", "$!" );
+}
+else
+{
+    syslog( "info", "Found device $dev\n" );
+    
+    #struct usbdevfs_ctrltransfer {
+    #	__u8 bRequestType;
+    #	__u8 bRequest;
+    #	__u16 wValue;
+    #	__u16 wIndex;
+    #	__u16 wLength;
+    #	__u32 timeout;  /* in milliseconds */
+    #	void *data;
+    #};
+
+    #    ctrl_transfer.bRequestType = USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE;
+    #    ctrl_transfer.bRequest = 1;
+    #    ctrl_transfer.wValue = 0;
+    #    ctrl_transfer.wIndex = 2;
+
+    $buffer = pack("CCSSSLxxxxxxxx", (0x02 << 5), 0x0a, 0, 0, 0, 0);
+
+    #define USBDEVFS_CONTROL           _IOWR('U', 0, struct usbdevfs_ctrltransfer)
+    $ioctl = ($Config{longsize} == 8) ? 0xc0185500 : 0xc0105500;
+
+    ioctl(USB, $ioctl, $buffer) or syslog( "warning", "USB ioctl error $!\n" );
+    close USB
+}
+
+closelog();

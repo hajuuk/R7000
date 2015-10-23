@@ -94,6 +94,7 @@ do_register()
         readycloud_nvram commit
         kill -SIGHUP `cat /tmp/xagent_watchdog.pid`
 
+		internet set connection readycloud 1
 		return $OK
 	    fi
 	}
@@ -124,6 +125,7 @@ do_unregister()
             readycloud_nvram set leafp2p_run="0"
             readycloud_nvram set x_force_connection
             readycloud_nvram commit
+            internet set connection readycloud 0
             return $OK
 	fi
 	}

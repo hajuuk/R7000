@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# description: set default gateway after ndis connect to internet
+
+# parameters of dial. Change as needed.
+DEVICE=$1
+
+if [ "x${DEVICE}" = "x" ]
+then
+    exit 1
+fi
+
+
+ROUTEADDR=`/sbin/route -n | grep ${DEVICE} | awk '{print $1}' | awk -F "." '{print $1"."$2"."$3".1"}'`
+
+#if not construct route address return error
+if [ "x${ROUTEADDR}" = "x" ]
+then
+    exit 2
+fi
+
+/sbin/route del default
+
+/sbin/route add default gw ${ROUTEADDR}
+exit 0
+
+ 

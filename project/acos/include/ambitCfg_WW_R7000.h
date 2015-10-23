@@ -45,22 +45,34 @@
 #define WLAN_REGION          WW_VERSION
 #define FW_REGION            WW_VERSION   /* true f/w region */
 
+#define HSDPA_DRIVER_VERSION "v1.7"
+#define HSDPA_SOFTWARE_VERSION "v1.7"
+
 /*formal version control*/
 #define AMBIT_HARDWARE_VERSION     "U12H270T00"
-#define AMBIT_SOFTWARE_VERSION     "V1.0.4.30"
-#define AMBIT_UI_VERSION           "1.1.67"
-#define STRING_TBL_VERSION         "1.0.4.30_2.1.38.1"
+#define AMBIT_SOFTWARE_VERSION     "V1.0.5.44"
+#define AMBIT_UI_VERSION           "1.1.77"
+#define STRING_TBL_VERSION         "1.0.5.44_2.1.38.1"
 
 #define AMBIT_PRODUCT_NAME          "R7000"
 #define AMBIT_PRODUCT_DESCRIPTION   "802.11ac Dual Band Gigabit Wireless Router R7000"
 #define UPnP_MODEL_URL              "R7000.aspx"
 #define UPnP_MODEL_DESCRIPTION      "802.11ac"
+#define AMBIT_SKU_VERSION           ""
+
+#define DF_2G_ROOTAP_SSID          "NETGEAR_DF_2G_465"
+#define DF_5G_ROOTAP_SSID          "NETGEAR_DF_5G_465"
 
 #define AMBIT_NVRAM_VERSION  "1" /* digital only */
 
 #ifdef AMBIT_UPNP_SA_ENABLE /* Jasmine Add, 10/24/2006 */
 #define SMART_WIZARD_SPEC_VERSION "0.7"  /* This is specification version of smartwizard 2.0 */
 #endif
+
+/* [Foxc] BrianYang, 2014/11/24, Implement kwilt support */
+#define KWILT_VERSION "20141204"
+#define KWILT_TARBALL_SIZE  6580335
+
 /****************************************************************************
  * Board-specific defintions
  *

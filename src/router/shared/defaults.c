@@ -1,7 +1,7 @@
 /*
  * Router default NVRAM values
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: defaults.c 387711 2013-02-26 22:28:04Z $
+ * $Id: defaults.c 517676 2014-11-26 09:02:04Z $
  */
 
 #include <epivers.h>
@@ -215,8 +215,87 @@ struct nvram_tuple router_defaults[] = {
 	{ "wl_phytypes", "", 0 },		/* List of supported wireless bands (e.g. "ga") */
 	{ "wl_radioids", "", 0 },		/* List of radio IDs */
 	{ "wl_ssid", "Broadcom", 0 },		/* Service set ID (network name) */
-	{ "wl_bss_enabled", "1", 0 },		/* Service set ID (network name) */
-						/* See "default_get" below. */
+	{ "wl_bss_enabled", "1", 0 },		/* Service set Enable (1) or disable (0) radio */
+
+#ifdef __CONFIG_HSPOT__
+	{ "wl_hsflag",		"1aa0", 0 },	/* Passpoint Flags */
+	{ "wl_hs2cap",		"1", 0 },	/* Passpoint Realese 2 (1), Realese 1 (0) radio */
+	{ "wl_opercls",		"3", 0 },	/* Operating Class */
+	{ "wl_anonai",		"anonymous.com", 0 },	/* Anonymous NAI */
+	{ "wl_wanmetrics",	"1:0:0=2500>384=0>0=0", 0 }, /* WAN Metrics */
+
+	{ "wl_oplist",		"Wi-Fi Alliance!eng|"
+	"\x57\x69\x2d\x46\x69\xe8\x81\x94\xe7\x9b\x9f!chi", 0 }, /* Operator Friendly Name List */
+
+	{ "wl_homeqlist",	"mail.example.com:rfc4282", 0 }, /* NAIHomeRealmQueryList */
+
+	{ "wl_osu_ssid",	"OSU", 0}, /* OSU SSID */
+
+	{ "wl_osu_frndname",	"SP Red Test Only!eng|"
+	"\x53\x50\x20\xEB\xB9\xA8\xEA\xB0\x95\x20\xED\x85\x8C"
+	"\xEC\x8A\xA4\xED\x8A\xB8\x20\xEC\xA0\x84\xEC\x9A\xA9!kor", 0}, /* OSU Friendly Name */
+
+	{ "wl_osu_uri",
+	"https://osu-server.r2-testbed.wi-fi.org/", 0}, /* OSU Server URI */
+
+	{ "wl_osu_nai",		"", 0}, /* OSU NAI */
+
+	{ "wl_osu_method",	"1", 0}, /* OSU Method */
+
+	{ "wl_osu_icons",
+	"icon_red_zxx.png+icon_red_eng.png", 0}, /* OSU Icons */
+
+	{ "wl_osu_servdesc", "Free service for test purpose!eng|"
+	"\xED\x85\x8C\xEC\x8A\xA4\xED\x8A\xB8\x20\xEB\xAA\xA9"
+	"\xEC\xA0\x81\xEC\x9C\xBC\xEB\xA1\x9C\x20\xEB\xAC\xB4"
+	"\xEB\xA3\x8C\x20\xEC\x84\x9C\xEB\xB9\x84\xEC\x8A\xA4!kor", 0}, /* OSU Serv Desc */
+
+	{ "wl_concaplist",	"1:0:0;6:20:1;6:22:0;"
+	"6:80:1;6:443:1;6:1723:0;6:5060:0;"
+	"17:500:1;17:5060:0;17:4500:1;50:0:1", 0 }, /* Connection Capability List */
+
+	{ "wl_qosmapie",
+	"35021606+8,15;0,7;255,255;16,31;32,39;255,255;40,47;255,255", 0 },	/* QoS Map IE */
+
+	/* ---- Passpoint Flags  ----------------------------------- */
+	{ "wl_gascbdel",	"0", 0 },	/* GAS CB Delay */
+	{ "hs2_debug_level",	"1", 0 },	/* HS2.0 debeug level default (1) ERROR */
+
+/* #endif  __CONFIG_HSPOT__ */
+/* #ifdef __CONFIG_802_11U__ */
+	{ "wl_iwnettype",	"2", 0 },	/* Select Access Network Type */
+	{ "wl_hessid",		"50:6F:9A:00:11:22",  0 },	/* Interworking HESSID */
+	{ "wl_ipv4addr",	"3", 0 },	/* Select IPV4 Address Type Availability */
+	{ "wl_ipv6addr",	"0", 0 },	/* Select IPV6 Address Type Availability */
+
+	{ "wl_netauthlist", "accepttc=+"
+	"httpred=https://tandc-server.wi-fi.org",  0 },	/* Network Authentication Type List */
+
+	{ "wl_venuegrp",	"2", 0 },	/* Venue Group */
+	{ "wl_venuetype",	"8", 0 },	/* Venue Type  */
+
+	{ "wl_venuelist",
+	"57692D466920416C6C69616E63650A"
+	"3239383920436F7070657220526F61640A"
+	"53616E746120436C6172612C2043412039"
+	"353035312C2055534121656E677C"
+	"57692D4669E88194E79B9FE5AE9EE9AA8CE5AEA40A"
+	"E4BA8CE4B99DE585ABE4B99DE5B9B4E5BA93E69F8FE8B7AF0A"
+	"E59CA3E5858BE68B89E68B892C20E58AA0E588A9E7A68FE5B0"
+	"BCE4BA9A39353035312C20E7BE8EE59BBD21636869",  0 },	/* Venue Name List */
+
+	{ "wl_ouilist",		"506F9A:1;001BC504BD:1", 0 },	/* Roaming Consortium List */
+	{ "wl_3gpplist",	"",  0 },	/* 3GPP Cellular Network Information List */
+	{ "wl_domainlist",	"",  0 },	/* Domain Name List */
+
+	{ "wl_realmlist",
+	"mail.example.com+0+21=2,4#5,7?"
+	"cisco.com+0+21=2,4#5,7?"
+	"wi-fi.org+0+21=2,4#5,7;13=5,6?"
+	"example.com+0+13=5,6",  0 },	/* NAI Realm List */
+
+#endif  /* __CONFIG_802_11U__ */
+
 	{ "wl_country_code", "", 0 },		/* Country Code (default obtained from driver) */
 	{ "wl_country_rev", "", 0 },	/* Regrev Code (default obtained from driver) */
 	{ "wl_radio", "1", 0 },			/* Enable (1) or disable (0) radio */
@@ -262,6 +341,7 @@ struct nvram_tuple router_defaults[] = {
 	{ "wl_rate", "0", 0 },			/* Rate (bps, 0 for auto) */
 	{ "wl_mrate", "0", 0 },			/* Mcast Rate (bps, 0 for auto) */
 	{ "wl_frameburst", "off", 0 },		/* BRCM Frambursting mode (off|on) */
+	{ "frameburst_dyn", "0", 0 },           /* Frameburst controlled dynamically if on */
 	{ "wl_rateset", "default", 0 },		/* "default" or "all" or "12" */
 	{ "wl_frag", "2346", 0 },		/* Fragmentation threshold */
 	{ "wl_rts", "2347", 0 },		/* RTS threshold */
@@ -308,6 +388,9 @@ struct nvram_tuple router_defaults[] = {
 	{ "wl_crypto", "tkip+aes", 0 },		/* WPA data encryption */
 	{ "wl_net_reauth", "36000", 0 },	/* Network Re-auth/PMK caching duration */
 	{ "wl_akm", "", 0 },			/* WPA akm list */
+#ifdef MFP
+	{ "wl_mfp", "-1", 0 },			/* Protected Management Frame */
+#endif
 	{ "wl_psr_mrpt", "0", 0 },		/* Default to one level repeating mode */
 
 #ifdef __CONFIG_WPS__
@@ -426,30 +509,47 @@ struct nvram_tuple router_defaults[] = {
 	/* PsPretend threshold and retry_limit */
 	{ "wl_pspretend_threshold", "0", 0 },
 	{ "wl_pspretend_retry_limit", "0", 0 },
+	{ "wl_txbf_imp", "1", 0 },
 
 	/* acsd setting */
-	{ "wl_acs_fcs_mode", "0", 0 },	/* acsd disable FCS mode */
-	{ "wl_dcs_csa_unicast", "0", 0 },		/* disable unicast csa */
-	{ "wl_acs_excl_chans", "", 0 },	/* acsd exclude chanspec list */
-	{ "wl_acs_dfs", "0", 0 },		/* acsd fcs disable init DFS chan */
-	{ "wl_acs_dfsr_immediate", "300 3", 0 },     /* immediate if > 3 switches last 5 minutes */
-	{ "wl_acs_dfsr_deferred", "604800 5", 0 },   /* deferred if > 5 switches in last 7 days */
-	{ "wl_acs_dfsr_activity", "30 10240", 0 },    /* active: >10k I/O in the last 30 seconds */
+	{ "wl_acs_fcs_mode", "0", 0 },		/* acsd disable FCS mode */
+	{ "wl_dcs_csa_unicast", "0", 0 },	/* disable unicast csa */
+	{ "wl_acs_excl_chans", "", 0 },		/* acsd exclude chanspec list */
+	{ "wl_acs_dfs", "2", 0 },		/* acsd fcs disable init DFS chan */
+	{ "wl_acs_dfsr_immediate", "300 3", 0 },   /* immediate if > 3 switches last 5 minutes */
+	{ "wl_acs_dfsr_deferred", "604800 5", 0 }, /* deferred if > 5 switches in last 7 days */
+	{ "wl_acs_dfsr_activity", "30 10240", 0 }, /* active: >10k I/O in the last 30 seconds */
 	{ "wl_acs_cs_scan_timer", "900", 0 },	/* acsd fcs cs scan timeout */
 	{ "wl_acs_ci_scan_timer", "4", 0 },		/* acsd fcs CI scan period */
 	{ "wl_acs_ci_scan_timeout", "300", 0 },	/* acsd fcs CI scan timeout */
 	{ "wl_acs_scan_entry_expire", "3600", 0 },	/* acsd fcs scan expier time */
-	{ "wl_acs_tx_idle_cnt", "5", 0 },		/* acsd fcs tx idle thld */
-	{ "wl_acs_chan_dwell_time", "30", 0 },	/* acsd fcs chan dwell time */
-	{ "wl_acs_chan_flop_period", "30", 0 },	/* acsd fcs chan flip-flop time */
-	{ "wl_intf_speriod", "50", 0 },	/* acsd fcs sample period */
-	{ "wl_intf_scnt", "5", 0 },		/* acsd fcs smaple cnt */
-	{ "wl_intf_swin", "7", 0 },	/* acsd fcs smaple win */
-	{ "wl_intf_drate", "0", 0 },	/* acsd fcs dmarate thld */
-	{ "wl_intf_rrate", "0", 0 },	/* acsd fcs glitch thld */
-	{ "wl_intf_glitch", "0", 0 },		/* acsd fcs glitch thld */
-	{ "wl_intf_txbad", "0", 0 },		/* acsd fcs txbad thld */
-	{ "wl_intf_txnoack", "0x4000f", 0 }, /* fcs txnoack setting */
+	{ "wl_acs_tx_idle_cnt", "0", 0 },		/* acsd fcs tx idle thld */
+	{ "wl_acs_chan_dwell_time", "70", 0 },	/* acsd fcs chan dwell time */
+	{ "wl_acs_chan_flop_period", "70", 0 },	/* acsd fcs chan flip-flop time */
+	{ "wl_intfer_period", "1", 0 },		/* acsd fcs sample period */
+	{ "wl_intfer_cnt", "3", 0 },		/* acsd fcs sample cnt */
+	{ "wl_intfer_txfail", "5", 0 }, 	/* fcs non-TCP txfail threshold setting */
+	{ "wl_intfer_tcptxfail", "5", 0 }, 	/* fcs TCP txfail threshold setting */
+
+	{ "wl_pspretend_retry_limit", "0", 0 }, /* Disable PsPretend */
+	{ "wl_taf_enable", "0", 0 }, /* Disable TAF */
+
+	{ "bsd_role", "0", 0 },              /* Disable Band Steer Daemon */
+	{ "bsd_hport", "9877", 0 },          /* BSD helper port */
+	{ "bsd_pport", "9878", 0 },          /* BSD Primary port */
+	{ "bsd_helper", "192.168.1.2", 0 },  /* BSD primary ipaddr */
+	{ "bsd_primary", "192.168.1.1", 0 }, /* BSD Helper ipaddr */
+	{ "ssd_enable", "0", 0 },            /* Disable SSID Steer Daemon */
+	{ "wl_ssd_type", "0", 0 },           /* default ssd_type "disabled" */
+	{ "wl_dfs_pref", "" },               /* DFS Preferred channel value  */
+	{ "wl_probresp_mf", "0", 0 },	/* MAC filter based probe response  */
+	{ "wl_probresp_sw", "1", 0 },	/* SW probe response  */
+	{ "wl_vht_features", "-1", 0 },	/* VHT features  */
+#ifdef __CONFIG_VISUALIZATION__
+	{ "vis_dcon_ipaddr", "127.0.0.1", 0 },	/* Visualization Dcon IP address  */
+	{ "vis_do_remote_dcon", "0", 0 },	/* Visualization remote debugging enabled flag  */
+	{ "vis_debug_level", "1", 0}, /* Visualization debug messages to be printed */
+#endif /* __CONFIG_VISUALIZATION__ */
 	{ 0, 0, 0 }
 };
 
@@ -459,7 +559,7 @@ struct nvram_tuple router_defaults_override_type1[] = {
 	{ "lan_stp", "0", 0 },			/* LAN spanning tree protocol */
 	{ "wl_wmf_bss_enable", "1", 0 },	/* WMF Enable for IPTV Media or WiFi+PLC */
 	{ "wl_reg_mode", "h", 0 },		/* Regulatory: 802.11H(h) */
-	{ "wl_wet_tunnel", "1", 0  },   	/* Enable wet tunnel */
+	{ "wl_frameburst", "on", 0 },		/* BRCM Frambursting mode (off|on) */
 #ifdef __CONFIG_EMF__
 	{ "emf_enable", "1", 0 },		/* Enable EMF by default */
 	{ "wl_wmf_ucigmp_query", "1", 0 }, 	/* Enable Converting IGMP Query to ucast */
@@ -470,6 +570,11 @@ struct nvram_tuple router_defaults_override_type1[] = {
 	/* Exclude ACSD to select 140l, 144u, 140/80, 144/80 to compatible with Ducati 11N */
 	{ "wl_acs_excl_chans", "0xd98e,0xd88e,0xe28a,0xe38a", 0 },
 	{ "wl_pspretend_retry_limit", "5", 0 }, /* Enable PsPretend */
+	{ "wl_taf_enable", "0", 0 },		/* Disable TAF */
+	{ "wl_amsdu", "off", 0 },		/* Disable AMSDU Tx by default */
+	{ "wl_rx_amsdu_in_ampdu", "off", 0 },	/* Disable AMSDU Rx by default */
+	{ "wl_cal_period", "0", 0 },			/* Disable periodic cal */
+	{ "wl_psta_inact", "0", 0 },		/* PSTA inactivity timer */
 	{ 0, 0, 0 }
 };
 

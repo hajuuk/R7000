@@ -162,7 +162,7 @@ function is_email_on()
     var cf = document.forms[0];
     if(cf.email_on.value == 0)
     {
-        alert("<%897%>");
+        alert("<%1039%>");
         return false;
     }
     return true;
@@ -199,7 +199,7 @@ function sendLog()
     var cf = document.forms[0];
     if(cf.log_detail.value < 5)
     {
-        alert("<%898%>");
+        alert("<%1040%>");
         return false;
     }
     cf.log_send.value=1;
@@ -210,32 +210,32 @@ function sendLog()
 </script>
 </head>
 <body  onload="change_size();init();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%57%>">
-<img class="body-image" src="<%58%>">
+<img class="cover-image" src="<%74%>">
+<img class="body-image" src="<%75%>">
 <div id="full-page-container">
 
 <form id="target"  action=fwLog.cgi method="POST">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-	<img class="subtop-image" src="<%59%>">
-<div class="subhead2"> <%350%></div>
+	<img class="subtop-image" src="<%76%>">
+<div class="subhead2"> <%412%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%61%>"  onclick="if(!isInited) return false; buttonClick(this,'<%61%>');check_log_category();" type=submit name=action_apply class="button-apply" > <span class="roundleft_apply" ><%62%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%63%>" onclick="buttonClick(this,'<%63%>');reset();init();" type=button name=action_cancel class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%64%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%78%>"  onclick="if(!isInited) return false; buttonClick(this,'<%78%>');check_log_category();" type=submit name=action_apply class=<%79%> > <span class="<%80%>" ><%81%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="<%82%>">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%83%>" onclick="buttonClick(this,'<%83%>');reset();init();" type=button name=action_cancel class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%84%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
 <tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
 		
-<%899%>
+<%1041%>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
- <td colspan="2"><input type="checkbox" name="enable_log" <%900%> onclick="SetEnableValue();"><b>Turn logging on</b>
+ <td colspan="2"><input type="checkbox" name="enable_log" <%1042%> onclick="SetEnableValue();"><b>Turn logging on</b>
 </tr>
-<%901%>
+<%1043%>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
@@ -243,12 +243,12 @@ function sendLog()
  <td colspan="2" align="center">
  <table border="0" cellspacing="0" cellpadding="0">
  <tr>
- <td colspan="2"><b><%902%>: <%903%></b>
+ <td colspan="2"><b><%1044%>: <%1045%></b>
  </td>
  </tr>
  <tr>
  <td colspan="2">
-<TEXTAREA NAME="log_detail" class="smallfix" ROWS="15" cols="60" WRAP="vitural" READONLY tabindex="-1"><%904%>
+<TEXTAREA NAME="log_detail" class="smallfix" ROWS="15" cols="60" WRAP="vitural" READONLY tabindex="-1"><%1046%>
 </textarea></td>
  </tr>
  </table>
@@ -259,41 +259,41 @@ function sendLog()
 
 <tr>
  <td colspan="2" align="center" height="35">
-    &nbsp;&nbsp;&nbsp;<button type=submit value="<%642%>" name=action_Refresh class="button-rule" onClick="buttonClick(this,'<%642%>');refreshLog()"><span class="roundleft_button">&nbsp;&nbsp; <%642%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> &nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;<button type=submit value="<%905%>" name=action_Clear class="button-rule" onClick="buttonClick(this,'<%905%>');clearLog()"><span class="roundleft_button">&nbsp;&nbsp; <%905%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> &nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;<button type=submit value="<%906%>" name=action_Send class="button-rule" onclick="buttonClick(this,'<%906%>');if(!is_email_on()) return false; if(!sendLog()) return false;"><span class="roundleft_button">&nbsp;&nbsp; <%906%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type=submit value="<%728%>" name=action_Refresh class="button-rule" onClick="buttonClick(this,'<%728%>');refreshLog()"><span class="roundleft_button">&nbsp;&nbsp; <%728%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> &nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;<button type=submit value="<%1047%>" name=action_Clear class=<%467%> onClick="buttonClick(this,'<%1047%>');clearLog()"><span class="<%468%>">&nbsp;&nbsp; <%1047%></span><span class="<%469%>">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> &nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;<button type=submit value="<%1048%>" name=action_Send class=<%467%> onclick="buttonClick(this,'<%1048%>');if(!is_email_on()) return false; if(!sendLog()) return false;"><span class="<%468%>">&nbsp;&nbsp; <%1048%></span><span class="<%469%>">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </tr>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-    <td colspan="2"><b><%907%></b></td></tr>
+    <td colspan="2"><b><%1049%></b></td></tr>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_1 type=checkbox value=checkboxValue><%908%></TD></TR>
+        <INPUT name=log_cat_1 type=checkbox value=checkboxValue><%1050%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_2 type=checkbox value=checkboxValue><%909%></TD></TR>
+        <INPUT name=log_cat_2 type=checkbox value=checkboxValue><%1051%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_3 type=checkbox value=checkboxValue><%910%></TD></TR>
+        <INPUT name=log_cat_3 type=checkbox value=checkboxValue><%1052%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_4 type=checkbox value=checkboxValue><%911%></TD></TR>
+        <INPUT name=log_cat_4 type=checkbox value=checkboxValue><%1053%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_5 type=checkbox value=checkboxValue><%912%></TD></TR>
+        <INPUT name=log_cat_5 type=checkbox value=checkboxValue><%1054%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_6 type=checkbox value=checkboxValue><%913%></TD></TR>
+        <INPUT name=log_cat_6 type=checkbox value=checkboxValue><%1055%></TD></TR>
 <TR>
     <TD colSpan=2 colspan="2" >
-        <INPUT name=log_cat_7 type=checkbox value=checkboxValue><%914%></TD></TR>
+        <INPUT name=log_cat_7 type=checkbox value=checkboxValue><%1056%></TD></TR>
 <TR>
     <TD colSpan=2>
-        <INPUT name=log_cat_8 type=checkbox value=checkboxValue><%915%></TD></TR>
+        <INPUT name=log_cat_8 type=checkbox value=checkboxValue><%1057%></TD></TR>
 <TR>
     <TD colSpan=2>
-        <INPUT name=log_cat_9 type=checkbox value=checkboxValue><%916%></TD></TR>
+        <INPUT name=log_cat_9 type=checkbox value=checkboxValue><%1058%></TD></TR>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
@@ -305,20 +305,20 @@ function sendLog()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%266%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%267%> </span>
       </div>
 
 
 
-    <INPUT name=email_on type=hidden value="<%917%>">
+    <INPUT name=email_on type=hidden value="<%1059%>">
     <INPUT name=log_refresh type=hidden value= 0>
-    <INPUT name=log_send type=hidden value= "<%918%>">
+    <INPUT name=log_send type=hidden value= "<%1060%>">
     <INPUT name=log_clear type=hidden value= 0>
-    <INPUT name=log_enable type=hidden value= "<%919%>">
-    <INPUT name=log_filter type=hidden value="<%920%>">
+    <INPUT name=log_enable type=hidden value= "<%1061%>">
+    <INPUT name=log_filter type=hidden value="<%1062%>">
 <a name="helpframe-anchor"></a>
 </form>
 

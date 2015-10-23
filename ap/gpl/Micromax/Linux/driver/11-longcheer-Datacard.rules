@@ -1,0 +1,48 @@
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9912*", KERNEL=="ttyACM*", ATTRS{bInterfaceNumber}=="03", ATTRS{bInterfaceProtocol}=="01", NAME="ttyUSB_lct_at" 
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9912*", KERNEL=="ttyACM*", ATTRS{bInterfaceNumber}=="01", ATTRS{bInterfaceProtocol}=="01", NAME="ttyUSB_lct_modem", RUN+="/bin/sh /sbin/startUSBModem"
+ACTION=="remove", KERNEL=="ttyACM*", RUN+="/bin/rm -rf /dev/ttyUSB_lct_modem /dev/ttyUSB_lct_at"
+
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9915*", KERNEL=="ttyACM*", ATTRS{bInterfaceNumber}=="03", ATTRS{bInterfaceProtocol}=="01", NAME="ttyUSB_lct_at" 
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9915*", KERNEL=="ttyACM*", ATTRS{bInterfaceNumber}=="01", ATTRS{bInterfaceProtocol}=="01", NAME="ttyUSB_lct_modem", RUN+="/bin/sh /sbin/startUSBModem"
+ACTION=="remove", KERNEL=="ttyACM*", RUN+="/bin/rm -rf /dev/ttyUSB_lct_modem /dev/ttyUSB_lct_at"
+
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9918*", KERNEL=="ttyACM*", ATTRS{bInterfaceNumber}=="03", ATTRS{bInterfaceProtocol}=="01", NAME="ttyUSB_lct_at" 
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9918*", KERNEL=="ttyACM*", ATTRS{bInterfaceNumber}=="01", ATTRS{bInterfaceProtocol}=="01", NAME="ttyUSB_lct_modem", RUN+="/bin/sh /sbin/startUSBModem"
+ACTION=="remove", KERNEL=="ttyACM*", RUN+="/bin/rm -rf /dev/ttyUSB_lct_modem /dev/ttyUSB_lct_at"
+
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9905*", KERNEL=="ttyACM*", ATTRS{bInterfaceNumber}=="02", ATTRS{bInterfaceProtocol}=="01", NAME="ttyUSB_lct_at" 
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9905*", KERNEL=="ttyACM*", ATTRS{bInterfaceNumber}=="00", ATTRS{bInterfaceProtocol}=="01", NAME="ttyUSB_lct_modem", RUN+="/bin/sh /sbin/startUSBModem"
+ACTION=="remove", KERNEL=="ttyACM*", RUN+="/bin/rm -rf /dev/ttyUSB_lct_modem /dev/ttyUSB_lct_at"
+
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1EE8p0053*", KERNEL=="ttyACM*", ATTRS{bInterfaceNumber}=="02", ATTRS{bInterfaceProtocol}=="01", NAME="ttyUSB_lct_at" 
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1EE8p0053*", KERNEL=="ttyACM*", ATTRS{bInterfaceNumber}=="00", ATTRS{bInterfaceProtocol}=="01", NAME="ttyUSB_lct_modem", RUN+="/bin/sh /sbin/startUSBModem"
+ACTION=="remove", KERNEL=="ttyACM*", RUN+="/bin/rm -rf /dev/ttyUSB_lct_modem /dev/ttyUSB_lct_at"
+
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9E00*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="03", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_at" 
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9E00*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="00", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_modem",RUN+="/bin/sh /sbin/startUSBModem"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9e00", ATTRS{serial}=="000000000002", ACTION=="add", PROGRAM=="longcheer-cm55-testcd", RUN+="/lib/udev/longcheer-cm55-ejectcd %N 1"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9e00", ACTION=="add", RUN+="modprobe lctserial"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9e00", ACTION=="remove", RUN+="rmmod lctserial"
+
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9800*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="02", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_at" 
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9800*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="01", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_modem",RUN+="/bin/sh /sbin/startUSBModem"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9800", ATTRS{serial}=="1234567890ABCDEF", ACTION=="add", PROGRAM=="longcheer-cm55-testcd", RUN+="/lib/udev/longcheer-cm55-ejectcd %N 1"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9800", ACTION=="add", RUN+="modprobe lctserial"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1c9e", ATTRS{idProduct}=="9800", ACTION=="remove", RUN+="rmmod lctserial"
+
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9605*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="01", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_at" 
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9605*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="03", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_modem", RUN+="/bin/sh /sbin/startUSBModem"
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9605*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="02", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB1000" 
+
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9803*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="02", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_at" 
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9803*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="01", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_modem", RUN+="/bin/sh /sbin/startUSBModem"
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9803*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="03", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB1000" 
+
+
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9801*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="02", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_at" 
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9801*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="01", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_modem", RUN+="/bin/sh /sbin/startUSBModem"
+#SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9801*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="03"
+
+
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9B01*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="02", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_at" 
+SUBSYSTEMS=="usb", ATTRS{modalias}=="usb:v1C9Ep9B01*", KERNEL=="ttyUSB*", ATTRS{bInterfaceNumber}=="01", ATTRS{bInterfaceProtocol}=="ff", NAME="ttyUSB_lct_modem", RUN+="/bin/sh /sbin/startUSBModem"

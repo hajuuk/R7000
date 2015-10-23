@@ -1,0 +1,68 @@
+<html>
+<head>
+<%11%>
+<title><%3150%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<%14%>
+<script language="javascript" type="text/javascript">
+<!--
+
+function checkData()
+{
+    var cf = document.forms[0];
+    
+    cf.new_wan_type.value = cf.wan_type.value;
+    return true;
+}
+
+function setGray()
+{
+    var cf = document.forms[0];
+    var wwan_3G = "<%3042%>";
+    
+    if (wwan_3G == "0")
+        cf.wan_type.disabled = true;
+    else
+    	  cf.wan_type.disabled = false;  
+    
+}	
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" onload="document.forms[0].elements[0].focus();setGray();">
+<form name="remotemg" action="bas_dual_wan.cgi" method="post">
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2" align="center">
+				<h1><%3364%></h1></td></tr>
+        <tr>
+            <td colspan="2" background="liteblue.gif" height="12">&nbsp; </td></tr>
+        <tr>
+            <td valign="top" colspan="2"><B><%3045%></b></td></tr>
+
+    <tr>
+            <td align="middle">
+    <select name="wan_type" size="1" tabindex="10" >
+     <option <%3046%> value=2 selected><%3365%></option>
+     <option <%3048%> value=0 ><%3366%></option>
+     <option <%3050%> value=1 ><%3367%></option>
+    </select></td></tr>
+    
+<tr> <!-- RULE -->
+ <td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>    
+        <tr>
+            <td colspan="2" align="center">
+                <input type="button" name="Cancel" value=" <%83%> "  onClick="location.href='WIZ_dual_wan.htm'">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="submit" name="apply" value="  <%1556%>  " onClick="checkData()"></td></tr>
+    </table>
+    <INPUT name=new_wan_type type=hidden value= "<%3039%>">
+    <INPUT name=isfromWIZ type=hidden value= "yes">
+</form>
+<p>
+</p>
+</body>
+</html>
+
+

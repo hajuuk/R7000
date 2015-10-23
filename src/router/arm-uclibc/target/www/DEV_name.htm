@@ -1,0 +1,260 @@
+
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="R7000">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/form2.css">
+<style type="text/css">
+.div_content {padding-left: 5%; padding-top:40px; margin-bottom: 1px; vertical-align:top;}
+.link_a{background-color: #702b86; margin-left: 0px; color: #f2f2f2;  font: -webkit-small-control; padding-left:20px; padding-right:20px; border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px;}
+.blue_a{COLOR: blue; TEXT-DECORATION: underline}
+.div_content img{ height: 200px}
+
+.boxline{width: 680px; height: 180px; margin-left: 50%; position: relative; left: -330px;}
+.box_select {width: 160px; height: 150px; float: left; position: relative; margin-left: 20px; margin-top: 20px;}
+.box_select .radio_box{width: 90%; height: 20px; font-size: 13px; font-weight: bold; color: black; position: relative; top: 10px; padding-left: 10%;}
+.box_select .icon, .box_select .icon_select{width:100px; height: 100px; position: absolute; bottom: 10px; left: 20px; cursor: pointer;}
+.box_select .icon img, .box_select .icon_select img{width:100px; height:100px}
+.box {width: 130px; height: 110px; float: left; position: relative; margin-left: 20px; margin-top: 30px; }
+.box .radio_box{width: 90%; height: 20px; font-size: 11px; font-weight: bold; color: black; position: relative; top: 10px; padding-left: 10%;}
+.box .icon, .box .icon_select{width:60px; height: 60px; position: absolute; bottom: 10px; left: 20px; cursor: pointer;}
+.box .icon img, .box .icon_select img{width:60px; height:60px}
+.icon { background-color: #5db5e5;}
+.icon_select { background-color: #6abd49;}
+</style>
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+classes.num.all.fontFamily = "Courier";
+classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language=javascript type=text/javascript src=script/opmode.js></script>
+
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.gif";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.gif";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+    
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+	
+   
+function loadSettings()
+{
+	var cf = document.forms[0];
+	//cf.dev_name.value = cf.dev_name_nv.value;
+
+	/*
+	if(cf.devname2readyshare.value == "1")
+		cf.change_readyshare[1].checked = true;
+	else	
+		cf.change_readyshare[0].checked = true;
+	*/
+	
+	return;
+}
+
+
+
+function checkData(){
+	var cf = document.forms[0];
+	var msg = "";
+	
+	if (cf.device_name.value == "")
+	msg+= "Device name can not be null.\n";
+
+	
+	if (cf.device_name.value.match( /[^\x20-\x7E]/ ))
+	{
+		cf.device_name.focus();
+		msg+= "Invalid device name.\n";
+	}
+	
+	
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+
+	sAlert('<b>Do you want to apply the Device Name change to the readyshare storage access path \\readyshare as well?</b></br></br> If you choose yes, your readyshare storage access path would be updated to be your device name. </br>If you choose no, ready share storage access path will not be updated.', function(){cf.change_readyshare.value=0;document.forms[0].submit();}, function(){cf.change_readyshare.value=1;document.forms[0].submit();});
+	
+	return false;
+}
+
+
+
+//-->
+</script>
+</head>
+<body  onLoad="change_size();loadSettings();highLightMenu('setup_header', 'device_name');" class="page-body"  onload="change_size();"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<img class="body-image" src="img/subhead2-background_noh.jpg">
+<div id="full-page-container">
+
+<form id="target"  method="POST" action="devname_consolidation.cgi?id=1689346702" NAME=general>
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+  <img class="subtop-image" src="img/subhead2-top_noh.gif">
+<div class="page_title"> <%730%></div>
+<table border="0"    style="height:370px"  class="subhead2-table">
+
+<tr align="left" valign="top">
+<td   align="center" colspan="2" class="table-seperate-border2">
+<input class="new_cancel_bt ui-corner-all" type="reset" name="Cancel" value="<%83%>" onClick="location.href='DEV_name.htm';">
+<input <%4053%> type="submit" name="Apply" value="<%78%>" onClick="return checkData();">
+
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+
+<tr><td>
+
+<div id="main" class="main_top_button">
+<div id="mode_intro" style="width:80%; color:#545454; font-size:14px; float:left; position: relative; left: 5%; ">
+
+	<table border=0 cellpadding=2 cellspacing=0 width=80%>
+	<tr><td colspan=3><%4245%></td></tr>
+	<tr><td colspan=3><h1 style="FONT-SIZE: 16px"></h1></td></tr>
+	<tr><td colspan=3><%4246%></td></tr>
+	<tr><td colspan=3><h1 style="FONT-SIZE: 16px"></h1></td></tr>
+	<tr><td colspan=3><h1 style="FONT-SIZE: 16px"></h1></td></tr>
+	<tr>
+		<td colspan=2><%730%>:</td>
+		<td><input type="text" name="device_name" MAXLENGTH="12" SIZE="24" value="<%4247%>"></td>
+	</tr>
+	<tr><td colspan=3><h1 style="FONT-SIZE: 16px"></h1></td></tr>
+	<tr><td colspan=3><%4248%></td></tr>
+	<tr><td colspan=3><h1 style="FONT-SIZE: 16px"></h1></td></tr>
+	<tr><td colspan=3><h1 style="FONT-SIZE: 16px"></h1></td></tr>
+	<!--
+	<tr>
+		<td colspan=3>
+			<input type="radio" name="change_readyshare" value="0">&nbsp;&nbsp;change ReadyShare storage folder access path \\readyshare to \\Device Name
+		</td>
+	</tr>
+	<tr>
+		<td colspan=3>
+			<input type="radio" name="change_readyshare" value="1">&nbsp;&nbsp;keep ReadyShare storage folder access path as \\readyshare		
+		</td>
+	</tr>
+	-->
+	</table>
+</div>
+</div>
+</td></tr>
+
+  
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="DEV_name_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+   <img class="subfooter-image" src="img/subhead2-bottom.gif">
+<div class="subhead2-bottom" >
+    <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%266%> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%267%> </span>
+      </div>
+
+
+<input type="hidden" name="dev_name_nv" value="" >
+<input type="hidden" name="devname2readyshare" value="<%4249%>" >
+<input type="hidden" name="change_readyshare" value="" >
+
+<a name="helpframe-anchor"></a>
+</form>
+
+</div>
+</body>
+</html>

@@ -48,12 +48,15 @@ static long no_blink(int state)
 long (*panic_blink)(int state);
 EXPORT_SYMBOL(panic_blink);
 
-#if (defined CONFIG_CRASHLOG) || (defined KERNEL_CRASH_DUMP_TO_MTD)
+#ifdef CONFIG_CRASHLOG
 void  nvram_store_crash(void);
 #endif
 
 #ifdef KERNEL_CRASH_DUMP_TO_MTD
 int flash_write_buffer(void);
+/* Foxconn added start, John Ou, 12/10/2014, for new debug page */
+int flash_write_reboot_reason(int);
+/* Foxconn added end, John Ou, 12/10/2014, for new debug page */
 #endif
 
 /**
@@ -109,10 +112,13 @@ NORET_TYPE void panic(const char * fmt, ...)
 	bust_spinlocks(0);
 	
 #ifdef KERNEL_CRASH_DUMP_TO_MTD
-        //flash_write_buffer();
+        flash_write_buffer();
+		/* Foxconn added start, John Ou, 12/10/2014, for new debug page */
+		flash_write_reboot_reason(0);
+		/* Foxconn added end, John Ou, 12/10/2014, for new debug page */
 #endif
 
-#if (defined CONFIG_CRASHLOG) || (defined KERNEL_CRASH_DUMP_TO_MTD)
+#ifdef CONFIG_CRASHLOG
 	nvram_store_crash();
 #endif
 

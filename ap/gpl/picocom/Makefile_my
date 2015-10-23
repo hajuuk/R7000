@@ -1,0 +1,25 @@
+
+VERSION=1.4
+
+# CC = gcc
+CPPFLAGS=-DVERSION_STR=\"$(VERSION)\" -DUUCP_LOCK_DIR=\"/var/lock\"
+CFLAGS = -Wall -g
+
+# LD = gcc
+LDFLAGS = -g
+LDLIBS =
+
+picocom : picocom.o term.o
+	$(LD) $(LDFLAGS) -o $@ $+ $(LDLIBS)
+
+picocom.o : picocom.c term.h
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c picocom.c
+ 
+term.o : term.c term.h
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c term.c
+clean:
+	rm -f picocom.o term.o
+	rm -f *~
+	rm -f \#*\#
+	rm -f picocom
+

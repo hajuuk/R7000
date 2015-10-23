@@ -50,7 +50,8 @@ endif
 #MSLANMAN=y
 # Uncomment the next line to include support for MPPE.  CHAPMS (above) must
 # also be enabled.  Also, edit plugins/radius/Makefile.linux.
-# MPPE=y
+# [Foxc] BrianYang, 2014/12/18, Porting PPTPD with MPPE
+MPPE=y
 
 # Uncomment the next line to include support for PPP packet filtering.
 # This requires that the libpcap library and headers be installed

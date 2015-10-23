@@ -1,7 +1,7 @@
 /*
  * Routines for managing persistent storage of port mappings, etc.
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: nvparse.h 387385 2013-02-25 20:22:54Z $
+ * $Id: nvparse.h 502280 2014-09-12 09:45:12Z $
  */
 
 #ifndef _nvparse_h_
@@ -26,6 +26,9 @@
 
 /* Maximum  number of Traffic Management rules */
 #define MAX_NUM_TRF_MGMT_RULES 10
+
+/* 20 DSCP + 0x0 default */
+#define MAX_NUM_TRF_MGMT_DWM_RULES 21
 
 #if !defined(AUTOFW_PORT_DEPRECATED)
 /*
@@ -77,6 +80,10 @@ extern bool valid_trf_mgmt_port(const netconf_trmgmt_t *trmgmt);
 extern bool set_trf_mgmt_port(char *prefix, int which, const netconf_trmgmt_t *trmgmt);
 extern bool get_trf_mgmt_port(char *prefix, int which, netconf_trmgmt_t *trmgmt);
 extern bool del_trf_mgmt_port(char *prefix, int which);
+
+extern bool set_trf_mgmt_dwm(char *prefix, int which, const netconf_trmgmt_t *trmgmt);
+extern bool get_trf_mgmt_dwm(char *prefix, int which, netconf_trmgmt_t *trmgmt);
+extern bool del_trf_mgmt_dwm(char *prefix, int which);
 
 /*
 * WPA/WDS per link configuration. Parameters after 'auth' are

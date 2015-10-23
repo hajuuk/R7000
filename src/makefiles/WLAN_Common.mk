@@ -235,6 +235,51 @@ $(foreach _path,$(WLAN_ComponentPathsInUse), \
   $(eval WLAN_ComponentBaseDir_$$(notdir $(_path)) := $$(WLAN_TreeBaseA)/$(_path)) \
 )
 
+# Phy specific subdirs
+ifeq ($(findstring phymods,$(WLAN_ComponentsInUse)),phymods)
+PHY_TOP_DIR = src/wl/phymods
+PHY_CMN_DIR_LIST = dbg
+PHY_1OFF_DIR_LIST =
+PHY_TYPE_LIST = cmn
+PHY_MOD_LIST = core radar
+PHY_MOD_SRC_DIRS = $(foreach PHY_CMN_DIR,$(PHY_CMN_DIR_LIST),$(PHY_TOP_DIR)/cmn/$(PHY_CMN_DIR)/src)
+PHY_MOD_SRC_DIRS += $(foreach PHY_1OFF_DIR,$(PHY_1OFF_DIR_LIST),$(PHY_TOP_DIR)/$(PHY_1OFF_DIR)/src)
+PHY_MOD_SRC_DIRS += $(foreach PHY_TYPE,$(PHY_TYPE_LIST),\
+	$(foreach PHY_MOD,$(PHY_MOD_LIST),$(PHY_TOP_DIR)/$(PHY_TYPE)/$(PHY_MOD)/src))
+PHY_MOD_INC_DIRS = $(foreach PHY_CMN_DIR,$(PHY_CMN_DIR_LIST),$(PHY_TOP_DIR)/cmn/$(PHY_CMN_DIR)/include)
+PHY_MOD_INC_DIRS += $(foreach PHY_1OFF_DIR,$(PHY_1OFF_DIR_LIST),$(PHY_TOP_DIR)/$(PHY_1OFF_DIR)/include)
+PHY_MOD_INC_DIRS += $(foreach PHY_TYPE,$(PHY_TYPE_LIST),\
+	$(foreach PHY_MOD,$(PHY_MOD_LIST),$(PHY_TOP_DIR)/$(PHY_TYPE)/$(PHY_MOD)/include))
+PHY_MOD_INC_DIRS += $(foreach PHY_DIR,$(PHY_MOD_SRC_DIRS),$(PHY_DIR))
+else
+PHY_MOD_SRC_DIRS =
+PHY_MOD_INC_DIRS =
+endif
+
+# Global include/source path
+WLAN_StdSrcDirs = src/shared src/wl/sys src/wl/phy src/bcmcrypto
+WLAN_StdSrcDirs += $(PHY_MOD_SRC_DIRS)
+WLAN_StdIncDirs = src/include src/common/include src/common/include/devctrl_if
+WLAN_StdIncDirs += $(PHY_MOD_INC_DIRS)
+
+WLAN_SrcIncDirs = src/shared src/wl/sys src/wl/ndis/include src/wl/phy src/bcmcrypto
+WLAN_SrcIncDirs += src/wl/keymgmt/src src/wl/iocv/src src/wl/ndis/src src/wl/shim/src
+WLAN_SrcIncDirs += $(PHY_MOD_SRC_DIRS)
+
+export WLAN_StdSrcDirsR	 = $(addprefix $(WLAN_TreeBaseR)/,$(WLAN_StdSrcDirs))
+export WLAN_StdIncDirsR	 = $(addprefix $(WLAN_TreeBaseR)/,$(WLAN_StdIncDirs))
+export WLAN_SrcIncDirsR  = $(addprefix $(WLAN_TreeBaseR)/,$(WLAN_SrcIncDirs))
+export WLAN_StdIncPathR	 = $(addprefix -I,$(WLAN_StdIncDirsR))
+export WLAN_IncDirsR	 = $(WLAN_StdIncDirsR) $(WLAN_SrcIncDirsR)
+export WLAN_IncPathR	 = $(addprefix -I,$(WLAN_IncDirsR))
+
+export WLAN_StdSrcDirsA	 = $(addprefix $(WLAN_TreeBaseA)/,$(WLAN_StdSrcDirs))
+export WLAN_StdIncDirsA	 = $(addprefix $(WLAN_TreeBaseA)/,$(WLAN_StdIncDirs))
+export WLAN_SrcIncDirsA	 = $(addprefix $(WLAN_TreeBaseA)/,$(WLAN_SrcIncDirs))
+export WLAN_StdIncPathA	 = $(addprefix -I,$(WLAN_StdIncDirsA))
+export WLAN_IncDirsA	 = $(WLAN_StdIncDirsA) $(WLAN_SrcIncDirsA)
+export WLAN_IncPathA	 = $(addprefix -I,$(WLAN_IncDirsA))
+
 # Public convenience macros based on WLAN_ComponentPathsInUse list.
 export WLAN_ComponentSrcDirsR	 = $(addprefix $(WLAN_TreeBaseR)/,$(WLAN_ComponentSrcPathsInUse))
 export WLAN_ComponentIncDirsR	 = $(addprefix $(WLAN_TreeBaseR)/,$(WLAN_ComponentIncPathsInUse))

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+    cd ./doshift; make >/dev/null 2>&1
+    cd ..
+    cp doshift/lcdoshift ./lcdoshift
+
+    cp -rf ./26-longcheer-Datacard.rules /lib/udev/rules.d/26-longcheer-Datacard.rules
+    cp -rf ./11-longcheer-Datacard.rules /lib/udev/rules.d/11-longcheer-Datacard.rules
+    cp -rf ./longcheer-cm55-ejectcd /lib/udev/longcheer-cm55-ejectcd
+    cp -rf ./longcheer-cm55-testcd /lib/udev/longcheer-cm55-testcd
+    cp -rf ./load_driver.sh /lib/udev/load_driver.sh
+
+    cp -rf ./lcdoshift /lib/udev/lcdoshift
+  
+    chmod a+x /lib/udev/lcdoshift    
+    chmod a+x /lib/udev/load_driver.sh
+
+    ./lcdoshift -p 9bfe >/dev/null 2>&1
+    ./load_driver.sh
+
+    sleep 1
+    ./load_driver.sh ins 9b01	
+    cd ndis
+    ./make_driver.sh
+    cd ..

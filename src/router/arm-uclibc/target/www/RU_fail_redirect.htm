@@ -1,0 +1,25 @@
+<html>
+<head>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/javascript">
+<!-- hide script from old browsers
+function redirect()
+{
+	if (parent.RU_manual_flag == "1")
+		location.href="RU_manual_fail.htm";
+	else
+		location.href="RU_isp_fail.htm";
+}
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" onload="redirect();">
+<form method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_fail_redirect">
+<input type=hidden name=submit_flag value="final_check">
+<input type=hidden name=submit_wan value="0">
+</form>
+</body>
+</html>

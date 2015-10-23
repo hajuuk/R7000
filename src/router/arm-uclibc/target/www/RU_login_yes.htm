@@ -1,0 +1,94 @@
+<HTML><HEAD>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<script language=javascript type=text/javascript src=funcs.js></script>
+<script language=javascript type=text/javascript>
+function loadvalue()
+{
+	var form=document.forms[0];
+	if(parent.manual_ppp_type == "0")
+		form.VPN_type.value = "0";
+	else if(parent.manual_ppp_type == "1")
+		form.VPN_type.value = "1";
+	else
+		form.VPN_type.value = "2";
+}
+
+function check_vpn_type()
+{
+	var form=document.forms[0];
+	if(form.VPN_type[0].selected == true)
+	{
+		parent.manual_ppp_type="0";
+		location.href="RU_manual_pptp.htm";
+	}
+	else if(form.VPN_type[1].selected == true)
+	{
+		parent.manual_ppp_type="1";
+		location.href="RU_manual_l2tp.htm";
+	}
+	else
+	{
+		parent.manual_ppp_type="2";
+		location.href="RU_manual_pppoe.htm";
+	}
+	return true;
+}
+</script>
+</HEAD>
+
+<BODY onLoad="loadvalue();" bgcolor=#ffffff>
+<FORM method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_login_yes">
+<input type=hidden name=submit_flag value="setup">
+<input type=hidden name=submit_wan value="0">
+
+<div>
+<div>
+<TABLE align="center" style="width:76%">
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR><TD colSpan="2" class="left_text"><h2><%2379%></h2></TD></TR>
+
+<TR><TD colSpan="2" class="left_text"><script>document.write("<%2400%>")</script></TD></TR>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR><TD colSpan="2" class="left_text"><%2401%></TD></TR>
+<TR>
+	<TD colSpan="2" class="left_text">
+		<select name="VPN_type" size="1">
+			<option value="0"><%573%></option>
+			<option value="1"><%575%></option>
+			<option value="2"><%574%></option>
+		</select>
+	</TD>
+</TR>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR>
+	
+    <td colspan="2" align="center" class="text-align:center;">
+		<button class="purpleBtn" type="button" style="width:100px" name="back" value="submit" onClick='location.href="RU_MC_login.htm";'><span><%1570%></span></button>
+        <button class="purpleBtn" type="button" style="width:100px" name="next" value="submit" onClick='check_vpn_type();'><span><%1572%></span></button>
+
+	</td>
+
+</TR>
+
+</TABLE>
+</div>
+</div>
+</FORM>
+</BODY>
+</HTML>

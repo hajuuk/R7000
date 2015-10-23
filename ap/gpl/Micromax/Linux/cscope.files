@@ -1,0 +1,7 @@
+./driver/lctserial.c
+./driver/doshift/lcdoshift.c
+./driver/doshift/lcdoshift.h
+./driver/ndis/src/qmi_header.h
+./driver/ndis/src/qmi_oper.h
+./driver/ndis/src/lc_cdc_ether.c
+./driver/ndis/src/qmi_oper.c

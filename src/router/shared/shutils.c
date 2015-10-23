@@ -1,7 +1,7 @@
 /*
  * Shell-like utility functions
  *
- * Copyright (C) 2011, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: shutils.c 337155 2012-06-06 12:17:08Z $
+ * $Id: shutils.c 435925 2013-11-12 18:15:46Z $
  */
 
 #include <typedefs.h>
@@ -61,7 +61,7 @@ char *
 fd2str(int fd)
 {
 	char *buf = NULL;
-	size_t count = 0, n;
+	ssize_t count = 0, n;
 
 	do {
 		buf = realloc(buf, count + 512);
@@ -142,7 +142,7 @@ _eval(char *const argv[], char *path, int timeout, int *ppid)
 			signal(sig, SIG_DFL);
 
 		/* Clean up */
-		ioctl(0, TIOCNOTTY, 0);
+		(void)ioctl(0, TIOCNOTTY, 0);
 		close(STDIN_FILENO);
 		setsid();
 
@@ -321,6 +321,7 @@ get_pid_by_name(char *name)
 		}
 	}
 
+	closedir(dir);
 	return pid;
 }
 
@@ -388,7 +389,7 @@ get_bridged_interfaces(char *bridge_name)
 
 	ifnames = nvram_get(bridge);
 
-	if (ifnames)
+	if (ifnames && strlen(ifnames) < sizeof(interfaces))
 		strncpy(interfaces, ifnames, sizeof(interfaces));
 	else
 		return NULL;

@@ -1,7 +1,7 @@
 /*
  * Linux network interface code
  *
- * Copyright (C) 2011, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2014, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -30,6 +30,8 @@
 #include <sys/socket.h>
 #include <linux/route.h>
 #include <linux/if.h>
+#include <linux/sockios.h>
+#include <linux/ethtool.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <net/if_arp.h>

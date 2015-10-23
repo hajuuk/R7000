@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -19,6 +19,11 @@
 #ifndef _DPSTA_H_
 #define _DPSTA_H_
 
+typedef enum {
+	DPSTA_MODE_PSTA = 1,
+	DPSTA_MODE_DWDS = 2
+} dpsta_mode_e;
+
 typedef struct psta_if psta_if_t;
 
 /* Proxy STA instance data and exported functions */
@@ -28,6 +33,7 @@ typedef struct psta_if_api {
 	bool	(*is_ds_sta)(void *psta, struct ether_addr *ea);
 	void	*(*psta_find)(void *psta, uint8 *ea);
 	bool	(*bss_auth)(void *bsscfg);
+	dpsta_mode_e	mode;
 } psta_if_api_t;
 
 extern psta_if_t *dpsta_register(uint32 unit, psta_if_api_t *inst);

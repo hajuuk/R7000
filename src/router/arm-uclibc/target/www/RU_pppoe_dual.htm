@@ -1,0 +1,93 @@
+<HTML><HEAD>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<script language=javascript type=text/javascript src=funcs.js></script>
+<script language=javascript type=text/javascript src=bas_pppoe.js></script>
+<script>
+function loadvalue()
+{
+	var form=document.forms[0];
+	var dual_enable=parent.dual_access;
+	if(dual_enable == "0")
+		form.RU_pppoe_dual[1].checked = true;
+	else
+		form.RU_pppoe_dual[0].checked = true;
+}
+
+function check_dual()
+{
+	form=document.forms[0];
+	if(form.RU_pppoe_dual[0].checked == true)
+	{
+		parent.dual_access="1";
+		location.href="RU_manual_pppoe_dual.htm";
+	}
+	else if(form.RU_pppoe_dual[1].checked == true)
+	{
+		parent.dual_access="0";
+		location.href="RU_manual_spoof.htm";
+	}
+	else
+	{
+		alert("<%2398%>");
+		return false;
+	}
+}
+</script>
+</HEAD>
+
+<BODY onLoad="loadvalue();" bgcolor=#ffffff>
+<FORM method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_pppoe_dual">
+<input type=hidden name=submit_flag value="setup">
+<input type=hidden name=submit_wan value="0">
+
+<div>
+<div>
+<TABLE align="center" style="width:76%" >
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR><TD colspan="2" class="left_text"><h2><%2379%></h2></TD></TR>
+
+<tr>
+	<td colspan="2" class="left_text"><%2404%></td>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+	
+<TR>
+	<TD colspan="2" class="left_text">
+	<input type="radio" name="RU_pppoe_dual" value="yes"><%480%></TD>
+	</TD>
+</TR>
+<TR> 
+	<TD colspan="2" class="left_text">
+	<input type="radio" name="RU_pppoe_dual" value="no"><%481%></TD>
+	</TD>
+</TR>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<tr>
+	<td colspan="2" align="center" class="text-align:center;">
+		<button class="purpleBtn" type="button" style="width:100px" name="back" value="submit" onclick='location.href="RU_manual_pppoe2.htm"'><span><%1570%></span></button>
+        <button class="purpleBtn" type="button" style="width:100px" name="next" value="submit" onClick='check_dual();'><span><%1572%></span></button>
+
+	</td>
+
+</tr>
+</TABLE>
+</div>
+</div>
+</FORM>
+</BODY>
+</HTML>

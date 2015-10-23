@@ -1,0 +1,318 @@
+<html>
+<head>
+<%11%>
+<title><%410%></title> 
+<link rel="stylesheet" href="form.css">
+<%14%>
+<script language="javascript" type="text/javascript">
+<!--
+function openConnectionStatusWindow() 
+{
+    //var wan_mode = "<%2891%>";
+    //var conn = "<%2892%>";
+    //if (wan_mode == "ADSL")
+    //{
+    //    if (conn == "dhcp" || conn == "pppoe" || conn == "pppoa")
+    //        winoptions = "width=400,height=360,status=yes,resizable=yes";
+    //    else
+    //        winoptions = "width=400,height=260,status=yes,resizable=yes";
+	//openDataSubWin('RST_wanstat.htm',winoptions);
+    //}
+    //else
+        openDataSubWin('RST_wwan_statistics.htm','width=560,height=1000,status=yes,resizable=yes');
+}
+
+function loadhelp(fname,anchname)
+{
+    if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+        top.helpframe.location.href=fname+"_h.htm";
+    else
+    top.helpframe.location.href=fname+"_h.htm#" + anchname;
+}
+//-->
+</script> 
+</head>
+<body bgcolor="#ffffff" onload="loadhelp('Modem_status');" onUnload="closeWin(datSubWinVar);">
+<form method="POST" action="s_status.cgi">
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr>
+	<td colspan="2"><h1><%410%></h1></td>
+</tr>
+
+<tr> <!-- RULE -->
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+<tr>
+	<td colspan="2"><a href="javascript:loadhelp('Modem_status','active_connection')" tabindex="-1">
+	<span class="subhead"><%2893%></span> </a>
+</td>
+</tr>
+<tr>
+	<td width="50%"><b><%2894%></b></td>
+        <td width="50%"><%2895%></td>
+</tr>
+<tr> 
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+<tr>
+	<td width="50%"><b><%2896%></b></td>
+	<td width="50%"><%525%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%326%> </b></td>
+	<td width="50%"><%2652%></td>
+</tr>
+
+<tr> 
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+
+<tr>
+	<td colspan="2"><a href="javascript:loadhelp('Modem_status','internet_port')" tabindex="-1">
+	<span class="subhead"><%2897%> </span> </a>
+</td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%731%> </b></td>
+        <td width="50%"><%551%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%533%> </b></td>
+	<td width="50%"><%2898%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%2899%> </b></td>
+	<td width="50%"><%2900%><%2901%><%2902%><%2903%><%2904%><%2905%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%534%> </b></td>
+	<td width="50%"><%2906%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%623%> </b></td>
+	<td width="50%"><%2907%></td>
+</tr>
+
+<tr>
+	<td nowrap width="50%"><b><%2411%> <!><br></b></td>
+	<td nowrap width="50%"><%2908%></td>
+
+<tr> 
+ <td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+<tr>
+	<td colspan="2"><a href="javascript:loadhelp('Modem_status','modem')" tabindex="-1">
+		<span class="subhead"><%2909%></span> </a>
+	</td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%2910%></b></td>
+	<td width="50%"><%2911%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%2912%></b></td>
+	<td width="50%"><%2913%></td>
+</tr>
+<tr>
+	<td width="50%"><b><%2914%></b></td>
+	<td width="50%"><%2915%></td>
+</tr>
+<tr>
+	<td width="50%"><b><%2916%></b></td>
+	<td width="50%"><%2917%></td>
+</tr>
+<tr>
+	<td width="50%"><b><%2918%></b></td>
+	<td width="50%"><%2919%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%2920%></b></td>
+	<td width="50%"><%2921%></td>
+</tr>
+		
+<tr> 
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+
+<tr>
+	<td colspan="2"><a href="javascript:loadhelp('Modem_status','HSDPA')" tabindex="-1">
+<%2922%>	
+	<span class="subhead"><%2923%> </span> </a>
+<%2924%>	
+<%2925%>
+	<span class="subhead"><%2926%> </span> </a>
+<%2927%>
+</td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%2928%> </b></td>
+        <td width="50%"><%2929%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%2930%> </b></td>
+        <td width="50%"><%2931%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%2932%> </b></td>
+        <td width="50%"><%2933%></td>
+</tr>
+<%2922%>
+<tr>
+	<td width="50%"><b><%2934%> </b></td>
+        <td width="50%"><%2935%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%2936%></b></td>
+        <td width="50%"><%2937%></td>
+</tr>
+<%2924%>
+<%2925%>
+<tr>
+	<td width="50%"><b><%2938%></b></td>
+        <td width="50%"><%2937%></td>
+</tr>
+<%2927%>
+<tr>
+	<td width="50%"><b><%2939%></b></td>
+        <td width="50%"><%2940%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%2941%></b></td>
+        <td width="50%"><%2942%></td>
+</tr>
+
+<tr> <!-- RULE -->
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+
+
+<tr>
+	<td colspan="2"><a href="javascript:loadhelp('Modem_status','internet_port')" tabindex="-1">
+	<span class="subhead"><%2943%></span> </a>
+</td>
+</tr>
+
+
+<tr>
+	<td width="50%"><b><%2944%> </b></td>
+        <td width="50%"><%2945%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%533%> </b></td>
+	<td width="50%"><%2946%></td>
+</tr>
+
+<tr>
+
+	<td width="50%"><b><%691%></b></td>
+	<td width="50%"><%2947%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%534%> </b></td>
+	<td width="50%"><%2948%></td>
+</tr>
+<!--
+<tr>
+	<td width="50%"><b>Gateway Ip Address</b></td>
+	<td width="50%"><%2949%></td>
+</tr>
+-->
+<tr>
+	<td nowrap width="50%"><b><%2411%> <!><br></b></td>
+	<td nowrap width="50%"><%1405%></td>
+</tr>
+
+<tr> <!-- RULE -->
+ <td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+
+<tr>
+	<td colspan="2"><a href="javascript:loadhelp('Modem_status','lan_port')" tabindex="-1"><span class="subhead">LAN Port</span></a></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%731%> </b></td>
+	<td width="50%"><%2660%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%533%> </b></td>
+	<td width="50%"><%300%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%2950%> </b></td>
+	<td width="50%"><%2951%><%2952%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%534%> </b></td>
+	<td width="50%"><%554%></td>
+</tr>
+<tr> <!-- RULE -->
+ <td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+<tr>
+	<td colspan="2"><a href="javascript:loadhelp('Modem_status','wireless_port')" tabindex="-1">
+	<span class="subhead"><%2953%> </span> </a>
+</td>
+</tr>
+<tr>
+	<td width="50%"><b><%160%></b></td>
+	<td width="50%"><%1598%></td>
+</tr>
+<tr>
+	<td width="50%"><b><%89%></b></td>
+	<td width="50%"><%2954%></td>
+</tr>
+<tr>
+	<td width="50%"><b><%162%></b></td>
+	<td width="50%"><%2955%></td>
+</tr>
+
+<tr>
+	<td width="50%"><b><%2956%></b></td>
+	<td width="50%"><%2957%></td>
+</tr>
+<tr>
+	<td width="50%"><b><%2958%></b></td>
+	<td width="50%"><%2959%></td>
+</tr>   
+   
+<tr> <!-- RULE -->
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+
+<tr>
+	<td nowrap colspan="2" align="center">
+	<INPUT type="button" name="portSts" value="<%2944%>" onclick="openConnectionStatusWindow()">
+
+        <INPUT type="submit" name="Refresh" value="<%728%>">
+        </TD>
+
+</tr>
+<tr>
+	<td nowrap colspan="2" align="center"><input type="BUTTON" name="system" value="<%1322%>" onclick="openDataSubWin('RST_statistics.htm','width=560,height=250,status=yes,resizable=yes');">
+</tr>
+
+</table>
+</form>
+</body>
+</html>
+

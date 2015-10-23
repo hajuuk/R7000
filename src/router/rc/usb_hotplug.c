@@ -1,7 +1,7 @@
 /*
  * USB hotplug service
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2014, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -141,7 +141,7 @@ retry:
         system(buf);
     }
 /*Foxconn added start by Kathy, 08/05/2014 @ support XFS requested by Netgear Bing*/
-    else if ((rval = mount(source, target, "xfs", 0, "")) == 0)
+    else if ((rval = mount(source, target, "xfs", 0, "nouuid")) == 0)
     {
         //printf("Mount xfs for '%s' success!\n", target);
         get_vol_id(source);
@@ -431,7 +431,7 @@ int usb_mount_block(int major_no, int minor_no, char *mntdev)
 /* Foxconn modified end, Wins, 04/11/2011 */
 {
     char source[128];
-    char target[128];
+    char target[128],target0[128];
     char buf[128];
     FILE *fp = NULL;
     int i;
@@ -454,6 +454,10 @@ int usb_mount_block(int major_no, int minor_no, char *mntdev)
         snprintf(target, 128, "/tmp/mnt/not_approved%dpart%d", 16*(major_no/64) + minor_no/16, minor_no%16);
         mkdir(target, 0777);
     }
+    
+    snprintf(target0, 128, "/tmp/mnt/usb%d/part0", 16*(major_no/64) + minor_no/16, minor_no);
+    if(minor_no%16)
+    	umount(target0);
 
 #ifdef USB_DEBUG
     cprintf("%s:%d mount source =%s, target=%s\n", __func__, __LINE__, source, target);

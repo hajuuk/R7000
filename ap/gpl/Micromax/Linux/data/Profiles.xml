@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profiles type="Profile">
+    <profile_list type="wan_dail" />
+    <connectType type="RAS" />
+    <connectMode type="Auto"/>
+</Profiles>
+

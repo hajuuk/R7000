@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>   
+    <simConfig centerTel="13800688509" DisabledDate="40" simNotify="0" simLever="0" />
+    
+    <saveToLocal save="1" />
+    <notify connectnotify="0" disconnectnotify="0" />
+    <!--  用于判断短信编码格式 0表示只支持80编码格式,1表示支持80,81,82编码格式 
+  -->
+    
+    <!--  用于控制流量面板流量节点显示,0代表当前连接节点和历史统计节点都显示,1代表只显示当前连接节点,2代表只显示历史统计节点 
+  -->
+    
+
+
+</root>
+

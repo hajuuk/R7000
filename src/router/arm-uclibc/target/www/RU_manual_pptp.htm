@@ -1,0 +1,73 @@
+<HTML><HEAD>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<script language=javascript type=text/javascript src=funcs.js></script>
+<script language=javascript type=text/javascript src=bas_pptp.js></script>
+<script language=javascript type=text/javascript>
+function loadvalue()
+{
+	var form=document.forms[0];
+	form.pptp_username.value=parent.pptp_username;
+	form.pptp_passwd.value=parent.pptp_password;
+	form.pptp_serv_ip.value=parent.pptp_server_ipaddr;
+}
+</script>
+</HEAD>
+
+<BODY onLoad="loadvalue();" bgcolor=#ffffff>
+<FORM method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_manual_pptp">
+<input type=hidden name=submit_flag value="setup">
+<input type=hidden name=submit_wan value="0">
+
+<div>
+<div>
+<TABLE align="center" style="width:76%" >
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR><TD colspan="2" class="left_text"><h2><%2379%></h2></TD></TR>
+
+<tr>
+	<td colspan="2" class="left_text"><%2387%></td>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<tr>
+	<td class="centerTd"><%579%></td>
+    <td align=right><input type="text" name="pptp_username" onKeyPress="return getkey('ssid', event)"></td>
+</tr>
+<tr>
+	<td class="centerTd"><%581%></td>
+    <td align=right><input type="text" name="pptp_passwd" onFocus="this.select();" onKeyPress="return getkey('ssid', event)"></td>
+</tr>
+<tr>
+	<td class="centerTd"><%622%></td>
+    <td align=right><input type="text" name="pptp_serv_ip" onChange="RU_pptp_servip_FQDN(event);" onKeyPress="return getkey('ssid', event)"></td>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<tr>
+	<td colspan="2" align="center" class="text-align:center;">
+		<button class="purpleBtn" type="button" style="width:100px" name="back" value="submit" onclick='location.href="RU_login_yes.htm"'><span><%1570%></span></button>
+        <button class="purpleBtn" type="button" style="width:100px" name="next" value="submit" onclick="RU_pptp_user_info()";><span><%1572%></span></button>
+
+	</td>
+
+</tr>
+</TABLE>
+</div>
+</div>
+</FORM>
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 /*
  * BCM43XX PCI/E core sw API definitions.
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: nicpci.h 348160 2012-07-31 21:25:18Z $
+ * $Id: nicpci.h 451514 2014-01-27 00:24:19Z $
  */
 
 #ifndef	_NICPCI_H
@@ -52,7 +52,7 @@
 #endif
 #if defined(WLTEST) || defined(BCMDBG_DUMP)
 #define pcicore_dump_pcieinfo(a, b) (0)
-#endif
+#endif 
 
 #define pcicore_pmecap_fast(a)	(FALSE)
 #define pcicore_pmeen(a)	do { } while (0)
@@ -75,6 +75,13 @@
 #define pcie_set_L1substate(a, b) do { } while (0)
 #define pcie_get_L1substate(a) (0)
 #define pcie_survive_perst(a, b, c) (0)
+#define pcie_ltr_war(a, b)  do { } while (0)
+#define pcie_hw_LTR_war(a)  do { } while (0)
+#define pcie_hw_L1SS_war(a)  do { } while (0)
+#define pciedev_crwlpciegen2(a)	do { } while (0)
+#define pciedev_prep_D3(a, b)	do { } while (0)
+#define pciedev_reg_pm_clk_period(a)  do { } while (0)
+#define pcie_set_ctrlreg(a, b, c) (0)
 #else
 struct sbpcieregs;
 
@@ -138,6 +145,13 @@ extern int pcie_configspace_restore(void* pch);
 extern int pcie_configspace_get(void* pch, uint8 *buf, uint size);
 extern uint32 pcie_get_link_speed(void* pch);
 extern uint32 pcie_survive_perst(void* pch, uint32 mask, uint32 val);
+extern void pcie_ltr_war(void *pch, bool enable);
+extern void pcie_hw_LTR_war(void *pch);
+extern void pcie_hw_L1SS_war(void *pch);
+extern void pciedev_crwlpciegen2(void *pch);
+extern void pciedev_prep_D3(void *pch, bool enter_D3);
+extern void pciedev_reg_pm_clk_period(void *pch);
+extern uint32 pcie_set_ctrlreg(void* pch, uint32 mask, uint32 val);
 #endif 
 
 #define PCIE_MRRS_OVERRIDE(sih) \

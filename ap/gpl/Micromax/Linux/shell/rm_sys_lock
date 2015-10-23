@@ -1,0 +1,13 @@
+#!/bin/sh
+# description: delete system lock file
+export LANG="en_US.UTF-8"
+export COLUMNS=256
+if [ "$1" = "" ]; then
+        echo "parameter error"
+	exit 2
+else
+        FILENAME=$1
+fi
+
+rm -f $FILENAME
+

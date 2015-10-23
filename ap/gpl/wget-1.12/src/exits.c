@@ -103,6 +103,12 @@ inform_exit_status (uerr_t err)
 int
 get_exit_status (void)
 {
+  /* Foxconn add start, Max Ding, 02/02/2013 */
+  if (final_exit_status == WGET_EXIT_SUCCESS)
+    update_status_file("3", 3, getpid());
+  else
+    update_status_file("5", 3, getpid());
+  /* Foxconn add end, Max Ding, 02/02/2013 */
   return
     (final_exit_status == WGET_EXIT_UNKNOWN)
       ? 1

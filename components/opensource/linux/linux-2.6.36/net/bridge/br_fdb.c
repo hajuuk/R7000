@@ -32,6 +32,8 @@ static int mac_cnt = 0;
 #ifdef HNDCTF
 #include <linux/if.h>
 #include <linux/if_vlan.h>
+#include <linux/if_ether.h>
+#include <net/arp.h>
 #include <typedefs.h>
 #include <osl.h>
 #include <ctf/hndctf.h>
@@ -41,7 +43,7 @@ static int mac_cnt = 0;
 
 #ifdef HNDCTF
 static void
-br_brc_init(ctf_brc_t *brc, unsigned char *ea, struct net_device *rxdev)
+br_brc_init(ctf_brc_t *brc, unsigned char *ea, struct net_device *rxdev, unsigned char *sip)
 {
 	memset(brc, 0, sizeof(ctf_brc_t));
 
@@ -56,6 +58,9 @@ br_brc_init(ctf_brc_t *brc, unsigned char *ea, struct net_device *rxdev)
 		brc->txifp = (void *)rxdev;
 		brc->action = CTF_ACTION_UNTAG;
 	}
+
+	if (sip)
+		memcpy(&brc->ip, sip, IPV4_ADDR_LEN);
 
 #ifdef DEBUG
 	printk("mac %02x:%02x:%02x:%02x:%02x:%02x\n",
@@ -73,9 +78,12 @@ br_brc_init(ctf_brc_t *brc, unsigned char *ea, struct net_device *rxdev)
  * Add bridge cache entry.
  */
 void
-br_brc_add(unsigned char *ea, struct net_device *rxdev)
+br_brc_add(unsigned char *ea, struct net_device *rxdev, struct sk_buff *skb)
 {
-	ctf_brc_t brc_entry, *brcp;
+	ctf_brc_t brc_entry;
+	struct ethhdr *eth;
+	struct arphdr *arp;
+	unsigned char *arp_ptr = NULL;
 
 	/* Add brc entry only if packet is received on ctf 
 	 * enabled interface
@@ -84,47 +92,29 @@ br_brc_add(unsigned char *ea, struct net_device *rxdev)
 	                   vlan_dev_real_dev(rxdev) : rxdev)))
 		return;
 
-	br_brc_init(&brc_entry, ea, rxdev);
+	if (skb) {
+		/* Only handle ARP Reply */
+		eth = (struct ethhdr *)skb_mac_header(skb);
+		if (eth->h_proto == htons(ETHER_TYPE_ARP)) {
+			arp = (struct arphdr *)skb_network_header(skb);
+			if (arp->ar_hrd == htons(ARPHRD_ETHER) &&
+			    arp->ar_pro == htons(ETH_P_IP) &&
+			    arp->ar_op == htons(ARPOP_REPLY)) {
+			    /* Extract source ip fields */
+				arp_ptr = (unsigned char *)(arp+1);
+				arp_ptr += skb->dev->addr_len;
+			}
+		}
+	}
+
+	br_brc_init(&brc_entry, ea, rxdev, arp_ptr);
 
 #ifdef DEBUG
 	printk("%s: Adding brc entry\n", __FUNCTION__);
 #endif
 
 	/* Add the bridge cache entry */
-	if ((brcp = ctf_brc_lkup(kcih, ea)) == NULL)
-		ctf_brc_add(kcih, &brc_entry);
-	else {
-		ctf_brc_release(kcih, brcp);
-		ctf_brc_update(kcih, &brc_entry);
-	}
-
-	return;
-}
-
-/*
- * Update bridge cache entry.
- */
-void
-br_brc_update(unsigned char *ea, struct net_device *rxdev)
-{
-	ctf_brc_t brc_entry;
-
-	/* Update brc entry only if packet is received on ctf 
-	 * enabled interface
-	 */
-	if (!ctf_isenabled(kcih, ((rxdev->priv_flags & IFF_802_1Q_VLAN) ?
-	                   vlan_dev_real_dev(rxdev) : rxdev)))
-		return;
-
-	/* Initialize the new device and/or vlan info */
-	br_brc_init(&brc_entry, ea, rxdev);
-
-#ifdef DEBUG
-	printk("%s: Updating brc entry\n", __FUNCTION__);
-#endif
-
-	/* Update the bridge cache entry */
-	ctf_brc_update(kcih, &brc_entry);
+	ctf_brc_add(kcih, &brc_entry);
 
 	return;
 }
@@ -260,19 +250,38 @@ void br_fdb_cleanup(unsigned long _data)
 #ifdef HNDCTF
 				ctf_brc_t *brcp;
 
+//				ctf_brc_acquire(kcih);
+
 				/* Before expiring the fdb entry check the brc
 				 * live counter to make sure there are no frames
 				 * on this connection for timeout period.
 				 */
-				brcp = ctf_brc_lkup(kcih, f->addr.addr);
+				brcp = ctf_brc_lkup(kcih, f->addr.addr, FALSE);
 				if (brcp != NULL) {
+					uint32 arpip = 0;
+
 					if (brcp->live > 0) {
 						brcp->live = 0;
-						ctf_brc_release(kcih, brcp);
+						brcp->hitting = 0;
+//						ctf_brc_release(kcih);
 						f->ageing_timer = jiffies;
 						continue;
+					} else if (brcp->hitting > 0) {
+						/* When bridge deletes a CTF hitting cache entry,
+						 * we use DHCP "probes" (ARP Request) to trigger
+						 * the CTF fast path restoration.
+						 */
+						brcp->hitting = 0;
+						if (brcp->ip != 0)
+							arpip = brcp->ip;
 					}
-					ctf_brc_release(kcih, brcp);
+//					ctf_brc_release(kcih);
+					if (arpip != 0)
+						arp_send(ARPOP_REQUEST, ETH_P_ARP,
+							arpip, br->dev, 0, NULL,
+							NULL, NULL);
+				} else {
+//					ctf_brc_release(kcih);
 				}
 #endif /* HNDCTF */
 				fdb_delete(f);
@@ -448,16 +457,26 @@ static inline struct net_bridge_fdb_entry *fdb_find(struct hlist_head *head,
 	return NULL;
 }
 
+#ifdef HNDCTF
+static struct net_bridge_fdb_entry *fdb_create(struct hlist_head *head,
+					       struct net_bridge_port *source,
+					       const unsigned char *addr,
+					       int is_local,
+					       struct sk_buff *skb)
+#else
 static struct net_bridge_fdb_entry *fdb_create(struct hlist_head *head,
 					       struct net_bridge_port *source,
 					       const unsigned char *addr,
 					       int is_local)
+#endif
 {
 	struct net_bridge_fdb_entry *fdb;
 
     /* foxconn wklin added start, 06/18/2008 */
-    if (mac_cnt > MAX_MAC_CNT)
+    if (mac_cnt > MAX_MAC_CNT) {
+		//printk(KERN_EMERG "%s: Max MAC count exceed! mac_cnt=%d\n", __FUNCTION__, mac_cnt);
         return 0;
+	}
     /* foxconn wklin added end, 06/18/2008 */
 	fdb = kmem_cache_alloc(br_fdb_cache, GFP_ATOMIC);
 	if (fdb) {
@@ -473,7 +492,7 @@ static struct net_bridge_fdb_entry *fdb_create(struct hlist_head *head,
 		/* Add bridge cache entry for non local hosts */
 #ifdef HNDCTF
 		if (!is_local && (source->state == BR_STATE_FORWARDING))
-			br_brc_add((unsigned char *)addr, source->dev);
+			br_brc_add((unsigned char *)addr, source->dev, skb);
 #endif /* HNDCTF */
 	}
 	return fdb;
@@ -501,7 +520,11 @@ static int fdb_insert(struct net_bridge *br, struct net_bridge_port *source,
 		fdb_delete(fdb);
 	}
 
+#ifdef HNDCTF
+	if (!fdb_create(head, source, addr, 1, NULL))
+#else
 	if (!fdb_create(head, source, addr, 1))
+#endif
 		return -ENOMEM;
 
 	return 0;
@@ -518,8 +541,13 @@ int br_fdb_insert(struct net_bridge *br, struct net_bridge_port *source,
 	return ret;
 }
 
+#ifdef HNDCTF
+void BCMFASTPATH_HOST br_fdb_update(struct net_bridge *br, struct net_bridge_port *source,
+		   const unsigned char *addr, struct sk_buff *skb)
+#else
 void BCMFASTPATH_HOST br_fdb_update(struct net_bridge *br, struct net_bridge_port *source,
 		   const unsigned char *addr)
+#endif
 {
 	struct hlist_head *head = &br->hash[br_mac_hash(addr)];
 	struct net_bridge_fdb_entry *fdb;
@@ -537,10 +565,10 @@ void BCMFASTPATH_HOST br_fdb_update(struct net_bridge *br, struct net_bridge_por
 	if (likely(fdb)) {
 		/* attempt to update an entry for a local interface */
 		if (unlikely(fdb->is_local)) {
-			if (net_ratelimit())
-				br_warn(br, "received packet on %s with "
-					"own address as source address\n",
-					source->dev->name);
+//			if (net_ratelimit())
+//				br_warn(br, "received packet on %s with "
+//					"own address as source address\n",
+//					source->dev->name);
 		} else {
 			/* fastpath: update of existing entry */
 #ifdef HNDCTF
@@ -549,7 +577,7 @@ void BCMFASTPATH_HOST br_fdb_update(struct net_bridge *br, struct net_bridge_por
 			 * the same bridge.
 			 */
 			if (source->state == BR_STATE_FORWARDING)
-				br_brc_update((unsigned char *)addr, source->dev);
+				br_brc_add((unsigned char *)addr, source->dev, skb);
 #endif /* HNDCTF */
 
 			fdb->dst = source;
@@ -558,7 +586,11 @@ void BCMFASTPATH_HOST br_fdb_update(struct net_bridge *br, struct net_bridge_por
 	} else {
 		spin_lock(&br->hash_lock);
 		if (!fdb_find(head, addr))
+#ifdef HNDCTF
+			fdb_create(head, source, addr, 0, skb);
+#else
 			fdb_create(head, source, addr, 0);
+#endif
 		/* else  we lose race and someone else inserts
 		 * it first, don't bother updating
 		 */

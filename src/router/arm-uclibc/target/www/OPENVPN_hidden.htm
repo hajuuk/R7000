@@ -91,10 +91,10 @@ function check_ca()
 {
 	if(document.forms[0].openvpnCA.value.length == 0)
 	{
-		alert("<%387%>");
+		alert("<%460%>");
 		return false;
 	}
-	if(confirm("<%388%>"))
+	if(confirm("<%461%>"))
 		return true;
 	else
 		return false;
@@ -104,21 +104,21 @@ function check_ca()
 </script> 
 </head>
 <body  onload="change_size();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%57%>">
-<img class="body-image" src="<%58%>">
+<img class="cover-image" src="<%74%>">
+<img class="body-image" src="<%75%>">
 <div id="full-page-container">
 
 <form id="target"  method="POST" action="openvpn_hidden.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="<%59%>">
-<div class="subhead2"> <%362%></div>
+<img class="subtop-image" src="<%76%>">
+<div class="subhead2"> <%431%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%61%>"  onClick="buttonClick(this,'<%61%>');" type="SUBMIT" name="cfAlert_Apply" class="button-apply" > <span class="roundleft_apply" ><%62%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%63%>" onClick="buttonClick(this,'<%63%>');" type="BUTTOn" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%64%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button  onClick="buttonClick(this,'<%704%>');" type="button" name="Button" value=<%704%> class="button-rule" ><span class="roundleft_button">&nbsp;&nbsp;  <%704%> </span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%78%>"  onClick="buttonClick(this,'<%78%>');" type="SUBMIT" name="cfAlert_Apply" class=<%79%> > <span class="<%80%>" ><%81%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="<%82%>">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%83%>" onClick="buttonClick(this,'<%83%>');" type="BUTTOn" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%84%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button  onClick="buttonClick(this,'<%804%>');" type="button" name="Button" value=<%804%> class="button-rule" ><span class="roundleft_button">&nbsp;&nbsp;  <%804%> </span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -127,80 +127,80 @@ function check_ca()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
     <td colspan="2">
-    <input type="checkbox" name="openvpnActive" value="openvpnEnable" <%777%>> <b><%778%></b>
+    <input type="checkbox" name="openvpnActive" value="openvpnEnable" <%883%>> <b><%884%></b>
     </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <TR>
-<TD nowrap><%782%>
-<input type="radio" name="openvpn_iface_type" value="tun" <%799%> > <%783%> 
-<input type="radio" name="openvpn_iface_type" value="tap" <%800%> > <%784%> </TD>
+<TD nowrap><%907%>
+<input type="radio" name="openvpn_iface_type" value="tun" <%908%> > <%891%> 
+<input type="radio" name="openvpn_iface_type" value="tap" <%909%> > <%896%> </TD>
 </TR>
 
 <TR>
-<TD nowrap><%785%>
-<input type="radio" name="openvpn_protocol" value="udp" <%786%> > <%607%> 
-<input type="radio" name="openvpn_protocol" value="tcp" <%787%> > <%606%> </TD>
+<TD nowrap><%892%>
+<input type="radio" name="openvpn_protocol" value="udp" <%897%> > <%693%> 
+<input type="radio" name="openvpn_protocol" value="tcp" <%898%> > <%692%> </TD>
 </TR>
 
 <tr>
-    <td width="50%" align="left" nowrap><%788%></td>
- <td width="100%" align="right"><input type="text" name="openvpn_service_port" value = "<%764%>" size="6" height="12" maxlength="8"></td>
+    <td width="50%" align="left" nowrap><%895%></td>
+ <td width="100%" align="right"><input type="text" name="openvpn_service_port" value = "<%867%>" size="6" height="12" maxlength="8"></td>
 </tr>
 
 <tr>
     <td width="50%" align="left" nowrap>server bridge IP range</td>
- <td width="100%" align="right"><input type="text" name="openvpn_br_ip_start" value = "<%801%>" size="16" height="12" maxlength="16">-<input type="text" name="openvpn_br_ip_end" value = "<%802%>" size="16" height="12" maxlength="16"></td>
+ <td width="100%" align="right"><input type="text" name="openvpn_br_ip_start" value = "<%910%>" size="16" height="12" maxlength="16">-<input type="text" name="openvpn_br_ip_end" value = "<%911%>" size="16" height="12" maxlength="16"></td>
 </tr>
 
 <tr>
     <td width="50%" align="left" nowrap>server IP domain</td>
- <td width="100%" align="right"><input type="text" name="openvpn_server_ip" value = "<%803%>" size="16" height="12" maxlength="16"></td>
+ <td width="100%" align="right"><input type="text" name="openvpn_server_ip" value = "<%912%>" size="16" height="12" maxlength="16"></td>
 </tr>
 
 <tr>
     <td colspan="2">
-    <input type="checkbox" name="openvpnRedirect" value="Redirect" <%804%>> <b>Redirect Gateway</b>
+    <input type="checkbox" name="openvpnRedirect" value="Redirect" <%913%>> <b>Redirect Gateway</b>
     </td>
 </tr>
 
  <tr>
- <td width="50%" align="left"><%805%></td>
+ <td width="50%" align="left"><%914%></td>
  <td colspan="2" width="100%" align="right">
-<TEXTAREA NAME="openvpn_ca" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%806%>
+<TEXTAREA NAME="openvpn_ca" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%915%>
 </textarea></td>
  </tr>
 
 <tr>
- <td width="50%" align="left"><%807%></td>
+ <td width="50%" align="left"><%916%></td>
  <td colspan="2" width="100%" align="right">
-<TEXTAREA NAME="openvpn_server_ca" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%808%>
+<TEXTAREA NAME="openvpn_server_ca" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%917%>
 </textarea></td>
 </tr>
 
 <tr>
- <td width="50%" align="left"><%809%></td>
+ <td width="50%" align="left"><%918%></td>
  <td colspan="2" width="100%" align="right">
-<TEXTAREA NAME="openvpn_server_key" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%810%>
+<TEXTAREA NAME="openvpn_server_key" class="smallfix" ROWS="20" cols="64" WRAP="vitural" tabindex="-1"><%919%>
 </textarea></td>
 </tr>
 
 <tr>
- <td width="50%" align="left"><%811%></td>
+ <td width="50%" align="left"><%920%></td>
  <td colspan="2" width="100%" align="right">
-<TEXTAREA NAME="openvpn_server_dh" class="smallfix" ROWS="10" cols="64" WRAP="vitural" tabindex="-1"><%812%>
+<TEXTAREA NAME="openvpn_server_dh" class="smallfix" ROWS="10" cols="64" WRAP="vitural" tabindex="-1"><%921%>
 </textarea></td>
 </tr>
 
 <tr>
     <td width="50%" align="left">push command1</td>
-    <td width="100%" align="right"><input type="text"name="openvpn_push1" value = "<%813%>" size="80" maxlength="256"></td>
+    <td width="100%" align="right"><input type="text"name="openvpn_push1" value = "<%922%>" size="80" maxlength="256"></td>
 </tr>
 
 <tr>
     <td width="50%" align="left">push command2</td>
-    <td width="100%" align="right"><input type="text" name="openvpn_push2" value = "<%737%>" size="80" maxlength="256"></td>
+    <td width="100%" align="right"><input type="text" name="openvpn_push2" value = "<%838%>" size="80" maxlength="256"></td>
 </tr>
 
 <tr><td colspan="2">
@@ -215,10 +215,10 @@ function check_ca()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%266%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%267%> </span>
       </div>
 
 

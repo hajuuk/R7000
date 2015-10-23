@@ -622,8 +622,17 @@ dhcp6_iaidaddr_timo(void *arg)
 		time(&now);
 		//dprintf(LOG_INFO, "%s" "sp->start_date=0x%08x", FNAME, sp->start_date);
 
+		/* Foxconn modified start pling 01/22/2015 */
+		/* System time set is to 2015/1/1 now, so adjust the constants */
+#if 0
 		if (now > 0x50000000 &&				/* approx 2013-2014 */
 			sp->start_date < 0x50000000) {	/* some time around 2014 */
+#endif
+#define DATE_20150101   0x54a48e00	/* from ap/acos/rc/main.c */
+#define DATE_20150121   0X54beec00
+		if (now > DATE_20150121 &&
+			sp->start_date < DATE_20150121) {
+		/* Foxconn modified end pling 01/22/2015 */
 			dprintf(LOG_INFO, "%s" "Lease expired due to NTP update."
 				" Go to solicit and request new ipv6 addresses",
 			    FNAME);

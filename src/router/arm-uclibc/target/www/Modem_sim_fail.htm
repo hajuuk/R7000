@@ -1,0 +1,103 @@
+<html>
+<head>
+<%11%>
+<title><%3171%></title> 
+<link rel="stylesheet" type="text/css" href="style.css">
+<script language="JavaScript" type="text/javascript">
+<!-- Start Script
+function CloseWindow()
+{
+ top.window.opener=null;
+ top.window.close();
+}
+function msg_close()
+{
+ alert("<%3151%>");
+ CloseWindow();
+}
+function back_fun()
+{
+    //location.href=document.forms[0].back_file.value;
+	url = "http://"+location.host+"/" + document.forms[0].back_file.value;
+	top.location.href=url;
+}
+function next_fun()
+{
+    location.href=document.forms[0].next_file.value;
+}
+<!--Foxconn add start, Tony, 08/15/2008 @add retry func -->
+function retry_fun()
+{
+    location.href=document.forms[0].retry_file.value;
+}
+<!--Foxconn add end, Tony, 08/15/2008 @add retry func -->
+// End Script -->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
+<form name="formname" method="POST" action="usb_fail.cgi"> 
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+  <tr>
+   <td valign="top" align="center">
+     <h1><br><%3199%></h1>
+     </td></tr>
+<tr>
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+  </tr>   
+  <tr>
+   <td valign="top" align="center">
+     <ul>
+     <p><%3173%>:</br></p>
+     </ul>
+   </td>
+  </tr>
+  <tr>
+   <td valign="top" align="left">
+   <ul>
+     <p><strong><%3199%></p></strong>
+     <p><%3200%></p>
+     </ul>
+   </td>
+  </tr>
+  <tr>
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+  </tr>  
+  <tr>
+   <td valign="top" align="left">
+   <ul>
+     <p><strong><%3201%></p></strong>
+     <p><%3202%></p>
+     </ul>
+   </td>
+  </tr>
+  <tr>
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+  </tr>  
+  <tr>
+    <td><center>
+    <ul>
+    <input type="button" name="next" value="   <%1570%>   " onclick="back_fun();">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" name="b_done" value="   <%1580%>  " onClick="retry_fun();">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" name="b_done" value="   <%1448%>   " onClick="msg_close()">
+    </center></ul></td>
+  </tr>
+  <!--
+  <tr>
+   <td>
+     <ul>Click <strong>Back</strong> to return to the <strong><p>Broadband Account Settings</p></strong> screen:&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" name="next" value="&nbsp;&nbsp;Back&nbsp;&nbsp;" onclick="back_fun();">
+     </ul>
+   </td>
+  </tr>
+  -->
+</table>
+<input type="hidden" name="back_file" value="welcome.htm">
+<input type="hidden" name="next_file" value="Modem_pin.htm">
+<!--Foxconn add start, Tony, 08/15/2008 @add hidden retry file -->
+<input type="hidden" name="retry_file" value="Modem_detect.htm">
+<!--Foxconn add end  , Tony, 08/15/2008 @add hidden retry file -->
+</form>
+</body>
+</html>

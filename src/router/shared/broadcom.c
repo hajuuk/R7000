@@ -2,7 +2,7 @@
  * Broadcom Home Gateway Reference Design
  * Web Page Configuration Support Routines
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
- * $Id: broadcom.c 388032 2013-02-27 22:42:23Z $
+ * $Id: broadcom.c 517676 2014-11-26 09:02:04Z $
  */
 
 #ifdef WEBS
@@ -35,6 +35,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <netdb.h>
 #include <assert.h>
 #include <httpd.h>
 #endif /* WEBS */
@@ -78,12 +79,28 @@
 #endif
 
 
+
+#ifdef __CONFIG_HSPOT__
+#include "passpoint_gui.h"
+#endif /* __CONFIG_HSPOT__ */
+
+#include <etioctl.h>
+#if defined(__CONFIG_TREND_IQOS__) && defined(CONFIG_TREND_IQOS_ENABLED)
+#include "iqos_gui.h"
+#endif /* __CONFIG_TREND_IQOS__ && CONFIG_TREND_IQOS_ENABLED */
+
+#if defined(__CONFIG_VISUALIZATION__) && defined(CONFIG_VISUALIZATION_ENABLED)
+#include "vis_gui.h"
+#endif /* (__CONFIG_VISUALIZATION__) && (CONFIG_VISUALIZATION_ENABLED) */
+
+#define HTTP_ERR_BAD_REQUEST		400
+
 /* FILE-CSTYLED */
 int internal_init(void);
 
 static char * encrypt_var(char *varname, char *ctext, int ctext_len, char *ptext, int *ptext_len,char *key, int keylen);
 static char * decrypt_var(char *varname, char *ptext, int ptext_len, char *ctext, int *ctext_len,char *key, int keylen);
-static char * make_wl_prefix(char *prefix,int prefix_size, int mode, char *ifname);
+char * make_wl_prefix(char *prefix,int prefix_size, int mode, char *ifname);
 static char * rfctime(const time_t *timep);
 static char * reltime(unsigned int seconds);
 static char * reltime_short(unsigned int seconds);
@@ -160,7 +177,7 @@ enum {
 	RESTART,
 };
 
-static const char * const apply_header =
+const char * const apply_header =
 "<head>"
 "<title>Broadcom Home Gateway Reference Design: Apply</title>"
 "<meta http-equiv=\"Content-Type\" content=\"application/html; charset=utf-8\">"
@@ -180,7 +197,7 @@ static const char * const apply_header =
 "<p>"
 ;
 
-static const char * const apply_footer =
+const char * const apply_footer =
 "<p>"
 "<input type=\"button\" name=\"action\" value=\"Continue\" OnClick=\"document.location.href='%s';\">"
 "</form>"
@@ -188,7 +205,7 @@ static const char * const apply_footer =
 "</body>"
 ;
 
-static int ret_code;
+int ret_code;
 static char posterr_msg[255];
 static int action = NOTHING;
 
@@ -231,6 +248,10 @@ inline void sys_reboot(void)
 
 #define SLEEP(X)	sleep(X)
 #define USLEEP(X)	usleep(X)
+
+#ifndef min
+#define min(a, b)	(((a) < (b)) ? (a) : (b))
+#endif
 
 #ifndef WEBS
 
@@ -276,7 +297,7 @@ static char* get_linux_partition_to_update(int* next)
 	char *target_to_flash;
 
 	/* Second priority: If the LINUX_BOOT_SEQUENCE is not set, we suppose the
- 	 * the user wants to disable the dual boot, always return the first one
+	 * the user wants to disable the dual boot, always return the first one
 	 */
 	char *the_image = nvram_get(IMAGE_BOOT);
 	FILE *fp;
@@ -285,7 +306,7 @@ static char* get_linux_partition_to_update(int* next)
 	if(the_image != NULL) {
 		unsigned int current_image = atoi(the_image);
 		unsigned int next_image = -1;
-		
+
 		if(current_image > 1) {
 			cprintf("Image more than 2 is not supported, use default!!\n");
 			goto my_default;
@@ -298,7 +319,7 @@ static char* get_linux_partition_to_update(int* next)
 		if ( (next_image == 1) && (fp = fopen("/proc/mtd", "r"))) {
 			char dev[PATH_MAX];
 
-                	while (fgets(dev, sizeof(dev), fp)) {
+			while (fgets(dev, sizeof(dev), fp)) {
 				if (strstr(dev, LINUX_SECOND)) {
 					fclose(fp);
 					goto my_continue;
@@ -332,7 +353,6 @@ sys_upgrade(char *url, FILE *stream, int *total)
 	char *buf = NULL;
 	int count, ret = 0;
 	long flags = -1;
-	int size = BUFSIZ;
 	char *target_partition;
 	int the_next=-1;
 
@@ -376,10 +396,12 @@ sys_upgrade(char *url, FILE *stream, int *total)
 	* fact is data buffered in the stream file's buffer. Since no
 	* one has changed the default stream file's buffer size, let's
 	* use the constant BUFSIZ until someone changes it.
+	* The code should be as follows
+	* if (size < MIN_BUF_SIZE)
+	*	size = MIN_BUF_SIZE;
 	*/
-	if (size < MIN_BUF_SIZE)
-		size = MIN_BUF_SIZE;
-	if ((buf = malloc(size)) == NULL) {
+
+	if ((buf = malloc(BUFSIZ)) == NULL) {
 		ret = ENOMEM;
 		goto err;
 	}
@@ -389,7 +411,7 @@ sys_upgrade(char *url, FILE *stream, int *total)
 	while (total && *total) {
 		if (waitfor(fileno(stream), 5) <= 0)
 			break;
-		count = safe_fread(buf, 1, size, stream);
+		count = safe_fread(buf, 1, BUFSIZ, stream);
 		if (!count && (ferror(stream) || feof(stream)))
 			break;
 		*total -= count;
@@ -419,7 +441,7 @@ sys_upgrade(char *url, FILE *stream, int *total)
 	}
 
  err:
- 	if (buf)
+	if (buf)
 		free(buf);
 	if (fifo)
 		fclose(fifo);
@@ -439,7 +461,6 @@ sys_upgrade(char *url, FILE *stream, int *total)
 	char *buf = NULL;
 	int count, ret = 0;
 	long flags = -1;
-	int size = BUFSIZ;
 	char *cmd = "write";
 	char *boot_partition = "boot";
 	char *target_partition = "linux";
@@ -480,10 +501,12 @@ sys_upgrade(char *url, FILE *stream, int *total)
 	* fact is data buffered in the stream file's buffer. Since no
 	* one has changed the default stream file's buffer size, let's
 	* use the constant BUFSIZ until someone changes it.
+	*
+	* if (size < MIN_BUF_SIZE)
+	*	size = MIN_BUF_SIZE;
 	*/
-	if (size < MIN_BUF_SIZE)
-		size = MIN_BUF_SIZE;
-	if ((buf = malloc(size)) == NULL) {
+
+	if ((buf = malloc(BUFSIZ)) == NULL) {
 		ret = ENOMEM;
 		goto err;
 	}
@@ -493,7 +516,7 @@ sys_upgrade(char *url, FILE *stream, int *total)
 	while (total && *total) {
 		if (waitfor(fileno(stream), 5) <= 0)
 			break;
-		count = safe_fread(buf, 1, size, stream);
+		count = safe_fread(buf, 1, BUFSIZ, stream);
 		if (!count && (ferror(stream) || feof(stream)))
 			break;
 		*total -= count;
@@ -663,6 +686,7 @@ ej_lan_leases(int eid, webs_t wp, int argc, char_t **argv)
 			/* Do not display reserved leases */
 			if (ETHER_ISNULLADDR(lease.chaddr))
 				continue;
+			lease.hostname[sizeof(lease.hostname) - 1] = '\0';
 			ret += websWrite(wp, "<tr><td>%s</td><td>", lease.hostname);
 			for (i = 0; i < 6; i++) {
 				ret += websWrite(wp, "%02X", lease.chaddr[i]);
@@ -774,7 +798,9 @@ ej_wan_link(int eid, webs_t wp, int argc, char_t **argv)
 		return websWrite(wp, "N/A");
 
 	/* Check for hardware link */
-	strncpy(ifr.ifr_name, wan_ifname, IFNAMSIZ);
+	strncpy(ifr.ifr_name, wan_ifname, sizeof(ifr.ifr_name) - 1);
+	ifr.ifr_name[sizeof(ifr.ifr_name) - 1] = '\0';
+
 	ifr.ifr_data = (void *) &ecmd;
 	ecmd.cmd = ETHTOOL_GSET;
 	if (ioctl(s, SIOCETHTOOL, &ifr) < 0) {
@@ -787,7 +813,8 @@ ej_wan_link(int eid, webs_t wp, int argc, char_t **argv)
 	}
 
 	/* Check for valid IP address */
-	strncpy(ifr.ifr_name, wan_ifname, IFNAMSIZ);
+	strncpy(ifr.ifr_name, wan_ifname, sizeof(ifr.ifr_name) - 1);
+	ifr.ifr_name[sizeof(ifr.ifr_name) - 1] = '\0';
 	if (ioctl(s, SIOCGIFADDR, &ifr) < 0) {
 		close(s);
 		return websWrite(wp, "Connecting");
@@ -938,7 +965,6 @@ sys_upgrade(char *url, FILE *stream, int *total)
 	char *buf = NULL;
 	int count, ret = 0;
 	long flags = -1;
-	int size = BUFSIZ;
 
 	assert(stream);
 	assert(total);
@@ -972,10 +998,11 @@ sys_upgrade(char *url, FILE *stream, int *total)
 	* fact is data buffered in the stream file's buffer. Since no
 	* one has changed the default stream file's buffer size, let's
 	* use the constant BUFSIZ until someone changes it.
+	* The code should be as follows
+	* if (size < MIN_BUF_SIZE)
+	*	size = MIN_BUF_SIZE;
 	*/
-	if (size < MIN_BUF_SIZE)
-		size = MIN_BUF_SIZE;
-	if ((buf = malloc(size)) == NULL) {
+	if ((buf = malloc(BUFSIZ)) == NULL) {
 		ret = ENOMEM;
 		goto err;
 	}
@@ -985,7 +1012,7 @@ sys_upgrade(char *url, FILE *stream, int *total)
 	while (total && *total) {
 		if (waitfor(fileno(stream), 5) <= 0)
 			break;
-		count = safe_fread(buf, 1, size, stream);
+		count = safe_fread(buf, 1, BUFSIZ, stream);
 		if (!count && (ferror(stream) || feof(stream)))
 			break;
 		*total -= count;
@@ -1480,24 +1507,6 @@ ej_wan_iflist(int eid, webs_t wp, int argc, char_t **argv)
 
 #endif /* __ECOS__ */
 
-#ifdef	__CONFIG_NORTON__
-/* Trigger an NGA LiveUpdate (linux/netbsd - no support for ECOS) */
-static int
-nga_update(void)
-{
-	char *str = NULL;
-	int pid;
-
-	if ((str = file2str("/var/run/bootstrap.pid"))) {
-		pid = atoi(str);
-		free(str);
-		return kill(pid, SIGHUP);
-	}
-
-	return -1;
-}
-#endif /* __CONFIG_NORTON__ */
-
 /* Common function */
 static int
 wl_phytype_get(webs_t wp, int *phytype)
@@ -1589,8 +1598,10 @@ ej_asp_list(int eid, webs_t wp, int argc, char_t **argv)
 #endif
 #endif	/* !__CONFIG_NETBOOT__ */
 #ifdef BCMQOS
+#if !defined(__CONFIG_TREND_IQOS__) && !defined(CONFIG_TREND_IQOS_ENABLED)
 	websWrite(wp,
 	  "  <td><a href=\"qos.asp\"><img border=\"0\" src=\"qos.gif\" alt=\"IQos\"></a></td>\n");
+#endif /* !defined (__CONFIG_TREND_IQOS__) && !defined (CONFIG_TREND_IQOS_ENABLED) */
 #endif
 	websWrite(wp,
 	  "  <td><a href=\"media.asp\"><img border=\"0\" src=\"media.gif\" alt=\"Media\"></a></td>\n");
@@ -1604,7 +1615,12 @@ ej_asp_list(int eid, webs_t wp, int argc, char_t **argv)
 #endif
 	websWrite(wp,
 	  "  <td><a href=\"radio.asp\"><img border=\"0\" src=\"radio.gif\" alt=\"Wlan I/F\"></a></td>\n"
-	  "  <td><a href=\"ssid.asp\"><img border=\"0\" src=\"ssid.gif\" alt=\"xyz\"></a></td>\n"
+	  "  <td><a href=\"ssid.asp\"><img border=\"0\" src=\"ssid.gif\" alt=\"xyz\"></a></td>\n");
+#ifdef __CONFIG_HSPOT__
+	websWrite(wp,
+	  "  <td><a href=\"passpoint.asp\"><img border=\"0\" src=\"passpoint.gif\" alt=\"Passpoint\"></a></td>\n");
+#endif /* __CONFIG_HSPOT__ */
+	websWrite(wp,
 	  "  <td><a href=\"security.asp\"><img border=\"0\" src=\"security.gif\" alt=\"Security\"></a></td>\n");
 #ifdef __CONFIG_WAPI_IAS__
 	websWrite(wp,
@@ -1621,6 +1637,14 @@ ej_asp_list(int eid, webs_t wp, int argc, char_t **argv)
 	websWrite(wp,
 	  "  <td><a href=\"netboot.asp\"><img border=\"0\" src=\"firmware.gif\" alt=\"Firmware\"></a></td>\n");
 #endif	/* __CONFIG_NETBOOT */
+#if defined(__CONFIG_VISUALIZATION__) && defined(CONFIG_VISUALIZATION_ENABLED)
+	websWrite(wp,
+          "  <td><a href=\"visindex.asp\"><img border=\"0\" src=\"visualization.gif\" alt=\"Visualization\"></a></td>\n");
+#endif /* (__CONFIG_VISUALIZATION__) && (CONFIG_VISUALIZATION_ENABLED) */
+#if defined(__CONFIG_TREND_IQOS__) && defined(CONFIG_TREND_IQOS_ENABLED)
+	websWrite(wp,
+          "  <td><a href=\"iQoSNetworkSummary.asp\"><img border=\"0\" src=\"iqos.gif\" alt=\"iQoS\"></a></td>\n");
+#endif /* __CONFIG_TREND_IQOS__ && CONFIG_TREND_IQOS_ENABLED */
 	websWrite(wp,
 	  "  <td width=\"100%%\"></td>\n"
 	  "</tr>\n");
@@ -2140,7 +2164,7 @@ get_emf_uffp_entry(char *arg, int entry, char *output)
 	foreach(word, nvram_safe_get("emf_uffp_entry"), next) {
 		if (entry-- == 0) {
 			ifname = word;
-			if (!ifname)
+			if (ifname[0] == '\0')
 				continue;
 			if (!strcmp(arg, "if")) {
 				strcpy(output, ifname);
@@ -2169,7 +2193,7 @@ get_emf_rtport_entry(char *arg, int entry, char *output)
 	foreach(word, nvram_safe_get("emf_rtport_entry"), next) {
 		if (entry-- == 0) {
 			ifname = word;
-			if (!ifname)
+			if (ifname[0] == '\0')
 				continue;
 			if (!strcmp(arg, "if")) {
 				strcpy(output, ifname);
@@ -3319,7 +3343,7 @@ ej_wps_current_psk_window_display(int eid, webs_t wp, int argc, char_t **argv)
 {
 #ifdef __CONFIG_WPS__
 	char prefix[] = "wlXXXXXXXXXX_";
-	char tmp[100], psk[65];
+	char tmp[100];
 	char *value;
 
 	if (!make_wl_prefix(prefix, sizeof(prefix), 1, NULL)) {
@@ -3328,10 +3352,9 @@ ej_wps_current_psk_window_display(int eid, webs_t wp, int argc, char_t **argv)
 	}
 	snprintf(tmp, sizeof(tmp), "%swpa_psk", prefix);
 	value = nvram_safe_get(tmp);
-	strcpy(psk, value);
-	
+
 	websWrite(wp,"	var psk_window = window.open(\"\", \"\", \"toolbar=no,scrollbars=yes,width=400,height=100\");\n");
-	websWrite(wp,"	psk_window.document.write(\"The WPA passphrase is %s\");\n", psk);
+	websWrite(wp,"	psk_window.document.write(\"The WPA passphrase is %s\");\n", value);
 	websWrite(wp,"	psk_window.document.close();\n");
 #endif /* __CONFIG_WPS__ */
 	return 1;
@@ -3347,8 +3370,10 @@ ej_wps_psk_window_display(int eid, webs_t wp, int argc, char_t **argv)
 	int oob = wps_is_oob();
 
 	if (oob) {
-		if ((value  = nvram_get("wps_randomkey")))
-			strcpy(random_psk, value);
+		if ((value  = nvram_get("wps_randomkey"))) {
+			strncpy(random_psk, value, sizeof(random_psk));
+			random_psk[sizeof(random_psk)-1] = '\0';
+		}
 		else if (random_psk[0] == 0)
 			wps_gen_key(random_psk, sizeof(random_psk));
 		strcpy(psk, random_psk);
@@ -3360,7 +3385,8 @@ ej_wps_psk_window_display(int eid, webs_t wp, int argc, char_t **argv)
 		}
 		snprintf(tmp, sizeof(tmp), "%swpa_psk", prefix);
 		value = nvram_safe_get(tmp);
-		strcpy(psk, value);
+		strncpy(psk, value, sizeof(psk));
+		psk[sizeof(psk)-1] = '\0';
 	}
 	websWrite(wp,"	var psk_window = window.open(\"\", \"\", \"toolbar=no,scrollbars=yes,width=400,height=100\");\n");
 	websWrite(wp,"	psk_window.document.write(\"The WPA passphrase is %s\");\n", psk);
@@ -3625,13 +3651,14 @@ ej_nvram_get(int eid, webs_t wp, int argc, char_t **argv)
 	return ret;
 }
 
+#define MAX_BRIDGE_PREFIX_LEN 14
 static int
 ej_wl_get_bridge(int eid, webs_t wp, int argc, char_t **argv)
 {
 	int mode=0;
-	char vif[10];
+	char vif[MAX_BRIDGE_PREFIX_LEN];
 	char *wl_bssid = NULL;
-	char prefix[] = "wlXXXXXXXXXX_";
+	char prefix[MAX_BRIDGE_PREFIX_LEN] = "wlXXXXXXXXXX_";
 	unsigned int len;
 	char name[IFNAMSIZ], *next = NULL;
 	int found = 0;
@@ -3653,7 +3680,8 @@ ej_wl_get_bridge(int eid, webs_t wp, int argc, char_t **argv)
 	}
 
 	/* interface name is prefix less the trailing '_' */
-	strcpy(vif, prefix);
+	strncpy(vif, prefix,MAX_BRIDGE_PREFIX_LEN-1);
+	vif[MAX_BRIDGE_PREFIX_LEN - 1] = '\0';
 	len = strlen(vif);
 	len--;
 	vif[len] = 0;
@@ -3701,6 +3729,57 @@ ej_nvram_match(int eid, webs_t wp, int argc, char_t **argv)
 		return websWrite(wp, output);
 
 	return 0;
+}
+
+/*
+ * Example:
+ * wl_u11en=0
+ * <% nvram_match_bitflag("wl_hsflag", 2, "0", "selected"); %> produces "selected"
+ * <% nvram_match_bitflag("wl_hsflag", 2, "1", "selected"); %> produces ""
+ */
+static int
+ej_nvram_match_bitflag(int eid, webs_t wp, int argc, char_t **argv)
+{
+	char *name=NULL, *match=NULL, *output=NULL;
+	int bit = 0;
+
+	if (ejArgs(argc, argv, "%s %d %s %s", &name, &bit, &match, &output) < 4) {
+		websError(wp, HTTP_ERR_BAD_REQUEST, "Insufficient args\n");
+		return -1;
+	}
+
+	assert(name);
+	assert(match);
+	assert(output);
+
+	if (nvram_match_bitflag(name, bit, match))
+		return websWrite(wp, output);
+
+	return 0;
+}
+
+/*
+ * Example:
+ * wl_u11en=0
+ * <% nvram_get_bitflag("wl_hsflag", 1); %> produces "1"
+ * <% nvram_get_bitflag("wl_hsflag", 0); %> produces ""
+ */
+static int
+ej_nvram_get_bitflag(int eid, webs_t wp, int argc, char_t ** argv)
+{
+	char *name = NULL;
+	char *ptr = NULL;
+	int bit = 0, ret = 0;
+
+	if (ejArgs(argc, argv, "%s %d", &name, &bit) < 2) {
+		websError(wp, HTTP_ERR_BAD_REQUEST, "Insufficient args\n");
+		return -1;
+	}
+
+	assert(name);
+	ptr = nvram_get_bitflag(name, bit);
+	ret += websWrite(wp, (ptr ? ptr : "0"));
+	return ret;
 }
 
 static int
@@ -3878,6 +3957,9 @@ wl_print_country_rev_list(webs_t wp, char *name, char *abbrev)
 	wl_uint32_list_t *list;
 	int ret = 0, i = 0, c = 0;
 
+	if (buf == NULL)
+		return -1;
+
 	strcpy(buf, "country_rev");
 	buflen = strlen(buf) + 1;
 
@@ -3911,8 +3993,7 @@ wl_print_country_rev_list(webs_t wp, char *name, char *abbrev)
 	websWrite(wp,");\n");
 
 exit:
-	if (buf)
-		free((void *)buf);
+	free((void *)buf);
 	return ret;
 }
 
@@ -5822,10 +5903,11 @@ ej_wl_nphy_comment_end(int eid, webs_t wp, int argc, char_t **argv)
 static int
 ej_wl_phytype_name(int eid, webs_t wp, int argc, char_t **argv)
 {
-	int phytype;
+	int phytype, status;
 
 	/* Get configured phy type */
-	wl_phytype_get(wp, &phytype);
+	if ((status = wl_phytype_get(wp, &phytype)) != 0)
+		return status;
 
 	return websWrite(wp, "%s", ((phytype == WLC_PHY_TYPE_N) || (phytype == WLC_PHY_TYPE_SSN) ||
 	                            (phytype == WLC_PHY_TYPE_LCN) || (phytype == WLC_PHY_TYPE_HT) ||
@@ -5968,6 +6050,8 @@ ej_wl_invite_list(int eid, webs_t wp, int argc, char_t **argv)
 	int i;
 	char *sta_list, *wl_unit, *tmp1= NULL;
 	char tmp[NVRAM_BUFSIZE], prefix[] = "wlXXXXXXXXXX_";
+	char *dest_ptr, *dest, *src_ptr;
+	int count = 0, len = 0;
 
 	if(!nvram_match("wl_wfi_enable", "1" ))
 		return 0;
@@ -5991,23 +6075,30 @@ ej_wl_invite_list(int eid, webs_t wp, int argc, char_t **argv)
 		
 	strcat_r(prefix, "wfi_list", tmp);
 	sta_list = nvram_safe_get(tmp);
-	
-	/* change '"' to '\''"' */
-	tmp1 = strchr(sta_list, '"');
-	while(tmp1){
-		strncpy( tmp, sta_list, (strlen(sta_list) - strlen(tmp1)));
-		tmp[strlen(sta_list) - strlen(tmp1)]='\\';
-		tmp[strlen(sta_list) - strlen(tmp1)+1]='\0';
-		sta_list  = malloc (strlen(tmp)+strlen(tmp1)+1);
-		strcat_r(tmp, tmp1, sta_list);
-		tmp1 = strchr(tmp1+1, '"');
-	}
 
-	/*if (sta_list)
-		printf (" sta_list -> %s\n", sta_list); */
-	
-	return websWrite(wp, sta_list);	
-	
+	/* change '"' to '\''"' */
+	while(sta_list[len])
+		if (sta_list[len++] == '"') ++count;
+	src_ptr = sta_list;
+	dest = (char *) malloc(sizeof(char) * (count + len + 1));
+	if (dest == NULL) /* malloc failed */
+		return 0;
+	dest_ptr = dest;
+
+	while(tmp1 = strchr(src_ptr, '"')) {
+		int chunk_len = tmp1 - src_ptr; /* length of current chunk without " in it */
+		memcpy(dest_ptr, src_ptr, chunk_len);
+		dest_ptr[chunk_len++] = '\\';
+		dest_ptr[chunk_len++] = '"';
+		dest_ptr += chunk_len;
+		src_ptr = tmp1 +1; /* skip " too */
+	}
+	strcpy(dest_ptr,src_ptr); /* yes, strcpy, copy rest of the string there is no " in it */
+
+	len =  websWrite(wp, dest);
+	free(dest);
+	return len;
+
 }
 
 static int
@@ -6240,7 +6331,7 @@ wps_gen_ssid(char *ssid, int ssid_len)
 	}
 	snprintf(vif, sizeof(vif), "%shwaddr", prefix);
 	value  = nvram_get(vif);
-	strncpy(mac, value, sizeof(mac));
+	strncpy(mac, value, sizeof(mac) - 1);
 
 	RAND_bytes((unsigned char *)&ssid_length, sizeof(ssid_length));
 	ssid_length = (unsigned short)((((long)ssid_length + 56791)*13579)%8) + 1;
@@ -6293,7 +6384,8 @@ ej_wps_credentials(int eid, webs_t wp, int argc, char_t **argv, int wps_sta)
 	/* Get current SSID */
 	snprintf(tmp, sizeof(tmp), "%sssid", prefix);
 	value  = nvram_safe_get(tmp);
-	strcpy(ssid, value);
+	strncpy(ssid, value, sizeof(ssid)-1);
+	ssid[sizeof(ssid) - 1] = '\0';
 
 	/* Get current AKM */
 	snprintf(tmp, sizeof(tmp), "%sakm", prefix);
@@ -6315,7 +6407,8 @@ ej_wps_credentials(int eid, webs_t wp, int argc, char_t **argv, int wps_sta)
 	/* psk */
 	snprintf(tmp, sizeof(tmp), "%swpa_psk", prefix);
 	value  = nvram_safe_get(tmp);
-	strcpy(psk, value);
+	strncpy(psk, value, sizeof(psk) - 1);
+	psk[sizeof(psk) - 1] = '\0';
 
 	/* If the credentials can be configured, also display the current credentials. */
 	if (configable) {
@@ -6342,8 +6435,10 @@ ej_wps_credentials(int eid, webs_t wp, int argc, char_t **argv, int wps_sta)
 
 	/* Show SSID */
 	if (oob && configable) {
-		if ((value  = nvram_get("wps_randomssid")))
-			strcpy(random_ssid, value);
+		if ((value  = nvram_get("wps_randomssid"))) {
+			strncpy(random_ssid, value, sizeof(random_ssid) - 1 );
+			random_ssid[sizeof(random_ssid) - 1] = '\0';
+		}
 		else if (random_ssid[0] == 0)
 			wps_gen_ssid(random_ssid, sizeof(random_ssid));
 		strcpy(ssid, random_ssid);
@@ -6358,8 +6453,10 @@ ej_wps_credentials(int eid, webs_t wp, int argc, char_t **argv, int wps_sta)
 		 */
 		crypto = 2; /* Default to TKIP + AES */
 
-		if ((value  = nvram_get("wps_randomkey")))
-			strcpy(random_psk, value);
+		if ((value  = nvram_get("wps_randomkey"))) {
+			strncpy(random_psk, value, sizeof(random_psk) - 1);
+			random_psk[sizeof(random_psk) - 1] = '\0';
+		}
 		else  if (random_psk[0] == 0)
 			wps_gen_key(random_psk, sizeof(random_psk));
 		strcpy(psk, random_psk);
@@ -6756,12 +6853,14 @@ ej_wps_enr_scan_result(int eid, webs_t wp, int argc, char_t **argv)
 			ap->BSSID[3], ap->BSSID[4], ap->BSSID[5]);
 		if (selected_ap == NULL) {
 			ret += websWrite(wp, "<option value=\"%d\" %s>%s (%s)</option>\n", i,
-					(i == 0) ? "selected" : "", translate_ssid(ap->ssid),
+					(i == 0) ? "selected" : "",
+					translate_ssid((char *)ap->ssid),
 					macstr);
 		}
 		else {
 			ret += websWrite(wp, "<option value=\"%d\" %s>%s (%s)</option>\n", i,
-					(selected_ap == ap) ? "selected" : "", translate_ssid(ap->ssid),
+					(selected_ap == ap) ? "selected" : "",
+					translate_ssid((char *)ap->ssid),
 					macstr);
 		}
 		ap++;
@@ -7112,6 +7211,12 @@ ej_trf_mgmt_display(int eid, webs_t wp, int argc, char_t **argv)
 	}
 
 	name = nvram_safe_get(strcat_r(prefix, "ifname", tmp));
+#ifdef __CONFIG_DHDAP__
+	/* Traffic Management Setting is not supported on DHD/PCIEFD driver */
+	if (!dhd_probe(name)) {
+		return -1;
+	}
+#endif
 	if (wl_iovar_get(name, "cap", (void *)caps, sizeof(caps)))
 		return -1;
 
@@ -7429,7 +7534,7 @@ validate_ipaddrs(webs_t wp, char *value, struct variable *v, char *varname)
 	validate_list(wp, value, v, valid_ipaddr, varname);
 }
 
-static int
+int
 valid_choice(webs_t wp, char *value, struct variable *v)
 {
 	char **choice=NULL;
@@ -7494,7 +7599,7 @@ validate_router_disable(webs_t wp, char *value, struct variable *v,
 
 }
 
-static int
+int
 valid_range(webs_t wp, char *value, struct variable *v)
 {
 	int n, start, end;
@@ -7532,6 +7637,28 @@ validate_range(webs_t wp, char *value, struct variable *v , char *varname)
 	ret_code = 0;
 }
 
+int
+valid_octet(webs_t wp, char *value, struct variable *v)
+{
+	int n, start, end;
+	assert(v);
+
+	n = atoi(value);
+	start = atoi(v->argv[0]);
+	end = atoi(v->argv[1]);
+
+	if (n == 255) {
+		return TRUE;
+	} else if (n < start || n > end) {
+		websBufferWrite(wp, "Invalid <b>%s</b> %s: out of range %d-%d<br>",
+			v->longname, value, start, end);
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+
 #ifdef BCMQOS
 static void
 valid_qos_var(webs_t wp, char *value, struct variable *v, char *varname )
@@ -7545,7 +7672,7 @@ valid_qos_var(webs_t wp, char *value, struct variable *v, char *varname )
 	ret_code = 0;
 }
 #endif /* BCMQOS */
-static int
+int
 valid_name(webs_t wp, char *value, struct variable *v)
 {
 	int n, min, max;
@@ -7569,6 +7696,47 @@ valid_name(webs_t wp, char *value, struct variable *v)
 
 	return TRUE;
 }
+
+int
+valid_hex(webs_t wp, char *value, struct variable *v)
+{
+	int n, min, max;
+	char *c=NULL;
+
+	assert(v);
+
+	n = strlen(value);
+	min = atoi(v->argv[0]);
+	max = atoi(v->argv[1]);
+
+	if (n > max) {
+		websBufferWrite(wp, "Invalid <b>%s</b> %s: longer than %d characters<br>",
+			v->longname, value, max);
+		return FALSE;
+	}
+	else if (n < min) {
+		websBufferWrite(wp, "Invalid <b>%s</b> %s: shorter than %d characters<br>",
+			v->longname, value, min);
+		return FALSE;
+	}
+	else if(n%2)
+	{
+		websBufferWrite(wp, "Invalid <b>%s</b> %s: must be in even length<br>",
+			v->longname, value);
+		return FALSE;
+	}
+
+	for (c = value; *c; c++) {
+		if (!isxdigit((int) *c)) {
+			websBufferWrite(wp, "Invalid <b>%s</b>: character %c is not a hexadecimal digit<br>",
+			v->longname, *c);
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
 
 static void
 validate_guest_lan_ifname(webs_t wp, char *value, struct variable *v, char *varname )
@@ -7651,7 +7819,7 @@ validate_vif_ssid(webs_t wp, char *value, struct variable *v, char *varname )
 	else
 		wl_unit=websGetVar(wp, "wl_unit", NULL);
 
-	if (get_ifname_unit(wl_unit,&p,NULL) < 0) return ;
+	if (!wl_unit || get_ifname_unit(wl_unit,&p,NULL) < 0) return ;
 
 	if (p < 0) return;
 
@@ -7754,9 +7922,6 @@ validate_vif_ssid(webs_t wp, char *value, struct variable *v, char *varname )
 		nvram_unset(wl_radio);
 		nvram_unset(wl_mode);
 		nvram_unset("wl_bss_enabled");
-#ifdef __CONFIG_HSPOT__
-		nvram_unset("wl_bss_hs2_enabled");
-#endif  /* __CONFIG_HSPOT__ */
 	}
 
 	ret_code = 0;
@@ -7777,15 +7942,30 @@ validate_name(webs_t wp, char *value, struct variable *v, char *varname )
 
 	ret_code = 0;
 }
+
+static void
+validate_names(webs_t wp, char *value, struct variable *v, char *varname )
+{
+
+	assert(v);
+
+	ret_code = EINVAL;
+
+	validate_list(wp, value, v, valid_name, varname);
+}
+
 static void
 validate_bridge(webs_t wp, char *value, struct variable *v, char *varname )
 {
 	char prefix[] = "wlXXXXXXXXXX_";
 	char *wl_bssid = NULL;
 	int mode = 0;
-	char vif[]= "XXXXXX_";
+	char vif[sizeof(prefix)];
 	char add_br[] = "xxxxxxxxxxxxx_" ;
 	char del_br[] = "xxxxxxxxxxxxx_" ;
+#ifdef __CONFIG_GMAC3__
+	char fwd_wlandevs[NVRAM_MAX_VALUE_LEN];
+#endif
 	char name[IFNAMSIZ], *next = NULL;
 	int need_to_add = 1;
 	char buf[NVRAM_MAX_VALUE_LEN];
@@ -7815,11 +7995,31 @@ validate_bridge(webs_t wp, char *value, struct variable *v, char *varname )
 	if(atoi(value)){
 		snprintf(add_br, sizeof(add_br), "lan1_ifnames") ;
 		snprintf(del_br, sizeof(del_br), "lan_ifnames") ;
+#ifdef __CONFIG_GMAC3__
+		/* in theory we should have three Network Bridge type "LAN", "Guest" and
+		 * "Forwarder" in GMAC3 platform, for now we assume all "LAN" wireless
+		 * interfaces are belong to Forwarder too.  Customer can change the
+		 * fwd_wlandevs NVRAM to configure a "LAN" virtual interface to bind to
+		 * sw br0 in order to apply layer 2 filter in sw bridge.  For now our GUI we
+		 * don't support this of configuration.
+		 */
+		/* remove vif from fwd_wlandevs if any */
+		strncpy(fwd_wlandevs, nvram_safe_get("fwd_wlandevs"), sizeof(fwd_wlandevs)-1);
+		if (remove_from_list(vif, fwd_wlandevs, sizeof(fwd_wlandevs)) == 0)
+			nvram_set("fwd_wlandevs", fwd_wlandevs);
+#endif
 	}
 	/* add the interface to bridge br0, and delete it from br1 */
 	else {
 		snprintf(add_br, sizeof(add_br), "lan_ifnames") ;
 		snprintf(del_br, sizeof(del_br), "lan1_ifnames") ;
+#ifdef __CONFIG_GMAC3__
+		/* add vif to fwd_wlandevs. */
+		strncpy(fwd_wlandevs, nvram_safe_get("fwd_wlandevs"), sizeof(fwd_wlandevs)-1);
+		if (!find_in_list(fwd_wlandevs, vif) &&
+		    add_to_list(vif, fwd_wlandevs, sizeof(fwd_wlandevs)-1) == 0)
+			nvram_set("fwd_wlandevs", fwd_wlandevs);
+#endif
 	}
 
 	memset(buf,0,sizeof(buf));
@@ -7835,7 +8035,7 @@ validate_bridge(webs_t wp, char *value, struct variable *v, char *varname )
 	}
 	nvram_set(del_br, buf);
 	memset(buf,0,sizeof(buf));
-	strcpy(buf, nvram_get(add_br));
+	strncpy(buf, nvram_get(add_br),sizeof(buf) - 1);
 	foreach(name, buf, next) {
 		if (!strcmp(name,vif)){
 			need_to_add = 0;
@@ -8285,8 +8485,13 @@ validate_ure(webs_t wp, char *value, struct variable *v, char *varname)
 
 	if ((temp = websGetVar(wp, "wl_unit", NULL)))
 	{
-		if( *temp )
-			get_ifname_unit( temp, &wl_unit, &wl_subunit );
+		if( *temp ) {
+			if (get_ifname_unit( temp, &wl_unit, &wl_subunit ) != 0) {
+				websError(wp, 400, "URE error getting wl_unit\n");
+				ret_code = EINVAL;
+				return;
+			}
+		}
 
 		if( wl_subunit != -1 )
 		{
@@ -8673,7 +8878,7 @@ validate_dhcp(webs_t wp, char *value, struct variable *v, char *varname)
 
 	ret_code = EINVAL;
 
-	memset(index,sizeof(index),0);
+	memset(index,0,sizeof(index));
 	/* fixup the nvram varnames if varname override is provided */
 	if (varname){
 		if (!get_index_string(v->prefix,
@@ -10288,6 +10493,100 @@ validate_wl_wds_hwaddrs(webs_t wp, char *value, struct variable *v, char *varnam
 	validate_list(wp, value, v, valid_hwaddr, varname);
 }
 
+typedef enum {
+	CALLFROM_DWDS,
+	CALLFROM_PSTA
+} callfrom_e;
+
+static void
+validate_dpsta(webs_t wp, callfrom_e callfrom)
+{
+	char *temp = NULL;
+	int wl_unit = -1;
+	int wl_subunit = -1;
+	char *wl_dwds;
+	char nv_param[NVRAM_MAX_PARAM_LEN];
+	char nv_interface[NVRAM_MAX_PARAM_LEN];
+	char os_interface[NVRAM_MAX_PARAM_LEN];
+	char *mode[2];
+	int dwds[2];
+	int psta[2];
+	int dpsta;
+
+	if ((temp = websGetVar(wp, "wl_unit", NULL))) {
+		if (*temp)
+			get_ifname_unit(temp, &wl_unit, &wl_subunit);
+
+		if (wl_subunit != -1) {
+			websError(wp, 400, "psta can't be enabled for a virtual i/f\n");
+			ret_code = EINVAL;
+		}
+	}
+
+	if (wl_unit == -1) {
+		websError(wp, 400, "Insufficient args\n");
+		ret_code = EINVAL;
+	}
+
+	/* While enabling proxy sta,repeater or dwds modes on second wl interface
+	 * (dual band repeater) set nvram variable dpsta_ifnames to upstream
+	 * interfaces.
+	 */
+
+	if (callfrom == CALLFROM_DWDS) {
+		/* Called after setting DWDS from SSID page */
+		wl_dwds = websGetVar(wp, "wl_dwds", NULL);
+		if (wl_dwds == NULL) {
+			ret_code = EINVAL;
+		}
+		dwds[wl_unit] = atoi(wl_dwds);
+
+		sprintf(nv_param, "wl%d_dwds", 1 - wl_unit);
+		dwds[1 - wl_unit] = atoi(nvram_safe_get(nv_param));
+
+		mode[0] = nvram_safe_get("wl0_mode");
+		mode[1] = nvram_safe_get("wl1_mode");
+	} else {
+		/* Called after setting PSTA/mode from radio page */
+		mode[wl_unit]= websGetVar(wp, "wl_mode", NULL);
+		if (mode[wl_unit] == NULL) {
+			ret_code = EINVAL;
+		}
+
+		sprintf(nv_param, "wl%d_mode", 1 - wl_unit);
+		mode[1-wl_unit] = nvram_safe_get(nv_param);
+
+		dwds[0] = atoi(nvram_safe_get("wl0_dwds"));
+		dwds[1] = atoi(nvram_safe_get("wl1_dwds"));
+	}
+
+	psta[0] = !strcmp(mode[0], "psta") || !strcmp(mode[0], "psr");
+	psta[1] = !strcmp(mode[1], "psta") || !strcmp(mode[1], "psr");
+
+	dwds[0] = (dwds[0] && strcmp(mode[0], "ap"));
+	dwds[1] = (dwds[1] && strcmp(mode[1], "ap"));
+
+	dpsta = ((dwds[0] || psta[0]) && (dwds[1] || psta[1]));
+
+	strcpy(nv_param, "dpsta_ifnames");
+	if (dpsta) {
+		char if_list[NVRAM_MAX_VALUE_LEN];
+		int if_list_size = sizeof(if_list);
+
+		sprintf(nv_interface, "wl0");
+		nvifname_to_osifname(nv_interface, os_interface, sizeof(os_interface));
+		add_to_list(os_interface, if_list, if_list_size);
+
+		sprintf(nv_interface, "wl1");
+		nvifname_to_osifname(nv_interface, os_interface, sizeof(os_interface));
+		add_to_list(os_interface, if_list, if_list_size);
+
+		nvram_set(nv_param, if_list);
+	} else {
+		nvram_set(nv_param, "");
+	}
+}
+
 static bool
 validate_psta(webs_t wp, char *value, struct variable *v, char *varname)
 {
@@ -10311,8 +10610,13 @@ validate_psta(webs_t wp, char *value, struct variable *v, char *varname)
 	bool psta, psr, db_rpt;
 
 	if ((temp = websGetVar(wp, "wl_unit", NULL))) {
-		if (*temp)
-			get_ifname_unit(temp, &wl_unit, &wl_subunit);
+		if (*temp) {
+			if (get_ifname_unit(temp, &wl_unit, &wl_subunit) != 0) {
+				websError(wp, 400, "psta error getting wl_unit\n");
+				ret_code = EINVAL;
+				return FALSE;
+			}
+		}
 
 		if (wl_subunit != -1) {
 			websError(wp, 400, "psta can't be enabled for a virtual i/f\n");
@@ -10371,27 +10675,6 @@ validate_psta(webs_t wp, char *value, struct variable *v, char *varname)
 			return FALSE;
 		}
 		strncpy(interface_list, temp, interface_list_size);
-
-		/* While enabling proxy sta or repeater modes on second wl interface
-		 * (dual band repeater) set nvram variable dpsta_ifnames to upstream
-		 * interfaces.
-		 */
-		if (db_rpt) {
-			char if_list[NVRAM_MAX_VALUE_LEN];
-			int if_list_size = sizeof(if_list);
-
-			strcpy(nv_param, "dpsta_ifnames");
-			sprintf(nv_interface, "wl0");
-			nvifname_to_osifname(nv_interface, os_interface,
-			                     sizeof(os_interface));
-			add_to_list(os_interface, if_list, if_list_size);
-			sprintf(nv_interface, "wl1");
-			nvifname_to_osifname(nv_interface, os_interface,
-			                     sizeof(os_interface));
-			add_to_list(os_interface, if_list, if_list_size);
-	        	nvram_set(nv_param, if_list);
-		} else
-			nvram_set("dpsta_ifnames", "");
 
 		sprintf(nv_interface, "wl%d.1", wl_unit);
 
@@ -10469,11 +10752,6 @@ validate_psta(webs_t wp, char *value, struct variable *v, char *varname)
 			nvram_set(nv_param, "0");
 		}
 	} else {
-		/* Clear dpsta ifnames if psta and psr are disabled on either
-		 * of the interfaces.
-		 */
-		nvram_set("dpsta_ifnames", "");
-
 		/* Now we need to remove the virtual i/f from the bridged lan interfaces */
 		temp = nvram_safe_get(lan_ifnames);
 		if(interface_list_size <= strlen(temp)) {
@@ -10526,6 +10804,30 @@ validate_wl_mode(webs_t wp, char *value, struct variable *v, char *varname)
 		nvram_set(varname, value);
 	else
 		nvram_set(v->name, value);
+
+	/* Based on DWDS/PSTA/PSR, turn on/off dpsta */
+	validate_dpsta(wp, CALLFROM_PSTA);
+
+	ret_code = 0;
+}
+
+static void
+validate_wl_dwds(webs_t wp, char *value, struct variable *v, char *varname)
+{
+	assert(v);
+
+	ret_code = EINVAL;
+
+	if (!valid_choice(wp, value, v))
+		return;
+
+	if (varname)
+		nvram_set(varname, value);
+	else
+		nvram_set(v->name, value);
+
+	/* Based on DWDS/PSTA/PSR, turn on/off dpsta */
+	validate_dpsta(wp, CALLFROM_DWDS);
 
 	ret_code = 0;
 }
@@ -10623,12 +10925,16 @@ validate_wl_wme_params(webs_t wp, char *value, struct variable *v, char *varname
 	}
 
 	if ((value = websGetVar(wp, strcat_r(v->name, "5", tmp), NULL)) != NULL)
-		if (!strcmp(value, "off") || !strcmp(value, "on"))
-			strcpy(acm_str, value);
+		if (!strcmp(value, "off") || !strcmp(value, "on")) {
+			strncpy(acm_str, value, sizeof(acm_str)-1);
+			acm_str[sizeof(acm_str)-1] = '\0';
+		}
 
 	if ((value = websGetVar(wp, strcat_r(v->name, "6", tmp), NULL)) != NULL)
-		if (!strcmp(value, "off") || !strcmp(value, "on"))
-			strcpy(dof_str, value);
+		if (!strcmp(value, "off") || !strcmp(value, "on")) {
+			strncpy(dof_str, value, sizeof(dof_str)-1);
+			dof_str[sizeof(dof_str)-1] = '\0';
+		}
 
 	sprintf(tmp, "%d %d %d %d %d %s %s",
 	        cwmin, cwmax, aifsn, txop_b, txop_ag, acm_str, dof_str);
@@ -10817,6 +11123,44 @@ error:
 	websBufferWrite(wp, "Error setting WME TX parameters value: <b>");
 	websBufferWrite(wp, errmsg);
 	websBufferWrite(wp, "<b><br>");
+}
+
+static void
+validate_dfs_prefchan(webs_t wp, char *value, struct variable *v, char *varname)
+{
+	char tmp[256];
+	char pref0[32], pref1[32], pref2[32], pref3[32], pref4[32], pref5[32];
+
+	if ((value = websGetVar(wp, strcat_r(v->name, "0", tmp), NULL)) != NULL)
+		sprintf(pref0, "%s", !strcmp("N/A", value) ? "0" : value);
+	else
+		sprintf(pref0, "%s", "0");
+	if ((value = websGetVar(wp, strcat_r(v->name, "1", tmp), NULL)) != NULL)
+		sprintf(pref1, "%s", !strcmp("N/A", value) ? "0" : value);
+	else
+		sprintf(pref1, "%s", "0");
+	if ((value = websGetVar(wp, strcat_r(v->name, "2", tmp), NULL)) != NULL)
+		sprintf(pref2, "%s", !strcmp("N/A", value) ? "0" : value);
+	else
+		sprintf(pref2, "%s", "0");
+	if ((value = websGetVar(wp, strcat_r(v->name, "3", tmp), NULL)) != NULL)
+		sprintf(pref3, "%s", !strcmp("N/A", value) ? "0" : value);
+	else
+		sprintf(pref3, "%s", "0");
+	if ((value = websGetVar(wp, strcat_r(v->name, "4", tmp), NULL)) != NULL)
+		sprintf(pref4, "%s", !strcmp("N/A", value) ? "0" : value);
+	else
+		sprintf(pref4, "%s", "0");
+	if ((value = websGetVar(wp, strcat_r(v->name, "5", tmp), NULL)) != NULL)
+		sprintf(pref5, "%s", !strcmp("N/A", value) ? "0" : value);
+	else
+		sprintf(pref5, "%s", "0");
+
+	sprintf(tmp, "%s %s %s %s %s %s", pref0, pref1, pref2, pref3, pref4, pref5);
+
+	nvram_set(v->name, tmp);
+	ret_code = 0;
+	return;
 }
 
 /* Hook to write wl_* default set through to wl%d_* variable set */
@@ -11219,9 +11563,11 @@ struct variable variables[] = {
 	{ "qos_orules", "Qos rules", NULL, valid_qos_var, NULL, TRUE, 0 },
 #endif /* BCMQOS */
 	{ "igmp_enable" , "Enable IGMP proxy", NULL, validate_choice, ARGV("1", "0"), FALSE, 0},
-#ifdef __CONFIG_HSPOT__
-	{ "hspotap_enable" , "Enable Hotspot 2.0", NULL, validate_choice, ARGV("0", "1"), FALSE, 0},
-#endif /* __CONFIG_HSPOT__ */
+	{ "bsd_role" , "BandSteer Daemon State", NULL, validate_choice, ARGV("3", "2", "1", "0"), FALSE, 0},
+	{ "bsd_helper", "BandSteer Helper IP Address", lan_prefix, validate_ipaddr, NULL, TRUE, NVRAM_MI| NVRAM_MP },
+	{ "bsd_hport", "BandSteer Helper Port", wl_prefix, validate_range, ARGV("0", "65535"), FALSE,NVRAM_MI |  EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "bsd_primary", "BandSteer Primary IP Address", lan_prefix, validate_ipaddr, NULL, TRUE, NVRAM_MI| NVRAM_MP },
+	{ "bsd_pport", "BandSteer Primary Port", wl_prefix, validate_range, ARGV("0", "65535"), FALSE,NVRAM_MI |  EZC_FLAGS_READ | EZC_FLAGS_WRITE },
 	{ "trf_mgmt_port", "Traffic Port", NULL, validate_trf_mgmt_port, ARGV("0", XSTR(MAX_NVPARSE - 1)), FALSE, NVRAM_GENERIC_MULTI },
 	/* LAN settings */
 	{ "lan_ifname" "LAN Interface Name", lan_prefix, NULL, NULL, FALSE, NVRAM_MI|NVRAM_IGNORE },
@@ -11310,9 +11656,42 @@ struct variable variables[] = {
 	/* ALL wl_XXXX variables are per-interface  */
 	/* This group is per ssid */
 	{ "wl_bss_enabled", "BSS Enable", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI },
+
 #ifdef __CONFIG_HSPOT__
-	{ "wl_bss_hs2_enabled", "BSS Hotspot Enable", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI },
-#endif  /* __CONFIG_HSPOT__ */
+	{ "wl_hsflag", "Passpoint Flags", wl_prefix, validate_wl_hsflag, ARGV("0", "65535"), FALSE, NVRAM_MI },
+	{ "wl_hs2cap", "Passpoint Capability", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI },
+	{ "wl_opercls", "Operating Class", wl_prefix, validate_choice, ARGV("1", "2", "3"), FALSE, NVRAM_MI },
+	{ "wl_anonai", "Anonymous NAI", wl_prefix, validate_name, ARGV("0", "255"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_wanmetrics", "WAN Metrics", wl_prefix, validate_wl_wanmetrics, ARGV("0", "255"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_oplist", "Operator Friendly Name List", wl_prefix, validate_wl_oplist, ARGV("0", "1080"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_homeqlist", "NAI Home Realm Query List", wl_prefix, validate_wl_homeqlist, ARGV("0", "1080"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_osu_ssid",  "OSU provider SSID", wl_prefix, validate_name, ARGV("0", "255"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_osu_frndname", "OSU Friendly name", wl_prefix, validate_wl_osuplist, ARGV("0", "2048"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_osu_uri", "OSU URI", wl_prefix, validate_wl_osuplist, ARGV("0", "1024"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_osu_nai", "OSU NAI", wl_prefix, validate_wl_osuplist, ARGV("0", "1024"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_osu_method", "OSU Icon", wl_prefix, validate_wl_osuplist, ARGV("0", "20"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_osu_icons", "OSU Icon", wl_prefix, validate_wl_osuplist, ARGV("0", "255"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_osu_servdesc", "OSU Service Description", wl_prefix, validate_wl_osuplist, ARGV("0", "2048"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_concaplist", "Connection Capability List", wl_prefix, validate_wl_concaplist, ARGV("0", "255"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_qosmapie", "QoS Map IE", wl_prefix, validate_wl_qosmapie, ARGV("0", "255"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_gascbdel", "GAS CB Delay", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI },
+
+	/* ---- 802.11u -----------------------------------  */
+	{ "wl_iwnettype", "Acees Network Type", wl_prefix, validate_choice, ARGV("0", "1", "2", "3", "4", "5", "14", "15"), FALSE, NVRAM_MI },
+	{ "wl_hessid", "Interworking HESSID", wl_prefix, validate_hwaddr, NULL, TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_ipv4addr", "IPV4 Address Type Availability", wl_prefix, validate_choice, ARGV("0", "1", "2", "3", "4", "5", "6", "7"), FALSE, NVRAM_MI },
+	{ "wl_ipv6addr", "IPV6 Address Type Availability", wl_prefix, validate_choice, ARGV("0", "1", "2"), FALSE, NVRAM_MI },
+	{ "wl_netauthlist", "Network Authentication Type List", wl_prefix, validate_wl_netauthlist, ARGV("0", "600"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_venuegrp", "Venue Group", wl_prefix, validate_choice, ARGV("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"), FALSE, NVRAM_MI },
+	{ "wl_venuetype", "BSS Venue Type", wl_prefix, validate_choice, ARGV("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"), FALSE, NVRAM_MI },
+	{ "wl_venuelist", "Venue Name List", wl_prefix, validate_wl_venuelist, ARGV("0", "1080"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_ouilist", "Roaming Consortium List", wl_prefix, validate_wl_ouilist, ARGV("0", "128"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_3gpplist", "3GPP Cellular Network Information Name List", wl_prefix, validate_wl_3gpplist, ARGV("0", "128"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+	{ "wl_domainlist", "Domain Name List", wl_prefix, validate_names, ARGV("0", XSTR(MAX_NVPARSE - 1)), FALSE, NVRAM_GENERIC_MULTI },
+	{ "wl_realmlist", "NAI Realm List", wl_prefix, validate_wl_realmlist, ARGV("0", "4096"), TRUE,NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
+
+#endif /* __CONFIG_HSPOT__ */
+
 	{ "wl_ssid", "Network Name (ESSID)", wl_prefix, validate_ssid, ARGV("1", "32"), FALSE, NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
 	{ "wl_bridge", "Bridge Details", wl_prefix, validate_bridge, ARGV("0", "1"), FALSE, NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
 	{ "wl_closed", "Network Type", wl_prefix, validate_wl_closed, ARGV("0", "1"), FALSE,NVRAM_MI |  EZC_FLAGS_READ | EZC_FLAGS_WRITE },
@@ -11323,7 +11702,7 @@ struct variable variables[] = {
 	{ "wl_maclist", "Allowed MAC Address", wl_prefix, validate_hwaddrs, NULL, TRUE, NVRAM_MI },
 	{ "wl_mode", "Mode", wl_prefix, validate_wl_mode, ARGV("ap", "wds", "sta", "wet", "apsta", "mac_spoof", "psta", "psr"), FALSE,NVRAM_MI },
 	{ "wl_infra", "Network", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI },
-	{ "wl_dwds", "DWDS", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI },
+	{ "wl_dwds", "DWDS", wl_prefix, validate_wl_dwds, ARGV("0", "1"), FALSE, NVRAM_MI },
 #ifdef __CONFIG_ROUTER_MINI__
 	/* Mini router has lower maxassoc (MAXSCB) limit */
 	{ "wl_bss_maxassoc", "Per BSS Max Association Limit", wl_prefix, validate_range, ARGV("1", "64"), FALSE,NVRAM_MI },
@@ -11344,6 +11723,7 @@ struct variable variables[] = {
 #ifdef TRAFFIC_MGMT_RSSI_POLICY
 	{ "wl_trf_mgmt_rssi_policy", "TRF MGMT RSSI Enable", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI | VIF_IGNORE },
 #endif /* TRAFFIC_MGMT_RSSI_POLICY */
+	{ "wl_atf", "Airtime Fairness", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI | VIF_IGNORE },
 #ifdef __CONFIG_EMF__
 	{ "wl_wmf_ucigmp_query", "Unicast IGMP Query Enable", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_wmf_mdata_sendup", "Sendup Multicast Data Enable", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI | VIF_IGNORE },
@@ -11361,7 +11741,7 @@ struct variable variables[] = {
 	{ "wl_acs_ci_scan_timer", "ACS CI Scan Interval", wl_prefix, validate_range, ARGV("1", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_acs_ci_scan_timeout", "ACS CI Scan Timeout", wl_prefix, validate_range, ARGV("1", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_acs_scan_entry_expire", "Scan Result Timeout", wl_prefix, validate_range, ARGV("1", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
-	{ "wl_acs_tx_idle_cnt", "TX Idle Frame Count", wl_prefix, validate_range, ARGV("1", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
+	{ "wl_acs_tx_idle_cnt", "TX Idle Frame Count", wl_prefix, validate_range, ARGV("0", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_acs_chan_dwell_time", "ACS Scan Dwell Time", wl_prefix, validate_range, ARGV("1", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_acs_chan_flop_period", "ACS Chan Flop Period", wl_prefix, validate_range, ARGV("1", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
 
@@ -11370,6 +11750,7 @@ struct variable variables[] = {
 	{ "wl_intfer_txfail", "non-TCP TxFail threshold", wl_prefix, validate_range, ARGV("0", "65535"), FALSE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_intfer_tcptxfail", "TCP TxFail threshold", wl_prefix, validate_range, ARGV("0", "65535"), FALSE, NVRAM_MI | VIF_IGNORE },
 #endif /* __CONFIG_EXTACS__ */
+	{ "wl_probresp_mf", "MAC filter based Probe Response", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI },
 	/* This group is per radio */
 	{ "wl_ure", "URE Mode",NULL, validate_ure, ARGV("0"), FALSE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_vifs", "WL Virtual Interfaces", NULL, NULL, ARGV("0"), FALSE, NVRAM_MI | WEB_IGNORE },
@@ -11429,6 +11810,8 @@ struct variable variables[] = {
 	{ "wl_wme_txp_vi", "WME TXP VI", wl_prefix, validate_wl_wme_tx_params, NULL, TRUE, NVRAM_MI | VIF_IGNORE},
 	{ "wl_wme_txp_vo", "WME TXP VO", wl_prefix, validate_wl_wme_tx_params, NULL, TRUE, NVRAM_MI | VIF_IGNORE},
 	{ "wl_obss_coex", "Overlapping BSS Coexistence", wl_prefix, validate_choice, ARGV("0", "1"), TRUE, NVRAM_MI | VIF_IGNORE },
+	{ "wl_probresp_sw", "SW Probe Response", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI | VIF_IGNORE },
+	{ "wl_vht_features", "VHT features", wl_prefix, validate_range, ARGV("0", "255"), FALSE, NVRAM_MI | VIF_IGNORE },
 	/* security parameters */
 	{ "wl_key", "Network Key Index", wl_prefix, validate_range, ARGV("1", "4"), FALSE,NVRAM_MI | EZC_FLAGS_WRITE },
 	{ "wl_key1", "Network Key 1", wl_prefix, validate_wl_key, NULL, TRUE, NVRAM_MI | NVRAM_ENCRYPT | EZC_FLAGS_WRITE},
@@ -11509,6 +11892,8 @@ struct variable variables[] = {
 	{ "NGA_MID", "NGA MID", NULL, NULL, NULL, TRUE, WEB_IGNORE },
 #endif /* __CONFIG_NORTON__ */
 	{ "coma_sleep", "Coma Mode Sleep Time", NULL, NULL, NULL, TRUE, 0 },
+	{ "trf_mgmt_dwm", "Traffic Management DWM", NULL, validate_trf_mgmt_dwm, ARGV("0", XSTR(MAX_NVPARSE - 1)), FALSE, NVRAM_GENERIC_MULTI },
+	{ "wl_dfs_pref", "DFS Preferred chan", wl_prefix, validate_dfs_prefchan, NULL, FALSE, NVRAM_MI | VIF_IGNORE | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
 };
 
 /* build hashtable of the monster v-block
@@ -11654,8 +12039,10 @@ get_var_handle(char *varname)
 	}
 
 	/* Is is a var_typeXX */
-	strncpy(tmp,varname,sizeof(tmp));
-	offset = strlen(varname) - 1 ;
+	strncpy(tmp,varname,sizeof(tmp) - 1);
+	tmp[sizeof(tmp) - 1] = '\0';
+
+	offset = strlen(tmp) - 1 ;
 	while(isdigit((int)tmp[offset]))
 			tmp[offset--] = '\0';
 	ep = NULL;
@@ -12122,12 +12509,14 @@ write_to_wps(int fd, char *cmd)
 	to.sin_family = AF_INET;
 	to.sin_port = htons(WPS_UI_PORT);
 
-	n = sendto(fd, cmd, len, 0, (struct sockaddr *)&to,
-		sizeof(struct sockaddr_in));
-
-	/* Sleep 100 ms to make sure
-	   WPS have received socket */
-	USLEEP(100*1000);
+	if ((n = sendto(fd, cmd, len, 0, (struct sockaddr *)&to,
+		sizeof(struct sockaddr_in))) <0) {
+		perror("write_to_wps: sendto failed");
+	}
+	else {
+		/* Sleep 100 ms to make sure WPS have received socket */
+		USLEEP(100*1000);
+	}
 	return n;
 }
 
@@ -12249,8 +12638,10 @@ all_found:
 		if (name) {
 			if (!strcmp(name, "wps_config_command"))
 				wps_config_command = atoi(value);
-			else if (!strcmp(name, "wps_uuid"))
-				strcpy(wps_uuid , value);
+			else if (!strcmp(name, "wps_uuid")) {
+				strncpy(wps_uuid , value, sizeof(wps_uuid) - 1);
+				wps_uuid[sizeof(wps_uuid) - 1] = '\0';
+			}
 			else if (!strcmp(name, "wps_method")) /* Add in PF #3 */
 				wps_method = atoi(value);
 			else if (!strcmp(name, "wps_autho_sta_mac")) /* Add in PF #3 */
@@ -12290,8 +12681,9 @@ static int
 get_wps_env()
 {
 	int fd = -1;
-	char databuf[256];
+	char databuf[257];
 	int datalen = sizeof(databuf);
+	databuf[--datalen] = 0;
 
 	if (is_wps_enabled() == 0)
 		return -1;
@@ -12301,10 +12693,8 @@ get_wps_env()
 		return -1;
 	}
 
-	write_to_wps(fd, "GET");
-
 	/* Receive response */
-	if (read_from_wps(fd, databuf, datalen) > 0) {
+	if (write_to_wps(fd, "GET") >= 0 && read_from_wps(fd, databuf, datalen) > 0) {
 		parse_wps_env(databuf);
 	}
 	else {
@@ -12608,6 +12998,11 @@ static int wps_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 
 	action_mode = websGetVar(wp, "action", NULL);
 
+	if (action_mode == NULL) {
+		websError(wp, 400, "action mode is not specified\n");
+		return -1;
+	}
+
 	if (!make_wl_prefix(prefix, sizeof(prefix), 1, NULL)) {
 		websError(wp, 400, "unit number variable doesn't exist\n");
 		return -1;
@@ -12755,13 +13150,14 @@ static int wps_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 		websWrite(wp, "OK");
 	
 		nvram_set("wps_proc_status", "0");
-		strcpy(wps_unit, nvram_safe_get("wl_unit"));
-	
+		strncpy(wps_unit, nvram_safe_get("wl_unit"), sizeof(wps_unit));
+		wps_unit[sizeof(wps_unit)-1] = '\0';
+
 		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_START);
 	
 		sprintf(nvifname, "wl%s", wps_unit);
-		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-	
+		(void)nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
+
 		uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
 		set_wps_env(uibuf);
 	}
@@ -12882,13 +13278,14 @@ static int wps_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 		websWrite(wp, "OK");
 	
 		nvram_set("wps_proc_status", "0");
-		strcpy(wps_unit, nvram_safe_get("wl_unit"));
+		strncpy(wps_unit, nvram_safe_get("wl_unit"), sizeof(wps_unit));
+		wps_unit[sizeof(wps_unit)-1] = '\0';
 
 		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", wps_config_command);
 
 		sprintf(nvifname, "wl%s", wps_unit);
-		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-	
+		(void)nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
+
 		uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
 		set_wps_env(uibuf);
 		nvram_commit();
@@ -12906,7 +13303,10 @@ static int wps_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 	 	/* WSC 2.0,  support WPS V2 or not */
 		if (strcmp(nvram_safe_get("wps_version2"), "enabled") == 0)
 			b_wps_version2 = TRUE;
-		value = websGetVar(wp, "wps_action", NULL);
+		if ((value = websGetVar(wp, "wps_action", NULL)) == NULL) {
+			websError(wp, 400, "wps_action does not exist\n");
+			return -1;
+		}
 		if (strcmp(value, "AddEnrollee") == 0)	{
 
 			/* Must in AddEnrollee in PBC method */
@@ -12920,13 +13320,14 @@ static int wps_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 	
 			websWrite(wp, "OK");
 			nvram_set("wps_proc_status", "0");
-			strcpy(wps_unit, nvram_safe_get("wl_unit"));
-	
+			strncpy(wps_unit, nvram_safe_get("wl_unit"), sizeof(wps_unit));
+			wps_unit[sizeof(wps_unit)-1] = '\0';
+
 			uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_START);
 	
 			sprintf(nvifname, "wl%s", wps_unit);
-			nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-	
+			(void)nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
+
 			uilen += sprintf(uibuf + uilen, "wps_pbc_method=\"%d\" ", WPS_UI_PBC_SW);
 			uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
 		}
@@ -12935,13 +13336,14 @@ static int wps_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 
 			websWrite(wp, "OK");
 			nvram_set("wps_proc_status", "0");
-			strcpy(wps_unit, nvram_safe_get("wl_unit"));
+			strncpy(wps_unit, nvram_safe_get("wl_unit"), sizeof(wps_unit));
+			wps_unit[sizeof(wps_unit)-1] = '\0';
 
 			uilen += sprintf(uibuf + uilen, "wps_action=\"%d\" ", WPS_UI_ACT_ENROLL);
 			uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_START);
 
 			sprintf(nvifname, "wl%s", wps_unit);
-			nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
+			(void)nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
 
 			uilen += sprintf(uibuf + uilen, "wps_pbc_method=\"%d\" ", WPS_UI_PBC_SW);
 			uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
@@ -13372,6 +13774,10 @@ apply_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 	else if (!strncmp(value, "Restore", 7)) {
 		websWrite(wp, "Restoring defaults...");
 		nvram_set("restore_defaults", "1");
+		/* Unset FA overridden */
+		if (FA_ON(atoi(nvram_safe_get("ctf_fa_mode"))))
+			nvram_unset("ctf_fa_mode");
+
 		nvram_commit();
 		websWrite(wp, "done<br>");
 		action = REBOOT;
@@ -13408,13 +13814,13 @@ apply_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 		char *os_name = nvram_safe_get("os_name");
 		char *os_server = websGetVar(wp, "os_server", nvram_safe_get("os_server"));
 		char *os_version = websGetVar(wp, "os_version", "current");
-		char url[PATH_MAX];
+		char upgrade_url[PATH_MAX];
 		if (!*os_version)
 			os_version = "current";
-		snprintf(url, sizeof(url), "%s/%s/%s/%s.trx",
+		snprintf(upgrade_url, sizeof(upgrade_url), "%s/%s/%s/%s.trx",
 			 os_server, os_name, os_version, os_name);
-		websWrite(wp, "Retrieving %s...", url);
-		if (sys_upgrade(url, NULL, NULL)) {
+		websWrite(wp, "Retrieving %s...", upgrade_url);
+		if (sys_upgrade(upgrade_url, NULL, NULL)) {
 			websWrite(wp, "error<br>");
 			goto footer;
 		} else {
@@ -13540,18 +13946,6 @@ apply_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 	}
 #endif /* __CONFIG_WPS__ */
 
-#ifdef	__CONFIG_NORTON__
-	/* Trigger an NGA LiveUpdate */
-	else if (!strcmp(value, "NGAUpdate")) {
-		websWrite(wp, "Invoking LiveUpdate...");
-		if (nga_update())
-			websWrite(wp, "error<br>");
-		else
-			websWrite(wp, "done<br>");
-		action = NOTHING;
-	}
-#endif /* __CONFIG_NORTON__ */
-
 	/* Invalid action */
 	else
 		websWrite(wp, "Invalid action %s<br>", value);
@@ -13569,7 +13963,7 @@ apply_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 }
 
 /* Copy all wl%d_XXXXX to wl_XXXXX */
-static int
+int
 copy_wl_index_to_unindex(webs_t wp, char_t *urlPrefix, char_t *webDir,
 	int arg, char_t *url, char_t *path, char_t *query)
 {
@@ -13609,7 +14003,7 @@ copy_wl_index_to_unindex(webs_t wp, char_t *urlPrefix, char_t *webDir,
 			snprintf(vif,sizeof(vif),"%s.%s",value,wl_bssid);
 			value = vif;
 		}
-		strncpy(unit_str,value,sizeof(unit_str));
+		strncpy(unit_str,value,sizeof(unit_str) - 1);
 	}
 #ifdef __CONFIG_WPS__
 	else if (!strcmp(path, "wps.asp")) {
@@ -13773,12 +14167,29 @@ initHandlers(void)
 {
 	websAspDefine("nvram_get", ej_nvram_get);
 	websAspDefine("nvram_match", ej_nvram_match);
+	websAspDefine("nvram_match_bitflag", ej_nvram_match_bitflag);
+	websAspDefine("nvram_get_bitflag", ej_nvram_get_bitflag);
 	websAspDefine("nvram_invmatch", ej_nvram_invmatch);
 	websAspDefine("nvram_list", ej_nvram_list);
 	websAspDefine("nvram_indexmatch", ej_nvram_indexmatch);
 	websAspDefine("filter_client", ej_filter_client);
 	websAspDefine("filter_url", ej_filter_url);
 	websAspDefine("forward_port", ej_forward_port);
+#ifdef __CONFIG_HSPOT__
+	websAspDefine("print_wl_wanmetrics",ej_print_wl_wanmetrics);
+	websAspDefine("print_wl_oplist", ej_print_wl_oplist);
+	websAspDefine("print_wl_homeqlist", ej_print_wl_homeqlist);
+	websAspDefine("print_wl_osuplist", ej_print_wl_osuplist);
+	websAspDefine("print_wl_concaplist", ej_print_wl_concaplist);
+	websAspDefine("print_iconlist", ej_print_iconlist);
+	websAspDefine("print_wl_qosmapie", ej_print_wl_qosmapie);
+	/* ---- 802.11u -----------------------------------  */
+	websAspDefine("print_wl_netauthlist", ej_print_wl_netauthlist);
+	websAspDefine("print_wl_realmlist", ej_print_wl_realmlist);
+	websAspDefine("print_wl_venuelist", ej_print_wl_venuelist);
+	websAspDefine("print_wl_ouilist", ej_print_wl_ouilist);
+	websAspDefine("print_wl_3gpplist", ej_print_wl_3gpplist);
+#endif /* __CONFIG_HSPOT__ */
 	websAspDefine("static_route", ej_static_route);
 	websAspDefine("localtime", ej_localtime);
 	websAspDefine("dumplog", ej_dumplog);
@@ -14065,7 +14476,7 @@ static void BcmPostParse(char *url, FILE *stream, int len, char *boundary)
  *
  *
 */
-static char *
+char *
 make_wl_prefix(char *prefix,int prefix_size, int mode, char *ifname)
 {
 	int unit=-1,subunit=-1;
@@ -14344,7 +14755,7 @@ do_nvramul_post(char *url, FILE *stream, int len, char *boundary)
 	};
 
 	memset(file_checksum,0,sizeof(file_checksum));
-	memcpy(file_checksum,tmp,NVRAM_HASHSIZE);
+	memc
 
 	/* Extract salt value from stored checksum*/
 	memcpy(salt,&tmp[NVRAM_HASHSIZE],NVRAM_SALTSIZE);
@@ -14726,7 +15137,8 @@ do_nvramdl_cgi(char *url, FILE *stream)
 
 	for(name = buf; *name; name += strlen(name) + 1){
 		var_val =tmp;
-		strncpy(tmp,name,sizeof(tmp));
+		strncpy(tmp,name,sizeof(tmp) - 1);
+		tmp[sizeof(tmp) - 1] = '\0';
 		var_name=strsep(&var_val,"=");
 		retval = save_nvram_var(var_name,var_val,tmp_buf,
 					sizeof(tmp_buf),(char *)key,NVRAM_FILEKEYSIZE);
@@ -14773,7 +15185,8 @@ do_nvramdl_cgi(char *url, FILE *stream)
 		goto do_nvramdl_cgi_error;
 	}
 
-	strncpy(tmp1,ptr,NVRAM_MAX_STRINGSIZE);
+	strncpy(tmp1, ptr, sizeof(tmp1) - 1);
+	tmp1[sizeof(tmp1) - 1] = '\0';
 
 	snprintf(post_buf->header[NVRAM_CHECKSUM_LINENUM],NVRAM_MAX_STRINGSIZE,"%s=%s\n",
 					nvram_file_header[NVRAM_CHECKSUM_LINENUM],tmp1);
@@ -15993,12 +16406,23 @@ do_wan_asp(char *url, FILE *stream)
 #endif	/* __CONFIG_NAT__ */
 
 struct mime_handler mime_handlers[] = {
+#if defined(__CONFIG_TREND_IQOS__) && defined(CONFIG_TREND_IQOS_ENABLED)
+	{ "iQoS.cgi*", "application/json", no_cache, do_iqos_post, do_iqos_get, do_auth },
+#endif /* __CONFIG_TREND_IQOS__ && CONFIG_TREND_IQOS_ENABLED */
 #ifdef __CONFIG_NAT__
 	{ "wan.asp", "text/html", no_cache, do_apply_post, do_wan_asp, do_auth },
 #endif	/* __CONFIG_NAT__ */
 	{ "radio.asp", "text/html", no_cache, do_apply_post, do_wireless_asp, do_auth },
 	{ "ssid.asp", "text/html", no_cache, do_apply_post, do_wireless_asp, do_auth },
+#ifdef __CONFIG_HSPOT__
+	{"passpoint.asp", "text/html", no_cache, do_apply_post, do_passpoint_asp, do_auth},
+	{"iconupload.cgi*", "text/html", no_cache, do_uploadIcons_post, do_uploadIcons_cgi, do_auth },
+#endif /* __CONFIG_HSPOT__ */
 	{ "security.asp", "text/html", no_cache, do_apply_post, do_security_asp, do_auth },
+#if defined(__CONFIG_VISUALIZATION__) && defined(CONFIG_VISUALIZATION_ENABLED)
+	{ "json.cgi*", "application/json", no_cache, vis_do_json_set, vis_do_json_get, do_auth },
+	{ "visdata.db*", NULL, g_vis_download_db_hdr, NULL, vis_do_visdbdwnld_cgi, do_auth },
+#endif	/* (__CONFIG_VISUALIZATION__) && (CONFIG_VISUALIZATION_ENABLED) */
 #ifdef __CONFIG_WPS__
 	{ "wps.asp", "text/html", no_cache, do_apply_post, do_wps_asp, do_auth },
 #endif /* __CONFIG_WPS__ */
@@ -16013,6 +16437,7 @@ struct mime_handler mime_handlers[] = {
 	{ "**.asp", "text/html", no_cache, NULL, do_ej, do_auth },
 	{ "**.css", "text/css", NULL, NULL, do_file, do_auth },
 	{ "**.gif", "image/gif", NULL, NULL, do_file, do_auth },
+	{ "**.png", "image/png", NULL, NULL, do_file, do_auth },
 	{ "**.jpg", "image/jpeg", NULL, NULL, do_file, do_auth },
 	{ "**.ico", "image/ico", NULL, NULL, do_file, do_auth },
 	{ "**.js", "text/javascript", NULL, NULL, do_file, do_auth },
@@ -16038,11 +16463,34 @@ struct mime_handler mime_handlers[] = {
 struct ej_handler ej_handlers[] = {
 	{ "nvram_get", ej_nvram_get },
 	{ "nvram_match", ej_nvram_match },
+	{ "nvram_match_bitflag", ej_nvram_match_bitflag },
+	{ "nvram_get_bitflag", ej_nvram_get_bitflag },
 	{ "nvram_invmatch", ej_nvram_invmatch },
 	{ "nvram_list", ej_nvram_list },
 	{ "nvram_inlist", ej_nvram_inlist },
 	{ "nvram_invinlist", ej_nvram_invinlist },
 	{ "nvram_indexmatch", ej_nvram_indexmatch },
+#ifdef __CONFIG_HSPOT__
+	{ "print_wl_wanmetrics", ej_print_wl_wanmetrics },
+	{ "print_wl_oplist", ej_print_wl_oplist },
+	{ "print_wl_homeqlist", ej_print_wl_homeqlist },
+	{ "print_wl_concaplist", ej_print_wl_concaplist },
+	{ "print_wl_osuplist", ej_print_wl_osuplist},
+	{ "print_popup_osup", ej_print_popup_osup},
+	{ "icon_change", ej_icon_change},
+	{ "print_iconlist", ej_print_iconlist},
+	{ "print_wl_qosmapie", ej_print_wl_qosmapie},
+	/* ---- 802.11u -----------------------------------  */
+	{ "print_wl_netauthlist", ej_print_wl_netauthlist },
+	{ "print_wl_realmlist", ej_print_wl_realmlist},
+	{ "print_popup_realm", ej_print_popup_realm},
+	{ "authid_change", ej_authid_change},
+	{ "print_wl_venuegrp_type", ej_print_wl_venuegrp_type},
+	{ "vanuegrp_change", ej_vanuegrp_change},
+	{ "print_wl_venuelist", ej_print_wl_venuelist },
+	{ "print_wl_ouilist", ej_print_wl_ouilist },
+	{ "print_wl_3gpplist", ej_print_wl_3gpplist },
+#endif /* __CONFIG_HSPOT__ */
 #ifdef __CONFIG_NAT__
 	{ "wan_list", ej_wan_list },
 	{ "wan_iflist", ej_wan_iflist },
@@ -16154,6 +16602,7 @@ struct ej_handler ej_handlers[] = {
 	{ "trf_mgmt_rssi_policy_display", ej_trf_mgmt_rssi_policy_display },
 #endif /* TRAFFIC_MGMT_RSSI_POLICY */
 	{ "wl_txbf_capable", ej_wl_txbf_capable },
+	{ "trf_mgmt_dwm_display", ej_trf_mgmt_dwm_display },
 	{ NULL, NULL }
 };
 

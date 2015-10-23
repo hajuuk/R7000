@@ -1,0 +1,434 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" href="<%13%>">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<%14%>
+<script language="javascript" type="text/javascript">
+<!--
+var AlertTimeDisabled = false;
+var AlertHourDisabled = false;
+
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.gif";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.gif";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+   
+
+function disable_am(disable_flag)
+{
+	var cf = document.forms[0];
+	cf.cfAlert_am[0].disabled = disable_flag;
+	cf.cfAlert_am[1].disabled = disable_flag;
+}
+
+function OnAlertChange()
+{
+	var cf = document.forms[0];
+	var index = cf.cfAlert_Select.selectedIndex;
+	if ( (index == 0) || (index == 1) || (index == 4) )
+	{
+		cf.cfAlert_Day.selectedIndex = 0;
+		cf.cfAlert_Hour.selectedIndex= 0;
+		cf.cfAlert_Day.disabled = true;
+		cf.cfAlert_Hour.disabled = true;
+		AlertTimeDisabled = true;
+		AlertHourDisabled = true;
+		disable_am(true);
+	}
+	else if(index == 2) // daily
+	{
+		cf.cfAlert_Day.selectedIndex = 0;
+		cf.cfAlert_Day.disabled = true;
+		cf.cfAlert_Hour.disabled = false;
+		AlertTimeDisabled = true;
+		AlertHourDisabled = false;
+		disable_am(false);
+
+	}
+	else if(index == 3) // weekly
+	{
+		cf.cfAlert_Day.disabled = false;
+		cf.cfAlert_Hour.disabled = false;
+		AlertTimeDisabled = false;
+		AlertHourDisabled = false;
+		disable_am(false);
+	}
+}
+function sprintf()
+{
+    var arg = arguments;
+    var str = arg[0] || '';
+    var i,n;
+    
+    for(i = 1, n=arg.length; i < n; i++)
+    {
+        str = str.replace(/%s/, arg[i]);
+    }
+    return str;
+}
+function checkData()
+{
+    var cf = document.forms[0];
+    var str1 = "<%2332%>";
+    cf.max_concur_tasks.value = "0";
+    cf.refresh_rate.value = "0";
+    cf.auto_refresh_enable.value = "0";
+    cf.max_concur_tasks.value = cf.max_concur_sel.options[cf.max_concur_sel.selectedIndex].value;
+    cf.refresh_rate.value = cf.refresh_rate_sel.options[cf.refresh_rate_sel.selectedIndex].value;
+    
+    if(cf.max_concur_tasks.value < cf.concur_tasks_allow.value)
+    {
+        alert(sprintf(str1, cf.concur_tasks_allow.value));
+        return false;
+    }
+    
+    if(!_isNumeric(cf.max_down_speed.value))
+    {
+        alert("<%2333%>");
+        return false;
+    }
+    
+    if(!_isNumeric(cf.max_up_speed.value))
+    {
+        alert("<%2334%>");
+        return false;
+    }
+    
+    if(cf.refresh_rate.value == "4")
+    {
+        if(!_isNumeric(cf.other_refresh_rate.value))
+        {
+            alert("<%2335%>");
+            return false;
+        }
+        else
+            cf.refresh_rate.value = cf.other_refresh_rate.value;
+    }
+
+    if(cf.auto_refresh.checked)
+    {
+        cf.auto_refresh_enable.value = "1";
+    }
+    
+    //should check whether the speed is an integer; 
+
+    
+    return true;
+}
+
+function init()
+{
+    var cf = document.forms[0];
+    
+    cf.refresh_rate_sel.disabled=true;
+    //cf.other_refresh_rate.disabled=true;
+    cf.auto_refresh.checked = false;
+
+    if(cf.auto_refresh_enable.value == 1)
+    {
+        cf.auto_refresh.checked = true;
+    }
+    if(cf.auto_refresh.checked)
+    {
+        cf.refresh_rate_sel.disabled=false;
+        //cf.other_refresh_rate.disabled=false;
+    }
+    
+    if(cf.max_concur_tasks.value==1) cf.max_concur_sel.selectedIndex=0;
+    else if(cf.max_concur_tasks.value==2) cf.max_concur_sel.selectedIndex=1;
+    else if(cf.max_concur_tasks.value==3) cf.max_concur_sel.selectedIndex=2;
+    else if(cf.max_concur_tasks.value==4) cf.max_concur_sel.selectedIndex=3;
+    else if(cf.max_concur_tasks.value==5) cf.max_concur_sel.selectedIndex=4;
+    else if(cf.max_concur_tasks.value==6) cf.max_concur_sel.selectedIndex=5;
+    else if(cf.max_concur_tasks.value==7) cf.max_concur_sel.selectedIndex=6;
+    else if(cf.max_concur_tasks.value==8) cf.max_concur_sel.selectedIndex=7;
+    
+    if(cf.refresh_rate.value==1) cf.refresh_rate_sel.selectedIndex=0;
+    else if(cf.refresh_rate.value==2) cf.refresh_rate_sel.selectedIndex=1;
+    else if(cf.refresh_rate.value==3) cf.refresh_rate_sel.selectedIndex=2;
+    else
+        {
+            cf.refresh_rate_sel.selectedIndex=3;
+            //cf.other_refresh_rate.disabled=false;
+            document.getElementById("other_refresh_rate").style.display = "";
+        }
+    OnRateChange();
+    
+}
+
+function OnRateChange()
+{
+	var cf = document.forms[0];
+	var index = cf.refresh_rate_sel.selectedIndex;
+	if ( (index == 0) || (index == 1) || (index == 2) || (cf.auto_refresh_enable.value == 0))
+	{
+		//cf.other_refresh_rate.disabled = true;
+		document.getElementById("other_refresh_rate").style.display = "none";
+	}
+	else
+	{
+        //cf.other_refresh_rate.disabled = false;
+        document.getElementById("other_refresh_rate").style.display = "";
+	}
+
+}
+
+function enableAutoRefresh()
+{
+    var cf = document.forms[0];
+    if(cf.auto_refresh.checked)
+    {
+        alert("<%2336%>");
+        cf.auto_refresh_enable.value=1;
+        cf.refresh_rate_sel.disabled=false;
+        if(cf.refresh_rate_sel.selectedIndex == 3)
+        {
+            //cf.other_refresh_rate.disabled=false;
+            document.getElementById("other_refresh_rate").style.display = "";
+        }
+        else
+            //cf.other_refresh_rate.disabled=true;
+            document.getElementById("other_refresh_rate").style.display = "none";
+    }
+    else
+    {
+        cf.auto_refresh_enable.value=0;
+        cf.refresh_rate_sel.disabled=true;
+        //cf.other_refresh_rate.disabled=true;
+        document.getElementById("other_refresh_rate").style.display = "none";  
+    }
+}
+
+function Browse_folder()
+{
+    window.open('USB_download_folder.htm','_blank','resizable=0,scrollbars=yes,width=400,height=400,left=400,top=300').focus();
+}
+
+function check_usb_exist2()
+{
+    var isUsbAttached = <%458%>;
+    if(isUsbAttached==0)
+    {   
+        alert("<%2288%>");
+        window.top.location.href="start.htm";
+    }
+}
+
+//-->
+</script>
+</head>
+<BODY bgColor=#ffffff onload="change_size();init();check_usb_exist2();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="<%74%>">
+<img class="body-image" src="<%75%>">
+<div id="full-page-container">
+
+<form id="target"  action="downloader_adv.cgi" method="POST" name="formname">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+<img class="subtop-image" src="<%76%>">
+<div class="subhead2"> <%395%></div>
+<table border="0"    style="height:370px"  class="subhead2-table">
+
+<tr align="left" valign="middle">
+<td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+&nbsp;&nbsp;&nbsp;<button value="<%78%>"  onClick="buttonClick(this,'<%78%>');return checkData()" type="SUBMIT" name="cfAlert_Apply" class=<%79%> > <span class="<%80%>" ><%81%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="<%82%>">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%83%>" onClick="buttonClick(this,'<%83%>'); location.href='Download_settings.htm';" type="button" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%84%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+</td>
+</tr>
+
+
+
+
+<tr>
+<td class="scrollpane-table-seperate-border" colspan="2">
+<div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto">
+<table style="border-collapse:collapse;width:97%">
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+<tr>
+	<td colspan="2"><b><%2337%></b></td>
+</tr>
+
+<tr>
+    <td colspan="2" align="left">
+    <input type="text" name="usb_folder" value= "<%2296%>" readonly>
+    &nbsp;&nbsp;&nbsp;<button type="button" value="<%465%>" name="Browse" class="button-rule" onClick="buttonClick(this,'<%465%>');Browse_folder();"><span class="roundleft_button">&nbsp;&nbsp; <%465%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    </td>
+</tr>
+
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+
+   
+<tr>
+    <td><a><b><%2338%></b></a></td>
+    <td align="left">
+    <select name ="max_concur_sel">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    </td>
+</tr>
+<tr>
+        <td colspan="2" nowrap><%2339%></td>
+</tr>
+    
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+
+<tr>
+    <td align="left"><a><b><%2340%></b></a></td>
+    <td align="left"><input type="text" name="max_down_speed" size="8" maxlength="8" value= "<%2341%>"><b>KB/s</b></td>   
+</tr>
+
+<tr>
+    <td align="left"><a><b><%2342%></b></a></td>
+    <td align="left"><input type="text" name="max_up_speed" size="8" maxlength="8" value= "<%2343%>"><b>KB/s</b></td>   
+</tr>
+
+<tr>
+        <td colspan="2" nowrap><%2344%></td>
+</tr>
+
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+
+<tr>
+    <td colspan="2"><input type="checkbox" name="auto_refresh" value="checkboxValue" onclick="enableAutoRefresh();"><b><%2345%></b></td>
+</tr>
+
+<tr>
+        &nbsp;&nbsp;<td colspan="2" nowrap><%2346%></td>
+</tr>
+
+<tr>
+    <td><%2347%></td>
+    <td align="left">
+    <select name ="refresh_rate_sel" onchange="OnRateChange();">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4"><%2348%><!--Other--></option>
+    </select>
+    <input type="text" name="other_refresh_rate" id="other_refresh_rate" size="2" maxLength="2" value= "<%2349%>">
+    <%2350%>
+    </td>
+</tr>
+
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+
+<tr>
+    <td colspan="2"><b><%966%></b></td>
+</tr>
+<tr>
+    <td align="left">
+      &nbsp;&nbsp;&nbsp;<button type="submit" value="configure_email" name="configure_email" class="button-rule" onClick="buttonClick(this,'setup_acl');highLightMenu('security_header', 'email'); return true;"><span class="roundleft_button">&nbsp;&nbsp; <%2351%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+</tr>
+
+</table>
+</div>
+</td>
+</tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="Download_settings_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+   <img class="subfooter-image" src="img/subhead2-bottom.gif">
+<div class="subhead2-bottom" >
+    <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%266%> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%267%> </span>
+      </div>
+    
+<INPUT name="max_concur_tasks" type=hidden value= "<%2352%>">
+<INPUT name="concur_tasks_allow" type=hidden value= "<%2353%>">
+<INPUT name="refresh_rate" type=hidden value= "<%2354%>">
+<INPUT name="auto_refresh_enable" type=hidden value= "<%2355%>">
+<a name="helpframe-anchor"></a>
+</form>
+
+</div>
+</body>
+ <head>
+  <%11%>
+</head>
+</html>
+

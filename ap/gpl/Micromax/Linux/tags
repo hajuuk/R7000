@@ -1,0 +1,760 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.7	//
+AccessString	driver/ndis/src/qmi_header.h	/^    char AccessString[WWAN_STRING_LEN];   $/;"	m	struct:__anon9
+AddGNOME	jre-1_5_0_15-linux-i586.bin	/^AddGNOME() {$/;"	f
+AltSetting	driver/doshift/lcdoshift.c	/^int Interface = 0, Configuration = -1, AltSetting = -1;$/;"	v
+BUF_SIZE	driver/doshift/lcdoshift.c	16;"	d	file:
+ByteString	driver/doshift/lcdoshift.c	/^char ByteString[LINE_DIM\/2];$/;"	v
+CC	driver/doshift/Makefile	/^CC          = gcc$/;"	m
+CheckChipType	install	/^CheckChipType()$/;"	f
+CheckCustomType	install	/^CheckCustomType()$/;"	f
+CheckID	install	/^CheckID()$/;"	f
+CheckSuccess	driver/doshift/lcdoshift.c	/^char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;$/;"	v
+ClientId	driver/ndis/src/qmi_header.h	/^	UInt8  ClientId;$/;"	m	struct:_QCQMI
+ClientId	driver/ndis/src/qmi_header.h	/^	UInt8  ClientId;$/;"	m	struct:_QCQMI_HDR
+ClientId	driver/ndis/src/qmi_header.h	/^	UInt8  ClientId;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+ClientId	driver/ndis/src/qmi_header.h	/^	UInt8  ClientId;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+ClientId	driver/ndis/src/qmi_header.h	/^	UInt8  ClientId;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+Commpression	driver/ndis/src/qmi_header.h	/^	UInt32 Commpression;$/;"	m	struct:__anon9
+Configuration	driver/doshift/lcdoshift.c	/^int Interface = 0, Configuration = -1, AltSetting = -1;$/;"	v
+ConnectIpMode	driver/ndis/src/qmi_header.h	/^	UInt32 ConnectIpMode;$/;"	m	struct:__anon9
+ConnectState	driver/ndis/src/qmi_header.h	/^	UInt32 ConnectState;$/;"	m	struct:_WWAN_FLOW_STATS
+ConnectionStatus	driver/ndis/src/qmi_header.h	/^	UInt8  ConnectionStatus;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+CtlFlag	driver/ndis/src/qmi_header.h	/^	UInt8 CtlFlag;$/;"	m	struct:_QCQMICTL_MSG_HDR
+CtlFlags	driver/ndis/src/qmi_header.h	/^	UInt8  CtlFlags;$/;"	m	struct:_QCQMI
+CtlFlags	driver/ndis/src/qmi_header.h	/^	UInt8  CtlFlags;$/;"	m	struct:_QCQMI_HDR
+CtlFlags	driver/ndis/src/qmi_header.h	/^	UInt8 CtlFlags;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+CtlFlags	driver/ndis/src/qmi_header.h	/^	UInt8 CtlFlags;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+CtlFlags	driver/ndis/src/qmi_header.h	/^	UInt8 CtlFlags;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+CtlFlags	driver/ndis/src/qmi_header.h	/^	UInt8 CtlFlags;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+CtlFlags	driver/ndis/src/qmi_header.h	/^    UInt8  CtlFlags;$/;"	m	struct:_QCQMUX
+CtlFlags	driver/ndis/src/qmi_header.h	/^    UInt8  CtlFlags;$/;"	m	struct:_QCQMUX_HDR
+CtlFlags	driver/ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+CtlFlags	driver/ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+CtlFlags	driver/ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+CtlFlags	driver/ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+CtlFlags	driver/ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+CtlFlags	driver/ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+DEBUG	driver/ndis/src/qmi_oper.h	5;"	d
+DESCR_MAX	driver/doshift/lcdoshift.c	17;"	d	file:
+DRIVER_AUTHOR	driver/ndis/src/lc_cdc_ether.c	/^MODULE_AUTHOR(DRIVER_AUTHOR);$/;"	v
+DRIVER_AUTHOR	driver/ndis/src/lc_cdc_ether.c	39;"	d	file:
+DRIVER_DESC	driver/ndis/src/lc_cdc_ether.c	/^MODULE_DESCRIPTION(DRIVER_DESC);$/;"	v
+DRIVER_DESC	driver/ndis/src/lc_cdc_ether.c	40;"	d	file:
+DRIVER_VERSION	driver/ndis/src/lc_cdc_ether.c	/^MODULE_VERSION(DRIVER_VERSION);$/;"	v
+DRIVER_VERSION	driver/ndis/src/lc_cdc_ether.c	38;"	d	file:
+DUMPALL	driver/ndis/src/qmi_header.h	35;"	d
+DataFormat	driver/ndis/src/qmi_header.h	/^	UInt8  DataFormat;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+DefaultProduct	driver/doshift/lcdoshift.c	/^int DefaultVendor=0x1c9e, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;$/;"	v
+DefaultVendor	driver/doshift/lcdoshift.c	/^int DefaultVendor=0x1c9e, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;$/;"	v
+DetachStorageOnly	driver/doshift/lcdoshift.c	/^char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0;$/;"	v
+DisplayEndMsg	install	/^DisplayEndMsg()$/;"	f
+DisplayStartMsg	install	/^DisplayStartMsg()$/;"	f
+DonePrompt	install	/^DonePrompt()$/;"	f
+DownLinkBytes	driver/ndis/src/qmi_header.h	/^	UInt64 DownLinkBytes;$/;"	m	struct:_WWAN_FLOW_STATS
+DstMacAddress	driver/ndis/src/qmi_header.h	/^    UInt8 DstMacAddress[ETH_LENGTH_OF_ADDRESS];$/;"	m	struct:_QC_ETH_HDR
+ETH_LENGTH_OF_ADDRESS	driver/ndis/src/lc_cdc_ether.c	77;"	d	file:
+ETH_LENGTH_OF_ADDRESS	driver/ndis/src/qmi_header.h	436;"	d
+ETH_TYPE_ARP	driver/ndis/src/lc_cdc_ether.c	73;"	d	file:
+ETH_TYPE_ARP	driver/ndis/src/qmi_header.h	432;"	d
+ETH_TYPE_IPV4	driver/ndis/src/lc_cdc_ether.c	74;"	d	file:
+ETH_TYPE_IPV4	driver/ndis/src/qmi_header.h	433;"	d
+ETH_TYPE_IPV6	driver/ndis/src/lc_cdc_ether.c	75;"	d	file:
+ETH_TYPE_IPV6	driver/ndis/src/qmi_header.h	434;"	d
+EVENT_LINK_RESET	driver/ndis/src/lc_cdc_ether.c	95;"	d	file:
+EVENT_RX_HALT	driver/ndis/src/lc_cdc_ether.c	92;"	d	file:
+EVENT_RX_MEMORY	driver/ndis/src/lc_cdc_ether.c	93;"	d	file:
+EVENT_STS_SPLIT	driver/ndis/src/lc_cdc_ether.c	94;"	d	file:
+EVENT_TX_HALT	driver/ndis/src/lc_cdc_ether.c	91;"	d	file:
+EtherType	driver/ndis/src/qmi_header.h	/^	UInt16 EtherType;$/;"	m	struct:_QC_ETH_HDR
+FilterArpPacket	driver/ndis/src/lc_cdc_ether.c	/^static bool  FilterArpPacket(UInt8 *pData, UInt32 packetlength)$/;"	f	file:
+GCTMode	driver/doshift/lcdoshift.c	/^char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0;$/;"	v
+GenConfigFile	install	/^GenConfigFile()$/;"	f
+GetGNOMETopDir	jre-1_5_0_15-linux-i586.bin	/^GetGNOMETopDir() {$/;"	f
+HLEN	driver/ndis/src/qmi_header.h	/^	UInt8  HLEN;$/;"	m	struct:_QC_ARP_HDR
+HardwareType	driver/ndis/src/qmi_header.h	/^    UInt16 HardwareType;$/;"	m	struct:_QC_ARP_HDR
+HuaweiMode	driver/doshift/lcdoshift.c	/^char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0;$/;"	v
+IFType	driver/ndis/src/qmi_header.h	/^    UInt8  IFType;$/;"	m	struct:_QCQMI
+IFType	driver/ndis/src/qmi_header.h	/^    UInt8  IFType;$/;"	m	struct:_QCQMI_HDR
+INIT_NDP16_OPTS	driver/ndis/src/lc_cdc_ether.c	138;"	d	file:
+INIT_NDP32_OPTS	driver/ndis/src/lc_cdc_ether.c	141;"	d	file:
+IPV4Address	driver/ndis/src/qmi_header.h	/^	UInt32 IPV4Address;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR
+IPv4	driver/ndis/src/qmi_header.h	/^	IPv4 = 0,$/;"	e	enum:__anon3
+IPv4v6	driver/ndis/src/qmi_header.h	/^	IPv4v6$/;"	e	enum:__anon3
+IPv6	driver/ndis/src/qmi_header.h	/^	IPv6,$/;"	e	enum:__anon3
+InquireDevice	driver/doshift/lcdoshift.c	/^char NeedResponse=0, InquireDevice=0, sysmode=0;$/;"	v
+InstallActive	install	/^InstallActive()$/;"	f
+InstallDesktop	install	/^ InstallDesktop()$/;"	f
+InstallDifferentVersionPrompt	install	/^InstallDifferentVersionPrompt()$/;"	f
+InstallDriver	install	/^InstallDriver()$/;"	f
+InstallIceraDriver	install	/^InstallIceraDriver()$/;"	f
+InstallJRE	install	/^InstallJRE()$/;"	f
+InstallLaterVersionPrompt	install	/^InstallLaterVersionPrompt()$/;"	f
+InstallLctDriver	install	/^InstallLctDriver()$/;"	f
+InstallLibs	install	/^InstallLibs()$/;"	f
+InstallSameVersionPrompt	install	/^InstallSameVersionPrompt()$/;"	f
+Interface	driver/doshift/lcdoshift.c	/^int Interface = 0, Configuration = -1, AltSetting = -1;$/;"	v
+KDIR	driver/Makefile	/^KDIR := \/lib\/modules\/$(shell uname -r)\/build$/;"	m
+KDIR	driver/ndis/src/Makefile	/^KDIR		:= \/lib\/modules\/$(KVER)\/build$/;"	m
+KEXT	driver/ndis/src/Makefile	/^KEXT		:= $(shell echo $(KVER) | sed -ne 's\/^2\\.[567]\\..*\/k\/p')o$/;"	m
+KMISC	driver/ndis/src/Makefile	/^KMISC		:= \/lib\/modules\/$(KVER)\/kernel\/drivers\/usb\/net$/;"	m
+KVER	driver/ndis/src/Makefile	/^KVER		:= $(shell uname -r)$/;"	m
+LCT_CM55_PID	driver/lctserial.c	29;"	d	file:
+LCT_DEVICE_DESC	driver/lctserial.c	26;"	d	file:
+LCT_DRIVER_DESC	driver/lctserial.c	/^MODULE_DESCRIPTION(LCT_DRIVER_DESC);$/;"	v
+LCT_DRIVER_DESC	driver/lctserial.c	24;"	d	file:
+LCT_DRIVER_NAME	driver/lctserial.c	25;"	d	file:
+LCT_DRIVER_VERSION	driver/lctserial.c	/^MODULE_VERSION(LCT_DRIVER_VERSION);$/;"	v
+LCT_DRIVER_VERSION	driver/lctserial.c	23;"	d	file:
+LCT_VENDOR_ID	driver/lctserial.c	28;"	d	file:
+LCT_WM6100_PID	driver/lctserial.c	30;"	d	file:
+LCT_WM71_PID	driver/lctserial.c	31;"	d	file:
+LCT_WM7211_PID	driver/lctserial.c	33;"	d	file:
+LCT_WM7211_TATA_PID	driver/lctserial.c	34;"	d	file:
+LCT_WM7608_PID	driver/lctserial.c	32;"	d	file:
+LC_CONNECTED	driver/ndis/src/qmi_header.h	/^    LC_CONNECTED = LC_IP_GETTED,   \/\/connected$/;"	e	enum:__anon4
+LC_CONNECTING	driver/ndis/src/qmi_header.h	/^    LC_CONNECTING,                 \/\/connecting$/;"	e	enum:__anon4
+LC_DISCONNECTED	driver/ndis/src/qmi_header.h	/^    LC_DISCONNECTED			= 0,   \/\/disconneted$/;"	e	enum:__anon4
+LC_DISCONNECTING	driver/ndis/src/qmi_header.h	/^    LC_DISCONNECTING,              \/\/connected$/;"	e	enum:__anon4
+LC_GETTING_IP	driver/ndis/src/qmi_header.h	/^    LC_GETTING_IP,                 \/\/connecting$/;"	e	enum:__anon4
+LC_INTERFACE_INDEX	driver/ndis/src/lc_cdc_ether.c	79;"	d	file:
+LC_IP_GETTED	driver/ndis/src/qmi_header.h	/^    LC_IP_GETTED,                  \/\/connected$/;"	e	enum:__anon4
+LDEBUG	driver/ndis/src/qmi_header.h	31;"	d
+LINE_DIM	driver/doshift/lcdoshift.c	15;"	d	file:
+LINUX_VERSION37_LATER	driver/ndis/src/lc_cdc_ether.c	127;"	d	file:
+LINUX_VERSION37_LATER	driver/ndis/src/lc_cdc_ether.c	129;"	d	file:
+LOG_DATA	driver/ndis/src/qmi_header.h	34;"	d
+LONGCHEER_INTERFACE_RMNET_VDF	driver/ndis/src/lc_cdc_ether.c	1891;"	d	file:
+LONGCHEER_INTERFACE_VDF	driver/ndis/src/lc_cdc_ether.c	1886;"	d	file:
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QCQMI
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QCQMICTL_MSG_HDR
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QCQMI_HDR
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QCQMUX_MSG_HDR
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+Length	driver/ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+LinkProt	driver/ndis/src/qmi_header.h	/^	UInt16 LinkProt;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT
+MODULE_DIR	driver/Makefile	/^MODULE_DIR := \/lib\/modules\/$(shell uname -r)\/kernel\/drivers\/usb\/serial\/$/;"	m
+MP_INVALID_QMI_ID	driver/ndis/src/qmi_header.h	343;"	d
+MajorVersion	driver/ndis/src/qmi_header.h	/^	UInt16 MajorVersion;$/;"	m	struct:_QMUX_TYPE_VERSION_STRUCT
+Mask	driver/ndis/src/qmi_header.h	/^	UInt32 Mask;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+Message	driver/ndis/src/qmi_header.h	/^	UInt8  Message; \/\/ point to QCQMUX_MSG_HDR$/;"	m	struct:_QCQMUX
+MessageContent	driver/doshift/lcdoshift.c	/^char MessageContent[LINE_DIM] = "55534243123456780000000080000606f50402527000000000000000000000";$/;"	v
+MessageEndpoint	driver/doshift/lcdoshift.c	/^int MessageEndpoint=0, ResponseEndpoint=0, defaultClass=0;$/;"	v
+MinorVersion	driver/ndis/src/qmi_header.h	/^	UInt16 MinorVersion;$/;"	m	struct:_QMUX_TYPE_VERSION_STRUCT
+NDIS_CMD_CONNECT_CMD	driver/ndis/src/lc_cdc_ether.c	/^	NDIS_CMD_CONNECT_CMD = 0xA0,$/;"	e	enum:__anon11	file:
+NDIS_CMD_DISCONN_CMD	driver/ndis/src/lc_cdc_ether.c	/^	NDIS_CMD_DISCONN_CMD,$/;"	e	enum:__anon11	file:
+NDIS_CMD_GET_STATUS	driver/ndis/src/lc_cdc_ether.c	/^	NDIS_CMD_GET_STATUS,$/;"	e	enum:__anon11	file:
+NDIS_CMD_GET_VERSION	driver/ndis/src/lc_cdc_ether.c	/^	NDIS_CMD_GET_VERSION,$/;"	e	enum:__anon11	file:
+NDIS_CMD_INIT_STATUS	driver/ndis/src/lc_cdc_ether.c	/^	NDIS_CMD_INIT_STATUS$/;"	e	enum:__anon11	file:
+NDIS_INIT_STATUS	driver/ndis/src/lc_cdc_ether.c	58;"	d	file:
+NDIS_QMI_STATUS	driver/ndis/src/qmi_oper.h	/^} NDIS_QMI_STATUS;$/;"	t	typeref:struct:_NDIS_QMI_STATUS
+NeedResponse	driver/doshift/lcdoshift.c	/^char NeedResponse=0, InquireDevice=0, sysmode=0;$/;"	v
+NumElements	driver/ndis/src/qmi_header.h	/^	UInt8  NumElements;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+OBJS	driver/doshift/Makefile	/^OBJS        = lcdoshift.c$/;"	m
+Operation	driver/ndis/src/qmi_header.h	/^	UInt16 Operation;$/;"	m	struct:_QC_ARP_HDR
+PLEN	driver/ndis/src/qmi_header.h	/^	UInt8  PLEN;$/;"	m	struct:_QC_ARP_HDR
+PQCQMUX_MSG_HDR	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMUX_MSG_HDR, *PQCQMUX_MSG_HDR;$/;"	t	typeref:struct:_QCQMUX_MSG_HDR
+PQMIWDS_RESP_MSG_HEADER	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_RESP_MSG_HEADER, *PQMIWDS_RESP_MSG_HEADER;$/;"	t	typeref:struct:_QMIWDS_RESP_MSG_HEADER
+PROCESS_ARP_PACKAGE	driver/ndis/src/lc_cdc_ether.c	57;"	d	file:
+PROG	driver/doshift/Makefile	/^PROG        = lcdoshift$/;"	m
+PWD	driver/Makefile	/^PWD := $(shell pwd)$/;"	m
+Packet_Handle	driver/ndis/src/qmi_header.h	/^	UInt32 Packet_Handle;$/;"	m	struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+ParseParamBool	driver/doshift/lcdoshift.h	98;"	d
+ParseParamFloat	driver/doshift/lcdoshift.h	94;"	d
+ParseParamHex	driver/doshift/lcdoshift.h	90;"	d
+ParseParamInt	driver/doshift/lcdoshift.h	86;"	d
+ParseParamString	driver/doshift/lcdoshift.h	82;"	d
+Password	driver/ndis/src/qmi_header.h	/^	char Password[WWAN_STRING_LEN];$/;"	m	struct:__anon9
+Pkt_Data_Handle	driver/ndis/src/qmi_header.h	/^	UInt32 Pkt_Data_Handle;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+PreInstall	install	/^PreInstall()$/;"	f
+ProcessArpPacket	driver/ndis/src/lc_cdc_ether.c	/^static void  ProcessArpPacket(UInt8 *pData, UInt32 packetlength)$/;"	f	file:
+Proto	driver/ndis/src/qmi_header.h	/^	QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT Proto;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+Proto	driver/ndis/src/qmi_header.h	/^	QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT Proto;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+ProtocolType	driver/ndis/src/qmi_header.h	/^	UInt16 ProtocolType;$/;"	m	struct:_QC_ARP_HDR
+QCQMI	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMI\/*, *QCQMI**\/ ;$/;"	t	typeref:struct:_QCQMI
+QCQMICTL_MSG_HDR	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMICTL_MSG_HDR;$/;"	t	typeref:struct:_QCQMICTL_MSG_HDR
+QCQMI_CTL_FLAG_SERVICE	driver/ndis/src/qmi_header.h	132;"	d
+QCQMI_HDR	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMI_HDR\/*, *PQCQMI_HDR*\/;$/;"	t	typeref:struct:_QCQMI_HDR
+QCQMI_ProcessQMUXWDSIndication	driver/ndis/src/qmi_oper.c	/^int QCQMI_ProcessQMUXWDSIndication(QCQMI* pQmi,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QCQMI_ProcessQMUXWDSResponse	driver/ndis/src/qmi_oper.c	/^int QCQMI_ProcessQMUXWDSResponse(QCQMI* pQmi,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QCQMUX	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMUX;$/;"	t	typeref:struct:_QCQMUX
+QCQMUX_HDR	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMUX_HDR\/*, *QCQMUX_HDR**\/;$/;"	t	typeref:struct:_QCQMUX_HDR
+QCQMUX_MSG_HDR	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMUX_MSG_HDR, *PQCQMUX_MSG_HDR;$/;"	t	typeref:struct:_QCQMUX_MSG_HDR
+QCTLV_TYPE_APN	driver/ndis/src/qmi_header.h	345;"	d
+QCTLV_TYPE_AUTH_TYPE	driver/ndis/src/qmi_header.h	346;"	d
+QCTLV_TYPE_PASSWORD	driver/ndis/src/qmi_header.h	348;"	d
+QCTLV_TYPE_REQUIRED_PARAMETER	driver/ndis/src/qmi_header.h	336;"	d
+QCTLV_TYPE_USER_NAME	driver/ndis/src/qmi_header.h	347;"	d
+QCTL_GetClientID	driver/ndis/src/qmi_oper.c	/^int  QCTL_GetClientID(UInt8* pMsgBuff,UInt32 length,UInt8 qmiType)$/;"	f
+QCTL_GetVersionReq	driver/ndis/src/qmi_oper.c	/^int QCTL_GetVersionReq(UInt8* pMsgBuff,UInt32 length)$/;"	f
+QCTL_Procecess_GetClient_ID_Response	driver/ndis/src/qmi_oper.c	/^int QCTL_Procecess_GetClient_ID_Response(QCQMI* pQmi,UInt8* fClientID,UInt8* fQMIType)$/;"	f
+QCTL_Procecess_GetVersion_Respons	driver/ndis/src/qmi_oper.c	/^int QCTL_Procecess_GetVersion_Respons(QCQMI* pQmi,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QCTL_Procecess_ReleaseClient_ID_Response	driver/ndis/src/qmi_oper.c	/^int QCTL_Procecess_ReleaseClient_ID_Response(QCQMI* pQmi,UInt8* fClientID,UInt8* fQMIType)$/;"	f
+QCTL_Procecess_SetDataFormat_Response	driver/ndis/src/qmi_oper.c	/^int QCTL_Procecess_SetDataFormat_Response(QCQMI* pQmi,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QCTL_Procecess_SetInstanceId_Response	driver/ndis/src/qmi_oper.c	/^int QCTL_Procecess_SetInstanceId_Response(QCQMI* pQmi,int* fSetInstanceIdFail,UInt32* fQMI_ID)$/;"	f
+QCTL_ReleaseClientID	driver/ndis/src/qmi_oper.c	/^int QCTL_ReleaseClientID(UInt8* pMsgBuff,UInt32 length,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QCTL_SetDataFormatReq	driver/ndis/src/qmi_oper.c	/^int QCTL_SetDataFormatReq(UInt8* pMsgBuff,UInt32 length)$/;"	f
+QCTL_SetInstanceId	driver/ndis/src/qmi_oper.c	/^int QCTL_SetInstanceId(UInt8* pMsgBuff,UInt32 length)$/;"	f
+QC_ARP_HDR	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QC_ARP_HDR; $/;"	t	typeref:struct:_QC_ARP_HDR
+QC_ETH_HDR	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QC_ETH_HDR;$/;"	t	typeref:struct:_QC_ETH_HDR
+QC_WDS_Connect	driver/ndis/src/qmi_oper.c	/^int QC_WDS_Connect(UInt8* pMsgBuff,$/;"	f
+QC_WDS_Disconnect	driver/ndis/src/qmi_oper.c	/^int QC_WDS_Disconnect(UInt8* pMsgBuff,UInt32 length,NDIS_QMI_STATUS* pndis_status,UInt8 flag)$/;"	f
+QC_WDS_GetIPAddress	driver/ndis/src/qmi_oper.c	/^int QC_WDS_GetIPAddress(UInt8* pMsgBuff,UInt32 length,UInt8 fClientID)$/;"	f
+QC_WDS_ModifyProfile	driver/ndis/src/qmi_oper.c	/^int QC_WDS_ModifyProfile(UInt8* pMsgBuff,$/;"	f
+QC_WDS_Process_GetRunTimeSettings_Respons	driver/ndis/src/qmi_oper.c	/^int  QC_WDS_Process_GetRunTimeSettings_Respons(QCQMUX_MSG_HDR* pQMuxMsg,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QMICTLType	driver/ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QCQMICTL_MSG_HDR
+QMICTLType	driver/ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+QMICTLType	driver/ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+QMICTLType	driver/ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+QMICTLType	driver/ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+QMICTLType	driver/ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+QMICTLType	driver/ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+QMICTLType	driver/ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+QMICTLType	driver/ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+QMICTLType	driver/ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+QMICTLType	driver/ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+QMICTL_CTL_FLAG_CMD	driver/ndis/src/qmi_header.h	136;"	d
+QMICTL_CTL_FLAG_IND	driver/ndis/src/qmi_header.h	138;"	d
+QMICTL_CTL_FLAG_REQUEST	driver/ndis/src/qmi_header.h	169;"	d
+QMICTL_CTL_FLAG_RSP	driver/ndis/src/qmi_header.h	137;"	d
+QMICTL_GETVERSION_RSP_TLV_TYPE_ADD_VERSION	driver/ndis/src/qmi_header.h	337;"	d
+QMICTL_GET_CLIENT_ID_REQ	driver/ndis/src/qmi_header.h	142;"	d
+QMICTL_GET_CLIENT_ID_REQ_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_GET_CLIENT_ID_REQ_MSG;$/;"	t	typeref:struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+QMICTL_GET_CLIENT_ID_RESP	driver/ndis/src/qmi_header.h	143;"	d
+QMICTL_GET_CLIENT_ID_RESP_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_GET_CLIENT_ID_RESP_MSG;$/;"	t	typeref:struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+QMICTL_GET_VERSION_REQ	driver/ndis/src/qmi_header.h	148;"	d
+QMICTL_GET_VERSION_REQ_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_GET_VERSION_REQ_MSG;$/;"	t	typeref:struct:_QMICTL_GET_VERSION_REQ_MSG
+QMICTL_GET_VERSION_RESP	driver/ndis/src/qmi_header.h	149;"	d
+QMICTL_GET_VERSION_RESP_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_GET_VERSION_RESP_MSG;$/;"	t	typeref:struct:_QMICTL_GET_VERSION_RESP_MSG
+QMICTL_INVALID_CLIENT_ID_IND	driver/ndis/src/qmi_header.h	147;"	d
+QMICTL_RELEASE_CLIENT_ID_REQ	driver/ndis/src/qmi_header.h	144;"	d
+QMICTL_RELEASE_CLIENT_ID_REQ_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_RELEASE_CLIENT_ID_REQ_MSG;$/;"	t	typeref:struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+QMICTL_RELEASE_CLIENT_ID_RESP	driver/ndis/src/qmi_header.h	145;"	d
+QMICTL_RELEASE_CLIENT_ID_RESP_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_RELEASE_CLIENT_ID_RESP_MSG;$/;"	t	typeref:struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+QMICTL_REVOKE_CLIENT_IDIND	driver/ndis/src/qmi_header.h	146;"	d
+QMICTL_SET_DATA_FORMAT_REQ	driver/ndis/src/qmi_header.h	150;"	d
+QMICTL_SET_DATA_FORMAT_REQ_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_SET_DATA_FORMAT_REQ_MSG;$/;"	t	typeref:struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+QMICTL_SET_DATA_FORMAT_RESP	driver/ndis/src/qmi_header.h	151;"	d
+QMICTL_SET_DATA_FORMAT_RESP_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_SET_DATA_FORMAT_RESP_MSG;$/;"	t	typeref:struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT;$/;"	t	typeref:struct:_QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT
+QMICTL_SET_INSTANCE_ID_REQ	driver/ndis/src/qmi_header.h	140;"	d
+QMICTL_SET_INSTANCE_ID_REQ_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_SET_INSTANCE_ID_REQ_MSG;$/;"	t	typeref:struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+QMICTL_SET_INSTANCE_ID_RESP	driver/ndis/src/qmi_header.h	141;"	d
+QMICTL_SET_INSTANCE_ID_RESP_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_SET_INSTANCE_ID_RESP_MSG;$/;"	t	typeref:struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+QMIError	driver/ndis/src/qmi_header.h	/^	UInt16 QMIError;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+QMIError	driver/ndis/src/qmi_header.h	/^	UInt16 QMIError;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+QMIError	driver/ndis/src/qmi_header.h	/^	UInt16 QMIError;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+QMIError	driver/ndis/src/qmi_header.h	/^	UInt16 QMIError;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+QMIError	driver/ndis/src/qmi_header.h	/^	UInt16 QMIError;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+QMIResult	driver/ndis/src/qmi_header.h	/^	UInt16 QMIResult;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+QMIResult	driver/ndis/src/qmi_header.h	/^	UInt16 QMIResult;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+QMIResult	driver/ndis/src/qmi_header.h	/^	UInt16 QMIResult;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+QMIResult	driver/ndis/src/qmi_header.h	/^	UInt16 QMIResult;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+QMIResult	driver/ndis/src/qmi_header.h	/^	UInt16 QMIResult;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+QMIType	driver/ndis/src/qmi_header.h	/^	UInt8  QMIType;    $/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+QMIType	driver/ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QCQMI
+QMIType	driver/ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QCQMI_HDR
+QMIType	driver/ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+QMIType	driver/ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+QMIType	driver/ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+QMIType	driver/ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+QMIWDS_GET_PKT_SRVC_STATUS_IND	driver/ndis/src/qmi_header.h	166;"	d
+QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG;$/;"	t	typeref:struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+QMIWDS_GET_RUNTIME_SETTINGS_MASK_IPV4_ADDR	driver/ndis/src/qmi_header.h	421;"	d
+QMIWDS_GET_RUNTIME_SETTINGS_REQ	driver/ndis/src/qmi_header.h	162;"	d
+QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG;$/;"	t	typeref:struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+QMIWDS_GET_RUNTIME_SETTINGS_RESP	driver/ndis/src/qmi_header.h	163;"	d
+QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG;$/;"	t	typeref:struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR;$/;"	t	typeref:struct:_QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR
+QMIWDS_GET_RUNTIME_SETTINGS_TLV_TYPE_IPV4	driver/ndis/src/qmi_header.h	418;"	d
+QMIWDS_GET_RUNTIME_SETTINGS_TLV_TYPE_IPV6	driver/ndis/src/qmi_header.h	419;"	d
+QMIWDS_RESP_MSG_HEADER	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_RESP_MSG_HEADER, *PQMIWDS_RESP_MSG_HEADER;$/;"	t	typeref:struct:_QMIWDS_RESP_MSG_HEADER
+QMIWDS_START_NETWORK_INTERFACE_REQ	driver/ndis/src/qmi_header.h	158;"	d
+QMIWDS_START_NETWORK_INTERFACE_RESP	driver/ndis/src/qmi_header.h	159;"	d
+QMIWDS_START_NETWORK_INTERFACE_RESP_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_START_NETWORK_INTERFACE_RESP_MSG;$/;"	t	typeref:struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+QMIWDS_STOP_NETWORK_INTERFACE_REQ	driver/ndis/src/qmi_header.h	160;"	d
+QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG;$/;"	t	typeref:struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+QMIWDS_STOP_NETWORK_INTERFACE_RESP	driver/ndis/src/qmi_header.h	161;"	d
+QMI_CONNECT	driver/ndis/src/qmi_oper.h	/^    QMI_CONNECT,$/;"	e	enum:__anon10
+QMI_DISCONNECT	driver/ndis/src/qmi_oper.h	/^    QMI_DISCONNECT,$/;"	e	enum:__anon10
+QMI_ERR_AUTHENTICATION_FAILED	driver/ndis/src/qmi_header.h	426;"	d
+QMI_ERR_CALL_FAILED	driver/ndis/src/qmi_header.h	425;"	d
+QMI_ERR_IP_FAILED	driver/ndis/src/qmi_header.h	428;"	d
+QMI_ERR_NO_NETWORK_FOUND	driver/ndis/src/qmi_header.h	427;"	d
+QMI_GET_CLIENT_ID	driver/ndis/src/qmi_oper.h	/^    QMI_GET_CLIENT_ID			= 0,$/;"	e	enum:__anon10
+QMI_GET_IP_ADDR	driver/ndis/src/qmi_oper.h	/^    QMI_GET_IP_ADDR,$/;"	e	enum:__anon10
+QMI_GET_VERSION	driver/ndis/src/qmi_oper.h	/^    QMI_GET_VERSION,$/;"	e	enum:__anon10
+QMI_ID	driver/ndis/src/qmi_header.h	/^	UInt16 QMI_ID;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+QMI_MODIFY_PRO	driver/ndis/src/qmi_oper.h	/^    QMI_MODIFY_PRO,$/;"	e	enum:__anon10
+QMI_RELEASE_CLIENT_ID	driver/ndis/src/qmi_oper.h	/^    QMI_RELEASE_CLIENT_ID,$/;"	e	enum:__anon10
+QMI_RESULT_FAILURE	driver/ndis/src/qmi_header.h	172;"	d
+QMI_RESULT_SUCCESS	driver/ndis/src/qmi_header.h	171;"	d
+QMI_SET_DATA_FORMAT	driver/ndis/src/qmi_oper.h	/^    QMI_SET_DATA_FORMAT,$/;"	e	enum:__anon10
+QMI_SET_INSTANCE	driver/ndis/src/qmi_oper.h	/^    QMI_SET_INSTANCE,$/;"	e	enum:__anon10
+QMI_TLV_HDR	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMI_TLV_HDR;$/;"	t	typeref:struct:_QMI_TLV_HDR
+QMI_WDS_MODIFY_PROFILE_SETTINGS_REQ	driver/ndis/src/qmi_header.h	156;"	d
+QMI_WDS_MODIFY_PROFILE_SETTINGS_RESP	driver/ndis/src/qmi_header.h	157;"	d
+QMUXError	driver/ndis/src/qmi_header.h	/^	UInt16 QMUXError;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+QMUXError	driver/ndis/src/qmi_header.h	/^	UInt16 QMUXError;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+QMUXError	driver/ndis/src/qmi_header.h	/^	UInt16 QMUXError;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+QMUXResult	driver/ndis/src/qmi_header.h	/^	UInt16 QMUXResult;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+QMUXResult	driver/ndis/src/qmi_header.h	/^	UInt16 QMUXResult;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+QMUXResult	driver/ndis/src/qmi_header.h	/^	UInt16 QMUXResult;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+QMUXType	driver/ndis/src/qmi_header.h	/^	UInt8  QMUXType;$/;"	m	struct:_QMUX_TYPE_VERSION_STRUCT
+QMUX_BROADCAST_CID	driver/ndis/src/qmi_header.h	118;"	d
+QMUX_CTL_FLAG_MASK_COMPOUND	driver/ndis/src/qmi_header.h	177;"	d
+QMUX_CTL_FLAG_MASK_TYPE	driver/ndis/src/qmi_header.h	176;"	d
+QMUX_CTL_FLAG_SINGLE_MSG	driver/ndis/src/qmi_header.h	174;"	d
+QMUX_CTL_FLAG_TYPE_CMD	driver/ndis/src/qmi_header.h	175;"	d
+QMUX_CTL_FLAG_TYPE_IND	driver/ndis/src/qmi_header.h	179;"	d
+QMUX_CTL_FLAG_TYPE_RSP	driver/ndis/src/qmi_header.h	178;"	d
+QMUX_TYPE_ALL	driver/ndis/src/qmi_header.h	/^	QMUX_TYPE_ALL = 0xFF$/;"	e	enum:__anon5
+QMUX_TYPE_CTL	driver/ndis/src/qmi_header.h	/^    QMUX_TYPE_CTL = 0x00,$/;"	e	enum:__anon5
+QMUX_TYPE_DMS	driver/ndis/src/qmi_header.h	/^	QMUX_TYPE_DMS = 0x02,$/;"	e	enum:__anon5
+QMUX_TYPE_MAX	driver/ndis/src/qmi_header.h	/^	QMUX_TYPE_MAX,$/;"	e	enum:__anon5
+QMUX_TYPE_NAS	driver/ndis/src/qmi_header.h	/^	QMUX_TYPE_NAS = 0x03,$/;"	e	enum:__anon5
+QMUX_TYPE_QOS	driver/ndis/src/qmi_header.h	/^	QMUX_TYPE_QOS = 0x04,$/;"	e	enum:__anon5
+QMUX_TYPE_VERSION_STRUCT	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) QMUX_TYPE_VERSION_STRUCT;$/;"	t	typeref:struct:_QMUX_TYPE_VERSION_STRUCT
+QMUX_TYPE_WDS	driver/ndis/src/qmi_header.h	/^	QMUX_TYPE_WDS = 0x01,$/;"	e	enum:__anon5
+QWDS_PKT_DATA_CONNECTED	driver/ndis/src/qmi_header.h	466;"	d
+QWDS_PKT_DATA_DISCONNECTED	driver/ndis/src/qmi_header.h	465;"	d
+QWDS_PKT_DATA_SUSPENDED	driver/ndis/src/qmi_header.h	467;"	d
+RM	driver/doshift/Makefile	/^RM          = \/bin\/rm -f$/;"	m
+RX_MAX_QUEUE_MEMORY	driver/ndis/src/lc_cdc_ether.c	42;"	d	file:
+RX_QLEN	driver/ndis/src/lc_cdc_ether.c	43;"	d	file:
+ReadParseParam	driver/doshift/lcdoshift.c	/^char* ReadParseParam(const char* FileName, char *VariableName)$/;"	f
+ReconfigRequired	driver/ndis/src/qmi_header.h	/^	UInt8  ReconfigRequired;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+ResetUSB	driver/doshift/lcdoshift.c	/^char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;$/;"	v
+ResponseArpPacket	driver/ndis/src/lc_cdc_ether.c	/^static void  ResponseArpPacket(UInt8 *pData, UInt32 packetlength)$/;"	f	file:
+ResponseEndpoint	driver/doshift/lcdoshift.c	/^int MessageEndpoint=0, ResponseEndpoint=0, defaultClass=0;$/;"	v
+RmTmpfile	install	/^RmTmpfile()$/;"	f
+SDU	driver/ndis/src/qmi_header.h	/^	UInt8  SDU;   \/\/ point to qcqmux or qcqmictl_msg_hdr$/;"	m	struct:_QCQMI
+SET_DATA_FORMAT_LINK_PROTO_ETH	driver/ndis/src/qmi_header.h	340;"	d
+SET_DATA_FORMAT_LINK_PROTO_IP	driver/ndis/src/qmi_header.h	341;"	d
+SET_DATA_FORMAT_TLV_TYPE_LINK_PROTO	driver/ndis/src/qmi_header.h	339;"	d
+SHOW_PROGRESS	driver/doshift/lcdoshift.c	19;"	d	file:
+SelectLanguage	install	/^SelectLanguage()$/;"	f
+SenderHA	driver/ndis/src/qmi_header.h	/^	UInt8  SenderHA[ETH_LENGTH_OF_ADDRESS];$/;"	m	struct:_QC_ARP_HDR
+SenderIP	driver/ndis/src/qmi_header.h	/^	UInt32 SenderIP;$/;"	m	struct:_QC_ARP_HDR
+SierraMode	driver/doshift/lcdoshift.c	/^char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0;$/;"	v
+Sleep_Time	driver/ndis/src/qmi_header.h	37;"	d
+SonyMode	driver/doshift/lcdoshift.c	/^char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0;$/;"	v
+SrcMacAddress	driver/ndis/src/qmi_header.h	/^	UInt8 SrcMacAddress[ETH_LENGTH_OF_ADDRESS];$/;"	m	struct:_QC_ETH_HDR
+THROTTLE_JIFFIES	driver/ndis/src/lc_cdc_ether.c	53;"	d	file:
+TLV2Length	driver/ndis/src/qmi_header.h	/^	UInt16 TLV2Length;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+TLV2Length	driver/ndis/src/qmi_header.h	/^	UInt16 TLV2Length;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+TLV2Length	driver/ndis/src/qmi_header.h	/^	UInt16 TLV2Length;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+TLV2Length	driver/ndis/src/qmi_header.h	/^	UInt16 TLV2Length;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+TLV2Type	driver/ndis/src/qmi_header.h	/^	UInt8  TLV2Type;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+TLV2Type	driver/ndis/src/qmi_header.h	/^	UInt8  TLV2Type;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+TLV2Type	driver/ndis/src/qmi_header.h	/^	UInt8  TLV2Type;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+TLV2Type	driver/ndis/src/qmi_header.h	/^	UInt8  TLV2Type;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+TLVLength	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMI_TLV_HDR
+TLVLength2	driver/ndis/src/qmi_header.h	/^	UInt16 TLVLength2;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+TLVType	driver/ndis/src/qmi_header.h	/^    UInt8  TLVType;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT
+TLVType	driver/ndis/src/qmi_header.h	/^    UInt8  TLVType;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR
+TLVType	driver/ndis/src/qmi_header.h	/^    UInt8  TLVType;$/;"	m	struct:_QMI_TLV_HDR
+TLVType2	driver/ndis/src/qmi_header.h	/^	UInt8  TLVType2;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+TX_QLEN	driver/ndis/src/lc_cdc_ether.c	45;"	d	file:
+TX_TIMEOUT_JIFFIES	driver/ndis/src/lc_cdc_ether.c	49;"	d	file:
+TargetClass	driver/doshift/lcdoshift.c	/^int DefaultVendor=0x1c9e, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;$/;"	v
+TargetHA	driver/ndis/src/qmi_header.h	/^	UInt8  TargetHA[ETH_LENGTH_OF_ADDRESS];$/;"	m	struct:_QC_ARP_HDR
+TargetIP	driver/ndis/src/qmi_header.h	/^	UInt32 TargetIP;$/;"	m	struct:_QC_ARP_HDR
+TargetProduct	driver/doshift/lcdoshift.c	/^int DefaultVendor=0x1c9e, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;$/;"	v
+TargetProductList	driver/doshift/lcdoshift.c	/^char TargetProductList[LINE_DIM];$/;"	v
+TargetVendor	driver/doshift/lcdoshift.c	/^int DefaultVendor=0x1c9e, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;$/;"	v
+TempPP	driver/doshift/lcdoshift.c	/^char *TempPP=NULL;$/;"	v
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt16 TransactionId;$/;"	m	struct:_QCQMUX
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt16 TransactionId;$/;"	m	struct:_QCQMUX_HDR
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QCQMICTL_MSG_HDR
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+TransactionId	driver/ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+Type	driver/ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QCQMUX_MSG_HDR
+Type	driver/ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+Type	driver/ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+Type	driver/ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+Type	driver/ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+Type	driver/ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+Type	driver/ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+TypeVersion	driver/ndis/src/qmi_header.h	/^	QMUX_TYPE_VERSION_STRUCT  TypeVersion;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+UInt16	driver/ndis/src/qmi_header.h	/^typedef unsigned short      UInt16;$/;"	t
+UInt32	driver/ndis/src/qmi_header.h	/^typedef unsigned int        UInt32;$/;"	t
+UInt64	driver/ndis/src/qmi_header.h	/^typedef unsigned long long  UInt64;$/;"	t
+UInt8	driver/ndis/src/qmi_header.h	/^typedef unsigned char       UInt8;$/;"	t
+UNLINK_TIMEOUT_MS	driver/ndis/src/lc_cdc_ether.c	56;"	d	file:
+USB_CTL_MSG_TYPE_QMI	driver/ndis/src/qmi_header.h	133;"	d
+USB_DEVICE_Longcheer_DATA	driver/ndis/src/lc_cdc_ether.c	1772;"	d	file:
+USB_DIR_IN	driver/doshift/lcdoshift.c	981;"	d	file:
+USB_DIR_OUT	driver/doshift/lcdoshift.c	980;"	d	file:
+USE_ELG	driver/ndis/src/qmi_header.h	32;"	d
+USE_IOL	driver/ndis/src/qmi_header.h	33;"	d
+UnInstallLctDriver	driver/uninstall_driver	/^UnInstallLctDriver()$/;"	f
+UnpackSoft	install	/^UnpackSoft()$/;"	f
+UpLinkBytes	driver/ndis/src/qmi_header.h	/^	UInt64 UpLinkBytes;$/;"	m	struct:_WWAN_FLOW_STATS
+UpdateMailcap	jre-1_5_0_15-linux-i586.bin	/^UpdateMailcap() {$/;"	f
+UpdateMimeTypes	jre-1_5_0_15-linux-i586.bin	/^UpdateMimeTypes() {$/;"	f
+UpdateUninstallShell	install	/^UpdateUninstallShell()$/;"	f
+UserInfo	install	/^UserInfo()$/;"	f
+UserName	driver/ndis/src/qmi_header.h	/^	char UserName[WWAN_STRING_LEN];$/;"	m	struct:__anon9
+VERS	driver/doshift/Makefile	/^VERS        = 1.1.0$/;"	m
+Value	driver/ndis/src/qmi_header.h	/^	UInt8  Value;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+WWAN_CONNECT_PARAMS	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) WWAN_CONNECT_PARAMS;$/;"	t	typeref:struct:__anon9
+WWAN_FLOW_STATS	driver/ndis/src/qmi_header.h	/^}__attribute__((packed)) WWAN_FLOW_STATS;$/;"	t	typeref:struct:_WWAN_FLOW_STATS
+WWAN_STATUS	driver/ndis/src/lc_cdc_ether.c	/^} WWAN_STATUS;$/;"	t	typeref:struct:__anon12	file:
+WWAN_STRING_LEN	driver/ndis/src/qmi_header.h	495;"	d
+WwanAuthProtocolChap	driver/ndis/src/qmi_header.h	/^	WwanAuthProtocolChap = 0x02,$/;"	e	enum:__anon6
+WwanAuthProtocolMax	driver/ndis/src/qmi_header.h	/^	WwanAuthProtocolMax  = 0xFF$/;"	e	enum:__anon6
+WwanAuthProtocolNone	driver/ndis/src/qmi_header.h	/^    WwanAuthProtocolNone = 0x00,$/;"	e	enum:__anon6
+WwanAuthProtocolPap	driver/ndis/src/qmi_header.h	/^	WwanAuthProtocolPap  = 0x01,$/;"	e	enum:__anon6
+WwanOperationConnect	driver/ndis/src/qmi_header.h	/^	WwanOperationConnect    = 0x01,$/;"	e	enum:__anon7
+WwanOperationCount	driver/ndis/src/qmi_header.h	/^	WwanOperationCount      = 0x04,$/;"	e	enum:__anon7
+WwanOperationDisconnect	driver/ndis/src/qmi_header.h	/^	WwanOperationDisconnect = 0x02,$/;"	e	enum:__anon7
+WwanOperationMax	driver/ndis/src/qmi_header.h	/^	WwanOperationMax        = 0xFF$/;"	e	enum:__anon7
+WwanOperationQueryReady	driver/ndis/src/qmi_header.h	/^	WwanOperationQueryReady = 0x00,$/;"	e	enum:__anon7
+WwanOperationState	driver/ndis/src/qmi_header.h	/^	WwanOperationState      = 0x03,$/;"	e	enum:__anon7
+WwanStateConnected	driver/ndis/src/qmi_header.h	/^	WwanStateConnected     = 2,$/;"	e	enum:__anon8
+WwanStateConnecting	driver/ndis/src/qmi_header.h	/^	WwanStateConnecting    = 1,$/;"	e	enum:__anon8
+WwanStateDisconnected	driver/ndis/src/qmi_header.h	/^    WwanStateDisconnected  = 0,$/;"	e	enum:__anon8
+WwanStateDisconnecting	driver/ndis/src/qmi_header.h	/^	WwanStateDisconnecting = 3$/;"	e	enum:__anon8
+_NDIS_QMI_STATUS	driver/ndis/src/qmi_oper.h	/^typedef struct _NDIS_QMI_STATUS{	$/;"	s
+_QCQMI	driver/ndis/src/qmi_header.h	/^typedef struct _QCQMI$/;"	s
+_QCQMICTL_MSG_HDR	driver/ndis/src/qmi_header.h	/^typedef struct _QCQMICTL_MSG_HDR$/;"	s
+_QCQMI_HDR	driver/ndis/src/qmi_header.h	/^typedef struct _QCQMI_HDR$/;"	s
+_QCQMUX	driver/ndis/src/qmi_header.h	/^typedef struct _QCQMUX$/;"	s
+_QCQMUX_HDR	driver/ndis/src/qmi_header.h	/^typedef struct _QCQMUX_HDR$/;"	s
+_QCQMUX_MSG_HDR	driver/ndis/src/qmi_header.h	/^typedef struct _QCQMUX_MSG_HDR$/;"	s
+_QC_ARP_HDR	driver/ndis/src/qmi_header.h	/^typedef struct _QC_ARP_HDR$/;"	s
+_QC_ETH_HDR	driver/ndis/src/qmi_header.h	/^typedef struct _QC_ETH_HDR$/;"	s
+_QMICTL_GET_CLIENT_ID_REQ_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMICTL_GET_CLIENT_ID_REQ_MSG$/;"	s
+_QMICTL_GET_CLIENT_ID_RESP_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMICTL_GET_CLIENT_ID_RESP_MSG$/;"	s
+_QMICTL_GET_VERSION_REQ_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMICTL_GET_VERSION_REQ_MSG$/;"	s
+_QMICTL_GET_VERSION_RESP_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMICTL_GET_VERSION_RESP_MSG$/;"	s
+_QMICTL_RELEASE_CLIENT_ID_REQ_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMICTL_RELEASE_CLIENT_ID_REQ_MSG$/;"	s
+_QMICTL_RELEASE_CLIENT_ID_RESP_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMICTL_RELEASE_CLIENT_ID_RESP_MSG$/;"	s
+_QMICTL_SET_DATA_FORMAT_REQ_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMICTL_SET_DATA_FORMAT_REQ_MSG$/;"	s
+_QMICTL_SET_DATA_FORMAT_RESP_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMICTL_SET_DATA_FORMAT_RESP_MSG$/;"	s
+_QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT	driver/ndis/src/qmi_header.h	/^typedef struct _QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT$/;"	s
+_QMICTL_SET_INSTANCE_ID_REQ_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMICTL_SET_INSTANCE_ID_REQ_MSG$/;"	s
+_QMICTL_SET_INSTANCE_ID_RESP_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMICTL_SET_INSTANCE_ID_RESP_MSG$/;"	s
+_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG$/;"	s
+_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG$/;"	s
+_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG$/;"	s
+_QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR	driver/ndis/src/qmi_header.h	/^typedef struct _QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR$/;"	s
+_QMIWDS_RESP_MSG_HEADER	driver/ndis/src/qmi_header.h	/^typedef struct _QMIWDS_RESP_MSG_HEADER$/;"	s
+_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMIWDS_START_NETWORK_INTERFACE_RESP_MSG$/;"	s
+_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG	driver/ndis/src/qmi_header.h	/^typedef struct _QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG$/;"	s
+_QMI_TLV_HDR	driver/ndis/src/qmi_header.h	/^typedef struct _QMI_TLV_HDR$/;"	s
+_QMUX_TYPE_VERSION_STRUCT	driver/ndis/src/qmi_header.h	/^typedef struct _QMUX_TYPE_VERSION_STRUCT$/;"	s
+_WWAN_FLOW_STATS	driver/ndis/src/qmi_header.h	/^typedef struct _WWAN_FLOW_STATS$/;"	s
+__QMI_HEADER_H__	driver/ndis/src/qmi_header.h	23;"	d
+__QMI_OPER_H__	driver/ndis/src/qmi_oper.h	2;"	d
+__ndis_command_t	driver/ndis/src/lc_cdc_ether.c	/^typedef struct __ndis_command_t{$/;"	s	file:
+and	driver/doshift/lcdoshift.h	62;"	d
+and_eq	driver/doshift/lcdoshift.h	73;"	d
+bh	driver/ndis/src/lc_cdc_ether.c	/^	struct tasklet_struct	bh;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::tasklet_struct	file:
+bitand	driver/doshift/lcdoshift.h	67;"	d
+bitor	driver/doshift/lcdoshift.h	68;"	d
+buffer	driver/doshift/lcdoshift.c	/^char buffer[BUF_SIZE];$/;"	v
+busnum	driver/doshift/lcdoshift.c	/^int devnum=-1, busnum=-1;$/;"	v
+bzero	driver/ndis/src/qmi_oper.c	27;"	d	file:
+checkSuccess	driver/doshift/lcdoshift.c	/^int checkSuccess()$/;"	f
+chooseLanguage	install	/^chooseLanguage()$/;"	f
+cmd	driver/ndis/src/lc_cdc_ether.c	/^int            cmd;$/;"	m	struct:__ndis_command_t	file:
+compl	driver/doshift/lcdoshift.h	69;"	d
+config_read	driver/doshift/lcdoshift.c	/^char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;$/;"	v
+connection_status	driver/ndis/src/lc_cdc_ether.c	/^	int connection_status;$/;"	m	struct:__anon12	file:
+control	driver/ndis/src/lc_cdc_ether.c	/^	struct usb_interface		*control;$/;"	m	struct:lc_dev_state	typeref:struct:lc_dev_state::usb_interface	file:
+data	driver/ndis/src/lc_cdc_ether.c	/^	struct usb_interface		*data;$/;"	m	struct:lc_dev_state	typeref:struct:lc_dev_state::usb_interface	file:
+data	driver/ndis/src/lc_cdc_ether.c	/^	unsigned long		data [5];$/;"	m	struct:lc_cdc_net	file:
+data	driver/ndis/src/lc_cdc_ether.c	/^UInt8  data[WWAN_STRING_LEN*3+sizeof(UInt32)*2];$/;"	m	struct:__ndis_command_t	file:
+defaultClass	driver/doshift/lcdoshift.c	/^int MessageEndpoint=0, ResponseEndpoint=0, defaultClass=0;$/;"	v
+delay	driver/ndis/src/lc_cdc_ether.c	/^	struct timer_list	delay;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::timer_list	file:
+detachDriver	driver/doshift/lcdoshift.c	/^int detachDriver()$/;"	f
+dev	driver/doshift/lcdoshift.c	/^struct usb_device *dev;$/;"	v	typeref:struct:usb_device
+dev	driver/ndis/src/lc_cdc_ether.c	/^	struct lc_cdc_net		*dev;$/;"	m	struct:skb_data	typeref:struct:skb_data::lc_cdc_net	file:
+devdbg	driver/ndis/src/lc_cdc_ether.c	227;"	d	file:
+deverr	driver/ndis/src/lc_cdc_ether.c	231;"	d	file:
+devh	driver/doshift/lcdoshift.c	/^struct usb_dev_handle *devh;$/;"	v	typeref:struct:usb_dev_handle
+deviceDescription	driver/doshift/lcdoshift.c	/^void deviceDescription ()$/;"	f
+deviceInquire	driver/doshift/lcdoshift.c	/^int deviceInquire ()$/;"	f
+devinfo	driver/ndis/src/lc_cdc_ether.c	236;"	d	file:
+devnum	driver/doshift/lcdoshift.c	/^int devnum=-1, busnum=-1;$/;"	v
+devwarn	driver/ndis/src/lc_cdc_ether.c	233;"	d	file:
+done	driver/ndis/src/lc_cdc_ether.c	/^	struct sk_buff_head	done;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::sk_buff_head	file:
+driver_desc	driver/ndis/src/lc_cdc_ether.c	/^	const char 		*driver_desc;$/;"	m	struct:lc_cdc_net	file:
+driver_name	driver/ndis/src/lc_cdc_ether.c	/^	const char		*driver_name;$/;"	m	struct:lc_cdc_net	file:
+driver_name	driver/ndis/src/lc_cdc_ether.c	/^static const char driver_name [] = "lc_ether";$/;"	v	file:
+driver_of	driver/ndis/src/lc_cdc_ether.c	/^static inline struct usb_driver *driver_of(struct usb_interface *intf)$/;"	f	file:
+driver_priv	driver/ndis/src/lc_cdc_ether.c	/^	void			*driver_priv;$/;"	m	struct:lc_cdc_net	file:
+dumpspeed	driver/ndis/src/lc_cdc_ether.c	/^static void dumpspeed(struct lc_cdc_net *dev, __le32 *speeds)$/;"	f	file:
+ether	driver/ndis/src/lc_cdc_ether.c	/^	struct usb_cdc_ether_desc	*ether;$/;"	m	struct:lc_dev_state	typeref:struct:lc_dev_state::usb_cdc_ether_desc	file:
+fClientID	driver/ndis/src/qmi_oper.h	/^	UInt8    		 fClientID;			$/;"	m	struct:_NDIS_QMI_STATUS
+fConnecting	driver/ndis/src/qmi_oper.h	/^	bool             fConnecting;$/;"	m	struct:_NDIS_QMI_STATUS
+fConnectionError	driver/ndis/src/qmi_oper.h	/^	UInt16           fConnectionError;	$/;"	m	struct:_NDIS_QMI_STATUS
+fConnectionStatus	driver/ndis/src/qmi_oper.h	/^	int              fConnectionStatus;$/;"	m	struct:_NDIS_QMI_STATUS
+fCurMacAddress	driver/ndis/src/lc_cdc_ether.c	/^static UInt8 fCurMacAddress[6]=$/;"	v	file:
+fDisconnecting	driver/ndis/src/qmi_oper.h	/^	bool             fDisconnecting;$/;"	m	struct:_NDIS_QMI_STATUS
+fDstMacAddress	driver/ndis/src/lc_cdc_ether.c	/^static UInt8 fDstMacAddress[6]=$/;"	v	file:
+fEthernetHeader	driver/ndis/src/lc_cdc_ether.c	/^static QC_ETH_HDR fEthernetHeader;$/;"	v	file:
+fGetVersioning	driver/ndis/src/qmi_oper.h	/^	bool             fGetVersioning;$/;"	m	struct:_NDIS_QMI_STATUS
+fIPAddress	driver/ndis/src/qmi_oper.h	/^	UInt32           fIPAddress;$/;"	m	struct:_NDIS_QMI_STATUS
+fIPModeEnabled	driver/ndis/src/qmi_oper.h	/^	bool             fIPModeEnabled;	$/;"	m	struct:_NDIS_QMI_STATUS
+fIPPacketSupport	driver/ndis/src/qmi_oper.h	/^	bool             fIPPacketSupport;$/;"	m	struct:_NDIS_QMI_STATUS
+fLinkStatus	driver/ndis/src/qmi_oper.h	/^	UInt8			 fLinkStatus;	$/;"	m	struct:_NDIS_QMI_STATUS
+fPacketHandle	driver/ndis/src/qmi_oper.h	/^	UInt32           fPacketHandle;$/;"	m	struct:_NDIS_QMI_STATUS
+fPacketHandle1	driver/ndis/src/qmi_oper.h	/^	UInt32           fPacketHandle1;$/;"	m	struct:_NDIS_QMI_STATUS
+fQMITransactionId	driver/ndis/src/qmi_oper.c	/^static UInt8    fQMITransactionId = 0;$/;"	v	file:
+fQMIType	driver/ndis/src/qmi_oper.h	/^	UInt8    		 fQMIType;$/;"	m	struct:_NDIS_QMI_STATUS
+fQMI_ID	driver/ndis/src/qmi_oper.h	/^	UInt32           fQMI_ID;$/;"	m	struct:_NDIS_QMI_STATUS
+fSetInstanceIdFail	driver/ndis/src/qmi_oper.h	/^	int              fSetInstanceIdFail;$/;"	m	struct:_NDIS_QMI_STATUS
+fVersion	driver/ndis/src/qmi_oper.h	/^	char             fVersion[64];	$/;"	m	struct:_NDIS_QMI_STATUS
+find_first_bulk_input_endpoint	driver/doshift/lcdoshift.c	/^int find_first_bulk_input_endpoint(struct usb_device *dev)$/;"	f
+find_first_bulk_output_endpoint	driver/doshift/lcdoshift.c	/^int find_first_bulk_output_endpoint(struct usb_device *dev)$/;"	f
+flags	driver/ndis/src/lc_cdc_ether.c	/^	unsigned long		flags;$/;"	m	struct:lc_cdc_net	file:
+g_cdc_dev	driver/ndis/src/lc_cdc_ether.c	/^static struct lc_cdc_net *g_cdc_dev = NULL;$/;"	v	typeref:struct:lc_cdc_net	file:
+hard_mtu	driver/ndis/src/lc_cdc_ether.c	/^	u32			hard_mtu;	\/* count any extra framing *\/$/;"	m	struct:lc_cdc_net	file:
+header	driver/ndis/src/lc_cdc_ether.c	/^	struct usb_cdc_header_desc	*header;$/;"	m	struct:lc_dev_state	typeref:struct:lc_dev_state::usb_cdc_header_desc	file:
+hex2byte	driver/doshift/lcdoshift.c	/^int hex2byte(const char *hex)$/;"	f
+hex2num	driver/doshift/lcdoshift.c	/^int hex2num(char c)$/;"	f
+hexstr2bin	driver/doshift/lcdoshift.c	/^int hexstr2bin(const char *hex, char *buffer, int len)$/;"	f
+illegal	driver/ndis/src/lc_cdc_ether.c	/^	illegal = 0,$/;"	e	enum:skb_state	file:
+imanufact	driver/doshift/lcdoshift.c	/^char imanufact[DESCR_MAX], iproduct[DESCR_MAX], iserial[DESCR_MAX];$/;"	v
+in	driver/ndis/src/lc_cdc_ether.c	/^	unsigned		in, out;$/;"	m	struct:lc_cdc_net	file:
+init_status	driver/ndis/src/lc_cdc_ether.c	/^static int init_status (struct lc_cdc_net *dev, struct usb_interface *intf)$/;"	f	file:
+interrupt	driver/ndis/src/lc_cdc_ether.c	/^	struct urb		*interrupt;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::urb	file:
+intf	driver/ndis/src/lc_cdc_ether.c	/^	struct usb_interface	*intf;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::usb_interface	file:
+intr_complete	driver/ndis/src/lc_cdc_ether.c	/^static void intr_complete (struct urb *urb)$/;"	f	file:
+ip_address	driver/ndis/src/lc_cdc_ether.c	/^	UInt32 ip_address;$/;"	m	struct:__anon12	file:
+iproduct	driver/doshift/lcdoshift.c	/^char imanufact[DESCR_MAX], iproduct[DESCR_MAX], iserial[DESCR_MAX];$/;"	v
+iserial	driver/doshift/lcdoshift.c	/^char imanufact[DESCR_MAX], iproduct[DESCR_MAX], iserial[DESCR_MAX];$/;"	v
+kDataIn	driver/ndis/src/qmi_header.h	/^    kDataIn			= 0,$/;"	e	enum:__anon1
+kDataNone	driver/ndis/src/qmi_header.h	/^    kDataNone$/;"	e	enum:__anon1
+kDataOther	driver/ndis/src/qmi_header.h	/^    kDataOther,$/;"	e	enum:__anon1
+kDataOut	driver/ndis/src/qmi_header.h	/^    kDataOut,$/;"	e	enum:__anon1
+kResetDone	driver/ndis/src/qmi_header.h	/^    kResetDone$/;"	e	enum:__anon2
+kResetNeeded	driver/ndis/src/qmi_header.h	/^    kResetNeeded,$/;"	e	enum:__anon2
+kResetNormal	driver/ndis/src/qmi_header.h	/^    kResetNormal	= 0,$/;"	e	enum:__anon2
+kUSBModem_Connect_APN	driver/ndis/src/qmi_header.h	459;"	d
+kUSBModem_Connect_Compression	driver/ndis/src/qmi_header.h	462;"	d
+kUSBModem_Connect_Error	driver/ndis/src/qmi_header.h	463;"	d
+kUSBModem_Connect_Password	driver/ndis/src/qmi_header.h	461;"	d
+kUSBModem_Connect_UserName	driver/ndis/src/qmi_header.h	460;"	d
+kUSBModem_Oper_Flag	driver/ndis/src/qmi_header.h	458;"	d
+kevent	driver/ndis/src/lc_cdc_ether.c	/^	struct work_struct	kevent;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::work_struct	file:
+kevent	driver/ndis/src/lc_cdc_ether.c	/^kevent (struct work_struct *work)$/;"	f	file:
+lc_CDC_FAIL	driver/ndis/src/lc_cdc_ether.c	1884;"	d	file:
+lc_CDC_OK	driver/ndis/src/lc_cdc_ether.c	1883;"	d	file:
+lc_USB_MRECEIVE_BUFFER_SIZE	driver/ndis/src/lc_cdc_ether.c	86;"	d	file:
+lc_USB_MRECEIVE_MAX_BUFFER_SIZE	driver/ndis/src/lc_cdc_ether.c	88;"	d	file:
+lc_USB_RECEIVE_BUFFER_SIZE	driver/ndis/src/lc_cdc_ether.c	84;"	d	file:
+lc_bh	driver/ndis/src/lc_cdc_ether.c	/^static void lc_bh (unsigned long param)$/;"	f	file:
+lc_cdc_bind	driver/ndis/src/lc_cdc_ether.c	/^static int lc_cdc_bind(struct lc_cdc_net *dev, struct usb_interface *intf)$/;"	f	file:
+lc_cdc_check_status_work	driver/ndis/src/lc_cdc_ether.c	/^static void lc_cdc_check_status_work()$/;"	f	file:
+lc_cdc_exit	driver/ndis/src/lc_cdc_ether.c	/^module_exit(lc_cdc_exit);$/;"	v
+lc_cdc_exit	driver/ndis/src/lc_cdc_ether.c	/^static void __exit lc_cdc_exit(void)$/;"	f	file:
+lc_cdc_init	driver/ndis/src/lc_cdc_ether.c	/^fs_initcall(lc_cdc_init);$/;"	v
+lc_cdc_init	driver/ndis/src/lc_cdc_ether.c	/^static int __init lc_cdc_init(void)$/;"	f	file:
+lc_cdc_net	driver/ndis/src/lc_cdc_ether.c	/^struct lc_cdc_net{$/;"	s	file:
+lc_cdc_probe	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_cdc_probe);$/;"	v
+lc_cdc_probe	driver/ndis/src/lc_cdc_ether.c	/^lc_cdc_probe (struct usb_interface *udev, const struct usb_device_id *prod)$/;"	f
+lc_cdc_reset_resume	driver/ndis/src/lc_cdc_ether.c	/^static int lc_cdc_reset_resume(struct usb_interface *intf)$/;"	f	file:
+lc_cdc_status	driver/ndis/src/lc_cdc_ether.c	/^static void lc_cdc_status(struct lc_cdc_net *dev, struct urb *urb)$/;"	f	file:
+lc_cdc_unbind	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_cdc_unbind);$/;"	v
+lc_cdc_unbind	driver/ndis/src/lc_cdc_ether.c	/^void lc_cdc_unbind(struct lc_cdc_net *dev, struct usb_interface *intf)$/;"	f
+lc_change_mtu	driver/ndis/src/lc_cdc_ether.c	/^static int lc_change_mtu (struct net_device *net, int new_mtu)$/;"	f	file:
+lc_defer_kevent	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_defer_kevent);$/;"	v
+lc_defer_kevent	driver/ndis/src/lc_cdc_ether.c	/^void lc_defer_kevent (struct lc_cdc_net *dev, int work)$/;"	f
+lc_dev_state	driver/ndis/src/lc_cdc_ether.c	/^struct lc_dev_state {$/;"	s	file:
+lc_disconnect	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_disconnect);$/;"	v
+lc_disconnect	driver/ndis/src/lc_cdc_ether.c	/^void lc_disconnect (struct usb_interface *intf)$/;"	f
+lc_eth_mac_addr	driver/ndis/src/lc_cdc_ether.c	/^static int lc_eth_mac_addr(struct net_device *dev, void *p)$/;"	f	file:
+lc_ether_driver	driver/ndis/src/lc_cdc_ether.c	/^static struct usb_driver lc_ether_driver = {$/;"	v	typeref:struct:usb_driver	file:
+lc_ethtool_ops	driver/ndis/src/lc_cdc_ether.c	/^static struct ethtool_ops lc_ethtool_ops = {$/;"	v	typeref:struct:ethtool_ops	file:
+lc_get_drvinfo	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_get_drvinfo);$/;"	v
+lc_get_drvinfo	driver/ndis/src/lc_cdc_ether.c	/^void lc_get_drvinfo (struct net_device *net, struct ethtool_drvinfo *info)$/;"	f
+lc_get_endpoints	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_get_endpoints);$/;"	v
+lc_get_endpoints	driver/ndis/src/lc_cdc_ether.c	/^int lc_get_endpoints(struct lc_cdc_net *dev, struct usb_interface *intf)$/;"	f
+lc_get_ethernet_addr	driver/ndis/src/lc_cdc_ether.c	/^static inline int lc_get_ethernet_addr(struct lc_cdc_net *dev)$/;"	f	file:
+lc_get_link	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_get_link);$/;"	v
+lc_get_link	driver/ndis/src/lc_cdc_ether.c	/^u32 lc_get_link (struct net_device *net)$/;"	f
+lc_get_msglevel	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_get_msglevel);$/;"	v
+lc_get_msglevel	driver/ndis/src/lc_cdc_ether.c	/^u32 lc_get_msglevel (struct net_device *net)$/;"	f
+lc_get_qmi_status	driver/ndis/src/lc_cdc_ether.c	/^static int lc_get_qmi_status(struct usb_interface *intf)$/;"	f	file:
+lc_get_settings	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_get_settings);$/;"	v
+lc_get_settings	driver/ndis/src/lc_cdc_ether.c	/^int lc_get_settings (struct net_device *net, struct ethtool_cmd *cmd)$/;"	f
+lc_get_stats	driver/ndis/src/lc_cdc_ether.c	/^static struct net_device_stats *lc_get_stats (struct net_device *net)$/;"	f	file:
+lc_kdbg	driver/ndis/src/qmi_oper.c	32;"	d	file:
+lc_kdbg	driver/ndis/src/qmi_oper.c	36;"	d	file:
+lc_ndis_ioctl	driver/ndis/src/lc_cdc_ether.c	/^static int lc_ndis_ioctl(struct net_device *dev,struct ifreq *req, int cmd)$/;"	f	file:
+lc_netdev_ops	driver/ndis/src/lc_cdc_ether.c	/^static const struct net_device_ops lc_netdev_ops = {$/;"	v	typeref:struct:net_device_ops	file:
+lc_nway_reset	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_nway_reset);$/;"	v
+lc_nway_reset	driver/ndis/src/lc_cdc_ether.c	/^int lc_nway_reset(struct net_device *net)$/;"	f
+lc_open	driver/ndis/src/lc_cdc_ether.c	/^static int lc_open (struct net_device *net)$/;"	f	file:
+lc_products	driver/ndis/src/lc_cdc_ether.c	/^static const struct usb_device_id	lc_products [] = {$/;"	v	typeref:struct:usb_device_id	file:
+lc_resume	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_resume);$/;"	v
+lc_resume	driver/ndis/src/lc_cdc_ether.c	/^int lc_resume (struct usb_interface *intf)$/;"	f
+lc_send_qmi_request	driver/ndis/src/lc_cdc_ether.c	/^static int lc_send_qmi_request(struct usb_interface *intf, UInt8 reqesy_type,$/;"	f	file:
+lc_set_msglevel	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_set_msglevel);$/;"	v
+lc_set_msglevel	driver/ndis/src/lc_cdc_ether.c	/^void lc_set_msglevel (struct net_device *net, u32 level)$/;"	f
+lc_set_settings	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_set_settings);$/;"	v
+lc_set_settings	driver/ndis/src/lc_cdc_ether.c	/^int lc_set_settings (struct net_device *net, struct ethtool_cmd *cmd)$/;"	f
+lc_skb_return	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_skb_return);$/;"	v
+lc_skb_return	driver/ndis/src/lc_cdc_ether.c	/^void lc_skb_return (struct lc_cdc_net *dev, struct sk_buff *skb)$/;"	f
+lc_skb_return_arp	driver/ndis/src/lc_cdc_ether.c	/^static void lc_skb_return_arp (struct lc_cdc_net *dev, struct sk_buff *skb)$/;"	f	file:
+lc_start_xmit	driver/ndis/src/lc_cdc_ether.c	/^static int lc_start_xmit (struct sk_buff *skb, struct net_device *net)$/;"	f	file:
+lc_stop	driver/ndis/src/lc_cdc_ether.c	/^static int lc_stop (struct net_device *net)$/;"	f	file:
+lc_suspend	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_suspend);$/;"	v
+lc_suspend	driver/ndis/src/lc_cdc_ether.c	/^int lc_suspend (struct usb_interface *intf, pm_message_t message)$/;"	f
+lc_tx_timeout	driver/ndis/src/lc_cdc_ether.c	/^static void lc_tx_timeout (struct net_device *net)$/;"	f	file:
+lc_unlink_rx_urbs	driver/ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_unlink_rx_urbs);$/;"	v
+lc_unlink_rx_urbs	driver/ndis/src/lc_cdc_ether.c	/^void lc_unlink_rx_urbs(struct lc_cdc_net *dev)$/;"	f
+lct_id_table	driver/lctserial.c	/^static struct usb_device_id lct_id_table [] = {$/;"	v	typeref:struct:usb_device_id	file:
+lct_modem_device	driver/lctserial.c	/^static struct usb_serial_driver lct_modem_device = {$/;"	v	typeref:struct:usb_serial_driver	file:
+lct_modem_driver	driver/lctserial.c	/^static struct usb_driver lct_modem_driver = {$/;"	v	typeref:struct:usb_driver	file:
+lct_modem_exit	driver/lctserial.c	/^module_exit(lct_modem_exit);$/;"	v
+lct_modem_exit	driver/lctserial.c	/^static void __exit lct_modem_exit(void)$/;"	f	file:
+lct_modem_init	driver/lctserial.c	/^module_init(lct_modem_init);$/;"	v
+lct_modem_init	driver/lctserial.c	/^static int __init lct_modem_init(void)$/;"	f	file:
+lct_serial_close	driver/lctserial.c	/^static void lct_serial_close(struct tty_struct *tty,$/;"	f	file:
+lct_serial_open	driver/lctserial.c	/^static int lct_serial_open(struct tty_struct *tty,$/;"	f	file:
+length	driver/ndis/src/lc_cdc_ether.c	/^	size_t			length;$/;"	m	struct:skb_data	file:
+long_options	driver/doshift/lcdoshift.c	/^static struct option long_options[] = {$/;"	v	typeref:struct:option	file:
+main	driver/doshift/lcdoshift.c	/^int main(int argc, char **argv)$/;"	f
+max	driver/ndis/src/lc_cdc_ether.c	147;"	d	file:
+maxpacket	driver/ndis/src/lc_cdc_ether.c	/^	unsigned		maxpacket;$/;"	m	struct:lc_cdc_net	file:
+mii	driver/ndis/src/lc_cdc_ether.c	/^	struct mii_if_info	mii;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::mii_if_info	file:
+min	driver/ndis/src/lc_cdc_ether.c	151;"	d	file:
+msg_enable	driver/ndis/src/lc_cdc_ether.c	/^	int			msg_enable;$/;"	m	struct:lc_cdc_net	file:
+msg_level	driver/ndis/src/lc_cdc_ether.c	/^static int msg_level = -1;$/;"	v	file:
+ndis_command_t	driver/ndis/src/lc_cdc_ether.c	/^} ndis_command_t;$/;"	t	typeref:struct:__ndis_command_t	file:
+ndis_connect	driver/ndis/src/lc_cdc_ether.c	/^static int ndis_connect(struct lc_cdc_net *dev,char *accessString, $/;"	f	file:
+ndis_disconnect	driver/ndis/src/lc_cdc_ether.c	/^static int ndis_disconnect(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_get_client_ID	driver/ndis/src/lc_cdc_ether.c	/^static int ndis_get_client_ID(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_get_ip_addr	driver/ndis/src/lc_cdc_ether.c	/^static int ndis_get_ip_addr(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_get_version_info	driver/ndis/src/lc_cdc_ether.c	/^static int ndis_get_version_info(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_release_client_ID	driver/ndis/src/lc_cdc_ether.c	/^static int ndis_release_client_ID(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_set_data_format	driver/ndis/src/lc_cdc_ether.c	/^static int ndis_set_data_format(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_set_instance_ID	driver/ndis/src/lc_cdc_ether.c	/^static int ndis_set_instance_ID(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_status	driver/ndis/src/lc_cdc_ether.c	/^static   NDIS_QMI_STATUS     ndis_status;$/;"	v	file:
+net	driver/ndis/src/lc_cdc_ether.c	/^	struct net_device	*net;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::net_device	file:
+node_id	driver/ndis/src/lc_cdc_ether.c	/^static u8	node_id [ETH_ALEN];$/;"	v	file:
+not	driver/doshift/lcdoshift.h	64;"	d
+not_eq	driver/doshift/lcdoshift.h	74;"	d
+obj-m	driver/Makefile	/^obj-m := lctserial.o$/;"	m
+or	driver/doshift/lcdoshift.h	63;"	d
+or_eq	driver/doshift/lcdoshift.h	75;"	d
+out	driver/ndis/src/lc_cdc_ether.c	/^	unsigned		in, out;$/;"	m	struct:lc_cdc_net	file:
+phy_mutex	driver/ndis/src/lc_cdc_ether.c	/^	struct mutex		phy_mutex;	$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::mutex	file:
+printConfig	driver/doshift/lcdoshift.c	/^void printConfig()$/;"	f
+printVersion	driver/doshift/lcdoshift.c	/^void printVersion()$/;"	f
+printk_hex	driver/ndis/src/qmi_oper.c	/^void printk_hex(UInt8 *buf,int buf_size)$/;"	f
+processQMIResponse	driver/ndis/src/qmi_oper.c	/^int processQMIResponse(void *buffer,NDIS_QMI_STATUS* pndis_status)$/;"	f
+qmi_request_lock	driver/ndis/src/lc_cdc_ether.c	/^static spinlock_t  qmi_request_lock; $/;"	v	file:
+qmi_sync	driver/ndis/src/lc_cdc_ether.c	/^	int			qmi_sync;$/;"	m	struct:lc_cdc_net	file:
+readArguments	driver/doshift/lcdoshift.c	/^int readArguments(int argc, char **argv)$/;"	f
+readConfigFile	driver/doshift/lcdoshift.c	/^void readConfigFile(const char *configFilename)$/;"	f
+read_bulk	driver/doshift/lcdoshift.c	/^int read_bulk(int endpoint, char *buffer, int length)$/;"	f
+release_usb_device	driver/doshift/lcdoshift.c	/^void release_usb_device(int dummy) {$/;"	f
+resetUSB	driver/doshift/lcdoshift.c	/^void resetUSB ()$/;"	f
+ret	driver/doshift/lcdoshift.c	/^int ret;$/;"	v
+rt_debug	driver/ndis/src/lc_cdc_ether.c	/^static int rt_debug = 0;$/;"	v	file:
+rx_cleanup	driver/ndis/src/lc_cdc_ether.c	/^	rx_start, rx_done, rx_cleanup$/;"	e	enum:skb_state	file:
+rx_complete	driver/ndis/src/lc_cdc_ether.c	/^static void rx_complete (struct urb *urb)$/;"	f	file:
+rx_defer_bh	driver/ndis/src/lc_cdc_ether.c	/^static void rx_defer_bh(struct lc_cdc_net *dev, struct sk_buff *skb, struct sk_buff_head *list)$/;"	f	file:
+rx_done	driver/ndis/src/lc_cdc_ether.c	/^	rx_start, rx_done, rx_cleanup$/;"	e	enum:skb_state	file:
+rx_process	driver/ndis/src/lc_cdc_ether.c	/^static inline void rx_process (struct lc_cdc_net *dev, struct sk_buff *skb)$/;"	f	file:
+rx_start	driver/ndis/src/lc_cdc_ether.c	/^	rx_start, rx_done, rx_cleanup$/;"	e	enum:skb_state	file:
+rx_submit	driver/ndis/src/lc_cdc_ether.c	/^static void rx_submit (struct lc_cdc_net *dev, struct urb *urb, gfp_t flags)$/;"	f	file:
+rx_urb_size	driver/ndis/src/lc_cdc_ether.c	/^	size_t			rx_urb_size;	\/* size for rx urbs *\/$/;"	m	struct:lc_cdc_net	file:
+rxq	driver/ndis/src/lc_cdc_ether.c	/^	struct sk_buff_head	rxq;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::sk_buff_head	file:
+search_devices	driver/doshift/lcdoshift.c	/^struct usb_device* search_devices( int *numFound, int vendor, int product, char* productList, int targetClass)$/;"	f
+show_progress	driver/doshift/lcdoshift.c	/^char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;$/;"	v
+skb_data	driver/ndis/src/lc_cdc_ether.c	/^struct skb_data {	\/* skb->cb is one of these *\/$/;"	s	file:
+skb_state	driver/ndis/src/lc_cdc_ether.c	/^enum skb_state {$/;"	g	file:
+state	driver/ndis/src/lc_cdc_ether.c	/^	enum skb_state		state;$/;"	m	struct:skb_data	typeref:enum:skb_data::skb_state	file:
+stats	driver/ndis/src/lc_cdc_ether.c	/^	struct net_device_stats	stats;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::net_device_stats	file:
+status	driver/ndis/src/lc_cdc_ether.c	/^	struct usb_host_endpoint *status;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::usb_host_endpoint	file:
+status_work	driver/ndis/src/lc_cdc_ether.c	/^	struct delayed_work status_work;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::delayed_work	file:
+suspend_count	driver/ndis/src/lc_cdc_ether.c	/^	unsigned char		suspend_count;$/;"	m	struct:lc_cdc_net	file:
+switchAltSetting	driver/doshift/lcdoshift.c	/^int switchAltSetting ()$/;"	f
+switchConfiguration	driver/doshift/lcdoshift.c	/^int switchConfiguration ()$/;"	f
+switchSendMessage	driver/doshift/lcdoshift.c	/^int switchSendMessage ()$/;"	f
+sysmode	driver/doshift/lcdoshift.c	/^char NeedResponse=0, InquireDevice=0, sysmode=0;$/;"	v
+targetDeviceCount	driver/doshift/lcdoshift.c	/^int targetDeviceCount=0;$/;"	v
+tx_complete	driver/ndis/src/lc_cdc_ether.c	/^static void tx_complete (struct urb *urb)$/;"	f	file:
+tx_defer_bh	driver/ndis/src/lc_cdc_ether.c	/^static void tx_defer_bh(struct lc_cdc_net *dev, struct sk_buff *skb, struct sk_buff_head *list)$/;"	f	file:
+tx_done	driver/ndis/src/lc_cdc_ether.c	/^	tx_start, tx_done,$/;"	e	enum:skb_state	file:
+tx_start	driver/ndis/src/lc_cdc_ether.c	/^	tx_start, tx_done,$/;"	e	enum:skb_state	file:
+txq	driver/ndis/src/lc_cdc_ether.c	/^	struct sk_buff_head	txq; $/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::sk_buff_head	file:
+u	driver/ndis/src/lc_cdc_ether.c	/^	struct usb_cdc_union_desc	*u;$/;"	m	struct:lc_dev_state	typeref:struct:lc_dev_state::usb_cdc_union_desc	file:
+udev	driver/ndis/src/lc_cdc_ether.c	/^	struct usb_device	*udev;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::usb_device	file:
+unlink_urbs	driver/ndis/src/lc_cdc_ether.c	/^static int unlink_urbs (struct lc_cdc_net *dev, struct sk_buff_head *q)$/;"	f	file:
+urb	driver/ndis/src/lc_cdc_ether.c	/^	struct urb		*urb;$/;"	m	struct:skb_data	typeref:struct:skb_data::urb	file:
+verbose	driver/doshift/lcdoshift.c	/^char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;$/;"	v
+version	driver/doshift/lcdoshift.c	/^char *version="1.0.0";$/;"	v
+wait	driver/ndis/src/lc_cdc_ether.c	/^	wait_queue_head_t	*wait;$/;"	m	struct:lc_cdc_net	file:
+write_bulk	driver/doshift/lcdoshift.c	/^int write_bulk(int endpoint, char *message, int length)$/;"	f
+xid	driver/ndis/src/lc_cdc_ether.c	/^	u32			xid;$/;"	m	struct:lc_cdc_net	file:
+xor	driver/doshift/lcdoshift.h	70;"	d
+xor_eq	driver/doshift/lcdoshift.h	76;"	d
+yes_or_no	install	/^yes_or_no()$/;"	f

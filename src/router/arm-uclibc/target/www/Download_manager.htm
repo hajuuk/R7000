@@ -1,0 +1,977 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<%11%>
+<title>NETGEAR Router <%12%></title> 
+<link rel="stylesheet" href="<%13%>">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<%14%>
+<script language="javascript" type="text/javascript">
+<!--
+
+  
+    $(document).ready(function()
+    {
+    
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.gif";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.gif";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+
+function GetFileExt(filepath) {
+    if (filepath != "") {
+        var pos = "." + filepath.replace(/.+\./, "");
+        return pos;
+    }
+}
+function ishttps(url)
+{
+    var strRegex = "^((http|ftp)?://)";
+    var re=new RegExp(strRegex);
+    if (re.test(url))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function isURL(url)
+{
+    var strRegex = "^((https|http|ftp|rtsp|mms)?://)";
+        var re=new RegExp(strRegex);
+        if (re.test(url))
+        {
+            if(ishttps(url))
+                return true;
+            else
+            {
+                alert("<%2266%>");
+                return false;
+            }
+        }
+        else
+        {
+            alert("<%2267%>");
+            return false;
+        }
+}
+function check_data(index)
+{
+    var cf=document.forms[0];
+    var ext;
+    var total_task;
+    var strLower;
+    cf.fh_url.value = $.trim(cf.fh_url.value);
+    if(index==1)
+        cf.action_type.value = "Apply";
+    else if(index==2)
+    {
+        cf.action_type.value = "Add_Task";
+        cf.download_type.value = cf.selType.selectedIndex;
+        if(cf.download_type.value == 0)
+        {
+            if(cf.fh_url.value == "")
+            {
+                alert("<%2268%>");
+                return false;
+            }
+            strLower = cf.fh_url.value.toLowerCase();
+            if((strLower.indexOf("ftp://") == -1)&&(strLower.indexOf("http://") == -1))
+            {
+                alert("<%2267%>");
+                return false;
+            }
+        }
+        else if(cf.download_type.value == 1)
+        {
+            if(cf.btfileloca[0].checked)
+            {
+                if (cf.usb_bt_file.value == "")
+                {
+                    alert("<%2267%>");
+                    return false;
+                }
+                ext=GetFileExt(cf.usb_bt_file.value);
+                if(ext!=".torrent")
+                {
+                    alert("<%2267%>");
+                    return false;
+                }
+                cf.btSeedUpload.disabled=false;
+            }
+            else if(cf.btfileloca[1].checked)
+            {
+                if (cf.usb_bt_file.value == "")
+                {
+                    alert("<%2267%>");
+                    return false;
+                }
+                ext=GetFileExt(cf.usb_bt_file.value);
+                if(ext!=".torrent")
+                {
+                    alert("<%2267%>");
+                    return false;
+                }
+            }
+            else if(cf.btfileloca[2].checked)
+            {
+                if (cf.bt_url.value == "")
+                {
+                    alert("<%2267%>");
+                    return false;
+                }
+                if(!isURL(cf.bt_url.value))
+                {
+                    return false;
+                }
+            }
+        }
+        else if(cf.download_type.value == 2)
+        {
+            if(cf.ed_url.value == "")
+            {
+                alert("<%2269%>");
+                return false;
+            }
+            strLower = cf.ed_url.value.toLowerCase();
+            if(strLower.indexOf("ed2k://") == -1)
+            {
+                alert("<%2270%>");
+                return false;
+            }
+        }
+        total_task=document.getElementsByName('download_task_sel');
+        if(total_task.length==20)
+        {
+            alert("<%2271%>");
+            //cf.add_task.disabled = true;
+            return false;
+        }
+    
+    }
+    else if(index==3)
+        cf.action_type.value = "Resume";
+    else if(index==4)
+        cf.action_type.value = "Refresh";
+    else if(index==5)
+        cf.action_type.value = "Pause";
+    else if(index==6)
+        cf.action_type.value = "Delete";
+    else if(index==7)
+        cf.action_type.value = "Remove_History";
+    
+    return true;
+}
+
+function getCbxByName()   
+{ 
+    var cf=document.forms[0];
+    var cbx = document.getElementsByName("download_task_sel");   
+    var cbxid="";   
+    for(var i=0;i<cbx.length;i++)   
+    {   
+        if (cbx[i].checked)   
+        { 
+            if (cbxid.length>0)   
+            {   
+                cbxid += " "+cbx[i].value;   
+            }   
+            else   
+            {   
+                cbxid = cbx[i].value;   
+            }   
+        }   
+    }   
+    
+    cf.select.value = cbxid;
+    
+    return true;
+} 
+
+function adjust_table_column()
+{
+	var i;
+	var obj = document.getElementsByName("folderName");
+	
+	for(i=0 ; i<obj.length ; i++)
+	{
+		$(obj[i]).addClass('folderName_ie10');
+	}
+}
+
+var w3c=(document.getElementById)? true:false; 
+var agt=navigator.userAgent.toLowerCase(); 
+var ie = ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1) && (agt.indexOf("omniweb") == -1)); 
+var firefox = (agt.indexOf("firefox") != -1); 
+var ie5=(w3c && ie)? true : false; 
+var ns6=(w3c && (navigator.appName=="Netscape"))? true: false; 
+var op8=(navigator.userAgent.toLowerCase().indexOf("opera")==-1)? false:true; 
+var nLt_offset=0;
+var nTp_offset=0;
+var have_offset=0;
+ 
+function calc_offset(use_eventx)
+{
+    var tmp_file = document.getElementById("file1");
+    var tmp_scrollpane = document.getElementById("scrollpane1");
+    var nLt=0;
+    var nTp=0;
+    var offsetParent = tmp_file; 
+    
+    //if (!firefox)
+    //    return;
+    
+    while (offsetParent!=null && offsetParent!=document.body) {
+        nLt+=offsetParent.offsetLeft; 
+        nTp+=offsetParent.offsetTop; 
+        if(!ns6){ 
+            parseInt(offsetParent.currentStyle.borderLeftWidth)>0?nLt+=parseInt(offsetParent.currentStyle.borderLeftWidth):""; 
+            parseInt(offsetParent.currentStyle.borderTopWidth)>0?nTp+=parseInt(offsetParent.currentStyle.borderTopWidth):""; 
+        } 
+        if (use_eventx && tmp_scrollpane == offsetParent)
+        {
+            break;
+        }
+        offsetParent=offsetParent.offsetParent; 
+    }
+    nLt_offset = nLt;
+    nTp_offset = nTp;
+    
+}
+
+function loadSettings()
+{
+    var cf=document.forms[0];
+
+    if( cf.enablenetgeardownloader.value==1)
+        cf.enable_netgear_downloader.checked=true;
+    else
+        cf.enable_netgear_downloader.checked=false;
+
+    cf.selType.selectedIndex = cf.download_type.value;
+
+
+    cf.Delete_task.disabled = true;
+        
+    if(get_ie_ver()==10 && get_browser()=="IE")
+        adjust_table_column();
+    display_download_type();
+    disable_choose_file();
+    
+    if("<%2272%>" == "1")
+        alert("<%2273%>");
+    
+    if("<%2274%>" == "1")
+        alert("<%2275%>");
+    
+    if("<%2276%>" == "1")
+        alert("<%2277%>");
+
+    if("<%2278%>" == "1")
+        alert("<%2279%>");
+    
+    if("<%2280%>" == "1")
+        alert("<%2281%>");
+
+    if("<%2282%>" == "1")
+        alert("<%2283%>");
+    if("<%2284%>" == "1")
+        alert("<%2285%>");
+
+    if(cf.enable_netgear_downloader.checked)
+    {
+        document.getElementById("download_head").style.display="block";
+        display_download_type();
+        document.getElementById("downloading_files").style.display="block";
+    }
+    else
+    {
+
+        document.getElementById("download_head").style.display="none";
+        document.getElementById("ed_tbody").style.display="none";
+        document.getElementById("fh_tbody").style.display="none";
+        document.getElementById("bt_tbody1").style.display="none";
+        document.getElementById("bt_tbody2").style.display="none";
+        document.getElementById("downloading_files").style.display="none";
+    }
+        
+}
+
+var need_refresh = 1;
+
+function refresh_submit()
+{
+    if (need_refresh)
+        location.href="Download_manager.htm";
+}
+
+function refresh_cancel()
+{
+    var cf = document.forms[0];
+    need_refresh = 0;
+    if(cf.enable_netgear_downloader.checked)
+    {
+        document.getElementById("download_head").style.display="block";
+        display_download_type();
+        document.getElementById("downloading_files").style.display="block";
+    }
+    else
+    {
+        document.getElementById("download_head").style.display="none";
+        document.getElementById("ed_tbody").style.display="none";
+        document.getElementById("fh_tbody").style.display="none";
+        document.getElementById("bt_tbody1").style.display="none";
+        document.getElementById("bt_tbody2").style.display="none";
+        document.getElementById("downloading_files").style.display="none";
+    }
+}
+
+function disable_choose_file()
+{
+    var cf = document.forms[0];
+    var tmp_file = document.getElementById("file1");
+    
+    tmp_file.style.left = 0+"px";
+    tmp_file.style.top = 0+"px";
+    //calc_offset();
+    
+    cf.btSeedUpload.disabled=true;
+    
+    if(cf.btfileloca[0].checked)
+    {
+        document.getElementById("choose_file").disabled=false;
+        cf.bt_url.disabled = true;
+    }
+    else if(cf.btfileloca[1].checked)
+    {
+        document.getElementById("choose_file").disabled=false;
+        cf.bt_url.disabled = true;
+    }
+    else if(cf.btfileloca[2].checked)
+    {
+        document.getElementById("choose_file").disabled=true;
+        cf.bt_url.disabled = false;
+        cf.bt_url.focus();
+        cf.bt_url.select();
+    }
+    else
+    {
+        document.getElementById("choose_file").disabled=false;
+        cf.bt_url.disabled = true;
+    }
+}
+
+function Browse_folder()
+{
+    refresh_cancel();
+    window.open('USB_download_folder.htm','_blank','resizable=0,scrollbars=yes,width=400,height=400,left=400,top=300').focus();
+}
+
+function is_ie6()
+{
+    var browser=navigator.appName 
+    var b_version=navigator.appVersion 
+    var version=b_version.split(";"); 
+    var trim_Version=version[1].replace(/[ ]/g,""); 
+
+    if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE6.0") 
+        return true;
+    else
+        return false;
+}
+
+function seclect_all()
+{
+    
+    var cf = document.forms[0];
+    var objs=document.getElementsByName('download_task_sel');
+    var i;
+    
+    refresh_cancel();
+    
+    for(i=0; i<objs.length; i++)
+    {   
+        if(cf.select_all.checked == true)
+        {
+            objs[i].checked=true;
+            cf.select_all_checkbox.value = 1;
+            cf.Delete_task.disabled = false;
+        }
+        else
+        {
+            objs[i].checked=false;
+            cf.select_all_checkbox.value = 0;
+            cf.Delete_task.disabled = true;
+        }
+    }
+}
+
+function enable_remove_button()
+{
+    
+    var cf = document.forms[0];
+    var objs=document.getElementsByName('download_task_sel');
+    var i;
+    
+    refresh_cancel();
+    
+    for(i=0; i<objs.length; i++)
+    {   
+        if(objs[i].checked == true)
+        {
+            cf.Delete_task.disabled = false;
+	    return;
+        }
+    }
+    cf.Delete_task.disabled = true;
+    
+}
+
+function Browse_file()
+{
+    var cf = document.forms[0];
+    
+    refresh_cancel();
+    
+    if(cf.btfileloca[0].checked)
+    {
+        if(!ie && !firefox)
+        {
+            cf.btSeedUpload.disabled=false;
+            cf.btSeedUpload.click();
+            cf.btSeedUpload.disabled=true;
+        }
+    }
+    else if(cf.btfileloca[1].checked)
+    {
+        window.open('USB_download_file.htm','_blank','resizable=0,scrollbars=yes,width=400,height=400,left=400,top=300').focus();
+    }
+}
+
+function Change_file()
+{
+    var cf = document.forms[0];
+    document.getElementById("display_file_path").innerHTML=cf.btSeedUpload.value.substr(cf.btSeedUpload.value.lastIndexOf('\\')+1);
+    cf.usb_bt_file.value=cf.btSeedUpload.value.substr(cf.btSeedUpload.value.lastIndexOf('\\')+1);
+}
+
+function floatFile(event)
+{    
+    var tmp_file = document.getElementById("file1");
+    var tmp_button = document.getElementById("browser1");
+    var tmp_scroll = document.getElementById("scroll1");
+    var tmp_scrollpane = document.getElementById("scrollpane1");
+    var nLt=0; 
+    var nTp=0; 
+    var offsetParent = tmp_button; 
+    var page_x;
+    var page_y;
+    var tmp_ptop;
+    var tmp_pleft;
+    var use_eventx = 0;
+    
+    if ((!ie && !firefox) || !document.forms[0].btfileloca[0].checked)
+        return;
+        
+    if (typeof(event.pageX) == "undefined")
+        use_eventx = 1;
+        
+    if (!have_offset)
+    {
+        tmp_file.style.left = 0+"px";
+        tmp_file.style.top = 0+"px";
+        have_offset = 1;
+        if (!use_eventx)
+            calc_offset(use_eventx);
+    }
+    
+    if (use_eventx)
+    {
+        page_x = event.x;
+        page_y = event.y;
+    }
+    else
+    {
+        page_x = event.pageX;
+        page_y = event.pageY;
+    }
+    document.forms[0].btSeedUpload.disabled=false;
+    
+    while (offsetParent!=null && offsetParent!=document.body) {
+        nLt+=offsetParent.offsetLeft; 
+        nTp+=offsetParent.offsetTop; 
+        if(!ns6){ 
+            parseInt(offsetParent.currentStyle.borderLeftWidth)>0?nLt+=parseInt(offsetParent.currentStyle.borderLeftWidth):""; 
+            parseInt(offsetParent.currentStyle.borderTopWidth)>0?nTp+=parseInt(offsetParent.currentStyle.borderTopWidth):""; 
+        } 
+        if (use_eventx && tmp_scrollpane == offsetParent)
+        {
+            break;
+        }
+        offsetParent=offsetParent.offsetParent; 
+    }
+    
+    nLt -= tmp_scroll.scrollLeft;
+    nTp -= tmp_scroll.scrollTop;
+    
+    if (tmp_file.offsetHeight > tmp_button.offsetHeight)
+    {
+        if (page_y > nTp + tmp_button.offsetHeight)
+        {
+            //if (nTp + tmp_button.offsetHeight > tmp_file.offsetHeight)
+                tmp_ptop = nTp + tmp_button.offsetHeight - tmp_file.offsetHeight;
+            //else
+            //    tmp_file.style.posTop = 0;
+        }
+        else //if (event.y < nTp)
+        {
+            tmp_ptop = nTp;
+        }
+    }
+    else
+    {
+        if (page_y < tmp_file.offsetHeight/2 + nTp)
+        {
+            tmp_ptop = nTp;
+        
+        }
+        else if (page_y + tmp_file.offsetHeight/2 > nTp + tmp_button.offsetHeight)
+            tmp_ptop = nTp + tmp_button.offsetHeight - tmp_file.offsetHeight;
+        else
+            tmp_ptop = page_y - tmp_button.offsetHeight/2;
+    }
+    
+    if (tmp_file.offsetWidth > tmp_button.offsetWidth)
+    {
+        if (page_x > nLt + tmp_button.offsetWidth)
+        {
+            //if (nLt + tmp_button.offsetWidth > tmp_file.offsetWidth)
+                tmp_pleft = nLt + tmp_button.offsetWidth - tmp_file.offsetWidth;
+            //else
+            //    tmp_file.style.posLeft = 0;
+        }
+        else //if (event.x < nLt)
+        {
+            //tmp_pleft = nLt;
+            tmp_pleft = nLt+tmp_button.offsetWidth-tmp_file.offsetWidth;
+        }
+    }
+    else
+    {
+        if (page_x < tmp_file.offsetWidth/2 + nLt)
+            tmp_pleft = nLt;
+        else if (page_x + tmp_file.offsetWidth/2 > nLt + tmp_button.offsetWidth)
+            tmp_pleft = nLt + tmp_button.offsetWidth - tmp_file.offsetWidth;
+        else
+            tmp_pleft = page_x - tmp_button.offsetWidth/2;
+    }
+    
+    tmp_pleft -= nLt_offset;
+    tmp_ptop -= nTp_offset;
+    
+    if (page_x < nLt || page_x > (nLt+tmp_button.offsetWidth) || page_y < nTp || page_y > (nTp + tmp_button.offsetHeight))
+    {
+        tmp_pleft = 0;
+        tmp_ptop = 0;
+        document.forms[0].btSeedUpload.disabled=true;
+    }
+    //if (ie)
+    //{
+    //    tmp_file.style.posLeft = tmp_pleft;
+    //    tmp_file.style.posTop = tmp_ptop;
+    //}
+    //else
+    //{
+        tmp_file.style.left = tmp_pleft + "px";
+        tmp_file.style.top = tmp_ptop + "px";
+    //}
+    
+    tmp_file.style.cursor='pointer';
+}
+
+function change_pri(from)
+{
+    var i;
+    var cf = document.forms[0];
+    
+    for (i=0; i<from.options.length; i++)
+    {
+        if (from.options[i].selected)
+        {
+            cf.pri_sel_num.value = from.id;
+            cf.pri_sel_value.value = from.options[i].value;
+            cf.submit();
+            return true;
+        }
+    }
+    return true;
+}
+
+function refresh_page() 
+{
+    var refresh_rate = <%2286%>;
+    var timeout;
+    
+    if ("<%2287%>" == "1")
+    {
+        if (refresh_rate > 0)
+        {
+            timeout = 60*1000/refresh_rate;
+            window.setTimeout('refresh_submit()',timeout);
+            //window.setTimeout("location.href='Download_manager.htm'",timeout);
+        }
+    }
+}
+
+function check_usb_exist2()
+{
+    var isUsbAttached = <%458%>;
+    if(isUsbAttached==0)
+    {   
+        alert("<%2288%>");
+        window.top.location.href="start.htm";
+    }
+}
+
+function checkSel()
+{
+    var cf = document.forms[0]; 
+    var ret;
+    if("<%2289%>" == "1")
+    {
+        ret = confirm("<%2290%>");
+        if(ret==1)
+        {
+            cf.action_type.value = "Add_Task";
+            cf.duplicatetask.value=1;
+            cf.submit();
+        }
+        else
+        {
+            cf.duplicatetask.value=0;
+        }
+    }
+    if("<%2291%>" == "1")
+    {
+        ret = confirm("<%2292%>");
+        if(ret==1)
+        {
+            cf.action_type.value = "Add_Task";
+            cf.duplicatefile.value=1;
+            cf.submit();
+        }
+        else
+        {
+            cf.duplicatefile.value=0;
+        }
+    }
+}
+
+function display_download_type()
+{
+    var cf = document.forms[0];
+    var selected;
+    selected=cf.selType.selectedIndex;
+    if(selected == 0)
+    {
+        document.getElementById("fh_tbody").style.display="block";
+        document.getElementById("bt_tbody1").style.display="none";
+        document.getElementById("bt_tbody2").style.display="none";
+        document.getElementById("ed_tbody").style.display="none";
+    }
+    else if(selected == 1)
+    {
+        document.getElementById("fh_tbody").style.display="none";
+        document.getElementById("bt_tbody1").style.display="block";
+        document.getElementById("bt_tbody2").style.display="block";
+        document.getElementById("ed_tbody").style.display="none";
+    }
+    else if(selected == 2)
+    {
+        document.getElementById("ed_tbody").style.display="block";
+        document.getElementById("fh_tbody").style.display="none";
+        document.getElementById("bt_tbody1").style.display="none";
+        document.getElementById("bt_tbody2").style.display="none";
+    }
+    return true;
+}
+//-->
+</script></head>
+<body onload="change_size();loadSettings();refresh_page();check_usb_exist2();checkSel();"  class="page-body" onResize="change_size();" >
+  <img class="cover-image" src="<%74%>">
+  <img class="body-image" src="<%75%>">
+  <div id="full-page-container">
+    <form id="target"  name="frmService" method="post" action="downloader.cgi" ENCTYPE="multipart/form-data">
+      <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+      <input name="action_type" type="hidden" value="">
+      <input name="download_type" type="hidden" value= "<%2293%>">
+      <input name="usb_bt_file" type="hidden" value= "">
+      <input name="bt_torrent_loc" type="hidden" value="">
+      <img class="subtop-image" src="<%76%>">
+      <div class="subhead2"> <%396%></div>
+      <table border="0"    style="height:370px"  class="subhead2-table">
+        <tr align="left" valign="middle">
+          <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+            &nbsp;&nbsp;&nbsp;<button value="<%78%>"  onClick="buttonClick(this,'<%78%>');return check_data(1);" type="submit" name="Apply" class=<%79%> > <span class="<%80%>" ><%81%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="<%82%>">&nbsp;&nbsp;&nbsp;</span></button>
+            &nbsp;&nbsp;&nbsp;<button value="<%83%>" onClick="buttonClick(this,'<%83%>'); location.href='Download_manager.htm';" type="button" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%84%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+          </td>
+        </tr>
+        <tr>
+          <td id="scrollpane1" class="scrollpane-table-seperate-border" colspan="2">
+            <div class="scroll-pane" id="scroll1" style="height:365px;width:620px;overflow:auto;scrolling:auto">
+              <table style="border-collapse:collapse;width:97%">
+                <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+                <tr>
+                  <td colspan="2"><input type="checkbox" name="enable_netgear_downloader" value="checkboxValue" onClick="refresh_cancel();"><b><%2294%></b></td>
+                </tr>
+                <tr>
+                  <td align="left">
+                    <div id="download_head">
+                      <table>
+                        <tr>
+                          <td>
+                   	        <%2295%>:&nbsp;<input type="text" name="usb_folder" value= "<%2296%>" readonly>
+                   	      </td>
+                          <td align="left"><button type="button" value="configure_settings" name="configure_settings" class="button-rule" onClick="highLightMenu('downloader_header', 'down_set');location.href='Download_settings.htm';"><span class="roundleft_button">&nbsp;&nbsp; <%2297%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+                        </tr>
+                        <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+                        <tr>
+                          <td nowrap align="left">
+                            <b><%2298%></b>
+                            <select id="selType" onchange="display_download_type();refresh_cancel();">
+                              <option value="0" ><%2299%></option>
+                              <option value="1"><%2300%></option>
+                              <option value="2"><%2301%></option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <div id="fh_tbody" style="display: block;">
+                <table style="border-collapse:collapse;width:97%">
+                  <tr>
+                    <td><%2302%></td>
+                    <td><input type="text" maxLength="512" name="fh_url" size="64"></td>
+                  </tr>
+                  <tr>
+                    <td><%567%>(<%2303%>)</td>
+                    <td><input type="text" maxLength="63" name="fh_username" size="24"></td>
+                  </tr>
+                  <tr>
+                    <td><%581%>(<%2303%>)</td>
+                    <td><input type="text" maxLength="63" name="fh_password" size="24"></td>
+                  </tr>
+                </table>
+              </div>
+              <div id="bt_tbody1" style="display: none;">
+                <table style="border-collapse:collapse;width:97%">
+                  <tr>
+                    <td colspan="2" nowrap="nowrap"><b><%2304%></b>
+                      <input type="radio" <%2305%> name="btfileloca" value="pc" onClick="disable_choose_file();refresh_cancel();" ><%2306%>
+                      <input type="radio" <%2307%> name="btfileloca" value="usb" onClick="disable_choose_file();refresh_cancel();" ><%2308%>
+                      <input type="radio" <%2309%> name="btfileloca" value="btlink" onClick="disable_choose_file();refresh_cancel();" ><%2310%>
+                    </td>
+                    <td>
+                      <input type="text" maxLength="512" name="bt_url" size="48" value= "<%2311%>">
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div id="bt_tbody2" style="display: none;">
+                <table style="border-collapse:collapse;width:97%">
+                  <tr>
+                    <td>
+                      <div id="choose_file" style="display: block;">
+                        <input type="file" name="btSeedUpload" id="file1" size="0" maxlength="1024" style="position:absolute;opacity:0;filter:alpha(opacity=0);" hidefocus onmousemove="floatFile(event)" onchange="Change_file();" onClick="refresh_cancel();">
+                          <button type="button" value="<%465%>" name="Browse" id="browser1" class="button-rule" onClick="buttonClick(this,'<%465%>');Browse_file();" onmousemove="floatFile(event)"><span class="roundleft_button"><%465%></span><span class="roundright_button">&nbsp;</span></button>
+                          &nbsp;&nbsp;
+                        <a id=display_file_path><%2312%></a>
+                      </div>
+                    </td>
+                  </tr> 
+                </table>
+              </div>
+              <div id="ed_tbody" style="display: none;">
+                <table style="border-collapse:collapse;width:97%">
+                  <tr>
+                    <td><%2313%></td>
+                    <td><input type="text" maxLength="512" name="ed_url" size="64"></td>
+                  </tr> 
+                </table>
+              </div>
+              <div id="downloading_files" style="display: none;">
+                <table style="border-collapse:collapse;width:97%">
+                  <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+                  <tr align="left" valign="middle">
+                    <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2">
+                      &nbsp;&nbsp;&nbsp;
+                      <button type="submit" name="add_task" value="<%674%>" onclick="buttonClick(this,'<%674%>'); return check_data(2);" class=<%79%> ><span class="<%80%>"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%674%></span></span><span class="<%82%>">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;&nbsp;
+                      <button type="button" name="cancel" value="<%2024%>" onClick="buttonClick(this,'<%83%>'); location.href='Download_manager.htm';" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%2024%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <b><%2314%></b></td>
+                  </tr>
+                  <tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
+                  <tr>
+                    <td colspan="2">
+                      <table border="1" cellpadding="2" cellspacing="0" width="100%">
+                        <tr>
+                          <td align="center" nowrap="nowrap" width="5%"><span class="thead"><%2315%></span><input type="checkbox" name="select_all" value="selectall" onclick = "seclect_all();"></td>
+                          <td align="center" nowrap="nowrap" width="5%"><span class="thead"><%2316%></span></td>
+                          <td align="center" nowrap="nowrap" width="25%"><span class="thead"><%2317%></span></td>
+                          <td align="center" nowrap="nowrap" width="10%"><span class="thead"><%2318%></span></td>
+                          <td align="center" nowrap="nowrap" width="10%"><span class="thead"><%1939%></span></td>
+                          <td align="center" nowrap="nowrap" width="15%"><span class="thead"><%2319%> <%2320%></span></td>
+                          <td align="center" nowrap="nowrap" width="10%"><span class="thead"><%2319%>(%)</span></td>
+                          <td align="center" nowrap="nowrap" width="10%"><span class="thead"><%755%></span></td>
+                          <td align="center" nowrap="nowrap" width="10%"><span class="thead"><%691%></span></td>
+                        </tr>
+                        <%2321%>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+                  <tr>
+                    <td colspan="2" align="center">
+                      &nbsp;&nbsp;&nbsp;<button type="Submit" value="Resume" name="Resume_task" class=<%467%> onClick="buttonClick(this,'<%674%>'); getCbxByName(); return check_data(3);"><span class="<%468%>">&nbsp;&nbsp; <%2322%></span><span class="<%469%>">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+                      &nbsp;&nbsp;&nbsp;<button type="Submit" value="Refresh" name="Refresh_task" class="button-rule" onClick="buttonClick(this,'<%674%>'); return check_data(4);"><span class="roundleft_button"><span class="refresh-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%728%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+                      &nbsp;&nbsp;&nbsp;<button type="Submit" value="Pause" name="Pause_task" class=<%467%> onClick="buttonClick(this,'<%674%>'); getCbxByName(); return check_data(5);"><span class="<%468%>">&nbsp;&nbsp; <%2323%></span><span class="<%469%>">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+                      &nbsp;&nbsp;&nbsp;<button type="Submit" value="Remove" name="Delete_task" class=<%467%> onclick="buttonClick(this,'<%674%>'); getCbxByName(); return check_data(6);" ><span class="<%468%>"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%2324%></span></span><span class="<%469%>">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+                      </td>
+                    </tr>
+                  <tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
+                  <tr>
+                    <td colspan="2">
+                      <b><%2325%></b></td>
+                    </tr>
+                  <tr>
+                    <td colspan="2">
+                      <table border="1" cellpadding="2" cellspacing="0" width="100%">
+                        <tr>
+                          <td align="center" nowrap="nowrap" width="10%"><span class="thead"><%2316%></span></td>
+                          <td align="center" nowrap="nowrap" width="30%"><span class="thead"><%2317%></span></td>
+                          <td align="center" nowrap="nowrap" width="10%"><span class="thead"><%2318%></span></td>
+                          <td align="center" nowrap="nowrap" width="50%"><span class="thead"><%2295%></span></td>
+                        </tr>
+                        <%2326%>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
+                  <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+                  <tr align="left" valign="middle">
+                    <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2">
+                      &nbsp;&nbsp;&nbsp;<button TYPE="Submit" value="Remove History" name="Removehistory" class=<%467%> onClick="buttonClick(this,'<%674%>'); return check_data(7);"><span class="<%468%>">&nbsp;&nbsp; <%2327%></span><span class="<%469%>">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="Download_manager_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+      </table>
+      <img class="subfooter-image" src="img/subhead2-bottom.gif">
+      <div class="subhead2-bottom" >
+        <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+        <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%266%> </span>
+        <span class="button-help-arrow">
+        <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+        <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%267%> </span>
+      </div>
+      <input name="pri_sel_num" type="hidden" value="">
+      <input name="pri_sel_value" type="hidden" value="">
+      <input name="enablenetgeardownloader" type="hidden" value="<%2328%>">
+      <input name="save_path" type="hidden" value="">
+      <input name="select" type="hidden" value="">
+      <input name="select_all_checkbox" type="hidden" value="">
+      <input name="duplicatetask" type="hidden" value=""> 
+      <input name="duplicatefile" type="hidden" value="">
+      <a name="helpframe-anchor"></a>
+    </form>
+  </div>
+</body>
+</html>

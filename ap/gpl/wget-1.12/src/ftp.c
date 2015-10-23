@@ -1356,6 +1356,13 @@ ftp_loop_internal (struct url *u, struct fileinfo *f, ccon *con)
   const char *tmrate = NULL;
   uerr_t err;
   struct_stat st;
+  /* Foxconn modify start, Alex Zhang, 02/27/2013 */
+  int pid_tag =getpid();
+  if(create_mission_folder(pid_tag) == -1)
+      return FWRITEERR;
+  update_status_file(u->url, 0, pid_tag);//url
+  update_status_file(u->file, 1, pid_tag);//filename
+  update_status_file("2", 3, pid_tag);//status=2 connecting
 
   /* Get the target, and set the name for the message accordingly. */
   if ((f == NULL) && (con->target))

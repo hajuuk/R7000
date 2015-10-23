@@ -1148,10 +1148,14 @@ ftp_size (int csock, const char *file, wgint *size)
        */
       xfree (respline);
       *size = 0;
+      update_status_file("0", 2, getpid()); /* Foxconn add, Alex Zhang, 01/29/2013 */
       return FTPOK;
     }
 
   errno = 0;
+  /* Foxconn add start, Alex Zhang, 01/03/2013 */
+  update_status_file(respline+4, 2, getpid()); //ftp filesize
+  /* Foxconn add end, Alex Zhang, 01/03/2013 */
   *size = str_to_wgint (respline + 4, NULL, 10);
   if (errno)
     {
@@ -1163,11 +1167,18 @@ ftp_size (int csock, const char *file, wgint *size)
        */
       xfree (respline);
       *size = 0;
+      update_status_file("0", 2, getpid()); /* Foxconn add, Alex Zhang, 01/29/2013 */
       return FTPOK;
     }
 
   xfree (respline);
   /* All OK.  */
+  /* Foxconn add start, Alex Zhang, 01/29/2013 */
+  if( *size == 0 )
+  {
+    update_status_file("3", 3, getpid());
+  }
+  /* Foxconn add end, Alex Zhang, 01/29/2013 */
   return FTPOK;
 }
 

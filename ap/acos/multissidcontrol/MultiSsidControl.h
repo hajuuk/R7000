@@ -25,6 +25,7 @@
 #define MS_ACCEPT       0
 #define MS_DROP         1
 
+#define DNS_PORT          53 /* Foxconn added pling 03/24/2015 */
 #define DHCP_SERVER_PORT  67
 #define DHCP_CLIENT_PORT  68
 #define HTTP_PORT         80 /* foxconn added, zacker, 08/11/2009, @mbssid_filter */
@@ -38,6 +39,7 @@
 #define SAMBA_PORT4      445    /*stanley add 01/13/2010 add samba port*/
 #define SOAP_API_PORT    5000   /* pling added 10/22/2013, SOAP API port */
 #define TELNET_PORT      23     /* Bob added 02/27/2014, telnet port */
+#define FBWIFI_PORT      5001   /* pling added 04/15/2015, for Facebook WiFi */
 
 /* Foxconn added start, Wins, 03/18/2011, @AP_MODE */
 #if defined(AP_MODE)             
@@ -74,6 +76,11 @@ typedef struct MulitSsidControlProfile {
        /* Foxconn added end, Wins, 03/18/2011, @AP_MODE */
 }T_MSsidCtlProfile;
 
+/* Foxconn added start, James Hsu, 04/08/2015 */
+typedef struct ArloClientProfile {
+        unsigned char mac[32];
+}T_ClientProfile;
+/* Foxconn added end, James Hsu, 04/08/2015 */
 
 #if 0
 #define MultiSsidControlDEBUG(fmt, args...)      printk("<0>MultiSsidControlDEBUG: " fmt, ##args)

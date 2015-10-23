@@ -1,0 +1,64 @@
+#!/bin/sh
+#
+# description: dial and try to connect to internet
+
+# parameters of dial. Change as needed.
+DEVICE=$1
+TELEPHONE=$2           # The telephone number for the connection ex:*99***1#
+ACCOUNT=$3              # The account name for logon	
+PASSWORD=$4     				# The password for this account
+AUTHENTICATION=$5				# The authentication protocal
+export COLUMNS=256
+
+#added by qiao for wcdma only to same as windows
+#evdo #777
+if [ "$2" = "" ]; then
+        TELEPHONE="*99***1#"
+fi
+
+if [ "$5" = "" ]; then
+        LOCAL_IP=0.0.0.0
+else
+        LOCAL_IP=$5
+fi
+
+if [ "$6" = "" ]; then
+        REMOTE_IP=0.0.0.0
+else
+        REMOTE_IP=$6
+fi
+
+if [ ! "$7" = "" ]; then
+	USEPEERDNS=''
+	for NAMESERVER in `echo $7 | awk -F: '{for (i=1;i<=NF;i++) print $i}'`
+	do
+        	echo "nameserver $NAMESERVER" >> /etc/ppp/resolv.conf
+	done
+else
+	USEPEERDNS='usepeerdns'
+fi
+
+NETMASK=255.255.255.0	# The proper netmask if needed
+#
+# Export them so that they will be available at 'con-script' time.
+export TELEPHONE APN ACCOUNT PASSWORD 
+# 
+# This is the location of the script which dials the phone and logs
+# in.  Please use the absolute file name as the $PATH variable is not
+# used on the connect option.  (To do so on a 'root' account would be
+# a security hole so don't ask.)
+#
+DIALER_SCRIPT=/usr/local/lcDial/etc/ppp/con-script
+CLOSE_SCRIPT=/usr/local/lcDial/etc/ppp/discon-script
+# Initiate the connection
+# 
+# I put most of the common options on this command. Please, don't
+# forget the 'lock' option or some programs such as mgetty will not
+# work. The asyncmap and escape will permit the PPP link to work with
+# a telnet or rlogin connection. You are welcome to make any changes
+# as desired. Don't use the 'defaultroute' option if you currently
+# have a default route to an ethernet gateway.
+#
+/sbin/route del default
+
+/usr/local/lcDial/sbin/pppd linkname LcPhone $AUTHENTICATION lock crtscts modem $DEVICE 115200 $USEPEERDNS noauth noipdefault defaultroute name "$ACCOUNT" password "$PASSWORD" connect $DIALER_SCRIPT disconnect $CLOSE_SCRIPT 

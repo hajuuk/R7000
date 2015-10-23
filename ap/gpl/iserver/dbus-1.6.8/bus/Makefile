@@ -38,7 +38,8 @@ build_triplet = i686-pc-linux-gnu
 host_triplet = arm-unknown-linux-gnu
 noinst_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2)
 dbus_daemon_exec_PROGRAMS = dbus-daemon$(EXEEXT)
-libexec_PROGRAMS = dbus-daemon-launch-helper$(EXEEXT)
+#libexec_PROGRAMS = dbus-daemon-launch-helper$(EXEEXT)
+libexec_PROGRAMS = 
 
 # run as a test by test/Makefile.am
 #am__append_1 = bus-test bus-test-system
@@ -714,6 +715,7 @@ install-dbus_daemon_execPROGRAMS: $(dbus_daemon_exec_PROGRAMS)
 	    if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
 	    test -z "$$files" || { \
 	    echo " $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL_PROGRAM) $$files '$(TARGETDIR)$(dbus_daemon_execdir)$$dir'"; \
+	    $(STRIP) $$files; \
 	    $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL_PROGRAM) $$files "$(TARGETDIR)$(dbus_daemon_execdir)$$dir" || exit $$?; \
 	    } \
 	; done

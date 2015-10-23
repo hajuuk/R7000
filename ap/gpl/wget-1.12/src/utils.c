@@ -91,7 +91,10 @@ as that of the covered work.  */
 #ifdef TESTING
 #include "test.h"
 #endif
-
+/* Foxconn add start, Alex Zhang, 01/03/2013 */
+#define	PID_FILE			"/var/run/wget.pid"
+status_t task_status={0};
+/* Foxconn add end, Alex Zhang, 01/03/2013 */
 static void
 memfatal (const char *context, long attempted_size)
 {
@@ -421,7 +424,138 @@ datetime_str (time_t t)
 {
   return fmttime(t, "%Y-%m-%d %H:%M:%S");
 }
-
+/* Foxconn add start, Alex Zhang, 01/03/2013 */
+void
+tr_wait_msec( long int msec )
+{
+    struct timespec ts;
+    ts.tv_sec = msec / 1000;
+    ts.tv_nsec = ( msec % 1000 ) * 1000000;
+    nanosleep( &ts, NULL );
+
+}
+
+int calc_ftp_percentage(char *str, char *per)
+{
+    int percentage=0;
+    int i=0, j=0;
+    char temp[64]="";
+
+    if(str != NULL)
+    {
+        do // rm comma first
+        {   
+            while(str[i]>='0'&&str[i]<='9')
+            {    
+                temp[j++]=str[i];
+                i++;
+            }
+           
+        } while(str[i++]);
+        percentage=(atoll(temp))*100/(atoll(task_status.filesize));
+        sprintf(per, "%d", percentage);
+        return 0;
+    }
+    return -1;
+}
+int update_status_file(char *str, int flag, int pid)
+{
+    FILE *fp = NULL;
+    char buf[8]="";
+    char status_file[64]="";
+    int wget_pid = 0;
+    char buf1[1024]="";
+    
+    if(flag == 0)
+    {
+        strcpy(task_status.url, str);
+    }
+    else if(flag == 1)
+    {
+        strcpy(task_status.filename, str);
+        
+    }
+    else if(flag == 2)
+    {
+        strcpy(task_status.filesize, str);
+
+    }
+    else if(flag == 3)
+    {
+        strcpy(task_status.status, str);
+    }
+    else if(flag == 4)
+    {
+        if(strstr(task_status.filesize,"-1") || strstr(task_status.filesize,"---"))
+            strcpy(task_status.percentage, "---");
+        else
+            strcpy(task_status.percentage, str);
+
+    }
+    else if(flag == 5)
+    {
+        strcpy(task_status.speed, str);
+    }
+    else if(flag == 6)
+    {
+        strcpy(task_status.download_length, str);
+    }
+#if 0
+    printf("\nurl=(%s)\n file_name=(%s)\n file_size=(%s)\n task_status=(%s)\n finish_percent=(%s)\n down_speed=(%s)\n",
+           task_status.url,
+           task_status.filename,
+           task_status.filesize,
+           task_status.status,
+           task_status.percentage,
+           task_status.speed            
+           );    
+#endif
+    tr_wait_msec(50);
+    sprintf(status_file, "/var/run/down/mission_%d/status", pid);
+    fp = fopen(status_file, "w+");
+    if(fp == NULL)
+    {
+        printf("(%s)%d Cannot update status file.\n", __FUNCTION__, __LINE__);
+        return -1;
+    }
+    fprintf(fp, "url=%s\n", task_status.url);
+    fprintf(fp, "file_name=%s\n", task_status.filename);
+    fprintf(fp, "file_size=%s\n", task_status.filesize);
+    fprintf(fp, "task_status=%s\n", task_status.status);
+    fprintf(fp, "finish_percent=%s\n", task_status.percentage);
+    fprintf(fp, "down_speed=%s\n", task_status.speed);
+    fprintf(fp, "download_length=%s\n", task_status.download_length);
+    fflush(fp);
+    fclose(fp); 
+    
+    return 0;
+}
+
+int create_mission_folder(int pid)
+{
+    FILE *fp = NULL;
+    char status_path[64]="";
+    char command[64]="";
+    if(pid == 0)
+        return -1;
+    fp = fopen(PID_FILE, "w+");
+    if(fp != NULL)
+    {
+        fprintf(fp, "%d", pid);
+        fclose(fp);
+    }
+    else
+    {
+        printf ("Create pid file error, exit.\n");
+        return -1;
+    }
+    sprintf(status_path,"/var/run/down/mission_%d",pid);
+    sprintf(command,"mkdir -p %s",status_path);
+    system(command);
+    return 0;
+    
+}
+/* Foxconn add end, Alex Zhang, 01/03/2013 */
 /* The Windows versions of the following two functions are defined in
    mswindows.c. On MSDOS this function should never be called. */
 

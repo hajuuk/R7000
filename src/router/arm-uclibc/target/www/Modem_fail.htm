@@ -1,0 +1,94 @@
+<html>
+<head>
+<%11%>
+<title><%3171%></title> 
+<link rel="stylesheet" type="text/css" href="style.css">
+<script language="JavaScript" type="text/javascript">
+<!-- Start Script
+function CloseWindow()
+{
+ top.window.opener=null;
+ top.window.close();
+}
+function msg_close()
+{
+ alert("<%3151%>");
+ CloseWindow();
+}
+function back_fun()
+{
+    //location.href=document.forms[0].back_file.value;
+	url = "http://"+location.host+"/" + document.forms[0].back_file.value;
+	top.location.href=url;
+}
+function retry_fun()
+{
+    location.href=document.forms[0].retry_file.value;
+}
+// End Script -->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
+<form name="formname" method="POST" action="bsw_fail.cgi"> 
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+  <tr>
+   <td valign="top" align="center">
+     <h1><br><%3172%> </h1>
+   </td>
+  </tr>
+     <tr>
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+  </tr>
+  
+  <tr>
+   <td valign="top" align="left">
+   <ul>
+     <p><%3173%>:</br></p>
+     </ul>
+<%2922%>     
+   <ul>
+     <p><strong><%3174%></p></strong>
+     <p><%3175%></p>     
+     </ul>
+   </td>
+<%2924%>   
+  <tr>
+   <td>
+     <ul>
+       <p><strong><%3172%>  </strong></p>
+       <p><%3176%></p>
+       </ul>
+      </td>
+   <td><img src="spacer.gif" width="1" height="18" border="0" alt="" /></td>
+  </tr>
+  <tr>
+    <td>
+    <ul><strong><p><%3177%></p></strong>
+    <p><%3178%></p>
+<%2922%> 
+    <p><%3179%>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<%2924%> 
+    <p><%3180%>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    </p></ul></td>
+  </tr>
+<tr>
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+  </tr>
+  <tr><td align="center">
+  	<ul>
+  	<input type="button" name="b_done" value="   <%1580%>   " tabindex="1" onclick="retry_fun();">
+  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%2922%>  	
+  	<input type="button" name="next" value="   <%1570%>   " tabindex="3" onclick="back_fun();">
+  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%2924%> 	
+	<input type="button" name="b_done" value="   <%1448%>   " tabindex="2" onClick="msg_close()">
+	</ul>
+</td></tr>
+</table>
+<input type="hidden" name="retry_file" value="Modem_det_internet.htm">
+<input type="hidden" name="next_file" value="Modem_detect.htm">
+<input type="hidden" name="back_file" value="Modem_detect.htm">
+</form>
+</body>
+</html>

@@ -24,10 +24,16 @@ extern int lan_index;
 extern int wan_igmp_socket;
 extern igmp_router_t router;
 extern int wan_igmp_version;
+
 extern unsigned long lan_ipaddr, lan_netmask;
 int wan_version_timer = IGMP_WAN_VERSION_TIMER;
 unsigned int general_query_count = 0;
 /* Foxconn add end by aspen Bai, 01/08/2008 */
+
+#ifdef BT_IGMP_SUPPORT
+extern int duplicate_igmp_on_vlan2;
+extern int wan_igmp_socket2;
+#endif
 
 #if !(defined RALINK_SDK)
 int emf_cfg_mfdb_group_find(struct in_addr group);
@@ -106,6 +112,94 @@ int check_src (
     return FALSE;
 }
 
+#ifdef BT_IGMP_SUPPORT
+void duplicate_igmp_to_vlan2(const void *buf, size_t len, int flags,
+         const struct sockaddr *to, socklen_t tolen)
+{
+	  /* open a raw socket */
+    int sockfd = socket(PF_PACKET, SOCK_RAW, IPPROTO_RAW);
+    struct ifreq if_mac;
+    struct ifreq ifstruct;
+    int tx_len = 0;
+    char sendbuf[1024];
+    struct ether_header *eh = (struct ether_header *) sendbuf;    
+    struct iphdr *iph = (struct iphdr *) (sendbuf + sizeof(struct ether_header));
+    struct sockaddr_ll socket_address;
+  	struct sockaddr_in *sin;
+    int ret;
+    
+printf("duplicate to vlan2 interface\n");
+    memset(&ifstruct,0,sizeof(struct ifreq));
+    strcpy(ifstruct.ifr_name,"vlan2");
+    if(ioctl(sockfd, SIOCGIFINDEX, &ifstruct))
+        perror("IGOCGIFINDEX");
+
+    
+    
+    /* get the mac address of the VLAN interface */
+    memset(&if_mac, 0, sizeof(struct ifreq));
+    strncpy(if_mac.ifr_name, "vlan2", IFNAMSIZ-1);
+    if (ioctl(sockfd, SIOCGIFHWADDR, &if_mac) < 0)
+        perror("SIOCGIFHWADDR");
+
+    setsockopt(sockfd,SOL_SOCKET,SO_BINDTODEVICE,&ifstruct,sizeof(struct ifreq));
+    
+    sin=(struct sockaddr_in *)to;
+    /* transmit packet */
+    memset(sendbuf, 0, 1024);
+    /* Ethernet header */
+    eh->ether_shost[0] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[0];
+    eh->ether_shost[1] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[1];
+    eh->ether_shost[2] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[2];
+    eh->ether_shost[3] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[3];
+    eh->ether_shost[4] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[4];
+    eh->ether_shost[5] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[5];
+    eh->ether_dhost[0] = 0x01;
+    eh->ether_dhost[1] = 0x00;
+    eh->ether_dhost[2] = 0x5e;
+    eh->ether_dhost[3] = (sin->sin_addr.s_addr >> 24) &0x7F ;
+    eh->ether_dhost[4] = (sin->sin_addr.s_addr >> 16);
+    eh->ether_dhost[5] = (sin->sin_addr.s_addr>>8);
+    eh->ether_type = htons(ETH_P_IP);
+
+    tx_len += sizeof(struct ether_header);
+    /* IP Header */
+    iph->version=4;
+    iph->ihl=5;
+    iph->tos=0;
+    iph->id=random();
+    iph->frag_off=0;
+    iph->ttl=1;
+    iph->protocol=2;
+    iph->check=0;
+    iph->daddr = inet_addr(inet_ntoa(sin->sin_addr));
+    iph->saddr = inet_addr("192.168.1.1");
+    tx_len += sizeof(struct iphdr);
+
+    memcpy(sendbuf+sizeof(struct ether_header)+sizeof(struct iphdr),buf,len);
+    tx_len +=len;
+    /* Index of the network device */
+    socket_address.sll_ifindex = ifstruct.ifr_ifindex;
+    /* Address length*/
+    socket_address.sll_halen = ETH_ALEN;
+    /* Destination MAC */
+    socket_address.sll_addr[0] = 0x01;
+    socket_address.sll_addr[1] = 0x00;
+    socket_address.sll_addr[2] = 0x5e;
+    socket_address.sll_addr[3] = (sin->sin_addr.s_addr >> 24) &0x7F ;
+    socket_address.sll_addr[4] = (sin->sin_addr.s_addr >> 16);
+    socket_address.sll_addr[5] = sin->sin_addr.s_addr;
+    /* Send packet */
+    ret=sendto(sockfd, sendbuf, tx_len, 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll));
+    
+    if(ret<0)    printf("Send failed\n");
+
+   printf("Send %d bytes\n",ret);
+
+    close(sockfd);
+}
+#endif
+
 /*
  * void igmp_group_handle_allow
  * handle an allow report for a group
@@ -128,9 +222,9 @@ void igmp_group_handle_allow(
     for (i=0;i<numsrc;i++) {
       src=igmp_group_src_add(gp,sources[i]);
           if (ifp->igmpi_addr.s_addr == upstream)
-             k_proxy_chg_mfc(router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,forward_upstream);
+             k_proxy_chg_mfc(router,router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,forward_upstream);
           else
-			 k_proxy_chg_mfc(router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,1);
+			 k_proxy_chg_mfc(router,router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,1);
     }
 
     /* (B) = GMI */
@@ -336,7 +430,7 @@ void igmp_group_handle_toex(
     if(numsrc == 0)
     {
 		//printf("%s, %d\n",__FUNCTION__,__LINE__);
-        k_proxy_chg_mfc(router->igmprt_socket,mulsrc.igmps_addr.s_addr,gp->igmpg_addr.s_addr,wan_index,1);
+        k_proxy_chg_mfc(router,router->igmprt_socket,mulsrc.igmps_addr.s_addr,gp->igmpg_addr.s_addr,wan_index,1);
     }
     /* Foxconn add end by aspen Bai, 12/07/2007 */
 	igmp_info_print(router, (char *)__FUNCTION__);
@@ -418,12 +512,12 @@ void igmp_group_handle_toin(
         if (ifp->igmpi_addr.s_addr == upstream)
 		{
 			//printf("%s, %d\n",__FUNCTION__,__LINE__);
-           k_proxy_chg_mfc(router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,forward_upstream);
+           k_proxy_chg_mfc(router,router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,forward_upstream);
 		}
         else
 		{
 			//printf("%s, %d\n",__FUNCTION__,__LINE__);
-           k_proxy_chg_mfc(router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,1);
+           k_proxy_chg_mfc(router,router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,1);
 		}
     }
   }
@@ -528,7 +622,7 @@ igmp_group_handle_isex(
 		{
 			//printf("%s, %d\n",__FUNCTION__,__LINE__);
 			//printf("%d, 0x%x,0x%x,0x%x,\n",router->igmprt_socket,mulsrc.igmps_addr.s_addr,gp->igmpg_addr.s_addr,wan_index);
-			k_proxy_chg_mfc(router->igmprt_socket,mulsrc.igmps_addr.s_addr,gp->igmpg_addr.s_addr,wan_index,1);
+			k_proxy_chg_mfc(router,router->igmprt_socket,mulsrc.igmps_addr.s_addr,gp->igmpg_addr.s_addr,wan_index,1);
 			//printf("%s, %d\n",__FUNCTION__,__LINE__);
 		}
 	}
@@ -612,9 +706,9 @@ igmp_group_handle_isin(
         src->igmps_timer = IGMP_GMI;
         src->igmps_fstate = FALSE;
             if (ifp->igmpi_addr.s_addr == upstream)
-                k_proxy_chg_mfc(router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,forward_upstream);
+                k_proxy_chg_mfc(router,router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,forward_upstream);
             else
-                k_proxy_chg_mfc(router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,1);
+                k_proxy_chg_mfc(router,router->igmprt_socket,sources[i].s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,1);
       }
     } 
     num=0;
@@ -786,7 +880,7 @@ void igmprt_timer_source (igmp_router_t* router,igmp_interface_t *ifp)
         src->igmps_fstate= TRUE;
         //printf("forward traffic from source: %s\n",inet_ntoa(src->igmps_source));
         /*tell the kernel to forward traffic from this source*/
-        k_proxy_chg_mfc(router->igmprt_socket,src->igmps_source.s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,1);
+        k_proxy_chg_mfc(router,router->igmprt_socket,src->igmps_source.s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,1);
       }
     }else {
       if (src->igmps_timer == 0){
@@ -795,7 +889,7 @@ void igmprt_timer_source (igmp_router_t* router,igmp_interface_t *ifp)
           src->igmps_fstate = FALSE;
           //printf("stop forwarding traffic from source, timer = 0: %s\n",inet_ntoa(src->igmps_source));
           /*tell the kernel to stop forwarding traffic from this source*/
-          k_proxy_chg_mfc(router->igmprt_socket,src->igmps_source.s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,0);
+          k_proxy_chg_mfc(router,router->igmprt_socket,src->igmps_source.s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,0);
         }
         igmp_src_cleanup(gp,src);
         k_proxy_del_mfc (router->igmprt_socket, src->igmps_source.s_addr, gp->igmpg_addr.s_addr);
@@ -836,7 +930,7 @@ void igmprt_timer_source (igmp_router_t* router,igmp_interface_t *ifp)
         src->igmps_fstate = TRUE;
         printf("suggest to forward traffic from src: %s\n",inet_ntoa(src->igmps_source));
         /*tell the kernel to forward traffic from this source */
-        k_proxy_chg_mfc(router->igmprt_socket,src->igmps_source.s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,1);
+        k_proxy_chg_mfc(router,router->igmprt_socket,src->igmps_source.s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,1);
       } 
     }
     else{
@@ -845,7 +939,7 @@ void igmprt_timer_source (igmp_router_t* router,igmp_interface_t *ifp)
           src->igmps_fstate = FALSE;
           printf("not forward traffic from src: %s\n",inet_ntoa(src->igmps_source));
           /*tell the kernel to stop forwarding traffic from this source*/
-          k_proxy_chg_mfc(router->igmprt_socket,src->igmps_source.s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,0);    
+          k_proxy_chg_mfc(router,router->igmprt_socket,src->igmps_source.s_addr,gp->igmpg_addr.s_addr,ifp->igmpi_index,0);    
         }
       }
       if (gp->igmpg_sources == NULL)/*TODO: (*,G) state source addr = ADRESSE_NONE*/
@@ -1244,7 +1338,18 @@ int send_membership_report_v12(igmp_router_t* igmprt, struct in_addr group, int 
 					size = sizeof(*v2_report);
 					sin.sin_family = AF_INET;
 					memcpy(&sin.sin_addr,&(gp_1->igmpg_addr),4);
+
+#ifdef BT_IGMP_SUPPORT
 					
+          if(acosNvramConfig_match("wan_proto","pppoe") && duplicate_igmp_on_vlan2)					
+          {	
+          	int ret;
+  					ret=sendto(wan_igmp_socket2, (void*) v2_report, size, 0, (struct sockaddr*)&sin, sizeof(sin));
+//          duplicate_igmp_to_vlan2((void*) v2_report, size, 0, (struct sockaddr*)&sin, sizeof(sin));
+						
+	sendto(wan_igmp_socket, (void*) v2_report, size, 0, (struct sockaddr*)&sin, sizeof(sin));
+          }
+#endif
 					sendto(wan_igmp_socket, (void*) v2_report, size, 0, (struct sockaddr*)&sin, sizeof(sin));
 				}
 		}
@@ -1309,6 +1414,14 @@ int send_membership_report_v12(igmp_router_t* igmprt, struct in_addr group, int 
 			sin.sin_family = AF_INET;
 			sin.sin_addr.s_addr = group.s_addr;
 
+#ifdef BT_IGMP_SUPPORT
+      if(acosNvramConfig_match("wan_proto","pppoe"))		
+      {	
+          	int ret;          	
+    					ret=sendto(wan_igmp_socket2, (void*) v2_report, size, 0, (struct sockaddr*)&sin, sizeof(sin));
+//          duplicate_igmp_to_vlan2((void*) v2_report, size, 0, (struct sockaddr*)&sin, sizeof(sin));
+      }
+#endif
 			sendto(wan_igmp_socket, (void*) v2_report, size, 0, (struct sockaddr*)&sin, sizeof(sin));
 			/* Foxconn added start, zacker, 05/11/2009, @no_v2_report_in_snoop */
 #ifdef __CONFIG_IGMP_SNOOPING__
@@ -1426,6 +1539,14 @@ int send_membership_report_v3(int is_be_queried)
 			sin.sin_family = AF_INET;
 			sin.sin_addr.s_addr = inet_addr(IGMP_ALL_ROUTERS_V3);
 	        //printf("%s, %d i=%d\n",__FUNCTION__,__LINE__,i);/* an TO_IN report */
+#ifdef BT_IGMP_SUPPORT
+      if(acosNvramConfig_match("wan_proto","pppoe") && duplicate_igmp_on_vlan2)					
+      {	
+          	int ret;
+            ret=sendto(wan_igmp_socket2, (void*) v3_report, igmplen, 0, (struct sockaddr*)&sin, sizeof(sin));
+//          duplicate_igmp_to_vlan2((void*) v3_report, igmplen, 0, (struct sockaddr*)&sin, sizeof(sin));
+      }
+#endif
 			sendto(wan_igmp_socket, (void*) v3_report, igmplen, 0, (struct sockaddr*)&sin, sizeof(sin));
 		}
 		/* send igmp membership report including group report only changed according to wan igmp version */
@@ -1493,6 +1614,14 @@ int send_membership_report_v3(int is_be_queried)
 				sin.sin_family = AF_INET;
 				sin.sin_addr.s_addr = inet_addr(IGMP_ALL_ROUTERS_V3);
 		        //printf("%s, %d\n",__FUNCTION__,__LINE__);/* an TO_IN report */
+#ifdef BT_IGMP_SUPPORT
+        if(acosNvramConfig_match("wan_proto","pppoe") && duplicate_igmp_on_vlan2)					
+        {	
+          	int ret;
+    	      ret=sendto(wan_igmp_socket2, (void*) v3_report, igmplen, 0, (struct sockaddr*)&sin, sizeof(sin));
+//            duplicate_igmp_to_vlan2((void*) v3_report, igmplen, 0, (struct sockaddr*)&sin, sizeof(sin));
+        }
+#endif
 				sendto(wan_igmp_socket, (void*) v3_report, igmplen, 0, (struct sockaddr*)&sin, sizeof(sin));
 				
 				//printf("%s, %d\n",__FUNCTION__,__LINE__);/* an TO_IN report */
@@ -1568,6 +1697,14 @@ int send_membership_report_v12_to_v3(struct in_addr group, int type)
     sin.sin_family = AF_INET;
 	sin.sin_addr.s_addr = inet_addr(IGMP_ALL_ROUTERS_V3);
 
+#ifdef BT_IGMP_SUPPORT
+  if(acosNvramConfig_match("wan_proto","pppoe") && duplicate_igmp_on_vlan2)					
+  {	
+          	int ret;
+        ret=sendto(wan_igmp_socket2, (void*) igmpv3_report, igmplen_12, 0, (struct sockaddr*)&sin, sizeof(sin));
+//      duplicate_igmp_to_vlan2((void*) igmpv3_report, igmplen_12, 0, (struct sockaddr*)&sin, sizeof(sin));
+  }
+#endif
 	sendto(wan_igmp_socket, (void*) igmpv3_report, igmplen_12, 0, (struct sockaddr*)&sin, sizeof(sin));
 	
 	if (p1buf)
@@ -1679,6 +1816,14 @@ int send_membership_report_v3_to_v12(void)
 					/* Send out the report message */
 					sin.sin_family = AF_INET;
 					
+#ifdef BT_IGMP_SUPPORT
+          if(acosNvramConfig_match("wan_proto","pppoe") && duplicate_igmp_on_vlan2)					
+          {	
+int ret;
+    					ret=sendto(wan_igmp_socket2, (void*) v12_report, igmplen2, 0, (struct sockaddr*)&sin, sizeof(sin));
+//              duplicate_igmp_to_vlan2((void*) v12_report, igmplen2, 0, (struct sockaddr*)&sin, sizeof(sin));
+          }
+#endif
 					sendto(wan_igmp_socket, (void*) v12_report, igmplen2, 0, (struct sockaddr*)&sin, sizeof(sin));
 				}
 		}
@@ -1753,7 +1898,15 @@ int send_leave_group_v2(struct in_addr group)
     sin.sin_family = AF_INET;
     sin.sin_addr.s_addr = inet_addr(IGMP_ALL_ROUTERS);
     //sendto(router.igmprt_socket, (void*) v2_report, size, 0, (struct sockaddr*)&sin, sizeof(sin));
-			
+ 		
+#ifdef BT_IGMP_SUPPORT
+          if(acosNvramConfig_match("wan_proto","pppoe") && duplicate_igmp_on_vlan2)
+          {	
+          	int ret;
+    					ret=sendto(wan_igmp_socket2, (void*) v2_report, size, 0, (struct sockaddr*)&sin, sizeof(sin));
+//              duplicate_igmp_to_vlan2((void*) v2_report, size, 0, (struct sockaddr*)&sin, sizeof(sin));
+          }
+#endif
 	sendto(wan_igmp_socket, (void*) v2_report, size, 0, (struct sockaddr*)&sin, sizeof(sin));
 
     if (pbuf)

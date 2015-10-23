@@ -1,0 +1,19 @@
+#!/bin/bash
+
+file_name=$1
+
+VIEWER=`whereis evince | awk {'print $2'}`
+
+if [ "x${VIEWER}" != "x" ]
+then
+    ${VIEWER} ${file_name}
+    exit 0
+else
+    #not find evince
+    exit 1
+fi
+
+
+
+
+

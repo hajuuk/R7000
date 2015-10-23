@@ -1,0 +1,139 @@
+<HTML><HEAD>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<script language=javascript type=text/javascript src=funcs.js></script>
+<script language=javascript type=text/javascript src=bas_pppoe.js></script>
+<script language=javascript type=text/javascript>
+var lan_ip="<%300%>";
+var lan_subnet="<%554%>";
+
+function loadvalue()
+{
+	var form=document.forms[0];
+	var dual_assign=parent.pppoe_dual_assign;
+	if(dual_assign == "0")
+		form.DualAssign[0].checked = true;
+	else
+		form.DualAssign[1].checked = true;
+	
+	setdualIP(form);
+	var ether_get_ip=parent.pppoe_eth_ip;
+	if (ether_get_ip!="")
+	{
+		var eip_array=ether_get_ip.split('.');
+		form.Duethr1.value=eip_array[0];
+		form.Duethr2.value=eip_array[1];
+		form.Duethr3.value=eip_array[2];
+		form.Duethr4.value=eip_array[3];
+	}
+	var ether_get_subnet=parent.pppoe_eth_netmask;
+	if (ether_get_subnet!="")
+	{
+		var mask_array=ether_get_subnet.split('.');
+		form.DuMask1.value=mask_array[0];
+		form.DuMask2.value=mask_array[1];
+		form.DuMask3.value=mask_array[2];
+		form.DuMask4.value=mask_array[3];
+	}
+	var ether_get_gw=parent.pppoe_eth_gateway;
+	if (ether_get_gw!="")
+	{
+		var gw_array=ether_get_gw.split('.');
+		form.DuGateway1.value=gw_array[0];
+		form.DuGateway2.value=gw_array[1];
+		form.DuGateway3.value=gw_array[2];
+		form.DuGateway4.value=gw_array[3];
+	}
+}
+</script>
+</HEAD>
+
+<BODY onLoad="loadvalue();" bgcolor=#ffffff>
+<FORM method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_manual_pppoe_dual">
+<input type=hidden name=submit_flag value="setup">
+<input type=hidden name=submit_wan value="0">
+
+<input type="hidden" name="conflict_wanlan">
+<input type="hidden" name="pppoe_dual_ipaddr">
+<input type="hidden" name="pppoe_dual_subnet">
+<input type="hidden" name="pppoe_dual_gateway">
+<input type="hidden" name="pppoe_dual_assign">
+
+<div>
+<div>
+<TABLE align="center" style="width:76%" >
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR><TD colspan="2" class="left_text"><h2><%2379%></h2></TD></TR>
+
+<TR><TD colspan="2" class="left_text"><%2403%></TD></TR>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR><TD colspan="2" class="center_text"><%2389%></TD></TR>
+<TR>
+	<TD colspan="2" class="left_text" >
+	<input type="radio" name="DualAssign" value="0" checked onClick="setdualIP(document.forms[0])"><%531%>
+	</TD>
+</TR>
+<TR>
+	<TD colspan="2" class="left_text" >
+	<input type="radio" name="DualAssign" value="1" onClick="setdualIP(document.forms[0])"><%532%>
+	</TD>
+</TR>
+
+<TR>
+	<TD class="centerTd"><%533%></TD>
+	<TD align=right>
+	<input type="text" name="Duethr1"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);" >.
+	<input type="text" name="Duethr2"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="Duethr3"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="Duethr4"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">
+	</TD>
+</TR>
+<TR>
+	<TD class="centerTd"><%534%></TD>
+	<TD align=right>
+	<input type="text" name="DuMask1"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);" >.
+	<input type="text" name="DuMask2"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="DuMask3"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="DuMask4"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">
+	</TD> 
+</TR>
+<TR>
+	<TD class="centerTd"><%623%></TD>
+	<TD align=right>
+	<input type="text" name="DuGateway1"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);" >.
+	<input type="text" name="DuGateway2"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="DuGateway3"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="DuGateway4"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">
+	</TD>
+</TR>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR>
+	<td colspan="2" align="center" class="text-align:center;">
+		<button class="purpleBtn" type="button" style="width:100px" name="back" value="submit" onClick='location.href="RU_pppoe_dual.htm";'><span><%1570%></span></button>
+        <button class="purpleBtn" type="button" style="width:100px" name="next" value="submit" onClick='RU_check_pppoe_dual();'><span><%1572%></span></button>
+
+	</td>
+
+</TR>
+
+</TABLE>
+</div>
+</div>
+</FORM>
+</BODY>
+</HTML>

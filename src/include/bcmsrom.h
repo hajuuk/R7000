@@ -1,7 +1,7 @@
 /*
  * Misc useful routines to access NIC local SROM/OTP .
  *
- * Copyright (C) 2011, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: bcmsrom.h 334434 2012-05-22 08:23:02Z $
+ * $Id: bcmsrom.h 375723 2012-12-20 00:18:39Z $
  */
 
 #ifndef	_bcmsrom_h_

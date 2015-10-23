@@ -1,0 +1,27 @@
+#!/bin/bash
+
+for HTMLVIEWER in \
+firefox \
+opera \
+epiphany \
+mozilla \
+konqueror \
+netscape \
+links \
+lynx \
+xdg-open
+do
+    VIEWER=`which ${HTMLVIEWER}`
+
+    if [ "x${VIEWER}" != "x" ]
+    then
+        xhost +
+        su - root -c "DISPLAY=:0.0 ${VIEWER} $1"
+        exit 0
+    fi
+done
+
+exit 1
+
+
+

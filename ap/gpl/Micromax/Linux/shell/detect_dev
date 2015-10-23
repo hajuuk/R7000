@@ -1,0 +1,32 @@
+#!/bin/sh
+# description: get pid of device's owner
+export LANG="en_US.UTF-8"
+export COLUMNS=256
+LOGFILE="/tmp/lcActiveUSBModem.log"
+
+echo " start to detact device!!! ====" >> $LOGFILE
+if [ "$1" = "" ]; then
+        echo " parameter error" >> $LOGFILE
+	exit 2
+else
+        DEVICE=$1
+fi
+
+BINPID=`/bin/fuser $DEVICE`
+SBINPID=`/sbin/fuser $DEVICE`
+
+if test $BINPID; then
+	echo " /bin/fuser $BINPID has occupied $DEVICE" >> $LOGFILE
+	exit 1
+else	
+	echo " /bin/fuser no user occupied $DEVICE" >> $LOGFILE
+fi
+
+if test $SBINPID; then
+	echo " /sbin/fuser $SBINPID has occupied $DEVICE" >> $LOGFILE
+	exit 1
+else	
+	echo " /sbin/fuser no user occupied $DEVICE" >> $LOGFILE
+	exit 0
+fi
+

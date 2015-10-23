@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<%11%>
+<title>NETGEAR Router <%12%></title> 
+<link rel="stylesheet" href="<%13%>">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript">
+<!--
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            imgSrc.src="img/helparrowdown-icon.gif";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.gif";
+            setTimeout(setHelpIframeVisible,500);
+        }
+             change_size();
+
+    }
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+	function guestManage_getAccessPwd()
+	{
+		var cf = document.forms[0];
+		var newPwd="";
+		var n;
+		
+		for(var i = 0; i<8; i++)
+		{	
+			n = Math.floor(Math.random()*10);		
+			if(i == 4)
+				newPwd +=" ".concat(n);
+			else
+				newPwd += n.toString();
+				
+		}
+		cf.newPwdShow.value = newPwd;
+		return newPwd;
+	}
+	function chg_new_pwd()
+	{
+		var cf = document.forms[0];
+		document.getElementById("chg_pwd").innerHTML = guestManage_getAccessPwd();
+		return true;
+	}
+	
+	function checkedbox()
+	{
+		var cf = document.forms[0];
+		if(cf.guest_manage_box.checked)
+		{
+			document.getElementById("access_pwd").style.display="block";
+			document.getElementById("chg_pwd").innerHTML = guestManage_getAccessPwd();
+		}
+		else
+		{
+			document.getElementById("access_pwd").style.display="none";
+		}
+	}
+	
+	function checkData()
+	{
+		var cf = document.forms[0];
+		if(cf.guest_manage_box.checked)
+			cf.guest_manage_box.value="1";
+		else
+			cf.guest_manage_box.value="0";
+		return true;
+	}
+	function loadSettings()
+    {
+        var cf = document.forms[0];
+		var active_guest_manage = parseInt("<%3510%>");
+	
+		if(active_guest_manage)
+		{
+			cf.guest_manage_box.checked=true;
+			document.getElementById("access_pwd").style.display="block";		
+		}
+		else
+		{
+			cf.guest_manage_box.checked=false;
+			document.getElementById("access_pwd").style.display="none";
+		}	
+
+		return true;		
+	}
+   
+//-->
+</SCRIPT>
+</HEAD>
+<body  onload="change_size();loadSettings();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="<%74%>">
+<img class="body-image" src="<%75%>">
+<div id="full-page-container">
+
+
+<form id="target"  action="guest_management.cgi" method="post" name="formname">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+  <img class="subtop-image" src="<%76%>">
+<div class="subhead2"> <%3511%></div>
+<TABLE border=0  style="height:370px"  class="subhead2-table">
+
+<tr>
+<td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+&nbsp;&nbsp;&nbsp;<button value="<%83%>" onClick="buttonClick(this,'<%83%>');location.href='GuestManage.html'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%84%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%78%>"  onclick="buttonClick(this,'<%78%>'); return checkData();" type="submit" name="apply" class=<%79%> id="guest_apply" > <span class="<%80%>" ><%81%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="<%82%>">&nbsp;&nbsp;&nbsp;</span></button>
+
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border" colspan="2">
+<div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto">
+
+<table style="border-collapse:collapse;width:97%">
+    
+	<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+ <tr>
+    <td colspan="2" >
+	  <table border=0 width="100%" align="left">
+    <tr>
+      <td colspan="2" nowrap align="left">
+		<input type="checkbox" name="guest_manage_box" value="" onclick="checkedbox()">&nbsp;<b><%3512%></b>
+	  </td>
+	</tr> 
+	<tr>
+		<td colspan="2" nowrap align="left" id="access_pwd" style="display: none;"> 
+			<b><%3513%>&nbsp;<label id="chg_pwd"><%3514%></label></b> 
+			&nbsp;&nbsp;&nbsp;<button value="<%3515%>" onClick="buttonClick(this,'<%3515%>'); return chg_new_pwd();" type="button" name="chgPwdBtn" class="button-rule" ><span class="roundleft_button">&nbsp;&nbsp;<%3515%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		</td>
+	</tr>
+	 </table>
+    <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+  
+   </td>
+   </tr> 
+ </table></div></td></tr>
+
+
+
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" ></div> </td> </tr>
+</table>
+   <img class="subfooter-image" src="img/subhead2-bottom.gif">
+  <div class="subhead2-bottom" >
+      </div>
+<div>	  
+<img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" >
+</div>
+
+  <input type="hidden" name="newPwdShow" value="">
+  <input type="hidden" name="curPwdShow" value="<%3514%>">
+<a name="helpframe-anchor"></a>
+</form>
+</div>
+</body>
+</html> 

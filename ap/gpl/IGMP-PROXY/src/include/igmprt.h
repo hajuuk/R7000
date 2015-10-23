@@ -29,7 +29,8 @@
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <assert.h>
-
+#include <linux/if_packet.h>
+#include <net/ethernet.h>
 #include "util.h"
 #include "igmp.h"
 #include "mroute.h"
@@ -124,6 +125,9 @@ typedef struct _igmp_router_t {
   pthread_t               igmprt_thr_input;
   int                     igmprt_up_socket; 
   int                     igmprt_socket;
+#ifdef BT_IGMP_SUPPORT
+  int                     igmprt_bt_igmp;
+#endif
 } igmp_router_t;
 
 #if 0 /* not used */
@@ -297,7 +301,7 @@ void k_init_proxy(int socket);
 void k_stop_proxy(int socket);
 int k_proxy_add_vif (int socket,unsigned long vifaddr,vifi_t vifi);
 int k_proxy_del_mfc (int socket, u_long source, u_long group);
-int k_proxy_chg_mfc(int socket,u_long source,u_long group,vifi_t outvif,int fstate);
+int k_proxy_chg_mfc(igmp_router_t* router,int socket,u_long source,u_long group,vifi_t outvif,int fstate);
 membership_db* create_membership(struct in_addr group,int fmode,int numsources,struct in_addr *sources);
 membership_db* find_membership(membership_db *membership,struct in_addr group);
 void deleate_membership(igmp_router_t* igmprt,struct in_addr group);

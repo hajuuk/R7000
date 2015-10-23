@@ -1,0 +1,8 @@
+#!/bin/sh
+# author:wangxiaoming@longcheer.net
+# data:  2010-12-17
+MYPWD=$(cd $(dirname $0); pwd)
+
+rm -f /dev/lc_ppp_up
+cp -f "${MYPWD}/resolv.conf.local" /etc/resolv.conf
+rm -f "${MYPWD}/resolv.conf"

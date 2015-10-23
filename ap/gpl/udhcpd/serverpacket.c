@@ -24,7 +24,12 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <time.h>
-
+#ifdef ARLO_SUPPORT
+#include <linux/ioctl.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#endif
 #include "packet.h"
 #include "debug.h"
 #include "dhcpd.h"
@@ -99,6 +104,72 @@ static int is_guest_network(char *mac)
 		return 0;
 }
 /* Foxconn added end pling 06/19/2013 */
+
+
+/* Foxconn added start James Hsu 03/05/2015 */
+/* For arlo client associated to wl0.2, we want to assign lease time to one year
+ */
+#ifdef ARLO_SUPPORT
+#define ARLO_ASSOC_LIST 	"/tmp/arlo_guest_clients"
+#define Arlo_lease_time 94608000 //secs for three year
+
+/* 
+ * Declare a buffer to store wireless assoclist.
+ * response of "wl assoclist":
+ * 
+ *  assoclist 00:11:22:33:44:55
+ *  assoclist 00:22:33:44:55:66
+ *  ...
+ *
+ * To accept max 64 clients, we need (27+2) * 64 = 1856.
+ * So choose 2048 buf size to store all guest clients.
+ */
+static char arlo_assoclist[2048];
+
+static int get_arlo_assoclist(void)
+{
+	static long last_update =0;
+	struct sysinfo info;
+	char command[128];
+	FILE *fp = NULL;
+    
+	sysinfo(&info);
+	if (info.uptime - last_update >= MAX_REFRESH_TIME) {
+		/* Issue wl commands to create the new list */
+		sprintf(command, "wl -i wl0.2 assoclist > %s", ARLO_ASSOC_LIST);
+		system(command);
+
+		/* Read the command output to internal buffer */
+		memset(arlo_assoclist, 0, sizeof(arlo_assoclist));
+		fp = fopen(ARLO_ASSOC_LIST, "r");
+		if (fp) {
+			fread(arlo_assoclist, 1, sizeof(arlo_assoclist), fp);
+			fclose(fp);
+			last_update = info.uptime;
+		}
+	}
+}
+
+
+static int is_arlo_network(char *mac)
+{
+	char client_mac[32];
+
+	sprintf(client_mac, "%02X:%02X:%02X:%02X:%02X:%02X", 
+						(unsigned char)mac[0],
+						(unsigned char)mac[1],
+						(unsigned char)mac[2],
+						(unsigned char)mac[3],
+						(unsigned char)mac[4],
+						(unsigned char)mac[5]);
+	get_arlo_assoclist();
+	if (strstr(arlo_assoclist, client_mac))
+		return 1;
+	else
+		return 0;
+}
+#endif
+/* Foxconn added end, James Hsu */
 
 
 /* send a packet to giaddr using the kernel ip stack */
@@ -266,6 +337,16 @@ int sendOffer(struct dhcpMessage *oldpacket)
 		DEBUG(LOG_INFO, "send OFFER to guest network client with lease time %d sec", GUEST_LEASE_TIME);
 	}
 	/* Foxconn added end pling 06/19/2013 */
+	
+	/* Foxconn added start, James Hsu, 03/05/2015 */
+	/* For arlo network client, set lease time to 3 year */
+#ifdef ARLO_SUPPORT
+	if (is_arlo_network(mac)) {
+		lease_time_align = Arlo_lease_time;
+		DEBUG(LOG_INFO, "send OFFER to arlo network client with lease time %d sec", Arlo_lease_time);
+	}
+#endif
+	/* Foxconn added end, James Hsu, 03/05/2015 */
 
 	/* ADDME: end of short circuit */		
 	add_simple_option(packet.options, DHCP_LEASE_TIME, htonl(lease_time_align));
@@ -330,6 +411,58 @@ int sendACK(struct dhcpMessage *oldpacket, u_int32_t yiaddr)
 		DEBUG(LOG_INFO, "send ACK to guest network client with lease time %d sec", GUEST_LEASE_TIME);
 	}
 	/* Foxconn added end pling 06/19/2013 */
+	
+	/* Foxconn added start, James Hsu, 03/05/2015 */
+	/* For arlo network client, set lease time to 1 year */
+#ifdef ARLO_SUPPORT
+	int arlo_arp_buf[64];
+	char arlo_mac[32];
+	struct in_addr arlo_addr;
+	if (is_arlo_network(packet.chaddr)) {
+		arlo_addr.s_addr=packet.yiaddr;
+		lease_time_align = Arlo_lease_time;
+		DEBUG(LOG_INFO, "send OFFER to arlo network client with lease time %d sec", Arlo_lease_time);
+		sprintf(arlo_mac, "%02X:%02X:%02X:%02X:%02X:%02X", 
+						(unsigned char)packet.chaddr[0],
+						(unsigned char)packet.chaddr[1],
+						(unsigned char)packet.chaddr[2],
+						(unsigned char)packet.chaddr[3],
+						(unsigned char)packet.chaddr[4],
+						(unsigned char)packet.chaddr[5]);
+		sprintf(arlo_arp_buf,"arp -s %s %s",inet_ntoa(arlo_addr), arlo_mac);
+		system(arlo_arp_buf);
+		
+		FILE *arlo_client_mac_file;
+        /* Fxconn added start, James Hsu, 04/15/2015 Record arlo client mac to nvram */
+        arlo_client_mac_file=fopen("/tmp/arlo_client_mac.txt","w");
+        if (arlo_client_mac_file)
+		{
+        fwrite(arlo_mac,sizeof(arlo_mac),1,arlo_client_mac_file);
+		fclose(arlo_client_mac_file);
+		system ("killall -SIGPIPE arlo_monitor");
+		}
+		/* Fxconn added end, James Hsu, 04/15/2015 */
+		
+		/* Fxconn added start, James Hsu, 04/08/2015, for isolation arlo network */
+		#define DEV_FILE_NAME_W_PATH    "/dev/acos_nat_cli"
+		#define MAJOR_NUM 100
+		#define IOCTL_AG_ARLO_CLIENT_MAC              _IOW(MAJOR_NUM, 203, char *)
+		int ret_val=0, file_desc;
+		char *arlo_client_mac;
+		memcpy(arlo_mac, packet.chaddr,6);
+		file_desc = open(DEV_FILE_NAME_W_PATH, O_RDWR);
+		if (file_desc < 0) 
+		{
+			printf("Can't open device file: %s\n", DEV_FILE_NAME_W_PATH);
+			DEBUG(LOG_INFO, "Can't open device file: %s\n", DEV_FILE_NAME_W_PATH);
+			return 0;
+		}
+		ret_val = ioctl(file_desc, IOCTL_AG_ARLO_CLIENT_MAC, arlo_mac);
+		close(file_desc);
+		/* Fxconn added end, James Hsu, 04/08/2015, for isolation arlo network */
+	}
+#endif
+	/* Foxconn added end, James Hsu, 03/05/2015 */
 
 	add_simple_option(packet.options, DHCP_LEASE_TIME, htonl(lease_time_align));
 	

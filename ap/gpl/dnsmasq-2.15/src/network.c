@@ -14,6 +14,11 @@
 
 #include "dnsmasq.h"
 
+/* Foxconn added start JamesHsu 08/05/2014 */
+/* dnsmasq interface */
+struct iname *vpn_iface;
+/* Foxconn added end JamesHsu 08/05/2014 */
+
 static struct irec *add_iface(struct daemon *daemon, struct irec *list, char *name, union mysockaddr *addr) 
 {
   struct irec *iface;
@@ -74,6 +79,11 @@ struct irec *enumerate_interfaces(struct daemon *daemon)
   int lastlen = 0;
   int len = 20 * sizeof(struct ifreq);
   int fd = socket(PF_INET, SOCK_DGRAM, 0);
+  
+  /* Foxconn added start, James hsu, 08/05/2014, */
+  /* Note the corrent interface */
+  vpn_iface= daemon->if_names;
+  /* Foxconn added end, James hsu, 08/05/2014, */
   
   if (fd == -1)
     die ("cannot create socket to enumerate interfaces: %s", NULL);
@@ -237,6 +247,14 @@ static int create_ipv6_listener(struct listener **link, int port)
 #ifdef HAVE_SOCKADDR_SA_LEN
   addr.in6.sin6_len = sizeof(struct sockaddr_in6);
 #endif
+
+  /* Foxconn added start, James hsu, 08/05/2014, Dino modified 11/26/2014 */
+  /* when interface = tun ,don't consider ipv6*/
+  if (strncmp(vpn_iface->name, "tun", 3)==0)
+  {
+	return 1;
+  }
+  /* Foxconn added start, James hsu, 08/05/2014, Dino modified 11/26/2014 */
 
   /* No error of the kernel doesn't support IPv6 */
   if ((fd = socket(AF_INET6, SOCK_DGRAM, 0)) == -1)

@@ -64,6 +64,7 @@ all:
 	for i in ${SUBDIRS}; do \
 		(cd $$i; make && make install) || exit 1; \
 	done
+	$(STRIP) $(SRC_PATH)/forked-daapd-0.19/src/forked-daapd; \
 	install -m 755 $(SRC_PATH)/forked-daapd-0.19/src/forked-daapd $(TARGETDIR)/usr/bin
 	install -m 755 $(SRC_PATH)/start_forked-daapd.sh $(TARGETDIR)/usr/bin
 
@@ -113,6 +114,7 @@ distclean:
 
 install:
 	$(STRIP)  $(SRC_PATH)/build/usr/lib/*.so 
+	$(STRIP)  $(SRC_PATH)/build/usr/lib/*.so.*
 	install -m 755 $(SRC_PATH)/build/usr/lib/*.so  $(TARGETDIR)/lib/
 	cp /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/lib/librt* $(TARGETDIR)/lib
 

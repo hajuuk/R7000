@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/mnt/old_186/home/antony/R7000/V1.0.4.12_1.1.48/src/router/squashfs-4.2/lib'
+libdir='/home/antony/R7000/V1.0.5.42_1.1.76/src/router/squashfs-4.2/lib'

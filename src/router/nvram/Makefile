@@ -1,7 +1,7 @@
 #
 # Linux NVRAM Makefile
 #
-# Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+# Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
 # 
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -35,6 +35,9 @@ CFLAGS	+= -DINCLUDE_WDS -DINCLUDE_QOS -DBANDWIDTH_DETECT_17
 
 ifneq ($(PROFILE),) ## R6300v2 || R6250
 CFLAGS  += -DX_ST_ML
+ifeq ($(PROFILE),R7000)
+CFLAGS  += -DHSDPA
+endif
 endif
 
 

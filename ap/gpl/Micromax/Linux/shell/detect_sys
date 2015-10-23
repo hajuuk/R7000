@@ -1,0 +1,14 @@
+#!/bin/sh
+# description: check if system has been started up
+export LANG="en_US.UTF-8"
+export COLUMNS=256
+
+PID=`ps -ef | grep -v grep | grep "USBMode.jar" | awk '{ print $2; exit }'`
+
+if test $PID; then
+  echo "USBModem has been started up"
+	exit 1
+else
+	echo "USBModem is not start up"
+	exit 0
+fi

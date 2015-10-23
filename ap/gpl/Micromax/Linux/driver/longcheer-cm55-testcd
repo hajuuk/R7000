@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Don't eject if flag in place
+if [ -f /etc/udev/longcheer-cm55-zerocd-noeject ]; then
+   exit 1
+fi
+

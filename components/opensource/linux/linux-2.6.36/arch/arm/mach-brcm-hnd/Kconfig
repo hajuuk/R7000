@@ -59,6 +59,10 @@ config XTAL_FREQ
 	default 25000000 if MACH_BRCM_NS
 	default 17594 if MACH_BRCM_NS_QT
 
+config CR4_OFFLOAD
+	bool "CR4 ARM Processor"
+	default n
+
 config	HZ
 	default 2 if MACH_BRCM_NS_QT
 	default 100 if MACH_BRCM_NS

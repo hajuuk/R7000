@@ -444,7 +444,7 @@ static struct inet6_dev * ipv6_add_dev(struct net_device *dev)
 	return ndev;
 }
 
-/*static*/ struct inet6_dev * ipv6_find_idev(struct net_device *dev)
+struct inet6_dev * ipv6_find_idev(struct net_device *dev)
 {
 	struct inet6_dev *idev;
 
@@ -461,6 +461,7 @@ static struct inet6_dev * ipv6_add_dev(struct net_device *dev)
 		ipv6_mc_up(idev);
 	return idev;
 }
+
 EXPORT_SYMBOL(ipv6_find_idev);
 
 #ifdef CONFIG_SYSCTL

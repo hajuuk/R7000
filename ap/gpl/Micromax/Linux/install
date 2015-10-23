@@ -1,0 +1,1094 @@
+#!/bin/bash
+#
+# add test
+# damon install script of pc suite 
+# created by wangxiaoming 20101229
+#
+
+BAKCURRENTPATH=`pwd`
+SOFTWARENAME="MMX353W 3G USB Manager"
+INSTALLWORKPATH="$(dirname "$0")"
+CONFIG_FILE="/etc/lcUSBCard"
+USERDATA_PATH="/usr/local/lcData"
+PPPD_PATH="/usr/local/lcDial"
+#tata
+FULLVERSION=J2.1.17.2
+#3161
+#FULLVERSION=J1.1.6.12
+SOFTWARENAMEINDESKTOP=$SOFTWARENAME
+SOFTWARENAME=$(echo $SOFTWARENAME | sed s\#\ \#_\#g)
+
+INSTALLPATH="/usr/local/${SOFTWARENAME}"
+TEMPWORKPATH="/tmp/${SOFTWARENAME}_$$"
+TEMPFILE="${SOFTWARENAME}_install_$PPID"
+USERinfoDATA_PATH="/usr/local/lcData/${SOFTWARENAME}/data/userdata.xml"
+CHIPTYPE="1"
+DEVICETYPE="0"
+#userinfo overwrite 
+OVERWRITE=1
+#Language String
+LANGUAGESTRING[0]="zh"
+LANGUAGESTRING[1]="en_US"
+LANGUAGECODE[0]=0
+LANGUAGECODE[1]=1
+
+
+LANGCODE=${LANGUAGECODE[1]}
+i=0
+while [ ".${LANGUAGESTRING[${i}]}" != "." ]
+do
+    if [ ${LANGUAGESTRING[${i}]} = "${LANG}" ]
+    then
+        LANGCODE=${LANGUAGECODE[${i}]}
+        break
+    fi
+    i=`expr ${i} + 1`
+done
+unset i
+
+ErrorPara[0]="参数错误"
+ErrorPara[1]="parameter error"
+
+LYouMustBeRoot[0]="您必须以root用户运行本安装程序"
+LYouMustBeRoot[1]="You must run the process by root"
+
+LPlsInputInstallPath[0]="请输入安装的绝对路径"
+LPlsInputInstallPath[1]="Please input the absolute path for install"
+
+LInstallPath[0]="安装路径"
+LInstallPath[1]="install path"
+
+LIllegal[0]="非法"
+LIllegal[1]="illegal"
+
+LNoFile[0]="找不到文件："
+LNoFile[1]="Can not find file: "
+
+LCanNotCreateDir[0]="无法创建目录"
+LCanNotCreateDir[1]="Can not create dir"
+
+LUSBModemInstall[0]="${SOFTWARENAMEINDESKTOP}安装程序"
+LUSBModemInstall[1]="${SOFTWARENAMEINDESKTOP} installer"
+
+LJREInstalled[0]="JRE已经安装过了, 要覆盖安装吗"
+LJREInstalled[1]="JRE have installed before, will want to cover with before version"
+
+LJREInstalling[0]="开始安装JRE, 请稍后..."
+LJREInstalling[1]="Installing JRE..."
+
+LJREInstallComplete[0]="已经完成JRE安装"
+LJREInstallComplete[1]="JRE install have completed"
+
+LStartInstallPartner[0]="开始安装后台, 请稍后..."
+LStartInstallPartner[1]="Installing ${SOFTWARENAMEINDESKTOP}..."
+
+LCompleteInstallPartner[0]="已经完成后台安装"
+LCompleteInstallPartner[1]="install have completed, local path is"
+
+LLocalPath[0]="本地安装路径"
+LLocalPath[1]="Local path is"
+
+LOverwriteInstalled[0]="已经安装有后台, 是否覆盖"
+LOverwriteInstalled[1]="The software is exist. Do you want overwrite it"
+
+LInstallJRE[0]="安装JRE"
+LInstallJRE[1]="install JRE"
+
+LInstallMP[0]="安装后台"
+LInstallMP[1]="install ${SOFTWARENAMEINDESKTOP}"
+
+LInstallAll[0]="安装JRE和后台"
+LInstallAll[1]="install JRE and ${SOFTWARENAMEINDESKTOP}"
+
+LQuitInstall[0]="退出"
+LQuitInstall[1]="Exit"
+
+LPlsSelect[0]="请选择："
+LPlsSelect[1]="Please select: "
+
+LYouMustSelect[0]="你必须选择："
+LYouMustSelect[1]="You must select: "
+
+LInstallEnd[0]="结束, 按任意键退出"
+LInstallEnd[1]="Finished, press any key to exit"
+
+LInstallingVersionOlderThenInstalled[0]="警告：系统中已经有用户数据已经安装过了。是否覆盖？"
+LInstallingVersionOlderThenInstalled[1]="WARNING: There were user data in your system. Do you want to overwrite it"
+
+LInstallingVersionLaterThenInstalled[0]="系统中存在旧版本。是否升级？"
+LInstallingVersionLaterThenInstalled[1]="There is a older version in your system. Do you want to update it"
+
+LInstalledVersion[0]="已安装版本:"
+LInstalledVersion[1]="Installed version:"
+
+LInstallingVersion[0]="正在安装版本:"
+LInstallingVersion[1]="Installing version:"
+
+LProgramRunning[0]="请先关闭程序再进行操作。"
+LProgramRunning[1]="Program is running, you need close it before operate."
+
+LUserdataInstalled[0]="系统中已经有用户数据已经安装过了, 要删除吗？"
+LUserdataInstalled[1]="would you delete user's data?"
+
+LProgramRemoving[0]="确定要卸载程序?"
+LProgramRemoving[1]="are you sure to remove programe?"
+
+LDriverInstalling[0]="正在安装usb驱动"
+LDriverInstalling[1]="Installing usb drivers"
+
+LDriverNoSupport[0]="对不起! usb驱动不支持操作系统"
+LDriverNoSupport[1]="Sorry! the usb-serial driver does not support your linux version"
+
+LDriverInstallErr[0]="对不起! 编译usb驱动出错"
+LDriverInstallErr[1]="Sorry! make usb-serial dirver error"
+
+LDriverUninstalling[0]="正在卸载usb驱动"
+LDriverUninstalling[1]="Uninstall usb drivers"
+
+LDriverUsed[0]="有模块正在使用usb驱动，请先停止"
+LDriverUsed[1]="you must make sure there is no program used this module"
+
+LSelectLanguage[0]="请选择默认语言"
+LSelectLanguage[1]="Select the language for the installation form the choices below."
+
+LPlsChoose[0]="请选择"
+LPlsChoose[0]="Please input number"
+
+
+# /*yes or no 公共函数, yes返回0, no返回1*/
+yes_or_no()
+{
+    if [ ${#} -ne 2 ]
+    then
+        echo -e "yes_or_or: ${ErrorPara[${LANGCODE}]}"
+        return 1
+    fi
+    if [ "${2}" = "Y" ]
+    then
+        DEFPMPT="([Y]/N):\c "
+        DEFVAL="Y"
+    else
+        DEFPMPT="(Y/[N]):\c "
+        DEFVAL="N"
+    fi
+    echo -e "${1} ${DEFPMPT}"
+    read ANS
+    while [ "${ANS}" != "Y" -a "${ANS}" != "y" -a "${ANS}" != "N" -a "${ANS}" != "n" -a ! -z "${ANS}" ]
+    do
+        echo -e "${1} ${DEFPMPT}"
+        read ANS
+    done
+    : ${ANS:="${DEFVAL}"}
+    if [ "${ANS}" != "Y" -a "${ANS}" != "y" ]
+    then
+        unset ANS
+        return 1
+    fi
+    unset ASN
+    return 0
+}
+
+#检查启动安装脚本的用户是否为root用户
+CheckID()
+{
+    if [ `id | awk '{print $1}'` != "uid=0(root)" ]
+    then
+        echo -e "${LYouMustBeRoot[${LANGCODE}]}"
+        echo -e "\n${LInstallEnd[${LANGCODE}]}"
+        read -n 1
+        clear
+        exit
+    fi
+
+    RUNP=`ps -ef |grep -v grep |grep USBModem.jar | grep java |awk '{print $2}'`
+    if [ "x${RUNP}" != "x" ]
+    then
+        echo -e "${LProgramRunning[${LANGCODE}]}"
+        echo -e "\n${LInstallEnd[${LANGCODE}]}"
+        read RESP
+        exit
+    fi
+}
+
+#检查平台类型
+CheckChipType()
+{
+#Icera 1
+#Qualcomm 2
+  CHIPTYPE=${FULLVERSION%%.*}
+  CHIPTYPE=${CHIPTYPE#?}
+  : ${CHIPTYPE:="1"}  
+}
+
+#检查平台类型
+CheckCustomType()
+{
+#0:plateform(HSPA_USB_Modem)
+#1:customize(Onda Connection Manager)
+#2:customize(MTS No Activate)
+#3:customize(MTS Activate)
+#4:customize(7268-ONDA)
+#5:customize(Aircel)
+  DEVICETYPE=${FULLVERSION%.*}
+  DEVICETYPE=${DEVICETYPE##*.}
+  echo "DTX$DEVICETYPE"
+}
+
+#检查相关文件，在硬盘上建立存放安装文件的临时目录，并拷贝安装文件到该目录
+PreInstall()
+{
+    #检查JRE文件
+    if [ ! -f "${INSTALLWORKPATH}"/jre-1_5_0_15-linux-i586.bin ]
+    then
+        echo -e "${LNoFile[${LANGCODE}]}jre-1_5_0_15-linux-i586.bin"
+        exit
+    fi
+    #检查安装包文件
+    if [ ! -f "${INSTALLWORKPATH}"/USBModem.tar.gz ]
+    then
+        echo -e "${LNoFile[${LANGCODE}]}USBModem.tar.gz"
+        exit
+    fi
+    
+    if [ ! -d "${TEMPWORKPATH}" ]
+    then
+        mkdir ${TEMPWORKPATH}
+    fi
+    if [ ! -d "${TEMPWORKPATH}" ]
+    then
+        echo -e "\n${LCanNotCreateDir[${LANGCODE}]}: ${TEMPWORKPATH}"
+        exit
+    fi
+    
+    #拷贝JRE安装文件
+    cp -f "${INSTALLWORKPATH}"/jre-1_5_0_15-linux-i586.bin ${TEMPWORKPATH}
+    chmod a+x ${TEMPWORKPATH}/jre-1_5_0_15-linux-i586.bin
+    
+    #拷贝后台安装文件
+    cp -f "${INSTALLWORKPATH}"/USBModem.tar.gz ${TEMPWORKPATH}
+    
+    if [ -f "${INSTALLWORKPATH}"/data.bin ]
+    then
+        cp -f "${INSTALLWORKPATH}"/data.bin ${TEMPWORKPATH}
+    fi
+
+    #拷贝安装脚本到硬盘上
+    cp -f "${INSTALLWORKPATH}"/install ${TEMPWORKPATH}
+    chmod a+x ${TEMPWORKPATH}/install    
+    
+ 		#check version information
+    if [ -f $CONFIG_FILE ]
+    then
+        #获取版本信息
+        . $CONFIG_FILE
+
+        #获取系统中已经安装的版本号
+        VRVERSIONINSTALLED=`echo $FullVersion`
+        
+        #获取正在安装的版本号
+        VRVERSIONINSTALLING=`echo $FULLVERSION`
+        
+        #打印版本信息
+        #echo "${LInstalledVersion[${LANGCODE}]} ${FullVersion}"
+        #echo "${LInstallingVersion[${LANGCODE}]} ${FULLVERSION}"
+        
+        #检查已经安装的版本是否更新
+        while [ 1 ]
+        do
+            #比较VR版本号，不相同则提示用户覆盖安装
+            if [ "$VRVERSIONINSTALLED" = "$VRVERSIONINSTALLING" ]
+            then
+                InstallDifferentVersionPrompt
+                break
+            fi            
+            
+            #走到这表示所有版本号一致，给出提示是否覆盖
+            InstallSameVersionPrompt
+            break
+        done
+
+        INSTALLPATH=`egrep "^path=" $CONFIG_FILE | awk -F  '=' '{print $2}'`
+        
+    else    
+
+ 
+    	#输入安装目录
+    	echo -e "\n ${LPlsInputInstallPath[${LANGCODE}]}[${INSTALLPATH}]: \c"
+    	read ANS
+    	: ${ANS:="${INSTALLPATH}"}
+    	INSTALLPATH=${ANS}
+        
+    	#检查目录的合法性
+    	if [[ ${INSTALLPATH} != /* ]]
+    	then
+        echo -e "\n${LInstallPath[${LANGCODE}]} ${LIllegal[${LANGCODE}]}"
+        DisplayEndMsg
+        exit
+    	fi
+        
+    	#使安装目录合理化
+    	if [  -d "${INSTALLPATH}" ]
+    	then
+        INSTALLPATH=${INSTALLPATH}/${SOFTWARENAME}
+    	fi    
+    fi
+    
+    #创建安装目录
+    if [ ! -d "${INSTALLPATH}" ]
+    then
+        mkdir ${INSTALLPATH}
+    fi
+    if [ ! -d "${INSTALLPATH}" ]
+    then
+        echo -e "\n${LCanNotCreateDir[${LANGCODE}]}: ${INSTALLPATH}"
+        DisplayEndMsg
+        exit
+    fi
+
+    echo -e "\n${LLocalPath[${LANGCODE}]}: ${INSTALLPATH}"
+}
+
+InstallLaterVersionPrompt()
+{
+    #新版本，提示是否升级	
+    yes_or_no "\n${LInstallingVersionLaterThenInstalled[${LANGCODE}]}?" Y
+    if [ ${?} -ne 0 ]
+    then
+        DisplayEndMsg
+        exit
+    fi
+}
+
+InstallSameVersionPrompt()
+{
+    #如果以前已经安装过后台则提示是否覆盖	
+    yes_or_no "\n${LOverwriteInstalled[${LANGCODE}]}?" Y
+    if [ ${?} -ne 0 ]
+    then
+        DisplayEndMsg
+        exit
+    fi
+}
+
+InstallDifferentVersionPrompt()
+{
+    #如果以前已经安装过后台则提示是否覆盖	
+    yes_or_no "\n${LOverwriteInstalled[${LANGCODE}]}?" Y
+    if [ ${?} -ne 0 ]
+    then
+        DisplayEndMsg
+        exit
+    fi
+}
+
+#安装JRE
+InstallJRE()
+{
+    mkdir -p "${INSTALLPATH}/java"
+    cd "${INSTALLPATH}/java"
+    echo -e -n "\n${LJREInstalling[${LANGCODE}]}"
+    ${TEMPWORKPATH}/jre-1_5_0_15-linux-i586.bin >/dev/null 2>&1 <<!
+Y
+!
+# for jre compatibility
+    sed -i 's/XINERAMA/FAKEEXTN/g' ${INSTALLPATH}/java/jre1.5.0_15/lib/i386/xawt/libmawt.so
+
+    DonePrompt "${LJREInstalling[${LANGCODE}]}"
+
+    #echo -e "\n${LJREInstallComplete[${LANGCODE}]}"
+    
+    return 0
+}
+
+
+#安装后台
+UnpackSoft()
+{
+    echo -e -n "\n${LStartInstallPartner[${LANGCODE}]}"
+    cd "${INSTALLPATH}"
+#在安装路径下解压data.bin
+    if [ -f "${TEMPWORKPATH}"/data.bin ]
+    then
+        tar zxf "${TEMPWORKPATH}"/data.bin >/dev/null 2>&1
+    fi
+#在安装路径下解压缩安装包   
+    tar zxf ${TEMPWORKPATH}/USBModem.tar.gz >/dev/null 2>&1
+    chmod -R a+w "${INSTALLPATH}"/data
+    chmod -R a+w "${INSTALLPATH}"/configure
+    chmod -R a+w "${INSTALLPATH}"/log
+}
+#选择语言
+chooseLanguage()
+{
+if [ "x${DEVICETYPE}" = "x4" ]
+then
+  PRELAN="language_"
+  SOFTLAN=""
+  echo -e -n "\n${LSelectLanguage[${LANGCODE}]} \n"
+	echo -e "(1) English "
+	echo -e "(2) Italian "
+	echo -e "(3) French "
+	echo -e "(4) Arabic "
+	echo -e "(5) Portuguese "
+	echo -e "(6) Russian "
+	echo -e "(7) Romania "
+	echo -e "(8) Albania "
+	echo -e "(9) Dutch"
+	echo -e "(10) Simplified Chinese "
+	echo -e -n "${LPlsChoose[${LANGCODE}]}(1 or 2 or ... or 10):"
+	read LANCHOOSE
+  if [ "x${LANCHOOSE}" = "x1" ]
+  then
+    SOFTLAN="${PRELAN}en.xml"
+  elif [ "x${LANCHOOSE}" = "x2" ]    
+  then
+    SOFTLAN="${PRELAN}it.xml"
+  elif [ "x${LANCHOOSE}" = "x3" ]    
+  then
+    SOFTLAN="${PRELAN}fr.xml"
+  elif [ "x${LANCHOOSE}" = "x4" ]
+  then
+    SOFTLAN="${PRELAN}ar.xml"
+  elif [ "x${LANCHOOSE}" = "x5" ]
+  then
+    SOFTLAN="${PRELAN}pt.xml"
+  elif [ "x${LANCHOOSE}" = "x6" ]
+  then
+    SOFTLAN="${PRELAN}ru.xml"
+  elif [ "x${LANCHOOSE}" = "x7" ]
+  then
+    SOFTLAN="${PRELAN}ro.xml"
+  elif [ "x${LANCHOOSE}" = "x8" ]
+  then
+    SOFTLAN="${PRELAN}sq.xml"
+  elif [ "x${LANCHOOSE}" = "x9" ]
+  then
+    SOFTLAN="${PRELAN}nl.xml"
+  elif [ "x${LANCHOOSE}" = "x10" ]
+  then
+    SOFTLAN="${PRELAN}zh.xml"
+  fi 
+  sed -i "s#\(<language type=\)[^>]*#\1\"${SOFTLAN}\"#g" ${INSTALLPATH}/configure/data/SysCfg.xml
+fi
+}
+
+InstallIceraDriver()
+{
+#install eject drivers 
+#created by wangxiaoming 201012
+#get device type
+#0:plateform(HSPA_USB_Modem)
+#1:customize(Onda Connection Manager)
+#2:customize(MTS No Activate)
+#3:customize(MTS Activate)
+#4:customize(7268-ONDA)  
+#6:customize(3161-platform MMX)  
+  DEVICETYPE=${FULLVERSION%.*}
+  DEVICETYPE=${DEVICETYPE##*.}
+  echo "X$DEVICETYPE"
+  if [ "x${DEVICETYPE}" = "x4" ]
+  then
+    DRIVERDEB="onda-lq-zerocd_0.4-1_all.deb"
+    DRIVERRPM="onda-lq-zerocd-0.4-1.noarch.rpm"
+  else
+   	DRIVERDEB="longcheer-wm65-zerocd_0.4-1_all.deb"
+  	DRIVERRPM="longcheer-wm65-zerocd-0.4-1.noarch.rpm"
+  fi
+# for Ubuntu
+  UBUNTURELEASE=`grep Ubuntu /etc/issue 2>&1 | awk -F ' ' '{printf $1}'`
+  if [ "x${UBUNTURELEASE}" = "xUbuntu" ]
+  then
+  	dpkg -i "$INSTALLPATH"/driver/"${DRIVERDEB}"  >/dev/null  2>&1
+  fi
+    
+# for Debian
+  DEBIANRELEASE=`grep Debian /etc/issue 2>&1 | awk -F ' ' '{printf $1}'`
+  if [ "x${DEBIANRELEASE}" = "xDebian" ]
+  then
+	  dpkg -i "$INSTALLPATH"/driver/"${DRIVERDEB}"  >/dev/null  2>&1
+  fi
+
+# for Fedora
+  DEBIANRELEASE=`grep Fedora /etc/issue 2>&1 | awk -F ' ' '{printf $1}'`
+  if [ "x${DEBIANRELEASE}" = "xFedora" ]
+  then
+	  rpm -ivh "$INSTALLPATH"/driver/"${DRIVERRPM}"  >/dev/null  2>&1
+  fi
+
+# for OpenSuSE
+  if [ -f /etc/SuSE-release ]
+  then
+	  echo "do nothing..."
+  fi
+
+  udevadm control --reload-rules
+  udevadm trigger --subsystem-match="usb"
+}
+InstallLctDriver()
+{
+#安装lctserial usb驱动
+    echo -e -n "\n${LDriverInstalling[${LANGCODE}]}\n"  
+    cd driver
+     chmod a+x install_driver 
+     ./install_driver >/dev/null 2>&1
+     cd ..
+ #   cp -rf $INSTALLPATH/driver/26-longcheer-Datacard.rules /etc/udev/rules.d/26-longcheer-Datacard.rules
+ #   cp -rf $INSTALLPATH/driver/longcheer-cm55-ejectcd /lib/udev/longcheer-cm55-ejectcd
+ #   cp -rf $INSTALLPATH/driver/longcheer-cm55-testcd /lib/udev/longcheer-cm55-testcd
+#Wangchao add 20110614 for zhanghui Shift machine
+ #   cp -rf $INSTALLPATH/driver/lcdoshift /lib/udev/lcdoshift
+ #   cp -rf $INSTALLPATH/driver/load_driver.sh /lib/udev/load_driver.sh
+  
+ #   chmod a+x /lib/udev/lcdoshift
+ #   chmod a+x /lib/udev/load_driver.sh
+    
+ #   chmod a+x /etc/udev/rules.d/26-longcheer-Datacard.rules
+  #  chmod a+x /lib/udev/longcheer-cm55-ejectcd
+ #   chmod a+x /lib/udev/longcheer-cm55-testcd
+
+   # cd ${INSTALLPATH}/driver; make; make install
+   # cd ${INSTALLPATH}/driver/ndis; chmod 777 * -R; ./make_driver.sh >/dev/null 2>&1
+}
+#userinfo add qiaokai
+UserInfo()
+{
+while [ 1 ]
+    do
+ 	echo -e "\n Please your name: \c"
+	read ANS
+	if [ ${#ANS} -le 50 ]
+	then
+	    	if [ "${ANS}" = "" ]
+	   	then
+		    echo -e "\n invalid input! \c"
+	       	    continue
+		fi
+		test=`echo ${ANS} | grep [0-9]`	
+		if [ "${test}" != "" ]	
+		then
+		   echo -e "\n error input! \c" 
+		else
+		   sed -i "s#\(<install_userdata_username_txt>\)[^<]*#\1${ANS}#" ${USERinfoDATA_PATH}
+		   break
+		fi
+	else
+	    echo -e "\n  Length less than 50 \c"
+	fi
+     done
+m="male"
+f="female"
+while [ 1 ]
+    do
+         echo -e "\n Please your gender(male or female): \c"
+	 read ANS
+         if [ "${ANS}" = $m ]
+         then
+            sed -i "s#\(<install_userdata_usergender_txt>\)[^<]*#\1${ANS}#" ${USERinfoDATA_PATH}
+	    break
+         else
+	    if [ "${ANS}" = $f ]
+            then
+               sed -i "s#\(<install_userdata_usergender_txt>\)[^<]*#\1${ANS}#" ${USERinfoDATA_PATH}
+	       break
+	    else
+	       echo -e "\n invalid input! \c"
+            fi
+         fi
+    done
+while [ 1 ]
+    do
+        echo -e "\n Please your age(1~100): \c"
+	read ANS
+	if [ "${ANS}" = "" ]
+   	then
+            echo -e "\n invalid input!1 \c"
+       	    continue
+	fi
+	test=`echo "${ANS}" | grep ^[0-9]*$`
+	if [ "${test}" != "" -o "${ANS}" = "" ]
+	then	
+		if [ "${ANS}" -gt 100 -o "${ANS}" -lt 0 ]
+		then
+		    echo -e "\n ERROR input(1~100)! \c" 
+		    continue
+		fi
+	sed -i "s#\(<install_userdata_userage_txt>\)[^<]*#\1${ANS}#" ${USERinfoDATA_PATH}
+	break
+  	fi
+	echo -e "\n ERROR input! \c"	 			         
+    done
+while [ 1 ]
+    do
+         echo -e "\n Please your mobile: \c"
+	 read ANS
+	 if [ ${#ANS} -le 40 ]
+	 then
+	   if [ "${ANS}" = "" ]
+   	   then
+	     echo -e "\n invalid input! \c"
+       	     continue
+	   fi
+	   test=`echo "${ANS}" | grep ^[0-9]*$`	
+	   if [ "${test}" != "" -o "${ANS}" = "" ]
+	   then
+	     sed -i "s#\(<install_userdata_usermobile_txt>\)[^<]*#\1${ANS}#" ${USERinfoDATA_PATH}	
+	     break
+	   fi
+	     echo -e "\n input error!!! \c"	   			  
+	   else
+	     echo -e "\n  Length less than 40 \c"
+	   fi
+    done
+while [ 1 ]
+    do
+         echo -e "\n Please your email: \c"
+	 read ANS
+	 if [ "${ANS}" = "" ]
+   	 then
+            echo -e "\n invalid input! \c"
+       	    continue
+	 fi
+	 test=`echo "${ANS}" | grep ^[0-9a-zA-Z]*@[0-9a-zA-Z\.]*$`	
+	 if [ "${test}" != "" ]	
+	 then
+	   sed -i "s#\(<install_userdata_useremail_txt>\)[^<]*#\1${ANS}#" ${USERinfoDATA_PATH}
+	   break		  	   
+         else
+	      echo -e "\n input error!!! \c"           
+         fi
+    done
+echo "userinfo finish"
+}
+#根据芯片类型安装不同驱动
+InstallDriver()
+{
+  cp -rf $INSTALLPATH/driver/11-longcheer-Datacard.rules /etc/udev/rules.d/11-longcheer-Datacard.rules
+  chmod a+x /etc/udev/rules.d/11-longcheer-Datacard.rules
+#get chip type
+#Icera 1
+#Qualcomm 2
+  CHIPTYPE=${FULLVERSION%%.*}
+  CHIPTYPE=${CHIPTYPE#?}
+  : ${CHIPTYPE:="1"}  
+  echo "X$CHIPTYPE"
+#1：Icera
+  if [ "x${CHIPTYPE}" = "x1" ]
+  then
+  	InstallIceraDriver
+  fi
+#2：Qualcomm  
+  if [ "x${CHIPTYPE}" = "x2" ]
+  then
+  	InstallLctDriver
+  fi
+  udevadm control --reload-rules
+  udevadm trigger --subsystem-match="usb"
+
+}
+
+InstallActive()
+{    
+#运行自启动安装脚本 modified by wangxiaoming 201012
+    chmod +x ${INSTALLPATH}/active/*
+    ${INSTALLPATH}/active/active_install ${INSTALLPATH} >/dev/null  2>&1
+}
+InstallLibs()
+{    
+#copy相关文件到相应目录
+    #拷贝库文件
+    cp -rf ${INSTALLPATH}/lib/librxtxSerial.so ${INSTALLPATH}/java/jre1.5.0_15/lib/i386
+    cp -rf ${INSTALLPATH}/lib/libjnotify.so ${INSTALLPATH}/java/jre1.5.0_15/lib/i386
+    #拷贝字库配置文件
+    #cp -rf ${INSTALLPATH}/configure/fontconfig/fontconfig.properties ${INSTALLPATH}/java/jre1.5.0_15/lib/
+    cp -rf ${INSTALLPATH}/configure/fontconfig/fontconfig.SuSE.properties ${INSTALLPATH}/java/jre1.5.0_15/lib/
+    cp -rf ${INSTALLPATH}/configure/fontconfig/fonts.dir ${INSTALLPATH}/java/jre1.5.0_15/lib/fonts/
+	if [ -d /usr/share/fonts/wqy-zenhei ]
+    then
+		ln -s /usr/share/fonts/wqy-zenhei   ${INSTALLPATH}/java/jre1.5.0_15/lib/fonts/fallback
+	else
+		if [ ! -d /usr/share/fonts/truetype/arphic ]
+		then
+			mkdir -p /usr/share/fonts/truetype/arphic
+		fi
+		ln -s /usr/share/fonts/truetype/arphic   ${INSTALLPATH}/java/jre1.5.0_15/lib/fonts/fallback
+		#cp -rf ${INSTALLPATH}/configure/fontconfig/wqy-zenhei.ttc ${INSTALLPATH}/java/jre1.5.0_15/lib/fonts/fallback/
+			
+	fi
+    rm -rf ${INSTALLPATH}/configure/fontconfig
+
+    #拷贝拨号相关文件
+    chmod a+x ${INSTALLPATH}/shell/*
+    chmod -R a+w ${INSTALLPATH}/lcDial
+    chmod -R a+x ${INSTALLPATH}/lcDial
+    cp -rf ${INSTALLPATH}/lcDial /usr/local/
+    
+    #拷贝用户数据文件夹
+    if [ ! -d ${USERDATA_PATH} ]
+    then
+        mkdir $USERDATA_PATH
+        mkdir ${USERDATA_PATH}/${SOFTWARENAME}
+        cp -rf ${INSTALLPATH}/data ${USERDATA_PATH}/${SOFTWARENAME}
+        chmod -R a+w ${USERDATA_PATH}
+        chmod -R a+r ${USERDATA_PATH}
+    else
+        #没有用户数据，创建之
+        if [ ! -d ${USERDATA_PATH}/${SOFTWARENAME} ]
+        then
+            mkdir ${USERDATA_PATH}/${SOFTWARENAME}
+            cp -rf ${INSTALLPATH}/data ${USERDATA_PATH}/${SOFTWARENAME}
+            chmod -R a+w ${USERDATA_PATH}
+            chmod -R a+r ${USERDATA_PATH}
+        else
+            #如果有以前的用户数据，提示是否覆盖
+            yes_or_no "\n${LInstallingVersionOlderThenInstalled[${LANGCODE}]}?" Y
+            if [ ${?} -ne 1 ]
+            then
+#  add by qiao to overwrite old data files.
+			  rm -rf ${USERDATA_PATH}/${SOFTWARENAME}/*
+              cp -rf ${INSTALLPATH}/data ${USERDATA_PATH}/${SOFTWARENAME}
+              chmod -R a+w ${USERDATA_PATH}
+              chmod -R a+r ${USERDATA_PATH}
+	    else
+		OVERWRITE=2;
+            fi
+        fi
+    fi
+    
+    #拷贝JRE到UpdateInstall下，用于在线升级
+    #cp -rf "${INSTALLPATH}/java" "${INSTALLPATH}/lib/UpdateInstall"
+ }
+ InstallDesktop()
+ {   
+    #修改sudoers文件
+     #修改sudoers文件
+    grep -v "USBModem.sh" /etc/sudoers >/tmp/${TEMPFILE} 2>&1
+    DELETECOMMENT="delete requiretty for USBModem"
+    REQUIRETTY=`grep "${DELETECOMMENT}" /tmp/${TEMPFILE}`
+    if [ "x${REQUIRETTY}" != "x" ]
+    then
+        REQUIRETTY=`echo "${REQUIRETTY}" | awk -F ',' '{printf $2}'` 
+    else
+        REQUIRETTY=`grep "requiretty" /tmp/${TEMPFILE}`
+        if [ "x${REQUIRETTY}" != "x" ]
+        then
+            sed -i "s/${REQUIRETTY}/# ,${REQUIRETTY},${DELETECOMMENT}/g" /tmp/${TEMPFILE} 2>/dev/null
+        fi
+    fi    
+    echo -e "ALL ALL=(ALL) NOPASSWD:${INSTALLPATH}/USBModem.sh" >> /tmp/${TEMPFILE}    
+
+    cp -f /tmp/${TEMPFILE} /etc/sudoers
+    
+
+#编辑并创建桌面启动图标和开始菜单启动图标   
+    sed "s#\${LC_SOFTWARENAME}#${SOFTWARENAMEINDESKTOP}#g" ${INSTALLPATH}/USBModem.desktop > /tmp/${TEMPFILE} 2>/dev/null
+    sed "s#\${LC_INSTALLPATH}#${INSTALLPATH}#g" /tmp/${TEMPFILE} > ${INSTALLPATH}/USBModem.desktop 2>/dev/null
+    if [ -d /root/Desktop ]
+    then
+        cp -f ${INSTALLPATH}/USBModem.desktop /root/Desktop
+		chmod u+x /root/Desktop/USBModem.desktop      
+    else
+        cp -f ${INSTALLPATH}/USBModem.desktop /root
+    fi  
+    cp -f ${INSTALLPATH}/USBModem.desktop /usr/share/applications
+    
+#编辑并创建开始菜单卸载图标  
+    sed "s#\${LC_SOFTWARENAME}#${SOFTWARENAMEINDESKTOP}#g" ${INSTALLPATH}/UninstallUSBModem.desktop > /tmp/${TEMPFILE} 2>/dev/null
+    sed "s#\${LC_INSTALLPATH}#${INSTALLPATH}#g" /tmp/${TEMPFILE} > ${INSTALLPATH}/UninstallUSBModem.desktop 2>/dev/null  
+    
+    cp -f ${INSTALLPATH}/UninstallUSBModem.desktop /usr/share/applications
+    
+#10.04中需要修改desktop.en_US.utf8.cache
+    cp ${INSTALLPATH}/USBModem.desktop /tmp/USBModem.desktop.tmp
+    cp ${INSTALLPATH}/UninstallUSBModem.desktop /tmp/UninstallUSBModem.desktop.tmp
+    
+    SOFTNAME=`grep "Exec=" /tmp/USBModem.desktop.tmp | awk -F '/' '{print $NF}'`
+    UNINNAME=`grep "Exec=" /tmp/UninstallUSBModem.desktop.tmp | awk -F '/' '{print $NF}'`
+    CACHENAME=`echo $LANG`
+    CACHENAME="/usr/share/applications/desktop.$CACHENAME.cache"
+    if [ -f $CACHENAME ];then    
+      sed -i '/#cachebegin/,/#cacheend/d' $CACHENAME
+      
+	    sed -i "s#Desktop Entry#$SOFTNAME#" /tmp/USBModem.desktop.tmp
+	    sed -i "/Comment\[en\]/d" /tmp/USBModem.desktop.tmp
+	    sed -i "/Name\[en\]/d" /tmp/USBModem.desktop.tmp
+	    sed -i "/Encoding/d" /tmp/USBModem.desktop.tmp
+	    sed -i "/Path/d" /tmp/USBModem.desktop.tmp
+	    
+	    sed -i "s#Desktop Entry#$UNINNAME#" /tmp/UninstallUSBModem.desktop.tmp
+	    sed -i "/Comment\[en\]/d" /tmp/UninstallUSBModem.desktop.tmp
+	    sed -i "/Name\[en\]/d" /tmp/UninstallUSBModem.desktop.tmp
+	    sed -i "/Encoding/d" /tmp/UninstallUSBModem.desktop.tmp
+	    sed -i "/Path/d" /tmp/UninstallUSBModem.desktop.tmp
+	    
+	    echo "#cachebegin" >> $CACHENAME
+	    cat /tmp/USBModem.desktop.tmp >> $CACHENAME
+	    echo " " >> $CACHENAME
+	    cat /tmp/UninstallUSBModem.desktop.tmp >> $CACHENAME
+	    echo "#cacheend" >> $CACHENAME
+    fi
+
+
+    
+#编辑并创建运行脚本
+    echo -e "#!/bin/bash" > ${INSTALLPATH}/USBModem.sh
+
+# for Ubuntu
+    UBUNTURELEASE=`grep Ubuntu /etc/issue 2>&1 | awk -F ' ' '{printf $1}'`
+    if [ "x${UBUNTURELEASE}" = "xUbuntu" ]
+    then
+        if [ ! -d /usr/share/fonts/truetype/arphic ]
+	then
+            mkdir -p /usr/share/fonts/truetype/arphic
+            
+        #    if [ ! -f /usr/share/fonts/truetype/arphic/wqy-zenhei.ttc ]
+         #   then
+         #  	 cp -rf ${INSTALLPATH}/configure/fontconfig/wqy-zenhei.ttc /usr/share/fonts/truetype/arphic
+         #   fi
+	fi
+	
+        if [ ! -d ${INSTALLPATH}/java/jre1.5.0_15/lib/fonts/fallback ]
+	then
+        	ln -s /usr/share/fonts/truetype/arphic ${INSTALLPATH}/java/jre1.5.0_15/lib/fonts/fallback
+        fi
+        echo -e "export AWT_TOOLKIT=\"MToolkit\"" >> ${INSTALLPATH}/USBModem.sh
+ #   else
+  #      sed -i "s/export AWT_TOOLKIT=\"MToolkit\"//g" ${INSTALLPATH}/lib/UpdateInstall/install
+    fi
+    
+# for Debian
+    DEBIANRELEASE=`grep Debian /etc/issue 2>&1 | awk -F ' ' '{printf $1}'`
+    if [ "x${DEBIANRELEASE}" = "xDebian" ]
+    then
+        if [ ! -d /usr/share/fonts/truetype/arphic ]
+	then
+            mkdir -p /usr/share/fonts/truetype/arphic
+       #     if [ ! -f /usr/share/fonts/truetype/arphic/wqy-zenhei.ttc ]
+       #     then
+        #   	 cp -rf ${INSTALLPATH}/configure/fontconfig/wqy-zenhei.ttc /usr/share/fonts/truetype/arphic
+       #     fi
+	fi
+	
+	if [ ! -d ${INSTALLPATH}/java/jre1.5.0_15/lib/fonts/fallback ]
+	then
+        	ln -s /usr/share/fonts/truetype/arphic ${INSTALLPATH}/java/jre1.5.0_15/lib/fonts/fallback
+        fi
+    fi
+
+# for OpenSuSE
+    if [ -f /etc/SuSE-release ]
+    then
+        if [ ! -d /usr/share/fonts/truetype ]
+	then
+             mkdir -p /usr/share/fonts/truetype
+       #      if [ ! -f /usr/share/fonts/truetype/wqy-zenhei.ttc ]
+       #      then
+      #     	 cp -rf ${INSTALLPATH}/configure/fontconfig/wqy-zenhei.ttc /usr/share/fonts/truetype/
+       #      fi
+	fi
+	if [ ! -d ${INSTALLPATH}/java/jre1.5.0_15/lib/fonts/fallback ]
+	then
+        	ln -s /usr/share/fonts/truetype ${INSTALLPATH}/java/jre1.5.0_15/lib/fonts/fallback
+        fi
+        
+        echo -e "export DISPLAY=:0" >> ${INSTALLPATH}/USBModem.sh
+    fi
+
+# for jre compatibility
+    echo -e "export LIBXCB_ALLOW_SLOPPY_LOCK=1" >> ${INSTALLPATH}/USBModem.sh
+
+    echo -e "export JAVA_HOME=${INSTALLPATH}/java/jre1.5.0_15" >> ${INSTALLPATH}/USBModem.sh
+    echo -e "export CLASSPATH=${INSTALLPATH}/java/jre1.5.0_15/lib:." >> ${INSTALLPATH}/USBModem.sh
+
+    echo -e "APPDIR=${INSTALLPATH}" >> ${INSTALLPATH}/USBModem.sh
+    echo -e "cd \${APPDIR}" >> ${INSTALLPATH}/USBModem.sh
+    echo -e "\${APPDIR}/java/jre1.5.0_15/bin/java -Djava.library.path=\${APPDIR}/lib -jar USBModem.jar &" >> ${INSTALLPATH}/USBModem.sh
+    chmod +x ${INSTALLPATH}/USBModem.sh
+    chmod a+x ${INSTALLPATH}/USBModem
+}
+UpdateUninstallShell()
+{        
+#编辑并创建卸载脚本
+    sed -i "s/{LYouMustBeRoot}/${LYouMustBeRoot[${LANGCODE}]}/g" ${INSTALLPATH}/UninstallUSBModem
+    sed -i "s/{LInstallEnd}/${LInstallEnd[${LANGCODE}]}/g" ${INSTALLPATH}/UninstallUSBModem
+    sed -i "s/{LProgramRunning}/${LProgramRunning[${LANGCODE}]}/g" ${INSTALLPATH}/UninstallUSBModem
+    sed -i "s#{INSTALLPATH}#${INSTALLPATH}#g" ${INSTALLPATH}/UninstallUSBModem
+    sed -i "s#{CONFIG_FILE}#${CONFIG_FILE}#g" ${INSTALLPATH}/UninstallUSBModem
+    sed -i "s#{CHIPTYPE}#${CHIPTYPE}#g" ${INSTALLPATH}/UninstallUSBModem
+    sed -i "s#{DEVICETYPE}#${DEVICETYPE}#g" ${INSTALLPATH}/UninstallUSBModem
+    
+    sed -i "s/{ErrorPara}/${ErrorPara[${LANGCODE}]}/g" ${INSTALLPATH}/UninstallUSBModem
+    sed -i "s#{USERDATA_PATH}#${USERDATA_PATH}#g" ${INSTALLPATH}/UninstallUSBModem
+    sed -i "s/{LUserdataInstalled}/${LUserdataInstalled[${LANGCODE}]}/g" ${INSTALLPATH}/UninstallUSBModem
+    sed -i "s/{LProgramRemoving}/${LProgramRemoving[${LANGCODE}]}/g" ${INSTALLPATH}/UninstallUSBModem    
+    sed -i "s/{LDriverUninstalling}/${LDriverUninstalling[${LANGCODE}]}/g" ${INSTALLPATH}/UninstallUSBModem    
+    sed -i "s/{LDriverUsed}/${LDriverUsed[${LANGCODE}]}/g" ${INSTALLPATH}/UninstallUSBModem    
+
+    
+    if [ "x${REQUIRETTY}" != "x" ]
+    then
+        sed -i "s/{REQUIRETTY}/${REQUIRETTY}/g" ${INSTALLPATH}/UninstallUSBModem
+	sed -i "s/{DELETECOMMENT}/${DELETECOMMENT}/g" ${INSTALLPATH}/UninstallUSBModem
+    else
+        grep -v {REQUIRETTY} ${INSTALLPATH}/UninstallUSBModem > /tmp/${TEMPFILE}
+	cp -f /tmp/${TEMPFILE} ${INSTALLPATH}/UninstallUSBModem
+    fi
+    
+    chmod +x ${INSTALLPATH}/UninstallUSBModem
+    
+    DonePrompt "${LStartInstallPartner[${LANGCODE}]}"
+
+    #echo -e "\n${SOFTWARENAMEINDESKTOP} ${LCompleteInstallPartner[${LANGCODE}]} ${INSTALLPATH}"
+}
+RmTmpfile()
+{
+    #清除本地文件
+    rm -rf ${INSTALLPATH}/data
+    rm -rf ${INSTALLPATH}/lcDial
+    rm -rf ${INSTALLPATH}/*.desktop
+
+    rm -f /tmp/${TEMPFILE}
+    rm -rf ${TEMPWORKPATH}
+    rm -rf /tmp/USBModem.desktop.tmp
+    rm -rf /tmp/UninstallUSBModem.desktop.tmp
+}
+
+DonePrompt()
+{
+    LOGCHARNUM=`echo "$1" | wc -m`
+    TERMCHARNUM=`stty size | awk -F ' ' '{printf $2}'`
+    LOGCHARNUM=`expr $TERMCHARNUM - $LOGCHARNUM`
+    echo "[ done ] " | awk '{printf "%"'"$LOGCHARNUM"'"s", $0}'
+    echo -e ""
+}
+
+
+# /*提供选择语言*/
+SelectLanguage()
+{
+    while :
+    do
+        case ${LANGCODE} in
+            0)
+                echo -e "\n\t1. 简体中文"
+                echo -e "\t2. 英文"
+                echo -e "\n\t请选择语言: [1]\c"
+                read RESP
+                : ${RESP:="1"}
+            ;;
+            *)
+                echo -e "\n\t1. Simplified Chinese"
+                echo -e "\t2. English"
+                echo -e "\n\tPlease select Language: [2]\c"
+                read RESP
+                : ${RESP:="2"}
+            ;;
+        esac
+        case ${RESP} in
+            [1,2])
+                LANGCODE=`expr ${RESP} - 1`
+                return ${LANGCODE}
+            ;;
+            *)
+                case ${LANGCODE} in
+                    0)
+                        echo -e - "\n\t你必须选择: 1, 2\n"
+                    ;;
+                    *)
+                        echo -e "\n\tPlease select: 1, 2\n"
+                    ;;
+                esac
+            ;;
+        esac
+    done
+}
+
+# /*显示程序启动时的信息*/
+DisplayStartMsg()
+{
+    clear
+}
+
+# /*显示程序结束时的信息*/
+DisplayEndMsg()
+{
+    cd "${BAKCURRENTPATH}"
+    rm -rf "${TEMPWORKPATH}"
+    echo -e "\n${LInstallEnd[${LANGCODE}]}"
+    read -n 1
+    clear
+}
+
+
+
+GenConfigFile()
+{
+    cd $INSTALLPATH
+    echo "path=$INSTALLPATH"               > $CONFIG_FILE
+    echo "name=USBModem"              >> $CONFIG_FILE
+    echo "Exec=$INSTALLPATH/USBModem" >> $CONFIG_FILE
+    echo "FullVersion=$FULLVERSION" >> $CONFIG_FILE
+    
+}
+
+
+
+clear
+CheckID
+CheckCustomType
+#SelectLanguage
+:>"$INSTALLPATH/lib/UpdateInstall/inputLog.txt"
+DisplayStartMsg
+#当让用户选择安装时，如下部分代码到应该放到while循环中
+PreInstall
+InstallJRE
+UnpackSoft
+chooseLanguage
+InstallLibs
+InstallDesktop
+GenConfigFile
+InstallActive
+InstallDriver
+#determine whether the custom
+if [ -f $INSTALLPATH/configure/data/settingTreeConfig.xml ] 
+then 
+	userdata=`cat $INSTALLPATH/configure/data/settingTreeConfig.xml | grep setting_tree_userdata_root | awk -F ' ' '{print $5}' | awk -F '\"' '{print $2}'`
+	if [ "${userdata}" = "true" ]
+	then
+	    if [ ${OVERWRITE} -eq 1 ]
+	    then
+		 UserInfo	   
+	    fi
+	fi
+fi
+UpdateUninstallShell
+RmTmpfile
+echo "Download Programs finished!" > "$INSTALLPATH/lib/UpdateInstall/inputLog.txt"
+DisplayEndMsg
+exit 0
+
+#不让用户选择安装，如下代码无效
+while :
+do
+    echo -e - "***\t\t${LUSBModemInstall[${LANGCODE}]}\t\t***\n"
+    echo -e - "${LPlsSelect[${LANGCODE}]}\n"
+    echo -e - "\t1) ${LInstallMP[${LANGCODE}]}"
+    echo -e - "\t0) ${LQuitInstall[${LANGCODE}]}\n"
+    echo -e - "Choice: [0]\c"
+    read RESP
+    : ${RESP:="0"}
+    case ${RESP} in
+        1)
+             PreInstall
+             InstallJRE
+             InstallUSBModem
+             GenConfigFile
+        ;;
+        0)
+            DisplayEndMsg
+            exit 0
+        ;;
+        *)
+            echo -e - "${LYouMustSelect[${LANGCODE}]}1, 0"
+        ;;
+    esac
+done

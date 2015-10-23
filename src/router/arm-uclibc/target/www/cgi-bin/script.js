@@ -378,6 +378,77 @@ function ap_mode_ungrayout()
     });
 }
 
+function extender_mode_grayout()
+{
+    if(parent.$("#basic-int").hasClass("basic-menu-div")){
+        parent.$("#basic-int").addClass('basic-menu-div-gray');
+        parent.$("#basic-int").removeClass('basic-menu-div');
+    }    
+    if(parent.$("#basic-gst").hasClass("basic-menu-div")){
+        parent.$("#basic-gst").addClass('basic-menu-div-gray');
+        parent.$("#basic-gst").removeClass('basic-menu-div');
+    }        
+
+    if(parent.$('#wizard').hasClass('noSubLarge')){
+        parent.$('#wizard').addClass('noSubGrayLarge');
+        parent.$('#wizard').removeClass('noSub');
+        parent.$('#wizard').removeClass('noSubLarge');
+    } else if(parent.$('#wizard').hasClass('noSub')){
+        parent.$('#wizard').addClass('noSubGray');
+        parent.$('#wizard').removeClass('noSub');
+        parent.$('#wizard').removeClass('noSubLarge');
+    } 
+
+    parent.$('.SubMenuWDS').each(function(){                
+        if($(this).hasClass('SubMenuEXT')){
+            /* do nothing */
+        }
+        else if($(this).hasClass('SubMenuLarge')){
+            $(this).addClass('SubMenuLargeDisable');
+            $(this).removeClass('SubMenu');
+            $(this).removeClass('Large');
+            $(this).removeClass('SubMenuLarge');
+        }                
+        else if($(this).hasClass('SubMenu')){ 
+            $(this).addClass('SubMenuDisable');
+            $(this).removeClass('SubMenu');
+        }
+    }); 
+}
+
+function extender_mode_ungrayout()
+{
+    if(parent.$("#basic-int").hasClass("basic-menu-div-gray")){
+        parent.$("#basic-int").addClass('basic-menu-div');
+        parent.$("#basic-int").removeClass('basic-menu-div-gray');
+    } 
+    if(parent.$("#basic-gst").hasClass("basic-menu-div-gray")){
+        parent.$("#basic-gst").addClass('basic-menu-div');
+        parent.$("#basic-gst").removeClass('basic-menu-div-gray');
+    } 
+
+    if(parent.$('#wizard').hasClass('noSubGrayLarge')){
+        parent.$('#wizard').addClass('noSubLarge');
+        parent.$('#wizard').removeClass('noSubGrayLarge');
+    } else if(parent.$('#wizard').hasClass('noSubGray')){
+        parent.$('#wizard').addClass('noSub');
+        parent.$('#wizard').removeClass('noSubGray');
+    } 
+    
+    parent.$('.SubMenuWDS').each(function(){
+        if($(this).hasClass('SubMenuLargeDisable')){
+            $(this).addClass('SubMenuLarge');
+            $(this).addClass('SubMenu');
+            $(this).addClass('Large');
+            $(this).removeClass('SubMenuLargeDisable');
+        }
+        else if($(this).hasClass('SubMenuDisable')){
+            $(this).addClass('SubMenu');
+            $(this).removeClass('SubMenuDisable');
+        }
+    });
+}
+
 function highLightMenu(title, subtitle)
 {
     if(parent.load_page == 1 || !parent.load_page)
@@ -427,30 +498,40 @@ function change_size()
     var min_height = $('.scroll-pane').css("height");
     min_height = min_height.replace("px", "");
          
-
+		 
+		 
     var width = document.documentElement.clientWidth > 620 ? document.documentElement.clientWidth : 620;
     var height = document.documentElement.clientHeight > min_height ? document.documentElement.clientHeight : min_height;
 
     $('.subtop-image').css("width", width);
-    $('.subtop-image').css("height", "32px");
+    if(sep_border2_num==1) {
+        $('.subtop-image').css("height", "12px");
+    } else
+        $('.subtop-image').css("height", "32px");
+    
     
     $('.body-image').css("width", width);
-    $('.body-image').css("height", height-30);
     $('.body-image').css("position", "absolute");
-    $('.body-image').css("top", 5);
+	if(sep_border2_num==1) {
+		$('.body-image').css("height", height-30);
+		$('.body-image').css("top", 0);
+	} else {
+		$('.body-image').css("height", height-30);
+		$('.body-image').css("top", 5);
+	}
     
     $('.subfooter-image').css("width", width);
     $('.subfooter-image').css("height", "24px");   
     $('.subfooter-image').css("position", "relative");
 	if(sep_border2_num==1) {
-		$('.subfooter-image').css("top", 27);  
-		$('.subhead2-bottom').css("top", 0); 
+            $('.subfooter-image').css("top", 30);   
+            $('.subhead2-table').css("position", "relative");
+            $('.subhead2-table').css("top", 30);
 	} else {
-		$('.subfooter-image').css("top", -3);    
+            $('.subfooter-image').css("top", -3);  
+            $('.subhead2-table').css("position", "relative");
+            $('.subhead2-table').css("top", -3);  
 	}
-    
-    $('.subhead2-table').css("position", "relative");
-    $('.subhead2-table').css("top", -3);
     
     if(get_browser()=="Netscape") 
         $('.subhead2-table').css("left", 1);
@@ -464,15 +545,18 @@ function change_size()
         $('.subhead2-table').css("height", height-120);
         $('.scroll-pane').css("height", height-120);    
 	} else if(sep_border2_num==1) {
-		//$('full-page-container').css("height", height-157);
-        $('.subhead2-table').css("height", height-187);
-        $('.scroll-pane').css("height", height-187);  
+        $('.subhead2-table').css("height", height-155);
+        $('.scroll-pane').css("height", height-155);  
     } else {
         $('.subhead2-table').css("height", height-75);
         $('.scroll-pane').css("height", height-75);        
     }
     
     $('.subhead2-bottom').css("width", width);
+    if(sep_border2_num==1) {
+        $('.subhead2-bottom').css("position", "relative");
+        $('.subhead2-bottom').css("top", 3);
+    }
     
     $('.button-help-arrow').css("position", "absolute");
     $('.button-help-arrow').css("left", width/2);
@@ -481,12 +565,22 @@ function change_size()
     $('.bas-help-frame-div').css("width", width-50); 
     $('.help-frame-div').css("width", width-50); 
     if(get_browser()=="Firefox"|| get_browser()=="Netscape") { 
-        $('.bas-help-frame-div').css("top", height-225);
-        $('.help-frame-div').css("top", height-225);
+        if(sep_border2_num==1) {
+            $('.bas-help-frame-div').css("top", height-239);
+            $('.help-frame-div').css("top", height-239);
+	} else {        
+	    $('.bas-help-frame-div').css("top", height-225);
+            $('.help-frame-div').css("top", height-225);
+	}
     }    
     else {
-        $('.bas-help-frame-div').css("top", height-230);
-        $('.help-frame-div').css("top", height-230);
+        if(sep_border2_num==1) {
+            $('.bas-help-frame-div').css("top", height-244);
+            $('.help-frame-div').css("top", height-244);
+	} else {            
+	    $('.bas-help-frame-div').css("top", height-230);
+            $('.help-frame-div').css("top", height-230);
+	}
     }
         
     $('#helpframe').css("width", width-50);
@@ -717,11 +811,11 @@ function subpage_resize()
     if(!is_double) {
         $('.container_center').css("width", document.body.clientWidth-40 > 925 ? document.body.clientWidth-40 : 925);
 		if(get_browser()=="Netscape" || get_browser()=="Firefox")
-			$('.container_center').css("top", document.body.scrollHeight >  670+adjustPageHeight ? document.body.scrollHeight :  670+adjustPageHeight); 
+			$('.container_center').css("top", document.body.scrollHeight >  700+adjustPageHeight ? document.body.scrollHeight :  700+adjustPageHeight); 
 		else if(get_browser()=="IE")
-			$('.container_center').css("top", document.documentElement.clientHeight >  670+adjustPageHeight ? document.documentElement.clientHeight :  670+adjustPageHeight); 
+			$('.container_center').css("top", document.documentElement.clientHeight >  700+adjustPageHeight ? document.documentElement.clientHeight :  700+adjustPageHeight); 
 		else
-			$('.container_center').css("top", document.documentElement.scrollHeight >  670+adjustPageHeight ? document.documentElement.scrollHeight :  670+adjustPageHeight); 
+			$('.container_center').css("top", document.documentElement.scrollHeight >  700+adjustPageHeight ? document.documentElement.scrollHeight :  700+adjustPageHeight); 
 
     //$('#adv_settings_header').css("overflow-x":"hidden","overflow-y":"auto","overflow":"-moz-scrollbars-vertical !important");
     } else{
@@ -773,7 +867,7 @@ function detectEnter(type, e)
 function detectOS() 
 {   // detect the system type of user computer
     var sUserAgent = navigator.userAgent;  
-    var isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows");  
+    var isWin = (navigator.platform == "Win32") || (navigator.platform == "Win64") || (navigator.platform == "Windows");  
     var isMac = (navigator.platform == "Mac68K") || (navigator.platform == "MacPPC") || (navigator.platform == "Macintosh") || (navigator.platform == "MacIntel");  
     if (isMac) return "Mac";  
     var isUnix = (navigator.platform == "X11") && !isWin && !isMac;  
@@ -789,3 +883,18 @@ function detectOS()
     return "None";  
 }
 
+function goto_wireless()
+{
+	var cf = document.forms[0];
+	
+	if(cf.pre_mode.value=="extender")
+		parent.loadPage2("ap_settings.html");
+	else
+		parent.loadPage2("WLG_wireless_dual_band_r10.htm");
+}
+
+function goto_internet()
+{
+	parent.loadPage2("BAS_basic.htm");
+}	
+	

@@ -1,7 +1,7 @@
 #
 # Makefile for Broadcom BCM947XX boards
 #
-# Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+# Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
 # 
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-# $Id: Makefile 346209 2012-07-20 13:15:28Z $
+# $Id: Makefile 446282 2014-01-03 10:15:55Z $
 #
 
 # Default mips
@@ -63,9 +63,9 @@ CFLAGS		+= -ffunction-sections $(call check_gcc, -fvtable-gc, )
 SYSTEM		?= $(LINUXDIR)/vmlinux
 
 # Note: siutils.o appeared seperately on purpose to solve post reference problem of GCC
-OBJS-mips = boot.o sisdram.o sbsdram.o aisdram.o hndmips.o sbutils.o aiutils.o siutils.o nicpci.o
+OBJS-mips = boot.o sisdram.o sbsdram.o aisdram.o hndmips.o sbutils.o aiutils.o siutils.o nicpci.o pcie_core.o
 # We should not compile sbutils.o but need add more compile directive in siutils.c
-OBJS-arm = bootarm.o  aisdram_ca9.o siutils.o hndarm_ca9.o pcieinit_ca9.o sbutils.o aiutils.o nicpci.o
+OBJS-arm = bootarm.o  aisdram_ca9.o siutils.o hndarm_ca9.o pcieinit_ca9.o sbutils.o aiutils.o nicpci.o pcie_core.o
 OBJECTS := $(OBJS-$(ARCH))
 OBJECTS += load.o hndchipc.o hndpmu.o min_osl.o bcmutils.o \
 	   bcmstdlib.o sromstubs.o nvramstubs.o

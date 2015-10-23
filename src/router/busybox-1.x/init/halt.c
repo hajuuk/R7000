@@ -52,7 +52,11 @@ RB_AUTOBOOT
 			rc = kill(1, signals[which]);
 	} else {
 #ifdef __CONFIG_USBAP__
-		rc = kill(1, signals[which]);
+//		rc = kill(1, signals[which]);
+    /* Modify by Foxconn Start 2015/02/02 start reboot forcely, or sometimes
+ *     the some process will write the nvram back to nflash */
+		rc = reboot(magic[which]);
+    /* Modify by Foxconn end 2015/02/02 end */
 #else
 		rc = reboot(magic[which]);
 #endif

@@ -1,0 +1,4 @@
+- Cleartext passwords should be erased as soon as they are no longer
+needed.
+
+- Should be using libedit, not readline.

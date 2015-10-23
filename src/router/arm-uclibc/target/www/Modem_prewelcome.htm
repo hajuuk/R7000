@@ -1,0 +1,64 @@
+<html>
+<head>
+<%11%>
+<title><%3150%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<%14%>
+<script language="JavaScript" type="text/javascript">
+<!--
+function selectEdit(value)
+{
+	if (value == 0)
+	    document.forms[0].select.value = 0;
+	else if (value == 1)
+		document.forms[0].select.value = 1;
+}
+
+function CloseWindow()
+{
+ top.window.opener=null;
+ top.window.close();
+}
+
+function msg_close()
+{
+ alert("<%3151%>");
+ CloseWindow();
+}
+function skip_fun()
+{
+selectEdit(1);
+return true;
+}
+-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0">
+<form name="smart_dns" action="usb_preinit.cgi" method="POST">
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+  <tr>
+   <td valign="top" align="center">
+     <h1><br><%3390%></h1>
+   </td>
+  </tr>
+  <tr>
+	<td background="liteblue.gif" height="12"> &nbsp;</td>
+ </tr>
+  <tr>
+  <td align="center">
+     <p><ul><%3391%></ul></p>
+  </td>
+  </tr>
+  
+  <tr>
+	<td background="liteblue.gif" height="12"> &nbsp;</td>
+ </tr>
+  <tr><td align="center">
+    <input type="submit" name="next" value="<%1556%>"></td>
+  </tr>
+</table>
+<input type="hidden" name="select" value="4"> 
+</form>
+</BODY>
+</HTML>
+

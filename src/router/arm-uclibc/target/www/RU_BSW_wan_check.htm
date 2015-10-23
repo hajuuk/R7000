@@ -1,0 +1,53 @@
+<html>
+<head>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<script language=javascript type=text/javascript>
+var objFrame,loadingImg;
+
+function updateProgress()
+{
+	loadingImg = new Image();
+    loadingImg.src = "loading.gif";
+    objFrame  =document.getElementById("loading");
+    objFrame.src = loadingImg.src; 
+    setTimeout("dosubmit();",1500);
+
+}
+function dosubmit()
+{
+    document.forms[0].submit();
+    setTimeout("load_rufailredirect();",50000);
+}
+
+function load_rufailredirect()
+{
+    location.href="RU_fail_redirect.htm";
+}
+
+</script>
+</head>
+<body bgcolor="#ffffff" onLoad="updateProgress()">
+<form method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_BSW_wan_check">
+<input type=hidden name=submit_flag value="final_check">
+<input type=hidden name=submit_wan value="0">
+<table align="center" style="width:76%">
+
+<tr style="height:50px"><td></td></tr>
+
+<tr><td class="center_text"><h2><%2373%></h2></td></tr>
+    
+<tr style="height:40px"><td>&nbsp;</td></tr>
+
+<div>
+
+<tr><td style="text-align:center;line-height:20%;"><img id="loading" frameborder="0" border="0" ></td></tr>
+
+</div>
+
+</table>
+</form>
+</body>
+</html>

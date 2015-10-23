@@ -1,0 +1,131 @@
+#!/bin/sh
+
+STAGE=$1
+
+print_syntax() {
+    echo "	proper syntax is \"${0} <stage>\", where <stage> is one of the following: dev, firmware-dev, integration"
+    return 0
+}
+
+
+load_xagent_dev_urls() {
+    nvram set x_discovery_url="https://presence.dev.ngxcld.com/presence/presence"
+    nvram set x_register_url="https://registration.dev.ngxcld.com/registration/register"
+    nvram set x_claimed_url="https://registration.dev.ngxcld.com/registration/status"
+    nvram set x_advisor_url="https://advisor.dev.ngxcld.com/advisor/direct"
+    return 0
+}
+
+
+load_xagent_qa_urls() {
+    nvram set x_discovery_url="https://presence.qa.ngxcld.com/presence/presence"
+    nvram set x_register_url="https://registration.qa.ngxcld.com/registration/register"
+    nvram set x_claimed_url="https://registration.qa.ngxcld.com/registration/status"
+    nvram set x_advisor_url="https://advisor.qa.ngxcld.com/advisor/direct"
+    return 0
+}
+
+
+load_xagent_production_urls() {
+    nvram set x_discovery_url="https://presence.ngxcld.com/presence/presence"
+    nvram set x_register_url="https://registration.ngxcld.com/registration/register"
+    nvram set x_claimed_url="https://registration.ngxcld.com/registration/status"
+    nvram set x_advisor_url="https://advisor.ngxcld.com/advisor/direct"
+    return 0
+}
+
+
+case ${STAGE} in
+    "dev")
+        echo "${STAGE} stage"
+        #   configure the vzdaemon backend server
+        nvram set vz_server_url="https://arlo-device-dev.messaging.netgear.com"
+        #   configure the vzdaemon update url
+        nvram set vz_update_url="https://updates.netgear.com/arlo/fw/gen3/dev"
+        nvram set vz_log_level="DEBUG"
+        #   configure xagent
+        load_xagent_dev_urls
+        ;;
+    "integration")
+        echo "${STAGE} stage"
+        #   configure the vzdaemon backend server
+        nvram set vz_server_url="https://arlo-device-dev.messaging.netgear.com"
+        #   configure the vzdaemon update url
+        nvram set vz_update_url="https://updates.netgear.com/arlo/fw/gen3/integration"
+        nvram set vz_log_level="DEBUG"
+        #   configure xagent
+        load_xagent_dev_urls
+        ;;
+    "qa")
+        echo "${STAGE} stage"
+        #   configure the vzdaemon backend server
+        nvram set vz_server_url="https://arlo-device-qa.messaging.netgear.com"
+        #   configure the vzdaemon update url
+        nvram set vz_update_url="https://updates.netgear.com/arlo/fw/gen3/qa"
+        nvram set vz_log_level="DEBUG"
+        
+        #   load the xagent qa urls
+        load_xagent_qa_urls
+        ;;
+    "beta")
+        echo "${STAGE} stage"
+        #   configure the vzdaemon backend server
+        nvram set vz_server_url="https://arlo-device-qa.messaging.netgear.com"
+        #   configure the vzdaemon update url
+        nvram set vz_update_url="https://updates.netgear.com/arlo/fw/gen3/beta"
+        nvram set vz_log_level="DEBUG"
+        
+        #   load the xagent qa urls
+        load_xagent_qa_urls
+        ;;
+    "staging")
+        echo "${STAGE} stage"
+        #   configure the vzdaemon backend server
+        nvram set vz_server_url="https://arlo-device-staging.messaging.netgear.com"
+        #   configure the vzdaemon update url
+        nvram set vz_update_url="https://updates.netgear.com/arlo/fw/gen3/staging"
+        nvram set vz_log_level="WARNING"
+        
+        #   load the xagent qa urls
+        load_xagent_qa_urls
+        ;;
+    "production")
+        echo "${STAGE} stage"
+        #   configure the vzdaemon backend server
+        nvram set vz_server_url="https://arlo-device.messaging.netgear.com"
+        #   configure the vzdaemon update url
+        nvram set vz_update_url="https://updates.netgear.com/arlo/fw/gen3/production"
+        nvram set vz_log_level="DEBUG"
+        
+        #   load the xagent production urls
+        load_xagent_production_urls
+        ;;
+    *)
+        echo "stage unrecognized"
+        print_syntax
+        exit 0
+        ;;
+esac
+
+
+#   kill running processes
+killall vzwatchdog xagent
+#   remove the working data in /tmp/media/nand
+rm -rf /tmp/media/nand/vzdaemon/conf
+
+#  reset the xagent subscription
+nvram unset x_agent_id
+nvram unset x_agent_claim_code
+nvram unset x_agent_registered
+nvram unset x_agent_claimed
+nvram unset x_agent_hardware_id
+
+#   set the ssid appending the current time in seconds
+nvram set wla_ssid=NTGR_VMB_`date -u +%s`
+
+nvram commit
+
+echo "done.  Reboot the base station to continue."
+
+
+

@@ -1,0 +1,145 @@
+2011 Feb 28 15:09:00: [ERROR]: 240--379
+2011 Feb 28 15:09:00: [INFO]: start main from the USBModem
+2011 Feb 28 15:09:01: [ERROR]: PublicConfig.notSimAndTelFlag:[]
+2011 Feb 28 15:09:01: [INFO]: checkDialStatusBeforeStartup, shell : 0
+2011 Feb 28 15:09:01: [INFO]: currentSystem is=Linux
+2011 Feb 28 15:09:01: [INFO]: hasDevicefile =falsef.exists =false
+2011 Feb 28 15:09:01: [INFO]: load method linuxCommServer()
+2011 Feb 28 15:09:01: [INFO]: CommServerThread.hasDevicefile = false
+2011 Feb 28 15:09:01: [INFO]: after list the at port has DriveEvulsionSearch.atPortCount : 0 ]
+2011 Feb 28 15:09:01: [INFO]: all the at port is open : false ]
+2011 Feb 28 15:09:01: [INFO]: commServers.servers.size() = 0
+2011 Feb 28 15:09:01: [INFO]: ---------------------------------------------------------------------------------
+2011 Feb 28 15:09:01: [INFO]: ------------------------- Device init -------------------------------------------
+2011 Feb 28 15:09:01: [INFO]: ---------------------------------------------------------------------------------
+2011 Feb 28 15:09:01: [INFO]: ---------------------------------------------------------------------------------
+2011 Feb 28 15:09:01: [ERROR]: PublicConfig.notSimAndTelFlag:[]
+2011 Feb 28 15:09:01: [INFO]: The path of delete file: /home/qiaoyongkang/java_prj/PhonePad/configure/data/CallNotice.xml
+2011 Feb 28 15:09:01: [INFO]: ---ParameterConfigServer.simCuexpath==configure/data/SmsCue.xml
+2011 Feb 28 15:09:01: [INFO]: ---comm==com.longcheer.phonepad.common.util.XMLTool@12fcdf5
+2011 Feb 28 15:09:02: [INFO]: ------------------------------getFileByte(file)=420
+2011 Feb 28 15:09:02: [ERROR]: -------------------netConnList---------------------[]
+2011 Feb 28 15:09:02: [INFO]: start the method getOrderByChannelBean from NetworkTypeChoice
+2011 Feb 28 15:09:02: [INFO]: end the method getOrderByChannelBean from NetworkTypeChoice
+2011 Feb 28 15:09:02: [INFO]: the search net table has select : [-1]
+2011 Feb 28 15:09:02: [INFO]: The path of delete file: /home/qiaoyongkang/java_prj/PhonePad/configure/data/SmsCue.xml
+2011 Feb 28 15:09:03: [INFO]: In the AppFrame.java ,in the init ui,the connect flag is :[]
+2011 Feb 28 15:09:03: [INFO]: In the AppFrame.java ,after UI,the connect flag is :[]
+2011 Feb 28 15:09:03: [INFO]: NetworkThread thread is start
+2011 Feb 28 15:09:03: [INFO]: NetworkThread===null == MutiDeviceService.curServer==wait=======this is 1 circle================
+2011 Feb 28 15:09:05: [INFO]: settings_actionPerformed come in time:1298876945415
+2011 Feb 28 15:09:07: [INFO]: NetworkThread===null == MutiDeviceService.curServer==wait=======this is 1 circle================
+2011 Feb 28 15:09:10: [ERROR]: get telnum from daildata.xml failed:
+2011 Feb 28 15:09:10: [ERROR]: get authtype from daildata.xml failed:
+2011 Feb 28 15:09:10: [INFO]: the predefined apn is :NetworkName : [fr  orange f]ReadOnly status : [false]APN status : [false]APN Content : [orange]Phone Number : []Username : [orange]Password : [orange]IP status : [false]IP address : []identity status : [false]DNS status : [false]preferred DNS : []standby DNS : []WINS status : [false]preferred WINS : []standby WINS : []IMSI : []is default : [false]
+2011 Feb 28 15:09:10: [ERROR]: -------------------netConnList---------------------[NetworkName : [fr  orange f]ReadOnly status : [false]APN status : [false]APN Content : [orange]Phone Number : []Username : [orange]Password : [orange]IP status : [true]IP address : []identity status : [false]DNS status : [true]preferred DNS : []standby DNS : []WINS status : [true]preferred WINS : []standby WINS : []IMSI : []is default : [false]]
+2011 Feb 28 15:09:10: [INFO]: the search net table has select :[0]
+2011 Feb 28 15:09:10: [INFO]: the search net table has select :[0]
+2011 Feb 28 15:09:11: [INFO]: end main from the USBModem
+2011 Feb 28 15:09:11: [INFO]: LinuxCommServer Finished !
+2011 Feb 28 15:09:12: [INFO]: NetworkThread===null == MutiDeviceService.curServer==wait=======this is 1 circle================
+2011 Feb 28 15:09:12: [INFO]: delete apn :NetworkName : [fr  orange f]ReadOnly status : [false]APN status : [false]APN Content : [orange]Phone Number : []Username : [orange]Password : [orange]IP status : [true]IP address : []identity status : [false]DNS status : [true]preferred DNS : []standby DNS : []WINS status : [true]preferred WINS : []standby WINS : []IMSI : []is default : [false]
+2011 Feb 28 15:09:12: [INFO]: the search net table has select :[-1]
+2011 Feb 28 15:09:12: [INFO]: the search net table has select :[-1]
+2011 Feb 28 15:09:12: [INFO]: the search net table has select :[-1]
+2011 Feb 28 15:09:12: [INFO]: the search net table has select :[-1]
+2011 Feb 28 15:09:12: [ERROR]: -------------------netConnList---------------------[]
+2011 Feb 28 15:09:14: [INFO]: phoneManage_actionPerformed come in time:1298876954184
+2011 Feb 28 15:09:14: [INFO]: freshLocalTree come in time: 1298876954253
+2011 Feb 28 15:09:14: [INFO]:  getDefaultTreeModel time:1298876954264
+2011 Feb 28 15:09:14: [INFO]:  setMoblileMaxId time:1298876954279
+2011 Feb 28 15:09:14: [INFO]: freshLocalTree come out time: 1298876954290
+2011 Feb 28 15:09:14: [ERROR]: setpbTableColumn rowContent:[{officeTel=, group=, mailbox=, remarks=, homeTel=, locType=pc, mobileTel=24324234, name=31312314, id=2145}, {officeTel=, group=, mailbox=, remarks=, homeTel=, locType=pc, mobileTel=31221321312, name=qeqdwe, id=2144}]
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: ====Tools======readSMSList===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: ==1==Tools===sort===sumRowContent===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: ==2==Tools===sort===sumRowContent===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: ====Tools======readSMSList===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: ==1==Tools===sort===sumRowContent===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: ==2==Tools===sort===sumRowContent===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: setTableColumn rowContent:[]
+2011 Feb 28 15:09:15: [ERROR]: ====Tools======readSMSList===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: ==1==Tools===sort===sumRowContent===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: ==2==Tools===sort===sumRowContent===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: setTableColumn rowContent:[]
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Inbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Outbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Draft
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Favorite
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Reports
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Dustbin
+2011 Feb 28 15:09:15: [ERROR]: setTableColumn rowContent:[]
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Inbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Outbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Draft
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Favorite
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Reports
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Dustbin
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Inbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Outbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Draft
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Favorite
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Reports
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Dustbin
+2011 Feb 28 15:09:15: [ERROR]: ====Tools======readSMSList===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: ==1==Tools===sort===sumRowContent===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: ==2==Tools===sort===sumRowContent===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: setTableColumn rowContent:[]
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Dustbin
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Reports
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Favorite
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Draft
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Outbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Inbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: ====Tools======readSMSList===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: ==1==Tools===sort===sumRowContent===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: ==2==Tools===sort===sumRowContent===========:[[]]
+2011 Feb 28 15:09:15: [ERROR]: -----------------SmsTreeSelectionListener-----------------
+2011 Feb 28 15:09:15: [ERROR]: setTableColumn rowContent:[]
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Inbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Outbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Draft
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Favorite
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Reports
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Dustbin
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Inbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Outbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Draft
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Favorite
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Reports
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Dustbin
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Inbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Outbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Draft
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Favorite
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Reports
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Dustbin
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====PC
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Inbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Outbox
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Draft
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Favorite
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Reports
+2011 Feb 28 15:09:15: [ERROR]: 44404Local1=====555====Dustbin
+2011 Feb 28 15:09:16: [INFO]: stk_actionPerformed come in time:1298876956544
+2011 Feb 28 15:09:16: [INFO]: NetworkThread===null == MutiDeviceService.curServer==wait=======this is 1 circle================
+2011 Feb 28 15:09:17: [INFO]: java.lang.NullPointerException
+2011 Feb 28 15:09:19: [INFO]: close the application,the PublicConfig.isDSFLOWRPT:[]
+2011 Feb 28 15:09:19: [INFO]: close the application,the TimerCall.statusCall:[2]

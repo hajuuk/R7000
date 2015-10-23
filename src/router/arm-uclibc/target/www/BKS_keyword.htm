@@ -20,7 +20,7 @@
 <%14%>
 <script language="javascript" type="text/javascript">
 <!-- 
-  
+
     $(document).ready(function()
     {	
 //        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
@@ -114,8 +114,8 @@ function checkData()
 		
 	cf.bs_trustedip.value = cf.cfTrusted_IPAddress1.value+'.'+cf.cfTrusted_IPAddress2.value+'.'+cf.cfTrusted_IPAddress3.value+'.'+cf.cfTrusted_IPAddress4.value;		
 	
-	var str_lan_ip = "<%265%>";
-	var str_lan_netmask = "<%470%>";
+	var str_lan_ip = "<%300%>";
+	var str_lan_netmask = "<%554%>";
 	var lan_ip = str_lan_ip.split(".");
 	var lan_netmask = str_lan_netmask.split(".");
 	var lan_ipaddr = (lan_ip[0] << 24) | (lan_ip[1] << 16) | (lan_ip[2] << 8)| (lan_ip[3]);
@@ -146,11 +146,21 @@ function checkData()
 	}
 	return true;	
 }
+
 function checkKeyWord()
 {
 	var cf = document.forms[0];
 	var msg = "";
 	msg+= checkBlank(cf.cfKeyWord_Domain, "");
+
+    var bs_temp_rules_number = parseInt("<%634%>");
+    // check number of rules, if over 255 return fault.
+
+    if (bs_temp_rules_number >= 255){
+        alert("<%635%>");
+        return false;
+    }
+
 	if (msg.length > 1)
 	{
 		cf.cfKeyWord_Domain.focus();
@@ -159,10 +169,10 @@ function checkKeyWord()
 	}
 	if (cf.cfKeyWord_Domain.value.match( /[^\x20-\x7E]/ ))
 	{
-		alert("<%550%>");
+		alert("<%636%>");
 		return false;
 	}
-	
+
 	if (cf.skeyword[0].checked)
 		cf.bs_enable.value = 0;
 	else if (cf.skeyword[1].checked)
@@ -255,7 +265,7 @@ function checkKeyWordDomainList()
 	return true;	
 }
 
-<%551%>
+<%637%>
 function chSession(newsession)
 {
     if(newsession == 2)
@@ -263,81 +273,81 @@ function chSession(newsession)
     else if(newsession == 1)
         location.href = "BKS_keyword.htm";		
 }
-<%552%>
+<%638%>
 //-->
 </script> 
 </head>
 <body  onload="change_size();checkTrustIP1();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%57%>">
-<img class="body-image" src="<%58%>">
+<img class="cover-image" src="<%74%>">
+<img class="body-image" src="<%75%>">
 <div id="full-page-container">
 
 <form id="target"  method="POST" action="keyword.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-	<img class="subtop-image" src="<%59%>">
-<div class="subhead2"> <%343%></div>
+	<img class="subtop-image" src="<%76%>">
+<div class="subhead2"> <%401%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%61%>"  onClick="buttonClick(this,'<%61%>');return checkData()" type="SUBMIT" name="wzWAN_IPFinish" class="button-apply" > <span class="roundleft_apply" ><%62%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%63%>" onclick="buttonClick(this,'<%63%>');"  type="SUBMIT" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%64%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%78%>"  onClick="buttonClick(this,'<%78%>');return checkData()" type="SUBMIT" name="wzWAN_IPFinish" class=<%79%> > <span class="<%80%>" ><%81%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="<%82%>">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%83%>" onclick="buttonClick(this,'<%83%>');"  type="SUBMIT" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%84%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
 <tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
-<%553%>
-	<input checked type="radio" name=pppoesession value=session1 onClick="chSession(1);"><%554%>
-	<input type="radio" name=pppoesession value=session2 onClick="chSession(2);"><%555%><br>
-<%556%>	
+<%639%>
+	<input checked type="radio" name=pppoesession value=session1 onClick="chSession(1);"><%640%>
+	<input type="radio" name=pppoesession value=session2 onClick="chSession(2);"><%641%><br>
+<%642%>	
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
 	<td colspan="2">
-	<%557%></td>
+	<%643%></td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
-	 <td colspan="2" height="18"><a href="javascript:loadhelp('BKS_keyword','blocking')" tabindex="-1"><b><%558%></b></a><br>
-		<input <%559%> type="radio" name="skeyword" value="never"><%560%><br> 
-		<input <%561%> type="radio" name="skeyword" value="perschedule"><%562%><br>
-		<input <%563%> type="radio" name="skeyword" value="always"><%564%>
+	 <td colspan="2" height="18"><a href="javascript:loadhelp('BKS_keyword','blocking')" tabindex="-1"><b><%644%></b></a><br>
+		<input <%645%> type="radio" name="skeyword" value="never"><%646%><br> 
+		<input <%647%> type="radio" name="skeyword" value="perschedule"><%648%><br>
+		<input <%649%> type="radio" name="skeyword" value="always"><%650%>
 	 </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
- <td colspan="2"><a href="javascript:loadhelp('BKS_keyword','toaddword')" tabindex="-1"><b><%565%></b></a></td>
+ <td colspan="2"><a href="javascript:loadhelp('BKS_keyword','toaddword')" tabindex="-1"><b><%651%></b></a></td>
 </tr>
 
 <tr>
-	<td colspan="2"><input type="text" name="cfKeyWord_Domain" size="32" maxlength="60" value="<%566%>"></td>
+	<td colspan="2"><input type="text" name="cfKeyWord_Domain" size="32" maxlength="60" value="<%652%>"></td>
 </tr>
 
 <tr>
-	<td width="50%" align="left" colspan="2" >&nbsp;&nbsp;&nbsp;<button type="submit" value="<%567%>" name="cfKeyWord_AddKeyword" class="button-rule" onClick="buttonClick(this,'<%567%>');if(!checkKeyWord()) return false;"><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%567%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+	<td width="50%" align="left" colspan="2" >&nbsp;&nbsp;&nbsp;<button type="submit" value="<%653%>" name="cfKeyWord_AddKeyword" class=<%472%> onClick="buttonClick(this,'<%653%>');if(!checkKeyWord()) return false;"><span class=<%473%>><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%653%></span></span><span class=<%474%>>&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
 </tr>		
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 		<tr>
-			<td colspan="2"><a href="javascript:loadhelp('BKS_keyword','blocklist')" tabindex="-1"><b><%568%></b></a></td>
+			<td colspan="2"><a href="javascript:loadhelp('BKS_keyword','blocklist')" tabindex="-1"><b><%654%></b></a></td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<select name="cfKeyWord_DomainList" size="6" multiple><%569%></select> 
+				<select name="cfKeyWord_DomainList" size="6" multiple><%655%></select> 
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">&nbsp;&nbsp;&nbsp;<button type="submit" value="<%570%>" name="cfKeyWord_DeleteKeyword" class="button-rule" onclick="buttonClick(this,'<%570%>');if(!checkKeyWordDomainList()) return false;"><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%570%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> 
-			&nbsp;&nbsp;&nbsp;<button type="submit" value="<%571%>" name="cfKeyWord_ClearList" class="button-rule" onclick="buttonClick(this,'<%571%>');if(!checkKeyWordDomainList()) return false;"><span class="roundleft_button">&nbsp;&nbsp; <%571%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+			<td colspan="2">&nbsp;&nbsp;&nbsp;<button type="submit" value="<%656%>" name="cfKeyWord_DeleteKeyword" class=<%472%> onclick="buttonClick(this,'<%656%>');if(!checkKeyWordDomainList()) return false;"><span class=<%473%>><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%656%></span></span><span class=<%474%>>&nbsp;&nbsp;&nbsp;&nbsp;</span></button> 
+			&nbsp;&nbsp;&nbsp;<button type="submit" value="<%657%>" name="cfKeyWord_ClearList" class=<%472%> onclick="buttonClick(this,'<%657%>');if(!checkKeyWordDomainList()) return false;"><span class=<%473%>>&nbsp;&nbsp; <%657%></span><span class=<%474%>>&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
 		</tr>
 		
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 	<tr>
-	<td nowrap colspan="2"><input <%572%> type="checkbox" name="trustipenble" value="" onclick= "checkTrustIP();"><a href="javascript:loadhelp('BKS_keyword','trusted')" tabindex="-1"><b><%573%></b></a></td>
+	<td nowrap colspan="2"><input <%658%> type="checkbox" name="trustipenble" value="" onclick= "checkTrustIP();"><a href="javascript:loadhelp('BKS_keyword','trusted')" tabindex="-1"><b><%659%></b></a></td>
 </tr>
 		<tr>
-				<td width="50%"><a href="javascript:loadhelp('BKS_keyword','trusted')" tabindex="-1"><b><%574%></b></a></td>
+				<td width="50%"><a href="javascript:loadhelp('BKS_keyword','trusted')" tabindex="-1"><b><%660%></b></a></td>
 				<td width="50%" align="right" class="num"><input type="text" name="cfTrusted_IPAddress1" class="num" size="4" maxlength="3" value="192" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="cfTrusted_IPAddress2" class="num" size="4" maxlength="3" value="168" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="cfTrusted_IPAddress3" class="num" size="4" maxlength="3" value="0" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="cfTrusted_IPAddress4" class="num" size="4" maxlength="3" value="0" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
 			</tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
@@ -350,18 +360,18 @@ function chSession(newsession)
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%266%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%267%> </span>
       </div>
 
 
 
 
-<INPUT name=bs_enable type=hidden value= "<%575%>">
-<INPUT name=bs_trustedip_enable type=hidden value= "<%576%>">
-<INPUT name=bs_trustedip type=hidden value= "<%577%>">
+<INPUT name=bs_enable type=hidden value= "<%661%>">
+<INPUT name=bs_trustedip_enable type=hidden value= "<%662%>">
+<INPUT name=bs_trustedip type=hidden value= "<%663%>">
 
 <a name="helpframe-anchor"></a>
 </form>

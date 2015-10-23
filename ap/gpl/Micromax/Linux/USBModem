@@ -1,0 +1,11 @@
+#!/bin/bash
+
+LCWORKPATH="$(dirname $0)"
+STARTPROGRAM="${LCWORKPATH}/USBModem.sh"
+
+if [ `id |awk '{print $1}'` != "uid=0(root)" ]
+then
+    /usr/bin/sudo ${STARTPROGRAM}
+else
+    ${STARTPROGRAM}
+fi

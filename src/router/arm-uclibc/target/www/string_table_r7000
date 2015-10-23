@@ -4,7 +4,7 @@ lang_ori_english="Auto English German SimplifiedChinese TraditionalChinese Korea
 ////////////////////////////////Please keep the line below as it is ///////////////////////////////////////////////////////////////
 lang_ori="Auto English Deutsch 简体中文 繁體中文 한국어 Русский Español Polski Français Italiano Svenska Dansk Nederlands Ελληνικά Norsk Čeština Slovenščina Português Magyar Română Suomi Slovenčina Türkiye 日本語"
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-version="1.0.4.30_2.1.38.1"
+version="1.0.5.44_2.1.38.1"
 language="English"
 support_url="http://kbserver.netgear.com/main.asp"
 
@@ -66,7 +66,7 @@ accept_mark="Accept"
 remote_managing_device="is managing this device."
 
 ml_failDownload="The router failed to download the language table you requested. Please try again later."
-upLangTableWait="Downloading and updating the language table, please wait for approximate one minute… "
+upLangTableWait="Downloading and updating the language table, please wait for approximate one minute"
 
 
 auto_update_header="Checking for firmware updates"
@@ -241,7 +241,7 @@ wlan_mode_54="Up to 54 Mbps"
 wlan_mode_145="Up to 145 Mbps"
 wlan_mode_300="Up to 300 Mbps"
 wlan_wlacl="Wireless Card Access List"
-wlan_mode_300_warning="Per Wi-Fi Alliance guidelines for 40 Mhz and 20 Mhz coexistence, even if you select \"Up to %sMbps\" mode, your product’s service rate might drop to 20 Mhz. This typically corresponds to %s Mbps performance."
+wlan_mode_300_warning="Per Wi-Fi Alliance guidelines for 40 Mhz and 20 Mhz coexistence, even if you select \"Up to %sMbps\" mode, your product?™s service rate might drop to 20 Mhz. This typically corresponds to %s Mbps performance."
 
 //11ac 2x2 wireless modes
 wlan_mode_156="Up to 156 Mbps"
@@ -392,6 +392,8 @@ email_head="E-mail"
 email_sent_logs="Send alerts and logs through e-mail"
 email_server="Your Outgoing Mail Server"
 email_address="Send to This E-mail Address"
+email_address_1="Primary E-mail Address"
+email_address_2="Secondary E-mail Address (optional)"
 email_turn_on="Turn E-mail Notification On"
 email_sent_immediately="Send Alert Immediately"
 email_visit_block="When someone attempts to visit a blocked site"
@@ -408,6 +410,8 @@ email_auto_adjust="Automatically adjust for daylight savings time"
 email_authen="My mail server requires authentication"
  
 email_port="Outgoing Mail Server Port Number"
+email_port_1="Auto Detection"
+email_port_2="Specific Port Number"
 
 //ntp
 ntp_curtime="Current Time"
@@ -551,7 +555,7 @@ ddns_netgear_failapply="The service provider is not reachable."
 ddns_netgear_current_info="The NETGEAR DDNS on this router is currently configured to:"
 ddns_netgear_reset_info1="To change the settings, click"
 ddns_netgear_reset_info2="to reset the settings first."
-ddns_netgear_reset="Reset"
+ddns_netgear_reset="reset"
 
 //remote management
 remote_head="Remote Management"
@@ -957,8 +961,8 @@ h_info="<body style="margin:0px"><div id="content" style="overflow:auto;scrollin
 h_info_1="<p name=wlmode id=wlmode></p><li>Mode. Indicates the current mode (up to 54 Mbps, up to 217 Mbps, up to 450 Mbps)."
 h_info_2="<p name=wlsec id=wlsec></p><li>Security Options. The wireless security type (NONE, WEP, WPA-PSK, WPA2-PSK, WPA-PSK+WPA2-PSK).<p name=wlradio id=wlradio></p><li>Wireless AP. Indicates if the access point feature of the router is enabled or not. If not enabled, the Wireless LED on the front panel is off. <p name=wlbroad id=wlbroad></p><li>Broadcast Name. Indicates if the router is broadcasting its SSID.<p name=wliso id=wliso></p><li>Wireless Isolation. If ON, isolate each connected wireless client to connect to internet only and not allow to access other wireless clients, Ethernet clients or this device.<p name=wlwps id=wlwps></p><li>Wi-Fi Protected Setup. Indicates whether the router is in the WPS configured state or WPS unconfigured state.</ul><p>Click <b>Show Statistics</b> to see router performance statistics such as the number of packets sent and the number of packets received for each port. <p>Click <b>Connection Status</b> to see information about your current connection.</p></div></body>"
 h_FW_schedule="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><P><font size=4><B>Schedule Help</B></font></P><p>If you have set up content filtering on the Block Sites screen or service blocking on the Block Services screen, you can set up a schedule for when blocking occurs or when access is not restricted. </p><p name=blocksch id=blocksch></p><p>To block keywords, services, or Internet domains based on a schedule:<ol><li>Select one of the following:<b>Every Day</b>.<br>One or more days.</li><li>If you want to limit access completely for the selected days, select <b>All Day</b>.<br>If you want to limit access during certain times for the selected days, enter a time in the <b>Start Blocking</b> and <b>End Blocking</b> fields.<br><b>Note:</b> Enter the values as 24-hour time. For example, 10:30 a.m. would be 10 hours and 30 minutes, and 10:30 p.m. would be 22 hours and 30 minutes.</li><li>Click <p name=Apply id=Apply></p><b>Apply</b>.</li></ol></div></body>"
-h_traffic="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><P><font size=4><B> Traffic Meter Help </B></font></P><p name=internet id=internet></p><H2 class=helpfile> <b>Internet Traffic Meter </b></H2><p name=meter id=meter></p><P><B> Enable Traffic Meter </B> <BR> Check this if you wish to record the volume of Internet traffic passing through the Router's Internet port. <P><B> Traffic volume control by </B> <BR> Select this if you wish to record and restrict the volume of Internet traffic passing through the Router's Internet port.<UL><LI> No Limit - If this is selected specified restriction will not be applied when traffic limit is reached.<LI> Download only - If this is selected the specified restriction will be applied to the incoming traffic only <LI> Both Directions - If this is selected the specified restriction will be applied to both incoming and outgoing traffic only.</UL><P><B> Connection time control</B> <BR> Select this if you wish to record and restrict the time usage of the Internet connection.<P><B> Monthly Limit </B><BR> Enter the monthly volume limit or connection time limit.<P><B> Round up data volume for each connection by</B> <BR> Some ISPs charge certain amount of extra data volume when users make a new connection. If this case, enter the extra data volume here.<p name=counter id=counter></p><H2 class=helpfile> <b>Traffic counter</b></H2><P><B> Restart traffic counter</B><BR> This determines when the traffic counter restarts. Choose the desired time and day of the month.<P><B> Restart Counter Now</B> <BR> Click this button to restart the Traffic Counter immediately.<p name=reached id=reached></p><H2 class=helpfile> <b> Traffic Control </b></H2><P><B> Pop up a warning message</B><BR> Entering a non-zero value to make the router pop-up a warning message when the monthly data volume/connection time limit will be reached after the configured amount is run out. Only when the Traffic Status window is opened, the pop-up message can show up.<P><B> When the monthly limit is reached</B><BR><P> Check the desired action(s):<UL> <LI> Turn the Internet LED white/amber flashing - the Internet LED will become green and amber alternatively. <LI> Disconnect and disable the Internet connection - all access to the Internet will be blocked. </UL><p name=statistics id=statistics></p><H2 class=helpfile><b> Internet Traffic Statistics</b></H2><P> This displays statistics on Internet traffic via the Internet port. <BR> If you have not enabled the Traffic Meter, these statistics are not available. <P><B> Traffic Status</B> <BR><BR> Click this button if you want live update about the usage status of the Internet traffic.<P></P></div></body>"
-h_wladv="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Advanced Wireless Help</B></font></P><P><B>Warning: </B>The wireless router is already configured with the optimum settings. Do not alter these settings unless directed by NETGEAR support. Incorrect settings might disable the wireless router unexpectedly.</p><HR><p name=settings id=settings></p><P><B>Wireless Router Settings</B></P><P>Enable Wireless Router Radio </p><P>The wireless access point of this router can be enabled or disabled to allow wireless access. The Wireless LED on the front of the router will also display the current status of the wireless access point to let you know if it is disabled or enabled. If it is enabled, wireless stations will be able to access the Internet. If it is disabled, wireless stations will not be able to access the Internet.</P><P>Enable 20/40 MHz Coexistence</P><P>Disabling this option allows your 2.4GHz wireless to stay in supporting the max speed. Enabling this option may reduce the max speed of your 2.4GHz wireless to the half when there is another wireless network detected in your environment; this is to avoid inteference between wireless networks and to get along with other wireless networks in the environment.</P><P>Enable SSID Broadcast<P>If this feature is enabled, the wireless router will broadcast its name (SSID) to all wireless stations. Stations that have no SSID (or a null value) can then adopt the correct SSID for connections to this access point.</P><P>Enable WMM</P><P>WMM (Wireless Multimedia) is a subset of the 802.11e standard. WMM allows wireless traffic to have a range of priorities, depending on the kind of data. Time-dependent information, like video or audio, will have a higher priority than normal traffic. For WMM to function correctly, wireless clients must also support WMM.</P><P>Fragmentation Threshold, CTS/RTS Threshold, Preamble Mode</p><P>These settings are reserved for wireless testing and advanced configuration only. Do not change these settings.</P><HR><p name=wps id=wps></p><P><B>WPS Settings</B></P><p>Router's PIN</p><p>This is the PIN number you use on a registrar (e.g., from Network Explorer on Windows 7) to configure the router's wireless settings through WPS. Usually you can also find the PIN on the router's product label.</p><p>Enable Router's PIN</p><P>You can configure the router's wireless settings or add a wireless client through WPS using the router's PIN only when the PIN is enabled.</p><p>Brute Force Attack Protection</p><p>The WPS router's PIN is susceptible to a brute force attack. Enabling this protection option can disable the router's PIN automatically when the router detects a suspicious brute force attack. Once the router's PIN is disabled automatically, it remains disabled until the router reboots or you can manually enable the router's PIN by checking the Enable Router's PIN check box and clicking the <b>Apply</b> button.<br>When the protection is enabled, you can configure the number of accumulated failed attempts that is allowed before the router's PIN is disabled automatically.</p><P>Keep Existing Wireless Settings</P><P>This shows whether the router is in the WPS configured state.<br>If this option is not selected, adding a new wireless client will change the router's wireless settings to an automatically generated random SSID and security key. In addition, if this option is selected, some external registrars (e.g., Network Explorer on Windows 7) might not see the router.<br>Configuring basic wireless settings from the router's management GUI selects this option automatically.</P><HR><p name=access id=access></p><P><B>Wireless Card Access List</B></P><P>By default, any wireless PC that is configured with the correct SSID will be allowed access to your wireless network. For increased security, you can restrict access to the wireless network to allow only specific PCs based on their MAC addresses. On the Wireless Settings screen, click the <b>Setup Access List</b> button to display the Wireless Access List screen.</P><P><B>To Save or Cancel Changes</B></P><P>Click <B>Apply</B> to have your changes take effect. <BR>Click <B>Cancel</B> to return to the previous settings. </P></div></body>"h_wlonoffhelp="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Turn off wireless signal by schedule Help</B></font></P><P>Select the start time and end time. Times are listed in 30-minute increments in the Start and End drop-down lists.</P><P>For the Recurrence pattern, select either Daily or Select Days. </P><P>&bull; Daily. The rule applies on all days of the week.</P><P>&bull; Select Days. Select one or more days of the week, from Sunday to Saturday.</P><P>Click the Apply button to save the rule, or click Cancel to cancel the changes and return to the previous screen</P><P></P></div></body>"
+h_traffic="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><P><font size=4><B> Traffic Meter Help </B></font></P><p name=internet id=internet></p><H2 class=helpfile> <b>Internet Traffic Meter </b></H2><p name=meter id=meter></p><P><B> Enable Traffic Meter </B> <BR> Check this if you wish to record the volume of Internet traffic passing through the Router's Internet port. <P><B> Traffic volume control by </B> <BR> Select this if you wish to record and restrict the volume of Internet traffic passing through the Router's Internet port.<UL><LI> No Limit - If this is selected specified restriction will not be applied when traffic limit is reached.<LI> Download only - If this is selected the specified restriction will be applied to the incoming traffic only <LI> Both Directions - If this is selected the specified restriction will be applied to both incoming and outgoing traffic only.</UL><P><B> Connection time control</B> <BR> Select this if you wish to record and restrict the time usage of the Internet connection.<P><B> Monthly Limit </B><BR> Enter the monthly volume limit or connection time limit.<P><B> Round up data volume for each connection by</B> <BR> Some ISPs charge certain amount of extra data volume when users make a new connection. If this case, enter the extra data volume here.<p name=counter id=counter></p><H2 class=helpfile> <b>Traffic counter</b></H2><P><B> Restart traffic counter</B><BR> This determines when the traffic counter restarts. Choose the desired time and day of the month.<P><B> Restart Counter Now</B> <BR> Click this button to restart the Traffic Counter immediately.<p name=reached id=reached></p><H2 class=helpfile> <b> Traffic Control </b></H2><P><B> Pop up a warning message</B><BR> Entering a non-zero value to make the router pop-up a warning message when the monthly data volume/connection time limit will be reached after the configured amount is run out. Only when the Traffic Status window is opened, the pop-up message can show up.<P><B> When the monthly limit is reached</B><BR><P> Check the desired action(s):<UL> <LI> Turn the Internet LED white/amber flashing - the Internet LED will become white and amber alternatively. <LI> Disconnect and disable the Internet connection - all access to the Internet will be blocked. </UL><p name=statistics id=statistics></p><H2 class=helpfile><b> Internet Traffic Statistics</b></H2><P> This displays statistics on Internet traffic via the Internet port. <BR> If you have not enabled the Traffic Meter, these statistics are not available. <P><B> Traffic Status</B> <BR><BR> Click this button if you want live update about the usage status of the Internet traffic.<P></P></div></body>"
+h_wladv="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Advanced Wireless Help</B></font></P><P><B>Warning: </B>The wireless router is already configured with the optimum settings. Do not alter these settings unless directed by NETGEAR support. Incorrect settings might disable the wireless router unexpectedly.</p><HR><p name=settings id=settings></p><P><B>Wireless Router Settings</B></P><P>Enable Wireless Router Radio </p><P>The wireless access point of this router can be enabled or disabled to allow wireless access. The Wireless LED on the front of the router will also display the current status of the wireless access point to let you know if it is disabled or enabled. If it is enabled, wireless stations will be able to access the Internet. If it is disabled, wireless stations will not be able to access the Internet.</P><P>Enable SSID Broadcast<P>If this feature is enabled, the wireless router will broadcast its name (SSID) to all wireless stations. Stations that have no SSID (or a null value) can then adopt the correct SSID for connections to this access point.</P><P>Enable WMM</P><P>WMM (Wireless Multimedia) is a subset of the 802.11e standard. WMM allows wireless traffic to have a range of priorities, depending on the kind of data. Time-dependent information, like video or audio, will have a higher priority than normal traffic. For WMM to function correctly, wireless clients must also support WMM.</P><P>Fragmentation Threshold, CTS/RTS Threshold, Preamble Mode</p><P>These settings are reserved for wireless testing and advanced configuration only. Do not change these settings.</P><HR><p name=wps id=wps></p><P><B>WPS Settings</B></P><p>Router's PIN</p><p>This is the PIN number you use on a registrar (e.g., from Network Explorer on Windows 7) to configure the router's wireless settings through WPS. Usually you can also find the PIN on the router's product label.</p><p>Enable Router's PIN</p><P>You can configure the router's wireless settings or add a wireless client through WPS using the router's PIN only when the PIN is enabled.</p><p>Brute Force Attack Protection</p><p>The WPS router's PIN is susceptible to a brute force attack. Enabling this protection option can disable the router's PIN automatically when the router detects a suspicious brute force attack. Once the router's PIN is disabled automatically, it remains disabled until the router reboots or you can manually enable the router's PIN by checking the Enable Router's PIN check box and clicking the <b>Apply</b> button.<br>When the protection is enabled, you can configure the number of accumulated failed attempts that is allowed before the router's PIN is disabled automatically.</p><P>Keep Existing Wireless Settings</P><P>This shows whether the router is in the WPS configured state.<br>If this option is not selected, adding a new wireless client will change the router's wireless settings to an automatically generated random SSID and security key. In addition, if this option is selected, some external registrars (e.g., Network Explorer on Windows 7) might not see the router.<br>Configuring basic wireless settings from the router's management GUI selects this option automatically.</P><HR><p name=access id=access></p><P><B>Wireless Card Access List</B></P><P>By default, any wireless PC that is configured with the correct SSID will be allowed access to your wireless network. For increased security, you can restrict access to the wireless network to allow only specific PCs based on their MAC addresses. On the Wireless Settings screen, click the <b>Setup Access List</b> button to display the Wireless Access List screen.</P><P><B>To Save or Cancel Changes</B></P><P>Click <B>Apply</B> to have your changes take effect. <BR>Click <B>Cancel</B> to return to the previous settings. </P></div></body>"h_wlonoffhelp="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Turn off wireless signal by schedule Help</B></font></P><P>Select the start time and end time. Times are listed in 30-minute increments in the Start and End drop-down lists.</P><P>For the Recurrence pattern, select either Daily or Select Days. </P><P>&bull; Daily. The rule applies on all days of the week.</P><P>&bull; Select Days. Select one or more days of the week, from Sunday to Saturday.</P><P>Click the Apply button to save the rule, or click Cancel to cancel the changes and return to the previous screen</P><P></P></div></body>"
 h_lan="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><p><font size=4><b>LAN Setup Help</b></font></p>  <p>The default DHCP and TCP/IP values work for most users.</p><hr><p name=device_name id=device_name></p><p><b>Device Name</b></p><p>This is a friendly name of the router. You can see this name for the router in Network Explorer on Windows Vista systems and the Network Explorer on all Windows systems.</p><hr><p name=tcp id=tcp></p><p><b>LAN TCP/IP Setup</b></p><p>These are advanced settings that you can configure if you are a network administrator and your network contains multiple routers. If you make any changes to these settings, you will need to restart your computers for the settings to take effect.</p><ul><li><B>IP Address</B>. Type the IP address of your router in dotted decimal notation (factory default: 192.168.1.1).<li><b>IP Subnet Mask</B>. The subnet mask specifies the network number portion of an IP address. Your router will automatically calculate the subnet mask based on the IP address that you assign. Unless you are implementing subnetting, use 255.255.255.0 as the subnet mask (computed by the router).</ul><ul><li><b>RIP Direction:</B> RIP (Routing Information Protocol, RFC1058 and RFC1389) allows a router to exchange routing information with other routers. The RIP Direction selection controls how the router sends and receives RIP packets. Both is the default.<ul><li>When set to <b>Both</b> or <b>Out Only</b>, the router will broadcast its routing table periodically. <li>When set to <b>Both</b> or <b>In Only</b>, it will incorporate the RIP information that it receives. </ul><li><b>RIP</b><li><b>RIP Version:</B> This controls the format and the broadcasting method of the RIP packets that the router sends. (It recognizes both formats when receiving.) By default, this is set for Disabled.<ul><li>RIP-1 is universally supported. RIP-1 is probably adequate for most networks, unless you have an unusual network setup. <li>RIP-2 carries more information. Both RIP-2B and RIP-2M send the routing data in RIP-2 format. <UL> <li>RIP-2B uses subnet broadcasting.  <li>RIP-2M uses multicasting. (See note below.) </ul> </ul></ul><p><b>Note: </b>Multicasting can reduce the load on non-router machines because they do not listen to the RIP multicast address and will not receive the RIP packets. However, if one router uses multicasting, then all routers on your network must use multicasting. </p><hr><p name=dhcp id=dhcp></p><p><b>Use Router As DHCP Server</b></p><p>The router is set up by default as a DHCP (Dynamic Host Configuration Protocol) server, which provides the TCP/IP configuration for all the computers that are connected to the router.  <p> Unless told to change these settings by your ISP, leave the <b>Use Router As DHCP Server</b> check box selected.  </p><p> If your ISP has you clear this check box, you must have another DHCP server within your network, or else you must manually configure the computer.   <ul><li><B>Starting IP Address</B>. This field specifies the first of the contiguous addresses in the IP address pool. 192.168.1.2 is the default start address. <li><b>Ending IP Address</b>. This field specifies the last of the contiguous addresses in the IP address pool. 192.168.1.254 is the default ending address.</ul></p><hr><p name=reserved id=reserved></p><p><b>Address Reservation</b></p><p>When you specify a reserved IP address for a PC on the LAN, that PC will always receive the same IP address each time it accesses the DHCP server. Reserved IP addresses should be assigned to servers that require permanent IP settings.</p><p><b>To reserve an IP address:</b> <ol><li> Click the <b>Add</b> button. <li> Select the radio button of the computer you wish to add from the Address Reservation Table.<li> If the computer is not on the Address Reservation Table, enter the IP address, MAC address, and device name of the computer you wish to add.<li> Click the <B>Add</b> button when finished.</ol></p><br><p><b>To edit a reserved IP address:</b> </p><ol><li> Select the radio button next to the reserved address you want to edit.<li> Click the <b>Edit</b> button.<li> Edit the IP address, MAC address, or device name.<li> Click the <b>Accept</b> button when finished.</ol><p><b>To delete a reserved IP address:</b> </p><ol><li> Select the radio button next to the reserved address you want to delete.<li> Click the <b>Delete</b> button. </ol><hr><p name=To id=To></p><p><b>To save or cancel changes:</b></p><p>Click <b>Apply</b> to save the new settings to the router. <br>Click <b>Cancel</b> to discard any unsaved changes. </p></div></body>"
 h_STR_routes="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><P><font size=4><B>Static Routes Help</B></font></P><p> Static routes give the router information that it cannot learn automatically through other means. This can happen when RIP is disabled on the LAN. (See the LAN IP Setup screen.) All defined static routes appear in the table. You add or delete a route in the area under the Static Routes table.</p><hr><p name=str_table id=str_table></p><p><b>To set up a static route:</b> </p><ol><li>Click the <b>Add</b> button. </li><li>Type a route name for this static route in the <b>Route Name</b> field under the table.<br>(This is for identification purposes only.) </li><li>Select <b>Private</b> if you want to limit access to the LAN only. </li><li>Select <b>Active</b> to make this route effective. </li><li>Type the destination IP address of the final destination. </li><li>Type the IP subnet mask for this destination. <br>If this is for a single host, type <b>255.255.255.255</b>. </li><li>  Type the gateway IP address, which must be a router on the same segment. </li><li>Type a number between 2 and 15 as the <b>Metric</b> value.   <br>This represents the number of other routers on your network. Usually, setting this to 2 or 3 works best, but if this is a direct connection, set it to 2. </li><li>  Click <b>Apply</b> to enter the static route into the table. </li></ol><p><b>To edit a static route:</b> <ol><li>Click the radio button next to route you want to edit. </li><li> Update the information.<li>Click <b>Apply</b> when finished.</ol><p><b>To delete a static route:</b> <ol><li>Click the radio button next to route you want to delete. </li><li>Click <b>Delete</b>.</li><li>Click <b>Apply</b> to delete the static route from the table. </li></ol></div></body>"
 h_wds="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Wireless Repeating Function Settings Help</B></font></P> <p name=en_repeat id=en_repeat></p> <p><b>Enable Wireless Repeating</b></p> <p>Enable this if you wish to use either Bridge mode or Repeater mode, and then select the mode you want for your environment. </p><ul>     <p><li><p class=inline id=repeat></p><strong>Wireless Repeater. </strong>  <p>In this mode, the "
@@ -967,14 +971,14 @@ h_wds_2=" router is the master for a group of Repeater-mode wireless stations. T
 h_wds_3="router's MAC address. They then send all traffic to this master, rather than communicate directly with each other. WEP can (and should) be used to protect this traffic.   <p>If this option is selected, you must enter the MAC addresses of the other access points in the fields provided. </div></body>"
 h_FW_forward="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><p><font size="4"><b> Port Forwarding / Port Triggering Help </b></font></p><p>Port triggering is an advanced feature that you can use for gaming and other Internet applications. Port forwarding can typically be used to enable similar functionality, but it is static and has some limitations. </p><p>Port triggering opens an incoming port temporarily and does not require the server on the Internet to track your IP address if it is changed by DHCP, for example. </p><p>Port triggering monitors outbound traffic. When the router detects traffic on the specified outbound port, it remembers the IP address of the computer that sent the data and triggers the incoming port. Incoming traffic on the triggered port is then forwarded to the triggering computer.</p><p name="select" id="select"></p><p>Using the Port Forwarding / Port Triggering screen, you can make local computers or servers available to the Internet for different services (for example, FTP or HTTP), to play Internet games (like Quake III), or to use Internet applications (like CU-SeeMe).</p><p>Port forwarding is designed for FTP, Web server, or other server-based services. Once port forwarding is set up, requests from the Internet are forwarded to the proper server. </p><p>Port triggering allows requests from the Internet only after a designated port is triggered. Port triggering applies to chat and Internet games.</p><hr><p><b>Port Forwarding</b></p><p>For the services, applications, or games that already exist in the drop-down list, you need to specify only the computer's IP address. Otherwise, you should specify the port number and computer's IP address for each service, game, or application by clicking the <b>Add Custom Service</b> button. </p><p><b> Port Assignment </b></p><p>You can make up to 20 different port assignments for Internet services, applications, or games. In the <b>Service Name</b>lists, you can select a service, an application, or a game. If you do not see an item that you want to use in any of the lists, check with the software or game developer for the correct port numbers to use.</p><p><b> For Internet Services </b></p><p> Before starting, you need to determine which type of services you will provide and the IP address of the computer that will provide those services. The most common services you would provide are a Web (HTTP) server or FTP server.</p><p name="setup" id="setup"></p><p>To set up a computer or server to be accessible to the Internet for an Internet service:</p><ol><li> Select the Internet service you want to use from the <b>Service Name</b> list.</li><li>Type the IP address of the computer in the<b> Internal IP Address</b>field.</li><li>Click <b>Add</b>.</li></ol><p><b>Note:</b> You might have a single computer or server available for more than one type of service. To do that, select another service, and type the same IP address for that computer or server.</p><p><b> For Internet Games or Applications </b></p><p> Before starting, you need to know which service, application, or game you will be configuring. Also, you need to have the IP address for the computer that you want to use.</p><p>To set up a computer to play Internet games or use Internet applications:</p><ol><li>Select the Internet application or game you want to use from one of the relevant lists. <br>The&nbsp;<b>External Start Port</b>,&nbsp;<b>External End Port</b>, <b>Internal Start Port</b> and <b>Internal End Port </b>fields are filled in. <br>b>Note: </b>If you cannot find the game or application you want in one of the lists, click the <b>Add Custom Service</b> button, and enter the service name, external starting port, external ending port, internal starting port, internal ending port, and internal IP address. </li><li>Type the IP address of the computer in the&nbsp;<b>Internal IP Address</b> field. </li><li>Click <b>Add</b>. </li></ol><p>To set up an additional computer to play, for example, Hexen II or KALI:</p><ol><li> Click the <b>Add Custom Serse</b> games, use the default number, and add 1 for each additional computer. For example, if you have already configured one computer to play Hexen II using port 26900, the second computer's port number would be 26901, and the third computer's port number would be 26902.</li> <li>Type the same port number in the <b>Ending Port</b> field.</li> <li>Type the IP address of the computer in the <b>Server IP Address</b> field.</li> <li>Click <b>Apply</b>. </li></ol><p>To modify a service entry:<ol> <li>Select the entry's radio button in the table. </li> <li>Click <b>Edit Service</b>. </li> <li>Modify the information in the <b>Service Name</b>, <b>Starting Port</b>, <b>Ending Port</b>, and <b>Server IP Address</b> fields. </li> <li>Click <b> Apply</b>. </li></ol><p>To delete a service entry:<ol> <li>Select the entry's radio button in the table. </li> <li>Click <b>Delete Service</b>. </li></ol></div></body>"
 h_FW_trigger="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><P><font size=4><B> Port Forwarding / Port Triggering Help </B></font></P><p>Port triggering is an advanced feature that you can use for gaming and other Internet applications. Port forwarding can typically be used to enable similar functionality, but it is static and has some limitations. </p><p>Port triggering opens an incoming port temporarily and does not require the server on the Internet to track your IP address if it is changed by DHCP, for example. </p><p>Port triggering monitors outbound traffic. When the router detects traffic on the specified outbound port, it remembers the IP address of the computer that sent the data and triggers the incoming port. Incoming traffic on the triggered port is then forwarded to the triggering computer.</p><p>Using the Port Forwarding / Port Triggering screen, you can make local computers or servers available to the Internet for different services (for example, FTP or HTTP), to play Internet games (like Quake III), or to use Internet applications (like CU-SeeMe).</p><p>Port forwarding is designed for FTP, Web server, or other server-based services. Once port forwarding is set up, requests from the Internet are forwarded to the proper server. </p><p>Port triggering allows requests from the Internet only after a designated port is triggered. Port triggering applies to chat and Internet games.</p><hr><p><b>Port Triggering</b></p><p>Note: If <b>Disable Port Triggering box</b> is checked, <b>all</b> port triggering function will be disabled but the configuration information will remain in the router.</p><p><b>Port Triggering Timeout</b></p><p>Enter a value up to 9999 minutes. The Port Triggering Timeout value controls the inactivity timer for the designated inbound port(s). The inbound port(s) will be closed when the inactivity timer expires.</p><p><b> For Internet Games or Applications </b></p><p>Before starting, you'll need to know which service, application or game you'll be configuring. Also, you'll need to have the outbound port ( triggering port )  address for this game or application.</p><p>To setup a computer to play Internet games or use Internet applications: <ol> <li> Click <b>Add Service</b> button. </li> <li> Enter a service name in the <b>Service Name</b> box.  </li> <li> Under <b>Service User</b>,  select <b>Any</b> (default) will allow this service to be used by everyone in your network. Otherwise, select <b>Single address</b> and enter the PC's IP address to restrict the service to a particular PC. </li> <li> Select <b>Service Type</b>. </li> <li> Enter the outbound port number in <b>Triggering Port</b> box. </li> <li> Enter the inbound connection port information such as <b>Connection Type</b>, <b>Starting Port</b> and <b>Ending Port</b> boxes. These information can be obtained from the game or applications manual or support website.  </li> <li> Click <b>Apply</b> button.  </li></ol></p><p>To modify a service entry:<ol><li>Select the entry's radio button of the table. </li> <li> Click <b>Edit Service</b>. </li> <li> Modify the service.</li> <li>  Click <b> Apply</b> button.</li></ol></p><p>To delete a service entry:<ol> <li>  Select the entry's radio button of the table. </li> <li>  Click <b> Delete Service</b> button. </li></ol></p></div></body>"
-h_qos="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><P><font size=4><B>QoS Settings Help</B></font></P><p>QoS is an advanced feature that you can use to prioritize some Internet applications and online gaming, and to minimize the impact when the bandwidth is busy. <hr><p><p name=wifi id=wifi></p><b>Wi-Fi Multimedia (WMM) Settings</b><P>WMM (Wireless Multimedia) is a subset of the 802.11e standard. WMM allows wireless traffic to have a range of priorities, depending on the kind of data. Time-dependent information, like video or audio, has a higher priority than normal traffic. For WMM to function correctly, wireless clients must also support WMM.<hr><p><p name=qos_on id=qos_on></p><b>Turn Internet Access QoS On</b><p> If this feature is enabled, the QoS function prioritizes Internet traffic. For applications, online gaming, an Ethernet LAN port, or a specified MAC address that already exists in the drop-down list, you can modify the priority level by clicking the <b>Edit</b> button. You can click the <b>Delete</b> button to erase the priority rule. You can also define the priority policy for each online game, application, LAN port, or the computer's MAC address by clicking the <b>Add Priority Rule</b> button.<p><b>To save or cancel changes:</b><p>Click <b>Apply</b> to have your changes take effect. <p>Click <b>Cancel</b> to return to the previous settings. <hr><p><b>For Applications or Online Gaming</b><p>To set up the priority for an application or online gaming: <ul>1. Select <b>Applications</b> or <b>Online Gaming</b> from the </b>Priority Category</b> lists. <br>2. Select the Internet application or game you want to use from one of the relevant lists. <br>3. Select the priority level: <b>Highest</b>, <b>High</b>, <b>Normal</b>, or <b>Low</b>. <br>4. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>5. Click <b>Apply</b> .</ul><p><b>For an Ethernet LAN port</b><p>To set up the priority for computers connected to a LAN port: <ul>1. Select the number of the LAN port for which you want to specify the priority level. <br>2. Select the priority level: <b>Highest</b>, <b>High</b>, <b<Normal</b>, or <b>Low</b>. <br>3. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>4. Click <b>Apply</b>.</ul><p><b>For a MAC address</b><p>To set up the priority for a specified computer through its MAC address: <ul>1. Select the MAC address from the <b>Priority Category</b> list. <br>2. Click the <b>Refresh</b> button to update the list of those computers already connected to routers. <br>3. Select the entry's radio button in the table. <br>4. Modify the information in the <b>MAC Address</b> and <b>Device Name</b> fields. <br>5. Select the priority level: <b>Highest</b>, <b>High</b>, <b>Normal</b>, or <b>Low</b>. <br>6. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>7. Click the <b>Edit</b> button. <br>8.    Click <b>Apply</b>. </ul><p>To add the priority for a specified computer through its MAC address: <ul>1. Select <b>MAC Address</b> from the <b>Priority Category</b> list. <br>2.    Enter the MAC address of the computer for which you want to define the priority. <br>3. You can also enter a name in the <b>Device Name</b> field. <br>4. Select the priority level: Highest, High, Normal, or Low. <br>5.    You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>6. Click the <b>Add</b> button. <br>7. Click <b>Apply</b>. </ul><p><b>To delete a service entry:</b><ul>1. Select the entry's radio button in the table. <br>2. Click the <b>Delete</b> button. <br>3. Click the <b>Apply</b> button. </div></body>"
+h_qos="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><P><font size=4><B>QoS Settings Help</B></font></P><p>QoS is an advanced feature that you can use to prioritize some Internet applications and online gaming, and to minimize the impact when the bandwidth is busy. <hr><p><p name=wifi id=wifi></p><b>Wi-Fi Multimedia (WMM) Settings</b><P>WMM (Wireless Multimedia) is a subset of the 802.11e standard. WMM allows wireless traffic to have a range of priorities, depending on the kind of data. Time-dependent information, like video or audio, has a higher priority than normal traffic. For WMM to function correctly, wireless clients must also support WMM.<hr><p><p name=qos_on id=qos_on></p><b>Turn Internet Access QoS On</b><p> If this feature is enabled, the QoS function prioritizes Internet traffic. For applications, online gaming, or a specified MAC address that already exists in the drop-down list, you can modify the priority level by clicking the <b>Edit</b> button. You can click the <b>Delete</b> button to erase the priority rule. You can also define the priority policy for each online game, application, LAN port, or the computer's MAC address by clicking the <b>Add Priority Rule</b> button.<p><b>To save or cancel changes:</b><p>Click <b>Apply</b> to have your changes take effect. <p>Click <b>Cancel</b> to return to the previous settings. <hr><p><b>For Applications or Online Gaming</b><p>To set up the priority for an application or online gaming: <ul>1. Select <b>Applications</b> or <b>Online Gaming</b> from the </b>Priority Category</b> lists. <br>2. Select the Internet application or game you want to use from one of the relevant lists. <br>3. Select the priority level: <b>Highest</b>, <b>High</b>, <b>Normal</b>, or <b>Low</b>. <br>4. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>5. Click <b>Apply</b> .</ul><p><b>For an Ethernet LAN port</b><p>To set up the priority for computers connected to a LAN port: <ul>1. Select the number of the LAN port for which you want to specify the priority level. <br>2. Select the priority level: <b>Highest</b>, <b>High</b>, <b<Normal</b>, or <b>Low</b>. <br>3. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>4. Click <b>Apply</b>.</ul><p><b>For a MAC address</b><p>To set up the priority for a specified computer through its MAC address: <ul>1. Select the MAC address from the <b>Priority Category</b> list. <br>2. Click the <b>Refresh</b> button to update the list of those computers already connected to routers. <br>3. Select the entry's radio button in the table. <br>4. Modify the information in the <b>MAC Address</b> and <b>Device Name</b> fields. <br>5. Select the priority level: <b>Highest</b>, <b>High</b>, <b>Normal</b>, or <b>Low</b>. <br>6. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>7. Click the <b>Edit</b> button. <br>8.    Click <b>Apply</b>. </ul><p>To add the priority for a specified computer through its MAC address: <ul>1. Select <b>MAC Address</b> from the <b>Priority Category</b> list. <br>2.    Enter the MAC address of the computer for which you want to define the priority. <br>3. You can also enter a name in the <b>Device Name</b> field. <br>4. Select the priority level: Highest, High, Normal, or Low. <br>5.    You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>6. Click the <b>Add</b> button. <br>7. Click <b>Apply</b>. </ul><p><b>To delete a service entry:</b><ul>1. Select the entry's radio button in the table. <br>2. Click the <b>Delete</b> button. <br>3. Click the <b>Apply</b> button. </div></body>"
 h_auto_upgrade="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px">	<P><font size=4><B>Firmware Upgrade Assistant Help</B></font></P><p>The router can automatically detect whether a new version of the firmware is available on the Internet.<p>Click <b>Yes</b> if you want to start the detection now.<br>Click <b>No</b> if you want do not want to check for a new version now.<p>If you prefer to check for a new version later, you can do this on the Router Upgrade screen.<p>If you do not want to see this message again the next time you log in, select the <b>Do not display this message again</b> check box, and click <b>No</b>.</div></body>"
-h_wlan="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Wireless Help</B></font></P><P><B>NOTE:</B> To ensure proper agency compliance and compatibility between similar products in your area, the operating channel and region must be set correctly. </p><p name=region id=region></p><P><B>Placement of the Router to Optimize Wireless Connectivity</B></p><P>The operating distance or range of your wireless connection can vary significantly based on the physical placement of the router. For best results, place your router:</p><UL><LI>Near the center of the area in which your PCs will operate.</LI><LI>In an elevated location such as a high shelf.<LI>Away from potential sources of interference, such as PCs, microwave ovens, and cordless phones.</LI><LI>Away from large metal surfaces. </LI></UL><P><B>Note:</B> Failure to follow these guidelines can result in significant performance degradation or inability to wirelessly connect to the router.</P><HR><p name=network id=network></p><P><B>Wireless Network</B></P><P>Enable Wireless Isolation<P>If checked, the wireless client under this SSID can only access internet and it can’t access other wireless clients even under the same SSID, Ethernet clients or this device. Other clients can’t access the wireless client, either.</p><P>Name (SSID)<P>Enter a value of up to 32 alphanumeric characters. The same name (SSID) must be assigned to all wireless devices in your network. The default SSID is NETGEAR, but NETGEAR strongly recommends that you change your network's name (SSID) to a different value. This value is case-sensitive. For example, NETGEAR is not the same as NETGEAr.<P>Region<P>Select your region from the drop-down list. This field displays the region of operation for which the wireless interface is intended. It might not be legal to operate the router in a region other than the region shown here. If your country or region is not listed, please check with your local government agency or check the NETGEAR website for more information about which channels to use.</p><p>Channel</p><P>This field determines which operating frequency will be used. It should not be necessary to change the wireless channel unless you notice interference problems with another nearby access point.</P>"
+h_wlan="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Wireless Help</B></font></P><P><B>NOTE:</B> To ensure proper agency compliance and compatibility between similar products in your area, the operating channel and region must be set correctly. </p><p name=region id=region></p><P><B>Placement of the Router to Optimize Wireless Connectivity</B></p><P>The operating distance or range of your wireless connection can vary significantly based on the physical placement of the router. For best results, place your router:</p><UL><LI>Near the center of the area in which your PCs will operate.</LI><LI>In an elevated location such as a high shelf.<LI>Away from potential sources of interference, such as PCs, microwave ovens, and cordless phones.</LI><LI>Away from large metal surfaces. </LI></UL><P><B>Note:</B> Failure to follow these guidelines can result in significant performance degradation or inability to wirelessly connect to the router.</P><HR><p name=network id=network></p><P><B>Wireless Network</B></P><P>Enable 20/40 MHz Coexistence</P><P>Disabling this option allows your 2.4GHz wireless to stay in supporting the max speed. Enabling this option may reduce the max speed of your 2.4GHz wireless to the half when there is another wireless network detected in your environment; this is to avoid inteference between wireless networks and to get along with other wireless networks in the environment.</P><P>Enable Wireless Isolation<P>If checked, the wireless client under this SSID can only access internet and it can?™t access other wireless clients even under the same SSID, Ethernet clients or this device. Other clients can?™t access the wireless client, either.</p><P>Name (SSID)<P>Enter a value of up to 32 alphanumeric characters. The same name (SSID) must be assigned to all wireless devices in your network. The default SSID is NETGEAR, but NETGEAR strongly recommends that you change your network's name (SSID) to a different value. This value is case-sensitive. For example, NETGEAR is not the same as NETGEAr.<P>Region<P>Select your region from the drop-down list. This field displays the region of operation for which the wireless interface is intended. It might not be legal to operate the router in a region other than the region shown here. If your country or region is not listed, please check with your local government agency or check the NETGEAR website for more information about which channels to use.</p><p>Channel</p><P>This field determines which operating frequency will be used. It should not be necessary to change the wireless channel unless you notice interference problems with another nearby access point.</P>"
 h_wlan_1="<P>Mode</P><P>Select the wireless mode you want to use. The options are:<UL><LI>Up to 54 Mbps. Legacy Mode, with a maximum speed of up to 54 Mbps for b/g networks.<LI>Up to 130 Mbps. Neighbor-Friendly Mode, the default, with a speed of up to 130 Mbps in the presence of neighboring wireless networks.<LI>Up to 300 Mbps. Performance Mode, with a maximum Wireless-N speed of up to 300 Mbps.</LI></UL><P>The default is <b>Up to 130 Mbps</b>, which allows all 11b and 11g and 11n wireless stations. </P>"
 h_wlan_2="<HR><A name=security></A><p><b>Security Options</b></p><UL><LI>None - no data encryption<LI>WEP - Wired Equivalent Privacy, use WEP 64- or 128-bit data encryption<br><b>Note:</b>&nbsp;   Wi-Fi Protected Setup function is disabled when the security setting is WEP. <LI>WPA2-PSK [AES] - Wi-Fi Protected Access version 2 with Pre-Shared Key, use WPA2-PSK standard encryption with the AES encryption type<LI>WPA-PSK [TKIP] + WPA2-PSK [AES] - Allow clients using either WPA-PSK [TKIP] or WPA2-PSK [AES]<LI>WPA/WPA2 Enterprise - It supports 802.1x authentication, not for home use, you must have a RADIUS server in your network.</LI></UL><p>To achieve the best performance with 11N wireless adapters under robust security network, NETGEAR recommends that you change your network's security option to WPA2-PSK.</p><HR><A name=wep></A><p><b>Security Encryption (WEP) </b></p><P>Authentication Type <p>Normally this can be left at the default value of Automatic. It allows adapters to use either Open System or Shared Key to do the authentication. If you want to have better secure authentication, then you can select Shared Key and you wireless adapters can only use Shared Key to connect to this network.<p>Encryption Strength <p>Select the WEP Encryption level: <UL><LI>64-bit (sometimes called 40-bit) encryption <LI>128-bit encryption </LI></UL><HR><A name=wepkey></A><p><b>Security Encryption (WEP) Key</b></p><p>If WEP is enabled, you can manually or automatically program the four data encryption keys. These values must be identical on all PCs and Access Points in your network. <p>Select which of the four keys will be used, and enter the matching WEP key information for your network in the selected key box. <p>For 64-bit WEP - Enter ten hexadecimal digits (any combination of 0-9, A-F). <p>For 128-bit WEP - Enter twenty-six hexadecimal digits (any combination of 0-9, A-F). <p>Be sure to click Apply to save your settings in this menu.</P><HR><A name=wpa2-psk></A><p><b>Security Encryption (WPA2-PSK)</b></p><p>WPA2 is a newer version of WPA. Only select this if all the wireless clients in your network support WPA2. If selected, you must use AES encryption, and enter the WPA password (Network key). Enter a word or group of printable characters in the Password box. The Password must be constituted of either 8 to 63 ASCII characters or exactly 64 hex digits. A hex digit is one of the following characters: <br>0, 1, 2, ..., 8, 9, A, B, C, D, E, and F. </p><HR><A name=wpa-psk+wpa2-psk></A><p><b>Security Encryption (WPA-PSK + WPA2-PSK) </b></p><p>This selection allows clients to use either WPA (with TKIP, broadcast packets also use TKIP.) or WPA2 (with AES). If selected, encryption must be TKIP + AES. The WPA password (Network key) must also be entered. To reach maximum wireless performance, the 11N clients must connect to this router using WPA2-PSK(with AES) . For clients connecting in WPA-PSK( with TKIP), the maximum wireless speed will be at 802.11g. Enter a word or group of printable characters in the Password box. The Password must be constituted of either 8 to 63 ASCII characters or exactly 64 hex digits. A hex digit is one of the following characters: <br>0, 1, 2, ..., 8, 9, A, B, C, D, E, and F. </p><HR><A name=wpawpa2></a><p><b>Security Encryption (WPA/WPA2 Enterprise)</b></p><p>It supports 802.1x authentication, not for home use, you must have a RADIUS server in your network. The <b>WPA mode</b> includes WPA [TKIP], WPA2 [AES], and WPA [TKIP] + WPA2 [AES] (default value). The <b>RADIUS server IP Address</b> is the IP address of RADIUS server (authentication server) which CAN NOT be the same as this router IP that user is configuring. And this authentication server can be on either WAN side or LAN side. The value range of <b>RADIUS server Port</b> is from <b>1 to 65535</b> and the default value is 1812. The <b>RADIUS server Shared Secret</b> must use <b>1 to 128 characters </b> (octets) and the default value is blank. It supports 5 EAP authentication methods, EAP-TLS, EAP-TTLS/MSCHAPv2, PEAPv0/EAP-MSCHAPv2, PEAPv1/EAP-GTC and EAP-SIM.</p><HR><p><b>To Save Or Cancel Changes</b></p><p>Click <b>Apply</b> to have your changes take effect. <br>Click <b>Cancel</b> to return to the previous settings. </p></div></body>"
 h_attach_device="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><P><font size=4><B>Attached Devices Help</B></font></P><p>This screen shows the IP address, device name, and MAC (Media Access Control) address for each computer attached to the router.<p>You cannot change any of the values on this screen. To update this screen and show the list of currently attached devices, click the <b id=italic>Refresh</b> button. </div></body>"
 h_forward_service_add="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B> Ports - Custom Services Help </B></font></P><p>	To set up an application, game, or service:<ol><li> Type the service name in the <b>Service Name</b> field.</li><li>Type the beginning port number in the<b>Starting Port</b> field.<br></li><li>If the application uses only a single port, type the same port number in the <b>Ending Port</b> field.</li><li>If the application uses a range of ports, type the ending port number of the range in the <b>Ending Port</b> field.</li>	<li>Type the IP address of the computer in the <b>Server IP Address</b> field.</li><li>Click <b>Apply</b>.</li></ol><p>To edit a service entry:<ol><li>Modify the information in the <b>Service Name</b>, <b>Starting Port</b>, <b>Ending Port</b>, and <b>Server IP Address</b> fields.</li><li>Click <b>Apply</b>.	</li></ol></div></body>"
-h_WAN_wan="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><P><font size=4><B>WAN Setup Help </B></font></P><p>Using this page, you can set up a Default DMZ Server and allow the router to respond to a 'ping' from the internet. Both of these options have security issues, so use them carefully.</p><p name=spi id=spi></p><p><b>Disable Port Scan and DoS Protection</b> - The DoS Protection protects your LAN against Denial of Service attacks. This should only be disabled in special circumstances.</p><p name=dmz id=dmz></p><p><b> Default DMZ Server </b><p>Specifying a Default DMZ Server allows you to set up a computer or server that is available to anyone on the Internet for services that you haven't defined. There are security issues with doing this, so only do this if you're willing to risk open access. If you do not assign a Default DMZ Server, the router discards any incoming service requests which are undefined.<p> To assign a computer or server to be a DMZ server: <ol><li>Click the <b id=italic>Default DMZ Server</b> check box</li>.<li>Type the IP address for that server. </li><li>Click <b> Apply</b>. </li></ol><hr><p name=ping id=ping></p><p><b> Respond To Ping On Internet Port </b><p>If you want the Router to respond to a 'Ping' from the Internet, click this check box. This can be used as a diagnostic tool. Again, like the DMZ server, this can be a security problem. You shouldn't check this box unless you have a specific reason to do so. </p><p name=mtu id=mtu></p><p><b>MTU Size</b><p>The normal MTU (Maximum Transmit Unit) value for most Ethernet networks is 1500 Bytes, 1492 Bytes for PPPoE connections, 1436 for PPTP, or 1428 for L2TP connections. For some ISPs you may need to reduce the MTU. But this is rarely required, and should not be done unless you are sure it is necessary for your ISP connection.</p><p name=nat id=nat></p><p><b>NAT Filtering</b><p>This option determines how the router deals with inbound traffic. The Secured option provides a secured firewall to protect the PCs on LAN from attacks from the Internet, but it may cause some Internet games, point-to-point applications, or multimedia applications not to work. The Open option, on the other hand, provides a much less secured firewall, while it allows almost all Internet applications to work.</p><p><b>Disable SIP ALG</b><p>Some voice/video communication applications do not work well with the SIP ALG. Enabling this option to turn off the SIP ALG may help your voice/video applications to create/accept a call through the router.</p></div></body>"
+h_WAN_wan="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><P><font size=4><B>WAN Setup Help </B></font></P><p>Using this page, you can set up a Default DMZ Server and allow the router to respond to a 'ping' from the internet. Both of these options have security issues, so use them carefully.</p><p name=spi id=spi></p><p><b>Disable Port Scan and DoS Protection</b> - The DoS Protection protects your LAN against Denial of Service attacks. This should only be disabled in special circumstances.</p><p name=dmz id=dmz></p><p><b> Default DMZ Server </b><p>Specifying a Default DMZ Server allows you to set up a computer or server that is available to anyone on the Internet for services that you haven't defined. There are security issues with doing this, so only do this if you're willing to risk open access. If you do not assign a Default DMZ Server, the router discards any incoming service requests which are undefined.<p> To assign a computer or server to be a DMZ server: <ol><li>Click the <b id=italic>Default DMZ Server</b> check box</li>.<li>Type the IP address for that server. </li><li>Click <b> Apply</b>. </li></ol><hr><p name=ping id=ping></p><p><b> Respond To Ping On Internet Port </b><p>If you want the Router to respond to a 'Ping' from the Internet, click this check box. This can be used as a diagnostic tool. Again, like the DMZ server, this can be a security problem. You shouldn't check this box unless you have a specific reason to do so. </p><hr><p name=ping id=ping></p><p><b>Disable IGMP Proxying </b></p><p>The IGMP Proxying function lets a LAN PC to receive the multicast traffic it is interested in from the Internet. You can click this check box to disable the function if you do not need it.</p><p name=mtu id=mtu></p><p><b>MTU Size</b><p>The normal MTU (Maximum Transmit Unit) value for most Ethernet networks is 1500 Bytes, 1492 Bytes for PPPoE connections, 1436 for PPTP, or 1428 for L2TP connections. For some ISPs you may need to reduce the MTU. But this is rarely required, and should not be done unless you are sure it is necessary for your ISP connection.</p><p name=nat id=nat></p><p><b>NAT Filtering</b><p>This option determines how the router deals with inbound traffic. The Secured option provides a secured firewall to protect the PCs on LAN from attacks from the Internet, but it may cause some Internet games, point-to-point applications, or multimedia applications not to work. The Open option, on the other hand, provides a much less secured firewall, while it allows almost all Internet applications to work.</p><p><b>Disable SIP ALG</b><p>Some voice/video communication applications do not work well with the SIP ALG. Enabling this option to turn off the SIP ALG may help your voice/video applications to create/accept a call through the router.</p></div></body>"
 h_backup="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><p><font size=4><b>Backup Settings Help</b></font></p><p>This screen allows you to back up, restore, and erase the router's current settings. </p><p>Once you have the router working correctly, you should back up the information to have it available if something goes wrong. When you back up the settings, they are saved as a file on your computer. You can restore the router's settings from this file. </p><p name=save id=save></p><p>To create a backup file of the current settings:<ol><li>Click <b>Back Up</b>.</li><li>If you do not have your browser set up to save downloaded files automatically, locate where you want to save the file, rename it if you like, and click <b>Save</b>. <br>If you have your browser set up to save downloaded files automatically, the file is saved to the your browser's download location on the hard disk and is called "
 h_backup_1=". </li></ol><hr><p><b>IMPORTANT!</b>Once you start restoring settings or erasing the router, do <b id=italic>not</b> try to go online, turn off the router, shut down the computer, or do anything else to the router until it finishes restarting! This should take only a minute or so. When the Test light stops blinking, wait a few more seconds before doing anything with the router. </p><hr><p name=restore id=restore></p><p>To restore settings from a backup file:<ol><li>Click <b>Browse</b>.</li><li>Locate and select the previously saved backup file (by default, "
 h_backup_2=").</li><li>Click <b>Restore</b>. <br>A window appears letting you know that the router has been successfully restored to the previous settings. The router will restart. This will take about 1 minute.<br><b>IMPORTANT!</b>Do not try to go online, turn off the router, shut down the computer, or do anything else to the router until it finishes restarting! When the Test light stops blinking, wait a few more seconds before doing anything with the router. </li><li>Close the message window.</li></ol><p name=revert id=revert></p><p>To erase the current settings and reset the router to the original factory default settings:<ul><li>Click <b>Erase</b>.<br><b>IMPORTANT!</b>Do not try to go online, turn off the router, shut down the computer, or do anything else to the router until the router finishes restarting! When the Test light stops blinking, wait a few more seconds before doing anything with the router. </ul><p>After you have erased the router's current settings, the router's password will be <b>password</b>, the LAN IP address will be <b>192.168.1.1</b>, and the router will act as a DHCP server on the LAN and act as a DHCP client to the Internet. </p></p></div></body>"
@@ -988,13 +992,13 @@ h_FW_remote="<body style="margin:0px"><div id="content" style="overflow:auto;scr
 h_Wizard_cfm="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" >	<P><font size=4><B>			Setup Wizard Help 	</B></font></P>		<p>The Setup Wizard has detected that an active Internet connection already exist. Since your Internet connection does seem to be working correctly, it might not be necessary for you to continue with the Setup Wizard. If you decide to continue with the Setup Wizard, then some changes to your current setup might occur. NETGEAR recommends that you back up your current settings before proceeding with the Setup Wizard. <p>To proceed:<ol> <li>Click <b>Yes</b> if you want to continue with the Setup Wizard.<br><li>Click <b>No</b> to exit the Setup Wizard and keep your existing Internet connection.</ol> <p>To back up settings:<ol> <li>Click <b>No</b> to exit the Setup Wizard and keep your existing Internet connection.<li>Click <b>Back Up Settings</b> on the navigation bar to enter the Backup screen.<br><li>Once the settings are saved, run the Setup Wizard again.</ol> </div></body>"
 h_checkLanguage="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" > <P><font size=4><B> GUI Language Update Help </B></font></P> <p>You have selected the GUI language from the <b>Select Language</b> list. You can use the GUI Language Update function to check the GUI language update. This function will check only the GUI language update itself, not the full firmware.<p>Click the <b>Check</b> button to go to the NETGEAR website to get new version of the selected GUI language. <p>If a new version is found, you can select <b>Yes</b> to update to that new version, or <b>No</b> to cancel the update. </div></body>"
 h_ap_mode="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Wireless Access Point Mode Help</B></font></P><HR><P><p name=enable_ap id=enable_ap></p><B>Enable Access Point Mode</B></P><P>Enabled Access Point Mode allows the device to act as a layer-2 bridge, and it still has a management IP for device configuration purpose.</P><P><p name=dynamic_ip id=dynamic_ip></p><B>Get dynamically from existing router</B></P><P>The device will find an IP address automatically from DHCP server</P><P><p name=fixed_ip id=fixed_ip></p><B>Use fixed IP Address</B></P><P>Use this option if you want to manually configure IP address, subnet mask, gateway IP address, and DNS server IP address.</P></div></body>"
-h_passwd="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Set Password Help</B></font></P><p> You use the Set Password screen to change the password you use to access the Settings screens,<b id=italic>not</b> your ISP account password. <p> To change the password: <ol> <li>Type the old password.<BR>The default password for the router is <b>password</b>.  <li>Type a new password, and type it again in the <b>Repeat New Password</b> field to confirm it.   <br>  <b>Note:</b> Be sure to write it down in a secure location.  <li>Click <b>Apply</b> to change the password, or click <b>Cancel</b> to keep the current password. </ol><p> <b>Note:</b> If you have backed up the router settings previously, you should do a new backup so that the settings file includes the new password. </p><p><b>Enable Password Recovery</b><br>NETGEAR recommends that you enable password recovery if you change the password for the router’s user name of admin. Then you will have an easy way to recover the password if it is forgotten. </p><p><b>To enable password recovery:</b><ol><li>Select the <b>Enable Password Recovery</b> check box.<li>Select two security questions and provide answers to them.<li>Click <b>Apply</b> to save your changes.</ol></p><p>When you use your browser to access the router, the log in window displays. If password recovery is enabled, when you click <b>Cancel</b>, the password recovery process starts. You can then enter the saved answers to the security questions to recover the password. This recovery process is supported in Internet Explorer, Firefox, and Chrome browsers, but not in the Safari browser.</p></div></body>"
+h_passwd="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Set Password Help</B></font></P><p> You use the Set Password screen to change the password you use to access the Settings screens,<b id=italic>not</b> your ISP account password. <p> To change the password: <ol> <li>Type the old password.<BR>The default password for the router is <b>password</b>.  <li>Type a new password, and type it again in the <b>Repeat New Password</b> field to confirm it.   <br>  <b>Note:</b> Be sure to write it down in a secure location.  <li>Click <b>Apply</b> to change the password, or click <b>Cancel</b> to keep the current password. </ol><p> <b>Note:</b> If you have backed up the router settings previously, you should do a new backup so that the settings file includes the new password. </p><p><b>Enable Password Recovery</b><br>NETGEAR recommends that you enable password recovery if you change the password for the router?™s user name of admin. Then you will have an easy way to recover the password if it is forgotten. </p><p><b>To enable password recovery:</b><ol><li>Select the <b>Enable Password Recovery</b> check box.<li>Select two security questions and provide answers to them.<li>Click <b>Apply</b> to save your changes.</ol></p><p>When you use your browser to access the router, the log in window displays. If password recovery is enabled, when you click <b>Cancel</b>, the password recovery process starts. You can then enter the saved answers to the security questions to recover the password. This recovery process is supported in Internet Explorer, Firefox, and Chrome browsers, but not in the Safari browser.</p></div></body>"
 h_upnp="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" >  <p><font size=4><b>    UPnP Help  </b></font></p><p>Universal Plug and Play (UPnP) helps devices, such as Internet appliances and computers, access the network and connect to other devices as needed. UPnP devices can automatically discover the services from other registered UPnP devices on the network. </p><p name=turnon id=turnon></p> <p><b>Turn UPnP On</b></p><p>UPnP can be enabled for automatic device configuration, or it can be disabled. The default setting for UPnP is enabled. If this feature is disabled, the router will not allow any device to automatically control the resources, such as port forwarding (mapping), of the router. </p><p name=adv id=adv></p>  <p><b>Advertisement Period</b></p><p>The advertisement period is how often the router advertises (broadcasts) its UPnP information. This value can range from 1 to 1440 minutes. The default period is 30 minutes. Shorter durations ensure that control points have current device status at the expense of additional network traffic. Longer durations might compromise the freshness of the device status but can significantly reduce network traffic.</p><p name=live id=live></p>  <p><b>Advertisement Time to Live</b></p><p>The time to live for the advertisement is measured in hops (steps) for each UPnP packet sent. A hop is the number of steps allowed to propagate for each UPnP advertisement before it disappears. The number of hops can range from 1 to 255. The default value for the advertisement time to live is 4 hops, which should be fine for most home networks. If you notice that some devices are not being updated or reached correctly, then it might be necessary to increase this value a little.</p><p name=table id=table></p><p><b>UPnP Portmap Table</b></p><p>The UPnP Portmap table displays the IP address of each UPnP device that is currently accessing the router and which ports (internal and external) that device has opened. The UPnP Portmap table also displays what type of port is opened and if that port is still active for each IP address.<p><b>To save, cancel or refresh the table:</b></p><p>Click <b>Apply</b> to save the new settings to the router. <br>Click <b>Cancel</b> to discard any unsaved changes. <br>Click <b>Refresh</b> to update the Portmap table and show the active ports that are currently opened by UPnP devices.  </div></body>"
 h_wps="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Add WPS Client Help</B></font></P><p><a name=internet></a><a name=meter></a>WPS stands for Wi-Fi Protected Setup. This is a process that lets you add a wireless client to the network easily, without the need to specifically configure the wireless settings such as SSID, security mode, and password.<p>You can select to add a wireless client using either the Push Button or PIN Number method.<p>With the Push Button method, you complete the process by clicking a button on the client (either a physical hardware button or a software button on the client's utility GUI).<p>With the PIN Number method, you have to enter the client's PIN here. You have to start the client WPS process at the same time. You can find the client's PIN on the client's utility GUI.</p></div></body>"
 h_wmm_qos="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>QoS Settings Help</B></font></P><hr><p><a name="wifi"></a><b>Wi-Fi Multimedia (WMM) Settings</b><P>WMM (Wireless Multimedia) is a subset of the 802.11e standard. WMM allows wireless traffic to have a range of priorities, depending on the kind of data. Time-dependent information, like video or audio, has a higher priority than normal traffic. For WMM to function correctly, wireless clients must also support WMM.</div></body>"
-h_up_qos="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>QoS Settings Help</B></font></P><hr><p><a name="qos_on"></a><b>Enable Upstream QoS</b><p> If this feature is enabled, the QoS function prioritizes outgoing traffic to the Internet. For applications, online gaming, an Ethernet LAN port, or a specified MAC address that already exists in the drop-down list, you can modify the priority level by clicking the <b>Edit</b> button. You can click the <b>Delete</b> button to erase the priority rule. You can also define the priority policy for each online game, application, LAN port, or the computer's MAC address by clicking the <b>Add Priority Rule</b> button.</P><p>You have to setup the <b>Maximum Uplink Bandwidth</b> in order to get this QoS function to work. If you don't know the maximum uplink bandwidth for your Internet connection, you can click the <b>Speedtest</b> button to check. The Speedtest function detects the maximum uplink bandwidth of your Internet connection. Once the detection is done, it will fill in the maximum uplink bandwidth automatically. You will still have to click the<b>Apply</b> button to make your changes effective. <hr><p><b>For Applications or Online Gaming</b><p>To set up the priority for an application or online gaming: <ul>1. Select <b>Applications</b> or <b>Online Gaming</b> from the </b>Priority Category</b> lists. <br>2. Select the Internet application or game you want to use from one of the relevant lists. <br>3. Select the priority level: <b>Highest</b>, </b>High</b>, <b>Normal</b>, or <b>Low</b>. <br>4. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>5. Click <b>Apply</b> .</ul><p><b>For an Ethernet LAN port</b><p>To set up the priority for computers connected to a LAN port: <ul>1. Select the number of the LAN port for which you want to specify the priority level. <br>2. Select the priority level: <b>Highest</b>, <b>High</b>, <b<Normal</b>, or <b>Low</b>. <br>3. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>4. Click <b>Apply</b>.</ul><p><b>For a MAC address</b><p>To set up the priority for a specified computer through its MAC address: <ul>1. Select the MAC address from the <b>Priority Category</b> list. <br>2. Click the <b>Refresh</b> button to update the list of those computers already connected to routers. <br>3. Select the entry's radio button in the table. <br>4. Modify the information in the <b>MAC Address</b> and <b>Device Name</b> fields. <br>5. Select the priority level: <b>Highest</b>, <b>High</b>, <b>Normal</b>, or <b>Low</b>. <br>6. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>7. Click the <b>Edit</b> button. <br>8. Click <b>Apply</b>. </ul><p>To add the priority for a specified computer through its MAC address: <ul>1. Select <b>MAC Address</b> from the <b>Priority Category</b> list. <br>2. Enter the MAC address of the computer for which you want to define the priority. <br>3. You can also enter a name in the <b>Device Name</b> field. <br>4. Select the priority level: Highest, High, Normal, or Low. <br>5. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>6. Click the <b>Add</b> button. <br>7. Click <b>Apply</b>. </ul><p><b>To delete a service entry:</b><ul>1. Select the entry's radio button in the table. <br>2. Click the <b>Delete</b> button. <br>3. Click the <b>Apply</b> button. </div></body>"
+h_up_qos="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>QoS Settings Help</B></font></P><hr><p><a name="qos_on"></a><b>Enable Upstream QoS</b><p> If this feature is enabled, the QoS function prioritizes outgoing traffic to the Internet. For applications, online gaming, or a specified MAC address that already exists in the drop-down list, you can modify the priority level by clicking the <b>Edit</b> button. You can click the <b>Delete</b> button to erase the priority rule. You can also define the priority policy for each online game, application, LAN port, or the computer's MAC address by clicking the <b>Add Priority Rule</b> button.</P><p>You have to setup the <b>Maximum Uplink Bandwidth</b> in order to get this QoS function to work. If you don't know the maximum uplink bandwidth for your Internet connection, you can click the <b>Speedtest</b> button to check. The Speedtest function detects the maximum uplink bandwidth of your Internet connection. Once the detection is done, it will fill in the maximum uplink bandwidth automatically. You will still have to click the<b>Apply</b> button to make your changes effective. <hr><p><b>For Applications or Online Gaming</b><p>To set up the priority for an application or online gaming: <ul>1. Select <b>Applications</b> or <b>Online Gaming</b> from the </b>Priority Category</b> lists. <br>2. Select the Internet application or game you want to use from one of the relevant lists. <br>3. Select the priority level: <b>Highest</b>, </b>High</b>, <b>Normal</b>, or <b>Low</b>. <br>4. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>5. Click <b>Apply</b> .</ul><p><b>For a MAC address</b><p>To set up the priority for a specified computer through its MAC address: <ul>1. Select the MAC address from the <b>Priority Category</b> list. <br>2. Click the <b>Refresh</b> button to update the list of those computers already connected to routers. <br>3. Select the entry's radio button in the table. <br>4. Modify the information in the <b>MAC Address</b> and <b>Device Name</b> fields. <br>5. Select the priority level: <b>Highest</b>, <b>High</b>, <b>Normal</b>, or <b>Low</b>. <br>6. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>7. Click the <b>Edit</b> button. <br>8. Click <b>Apply</b>. </ul><p>To add the priority for a specified computer through its MAC address: <ul>1. Select <b>MAC Address</b> from the <b>Priority Category</b> list. <br>2. Enter the MAC address of the computer for which you want to define the priority. <br>3. You can also enter a name in the <b>Device Name</b> field. <br>4. Select the priority level: Highest, High, Normal, or Low. <br>5. You can also type the name in the <b>QoS Policy for</b> field for this rule. <br>6. Click the <b>Add</b> button. <br>7. Click <b>Apply</b>. </ul><p><b>To delete a service entry:</b><ul>1. Select the entry's radio button in the table. <br>2. Click the <b>Delete</b> button. <br>3. Click the <b>Apply</b> button. </div></body>"
 
-h_down_qos="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>DownStream QoS Settings</B></font></P><hr><b>DownStream QoS Settings</b><P>This is a QoS function specifically designed for improving online video streaming quality. When you have heavy Internet downloading traffic, the online video streaming quality will be easily affected. With this feature enabled, the system automatically detects the video streaming and prioritize the video streaming traffic as high priority. So the online video streaming quality will not easily impacted by background downloading traffic.</P><P><B>Enable DownStream QoS(Improved Video Streaming)</B><br>Enable the DownStream QoS function<p><B>Streaming Database Auto Upgrade</B><br>Checked it allow device to update the streaming database automatically. It will check server daily to see if there’s any new database available. If yes, system will download it and install it automatically. You can also click “Manual Update” to manually check the new database from server, and manually update the streaming database if the new database is available.</P><P><B>Streaming Database Version</B><br>This shows the Streaming Database Version you are currently have.</P></div></body>"
+h_down_qos="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>DownStream QoS Settings</B></font></P><hr><b>DownStream QoS Settings</b><P>This is a QoS function specifically designed for improving online video streaming quality. When you have heavy Internet downloading traffic, the online video streaming quality will be easily affected. With this feature enabled, the system automatically detects the video streaming and prioritize the video streaming traffic as high priority. So the online video streaming quality will not easily impacted by background downloading traffic.</P><P><B>Enable DownStream QoS(Improved Video Streaming)</B><br>Enable the DownStream QoS function<p><B>Streaming Database Auto Upgrade</B><br>Checked it allow device to update the streaming database automatically. It will check server daily to see if there?™s any new database available. If yes, system will download it and install it automatically. You can also click ?œManual Update??to manually check the new database from server, and manually update the streaming database if the new database is available.</P><P><B>Streaming Database Version</B><br>This shows the Streaming Database Version you are currently have.</P></div></body>"
 //
 
 // JavaScript Document
@@ -1194,7 +1198,7 @@ gmt0_2="(GMT+02:00) Athens, Beirut, Istanbul, Minsk"
 gmt0_3="(GMT+03:00) Baghdad, Kuwait, Nairobi, Riyadh, Tehran"
 gmt0_4="(GMT+04:00) Abu Dhabi, Muscat, Baku, Tbilisi, Yerevan, Kabul"
 gmt0_5="(GMT+05:00) Ekaterinburg, Islamabad, Karachi, Tashkent"
-gmt0_6="(GMT+06:00) Almaty, Ekaterinburg, Astana, Dhaka, Sri Jayawardenepura, Rangoon"
+gmt0_6="(GMT+06:00) Almaty, Astana, Dhaka, Sri Jayawardenepura, Rangoon"
 gmt0_7="(GMT+07:00) Bangkok, Jakarta, Hanoi, Novosibirsk"
 gmt0_8="(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi"
 gmt0_9="(GMT+09:00) Tokyo, Osaka, Sapporo, Seoul, Irkutsk"
@@ -1580,11 +1584,10 @@ media_title="Media Server (Settings)"
 media_server="Media Server"
 enable_media_ser="Enable Media Server"
 media_ser_name="Media Server Name"
-manually_update="Rescan media files"
 content_scan="Content Scan"
 media_automatic="Automatic (when new files added)"
 alert_media_name="You can not input ':' as the ReadyDLNA media server name."
-h_UPNP_media="<BODY style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Media Server (Settings) Help</B></font></P> <P>Setting this device as a ReadyDLNA Media server enables playback of Videos Movies and Pictures on DLNA/UPnP AV compliant Media Players like Xbox360, Playstation and NETGEAR's Digital Entertainer Live.</p><p>ReadyDLNA implies this device serves media in DLNA compatible form to DLNA/UPnP AV compliant Media Players </p> <ul><li><b>Enable Media Server</b> enables this device to act as a Media server.</li><li><b>Enable TiVo® support</b> Please visit http://www.readynas.com/?p=1428 to see how to use this feature with your TiVo device.</li><li><b>Media Server name</b> is the name that shows up on Media Players</li></ul> </p><p><b>Content Scan</b><ul><li><b>Automatically update database </b> Scans for Media files whenever new files are added to the ReadyShare USB Storage. Only shared folder with “All – no password” in Read Access can be scanned for Media files.</li><li>You can also click <b>Rescan media files</b> to delete current database and do a whole new scan immediately.</li></ul></p></div></BODY>"
+h_UPNP_media="<BODY style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>Media Server (Settings) Help</B></font></P> <P>Setting this device as a ReadyDLNA Media server enables playback of Videos Movies and Pictures on DLNA/UPnP AV compliant Media Players like Xbox360, Playstation and NETGEAR's Digital Entertainer Live.</p><p>ReadyDLNA implies this device serves media in DLNA compatible form to DLNA/UPnP AV compliant Media Players </p> <ul><li><b>Enable Media Server</b> enables this device to act as a Media server.</li><li><b>Enable TiVoÂ® support</b> Please visit http://www.readynas.com/?p=1428 to see how to use this feature with your TiVo device.</li><li><b>Media Server name</b> is the name that shows up on Media Players</li></ul> </p><p><b>Content Scan</b><ul><li><b>Automatically update database </b> Scans for Media files whenever new files are added to the ReadyShare USB Storage. Only shared folder with ?œAll ??no password??in Read Access can be scanned for Media files.</li><li>You can also click <b>Rescan media files</b> to delete current database and do a whole new scan immediately.</li></ul></p></div></BODY>"
 
 //20101207
 wlan_mode_217="Up to 217 Mbps"
@@ -1642,7 +1645,7 @@ secure_answer="Answer"
 secure_ques2="Security Question #2"
 require_info="*=required information"
 check_answer_info="The information you entered does not match what is saved on the router. Please enter it again."
-can_help_recover="We can help you to recover the router’s admin password. Please complete the information below and click <b>Continue</b>."
+can_help_recover="We can help you to recover the router?™s admin password. Please complete the information below and click <b>Continue</b>."
 enter_serial="Enter the router's Serial Number"
 find_on_label="(You can find it on the router product label.)"
 alert_enable_passwd_revery="If you do not enable password recovery and forget your new password, the only way to recover the password is to reset the device to factory default."
@@ -1756,16 +1759,16 @@ internet_no_connected="The Internet port is not connected"
 detecting="Detecting..."
 
 //20110401
-to_share_files="Notice : To share your files via DLNA/UPnP AV using the Media Server function, at least one shared folders must be Read Access with \"All – no password\""
+to_share_files="Notice : To share your files via DLNA/UPnP AV using the Media Server function, at least one shared folders must be Read Access with \"All no password\""
 
 comfirm_reboot="Rebooting the router will disrupt active traffic on the network. Are you sure?"
-rebootingg_new="Rebooting the router now, please wait …"
+rebootingg_new="Rebooting the router now, please wait"
 reboot_mark="Reboot"
 search_item="Enter Search Item"
 support_basic="Online Support"
 usb_printer_head="ReadySHARE Printer"
 usb_printer="Print Sharing for Windows PCs and Mac Computers with a USB Printer"
-usb_printer_step1="Step 1: Connect the USB printer to the router’s USB port with a USB printer cable."
+usb_printer_step1="Step 1: Connect the USB printer to the router?™s USB port with a USB printer cable."
 usb_printer_step2="Step 2: Install the USB printer driver software on each computer that will share the printer."
 usb_printer_step3="Step 3: On each computer that will share the printer, download the NETGEAR USB Control Center utility from <a href='http://www.netgear.com/readyshare'>http://www.netgear.com/readyshare</a>. "
 usb_printer_driver="If you do not have the driver, contact the company that made the printer to locate and download the latest printer driver software."
@@ -1835,7 +1838,7 @@ dev_acl_general_rule="General Rule"
 dev_acl_alert_block="You cannot block the device that you are using now to connect to your router. To block this device, you should log in to your router from another device."
 confirmation_mark="Confirmation"
 dev_acl_want_block="Do you really want to block access to selected device(s)?"
-h_DEV_control="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><p><font size=4><B>Access Control Help</B></font></p><p>You can use Access Control to allow or block computer or electronic devices from accessing your network. When a device is blocked, it would only be able to get an IP address from your router, but it won't be able to communicate with other devices, nor it would be able to connect to the Internet.<p><p name=enable_acc_control id=enable_acc_control></p><p><b>To enable Access Control:</b><p>Select <b>Turn on Access Control</b> check box. Selecting this check box lets you block or allow computers or electronic devices from accessing your network. You have to select this check box before you can specify an Access Rule and use the Allow and Block buttons.  When this check box is cleared, all devices are allowed to connect, even if the device is in the blocked list.<p><p name=access_rule id=access_rule></p><p><b>Access Rule</b> radio buttons. Select the radio button for the Access Rule that you want for new devices attempting to connect to your network. The Access Rule does not affect previously blocked or allowed devices. It applies only to future devices joining your network after you apply these settings.<p>By default, “Allow all new devices to connect” is selected, so if you or your family buy a new device, it will be able to access your network without configuring its MAC address in this page.<p>NETGEAR recommends that you keep this option selected. If you change this to “Block all new devices from connecting”, then your new device won't be able to access your network until you specifically add its MAC address into the allowed list. For example, if a new computer has both wireless and Ethernet network connections, each connection has its own MAC address, you'll need to add specifically both MAC addresses to the allowed list.<p><b>Allow</b> and <b>Block</b> buttons. To allow or block access for a specific device, select its check box and then click the Allow or Block button to change its status.<p>Click <b>Apply</b> when you finish changing the settings.<p>Click <b>Cancel</b> to return to the previous settings.</div></body>"
+h_DEV_control="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><p><font size=4><B>Access Control Help</B></font></p><p>You can use Access Control to allow or block computer or electronic devices from accessing your network. When a device is blocked, it would only be able to get an IP address from your router, but it won't be able to communicate with other devices, nor it would be able to connect to the Internet.<p><p name=enable_acc_control id=enable_acc_control></p><p><b>To enable Access Control:</b><p>Select <b>Turn on Access Control</b> check box. Selecting this check box lets you block or allow computers or electronic devices from accessing your network. You have to select this check box before you can specify an Access Rule and use the Allow and Block buttons.  When this check box is cleared, all devices are allowed to connect, even if the device is in the blocked list.<p><p name=access_rule id=access_rule></p><p><b>Access Rule</b> radio buttons. Select the radio button for the Access Rule that you want for new devices attempting to connect to your network. The Access Rule does not affect previously blocked or allowed devices. It applies only to future devices joining your network after you apply these settings.<p>By default, ? Allow all new devices to connect.is selected, so if you or your family buy a new device, it will be able to access your network without configuring its MAC address in this page.<p>NETGEAR recommends that you keep this option selected. If you change this to ?œBlock all new devices from connecting,then your new device won't be able to access your network until you specifically add its MAC address into the allowed list. For example, if a new computer has both wireless and Ethernet network connections, each connection has its own MAC address, you'll need to add specifically both MAC addresses to the allowed list.<p><b>Allow</b> and <b>Block</b> buttons. To allow or block access for a specific device, select its check box and then click the Allow or Block button to change its status.<p>Click <b>Apply</b> when you finish changing the settings.<p>Click <b>Cancel</b> to return to the previous settings.</div></body>"
 h_attach_device2="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px" ><P><font size=4><B>Attached Devices Help</B></font></P><p>This screen shows the IP address, device name, and MAC (Media Access Control) address for each computer attached to the router.<p>You cannot change any of the values on this screen. To update this screen and show the list of currently attached devices, click the <b id=italic>Refresh</b> button. <p>To block or allow one or more devices to access your network, click the Access Control link in the top right corner of this screen to go to the Access Control screen and make changes.</div></body>"
 dev_acl_white_list="View list of allowed devices not currently connected to the network"
 dev_acl_black_list="View list of blocked devices not currently connected to the network"
@@ -1846,7 +1849,21 @@ dev_acl_block_notify="This device is blocked by Access Control in the router."
 coex_enable="Enable 20/40 MHz Coexistence"
 // TiVo Support
 tivo_mark="Enable TiVo<sup>&reg;</sup> support."
-
+//arp protection
+arp_head="ARP Protection / IP MAC Binding"
+arp_enable="Enable IP-MAC Binding"
+arp_des="This function is designed to protect your router from ARP attacks.With this function enabled,Address Reservation table will be used as the static ARP table,no more ARP response from LAN ports will be processed.Devices not registed in the table will not have internet access.<br/><br/>Enable this feature by checking the checkbox above, and clicking "Apply" button. Once enabled, use the "Edit" button below to manually configure the IP-MAC binding pairs."
+h_arp="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>ARP Protection/IP-MAC Binding Help</B></font></p><p>IP-MAC binding protects your router from ARP attacks. With this function enabled, your router uses the address reservation table under LAN setup as the static ARP table. You can add, remove, or edit the IP-MAC binding pairs in the address reservation table. WARNING! Devices that are not registered in this table will NOT have internet access. Ensure that at least one LAN device?™s IP and MAC address pair is registered in this table. You can use the Edit button on this screen to directly access the address reservation table.<br><br><br><br></div></body>"
+arp_edit_mark="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+ipmac_edit_warning="If the rule is configured wrong, no device would be able to access the router interface."
+ipmac_delete_warning="If the last device is deleted, no device will be able to access the router interface."
+//vpn passthrough gui option
+adva_wansetup_vpn="VPN Pass-Through"
+adva_wansetup_vpn_ipsec="IPSec Pass-Through"
+adva_wansetup_vpn_pptp="PPTP Pass-Through"
+adva_wansetup_vpn_l2tp="L2TP Pass-Through"
+adva_wansetup_vpn_enable="Enable"
+adva_wansetup_vpn_disable="Disable"
 //ddns
 3322_user_lowlimit="User Name for www.3322.org should be no less than 3 characters"
 3322_user_uplimit="User Name for www.3322.org should be no more than 30 characters"
@@ -1865,6 +1882,143 @@ authentication_status="authentication failure"
 registration_status="registration failure"
 Standard_type="Standard"
 Prefessional_type="Prefessional"
+//port forward
+port_type_example="(Specify ports and/or port ranges spilit by commas, example: 30, 50-60, 65500-65510)"
+forward_arrange_service="Arrange by Internal IP"
+msg_invalid_extport="Invalid External Port Range\nPorts must be in the range of 1 - 65534.\nPlease specify ports and port ranges split by commas,\nExample: 30, 50-60, 65500-65510.\n"
+msg_invalid_intport="Invalid Internal Port Range\nPorts must be in the range of 1 - 65534.\nPlease specify ports and port ranges split by commas,\nExample: 30, 50-60, 65500-65510.\n"
+invalid_port_match="Internal and External Port Mismatch\nInternal port ranges must have the same sequence of ports or port ranges as external port ranges.\n"
+ext_port_range="External Port Range"
+int_port_range="Internal Port Range"
+forward_rule_conflict="Custom Service Rule Conflict\nThe new custom service must not conflict with any existing service rule.\n"
+//quick qos
+reset_mark="Reset"
+quick_qos="Quick QoS"
+quick_qos_enable="Enable Internet QoS"
+quick_qos_rules="Qos Rules"
+quick_qos_mode="Qos Mode:"
+add_rules="Add Rules:"
+quick_qos_by_service="Qos by Service"
+quick_qos_by_device="Qos by Device"
+fast_track="Fast Track"
+qos_enable_fasttrack="Turn on Fast Track"
+quick_qos_by_service_msg1="Please prioritize the following types of services. The highest priority traffic will be forwarded first."
+quick_qos_by_ip_msg1="Please choose priority for each attached devices. The highest priority traffic will be forwarded first."
+fast_track_msg1="<b>WPS/Fast Track Push Button Toggle<b>"
+wps_tag="WPS"
+fast_track_tag="FastTrack"
+fast_track_status="Fast Track Status:"
+quick_qos_firstlogin_warning="Old QoS rules based on LAN port number need to be reconfigured based on the device MAC address."
+h_quick_qos="This is help for Quick qos"
+queue_tag="Queue"
+qos_bandwidth="bandwidth reserved"
+trust_device="Trusted Device"
+wps_push_button_text1="You can click the button (soft push button) in this screen."
+
+//Netgear downloader
+downloader_tab="NETGEAR Downloader (BETA)"
+number_mark="No."
+filename="File Name"
+filesize="File Size(B)"
+speed="Speed(KB/s)"
+status_paused="Paused"
+status_downloading="Downloading"
+status_connecting="Connecting"
+status_disabled="Disabled"
+savepath="Save Path"
+pause_mark="Pause"
+resume_mark="Resume"
+remove_mark="Remove"
+remove_his="Remove History"
+max_reached="Max number of tasks has been reached. Please add later."
+no_selected="No item is selected!"
+not_enough_space="Failed to add new task. USB storage device does not have enough space!"
+not_enough_flashsize="NETGEAR Downloader cannot be supported because Router's flash size is not big enough!"
+enable_downloader="Enable NETGEAR Downloader"
+download_manager="Download Manager"
+folder_or_path="Which folder or path would you like to store?"
+downloader_type="Download Type"
+bt_file_location="BitTorrent File Location"
+download_info_tbl="Download Information Table"
+downloaded_file="Downloaded Files"
+downloader_started="NETGEAR Downloader is started!"
+type_bt="BitTorrent"
+torrent_loc="Torrent Location"
+pc_mark="PC"
+usb_mark="USB Storage Device"
+select_all="Select All"
+bad_torrent="Bad torrent file. Cannot be download!"
+plug_usb="Please plug-in your USB storage device before launching NETGEAR Downloader."
+fail_obtain_file="Fail - Cannot obtain the file"
+fail_unknown="Fail for Unknown reason"
+fail_insufficient_space="Fail for Insufficient space"
+downloader_manager_help1="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><p><font size=4><B>NETGEAR Downloader</B></font></p><p><b>NETGEAR Downloader</b> supports HTTP, FTP, BT and eDonkey download protocols. With NETGEAR Downloader function, user can use <b>Netgear Router</b> to download Internet files and save them to a USB storage device without keeping a computer switched on.</p><hr><p><a name=green_fun id=green_fun></a><b>Enable NETGEAR Downloader: </b>Select (or Cancel) this option to enable (or disable) NETGEAR Downloader function.<br><a name=green_path id=green_path></a><b>Save As Path: </b>Choose a path to save downloaded files.<br><a name=green_download_max id=green_download_max></a><b>Max Download Speed: </b>Specify max overall download speed for all tasks.<br><a name=green_upload_max id=green_upload_max></a><b>Max Upload Speed: </b>Specify max overall upload speed for all tasks.<br><a name=green_tasks_max id=green_tasks_max></a><b>Max Concurrent Download Tasks: </b>Specify max download tasks number for FTP/HTTP, BT and eDonkey.<br><a name=green_server id=green_server></a><b>eDonkey Server List: </b>Show all availiable eDonkey servers and their link status.<br><a name=green_server_add_new id=green_server_add_new></a><b>Add New eDonkey Server: </b>Add a new eDonkey server by inputing its IP address and port number.</p><hr><p><a name=control_button id=control_button></a><b>Apply, Cancel</b></p><p><a name=button_apply id=button_apply></a><b>Apply: </b>Click "Apply" button to save your settings.<br><a name=button_apply id=button_apply></a><b>Cancel: </b>Click "Cancel" button to cancel your settings.</p>"
+downloader_manager_help2="<p><b>FTP/HTTP Download</b> allows user to download files from Internet through FTP/HTTP protocol.</p><hr><p><a name=http_url id=http_url></a><b>FTP/HTTP Download Link: </b>This is an Internet address and indicates the URL of file you wish to download from Internet. Its format is ftp:// or http://.<br><a name=http_name id=http_name></a><b>User Name(optional): </b>This filed is optional. Please input the server's username here if the server requires it. The maximum length of user name is 32 characters.<br><a name=http_password id=http_password></a><b>Password (optional): </b>This field is optional. Please input the server's password here if the server requires it. The maximum length of password is 32 characters.<br><b>Add: </b>Click "Add" button to add a new download task.<br><b>Reset: </b>Click "Reset" button to reset all input content.</p><hr><p><a name=http_table id=http_table></a><b>Download Information Table</b></p><p><b>Pause: </b>Click "Pause" button to pause a downloading task.<br><b>Resume: </b>Click "Resume" button to resume a paused task.<br><b>Delete: </b>Click "Delete" button to delete an existed task.</p><hr><p><a name=http_table id=http_table></a><b>Downloaded Files</b></p><p><b>Remove History: </b>Click "Remove History" button to remove all completed download task.</p>"
+downloader_manager_help3="<p><b>BT Download</b> allows user to download files from Internet through BT protocol.</p><hr><p><a name=bt_loc id=bt_loc></a><b>Torrent Location: </b>Specify a torrent file location, click "Browse" button to select the torrent file from a PC or USB Storage Device.<br></div></body>"
+downloader_settings_help="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>NETGEAR Downloader Settings help</B></font></p><HR><a name=gd_down_speed id=gd_down_speed></a><P><B>Maximum Download Speed (0 means no limit)</B></P><p>This setting limits your maximum HTTP/FTP/BT download speed (the unit is KB/s). The default setting is 0 (0 means there is no limit to your download speed).</p><a name=gd_up_speed id=gd_up_speed></a><p><B>Maximum Upload Speed (0 means no limit) </B></p><p>This setting limits your maximum HTTP/FTP/BT upload speed (the unit is KB/s). The default setting is 0 (0 means there is no limit to your upload speed).</P><a name=gd_task_num id=gd_task_num></a><P><B> Maximum Download Task </B><P>This setting configures your maximum download task of the NETGEAR Downloader for the wireless router. The default setting is based on the wireless router CPU computing power and DRAM size.<a name=gd_upload id=gd_upload></a><P><B> Allow the system to manage your NETGEAR Downloader automatically </B><P>This option allows the system to manage your NETGEAR Downloader. When the box is checked, the system removes all the completed download tasks that are listed in the download task information table, so that these completed tasks do not occupy your upload bandwidth. If the box is not checked (default setting), the system does nothing, even if the download tasks are completed. In this case, your completed download files will still be shared with other clients.</P></div></body>"
+download_settings="Download Settings"
+coun_other="Other"
+max_down_speed="Max Download Speed(0 means no limit)"
+max_up_speed="Max Upload Speed(0 means no limit)"
+file_exist="The file already exists, continue to overwrite?"
+config_settings="Configure Settings"
+single_word_download="Download"
+single_word_upload="Upload"
+btlink_mark="BitTorrent Link"
+total_download_tasks="Total Max Concurrent Downloading Tasks"
+download_tasks_desc="The total downloading tasks allowed, regardless of which kind of service(FTP/HTTP or BT)."
+max_speed_desc="Per task upper limit setting. Once set each of these services will be constrained to use a speed smaller or equal to the set maximum value."
+auto_refresh="Enable Auto Status Refresh"
+auto_refresh_desc="The downloading task status will be refreshed automatically according to the specified rate."
+refresh_rate="Refresh rate:"
+refresh_rate_times="Times/Minute"
+email_when_finish="Send E-mail notification when a downloader task is finished"
+invalid_torrent="Invalid torrent file or link. Please make sure you choose a valid torrent file."
+https_not_supported="HTTPS currently not supported."
+plugin_usb="Storage device has been removed, all downloading tasks are halted."
+invalid_refresh_rate="Invalid refresh rate."
+invalid_down_speed="Invalid max download speed."
+invalid_up_speed="Invalid max upload speed."
+refresh_waring="Auto status refresh will require more resources, other router functionalities would be impacted."
+url_exist="The URL is already in the download list, want to download anyway?"
+no_file_chosen="No file chosen"
+past_url="Please paste link URL here"
+invalid_down_tasks="There are %s sessions running now, and the max number can not be changed."
+cannot_download_torrent="URL unreachable, cannot download the torrent file."
+insufficient_space="Insufficient Space. Please add more storage."
+incompatible_torrent="Incompatible torrent file. This torrent file is not supported by this BT client."
+//Downloader 20130103
+configure_mail_tag="Configure Email" 
+type_fh="FTP/HTTP"
+fh_link="FTP/HTTP Download Link"
+optional_mark="Optional"
+bad_link="Bad link or not supported link"
+link_empty="FTP/HTTP Link URL cannot be empty."
+type_ed="eDonkey"
+ed_link="eDonkey Download Link"
+ed_link_empty="eDonkey Link URL cannot be empty."
+auth_fail="Authentication Failure"
+
+//Hardware monitor
+cpu_loading="CPU Loading"
+memory_usage="Memory"
+mem_used="used:"
+mem_total="total:"
+//Traffic Meter Graphical
+traffic_counter_restart_new="Restart traffic counter On the"
+traffic_volum_mbytes_new="Traffic Volume(MBytes)"
+last_month_upper="Last Month"
+last_month_traffic_statistics="Last Month Traffic Statistics"
+duration="Duration:"
+total_volume="Total used Volume:"
+traffic_connection_left="Traffic Connection Left:"
+connection_time="Connection Time(Hours)"
+traffic_download_left="Traffic Download Left:"
+from_lower="from"
+to_lower="to"
+total_connection="Total Connection:"
+mBytes="MBytes"
+total_download="Total Download:"
 //OpenVPN
 openvpn_head="VPN Service"
 enable_openvpnd="Enable VPN Service"
@@ -1875,8 +2029,8 @@ openvpn_ca="Certificate Authority"
 openvpn_server_ca="Server Certificate"
 openvpn_server_key="Server Key"
 openvpn_server_dh="Diffie-Hellman (DH) Group"
-openvpn_tap_iface="TAP"
-openvpn_tun_iface="TUN"
+openvpn_tap_iface="TAP Mode"
+openvpn_tun_iface="TUN Mode"
 openvpn_auto="Auto"
 openvpn_alert1="For connection keepalive, enable ping from WAN."
 openvpn_alert2="Sync NTP System Time failed!! OPENVPN will disconnect."
@@ -1895,9 +2049,39 @@ openvpn_onlyLAN2tunnel="Home Network only"
 openvpn_adv_config="Advanced Configurations"
 openvpn_client_ca_download="OPENVPN client CA/Keys download"
 openvpn_client_config_download="client1 config for windows client,client2 for non-windows OS"
-openvpn_introduce1="<BR> To install VPN client on your client devices:<P></P>Step 1: Select the Enable VPN Service check box and click the Apply button.<BR>Step 2: Download the client utility from <a style="color:#0000EE" href=http://openvpn.net/index.php/download/community-downloads.html target="_blank">http://openvpn.net/index.php/download/community-downloads.html</a> and install it on the devices where you want to run the VPN client. <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">Currently iOS and Android clients are not supported.</font> <BR>Step 3: Click the proper button below to download the configuration files for your VPN clients. <BR>"
-openvpn_introduce2="<BR>Step 4:Unzip the configuration files you have just downloaded and copy them to the folder where the VPN client is installed on your device. For a client device with Windows64-bit<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; system, the VPN client is installed at &quot;C:\Program files\OpenVPN\config\&quot; by default.<BR>Step 5: For a client device with Windows, you need to modify the VPN interface name to &quot;NETGEAR-VPN&quot;. The VPN interface usually has a Device Name as &quot;TAP-Windows Adapter&quot;.<BR>Step 6: Client utility must be installed and run by a user who has administrative privileges. <BR><img src="img/pvpn.jpg"><BR><p>Step 7: For help connecting using OpenVPN clients, please refer to <a style="color:#0000EE" href=http://openvpn.net/index.php/open-source/documentation/howto.html#quick target="_blank">http://openvpn.net/index.php/open-source/documentation/howto.html#quick</a></p><BR><P></P><BR>Note: if you want to make any change in Advanced Configurations section, please make the changes before you download the configuration files in Step 3."
-openvpn_help_htm="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>VPN Service Help</B></font></P><p>The VPN Service function allows you to access your home network in a secured way through the Internet when you are out of home. In addition, when you are out of the country, you can use the VPN Service to access the Internet sites or services for which there is a geographic limitation and they are not accessible outside the country. To use the VPN Service, you will need to locate your router through the Internet when you are out of home. There are two ways to do that and the suggested way is to use the Dynamic DNS service. The other way is to locate your router through its public Internet address and it is better to have static IP address settings for the router's Internet  connection. Please make sure you have either the Dynamic DNS service enabled or static IP address settings for your Internet connection. The VPN Service only work with OpenVPN clients and will not work with any other VPN clients.</p><p><font size=4><B>To install VPN client on your client devices:</B></font></p><p>To use the VPN Service, you need to install the VPN client software on each device where you want to create a VPN connection to the router. Please follow the steps mentioned here to complete the installation. Basically you need to download the VPN client software that works for the system of your client device, install it on the client device, and configure the VPN settings on the client device (that includes installing configuration files on the client device and maybe changing some settings on the client device).</p><p><font size=4><B>Service Type:</B></font></p><p>You can use either TCP or UDP protocol to transmit the VPN packets.</p><p><B><font size=4>Service Port:</font></B></p><p>This is the VPN Server port number to which a VPN client connects. The default is 12974.</p><p><B><font size=4>Clients will use this VPN connection to access:</B></font></p><p>There are three options &quot;Auto&quot;, &quot;Home Network only&quot; and &quot;All sites on the Internet &amp; Home Network&quot;. With the &quot;Home Network only&quot; option, a VPN client can access only the Home Network through the VPN Service. If you want to access the Internet sites or services with a geographic limitation when you are out of the country, you have to select the option &quot;All sites on the Internet &amp; Home Network&quot;. Please note that once you have selected this option, your VPN client will also access Internet sites and services that do not have a geographic limitation. For an Internet site or service that is normally accessible through the Internet (for example, public networks that do not have a geographic limitation), the access speed through the VPN Service is slower than the access speed without going through the VPN. The &quot;Auto&quot; option will do some intelligence checking and try to use the VPN Service only for necessary accesses (i.e. only for sites or services that are not accessible if not going through the VPN Service), but this is just a best effort function and a correct determination cannot be guaranteed.</p></div></body>"
+openvpn_introduce1="<BR> To install Windows VPN client on your client devices:<P></P>Step 1: Select the Enable VPN Service check box and click the Apply button.<BR>Step 2: Download the client utility from <a style="color:#0000EE" href=http://openvpn.net/index.php/download/community-downloads.html target="_blank">http://openvpn.net/index.php/download/community-downloads.html</a> and install it on the devices where you want to run the VPN client. <BR>Step 3: Click the &quot;For Windows&quot; button to download the configuration files for your VPN clients."
+openvpn_introduce2="<BR>Step 4:Unzip the configuration files you have just downloaded and copy them to the folder where the VPN client is installed on your device. For a client device with Windows64-bit<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; system, the VPN client is installed at &quot;C:\Program files\OpenVPN\config\&quot; by default.<BR>Step 5: For a client device with Windows, you need to modify the VPN interface name to &quot;NETGEAR-VPN&quot;. The VPN interface usually has a Device Name as &quot;TAP-Windows Adapter&quot;.<BR>Step 6: Client utility must be installed and run by a user who has administrative privileges. <BR><img src="img/pvpn.jpg"><BR><p>Step 7: For help connecting using OpenVPN clients, please refer to <a style="color:#0000EE" href=http://openvpn.net/index.php/open-source/documentation/howto.html#quick target="_blank">http://openvpn.net/index.php/open-source/documentation/howto.html#quick</a></p><BR>Note: if you want to make any change in Advanced Configurations section, please make the changes before you download the configuration files in Step 3."
+openvpn_help_htm="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>VPN Service Help</B></font></P><p>The VPN Service function allows you to access your home network in a secured way through the Internet when you are out of home. In addition, when you are out of the country, you can use the VPN Service to access the Internet sites or services for which there is a geographic limitation and they are not accessible outside the country. To use the VPN Service, you will need to locate your router through the Internet when you are out of home. There are two ways to do that and the suggested way is to use the Dynamic DNS service. The other way is to locate your router through its public Internet address and it is better to have static IP address settings for the router's Internet  connection. Please make sure you have either the Dynamic DNS service enabled or static IP address settings for your Internet connection. The VPN Service only work with OpenVPN clients and will not work with any other VPN clients.</p><p><font size=4><B>OpenVPN configuration package download</B></font></p><p>To install the VPN client, here you can find the proper configuration files base on your client operating system. For Windows and MAC, the configuration is using TAP mode for best compatibility for applications. For iPhone and Android, the configuration is using TUN mode due to OpenVPN APP limitation.</P><P>Please be aware that, after changing the VPN advanced configuration, DDNS setup, or any Internet setting changes, you need to re-download the configuration file and replace to your client.</P><p><font size=4><B>OpenVPN client setup instruction</B></font></p><p>To use the VPN Service, you need to install the VPN client software on each device where you want to create a VPN connection to the router. Please click on the client operating system for the instruction. Currently we support for Windows, MAC, iPhone, and Android.</p><p><font size=4><B>Advanced Configuration</B></font></p><p>This section is only used for advanced setting. You don’t need to change anything here for the VPN to work properly.</p><p><font size=4><B>TUN Mode Service Type:</B></font></p><p>You can use either TCP or UDP protocol to transmit the VPN packets for TUN Mode.</p><p><font size=4><B>TUN Mode Service Port:</B></font></p><p>This is the VPN Server port number to which a VPN client connects for TUN mode. The default is 12973.</p><p><font size=4><B>TAP Mode Service Type:</B></font></p><p>You can use either TCP or UDP protocol to transmit the VPN packets for TAP Mode.</p><p><B><font size=4>TAP Mode Service Port:</font></B></p><p>This is the VPN Server port number to which a VPN client connects for TAP mode. The default is 12974.</p><p><B><font size=4>Clients will use this VPN connection to access:</B></font></p><p>There are three options &quot;Auto&quot;, &quot;Home Network only&quot; and &quot;All sites on the Internet &amp; Home Network&quot;. With the &quot;Home Network only&quot; option, a VPN client can access only the Home Network through the VPN Service. If you want to access the Internet sites or services with a geographic limitation when you are out of the country, you have to select the option &quot;All sites on the Internet &amp; Home Network&quot;. Please note that once you have selected this option, your VPN client will also access Internet sites and services that do not have a geographic limitation. For an Internet site or service that is normally accessible through the Internet (for example, public networks that do not have a geographic limitation), the access speed through the VPN Service is slower than the access speed without going through the VPN. The &quot;Auto&quot; option will do some intelligence checking and try to use the VPN Service only for necessary accesses (i.e. only for sites or services that are not accessible if not going through the VPN Service), but this is just a best effort function and a correct determination cannot be guaranteed.</p></div></body>"
+
+openvpn_download="OpenVPN configuration package download"
+openvpn_for_windows="For Windows"
+openvpn_non_windows="For non-Windows"
+openvpn_for_smartphone="For Smart Phone"
+openvpn_client_setup_instr="OpenVPN client setup instruction"
+openvpn_android_instr="VPN GUI - Android Instruction"
+openvpn_android_instr_1="To install Android VPN client on your client devices:"
+openvpn_android_instr_2="Step 1: Select the Enable VPN Service check box and click the Apply button."
+openvpn_android_instr_3="Step 2: Download the client utility (e.g. OpenVPN Connect) from <a style="color:#0000EE" href='https://play.google.com/store/apps/details?id=net.openvpn.openvpn&hl=en' target='_blank'>Google Play Store</a> and install it on the devices where you want to run the VPN client."
+openvpn_android_instr_4="Step 3: Click the "For Smart Phone" button to download the configuration files for your VPN clients."
+openvpn_android_instr_5="Step 4: Copy the configuration file you have just downloaded to your client device."
+openvpn_android_instr_6="Step 5: Client utility must be installed and import the configuration file, please refer to  <a style="color:#0000EE" href='http://www.vpngate.net/en/howto_openvpn.aspx#android' target='_blank'>http://www.vpngate.net/en/howto_openvpn.aspx#android</a>"
+openvpn_android_instr_7="Note: if you want to make any change in Advanced Configurations section, please make the changes before you download the configuration files in Step 3."
+openvpn_iphone_instr="VPN GUI - iPhone Instruction"
+openvpn_iphone_instr_1="To install iPhone/iPad VPN client on your client devices:"
+openvpn_iphone_instr_2="Step 2: Download the client utility (e.g. OpenVPN Connect) from <a style="color:#0000EE" href='https://itunes.apple.com/tw/app/openvpn-connect/id590379981?mt=8' target='_blank'>Apple App Store</a> and install it on the devices where you want to run the VPN client."
+openvpn_iphone_instr_3="Step 4: Unzip the configuration files you have just downloaded and use iTune to upload them to the folder of "OpenVPN Connect" on your device."
+openvpn_iphone_instr_4="Step 5: Client utility must be installed and import the configuration file, please refer to  <a style="color:#0000EE" href='http://www.vpngate.net/en/howto_openvpn.aspx#ios' target='_blank'>http://www.vpngate.net/en/howto_openvpn.aspx#ios</a>"
+openvpn_mac_instr="VPN GUI - MAC Instruction"
+openvpn_mac_instr_1="To install Mac VPN client on your client devices:"
+openvpn_mac_instr_2="Step 2: Download and install application "OpenVPN Connect" utility from App Store."
+openvpn_mac_instr_3="Step 3: Click the "For non-Windows" button to download the configuration files for your VPN clients."
+openvpn_mac_instr_4="Step 5: Run the application "OpenVPN Connect", you will find a profile related with the configuration file you just uploaded. Then connect with the profile."
+openvpn_mac_instr_5="Step 6: For help connecting using OpenVPN clients, please refer to <a style="color:#0000EE" href=http://openvpn.net/index.php/open-source/documentation/howto.html#quick target="_blank">http://openvpn.net/index.php/open-source/documentation/howto.html#quick</a> and <a style="color:#0000EE" href=http://openvpn.net/index.php/access-server/docs/admin-guides-sp-859543150/howto-desktop-client-configuration/495-connecting-to-openvpn-access-server-using-the-connect-client-on-mac.html>http://openvpn.net/index.php/access-server/docs/admin-guides-sp-859543150/howto-desktop-client-configuration/495-connecting-to-openvpn-access-server-using-the-connect-client-on-mac.html</a>"
+openvpn_windows_instr="VPN GUI - Windows Instruction"
+vpn_client_dev="VPN Client Devices"
+remote_ip_addr="Remote IP Address"
+local_ip_addr="Local IP Address"
+
 
 //iTune Server
 itune_enable="Enable iTunes Server (Music Only)"
@@ -1911,8 +2095,11 @@ implicit_beamforming="Enable Implicit BEAMFORMING - Boosts WiFi speed, reliabili
 band_steering="Enable Smart Connect - Let the router intelligently select the best WiFi band 2.4 GHz or 5 GHz for your WiFi connections. Smart Connect requires the 2.4 GHz and 5 GHz networks to use the same WiFi network name (SSID), security options and password." 
 band_steering_ssids_not_same="Current the 2.4GHz and 5GHz SSID are not the same, SMART CONNECT need both SSIDs to be the same. Please change it first."
 band_steering_disable="The 2.4GHz and 5GHz SSID are not the same, SMART CONNECT will be disabled."
+band_steering_wifi_settings_not_same="You currently have different WiFi settings for the 2.4GHz Radio and the 5GHz Radio. Once click Apply button, we will overwrite the settings for the 5GHz Radio with the 2.4GHz Radio settings."
+band_steering_wep_warning="Due to 5GHz don't support WEP, SMART CONNECT can not be enabled."
+band_steering_adv_wlan_str="Wireless Advanced Settings (2GHz b/g/n & 5GHz a/n/ac)"
 
-usb_vault_head="Netgear ReadySHARE Vault"
+usb_vault_head="ReadySHARE Vault"
 usb_vault_outline="ReadySHARE Vault lets you back up files on your Windows PC."
 usb_vault="To back up a Windows PC on to an HDD in the router:"
 usb_vault_info1="1. Install the genie app on each PC by downloading the software from  <a target='_blank' href='http://www.netgear.com/genie' style='color:#0000ff'><u>www.netgear.com/genie</u></a>."
@@ -1923,7 +2110,7 @@ speedtest_checkbtn="Speed Test"
 speedtest_checkinfo="<b><font color=#ADA7D7>Checking your Internet bandwidth</font></b>"
 speedtest_ckresult="<b><font color=#ADA7D7>Your uplink Internet bandwidth detected is</font></b>"
 speedtest_cknowan="<b><font color=#FFOOOO>The Internet connection is down, please connect to the Internet first.</font></b>"
-speedtest_ckunreach="<b><font color=#FFOOOO>The Speedtest fails to detect the bandwidth, please check your Internet connection or try again later.</font></b>"
+speedtest_ckunreach="<b><font color=#FFOOOO>The Speedtest failed to detect the bandwidth, please check your Internet connection or try again later.</font></b>"
 
 opendns_warning="The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls."
  
@@ -1945,7 +2132,8 @@ qos_database_new_version="New Streaming Database Version:"
 qos_title_WMM="WMM"
 qos_title_Upstream_QoS="Upstream QoS"
 qos_title_Downstream_QoS="Downstream QoS"
-
+qos_database_nofind="No new database version available."
+qos_database_version_check="Database Version Check"
 access_control_remove_list="Remove from the list"
 
 //2013/11/19
@@ -1976,6 +2164,8 @@ led_setting_2="Disable blinking on Internet LED, LAN LED, Wireless LED and USB L
 led_setting_3="Turn off all LEDs except Power LED"
 support_gpl="GNU GPL"
 
+wlan_tpc="Super Wifi"
+adva_wlan_tpc="Transmit Power Control"
 
 vlan_head="VLAN / Bridge Settings"
 vlan_iptv_enable="Enable VLAN / Bridge Setup"
@@ -2010,7 +2200,11 @@ iptv_no_port_selected="Please select least one port as WAN bridge"
 iptv_all_port_selected="At least one port MUST be unchecked."
 iptv_enable="Enable Bridge Group"
 vlan_iptv_none="None"
-
+guest_management="Guest Management"
+guest_management_enable="Enable Guest Management"
+guest_access_pwd="Access Password:"
+guest_chg_pwd="Change Password"
+guest_over_num="At most 32 Guest access sessions are allowed at a time and that number has been reached; please try again later."
 
 //user setup
 user_setup_head="User Setup"
@@ -2028,7 +2222,547 @@ user_setup_admin="User name "Admin" had been used"
 user_setup_invalid="Invalid, please enter it again"
 user_setup_maxnum="Up to max added number of user setup list."
 user_setup_same_username="The user already exists. Are you sure you want to overwrite the password?"
+gui_lang_no_conn_retry_new="The router has no Internet connection, it can?™t download the specified language file from NETGEAR web site. If you haven?™t set up the router?™s Internet port, please reset the router to the factory defaults and go through the setup wizard, otherwise, please manually connect the router to Internet and try this function again."
+wl_hwbutton="(This action is currently disabled until the wireless On/Off button is pressed)"
+//3G table
+3G_msg_close="Close this window. Most browsers will close when you click OK. \nIf your browser asks, follow the prompts to close and exit the browser."
+3G_assist_result="Configuration Assistant Result"
+3G_or="or"
+3G_connecting="Connecting to Network..."
+3G_wizard_help="NETGEAR Setup Wizard Help"
 
+
+//3G button related strings
+3G_button_exit="Exit"
+3G_button_reconfig="Reconfig"
+3G_button_upgrade="Upgrade"
+3G_button_continue="Continue"
+3G_click_retry="Click <strong>Retry</strong> to try again."
+3G_click_retry2="Click <strong>Retry</strong> to try to connect to the netwrok again."
+3G_click_quit="Click <strong>Quit</strong> to continue later."
+3G_click_quit2="Click <strong>Quit</strong> to contact your service provider."
+3G_click_exit="Click <strong>Exit</strong> to terminate Wizard."
+3G_click_continue="Click <strong>Continue</strong> to attempt to connect to the network."
+3G_click_continue2="Click <strong>Continue</strong> to negotiate with the router."
+3G_click_continue3="Click <strong>Continue</strong> to return to scanning for the network."
+3G_click_reconfig="Click <strong>Reconfig</strong> to run the Setup Wizard again."
+3G_click_next="Click <strong>Next</strong> to configure your WiFi."
+3G_click_back="Click <strong>Back</strong> to return to the Internet settings screen."
+
+
+//3G country list
+3G_australia="Australia"
+3G_austria="Austria"
+3G_belgium="Belgium"
+3G_brazil="Brazil"
+3G_canada="Canada"
+3G_chile="Chile"
+3G_china="China"
+3G_czech="Czech"
+3G_denmark="Denmark"
+3G_finland="Finland"
+3G_france="France"
+3G_germany="Germany"
+3G_hongkong="Hong Kong"
+3G_hungary="Hungary"
+3G_india="India"
+3G_indonesia="Indonesia"
+3G_italy="Italy"
+3G_malaysia="Malaysia"
+3G_mexico="Mexico"
+3G_netherlands="Netherlands"  
+3G_newzealand="New Zealand"
+3G_norway="Norway"
+3G_peru="Peru"
+3G_philippines="Philippines"
+3G_poland="Poland"
+3G_portugal="Portugal"
+3G_russia="Russia"
+3G_singapore="Singapore"
+3G_slovakia="Slovakia"
+3G_southafrica="South Africa"
+3G_spain="Spain"
+3G_sweden="Sweden"
+3G_switzerland="Switzerland"
+3G_taiwan="Taiwan"
+3G_thailand="Thailand"
+3G_uae="UAE"
+3G_uk="UK"
+3G_usa="USA"
+
+//Modem_cfg_fail.htm
+3G_unable_connect="Unable to Connect to Network"
+3G_check_setting="Check the <strong>APN</strong>, <strong>User Name</strong> and <strong>Password</strong> of <strong>Broadband Settings</strong> you entered for your Internet service."
+3G_sure_activated="Please make sure your modem has been activated."
+3G_problem_prompt="The problem could be one of the following"
+
+//Modem_connect_abort.htm
+3G_abort_connect="Aborting Network Connection"
+
+//Modem_connecting.htm
+
+
+//Modem_det_internet.htm
+
+
+//Modem_detect.htm
+3G_detect="Detecting"
+
+//Modem_detwan.htm
+3G_negotia_station="The USB adapter is Negotiaing with Mobile Broadband base station."
+
+//Modem_dual_fail.htm
+3G_cannot_internet="Cannot Connect to The Internet"
+3G_check_again="Check the configuration settings you entered while running Setup Wizard Again."
+3G_cannot_access="Cannot access internet."
+3G_verify_active="Please verify that the DSL cable or the USB modem has been activated and there is network coverage at your current location."
+3G_problem_dns="There is a problem with the DNS servers in the your network."
+3G_check_sp="Check with your service provider to verify that the service at your location is working properly then run the Setup Wizard Again."
+
+
+//Modem_dual_wan_welcome.htm
+3G_welcome_str1="You are now connected to the NETGEAR ADSL/Mobile Broadband Router."
+3G_welcome_str2="This Setup Wizard will guide you through:"
+3G_welcome_str3="Setting up ADSL Broadband Internet access."
+3G_welcome_str4="Setting up Mobile Broadband Internet access."
+3G_welcome_str5="Setting up a secure Wi-Fi network."
+3G_welcome_str6="Note:  Make sure your Mobile Broadband Modem adapter is plugged in to the USB port of the router."
+3G_welcome_str7="Before you begin:"
+3G_welcome_str8="1. Test your Mobile Broadband Modem adapter on your PC to ensure that you have service and access to the Internet."
+3G_welcome_str9="2. Visit the NETGEAR support site to verify that your Mobile Broadband USB Modem adapter is supported."
+3G_welcome_str10="3. Close the Mobile Broadband Connections Manager on your PC before continuing with the setup."
+3G_welcome_str11="4. Follow the instructions on the NETGEAR support site to check for the latest firmware. This firmware version is "
+3G_welcome_str12="To upgrade your device, download the firmware, then click <strong>Upgrade</strong>."
+3G_welcome_str13="To configure your router settings manually, click <strong>Exit</strong>"
+
+
+//Modem_fail.htm
+3G_check_usb="Check the configuration settings you entered for your USB device."
+3G_verify_usb="Please verify that the USB modem has been activated and there is network coverage at your current location."
+3G_umts_dns="There is a problem with the DNS servers in the Mobile Broadband network."
+
+
+//Modem_help_h.htm
+3G_help_str="After connecting the NETGEAR mobile broadband router into your network, you must configure it. You can do this using the Setup Wizard -- where the wizard will attempt to make the connection to the Internet service through your ISP -- or you can configure the router manually. It is recommended that, if you aren't used to setting up Internet connections, you let the Setup Wizard do some of the work for you."
+3G_help_str1="To configure the NETGEAR mobile broadband router, you'll use the information that you filled out earlier in the Installation Guide."
+3G_help_str2="To get started, click <b>Next</b>."
+
+
+//Modem_init.htm
+
+
+//Modem_isp.htm
+3G_pin_error="A PIN is a string of 4 digits."
+3G_confirm_pin="Please Confirm your PIN code again!"
+3G_pin2_error="A PIN2 is a string of 4 digits."
+3G_confirm_pin2="Please Confirm your PIN2 code again!"
+3G_puk_error="A PUK is a string of 8 digits."
+3G_confirm_puk="Please Confirm your PUK code again!"
+3G_puk2_error="A PUK2 is a string of 8 digits."
+3G_confirm_puk2="Please Confirm your PUK2 code again!"
+3G_already_connect="already connected"
+3G_enter_config="Please Enter Service Provider Configuration"
+3G_select_isp="Please select the <strong>Internet Service Provider</strong> and then click <strong>Next</strong>."
+3G_select_isp1="If your Mobile Broadband service provide is not in pulldown list, please select other."
+3G_enter_pin="Please enter PIN as provided by your service provider."
+3G_enter_pin2="Please enter PIN2 as provided by your service provider."
+3G_enter_puk="Please enter PUK as provided by your service provider."
+3G_enter_puk2="Please enter PUK2 as provided by your service provider."
+3G_enter_unlock="Enter Unlock code provided by your broadband service provider and click <strong>Next</strong>"
+3G_pin="Enter PIN:"
+3G_cpin="Confirm PIN:"
+3G_pin2="Enter PIN2:"
+3G_cpin2="Confirm PIN2:"
+3G_puk="Enter PUK:"
+3G_cpuk="Confirm PUK:"
+3G_puk2="Enter PUK2:"
+3G_cpuk2="Confirm PUK2:"
+3G_unlock="Enter Unlock Code:"
+
+
+
+//Modem_isp_detail.htm
+3G_detail_config="Please enter the configuration parameters. If you do not know what they are, please contact your service provider."
+3G_access_number="Access Number"
+3G_apn="APN"
+3G_pdp_type="PDP Type"
+3G_ptype_0="IP"
+3G_ptype_1="PDP-IP"
+3G_ptype_2="PPP"
+3G_ptype_3="PDP-PPP"
+
+
+//Modem_isp_fail.htm
+3G_unable_locate="Unable to Locate Network"
+3G_sure_coverage="Please make sure your modem has been activated and you are in an area that has coverage."
+
+
+//Modem_negotiaing.htm
+3G_modem_init="Modem Initializing"
+
+
+//Modem_negotiate_abort.htm
+3G_abort_init="Aborting modem Negotiation"
+
+
+
+
+//Modem_pin.htm
+3G_pin_detail0="Enter"  
+3G_pin_detail1="code provided by your broadband service provider and click <strong>Next</strong>:"
+3G_unlock_detail="And, please enter <strong>Unlock code</strong>:"
+
+
+//Modem_pin_required.htm
+3G_code_require="Code Required"
+3G_sim_block="SIM Blocked"
+3G_isp_puk="Please contact service provider for the PUK code"
+3G_isp_puk2="Please contact service provider for the PUK2 code"
+3G_pin_quit0="Click <strong>Quit</strong> to terminate this <strong>Configuration Assistant</strong> and contact your service provider to ask
+3G_pin_quit1="code"
+3G_pin_back="Click <strong>Back</strong> to return <strong>Broadband Account Settings</strong> screen"
+3G_pin_next0="Click <strong>Next</strong> to input"
+3G_pin_next1="code"
+
+
+//Modem_prewelcome.htm
+3G_dsl_finish="DSL Configuration Completed"
+3G_ethernet_finish="Ethernet WAN Configuration Completed"
+3G_next_3g="Next, we will guide you through configuring the router to use your Mobile Broadband Internet connection."
+
+
+//Modem_reboot.htm
+3G_change_setting="Changing settings..."
+
+
+//Modem_reinit.htm
+
+
+//Modem_scan_abort.htm
+3G_abort_scan="Aborting Network Scan"
+
+
+//Modem_scanning1.htm
+
+
+//Modem_scanning2.htm
+
+
+//Modem_scanning.htm
+
+
+//Modem_sim_fail.htm
+3G_sim_fail="SIM Card Not Detected"
+3G_sim_notdetect="Please check that SIM card is installed and properly seated."
+3G_sim_reject="SIM rejected."
+3G_sim_check="Please check that SIM card is valid."
+
+
+//Modem_status.htm
+3G_active_connection="Active Connection"
+3G_active_wan="Active WAN"
+3G_hsdpa="HSDPA"
+3G_evdo="EVDO"
+3G_modem_indenti="Modem Identity"
+3G_modem_sversion="Modem SW version"
+3G_modem_dversion="Modem driver version"
+3G_imsi="IMSI"
+3G_imei="IMEI"
+3G_esn="ESN"
+3G_operator="Operator"
+3G_network_mode="Network mode"
+3G_broadband_port="Wireless Broadband Port"
+3G_connect_status="Connection Status"
+3G_ppp="PPP"
+
+
+//Modem_status_h.htm
+3G_help="Help"
+3G_status_help="Router Status Help"
+3G_help_info="You can use the <i>Router Status</i> page to check the current settings and statistics for your router. This page shows you the current settings.If something needs to be changed, you'll have to change it on the relevant page."
+3G_help_info1="Firmware Version:"
+3G_help_info2="This is the current software the router is using. This will change if you upgrade your router."
+3G_help_info3="WAN Port:"
+3G_help_info4="These are the current settings that you set in the <i>Setup Wizard</i> or <i>Broadband Account Settings</i> pages.<ul><li>IP Address - current Internet IP address. If assigned dynamically, and no Internet connection exists, this will be blank or 0.0.0.0<li>IP Subnet Mask - the subnet mask associated with the Internet IP address<li>Domain Name Server - displays the address of the current DNS."
+3G_help_info5="LAN Port:"
+3G_help_info6="These are the current settings, as set in the <i>LAN IP Setup</i> page.<ul><li>MAC Address - the physical address of the Router, as seen from the local LAN.<li>IP Address - LAN IP address of the Router.<li>DHCP - indicates if the Router is acting as a DHCP Server for devices on your LAN.<li>IP Subnet Mask - subnet mask associated with the LAN IP address."
+3G_help_info7="Wireless Port:"
+3G_help_info8="These are the current settings, as set in the <i>Wireless Settings</i> page.<ul><li>Name (SSID) - SSID of the Router.<li>Region - the location (country).<li>Channel - the current channel in use.<li>Wireless AP - indicates if the Access Point feature of the Router is enabled or not. If not enabled, the Wireless LED on the front panel will be off.<li>Broadcast Name - indicates if the Router is broadcasting its SSID.</ul><p>Click <b>Show Statistics</b> to see router performance statistics such as the number of packets sent and number of packets received for each port.<p>Click <b>Connection Status</b> to see information about your current connection."
+
+
+//Modem_success.htm
+3G_success="Success"
+3G_conn_success="Connection Success"
+3G_conn_to0="Your"  
+3G_conn_to1="is now successfully connected to the 
+3G_conn_to2="Network."
+3G_conn_tonull="Your Mobile Broadband USB modem is now successfully connected to the 3G Network."
+
+
+//Modem_upgrade.htm
+3G_dsl_port="ADSL Port" 
+
+
+//Modem_usb_fail.htm
+3G_unable_detect="Unable to Detect Modem"
+3G_nodect_info="No Mobile Broadband USB Modem adapter detected."
+3G_nodect_info1="Please ensure Mobile Broadband USB Modem adapter is properly connected to the USB port of the router and click <strong>Retry</strong>."
+3G_not_support="Mobile Broadband USB Modem adapter not supported."
+3G_nosupp_info="Check supported Mobile Broadband USB Modems on <a href="http://www.netgear.com/3G">http://www.netgear.com/3G"
+3G_nosupp_info1="If your Mobile Broadband USB Modem is supported, please go to NETGEAR support site and follow instructions to download and upgrade to latest firmware."
+3G_no_respond="USB Modem not Responding."
+
+
+//Modem_usb_not_support.htm
+3G_modem_nosupp="USB Modem not Supported"
+3G_mpdem_nosuppinfo="Your Mobile Broadband USB Modem is not supported by the current SW version 
+3G_mpdem_nosuppinfo0="of the router"
+3G_mpdem_nosuppinfo1="If you find your USB modem and Mobile operator listed, please upgrade router software by following these easy steps."
+3G_mpdem_nosuppinfo2="1)  Please put the Mobile Broadband USB modem back on your PC or use dsl/cable connection to get your PC connected to the Internet."
+3G_mpdem_nosuppinfo3="2)  Please visit <a href="http://www.netgear.com/3G">http://www.netgear.com/3G</a> and follow the link and instructions to upgrade the router software at the top of the page."
+3G_mpdem_nosuppinfo4="3)  Once software upgrade is done, plug back the Mobile Broadband USB Modem to the router and return to your Installation Guide steps to connect to the Internet."
+
+//Modem_wan2eth.htm
+3G_wanether_state="WAN to Ethernet State"
+3G_en_wanether="Enable WAN to Ethernet Port"
+3G_dis_wanether="Disable WAN to Ethernet Port"
+
+//Modem_welcome.htm
+3G_welcome_str13="You are now connected to the NETGEAR Mobile Broadband Wireless Router."
+3G_welcome_str14="Click <strong>Next</strong>.   (To configure your router settings manually, click <strong>Exit</strong>.)"
+
+
+//WWAN_wan.htm
+3G_dis_3gpage="This page is disabled because the Broadband settings is using only ADSL connection.\r\nTo enable 3G mobile connection, please first go to \"Broadband Settings\" page and change the settings."
+3G_mobile_settings1="Mobile Broadband Settings"
+3G_usb_settings="USB Wireless Broadband modem settings"
+3G_auto_connect="Connect automatically at startup"
+3G_auto_reconnect="Reconnect automatically When connection is lost"
+3G_auto_roam="Roaming automatically"
+
+
+//WWAN_wan_h.htm
+3G_wwan_help="Broadband Account Settings Help"
+3G_wwan_helpstr="This page allows you to configure the broadband account access for your NETGEAR Modem"
+3G_wwan_helpstr0="Settings"
+3G_wwan_helpstr1="In order to connect to the network, an active broadband service account is Required. Please contact your ISP for username, password and the network name"
+3G_wwan_helpstr2="Username"
+3G_wwan_helpstr3="- Account login username"
+3G_wwan_helpstr4="Password"
+3G_wwan_helpstr5="- Account password for authentication"
+3G_wwan_helpstr7="- Country"
+3G_wwan_helpstr8="Internet Service Provider"
+3G_wwan_helpstr9="- Internet Service Provider of Mobile Broadband network"
+3G_wwan_helpstr10="PIN code"
+3G_wwan_helpstr11="- PIN code of SIM card"
+3G_wwan_helpstr13="- Access Point Name"
+3G_wwan_helpstr15="- This is the remote site's phone number."
+3G_wwan_helpstr17="- Type of packet data protocol"
+3G_wwan_helpstr18="Connect automatically at startup"
+3G_wwan_helpstr19="- If selected,the modem will automatically connect to the network upon powered up. This should be selected after login information is provided."
+3G_wwan_helpstr20="Reconnect automatically when connection is lost"
+3G_wwan_helpstr21="- If selected,the modem will attempt to reconnect to the network when the connection is lost. Under normal situation, this setting should be selected."
+3G_wwan_helpstr22="Connection Status"
+3G_wwan_helpstr23="- current WAN port status"
+3G_wwan_helpstr24="Click <b>Connect</b> when you want to manually connect to the network."
+3G_wwan_helpstr25="Click <b>Disconnect</b> when you want to manually disconnect from current network."
+3G_wwan_helpstr26="Click <b>Apply</b> when you finish changing the settings."
+3G_wwan_helpstr27="Click <b>Cancel</b> to discard changes."
+3G_wwan_helpstr28="Click <b>Refresh</b> to update connection status"
+
+
+//WWAN_RST_status.htm
+3G_ether_port="Ethernet Port"
+
+
+//RST_wwan_interval.htm
+
+
+//RST_wwan_statistics.htm
+
+
+//RST_st_wwan.htm
+3G_hsdpa_stat="HSDPA Status"
+3G_evdo_stat="EVDO Status"
+3G_sig_quality="Received Signal Quality(in dbm)"
+3G_byte_trans="Bytes Transmitted"
+3G_byte_recv="Bytes Received"
+3G_sys_uptime="System Uptime"
+3G_con_duration="Connection Duration"
+3G_available_network="Available Networks"
+
+
+//MNU_menu.htm
+3G_broadband_settings="Broadband Settings"
+
+//traffic_meter.htm MBRN3000
+3G_sync_ntp="Synchronizing time from NTP..."
+
+
+//Module_detect.htm
+
+
+//BSW_detwan1.htm
+3G_detect_type="Detecting Connection Type on Internet Port"
+
+
+//BSW_fail.htm
+
+
+//BAS_dual_wan.htm
+3G_retry_warning="Retry Interval contains an invalid number.\n"
+3G_failover_warning="Failover count contains an invalid number.\n"
+3G_switch_warning="Failover switch timer of hardware detection contains an invalid number.\n"
+3G_resume_warning="Failover Resume contains an invalid number.\n"
+3G_retry_outof="Retry Interval is out of range [10~600].\n"
+3G_failover_outof="Failover count is out of range [1~40]."
+3G_switch_outof="Failover switch timer of hardware detection is out of range [10~600]."
+3G_resume_outof="Failover resume value is out of range [10~600].\n"
+3G_intername_blank="Internet name can not be blank!\n"
+3G_invalid_ping="Invalid IP address for Ping.\n"
+3G_conn_mode="Internet Connection Mode"
+3G_failover_0="Always use Mobile Broadband connection"
+3G_failover_1="Always use ADSL connection"
+3G_failover_2="Use ADSL connection first and if fail use Mobile Broadband connection"
+3G_det_mode="Failover Detection Method"
+3G_dns_wanserver="DNS lookup using WAN DNS Server"
+3G_dns_hostname="DNS lookup by a hostname"
+3G_ping_address="Ping this IP address"
+3G_retry_interval="Retry Interval is"
+3G_second="Seconds"
+3G_failover="Failover after"
+3G_interval="Intervals"
+3G_resume_after="Resume after"
+3G_enable_hwdet="Enable Hardware link detection"
+3G_failover_after="Failover after"
+
+
+//WIZ_dual_wan.htm
+
+
+//WWAN_wan.htm 3300
+3G_init_script="Initialize Script"
+3G_use_interante="Use internal antenna"
+3G_wifibutton_config="Wireless Button Configuration"
+3G_wifibutton_wifionly="Control WiFi Only" 
+3G_wifibutton_both="Control Both WiFi and Wireless Broadband"
+
+
+//BSW_wireless.htm 3000
+3G_input_ssid="Please input the SSID of your AP station"
+3G_enable_wifi="Enable Your Wireless Network"
+3G_wifi_info1="You have a wired connection to the Internet. Now, we will enable your wireless network."
+3G_select_region1="Select the region where you are located :"
+3G_input_ssid1="Enter your Wireless Network Name (SSID) :"
+3G_wifi_info2="You can change the default Wireless Network Name (SSID) or leave it as NETGEAR.This setting is case sensitive. NETgear is not the same as NETGEAR.<p>Be sure to record the Wireless Network Name (SSID). You will need it later to set up the wireless connection between the router and your wireless computer."
+3G_wifi_info3="Important:"
+3G_wifi_info4="Implement wireless security options appropriate to your needs. These settings enable basic wireless connectivity that you can use to setup your wireless computers and test wireless Internet access through the router."
+3G_wifi_info5="The NETGEAR wireless router provides many wireless security options. Your wireless computer may not support all of these options. Please read the NETGEAR manual to identify the wireless security features of your router that satisfy your requirements and work with your wireless computer."
+
+
+//BLK_wireless.htm
+3G_wifi_info9="Be sure to record the Wireless Network Name (SSID). You will need to when you set up your wireless computer."
+3G_default_ssid="Default Wireless Network Name (SSID):"
+3G_wifi_info6="You can change the default Wireless Network Name but make sure that the settings on your wireless computer match this SSID."
+3G_wifi_info7="These settings enable basic wireless communications you can use to set up and test your wireless network."T
+3G_wifi_info8="They do not provide wireless security. Please read the manual to understand wireless security and implement security options appropriate to your needs."
+
+
+//BSW_region.htm
+3G_wifi_info9="For regulatory compliance, please select the geographic region where this router will be used:"
+
+
+//
+3G_bbandset_help="Broadband Settings Help"
+3G_bbandset_help1="This page allows you to configure the broadband setting for your NETGEAR Modem"
+3G_bbandset_help2="- Choose the mode you preferred"
+3G_tf_head="Show Traffice Meter options for Mobile Broadband Connection"
+3G_tf_head1="Show Traffic Meter options for ADSL Connection"
+3G_pin_alert="A PIN is a string from 4 digits up to 8 digits."
+3G_pin2_alert="A PIN2 is a string from 4 digits up to 8 digits."
+3G_unlock_alert="A Unlock code is a string of digits."
+3G_abort_nego="Aborting USB Dongle Negotiation"
+3G_no_sim="Valid SIM Card Not Detected"
+3G_curr_wan="This is the current WAN interface the router is using."
+3G_router_info="Router Information"
+3G_curr_hw="This is the current hardware the router is using."
+3G_help_info9="<b>Mobile broadband</b>: These are the current settings of mobile boardband device."
+3G_help_info10="Modem Identity - Identitity of this usb modem device"
+3G_help_info11="Modem SW version - Software/Firmware verion of this usb modem device."
+3G_help_info12="Modem driver version - Kernel driver verion."
+3G_help_info13="Modem Status - the current state of the Mobile broadband connection to your cellular ISP"
+3G_help_info14="IMSI - International Mobile Subscriber Identity."
+3G_help_info15="IMEI - International Mobile station Equipment Identity."
+3G_help_info16="ESN - Electronic Serial Number."
+3G_help_info17="Operator - The internet service provider name which has connected."
+3G_help_info18="Network mode - Current access technology"
+3G_wwan_setup="Wireless WAN Setup"
+3G_pin2_code="PIN2 Code"
+3G_puk_code="PUK Code"
+3G_puk2_code="PUK2 Code"
+3G_roam_help="<b>Roaming automatically</b> - If checked, it may roam to any available operator in range and may incur roaming charges."
+3G_inits_help="<b>Initialize Script</b> - It is a script to dial to Internet, It depends on Modem and its firmware."
+3G_mbd_status="Mobile Broadband Status"
+3G_in_sec="(In Seconds)"
+3G_in_inter="(In Intervals)"
+3G_finish="Finish"
+3G_306="Idle"
+3G_307="USB Device Not Support"
+3G_308="NO USB Device Attached"
+3G_309="NO SIM Card Detected"
+3G_310="NO APN Entered"
+3G_311="Not Connected"
+3G_312="PIN Number Error"
+3G_313="PIN Required"
+3G_314="PIN2 Number Error"
+3G_315="PIN2 Required"
+3G_316="PUK Number Error"
+3G_317="PUK and New PIN Required"
+3G_318="PUK2 Number Error"
+3G_319="PUK2 and New PIN Required"
+3G_320="Unlock Code Required"
+3G_321="Unlock Code Error"
+3G_322="SIM NOT Support"
+3G_323="No Network Coverage"
+3G_324="SIM Network Reject"
+3G_325="NO Preferred ISP"
+3G_326="Not Attached to Network"
+3G_327="Could not make the PPP connection"
+3G_328="Scanning"
+3G_329="Negotiating"
+3G_330="Detecting Modem"
+3G_331="Attaching to Network"
+3G_332="Connecting"
+3G_333="Connected"
+3G_334="Transition from ADSL to 3G"
+3G_335="Transition from 3G to ADSL"
+3G_342="<p>Your router uses the following settings. You will need the wireless settings when you set up computers to wirelessly connect to the Internet through this router.</p>"
+3G_343="<p><strong>Note:</strong> Your Mobile Broadband Service Provider may have data bandwidth usage limit per month. Periodically check with your service provider to ensure you are not over limit on data usage.</p>"
+3G_344="<p><strong>Important:</strong> Print the screen or write down the settings.</p>"
+3G_345="<p>Click <strong>Finish</strong> to Complete your Configuration.</p>"
+
+//BRIC feature
+3G_usb_feature="ReadySHARE Feature"
+3G_usb_mobile_connect="ReadySHARE Mobile Connect"
+3G_4G_conn_mode="3G/4G Connection Mode"
+3G_manual_conn="Manual connect"
+3G_conn_on_demand="Connect on demand"
+3G_country="Country"
+3G_dis3_4g="Disable 3G/4G connection"
+3G_ether_3g_4g="Use Ethernet connection first and if fail use 3G/4G mobile connection"
+3G_always_3g_4g="Always use 3G/4G mobile connection"
+
+3G_dri_succ_install="Modem driver successfully installed"
+3G_no_modem="Can not detect Modem"
+3G_unable_dl_dri="Unable to download driver"
+3G_not_support_modem="Modem model not supported"
+3G_inv_dri_file="Invalid driver file"
+3G_modem_vendor="Modem vendor"
+3G_select_modem_driver="Locate and select the driver file from hard disk(Please use NETGEAR officially released drivers at www.someURL.com)"
+3G_detect_install_driver="Detect and Install"
+No_usb_broadband="No USB broadband adapter detected! Please check your USB connection."
+No_supporte_modem="The mobile broadband modem is not a supported type. You can try a different one."
+No_establish_connection="The router cannot establish internet connection. Please check the settings with your mobile broadband service provider."
 6rd="6rd Tunnel"
 6rd_br="6rd (IPv6 Rapid Deployment) Configuration"
 6rd_prefix="6rd Prefix"
@@ -2036,9 +2770,100 @@ user_setup_same_username="The user already exists. Are you sure you want to over
 6rd_masklen="6rd IPv4 Address Mask Length"
 6rd_ipv4br_address="6rd IPv4 Border Relay Address"
 
+arlo="Arlo"
+arlo_title="Arlo"
+enable_arlo="Enable Arlo"
+
 web_site_block_notify="Web Site Blocked by NETGEAR Firewall"
-ipv6_auto_err_no_link="No Ethernet Cable Is Plugged into the Router Internet Port."
+intranet_fixed_ip="Fixed IP"
+
+ipv6_auto_err_no_link="No Ethernet Cable is plugged into the Router Internet Port."
 ipv6_auto_err_no_ipv4="Failed to detect IPv6 connection type."
+
+// Extender Mode
+ca_15_repeater_24g_new = "2.4GHz Extender Network"
+ca_15_repeater_5g_new = " 5GHz Extender Network"
+ca_15_ssid_new = "Name (SSID)"
+ca_15_sec_new = "Security"
+sec_phr_new = "Password (network key):"
+cp_passwd="copy password " 
+ca_next_mark="I have connected to the Extender network"
+ca_close_window="Do you want to close this window? "
+keep_ssid_warning="To ensure the delivery of optimal wireless performance to your devices, NETGEAR recommends that you keep a unique SSID for the Extender network and you only connect to the Extender network when the existing network does not deliver good enough coverage."
+eth_bind_band="Ethernet ports to WiFi use the following band: "
+24g_flag="2.4GHz"
+5g_flag="5GHz"
+sec_phr_new = "Password (network key):"
+ssid_same="2.4G and 5G have the same SSID"
+passphrase_notice="A password consists of either 8~63 ASCII characters or exactly 64 hex-digits. A hex digit is one of these characters: 0, 1, 2, ..., 8, 9, A, B, C, D, E, F."
+security_null="Please select the security mode of the WiFi network."
+wait_for_connect2_new="Applying your settings. This may take up to a minute."
+profile_mang="Please use your wireless profile manager software(Windows,NETGEAR Adapter Wizard,etc) re-connect to the Extender network using the information displayed below."
+ca_add_bookmark="Do you want to add \"R7000 Configuration\" as a bookmark?"
+ap_15_logging_1="Follow the instructions below to connect you devices to the Access Point."
+ap_15_repeater_24g="2.4GHz Access Point Network"
+ap_15_repeater_5g="5GHz Access Point Network"
+ap_15_logging_3 = "Connect your devices like a laptop, tablet, smart TV, etc. to your access point network. For example, on your laptop you may use the Windows WiFi manager to connect to the newly access point network. (Show image here)"
+extender_mode="Extender Mode"
+router_ap_extender="Router / AP / Bridge / Repeating Mode"
+router_change_setting="To change router settings"
+ap_mode_info_7="<b>AP Mode:</b></a>The NETGEAR router will function as a wireless access point.This mode is appropriate for easy setup if devices are already connected to your existing router or gateway, or if you just want to use this new NETGEAR router to extend your WiFi coverage. Some router functions are not available in access point mode."
+select_ext_network="Select an existing network you would like to extend. You can extend 2.4G band, 5G band, or both of them."
+wl_connection="Wireless Network Connection"
+use_band="Ethernet ports to WiFi use the following band"
+extender_mode_info="<b>Extender Mode:</b></a> The NETGEAR router will functin as a range extender. This mode allows you to extend the range of your existing WiFi network"
+h_extender_mode="<body bgcolor=#0099cc><p><font size=4><b>Extender Mode Help</b></font></p><a name=ext_mode></a><p><b>Extender mode:</b> The WiFi Range Extender extends the wireless network to include the area outside the range of your existing WiFi network. NETGEAR recommends that you connect to the Extender wireless network only when a PC or wireless device is in a “dead zone” where the network connection to your existing router is very poor or nonexistent. This is because data traffic routed through the Extender wireless network is slower than traffic directly from the original wireless router network. </p><p>If you cannot connect from your wireless device to the Extender, move the Extender to a different location halfway between the device and the router. If, after you try several locations, the device cannot connect to the Extender, move the Extender closer to the device.</p><a name=dyn></a><p><b>Get dynamically from existing router</b></p><p>The device will find an IP address automatically from DHCP server</p><a name=fix></a><p><b>Use fixed IP Address</b></p><p>Use this option if you want to manually configure IP address, subnet mask, gateway IP address, and DNS server IP address.</p><a name=uplink></a><p><b>Uplink</b></p><p>2.4G/5G: use these tabs to switch between 2.4G uplink settings and 5G uplink settings. Choose one band, then choose the SSID of your existing Router / Gateway. A popup will display the SSID, and the security option, fill in the password to get connected. You can use the scroll bar to move the list up and down. If you do not see the existing Router / Gateway SSID on the list, please click &quot;Other&quot;, type in the SSID, choose security option from the drop down list, and type in the password. The connected band will show a check mark on the tab.</p><a name=wireless></a><p><b>Wireless Settings:</b> link to the ADVANCED -> Setup -> Wireless Setup page, use this page to modify current Access Point wireless settings.</p><a name=ethport></a><p><b>Ethernet ports to WiFi use the following band</b></p><p>Please choose by which WiFi bands you want to bind the Ethernet ports with. Please make sure you binds with the WiFi band that you have setup the uplink connection.</p><p><b>Uplink Connection Failed</b></p><p>If your connection to the root AP failed, indicated by    on GUI, please check the following items:</p><p>&nbsp;&nbsp;Check if you have entered the correct passphrase for the uplink SSID.</p><p>&nbsp;&nbsp;Try move the extender closer to your root AP or to a position with a better line of sight.</p><p>&nbsp;&nbsp;If you have Access Control List (ACL) enabled in your root AP, please make sure you have added below MAC address into your router’s Access Control List (ACL).</p><ul><li>Extender MAC address is: XXXXX</li><li>Your client wireless adapter MAC address is: XXXXX</li></ul></body>"
+
+
+//Smart Mesh
+smart_mesh_head="SmartZone"
+smart_mesh_helper=" <b>Both your router and extender have to support SmartZone to use this</b><br><b>feature. SmartZone allows devices to choose the best connection</b><br><b>between the router and extender at any location. When using SmartZone</b><br><b>the network name(SSID) for the router and extender remains the same.</b><br>"
+//smart_mesh_setting=" SmartZone (Basic Settings)"
+//smart_mesh_adv_setting=" SmartZone (Advanced Settings)"
+smart_mesh_enable="Enable SmartZone"
+smart_mesh_roaming_level="Roaming Sensitivity"
+smart_mesh_topology="Wireless Topology Map"
+smart_mesh_string1="You are accessing from a wired device"
+smart_mesh_string2="You are accessing from a wireless device"
+smart_mesh_device_type="Device Type"
+smart_mesh_name="Hostname"
+smart_mesh_modify="Modify"
+h_smart_mesh_adv="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>SmartZone Help</B></font></P><p>SmartZone is Netgear proprietary feature to dynamically improve your wireless devices connection experiences in environment with a Netgear wireless router and extender(s). It provides services to find a better access points dynamically when your wireless devices connecting in SmartZone network.</p><p>When enabled, SmartZone capable devices will discover nearby devices and united as a SmartZone network if using same wireless SSID, security type, and password settings.</p><p>Additionally, the Wireless Card Access List setting will be enforaced to be enabled if one of SmartZone device is using it.</p><br><p><font size=4><B>Wireless Topology Map</B></font></P><p>It shows all wireless devices in SmartZone network including router, extender, and your devices. You can click on any nodes shown on the map to have detail information.</p><p>If you are accessing this web page from a wireless device, the device you used will be highlighted in yellow on the map.</p><br><p><font size=4><B>Modify</B></font></P><p>Modify SmartZone device's hostname.</p><br><p><font size=4><B>Switch</B></font></P><p>Change Extender's uplink access point.</p><br><p><font size=4><B>Connect</B></font></P><p>Force wireless station connects to another access point</p><br></div></div></body>"
+h_smart_mesh="<body style="margin:0px"><div id="content" style="overflow:auto;scrolling:auto;width:100%;height:140px"><P><font size=4><B>SmartZone Help</B></font></P><p>SmartZone is Netgear proprietary feature to dynamically improve your wireless devices connection experiences in environment with a Netgear wireless router and extender(s). It provides services to find a better access points dynamically when your wireless devices connecting in SmartZone network.</p><p>When enabled, SmartZone capable devices will discover nearby devices and united as a SmartZone network if using same wireless SSID, security type, and password settings.</p><p>Additionally, the Wireless Card Access List setting will be enforaced to be enabled if one of SmartZone device is using it.</p><br><P><font size=4><B>Enable SmartZone</B></font></p><p>When enabled, device will discover and collaborate with other SmartZone device(s).</p><br><p><font size=4></div></div></body>"
+
+
+smart_mesh_extender="To configure the Extender Mode will disable SmartZone. Do you want to continue?"
+smart_connect_extender="To configure the Extender Mode will disable Smart Connect. Do you want to continue?"
+smart_connect_disable="Smart Connect disabled since Extender Mode is enabled"
+smart_connect_warning="To configure the Smart Connect will disable SmartZone. Do you want to continue?"
+wps_disable_smartmesh="(disabled when SmartMesh is enabled)"
+wps_disable_smartconnect="(disabled when Smart Connect is enabled)"
+smart_mesh_warning="To configure the SmartZone will disable Smart Connect. Do you want to continue?"
+smart_mesh_disable="SmartZone disabled since Extender Mode is enabled."
+
+super_wifi_warning="Enabling Super WiFi will cause the wireless power to exceed the requirements specified by SRRC regulations. NETGEAR recommends that you use the default setting to ensure safety. Are you sure you want to enable Super WiFi?"
+
+//Router Mode
+router_mode="Router Mode"
+router_mode_info="This mode allows you to take advantage of NETGEAR router functions. The NETGEAR router is set up as a normal WiFi router behind your existing router or gateway. This mode requires that all of your devices be connected to the new NETGEAR router and not to your existing gateway."
+h_router_mode="<body bgcolor=#0099cc><p><font size=4><b>Router Mode Help</b></font></p><a name=mode></a><p><b>Router Mode:</b> This mode allows you to take advantage of NETGEAR router functions. The NETGEAR router is set up as a normal WiFi router behind your existing router or gateway. This mode requires that all of your devices be connected to the new NETGEAR router and not to your existing gateway.</p><p><b>Router Functions</b></p><p>The following router functions are not available if you choose access point or bridge mode:</p><ul><li>Guest network</li><li>Parental control</li><li>QoS</li><li>Access control</li><li>Traffic meter</li><li>Block sites</li><li>Block services</li><li>Static route</li></ul><a name=inet></a><p><b>Internet Settings:</b> link to the ADVANCED -> Setup -> Internet Setup page, use this page to modify current router internet settings.</p><a name=wifi></a><p><b>Wireless Settings:</b> link to the ADVANCED -> Setup-> Wireless Setup page, use this page to modify current router wireless settings.</p></body>"
+
+bt_igmp_support="Support British Telecom (BT)IGMP Proxying"
+
+//AP Mode
+downlink="Downlink"
+uplink="Uplink"
+conn_ssid="Your client devices can connect to the SSID below."
+to_change="To change"
+h_ap_mode_1="<body bgcolor=#0099cc><p><font size=4><b>AP Mode Help</b></font></p><a name=ip_tag></a><p><b>AP mode:</b> allows this device to work as a stand-alone wireless access point on your existing network. This mode is appropriate for easy setup if devices are already connected to your existing router or gateway, or if you just want to use this new NETGEAR router to extend your WiFi coverage. Some router functions are not available in access point mode.</p><p><b>Router Functions</b></p><p>The following router functions are not available if you choose access point or bridge mode:</p><ul><li>Guest network</li><li>Parental control</li><li>QoS</li><li>Access control</li><li>Traffic meter</li><li>Block sites</li><li>Block services</li><li>Static route</li></ul><a name=mac_tag></a><p><b>Get dynamically from existing router</b></p><p>The device will find an IP address automatically from DHCP server</p><a name=name_tag></a><p><b>Use fixed IP Address</b></p><p>Use this option if you want to manually configure IP address, subnet mask, gateway IP address, and DNS server IP address.</p><a name=priority_tag></a><p><b>Wireless Settings:</b>  link to the ADVANCED-> Setup ->Wireless Setup page, use this page to modify current Access Point wireless settings.</p></body>"
+
+//DEV_name.htm
+dev_name_info_1="Device Name identifies this router. It is used by many different features on the router."
+dev_name_info_2="<b>Note: </b>when you change this name the ReadyShare storage folder access path will be also change to the device name."
+dev_name_info_3="Please use alpha numericals up to 16 characters"
+
+// For email SMTP port detection@ 06/17/15
+email_port_detect="Detecting SMTP port number for outgoing mail"
 
 dial_on_daemon_warning="If your router's Internet connection mode is set to Dial on Demand or Manually Connect, some features that require remote access, such as genie remote access, might not work correctly. Do you want to continue?"
 vpn_pppoe_dod="If you enable the VPN service on your router, your router’s Internet connection mode will change from Dial on Demand to Always On. This change is required for a VPN client to connect to your router. Do you want to continue?"
@@ -2046,3 +2871,7 @@ vpn_pppoe_manual="If you enable the VPN service on your router, you need to chan
 readycloud_pppoe_dod="If you register your router with ReadyCLOUD, your router’s Internet connection mode will change from Dial on Demand to Always On. This change is required for ReadyCLOUD to remotely access the connected USB storage device. Do you want to continue?";
 readycloud_pppoe_manual="If you register your router with ReadyCLOUD, you need to change your router’s Internet connection mode from Manually Connect to Always On in order for ReadyCLOUD to remotely access the connected USB storage device. Go to the Internet Setup page to make this change";
 readycloud_pppoe_manual_off="Your router or gateway is not connected to the Internet. You need an Internet connection in order to register your router or gateway with ReadyCLOUD. Connect your router or gateway to the Internet and try again.";
+
+bridge_mode="Bridge Mode"
+repeating_mode="Repeating Mode"
+h_bridge_mode="<body bgcolor=#0099cc><p><font size=4><b>Bridge Mode Help</b></font></p><a name=ip_tag></a><p><b>Bridge Mode</b></p><p>Set this router in bridge mode and connect it to your existing router or gateway using its 802.11ac WiFi connection. This mode allows you to take advantage of gigabit WiFi speeds on current devices and avoid the need for separate WiFi adapters for each device. Some router functions are not available in bridge mode.</p><p><b>Router Functions</b></p><p>The following router functions are not available if the router is set in bridge mode:</p><ul><li>Guest network</li><li>Parental control</li><li>QoS</li><li>Access control</li><li>Traffic meter</li><li>Block sites</li><li>Block services</li><li>Static route</li></ul><a name=mac_tag></a><p><b>Get IP Address Dynamically</b></p><p>Clear the Get IP Address Dynamically check box if you want to manually enter the IP address, subnet mask, and gateway IP addresses.</p><a name=name_tag></a><p><b>Get DNS Server Address Dynamically</b></p><p>Clear the Get DNS Server Address Dynamically check box if you want to manually enter the DNS server IP address.</p></body>"

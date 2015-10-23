@@ -1,0 +1,73 @@
+<html>
+<head>
+<%11%>
+<title><%3171%></title> 
+<link rel="stylesheet" type="text/css" href="style.css">
+<script language="JavaScript" type="text/javascript">
+<!-- Start Script
+function CloseWindow()
+{
+ top.window.opener=null;
+ top.window.close();
+}
+function msg_close()
+{
+ alert("<%3151%>");
+ CloseWindow();
+}
+function back_fun()
+{
+    //location.href=document.forms[0].back_file.value;
+	url = "http://"+location.host+"/" + document.forms[0].back_file.value;
+	top.location.href=url;
+}
+function next_fun()
+{
+    location.href=document.forms[0].next_file.value;
+}
+function retry_fun()
+{
+    location.href=document.forms[0].retry_file.value;
+}
+// End Script -->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
+<form name="formname" method="POST" action="usb_fail.cgi"> 
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+  <tr>
+   <td valign="top" align="center">
+     <h1><br><%3181%></h1>
+   </td>
+  </tr>
+  <tr>
+	<td colspan="2" background="liteblue.gif" height="12"></td>
+  </tr>
+  <tr>
+   <td valign="top" align="left">
+   <ul>
+     <p><strong><%3182%></p></strong>
+     <p><%3183%></p>
+    <p><%3184%>&nbsp;&nbsp;&nbsp;&nbsp;
+    </p>
+     </ul>
+   </td>
+  </tr>  
+  <tr>
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+  </tr>
+  <tr><td align="center">
+  	<ul>
+<input type="button" name="b_done" value="   <%1580%>  " onClick="retry_fun();">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  	
+	<input type="button" name="Quit" value="   <%1448%>   " onClick="msg_close()">
+
+	</ul>
+</td></tr>  
+</table>
+<input type="hidden" name="back_file" value="start.htm">
+<input type="hidden" name="next_file" value="Modem_dual_wan_welcome.htm">
+<input type="hidden" name="retry_file" value="Modem_detect.htm">
+</form>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /*
  * Miscellaneous services
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2014, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -1065,7 +1065,10 @@ int stop_lltd(void)
 int
 start_eapd(void)
 {
-	int ret = eval("/bin/eapd");
+	int ret;
+
+        system("killall eapd");
+        ret = eval("/bin/eapd");
 
 	return ret;
 }
@@ -1133,7 +1136,14 @@ stop_acsd(void)
 
 int start_bsd(void)
 {
-	int ret = eval("gbsd");
+	int ret;
+        
+//        if (nvram_match("debug_smart_connect", "1"))
+	        system("nvram set gbsd_msglevel=0x800");
+	        system("nvram set gbsd_rssi_timeout=60");
+
+       system("nvram set gbsd_open_timeout=13");
+        ret=system("nice -n -5 /usr/sbin/gbsd");
 
 	return ret;
 }

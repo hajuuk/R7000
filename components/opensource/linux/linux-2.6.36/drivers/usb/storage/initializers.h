@@ -46,5 +46,22 @@ int usb_stor_euscsi_init(struct us_data *us);
  * flash reader */
 int usb_stor_ucr61s2b_init(struct us_data *us);
 
+extern int usb_stor_switch_ports_init(struct us_data *us);
+/* Add by Jasmine Yang, 01/04/2011 */
+extern int huawei_ms_init(struct us_data *us);
+extern int huawei_ms_init2(struct us_data *us);
+extern int huawei_ms_init3(struct us_data *us);
+extern int huawei_ms_init4(struct us_data *us);
+extern int huawei_ms_init5(struct us_data *us);
+extern int huawei_ms_init6(struct us_data *us);
+extern int option_hso_init(struct us_data *us);
+extern int china_telecom_ms_init (struct us_data *us);
 /* This places the HUAWEI E220 devices in multi-port mode */
 int usb_stor_huawei_e220_init(struct us_data *us);
+/*foxconn Han edited, 07/28/2014 for D-LINK DWP-156*/
+extern int dlink_ms_init (struct us_data *us);
+extern int ntgr_ms_init (struct us_data *us);
+/*foxconn Han edited, 08/20/2014*/
+extern int micromax_ms_init (struct us_data *us);
+/*foxconn Han edited, 08/25/2014 for Micromax MMX377G (Mediatek MT6229 chip inside)*/
+extern int micromax_ms_init2 (struct us_data *us);

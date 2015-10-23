@@ -28,7 +28,7 @@ SUBDIRS += curl
 #SUBDIRS += lua
 #SUBDIRS += lsync
 #SUBDIRS += libxml2-2.7.2
-#SUBDIRS += gsoap
+#MYSUBDIRS += gsoap
 #SUBDIRS += libpng
 
 ifeq ($(CONFIG_TIMEMACHINE),y)
@@ -84,10 +84,6 @@ endif
 
 SUBDIRS += zeroconf-0.9
 
-ifeq ($(IPERF_ENABLE_FLAG),y)
-SUBDIRS	+= iperf-2.0.5
-endif
-
 #water, 10/30/2008, @samba
 ifeq ($(SAMBA_ENABLE_FLAG),y)
 #SUBDIRS	+= samba-3.0.13
@@ -97,6 +93,7 @@ SUBDIRS	+= hdparm-9.43
 SUBDIRS	+= hd-idle-1.04
 endif
 
+SUBDIRS	+= picocom
 # pling added 05/04/2009, for NTFS-3g
 ifeq ($(CONFIG_NTFS_3G),y)
 SUBDIRS += ntfs-3g-2009.3.8
@@ -113,6 +110,10 @@ endif
 SUBDIRS += iproute2
 
 # Foxconn add start by Hank for ecosystem support 08/14/2012 
+ifeq ($(CONFIG_DOWNLOADER),y)
+SUBDIRS +=transmission
+SUBDIRS +=amule
+endif
 ifeq ($(CONFIG_WGET),y)
 OPENSSL_DIR = $(GPLTOPDIR)/openssl
 WGET_DIR = wget-1.12
@@ -121,11 +122,26 @@ endif
 
 # Foxconn Perry added start, for zip and unzip 2013/05/09
 SUBDIRS += zip30 unzip60
+
+# foxconn Han edited, 08/22/2014 for Micromax dongle support
+ifeq ($(ENABLE_HSDPA_MODEM),y)
+SUBDIRS += Micromax
+endif
+
 # Foxconn Perry added, 11/19/2014, for Facebook WiFi debug
 ifeq ($(CONFIG_FBWIFI_DEBUG),y)
 SUBDIRS += ncftp-3.2.5
 endif
 
+# [Foxc] BrianYang, 2014/11/24, Implement kwilt support
+ifeq ($(CONFIG_KWILT),y)
+SUBDIRS += netkit-ftp-0.18-pre1
+endif
+
+# [Foxc] BrianYang, 2014/12/18, Porting PPTPD with MPPE
+ifeq ($(CONFIG_PPTPD_SUPPORT),y)
+SUBDIRS += pptpd
+endif
 
 all: ECOSYSTEM config
 	for i in ${SUBDIRS}; do \
@@ -150,7 +166,7 @@ ifeq ($(CONFIG_WGET),y)
 endif
 	# Foxconn add end by Hank for ecosystem support 08/14/2012	
 
-config: GeoIP_config openvpn_config tcpdump_config iperf_config
+config: GeoIP_config openvpn_config tcpdump_config
 
 libpcap_config:
 	if [ ! -f ./libpcap-1.4.0/Makefile ];then \
@@ -193,15 +209,6 @@ openvpn_config: lzo_make
 	--disable-plugin-auth-pam); \
 	fi 
 
-iperf_config:
-	if [ ! -f ./iperf-2.0.5/Makefile ];then \
-	cd iperf-2.0.5 && (CC=$(CROSS_COMPILE)gcc \
-	CFLAGS="$(CFLAGS) -I$(SRCBASE)/../ap/acos/include" \
-	LDFLAGS="-L$(ROUTERDIR)/nvram -L$(INSTALLDIR)/nvram/usr/lib -lnvram" \
-	$(CONFIGURE) --prefix=$(TARGETDIR)/usr --disable-pam-dlopen \
-	--disable-plugin-auth-pam); \
-	fi
- 
 install:
 	for i in ${SUBDIRS}; do \
 		(cd $$i; make install) || exit 1; \

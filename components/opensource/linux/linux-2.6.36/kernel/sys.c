@@ -77,7 +77,11 @@
 #ifndef SET_TSC_CTL
 # define SET_TSC_CTL(a)		(-EINVAL)
 #endif
-
+/* Foxconn added start, John Ou, 12/10/2014, for new debug page */
+#ifdef KERNEL_CRASH_DUMP_TO_MTD
+int flash_write_reboot_reason(int);
+#endif
+/* Foxconn added end, John Ou, 12/10/2014, for new debug page */
 /*
  * this is where the system-wide overflow UID and GID are defined, for
  * architectures that now have 32-bit UID/GID but didn't in the past
@@ -309,7 +313,15 @@ void kernel_restart(char *cmd)
 {
 	kernel_restart_prepare(cmd);
 	if (!cmd)
+	/* Foxconn modified start, John Ou, 12/10/2014, for new debug page */
+	{
+		#ifdef KERNEL_CRASH_DUMP_TO_MTD
+		flash_write_reboot_reason(1);
+		#endif
+
 		printk(KERN_EMERG "Restarting system.\n");
+	}
+	/* Foxconn modifid end, John Ou, 12/10/2014, for new debug page */
 	else
 		printk(KERN_EMERG "Restarting system with command '%s'.\n", cmd);
 	machine_restart(cmd);

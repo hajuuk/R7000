@@ -1443,7 +1443,14 @@ gethttp (struct url *u, struct http_stat *hs, int *dt, struct url *proxy,
   wgint post_data_size = 0;
 
   bool host_lookup_failed = false;
-
+  /* Foxconn modify start, Alex Zhang, 02/27/2013 */
+  int pid_tag = getpid();
+  if(create_mission_folder(pid_tag) == -1)
+    return FWRITEERR;
+  update_status_file(u->url, 0, pid_tag);//url
+  update_status_file(u->file, 1, pid_tag);//filename
+  update_status_file("2", 3, pid_tag);//status=2 connecting
+  
 #ifdef HAVE_SSL
   if (u->scheme == SCHEME_HTTPS)
     {
@@ -2133,7 +2140,7 @@ File %s already there; not retrieving.\n\n"), quote (hs->local_file));
         }
     }
   resp_free (resp);
-
+  update_status_file(number_to_static_string (contlen + contrange), 2, pid_tag);//write filesize
   /* 20x responses are counted among successful by default.  */
   if (H_20X (statcode))
     *dt |= RETROKF;
@@ -2232,7 +2239,7 @@ File %s already there; not retrieving.\n\n"), quote (hs->local_file));
     hs->contlen = -1;
   else
     hs->contlen = contlen + contrange;
-
+  /* Foxconn modify end, Alex Zhang, 02/27/2013 */
   if (opt.verbose)
     {
       if (*dt & RETROKF)
@@ -2375,6 +2382,15 @@ File %s already there; not retrieving.\n\n"), quote (hs->local_file));
   xfree (head);
 
   /* Download the request body.  */
+  /* Foxconn add start, Alex Zhang, 01/29/2013 */
+  if(contlen == 0)
+  {
+     CLOSE_FINISH (sock);
+     if (!output_stream)
+       fclose (fp);
+     return RETRFINISHED;
+  }
+  /* Foxconn add end, Alex Zhang, 01/29/2013 */
   flags = 0;
   if (contlen != -1)
     /* If content-length is present, read that much; otherwise, read

@@ -69,6 +69,10 @@ install:
 	rm -f $(TARGETDIR)/etc/avahi/services
 	ln -s /tmp/avahi/services $(TARGETDIR)/etc/avahi/services
 	install -d -m0755 $(TARGETDIR)/etc/init.d
+	chmod 777 $(PKG_INSTALL_DIR)/usr/lib/*
+	$(STRIP) $(PKG_INSTALL_DIR)/usr/lib/*.so.*
+	$(STRIP) $(PKG_INSTALL_DIR)/usr/lib/*.so
+	$(STRIP) $(PKG_INSTALL_DIR)/usr/local/sbin/*
 	install -m 755 $(PKG_INSTALL_DIR)/usr/lib/libdb-*.so $(TARGETDIR)/usr/lib/
 ifneq ($(CONFIG_ISERVER),y)
 	install -m0755 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/avahi-daemon.init $(TARGETDIR)/etc/init.d/avahi-daemon	
@@ -114,10 +118,15 @@ endif
 	rm -f $(TARGETDIR)/etc/netatalk/afppasswd
 	ln -s /tmp/netatalk/afppasswd $(TARGETDIR)/etc/netatalk/afppasswd
 	install -d -m0755 $(TARGETDIR)/usr/config/netatalk
+	$(STRIP) $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/afpd/afpd
 	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/afpd/afpd $(TARGETDIR)/usr/sbin/
+	$(STRIP) $(TIMEMACHINE_PATH)/netatalk-2.2.5/bin/afppasswd/afppasswd
 	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/bin/afppasswd/afppasswd $(TARGETDIR)/usr/sbin/
+	$(STRIP) $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/cnid_dbd/cnid_dbd
 	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/cnid_dbd/cnid_dbd $(TARGETDIR)/usr/sbin/
+	$(STRIP) $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/cnid_dbd/cnid_metad 
 	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/cnid_dbd/cnid_metad $(TARGETDIR)/usr/sbin/
+	$(STRIP) $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/uams/.libs/*.so
 	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/uams/.libs/*.so $(TARGETDIR)/usr/lib/uams/
 	rm -f $(TARGETDIR)/usr/lib/uams/uams_dhx.so
 	rm -f $(TARGETDIR)/usr/lib/uams/uams_dhx2.so

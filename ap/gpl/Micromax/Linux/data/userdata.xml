@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 英文资源文件 -->
+<!--install userinfo input-->
+<userinfo>
+    <install_userdata_username_txt>qiaokai</install_userdata_username_txt>
+    <install_userdata_usergender_txt>male</install_userdata_usergender_txt>
+    <install_userdata_userage_txt>99</install_userdata_userage_txt>
+    <install_userdata_usermobile_txt>13468629861</install_userdata_usermobile_txt> 
+    <install_userdata_useremail_txt>ivan@163.com</install_userdata_useremail_txt>
+</userinfo>
+

@@ -152,8 +152,8 @@ iframe{
 
 
 .table-seperate-border2{
-        padding-top:10px;
-        padding-bottom:47px;
+
+		height:65px;
         background-image: url(../img/opmode_topline.gif); 
         background-repeat: no-repeat; 
         background-position: 50% 100%;

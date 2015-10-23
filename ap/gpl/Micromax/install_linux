@@ -1,0 +1,121 @@
+#!/bin/bash
+# install script of pc suite 
+# created by wangxiaoming 20101229
+
+#VERSION=1.0.0.4
+
+if [ `id | awk '{print $1}'` != "uid=0(root)" ]
+then
+    echo "You must run the process by root."
+    read COMMAND
+    exit
+fi
+
+#CURRENT_PATH=`cd $(dirname $0);pwd`
+CURRENT_PATH=`echo $0|sed 's/\install_linux$//'`
+#FILENAME=${0/*\//}
+TMP_FILE_PATH="/tmp/USBModem_$$"
+LOG_PATH="/tmp/USBModem_install.log"
+INSTALL="/Linux/install"
+INSTALL_PATH="${TMP_FILE_PATH}/Linux/install"
+
+echo "Current path = ${CURRENT_PATH}" > ${LOG_PATH}
+
+install_exit()
+{
+    echo "Press any key to exit."
+    read COMMAND
+    exit
+}
+KDIRS="/lib/modules/$(uname -r)/build"
+check_run_and_install_lib()
+{
+    echo "Check kernel moudle build package" 
+    if [ -d "$KDIRS" ]
+    then
+	    echo "go on...."
+    else
+        echo "----------------------------------------------------------"
+        echo "There is no build dir: ${KDIRS}"
+        echo "Please install the kernel moudle build package, make and gcc then try again."
+        echo "How to install kernel module build package, make and gcc, please read readme.txt"
+        echo "----------------------------------------------------------"
+        install_exit
+        exit 0
+    fi
+}
+
+check_ISO()
+{       
+    echo "Begin verify CD..." | tee -a ${LOG_PATH}
+
+    if [ ! -d "${TMP_FILE_PATH}" ]
+    then
+    mkdir "${TMP_FILE_PATH}"
+    fi
+
+    if [ ! -d "${TMP_FILE_PATH}" ]
+    then
+    echo -e "\nCan't create the work path : ${TMP_FILE_PATH}" | tee -a ${LOG_PATH}
+    install_exit
+    fi
+    
+    echo "Verify CD succeed!" | tee -a ${LOG_PATH}
+}
+
+backup_ISO()
+{
+    echo "Begin copy install file..." | tee -a ${LOG_PATH}
+    
+    cp -f -R "${CURRENT_PATH}"/Linux "${TMP_FILE_PATH}"/Linux
+    
+    chmod a+x -R "${TMP_FILE_PATH}"/Linux
+    
+    echo "Copy install file succeed!" | tee -a ${LOG_PATH}
+}
+
+install_dashboard()
+{
+    echo "install..." | tee -a ${LOG_PATH}
+    if which xterm;
+    then
+        echo "Run xterm and begin to install" | tee -a ${LOG_PATH}
+        TERMINAL=`which xterm`
+        ${TERMINAL} ${INSTALL_PATH}
+        echo "${INSTALL_PATH} Exit install and remove temporary files" | tee -a ${LOG_PATH}
+        rm -f -R "${TMP_FILE_PATH}"
+        install_exit
+    fi
+    
+    if which gnome-terminal;
+    then
+        echo "Run gnome-terminal and begin to install" | tee -a ${LOG_PATH}
+        TERMINAL=`which gnome-terminal`
+				${TERMINAL} -e ${INSTALL_PATH}
+	      echo "${INSTALL_PATH} Exit install and remove temporary files" | tee -a ${LOG_PATH}
+        rm -f -R "${TMP_FILE_PATH}"
+        install_exit
+    fi
+    
+    if which konsole;
+    then
+        echo "Run konsole and begin to install" | tee -a ${LOG_PATH}
+        TERMINAL=`which konsole`
+        ${TERMINAL} ${INSTALL_PATH}
+        echo "${INSTALL_PATH} Exit install and remove temporary files" | tee -a ${LOG_PATH}
+        rm -f -R "${TMP_FILE_PATH}"
+        install_exit
+    fi
+}
+
+
+rm -f -R "${TMP_FILE_PATH}"
+
+check_run_and_install_lib
+check_ISO
+backup_ISO
+
+echo "It didn't install a dashboard.And install it" | tee -a ${LOG_PATH}
+install_dashboard
+install_exit
+

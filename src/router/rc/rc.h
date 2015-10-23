@@ -77,7 +77,11 @@ typedef struct vlan_rule_t{
 #define SET_VLAN                0x80
 #endif /* CONFIG_RUSSIA_IPTV */
 /* foxconn modified end, zacker, 01/13/2012, @iptv_igmp */
-
+/* Foxconn add start, Edward zhang, 09/14/2012, @add ARP PROTECTION support for RU SKU*/
+#define NVRAM_ARP_ENABLED        "arp_enable"
+#define C_MAX_TOKEN_SIZE        128
+#define C_MAX_RESERVED_IP       64
+/* Foxconn add end, Edward zhang, 09/14/2012, @add ARP PROTECTION support for RU SKU*/
 #ifdef LINUX26
 #define AGLOG_MAJOR_NUM             123
 #define WPS_LED_MAJOR_NUM           253

@@ -874,7 +874,10 @@ server6_react_message(ifp, pi, dh6, optinfo, from, fromlen)
 			addr_flag = ADDR_UPDATE;
 		if (dh6->dh6_msgtype == DH6_RELEASE)
 			addr_flag = ADDR_REMOVE;
+		/* Foxconn Bob modified start on 01/09/2015, include DNS option in the reply of renew packet, 
+		   or some win8 PC can not get DNS server address correctly in TEC's noise test environment */ 
 		if (dh6->dh6_msgtype == DH6_CONFIRM || dh6->dh6_msgtype == DH6_RENEW)  {
+		/* Foxconn Bob modified end on 01/09/2015 */
 			/* DNS server */
 			addr_flag = ADDR_VALIDATE;
 			if (dhcp6_copy_list(&roptinfo.dns_list.addrlist, &dnslist.addrlist)) {
@@ -1039,6 +1042,8 @@ server6_react_message(ifp, pi, dh6, optinfo, from, fromlen)
 	return -1;
 }
 
+/* Foxconn added start pling 04/13/2015 */
+/* to lookup the MAC address from link local address via "ip -6 neigh" command */
 static int get_client_mac(char *link_local_addr, char *mac)
 {
 	FILE *fp = NULL;
@@ -1053,10 +1058,12 @@ static int get_client_mac(char *link_local_addr, char *mac)
 			fgets(line, sizeof(line), fp);
 			if (strstr(line, link_local_addr)) {
 				tmp = strstr(line, "lladdr");
-				tmp += strlen("lladdr") + 1;
-				memcpy(mac, tmp, 17);
-				found = 1;
-				break;
+                if(tmp) {
+    				tmp += strlen("lladdr") + 1;
+	    			memcpy(mac, tmp, 17);
+		    		found = 1;
+				    break;
+                } 
 			}
 		}
 		fclose(fp);
@@ -1065,6 +1072,8 @@ static int get_client_mac(char *link_local_addr, char *mac)
 
 	return found;
 }
+/* Foxconn added end pling 04/13/2015 */
+
 static int
 server6_send(type, ifp, origmsg, optinfo, from, fromlen, roptinfo)
 	int type;
@@ -1143,6 +1152,10 @@ server6_send(type, ifp, origmsg, optinfo, from, fromlen, roptinfo)
 
 	dprintf(LOG_DEBUG, "%s" "transmit %s to %s", FNAME,
 		dhcp6msgstr(type), addr2str((struct sockaddr *)&dst));
+
+	/* Foxconn added start pling 04/13/2015 */
+	/* R7000 TD#485: workaround for Mac OS client.
+	 *  Mac OS does not respond NA, so add static neigh entry */
 	if (type == DH6_REPLY)
 	{
 		char command[256];
@@ -1166,6 +1179,7 @@ server6_send(type, ifp, origmsg, optinfo, from, fromlen, roptinfo)
 			}
 		}
 	}
+	/* Foxconn added end pling 04/13/2015 */
 
 	return 0;
 }

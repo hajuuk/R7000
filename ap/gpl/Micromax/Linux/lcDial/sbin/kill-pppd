@@ -1,0 +1,49 @@
+#!/bin/sh
+######################################################################
+#
+# description: kill pppd and remove linked file
+#
+export COLUMNS=256
+LOGFILE="/tmp/lcActiveUSBModem.log"
+echo " start to kill pppd!!! ====" >> $LOGFILE
+
+if [ "$1" = "" ]; then
+	echo " ERROR: Parameter error" >> $LOGFILE
+	echo " Usage: $0 <device_filename>" >> $LOGFILE
+	echo " eg: $0 /dev/ttyUSB0" >> $LOGFILE
+	exit 1
+else
+	DEVICE=$1
+fi
+######################################################################
+#
+
+PID=`ps -ef | grep -v grep | grep -v kill-pppd |grep "$DEVICE" | grep "pppd" | awk '{ print $2; exit }'`
+
+if test $PID; then
+	echo " kill pppd pid $PID " >> $LOGFILE
+        kill -TERM $PID
+
+        sleep 2s
+
+        PID=`ps -ef | grep -v grep | grep "$DEVICE" | grep "pppd" | awk '{ print $2; exit }'`
+       if test $PID; then
+                echo " ERROR: Terminated ppp link to $DEVICE first failed /proc/$PID" >> $LOGFILE
+                kill -KILL $PID
+                sleep 0.1s
+                rm -f /var/run/ppp-LcPhone.pid
+                rm -f /dev/lc_ppp_up
+                if [ -d "/proc/$PID" ]; then
+	           echo " ERROR: Terminated ppp link to $DEVICE second failed /proc/$PID" >> $LOGFILE
+                   exit 3
+                fi
+
+        fi
+#
+# Success. wait 3 seconds to let pppd clean up its own junk.
+        echo " PPP link to $DEVICE terminated" >> $LOGFILE
+        exit 0
+fi
+#
+echo " ERROR: PPP link is not active on $DEVICE" >> $LOGFILE
+exit 2

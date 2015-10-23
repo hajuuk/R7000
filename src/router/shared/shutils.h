@@ -1,7 +1,7 @@
 /*
  * Shell-like utility functions
  *
- * Copyright (C) 2011, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: shutils.h 341899 2012-06-29 04:06:38Z $
+ * $Id: shutils.h 341903 2012-06-29 04:06:51Z $
  */
 
 #ifndef _shutils_h_

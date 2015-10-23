@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="<%2668%>">	
+	<title>NETGEAR Genie</title>
+	
+	
+</head>
+<script >
+
+function checkSel(){
+	if (document.formname.WWANDetc[0].checked == true){
+		window.location.href="genie_detwwan.htm";
+	}else if (document.formname.WWANDetc[1].checked == true){
+     var ret;
+     ret = confirm("<%3340%>");
+     if(ret==1){
+         top.location.href="genie_basic.htm";
+     }else{
+         return false;
+     }
+	}else if (document.formname.WWANDetc[2].checked == true){
+		window.location.href="genie_redirect_successpage.htm";
+	}else{
+		alert("<%3341%>");
+	}
+}
+
+function loadSettings()
+{
+    <%3342%>;     
+    if(top.parent.frames['topframe'] != null){           	          
+       top.parent.frames['topframe'].location="genie_top.htm"; 
+    }
+	var cf = document.forms[0];	
+	cf.WWANDetc[1].checked = false;
+	cf.WWANDetc[0].checked = false;
+	cf.WWANDetc[2].checked = false;
+    var Internet_Result = <%3343%>;
+    
+    if(Internet_Result == 2)
+            document.getElementById("goEthernet").style.display="none";
+        else
+            document.getElementById("goEthernet").style.display="block";
+}
+//-
+
+</script>
+<body style="background-color:#ffffff">
+<form id="target"  name="formname" method="POST" action="congratulations.cgi" target="_parent">
+	<table border="0" cellpadding="0" cellspacing="3"  width="99%">
+	<tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td class="centerTd"><h2 style="color:#ff0000;><%3344%></h2></td><td>&nbsp;</td>
+        <tr>
+	<tr>
+		<td>&nbsp;</td><td class="textRow centerTd"><%3345%></td><td>&nbsp;</td>
+        </tr>
+    <tr>
+		<td>&nbsp;</td><td class="textRow centerTd"><%3346%></td><td>&nbsp;</td>
+        </tr>
+	<tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+    <tr>
+		<td>&nbsp;</td><td class="textRow centerTd"><%3347%></td><td>&nbsp;</td>
+    </tr>
+    <tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+    <tr>
+        <td>&nbsp;</td><td class="textRow centerTd"><b><%3348%></b></td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>&nbsp;</td><td class="textRow centerTd"><input type="radio"  checked name="WWANDetc" value="Retry"><%2732%></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td><td class="textRow centerTd"><input type="radio" name="WWANDetc" value="MyDetc"><%3349%></td>
+    </tr>
+    <tr><td>&nbsp;</td><td class="textRow centerTd"><div id="goEthernet" style="display: block;"><table cellspacing="3" cellpadding="0" width="80%">
+        <input type="radio" name="WWANDetc" value="GoEther"><%3350%></table></div></td>
+    </tr>
+
+	<tr>
+		<td>&nbsp;</td><td class="textRow centerTd" style="visibility:hidden">&nbsp;</td><td>&nbsp;</td>
+	</tr>
+        <tr>
+		<td>&nbsp;</td>
+        	<td class="textRow centerTd">		
+			<button class = "purpleBtn"  onclick="window.location.href = 'at_command.log';"><span><%3351%></span></button>
+			<span style="display:-moz-inline-box;display:inline-block;width:20px;"></span>			
+			<button class = "purpleBtn" name="Next" onClick="checkSel();" type="button"><span><%2685%></span></button>
+		</td>
+		<td>&nbsp;</td>
+	</tr>
+</form>
+</body>
+</html>

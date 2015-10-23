@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# description: set default gateway after ndis connect to internet
+
+# parameters of gateway. Change as needed.
+DEVICE=$1
+
+if [ "x${DEVICE}" = "x" ]
+then
+    exit 1
+fi
+
+
+/sbin/route del default
+
+/sbin/route add default gw ${DEVICE}
+
+#/sbin/dhclient  ${DEVICE}
+exit 0
+
+ 

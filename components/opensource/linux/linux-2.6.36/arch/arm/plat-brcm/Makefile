@@ -28,4 +28,8 @@ obj-$(CONFIG_PLAT_BCM5301X) += $(addprefix $(SHARED)/, spiflash.o)
 obj-$(CONFIG_PLAT_BCM5301X) += $(addprefix $(SHARED)/, nandcore.o)
 obj-$(CONFIG_PLAT_BCM5301X) += $(addprefix $(SHARED)/, hndnand.o)
 obj-$(CONFIG_PLAT_BCM5301X) += $(addprefix $(SHARED)/, linux_gpio.o)
+obj-$(CONFIG_PLAT_BCM5301X) += $(addprefix $(SHARED)/, bcmwifi.o)
 obj-$(CONFIG_CACHE_L310) += cache-l310.o
+ifeq ($(CONFIG_GENERIC_GPIO),y)
+obj-$(CONFIG_GENERIC_GPIO) += gen_gpio.o
+endif

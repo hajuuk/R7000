@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# description: chat script via com port
+#
+MYHWPATH=/usr/local/lcDial
+
+"$MYHWPATH"/sbin/chat -v					\
+	TIMEOUT		25				\
+	ABORT		'\nBUSY\r'			\
+	ABORT		'\nNO ANSWER\r'			\
+	ABORT		'\nRINGING\r\n\r\nRINGING\r'	\
+        ABORT           '\nUsername/Password Incorrect\r' \
+	SAY		"Beginning...\n"		\
+	''		AT				\
+    OK      ATS0=0          \
+    OK      ATE0V1          \
+	SAY             "Dialing up...$TELEPHONE\n"    \
+	OK		ATDT$TELEPHONE			\
+	CONNECT		\c				\
+	SAY		"Logging...\n"			\

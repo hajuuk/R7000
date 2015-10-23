@@ -1,0 +1,7 @@
+./lctserial.c
+./doshift/lcdoshift.c
+./doshift/lcdoshift.h
+./ndis/src/qmi_header.h
+./ndis/src/qmi_oper.h
+./ndis/src/lc_cdc_ether.c
+./ndis/src/qmi_oper.c

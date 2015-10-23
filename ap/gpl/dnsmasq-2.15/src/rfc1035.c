@@ -549,7 +549,9 @@ void extract_addresses(HEADER *header, unsigned int qlen, char *name,
   int qtype, qclass, rdlen;
   unsigned long ttl;
   int i;
-  
+//#ifdef ARLO_SUPPORT
+  int arlo_tag=0; /* Foxconn added, James Hsu, 02/27/2015 */
+//#endif
   /* skip over questions */
   if (!(p = skip_questions(header, qlen)))
     return; /* bad packet */
@@ -570,6 +572,18 @@ void extract_addresses(HEADER *header, unsigned int qlen, char *name,
       GETSHORT(rdlen, p);
 	
       endrr = p + rdlen;
+    /* Foxconn added start, James Hsu 02/25/2015 */
+//#ifdef ARLO_SUPPORT
+    if(strstr(name,"arlodev.netgear.com") || strstr(name,"arlo.netgear.com") || strstr(name,"arloqa.netgear.com") || strstr(name,"arlobeta.netgear.com"))
+    {
+        arlo_tag=1;
+        printf("\n******%s(%d)******\n",__FUNCTION__,__LINE__);
+        printf(" namebuff %s \n",name);
+        printf(" header answer %d \n",ntohs(header->ancount));
+		system ("killall -SIGUSR1 arlo_monitor");
+    }
+//#endif
+    /* Foxconn added end, James Hsu */
       if ((unsigned int)(endrr - (unsigned char *)header) > qlen)
 	return; /* bad packet */
       
@@ -581,6 +595,25 @@ void extract_addresses(HEADER *header, unsigned int qlen, char *name,
 
       if (qtype == T_A) /* A record. */
 	{
+/* Foxconn added start, Jsmes Hsu, 02/25/2015 */
+//#ifdef ARLO_SUPPORT
+        if (arlo_tag==1)
+        {
+            char tmp_addr[32];
+            FILE *fp;
+            sprintf(tmp_addr,inet_ntoa(*(struct in_addr *)p));
+            if((fp = fopen("/tmp/arlo_DNS_addr.txt", "w")))
+            {
+                fwrite(tmp_addr,1,sizeof(tmp_addr),fp);
+                fclose(fp);
+            }
+            printf("*****address %s*****\n",inet_ntoa(*(struct in_addr *)p));
+            system ("killall -SIGUSR2 arlo_monitor");
+            if (ntohs(header->ancount)==0)
+            arlo_tag=0;
+        }
+//#endif
+/* Foxconn added end, Jsmes Hsu, 02/25/2015 */
 	  dns_doctor(header, doctors, (struct in_addr *)p);
 	  cache_insert(name, (struct all_addr *)p, now, 
 		       ttl, F_IPV4 | F_FORWARD);

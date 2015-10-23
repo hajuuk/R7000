@@ -19,6 +19,10 @@ unsigned long upstream;
 #endif
 extern int lan_index;
 extern int wan_index;
+#ifdef BT_IGMP_SUPPORT
+extern int duplicate_igmp_on_vlan2;
+extern int vlan2_vif;
+#endif
 
 
 /*
@@ -157,11 +161,18 @@ int k_proxy_del_mfc (int socket, u_long source, u_long group)
  * using pimd API: MRT_AD_MFC
  */
 
-int k_proxy_chg_mfc(int socket,u_long source,u_long group,vifi_t outvif,int fstate)
+int k_proxy_chg_mfc(igmp_router_t* router,int socket,u_long source,u_long group,vifi_t outvif,int fstate)
 {
     struct mfcctl mc;
     //vifi_t vifi;
-    
+#ifdef BT_IGMP_SUPPORT					
+          if(acosNvramConfig_match("wan_proto","pppoe") && duplicate_igmp_on_vlan2)					
+          {
+              printf("igmp outvif=%d\n",vlan2_vif);
+              outvif=vlan2_vif;
+          }
+#endif
+
     mc.mfcc_origin.s_addr = source;
     mc.mfcc_mcastgrp.s_addr = group;
     /* change me to the index of the upstream interface */

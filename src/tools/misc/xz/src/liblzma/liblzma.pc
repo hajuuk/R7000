@@ -5,7 +5,7 @@
 # You can do whatever you want with this file.
 #
 
-prefix=/mnt/old_186/home/antony/R7000/V1.0.4.12_1.1.48/src/router/squashfs-4.2
+prefix=/home/antony/R7000/V1.0.5.42_1.1.76/src/router/squashfs-4.2
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

@@ -1,0 +1,5 @@
+#!/bin/sh
+#set 
+
+CURTIME=`/bin/date +"%H:%M:%S"` 
+echo "${CURTIME}"

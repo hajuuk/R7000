@@ -1,0 +1,83 @@
+<html>
+<head>
+<%11%>
+<title><%3150%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<%14%>
+<script language="JavaScript" type="text/javascript">
+<!--
+function selectEdit(value)
+{
+	if (value == 0)
+	    document.forms[0].select.value = 0;
+	else if (value == 1)
+		document.forms[0].select.value = 1;
+    else if (value == 2)
+        document.forms[0].select.value = 2;
+}
+
+function CloseWindow()
+{
+ top.window.opener=null;
+ top.window.close();
+}
+
+function msg_close()
+{
+ alert("<%3151%>");
+ CloseWindow();
+}
+
+function skip_fun()
+{
+selectEdit(1);
+return true;
+}
+-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0">
+<form name="smart_dns" action="blkDetWan.cgi" method="POST">
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+  <tr>
+   <td valign="top" align="center">
+     <h1><br><%3156%></h1>
+   </td>
+  </tr>
+  <tr>
+	<td background="liteblue.gif" height="12"> &nbsp;</td>
+ </tr>
+  <tr>
+  <td align="left">
+     <p><ul><%3368%></ul></p>
+     <ul><p><%3158%></p>
+     <p><IMG height=7 alt="" src="redbull.gif" width=7 align=top vspace=6> <%3369%></p>
+     <p><IMG height=7 alt="" src="redbull.gif" width=7 align=top vspace=6> <%3159%></p>
+     <p><IMG height=7 alt="" src="redbull.gif" width=7 align=top vspace=6> <%3160%></p></ul>
+
+     <ul><%3162%>
+     <p>&nbsp;&nbsp;<%3163%></p>
+     <p>&nbsp;&nbsp;<%3164%></p>    
+     <p>&nbsp;&nbsp;<%3165%></p>
+     <p>&nbsp;&nbsp;<%3370%><strong><%2652%></strong>.</p>
+     <p>&nbsp;&nbsp;<%3371%></p>  
+     <p>&nbsp;&nbsp;<%3157%></p></ul>
+  </td>
+  </tr>
+  
+  <tr>
+	<td background="liteblue.gif" height="12"> &nbsp;</td>
+ </tr>
+  <tr><td align="center">
+    <input type="submit" name="upgrade" value=" <%3372%> " onclick="return selectEdit(2);">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="submit" name="quit" value="   <%3167%>    " onclick="return skip_fun();">    
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" name="next" value="   <%1556%>  " onClick="location.href='WIZ_dual_wan.htm'"></td>
+  </tr>
+</table>
+<input type="hidden" name="select" value="0"> 
+</form>
+</BODY>
+</HTML>
+

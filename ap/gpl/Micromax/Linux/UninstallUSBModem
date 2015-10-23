@@ -1,0 +1,168 @@
+#!/bin/bash
+
+if [ `id | awk '{print $1}'` != "uid=0(root)" ]
+then
+    echo -e "{LYouMustBeRoot}"
+    echo -e "\n{LInstallEnd}"
+    read RESP
+    exit
+fi
+
+RUNP=`ps -ef |grep -v grep |grep USBModem.jar | grep java |awk '{print $2}'`
+
+if [ "x${RUNP}" != "x" ]
+then
+    echo -e "{LProgramRunning}"
+    echo -e "\n{LInstallEnd}"
+    read RESP
+    exit
+fi
+
+# /*yes or no 公共函数, yes返回0, no返回1*/
+yes_or_no()
+{
+    if [ ${#} -ne 2 ]
+    then
+        echo -e "yes_or_or: {ErrorPara}"
+        return 1
+    fi
+    if [ "${2}" = "Y" ]
+    then
+        DEFPMPT="([Y]/N):\c "
+        DEFVAL="Y"
+    else
+        DEFPMPT="(Y/[N]):\c "
+        DEFVAL="N"
+    fi
+    echo -e "${1} ${DEFPMPT}"
+    read ANS
+    while [ "${ANS}" != "Y" -a "${ANS}" != "y" -a "${ANS}" != "N" -a "${ANS}" != "n" -a ! -z "${ANS}" ]
+    do
+        echo -e "${1} ${DEFPMPT}"
+        read ANS
+    done
+    : ${ANS:="${DEFVAL}"}
+    if [ "${ANS}" != "Y" -a "${ANS}" != "y" ]
+    then
+        unset ANS
+        return 1
+    fi
+    unset ASN
+    return 0
+}
+yes_or_no "\n{LProgramRemoving}" N
+if [ ${?} -ne 0 ]
+then	
+  exit
+fi
+
+#uninstall drivers by chip type
+rm -f /etc/udev/rules.d/11-longcheer-Datacard.rules
+#1：Icera
+if [ "x{CHIPTYPE}" = "x1" ]
+then
+#uninstall eject drivers 
+
+if [ "x{DEVICETYPE}" = "x4" ]
+then
+    DRIVERLS="onda-lq-zerocd"
+else
+    DRIVERLS="longcheer-wm65-zerocd"
+fi
+# for Ubuntu
+    UBUNTURELEASE=`grep Ubuntu /etc/issue 2>&1 | awk -F ' ' '{printf $1}'`
+    if [ "x${UBUNTURELEASE}" = "xUbuntu" ]
+    then
+    	dpkg -r ${DRIVERLS} >/dev/null  2>&1
+    fi
+    
+# for Debian
+    DEBIANRELEASE=`grep Debian /etc/issue 2>&1 | awk -F ' ' '{printf $1}'`
+    if [ "x${DEBIANRELEASE}" = "xDebian" ]
+    then
+	    dpkg -r ${DRIVERLS} >/dev/null  2>&1
+    fi
+
+# for Fedora
+    DEBIANRELEASE=`grep Fedora /etc/issue 2>&1 | awk -F ' ' '{printf $1}'`
+    if [ "x${DEBIANRELEASE}" = "xFedora" ]
+    then
+	      rpm -e ${DRIVERLS} >/dev/null  2>&1
+    fi
+
+# for OpenSuSE
+    if [ -f /etc/SuSE-release ]
+    then
+	    echo "do nothing..."
+    fi  
+  fi
+#2：Qualcomm  
+if [ "x{CHIPTYPE}" = "x2" ]
+then
+    #uninstall usb drivers 
+    echo -e "{LDriverUninstalling}"
+    DRIVER_USED=`lsmod |grep ^lctserial |awk '{print $3}'`
+    if [ "x${DRIVER_USED}" != "x0" -a "x${DRIVER_USED}" != "x" ]
+    then
+      echo -e "{LDriverUsed}"
+      echo -e "\n{LInstallEnd}"
+      read RESP
+      exit
+    fi    
+    #Remove USB Driver
+   # cd {INSTALLPATH}/driver; make uninstall; make clean   
+    cd {INSTALLPATH}/driver/ndis/src; ./add_header.sh clean
+    rm -f /etc/udev/rules.d/26-longcheer-Datacard.rules
+    rm -f /lib/udev/longcheer-cm55-ejectcd
+    rm -f /lib/udev/longcheer-cm55-testcd  
+    if [ -f /lib/udev/lcdoshift ]
+    then
+        rm -f /lib/udev/lcdoshift*
+        rm -f /lib/udev/load_driver.sh
+        rm -f /lib/udev/lc_ether
+    fi   
+fi
+udevadm control --reload-rules
+udevadm trigger --subsystem-match="usb"
+
+{INSTALLPATH}/active/active_uninstall
+rm -rf {INSTALLPATH}
+rm -rf /usr/local/lcDial
+
+grep -v USBModem.sh /etc/sudoers > /etc/sudoers.bak 2>&1
+sed -i "s/# ,{REQUIRETTY},{DELETECOMMENT}/{REQUIRETTY}/g" /etc/sudoers.bak 2>/dev/null
+cp -f /etc/sudoers.bak /etc/sudoers
+rm -f /etc/sudoers.bak
+if [ -d /root/Desktop ]
+then
+    rm -rf /root/Desktop/USBModem.desktop
+else
+    rm -rf /root/USBModem.desktop
+fi
+rm -rf /usr/share/applications/USBModem.desktop
+rm -rf /usr/share/applications/UninstallUSBModem.desktop
+
+CACHENAME=`echo $LANG`
+CACHENAME="/usr/share/applications/desktop.$CACHENAME.cache"
+if [ -f $CACHENAME ];then
+    sed -i '/#cachebegin/,/#cacheend/d' $CACHENAME
+fi
+
+if [ -f {CONFIG_FILE} ]
+then
+    rm -rf {CONFIG_FILE}
+fi
+
+if [ -d {USERDATA_PATH} ]
+    then
+			yes_or_no "\n{LUserdataInstalled}" N
+			if [ ${?} -ne 1 ]
+			then	
+  			rm -rf {USERDATA_PATH}
+			fi
+fi			
+
+
+
+
+

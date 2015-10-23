@@ -70,6 +70,7 @@
 #include <typedefs.h>
 #include <osl.h>
 #include <ctf/hndctf.h>
+#include <ctf/ctf_cfg.h>
 
 #define NFC_CTF_ENABLED	(1 << 31)
 #else
@@ -97,6 +98,17 @@ EXPORT_PER_CPU_SYMBOL(nf_conntrack_untracked);
 /*
  *      Display an IP address in readable format.
  */
+/* Returns the number of 1-bits in x */
+static int
+_popcounts(uint32 x)
+{
+    x = x - ((x >> 1) & 0x55555555);
+    x = ((x >> 2) & 0x33333333) + (x & 0x33333333);
+    x = (x + (x >> 4)) & 0x0F0F0F0F;
+    x = (x + (x >> 16));
+    return (x + (x >> 8)) & 0x0000003F;
+}
+
 bool
 ip_conntrack_is_ipc_allowed(struct sk_buff *skb, u_int32_t hooknum)
 {
@@ -250,9 +262,7 @@ ip_conntrack_ipct_add(struct sk_buff *skb, u_int32_t hooknum,
 	 * matches corresponding ipc entry matches.
 	 */
 	if ((skb->dev != NULL) && ctf_isbridge(kcih, skb->dev)) {
-		ipc_entry.brcp = ctf_brc_lkup(kcih, eth_hdr(skb)->h_source);
-		if (ipc_entry.brcp != NULL)
-			ctf_brc_release(kcih, ipc_entry.brcp);
+		ipc_entry.brcp = ctf_brc_lkup(kcih, eth_hdr(skb)->h_source, FALSE);
 	}
 
 	hh = skb_dst(skb)->hh;
@@ -298,18 +308,22 @@ ip_conntrack_ipct_add(struct sk_buff *skb, u_int32_t hooknum,
 	if (skb_dst(skb)->dev->flags & IFF_POINTOPOINT) {
 		/* Transmit interface and sid will be populated by pppoe module */
 		ipc_entry.action |= CTF_ACTION_PPPOE_ADD;
-		skb->pktc_cb[0] = 2;
+		skb->ctf_pppoe_cb[0] = 2;
 		ipc_entry.ppp_ifp = skb_dst(skb)->dev;
-	} else if ((skb->dev->flags & IFF_POINTOPOINT) && (skb->pktc_cb[0] == 1)) {
+	} else if ((skb->dev->flags & IFF_POINTOPOINT) && (skb->ctf_pppoe_cb[0] == 1)) {
 		ipc_entry.action |= CTF_ACTION_PPPOE_DEL;
-		ipc_entry.pppoe_sid = *(uint16 *)&skb->pktc_cb[2];
+		ipc_entry.pppoe_sid = *(uint16 *)&skb->ctf_pppoe_cb[2];
 		ipc_entry.ppp_ifp = skb->dev;
 	}
 #endif
 
-	if (kcih->ipc_suspend) {
+	if (((ipc_entry.tuple.proto == IPPROTO_TCP) && (kcih->ipc_suspend & CTF_SUSPEND_TCP_MASK)) ||
+	    ((ipc_entry.tuple.proto == IPPROTO_UDP) && (kcih->ipc_suspend & CTF_SUSPEND_UDP_MASK))) {
 		/* The default action is suspend */
 		ipc_entry.action |= CTF_ACTION_SUSPEND;
+		ipc_entry.susp_cnt = ((ipc_entry.tuple.proto == IPPROTO_TCP) ? 
+			_popcounts(kcih->ipc_suspend & CTF_SUSPEND_TCP_MASK) : 
+			_popcounts(kcih->ipc_suspend & CTF_SUSPEND_UDP_MASK));
 	}
 
 	/* Copy the DSCP value. ECN bits must be cleared. */
@@ -350,16 +364,16 @@ ip_conntrack_ipct_add(struct sk_buff *skb, u_int32_t hooknum,
 	if (ctf_isbridge(kcih, ipc_entry.txif)) {
 		ctf_brc_t *brcp;
 
-		brcp = ctf_brc_lkup(kcih, ipc_entry.dhost.octet);
+		ctf_brc_acquire(kcih);
 
-		if (brcp == NULL)
-			return;
-		else {
+		if ((brcp = ctf_brc_lkup(kcih, ipc_entry.dhost.octet, TRUE)) != NULL) {
+			ipc_entry.txbif = ipc_entry.txif;
 			ipc_entry.action |= brcp->action;
 			ipc_entry.txif = brcp->txifp;
 			ipc_entry.vid = brcp->vid;
-			ctf_brc_release(kcih, brcp);
 		}
+
+		ctf_brc_release(kcih);
 	}
 
 #ifdef DEBUG
@@ -398,10 +412,10 @@ ip_conntrack_ipct_add(struct sk_buff *skb, u_int32_t hooknum,
 	ctf_ipc_add(kcih, &ipc_entry, !IPVERSION_IS_4(ipver));
 
 #ifdef CTF_PPPOE
-	if (skb->pktc_cb[0] == 2) {
+	if (skb->ctf_pppoe_cb[0] == 2) {
 		ctf_ipc_t *ipct;
 		ipct = ctf_ipc_lkup(kcih, &ipc_entry, ipver == 6);
-		*(uint32 *)&skb->pktc_cb[4] = (uint32)ipct;
+		*(uint32 *)&skb->ctf_pppoe_cb[4] = (uint32)ipct;
 		if (ipct != NULL)
 			ctf_ipc_release(kcih, ipct);
 	}
@@ -463,6 +477,9 @@ ip_conntrack_ipct_delete(struct nf_conn *ct, int ct_timeout)
 		 * flowing in this direction.
 		 */
 		if (ipct != NULL) {
+#ifdef BCMFA
+			ctf_live(kcih, ipct, v6);
+#endif
 			if (ipct->live > 0) {
 				ipct->live = 0;
 				ctf_ipc_release(kcih, ipct);
@@ -476,6 +493,9 @@ ip_conntrack_ipct_delete(struct nf_conn *ct, int ct_timeout)
 		ipct = ctf_ipc_lkup(kcih, &repl_ipct, v6);
 
 		if (ipct != NULL) {
+#ifdef BCMFA
+			ctf_live(kcih, ipct, v6);
+#endif
 			if (ipct->live > 0) {
 				ipct->live = 0;
 				ctf_ipc_release(kcih, ipct);
@@ -505,6 +525,141 @@ ip_conntrack_ipct_delete(struct nf_conn *ct, int ct_timeout)
 
 	return (0);
 }
+
+void
+ip_conntrack_ipct_default_fwd_set(uint8 protocol, ctf_fwd_t fwd, uint8 userid)
+{
+	ctf_cfg_request_t req;
+	ctf_fwd_t *f;
+	uint8 *p;
+	uint8 *uid;
+
+	memset(&req, '\0', sizeof(req));
+	req.command_id = CTFCFG_CMD_DEFAULT_FWD_SET;
+	req.size = sizeof(ctf_fwd_t) + sizeof(uint8) + sizeof(uint8);
+	f = (ctf_fwd_t *) req.arg;
+	*f = fwd;
+	p = (req.arg + sizeof(ctf_fwd_t));
+	*p = protocol;
+	uid = (req.arg + sizeof(ctf_fwd_t) + sizeof(uint8));
+	*uid = userid;
+
+	ctf_cfg_req_process(kcih, &req);
+}
+EXPORT_SYMBOL(ip_conntrack_ipct_default_fwd_set);
+
+
+uint32
+ip_conntrack_ipct_resume(struct sk_buff *skb, u_int32_t hooknum,
+                      struct nf_conn *ct, enum ip_conntrack_info ci)
+{
+	struct iphdr *iph;
+	struct tcphdr *tcph;
+	struct nf_conn_help *help;
+	uint8 ipver, protocol;
+#ifdef CONFIG_IPV6
+	struct ipv6hdr *ip6h = NULL;
+#endif /* CONFIG_IPV6 */
+	uint32 *ct_mark_p;
+
+	ctf_cfg_request_t req;
+	ctf_tuple_t tuple, *tp = NULL;
+
+	if ((skb == NULL) || (ct == NULL))
+		return 0;
+
+	/* Check CTF enabled */
+	if (!ip_conntrack_is_ipc_allowed(skb, hooknum))
+		return 0;
+
+	/* We only add cache entires for non-helper connections and at
+	 * pre or post routing hooks.
+	 */
+	help = nfct_help(ct);
+	if ((help && help->helper) || (ct->ctf_flags & CTF_FLAGS_EXCLUDED) ||
+	    ((hooknum != NF_INET_PRE_ROUTING) && (hooknum != NF_INET_POST_ROUTING)))
+		return 0;
+
+	iph = ip_hdr(skb);
+	ipver = iph->version;
+
+	/* Support both IPv4 and IPv6 */
+	if (ipver == 4) {
+		tcph = ((struct tcphdr *)(((__u8 *)iph) + (iph->ihl << 2)));
+		protocol = iph->protocol;
+	}
+#ifdef CONFIG_IPV6
+	else if (ipver == 6) {
+		ip6h = (struct ipv6hdr *)iph;
+		tcph = (struct tcphdr *)ctf_ipc_lkup_l4proto(kcih, ip6h, &protocol);
+		if (tcph == NULL)
+			return 0;
+	}
+#endif /* CONFIG_IPV6 */
+	else
+		return 0;
+
+	/* Only TCP and UDP are supported */
+	if (protocol == IPPROTO_TCP) {
+		/* Add ipc entries for connections in established state only */
+		if ((ci != IP_CT_ESTABLISHED) && (ci != (IP_CT_ESTABLISHED+IP_CT_IS_REPLY)))
+			return 0;
+
+		if (ct->proto.tcp.state >= TCP_CONNTRACK_FIN_WAIT &&
+			ct->proto.tcp.state <= TCP_CONNTRACK_TIME_WAIT)
+			return 0;
+	}
+	else if (protocol != IPPROTO_UDP)
+		return 0;
+
+	memset(&tuple, '\0', sizeof(tuple));
+	if (IPVERSION_IS_4(ipver)) {
+		memcpy(&tuple.src_addr, &iph->saddr, sizeof(uint32));
+		memcpy(&tuple.dst_addr, &iph->daddr, sizeof(uint32));
+		tuple.family = AF_INET;
+#ifdef CONFIG_IPV6
+	}	else {
+		memcpy(&tuple.src_addr, &ip6h->saddr, IPV6_ADDR_LEN);
+		memcpy(&tuple.dst_addr, &ip6h->daddr, IPV6_ADDR_LEN);
+		tuple.family = AF_INET6;
+#endif /* CONFIG_IPV6 */
+	}
+	tuple.src_port = tcph->source;
+	tuple.dst_port = tcph->dest;
+	tuple.protocol = protocol;
+
+#ifdef CONFIG_NF_CONNTRACK_MARK
+	if (ct->mark != 0) {
+		/* To Update Mark */
+		memset(&req, '\0', sizeof(req));
+		req.command_id = CTFCFG_CMD_UPD_MARK;
+		req.size = sizeof(ctf_tuple_t) + sizeof(uint32);
+		tp = (ctf_tuple_t *) req.arg;
+		*tp = tuple;
+		ct_mark_p = (uint32 *)(req.arg + sizeof(ctf_tuple_t));
+		*ct_mark_p =  ct->mark;
+		ctf_cfg_req_process(kcih, &req);
+
+		/* To Update ipct txif */
+		memset(&req, '\0', sizeof(req));
+		req.command_id = CTFCFG_CMD_CHANGE_TXIF_TO_BR;
+		req.size = sizeof(ctf_tuple_t);
+		tp = (ctf_tuple_t *) req.arg;
+		*tp = tuple;
+		ctf_cfg_req_process(kcih, &req);
+	}
+#endif /* CONFIG_NF_CONNTRACK_MARK */
+
+	/* To Resume */
+	memset(&req, '\0', sizeof(req));
+	req.command_id = CTFCFG_CMD_RESUME;
+	req.size = sizeof(ctf_tuple_t);
+	tp = (ctf_tuple_t *) req.arg;
+	*tp = tuple;
+	ctf_cfg_req_process(kcih, &req);
+	return req.status;
+}
+EXPORT_SYMBOL(ip_conntrack_ipct_resume);
 #endif /* HNDCTF */
 
 

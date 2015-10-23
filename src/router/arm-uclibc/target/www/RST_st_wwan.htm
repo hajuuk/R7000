@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<%11%>
+<link rel="stylesheet" href="form.css">
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+var delay_time = 10000;
+var t;
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            window.clearTimeout(t);
+            buttonFilter();
+        });
+
+    });
+
+function Fresh() 
+{
+		window.location.href='RST_st_wwan.htm';
+}
+function disableConButton()
+{
+    delay_time = 10000;
+    document.forms[0].Connect.disabled = true;
+    document.forms[0].Disconnect.disabled = true;
+
+    document.forms[0].ConMethod.value = "  Connect  ";
+    document.forms[0].submit();    
+    
+    return true;
+}
+
+function disableDisConButton()
+{
+    document.forms[0].Connect.disabled = true;
+    document.forms[0].Disconnect.disabled = true;
+
+    document.forms[0].submit();     
+    
+    return true;
+}
+//-->
+</script>
+</head>
+<body  style="margin:0px;background-color:#e5e5e5">
+<form id="target"  name="poe_st" method="post" action="wwan.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+
+<TABLE border=1 width="100%">
+
+	<tr>
+  <TD colspan="2" align="left" nowrap><h1><%3137%></h1></TD>
+</tr>
+
+	<tr>
+		<TD NOWRAP width="50%"><B><%840%></B></td>
+		<TD NOWRAP width="50%"><%2945%></td>
+	</tr>
+	
+	<tr>
+		<TD NOWRAP><B><%3138%></B></td>
+		<TD NOWRAP><%3139%></td>
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%3140%></B></td>
+		<TD NOWRAP>PPP</td>
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%3141%></B></td>
+		<TD NOWRAP><%3142%></td>
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%533%></B></td>
+		<TD NOWRAP><%1081%></td>
+	</tr>	
+	<tr>
+		<TD NOWRAP><B><%534%></B></td>
+		<TD NOWRAP><%3143%></td>
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%1400%></B></td>
+		<TD NOWRAP><%2949%></td>
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%1404%></B></td>
+		<TD NOWRAP><%1405%></td>
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%3144%></B></td>
+		<TD NOWRAP><%1324%></td>
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%3145%></B></td>
+		<TD NOWRAP><%3146%></td>
+	</tr>
+<!--
+	<tr>
+		<TD NOWRAP><B><%3147%></B></td>
+		<TD NOWRAP><%3148%></td>
+	</tr>
+-->
+</TABLE>
+
+
+<table border="0" cellpadding="0" cellspacing="4" width="100%">
+ <TR>
+ <TD align="center" nowrap>
+
+<BR>
+<%1004%>
+&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1426%>" name="Connect" class="<%1414%>" onClick="buttonClick(this,'<%1426%>');return disableConButton()" <%1415%>><span class="<%1416%>">&nbsp;&nbsp; <%1426%></span><span class="<%1417%>">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1427%>" name="Disconnect" class="button-rule" onClick="buttonClick(this,'<%1427%>');alert('<%1428%>'); return disableDisConButton()"><span class="roundleft_button">&nbsp;&nbsp; <%1427%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		<%1005%>
+		<%1006%>	
+&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1426%>" name="Connect" class="button-rule" disabled onClick="buttonClick(this,'<%1426%>');return disableConButton()" <%1415%>><span class="roundleft_grey">&nbsp;&nbsp; <%1426%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1427%>" name="Disconnect" class="button-rule" disabled onClick="buttonClick(this,'<%1427%>');alert('<%1428%>'); return disableDisConButton()"><span class="roundleft_grey">&nbsp;&nbsp; <%1427%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<%1007%>	
+
+&nbsp;&nbsp;&nbsp;<button type="button" value="<%728%>" name="refresh" class="button-rule" onClick="return Fresh();"><span class="roundleft_button">&nbsp;&nbsp; <%728%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></TD>
+</TR>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr><td background="liteblue.gif" height="12"> &nbsp;</td></tr>
+<TR><TD align="center">&nbsp;&nbsp;&nbsp;<button type=button value="<%492%>" name="close" class="button-rule" onclick="window.close();"><span class="roundleft_button">&nbsp;&nbsp; <%492%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></TD></TR>
+</TABLE>
+<input type="hidden" name="ConMethod" value="Disconnect">
+
+
+</form>
+
+</body>
+</html>
+

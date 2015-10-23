@@ -2,7 +2,7 @@
  * Misc utility routines for accessing chip-specific features
  * of the SiliconBackplane-based Broadcom chips.
  *
- * Copyright (C) 2011, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -16,7 +16,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: sbutils.c 300516 2011-12-04 17:39:44Z $
+ * $Id: sbutils.c 426572 2013-09-30 06:06:51Z $
  */
 
 #include <bcm_cfg.h>
@@ -469,6 +469,70 @@ sb_corereg(si_t *sih, uint coreidx, uint regoff, uint mask, uint val)
 	return (w);
 }
 
+/*
+ * If there is no need for fiddling with interrupts or core switches (typically silicon
+ * back plane registers, pci registers and chipcommon registers), this function
+ * returns the register offset on this core to a mapped address. This address can
+ * be used for W_REG/R_REG directly.
+ *
+ * For accessing registers that would need a core switch, this function will return
+ * NULL.
+ */
+uint32 *
+sb_corereg_addr(si_t *sih, uint coreidx, uint regoff)
+{
+	uint32 *r = NULL;
+	bool fast = FALSE;
+	si_info_t *sii;
+
+	sii = SI_INFO(sih);
+
+	ASSERT(GOODIDX(coreidx));
+	ASSERT(regoff < SI_CORE_SIZE);
+
+	if (coreidx >= SI_MAXCORES)
+		return 0;
+
+	if (BUSTYPE(sii->pub.bustype) == SI_BUS) {
+		/* If internal bus, we can always get at everything */
+		fast = TRUE;
+		/* map if does not exist */
+		if (!sii->regs[coreidx]) {
+			sii->regs[coreidx] = REG_MAP(sii->coresba[coreidx],
+			                            SI_CORE_SIZE);
+			ASSERT(GOODREGS(sii->regs[coreidx]));
+		}
+		r = (uint32 *)((uchar *)sii->regs[coreidx] + regoff);
+	} else if (BUSTYPE(sii->pub.bustype) == PCI_BUS) {
+		/* If pci/pcie, we can get at pci/pcie regs and on newer cores to chipc */
+
+		if ((sii->coreid[coreidx] == CC_CORE_ID) && SI_FAST(sii)) {
+			/* Chipc registers are mapped at 12KB */
+
+			fast = TRUE;
+			r = (uint32 *)((char *)sii->curmap + PCI_16KB0_CCREGS_OFFSET + regoff);
+		} else if (sii->pub.buscoreidx == coreidx) {
+			/* pci registers are at either in the last 2KB of an 8KB window
+			 * or, in pcie and pci rev 13 at 8KB
+			 */
+			fast = TRUE;
+			if (SI_FAST(sii))
+				r = (uint32 *)((char *)sii->curmap +
+				               PCI_16KB0_PCIREGS_OFFSET + regoff);
+			else
+				r = (uint32 *)((char *)sii->curmap +
+				               ((regoff >= SBCONFIGOFF) ?
+				                PCI_BAR0_PCISBR_OFFSET : PCI_BAR0_PCIREGS_OFFSET) +
+				               regoff);
+		}
+	}
+
+	if (!fast)
+		return 0;
+
+	return (r);
+}
+
 /* Scan the enumeration space to find all cores starting from the given
  * bus 'sbba'. Append coreid and other info to the lists in 'si'. 'sba'
  * is the default core address at chip POR time and 'regs' is the virtual
@@ -515,10 +579,11 @@ BCMATTACHFN(_sb_scan)(si_info_t *sii, uint32 sba, void *regs, uint bus, uint32 s
 			uint32 ccrev = sb_corerev(&sii->pub);
 
 			/* determine numcores - this is the total # cores in the chip */
-			if (((ccrev == 4) || (ccrev >= 6)))
+			if (((ccrev == 4) || (ccrev >= 6))) {
+				ASSERT(cc);
 				numcores = (R_REG(sii->osh, &cc->chipid) & CID_CC_MASK) >>
 				        CID_CC_SHIFT;
-			else {
+			} else {
 				/* Older chips */
 				uint chip = CHIPID(sii->pub.chip);
 
@@ -741,7 +806,7 @@ sb_addrspacesize(si_t *sih, uint asidx)
 	return (sb_size(R_SBREG(sii, sb_admatch(sii, asidx))));
 }
 
-#if defined(BCMDBG_ERR) || defined(BCMASSERT_SUPPORT)
+#if defined(BCMASSERT_SUPPORT) || defined(BCMDBG_DUMP)
 /* traverse all cores to find and clear source of serror */
 static void
 sb_serr_clear(si_info_t *sii)
@@ -785,9 +850,6 @@ sb_taclear(si_t *sih, bool details)
 	uint32 inband = 0, serror = 0, timeout = 0;
 	void *corereg = NULL;
 	volatile uint32 imstate, tmstate;
-#ifdef BCMDBG
-	bool printed = FALSE;
-#endif
 
 	sii = SI_INFO(sih);
 
@@ -798,13 +860,6 @@ sb_taclear(si_t *sih, bool details)
 		stcmd = OSL_PCI_READ_CONFIG(sii->osh, PCI_CFG_CMD, sizeof(uint32));
 		inband = stcmd & PCI_STAT_TA;
 		if (inband) {
-#ifdef BCMDBG
-			if (details) {
-				SI_ERROR(("\ninband:\n"));
-				si_viewall((void*)sii, FALSE);
-				printed = TRUE;
-			}
-#endif
 			OSL_PCI_WRITE_CONFIG(sii->osh, PCI_CFG_CMD, sizeof(uint32), stcmd);
 		}
 
@@ -812,14 +867,6 @@ sb_taclear(si_t *sih, bool details)
 		stcmd = OSL_PCI_READ_CONFIG(sii->osh, PCI_INT_STATUS, sizeof(uint32));
 		serror = stcmd & PCI_SBIM_STATUS_SERR;
 		if (serror) {
-#ifdef BCMDBG
-			if (details) {
-				SI_ERROR(("\nserror:\n"));
-				if (!printed)
-					si_viewall((void*)sii, FALSE);
-				printed = TRUE;
-			}
-#endif
 			sb_serr_clear(sii);
 			OSL_PCI_WRITE_CONFIG(sii->osh, PCI_INT_STATUS, sizeof(uint32), stcmd);
 		}
@@ -834,14 +881,6 @@ sb_taclear(si_t *sih, bool details)
 			/* inband = imstate & SBIM_IBE; same as TA above */
 			timeout = imstate & SBIM_TO;
 			if (timeout) {
-#ifdef BCMDBG
-				if (details) {
-					SI_ERROR(("\ntimeout:\n"));
-					if (!printed)
-						si_viewall((void*)sii, FALSE);
-					printed = TRUE;
-				}
-#endif
 			}
 		}
 
@@ -1176,7 +1215,7 @@ sb_size(uint32 admatch)
 	return (size);
 }
 
-#if defined(BCMDBG)
+#if defined(BCMDBG_DUMP)
 /* print interesting sbconfig registers */
 void
 sb_dumpregs(si_t *sih, struct bcmstrbuf *b)
@@ -1211,49 +1250,3 @@ sb_dumpregs(si_t *sih, struct bcmstrbuf *b)
 	INTR_RESTORE(sii, intr_val);
 }
 #endif	
-
-#if defined(BCMDBG)
-void
-sb_view(si_t *sih, bool verbose)
-{
-	si_info_t *sii;
-	sbconfig_t *sb;
-
-	sii = SI_INFO(sih);
-	sb = REGS2SB(sii->curmap);
-
-	SI_ERROR(("\nCore ID: 0x%x\n", sb_coreid(&sii->pub)));
-
-	if (sii->pub.socirev > SONICS_2_2)
-		SI_ERROR(("sbimerrlog 0x%x sbimerrloga 0x%x\n",
-		         sb_corereg(sih, si_coreidx(&sii->pub), SBIMERRLOG, 0, 0),
-		         sb_corereg(sih, si_coreidx(&sii->pub), SBIMERRLOGA, 0, 0)));
-
-	/* Print important or helpful registers */
-	SI_ERROR(("sbtmerrloga 0x%x sbtmerrlog 0x%x\n",
-	          R_SBREG(sii, &sb->sbtmerrloga), R_SBREG(sii, &sb->sbtmerrlog)));
-	SI_ERROR(("sbimstate 0x%x sbtmstatelow 0x%x sbtmstatehigh 0x%x\n",
-	          R_SBREG(sii, &sb->sbimstate),
-	          R_SBREG(sii, &sb->sbtmstatelow), R_SBREG(sii, &sb->sbtmstatehigh)));
-	SI_ERROR(("sbimconfiglow 0x%x sbtmconfiglow 0x%x\nsbtmconfighigh 0x%x sbidhigh 0x%x\n",
-	          R_SBREG(sii, &sb->sbimconfiglow), R_SBREG(sii, &sb->sbtmconfiglow),
-	          R_SBREG(sii, &sb->sbtmconfighigh), R_SBREG(sii, &sb->sbidhigh)));
-
-	/* Print more detailed registers that are otherwise not relevant */
-	if (verbose) {
-		SI_ERROR(("sbipsflag 0x%x sbtpsflag 0x%x\n",
-		          R_SBREG(sii, &sb->sbipsflag), R_SBREG(sii, &sb->sbtpsflag)));
-		SI_ERROR(("sbadmatch3 0x%x sbadmatch2 0x%x\nsbadmatch1 0x%x sbadmatch0 0x%x\n",
-		          R_SBREG(sii, &sb->sbadmatch3), R_SBREG(sii, &sb->sbadmatch2),
-		          R_SBREG(sii, &sb->sbadmatch1), R_SBREG(sii, &sb->sbadmatch0)));
-		SI_ERROR(("sbintvec 0x%x sbbwa0 0x%x sbimconfighigh 0x%x\n",
-		          R_SBREG(sii, &sb->sbintvec), R_SBREG(sii, &sb->sbbwa0),
-		          R_SBREG(sii, &sb->sbimconfighigh)));
-		SI_ERROR(("sbbconfig 0x%x sbbstate 0x%x\n",
-		          R_SBREG(sii, &sb->sbbconfig), R_SBREG(sii, &sb->sbbstate)));
-		SI_ERROR(("sbactcnfg 0x%x sbflagst 0x%x sbidlow 0x%x \n\n",
-		          R_SBREG(sii, &sb->sbactcnfg), R_SBREG(sii, &sb->sbflagst),
-		          R_SBREG(sii, &sb->sbidlow)));
-	}
-}
-#endif	/* BCMDBG */

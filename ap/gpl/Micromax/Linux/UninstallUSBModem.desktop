@@ -1,0 +1,12 @@
+[Desktop Entry]
+Categories=Application;Network
+Comment=Uninstall ${LC_SOFTWARENAME}
+Comment[en]=Uninstall ${LC_SOFTWARENAME}
+Encoding=UTF-8
+Name=Uninstall ${LC_SOFTWARENAME}
+Name[en]=Uninstall ${LC_SOFTWARENAME}
+Terminal=true
+Type=Application
+Exec=${LC_INSTALLPATH}/UninstallUSBModem
+Icon=${LC_INSTALLPATH}/configure/images/uninstall.gif
+Path=${LC_INSTALLPATH}

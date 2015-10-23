@@ -1,0 +1,12 @@
+[Desktop Entry]
+Categories=Application;Network
+Comment=${LC_SOFTWARENAME} Applications
+Comment[en]=${LC_SOFTWARENAME} Applications
+Encoding=UTF-8
+Name=${LC_SOFTWARENAME}
+Name[en]=${LC_SOFTWARENAME}
+Terminal=false
+Type=Application
+Exec=${LC_INSTALLPATH}/USBModem
+Icon=${LC_INSTALLPATH}/configure/images/logo_m.png
+Path=${LC_INSTALLPATH}

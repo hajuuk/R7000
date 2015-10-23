@@ -1,0 +1,182 @@
+<html><head>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<script language=javascript type=text/javascript src=funcs.js></script>
+<script language=javascript type=text/javascript src=bas_ether.js></script>
+<script language=javascript type=text/javascript>
+var lan_ip="<%300%>";
+var lan_subnet="<%554%>";
+function loadvalue()
+{
+	var tmp;
+	cf=document.forms[0];
+
+	var tmp_ip=parent.static_ip.replace(/x/g,"");
+	var tmp_subnet=parent.static_subnet.replace(/x/g,"");
+	var tmp_gate=parent.static_gateway.replace(/x/g,"");
+	var tmp_dns1=parent.static_dns1.replace(/x/g,"");
+	var tmp_dns2=parent.static_dns2.replace(/x/g,"");
+
+	if(tmp_ip != "")
+	{
+		tmp=tmp_ip.split('.');
+		cf.WPethr1.value=tmp[0];
+		cf.WPethr2.value=tmp[1];
+		cf.WPethr3.value=tmp[2];
+		cf.WPethr4.value=tmp[3];
+	}
+	if(tmp_subnet != "")
+	{
+		tmp=tmp_subnet.split('.');
+		cf.WMask1.value=tmp[0];
+		cf.WMask2.value=tmp[1];
+		cf.WMask3.value=tmp[2];
+		cf.WMask4.value=tmp[3];
+	}
+	if(tmp_gate != "")
+	{
+		tmp=tmp_gate.split('.');
+		cf.WGateway1.value=tmp[0];
+		cf.WGateway2.value=tmp[1];
+		cf.WGateway3.value=tmp[2];
+		cf.WGateway4.value=tmp[3];
+	}
+	if(tmp_dns1 != "")
+	{
+		tmp=tmp_dns1.split('.');
+		cf.DAddr1.value=tmp[0];
+		cf.DAddr2.value=tmp[1];
+		cf.DAddr3.value=tmp[2];
+		cf.DAddr4.value=tmp[3];
+	}
+	if(tmp_dns2 != "")
+	{
+		tmp=tmp_dns2.split('.');
+		cf.PDAddr1.value=tmp[0];
+		cf.PDAddr2.value=tmp[1];
+		cf.PDAddr3.value=tmp[2];
+		cf.PDAddr4.value=tmp[3];
+	}
+
+}
+
+</script>
+</head>
+
+<body onload="loadvalue();" bgcolor="#ffffff">
+<form method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_isp_static">
+<input type=hidden name=submit_flag value="setup">
+<input type=hidden name=submit_wan value="0">
+
+<input name="conflict_wanlan" type="hidden">
+<input name="ether_ipaddr" type="hidden">
+<input name="ether_subnet" type="hidden">
+<input name="ether_gateway" type="hidden">
+<input name="ether_dnsaddr1" type="hidden">
+<input name="ether_dnsaddr2" type="hidden">
+<input name="basic_type" value="1" type="hidden">
+<input name="ppp_login_type" value="0" type="hidden">
+<input name="run_test" type="hidden">
+<input name="welcome_wan_type" type="hidden">
+<input name="DNSAssign" type="hidden">
+<input name="change_wan_type" value="0" type="hidden">
+<input name="WANAssign" type="hidden">
+
+
+<div>
+<div>
+<table align="center" style="width:76%" >
+<tbody>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<tr>
+<td colspan="2" class="left_text"><h2><%2379%></h2></td>
+</tr>
+
+<tr><td colspan="2" class="left_text"><%2394%></td></tr>
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+<tr><td colspan="2" class="center_text"><%2389%></td></tr>
+
+
+<tr>
+	<td class="centerTd"><%533%></td>
+	<td align="right">
+	<input name="WPethr1" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="WPethr2" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="WPethr3" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="WPethr4" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">
+	</td>
+</tr>
+<tr>
+	<td class="centerTd"><%534%></td>
+	<td align="right">
+	<input name="WMask1" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="WMask2" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="WMask3" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="WMask4" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">
+	</td> 
+</tr>
+<tr>
+	<td class="centerTd"><%535%></td>
+	<td align="right">
+	<input name="WGateway1" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="WGateway2" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="WGateway3" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="WGateway4" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">
+	</td>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+<tr>
+	<td colspan="2" class="center_text"><%536%></td>
+</tr>
+<tr>
+	<td class="centerTd"><%539%></td>
+	<td align="right">
+	<input name="DAddr1" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="DAddr2" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="DAddr3" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="DAddr4" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">
+	</td>
+</tr>
+
+
+<tr>
+	<td class="centerTd"><%540%></td>
+	<td align="right">
+	<input name="PDAddr1" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="PDAddr2" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="PDAddr3" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">.
+	<input name="PDAddr4" size="3" autocomplete="off" maxlength="3" onfocus="this.select();" onkeydown="keydown(event,this);" onkeypress="return getkey('num',event);" onkeyup="keyup(event,this);" type="text">
+	</td>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<tr>
+	<td colspan="2" align="center" class="text-align:center;">
+		<button class="purpleBtn" type="button" style="width:100px" name="back" value="submit" onclick='location.href="RU_welcome.htm";'><span><%1570%></span></button>
+        <button class="purpleBtn" type="button" style="width:100px" name="next" value="submit" onclick="RU_welcome_static();"><span><%1572%></span></button>
+
+	</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+</form>
+</body>
+</html>

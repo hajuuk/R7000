@@ -1,0 +1,116 @@
+<HTML><HEAD>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<script language=javascript type=text/javascript src=funcs.js></script>
+<script language=javascript type=text/javascript src=RU_mac_spoof.js></script>
+<script language=javascript type=text/javascript>
+var wan_factory_mac="<%2392%>";
+var wan_remote_mac="<%553%>";
+var ether_get_this_mac=parent.Spoofmac;
+if (ether_get_this_mac == "")
+	ether_get_this_mac="00:00:00:00:00:00";
+
+function loadvalue()
+{
+	var form=document.forms[0];
+	if (parent.mac_spoof == "0")
+	{
+		form.MACAssign[0].checked = true;
+		setMAC(form,wan_factory_mac);
+	}
+	else if(parent.mac_spoof == "1")
+	{
+		form.MACAssign[1].checked = true;
+		setMAC(form,wan_remote_mac);
+	}
+	else
+	{
+		form.MACAssign[2].checked = true;
+		setMAC(form,ether_get_this_mac);
+	}
+}
+
+function check_return_type()
+{
+	form=document.forms[0];
+	if(parent.welcome_wan_type == 1 || parent.welcome_wan_type == 2)
+		location.href="RU_login_no.htm";
+	else if(parent.welcome_wan_type == 3)
+	{
+		if(parent.dual_access == 0)
+			location.href="RU_pppoe_dual.htm";
+		else
+			location.href="RU_manual_pppoe_dual.htm";
+	}
+	else if(parent.welcome_wan_type == 4)
+		location.href="RU_manual_pptp_dual.htm";
+	else if(parent.welcome_wan_type == 5)
+		location.href="RU_manual_l2tp_dual.htm";
+}
+
+</script>
+</HEAD>
+
+<BODY onLoad="loadvalue();" bgcolor=#ffffff>
+<FORM method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_manual_spoof">
+<input type=hidden name=submit_flag value="setup">
+<input type=hidden name=submit_wan value="0">
+
+<div>
+<div>
+<TABLE align="center" style="width:76%" >
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR><TD colspan="2" class="left_text"><h2><%2379%></h2></TD></TR>
+
+<tr>
+	<td colspan="2" class="left_text"><script>document.write("<%2408%>")</script></td>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR id=mac_default>
+	<TD nowrap colspan="2" class="left_text">
+	<input type="radio" name="MACAssign" value="0" onClick="setMAC(document.forms[0], wan_factory_mac)"><%542%>
+	</TD>
+</tr>
+<TR id=mac_comp>
+	<TD nowrap colspan="2" class="left_text">
+	<input type="radio" name="MACAssign" value="1" onClick="setMAC(document.forms[0], wan_remote_mac)"><%543%>
+	</TD>
+</tr>
+<TR id=mac_this>
+	<TD nowrap class="centerTd">
+	<input type="radio" name="MACAssign" value="2" onClick="setMAC(document.forms[0], '00:00:00:00:00:00')"><%544%>
+	</TD>
+	<TD align=right>
+	<input type="text" value="" name="Spoofmac" maxlength="17" size="20" onKeyPress="return getkey('mac',event)">
+	</TD>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<tr>
+	<td colspan="2" align="center" class="text-align:center;">
+		<button class="purpleBtn" type="button" style="width:100px" name="back" value="submit" onclick='check_return_type();'><span><%1570%></span></button>
+        <button class="purpleBtn" type="button" style="width:100px" name="next" value="submit" onclick='RU_check_spoof();'><span><%1572%></span></button>
+
+	</td>
+
+</tr>
+</TABLE>
+</div>
+</div>
+</FORM>
+</BODY>
+</HTML>

@@ -1,0 +1,256 @@
+<html>
+<head>
+<%11%>
+<title><%3150%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script language="JavaScript" type="text/javascript">
+<!--
+function CloseWindow()
+{
+ top.window.opener=null;
+ top.window.close();
+}
+function msg_close()
+{
+ alert("<%3151%>");
+ CloseWindow();
+}
+function checkData()
+{
+	var pukEnable = "<%3218%>";
+	var puk2Enable = "<%3219%>";
+	var pin2Enable = "<%3220%>";
+	var state = "<%3089%>";
+	var cf = document.forms[0];
+	
+	if(state == "PIN Required" || state == "PIN Number Error" ||
+        state == "PIN2 Required" || state == "PIN2 Number Error" ||
+        state == "PUK and New PIN Required" || state == "PUK Number Error" ||
+        state == "PUK2 and New PIN Required" || state == "PUK2 Number Error")
+	{
+		  cf.reboot_options.value = "yes";
+	    if (cf.sysNewPIN.value.length < 4 || cf.sysNewPIN.value.length > 8) 
+	    {
+	    	alert("<%3025%>");
+	    	return false;
+	    }
+	    
+	    if (cf.sysNewPIN.value.length >= 4 && cf.sysNewPIN.value.length <=8 ) 
+	    {
+        if (cf.sysNewPIN.value.match(/[^\x30-\x39]/))
+	    	{
+	    		alert("<%3025%>");
+	    		return false;
+	    	}
+	    }
+	    
+      if (cf.sysNewPIN.value != cf.sysNewPINconfirm.value)  
+	    {
+           alert("<%3221%>");
+	    	   return false;
+	    }   
+
+      if(pin2Enable == "1")
+	    {
+        
+	    	if (cf.sysNewPIN2.value.length < 4 || cf.sysNewPIN2.value.length > 8) 
+	    	{
+          alert("<%3222%>");
+	    		return false;
+	    	}
+	    
+	    	if (cf.sysNewPIN2.value.length >= 4 && cf.sysNewPIN2.value.length <= 8) 
+	    	{
+          if (cf.sysNewPIN2.value.match(/[^\x30-\x39]/))
+	    		{
+	    			alert("<%3222%>");
+	    			return false;
+	    		}
+	    	}	
+        if (cf.sysNewPIN2.value != cf.sysNewPIN2confirm.value)  
+	      {
+          alert("<%3223%>");
+	    	  return false;
+	      } 
+	    }
+
+	    if(pukEnable == "1")
+	    {
+	    	if (cf.sysNewPUK.value.length != 8) 
+	    	{
+	    		alert("<%3224%>");
+	    		return false;
+	    	}
+	    
+	    	if (cf.sysNewPUK.value.length == 8) 
+	    	{
+                        if (cf.sysNewPUK.value.match(/[^\x30-\x39]/))
+	    		{
+	    			alert("<%3224%>");
+	    			return false;
+	    		}
+	    	}	
+	    	
+        if (cf.sysNewPUK.value != cf.sysNewPUKconfirm.value)  
+	      {
+                alert("<%3225%>");
+	    	  return false;
+	      } 
+	    }
+	    
+	    if(puk2Enable == "1")
+	    {
+        
+	    	if (cf.sysNewPUK2.value.length != 8) 
+	    	{
+	    		alert("<%3226%>");
+	    		return false;
+	    	}
+	    
+	    	if (cf.sysNewPUK2.value.length == 8) 
+	    	{
+          if (cf.sysNewPUK2.value.match(/[^\x30-\x39]/))
+	    		{
+	    			alert("<%3226%>");
+	    			return false;
+	    		}
+	    	}	
+        if (cf.sysNewPUK2.value != cf.sysNewPUK2Confirm.value)  
+	      {
+                alert("<%3227%>");
+	    	  return false;
+	      }
+	    }	
+        //cf.reboot_options.value = "yes";
+	}
+	if (state == "Unlock Code Required" || state == "Unlock Code Error") 
+	{
+	    cf.reboot_options.value = "yes";
+	    
+	    if (cf.sysUnlockCode.value.match(/[^\x30-\x39]/))
+	    {
+	        alert("<%3228%>");
+	        return false;	
+	    }
+	}	
+	    
+	return true;
+}
+//-->
+</script>
+</head>
+
+<body bgcolor="#ffffff" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" onload="document.forms[0].elements[0].focus();">
+<form name="usbPIN_edit" action="usbPIN_edit.cgi" method="post">
+<p>
+<div align="center">
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<%3229%>	
+  <tr>
+   <td colspan="2" align="center">
+	 <h1><%3230%> <strong><%3185%></strong> <%3231%>
+     </h1>
+</td>
+  </tr>
+<%3232%>  
+  <%3233%>
+<%3229%>  
+<tr>
+   <td colspan="2" align="center"><h1>
+     <%3234%></ul></ul></ul></ul>
+   </h1>
+   </td>
+  </tr> 
+<%3232%>
+<%3235%>  
+<tr>
+   <td colspan="2" align="center"><h1>
+     <%3234%></ul></ul></ul></ul>
+   </h1>
+   </td>
+  </tr> 
+<%3236%>         
+<%3237%>
+<tr>  <!-- RULE -->
+  <td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>  
+   
+    <%3238%>
+       <tr>
+         <td><ul><ul><ul><ul><strong><%3239%></strong>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="password" name="sysNewPIN" size="8" maxlength="8"></ul></ul></ul></ul></td>
+      </tr>      
+        <tr>
+         <td><ul><ul><ul><ul><strong><%3240%></strong>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="password" name="sysNewPINconfirm" size="8" maxlength="8"></ul></ul></ul></ul></td>
+        </tr>        
+     <%3241%>
+    
+     <%3242%>
+       <tr>
+         <td><ul><ul><ul><ul><strong><%3243%></strong>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="password" name="sysNewPIN" size="8" maxlength="8"></ul></ul></ul></ul></td>
+        </tr>
+        <tr>
+         <td><ul><ul><ul><ul><strong><%3244%></strong>
+         &nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="password" name="sysNewPINconfirm" size="8" maxlength="8"></ul></ul></ul></ul></td>
+        </tr>
+     <%3245%>
+      
+     <%3187%>
+       <tr>
+         <td><ul><ul><ul><ul><strong><%3246%></strong>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="password" name="sysNewPUK" size="8" maxlength="8"></ul></ul></ul></ul></td>
+        </tr>
+        <tr>
+         <td><ul><ul><ul><ul><strong><%3247%></strong>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="password" name="sysNewPUKconfirm" size="8" maxlength="8"></ul></ul></ul></ul></td>
+        </tr>
+     <%3190%>
+        
+     <%3191%>
+       <tr>
+         <td><ul><ul><ul><ul><strong><%3248%></strong>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="password" name="sysNewPUK2" size="8" maxlength="8"></ul></ul></ul></ul></td>
+        </tr>
+       <tr>
+         <td><ul><ul><ul><ul><strong><%3249%></strong>
+         &nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="password" name="sysNewPUK2Confirm" size="8" maxlength="8"></ul></ul></ul></ul></td>
+        </tr>
+     <%3193%>     
+<%3233%>
+       <tr>
+         <td><ul><ul><ul><ul><strong><%3250%></strong>
+         &nbsp;&nbsp;
+         <input type="password" name="sysUnlockCode" size="16" maxlength="8"></ul></ul></ul></ul></td>
+        </tr>
+<%3237%>
+<tr>  <!-- RULE -->
+  <td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+</table>
+ <tr>
+    <td> 
+    <input type="hidden" name="Back" value="   <%1570%>   " onclick="location.href='Modem_dual_wan_welcome.htm'">
+    <input type="button" name="Quit" value="   <%1448%>   " onclick="msg_close()">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="submit" name="Next" value="   <%1556%>   " onclick="return checkData()">
+	</td>
+ </tr>
+
+<!--
+<input type="hidden" name="select" value="0">
+-->
+<input type="hidden" name="reboot_options"> 
+</form>
+</BODY>
+</HTML>
+

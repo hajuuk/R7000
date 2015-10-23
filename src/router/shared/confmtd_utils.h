@@ -1,7 +1,7 @@
 /*
  * Shell-like utility functions
  *
- * Copyright (C) 2011, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -21,11 +21,12 @@
 #ifndef _CONFMTD_UTILS_H_
 #define _CONFMTD_UTILS_H_
 
-#include <bcmconfig.h>
 
 /* CONFMTD ramfs directories */
-#define RAMFS_CONFMTD_DIR		__CONFIG_CONFMTD_CONF__
-#define CONFMTD_TGZ_TMP_FILE		RAMFS_CONFMTD_DIR"/config.tgz"
+#define RAMFS_CONFMTD_DIR		"/tmp/confmtd"
+#define NAND_DIR			"/tmp/media/nand"
+#define NAND_FILE			NAND_DIR"/config.tgz"
+#define CONFMTD_TGZ_TMP_FILE		"/tmp/config.tgz"
 
 /* CONFMTD partition magic number: "confmtd" */
 #define CONFMTD_MAGIC			"confmtd"

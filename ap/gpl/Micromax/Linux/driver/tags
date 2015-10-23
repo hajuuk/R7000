@@ -1,0 +1,731 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.7	//
+AccessString	ndis/src/qmi_header.h	/^    char AccessString[WWAN_STRING_LEN];   $/;"	m	struct:__anon9
+AltSetting	doshift/lcdoshift.c	/^int Interface = 0, Configuration = -1, AltSetting = -1;$/;"	v
+BUF_SIZE	doshift/lcdoshift.c	16;"	d	file:
+ByteString	doshift/lcdoshift.c	/^char ByteString[LINE_DIM\/2];$/;"	v
+CC	doshift/Makefile	/^CC          = gcc$/;"	m
+CheckSuccess	doshift/lcdoshift.c	/^char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;$/;"	v
+ClientId	ndis/src/qmi_header.h	/^	UInt8  ClientId;$/;"	m	struct:_QCQMI
+ClientId	ndis/src/qmi_header.h	/^	UInt8  ClientId;$/;"	m	struct:_QCQMI_HDR
+ClientId	ndis/src/qmi_header.h	/^	UInt8  ClientId;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+ClientId	ndis/src/qmi_header.h	/^	UInt8  ClientId;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+ClientId	ndis/src/qmi_header.h	/^	UInt8  ClientId;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+Commpression	ndis/src/qmi_header.h	/^	UInt32 Commpression;$/;"	m	struct:__anon9
+Configuration	doshift/lcdoshift.c	/^int Interface = 0, Configuration = -1, AltSetting = -1;$/;"	v
+ConnectIpMode	ndis/src/qmi_header.h	/^	UInt32 ConnectIpMode;$/;"	m	struct:__anon9
+ConnectState	ndis/src/qmi_header.h	/^	UInt32 ConnectState;$/;"	m	struct:_WWAN_FLOW_STATS
+ConnectionStatus	ndis/src/qmi_header.h	/^	UInt8  ConnectionStatus;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+CtlFlag	ndis/src/qmi_header.h	/^	UInt8 CtlFlag;$/;"	m	struct:_QCQMICTL_MSG_HDR
+CtlFlags	ndis/src/qmi_header.h	/^	UInt8  CtlFlags;$/;"	m	struct:_QCQMI
+CtlFlags	ndis/src/qmi_header.h	/^	UInt8  CtlFlags;$/;"	m	struct:_QCQMI_HDR
+CtlFlags	ndis/src/qmi_header.h	/^	UInt8 CtlFlags;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+CtlFlags	ndis/src/qmi_header.h	/^	UInt8 CtlFlags;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+CtlFlags	ndis/src/qmi_header.h	/^	UInt8 CtlFlags;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+CtlFlags	ndis/src/qmi_header.h	/^	UInt8 CtlFlags;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+CtlFlags	ndis/src/qmi_header.h	/^    UInt8  CtlFlags;$/;"	m	struct:_QCQMUX
+CtlFlags	ndis/src/qmi_header.h	/^    UInt8  CtlFlags;$/;"	m	struct:_QCQMUX_HDR
+CtlFlags	ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+CtlFlags	ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+CtlFlags	ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+CtlFlags	ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+CtlFlags	ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+CtlFlags	ndis/src/qmi_header.h	/^    UInt8 CtlFlags;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+DEBUG	ndis/src/qmi_oper.h	5;"	d
+DESCR_MAX	doshift/lcdoshift.c	17;"	d	file:
+DRIVER_AUTHOR	ndis/src/lc_cdc_ether.c	/^MODULE_AUTHOR(DRIVER_AUTHOR);$/;"	v
+DRIVER_AUTHOR	ndis/src/lc_cdc_ether.c	39;"	d	file:
+DRIVER_DESC	ndis/src/lc_cdc_ether.c	/^MODULE_DESCRIPTION(DRIVER_DESC);$/;"	v
+DRIVER_DESC	ndis/src/lc_cdc_ether.c	40;"	d	file:
+DRIVER_VERSION	ndis/src/lc_cdc_ether.c	/^MODULE_VERSION(DRIVER_VERSION);$/;"	v
+DRIVER_VERSION	ndis/src/lc_cdc_ether.c	38;"	d	file:
+DUMPALL	ndis/src/qmi_header.h	35;"	d
+DataFormat	ndis/src/qmi_header.h	/^	UInt8  DataFormat;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+DefaultProduct	doshift/lcdoshift.c	/^int DefaultVendor=0x1c9e, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;$/;"	v
+DefaultVendor	doshift/lcdoshift.c	/^int DefaultVendor=0x1c9e, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;$/;"	v
+DetachStorageOnly	doshift/lcdoshift.c	/^char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0;$/;"	v
+DownLinkBytes	ndis/src/qmi_header.h	/^	UInt64 DownLinkBytes;$/;"	m	struct:_WWAN_FLOW_STATS
+DstMacAddress	ndis/src/qmi_header.h	/^    UInt8 DstMacAddress[ETH_LENGTH_OF_ADDRESS];$/;"	m	struct:_QC_ETH_HDR
+ETH_LENGTH_OF_ADDRESS	ndis/src/lc_cdc_ether.c	77;"	d	file:
+ETH_LENGTH_OF_ADDRESS	ndis/src/qmi_header.h	436;"	d
+ETH_TYPE_ARP	ndis/src/lc_cdc_ether.c	73;"	d	file:
+ETH_TYPE_ARP	ndis/src/qmi_header.h	432;"	d
+ETH_TYPE_IPV4	ndis/src/lc_cdc_ether.c	74;"	d	file:
+ETH_TYPE_IPV4	ndis/src/qmi_header.h	433;"	d
+ETH_TYPE_IPV6	ndis/src/lc_cdc_ether.c	75;"	d	file:
+ETH_TYPE_IPV6	ndis/src/qmi_header.h	434;"	d
+EVENT_LINK_RESET	ndis/src/lc_cdc_ether.c	95;"	d	file:
+EVENT_RX_HALT	ndis/src/lc_cdc_ether.c	92;"	d	file:
+EVENT_RX_MEMORY	ndis/src/lc_cdc_ether.c	93;"	d	file:
+EVENT_STS_SPLIT	ndis/src/lc_cdc_ether.c	94;"	d	file:
+EVENT_TX_HALT	ndis/src/lc_cdc_ether.c	91;"	d	file:
+EtherType	ndis/src/qmi_header.h	/^	UInt16 EtherType;$/;"	m	struct:_QC_ETH_HDR
+FilterArpPacket	ndis/src/lc_cdc_ether.c	/^static bool  FilterArpPacket(UInt8 *pData, UInt32 packetlength)$/;"	f	file:
+GCTMode	doshift/lcdoshift.c	/^char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0;$/;"	v
+HLEN	ndis/src/qmi_header.h	/^	UInt8  HLEN;$/;"	m	struct:_QC_ARP_HDR
+HardwareType	ndis/src/qmi_header.h	/^    UInt16 HardwareType;$/;"	m	struct:_QC_ARP_HDR
+HuaweiMode	doshift/lcdoshift.c	/^char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0;$/;"	v
+IFType	ndis/src/qmi_header.h	/^    UInt8  IFType;$/;"	m	struct:_QCQMI
+IFType	ndis/src/qmi_header.h	/^    UInt8  IFType;$/;"	m	struct:_QCQMI_HDR
+INIT_NDP16_OPTS	ndis/src/lc_cdc_ether.c	138;"	d	file:
+INIT_NDP32_OPTS	ndis/src/lc_cdc_ether.c	141;"	d	file:
+IPV4Address	ndis/src/qmi_header.h	/^	UInt32 IPV4Address;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR
+IPv4	ndis/src/qmi_header.h	/^	IPv4 = 0,$/;"	e	enum:__anon3
+IPv4v6	ndis/src/qmi_header.h	/^	IPv4v6$/;"	e	enum:__anon3
+IPv6	ndis/src/qmi_header.h	/^	IPv6,$/;"	e	enum:__anon3
+InquireDevice	doshift/lcdoshift.c	/^char NeedResponse=0, InquireDevice=0, sysmode=0;$/;"	v
+Interface	doshift/lcdoshift.c	/^int Interface = 0, Configuration = -1, AltSetting = -1;$/;"	v
+KDIR	Makefile	/^KDIR := \/lib\/modules\/$(shell uname -r)\/build$/;"	m
+KDIR	ndis/src/Makefile	/^KDIR		:= \/lib\/modules\/$(KVER)\/build$/;"	m
+KEXT	ndis/src/Makefile	/^KEXT		:= $(shell echo $(KVER) | sed -ne 's\/^2\\.[567]\\..*\/k\/p')o$/;"	m
+KMISC	ndis/src/Makefile	/^KMISC		:= \/lib\/modules\/$(KVER)\/kernel\/drivers\/usb\/net$/;"	m
+KVER	ndis/src/Makefile	/^KVER		:= $(shell uname -r)$/;"	m
+LCT_CM55_PID	lctserial.c	29;"	d	file:
+LCT_DEVICE_DESC	lctserial.c	26;"	d	file:
+LCT_DRIVER_DESC	lctserial.c	/^MODULE_DESCRIPTION(LCT_DRIVER_DESC);$/;"	v
+LCT_DRIVER_DESC	lctserial.c	24;"	d	file:
+LCT_DRIVER_NAME	lctserial.c	25;"	d	file:
+LCT_DRIVER_VERSION	lctserial.c	/^MODULE_VERSION(LCT_DRIVER_VERSION);$/;"	v
+LCT_DRIVER_VERSION	lctserial.c	23;"	d	file:
+LCT_VENDOR_ID	lctserial.c	28;"	d	file:
+LCT_WM6100_PID	lctserial.c	30;"	d	file:
+LCT_WM71_PID	lctserial.c	31;"	d	file:
+LCT_WM7211_PID	lctserial.c	33;"	d	file:
+LCT_WM7211_TATA_PID	lctserial.c	34;"	d	file:
+LCT_WM7608_PID	lctserial.c	32;"	d	file:
+LC_CONNECTED	ndis/src/qmi_header.h	/^    LC_CONNECTED = LC_IP_GETTED,   \/\/connected$/;"	e	enum:__anon4
+LC_CONNECTING	ndis/src/qmi_header.h	/^    LC_CONNECTING,                 \/\/connecting$/;"	e	enum:__anon4
+LC_DISCONNECTED	ndis/src/qmi_header.h	/^    LC_DISCONNECTED			= 0,   \/\/disconneted$/;"	e	enum:__anon4
+LC_DISCONNECTING	ndis/src/qmi_header.h	/^    LC_DISCONNECTING,              \/\/connected$/;"	e	enum:__anon4
+LC_GETTING_IP	ndis/src/qmi_header.h	/^    LC_GETTING_IP,                 \/\/connecting$/;"	e	enum:__anon4
+LC_INTERFACE_INDEX	ndis/src/lc_cdc_ether.c	79;"	d	file:
+LC_IP_GETTED	ndis/src/qmi_header.h	/^    LC_IP_GETTED,                  \/\/connected$/;"	e	enum:__anon4
+LDEBUG	ndis/src/qmi_header.h	31;"	d
+LINE_DIM	doshift/lcdoshift.c	15;"	d	file:
+LINUX_VERSION37_LATER	ndis/src/lc_cdc_ether.c	127;"	d	file:
+LINUX_VERSION37_LATER	ndis/src/lc_cdc_ether.c	129;"	d	file:
+LOG_DATA	ndis/src/qmi_header.h	34;"	d
+LONGCHEER_INTERFACE_RMNET_VDF	ndis/src/lc_cdc_ether.c	1891;"	d	file:
+LONGCHEER_INTERFACE_VDF	ndis/src/lc_cdc_ether.c	1886;"	d	file:
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QCQMI
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QCQMICTL_MSG_HDR
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QCQMI_HDR
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QCQMUX_MSG_HDR
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+Length	ndis/src/qmi_header.h	/^	UInt16 Length;$/;"	m	struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+LinkProt	ndis/src/qmi_header.h	/^	UInt16 LinkProt;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT
+MODULE_DIR	Makefile	/^MODULE_DIR := \/lib\/modules\/$(shell uname -r)\/kernel\/drivers\/usb\/serial\/$/;"	m
+MP_INVALID_QMI_ID	ndis/src/qmi_header.h	343;"	d
+MajorVersion	ndis/src/qmi_header.h	/^	UInt16 MajorVersion;$/;"	m	struct:_QMUX_TYPE_VERSION_STRUCT
+Mask	ndis/src/qmi_header.h	/^	UInt32 Mask;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+Message	ndis/src/qmi_header.h	/^	UInt8  Message; \/\/ point to QCQMUX_MSG_HDR$/;"	m	struct:_QCQMUX
+MessageContent	doshift/lcdoshift.c	/^char MessageContent[LINE_DIM] = "55534243123456780000000080000606f50402527000000000000000000000";$/;"	v
+MessageEndpoint	doshift/lcdoshift.c	/^int MessageEndpoint=0, ResponseEndpoint=0, defaultClass=0;$/;"	v
+MinorVersion	ndis/src/qmi_header.h	/^	UInt16 MinorVersion;$/;"	m	struct:_QMUX_TYPE_VERSION_STRUCT
+NDIS_CMD_CONNECT_CMD	ndis/src/lc_cdc_ether.c	/^	NDIS_CMD_CONNECT_CMD = 0xA0,$/;"	e	enum:__anon11	file:
+NDIS_CMD_DISCONN_CMD	ndis/src/lc_cdc_ether.c	/^	NDIS_CMD_DISCONN_CMD,$/;"	e	enum:__anon11	file:
+NDIS_CMD_GET_STATUS	ndis/src/lc_cdc_ether.c	/^	NDIS_CMD_GET_STATUS,$/;"	e	enum:__anon11	file:
+NDIS_CMD_GET_VERSION	ndis/src/lc_cdc_ether.c	/^	NDIS_CMD_GET_VERSION,$/;"	e	enum:__anon11	file:
+NDIS_CMD_INIT_STATUS	ndis/src/lc_cdc_ether.c	/^	NDIS_CMD_INIT_STATUS$/;"	e	enum:__anon11	file:
+NDIS_INIT_STATUS	ndis/src/lc_cdc_ether.c	58;"	d	file:
+NDIS_QMI_STATUS	ndis/src/qmi_oper.h	/^} NDIS_QMI_STATUS;$/;"	t	typeref:struct:_NDIS_QMI_STATUS
+NeedResponse	doshift/lcdoshift.c	/^char NeedResponse=0, InquireDevice=0, sysmode=0;$/;"	v
+NumElements	ndis/src/qmi_header.h	/^	UInt8  NumElements;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+OBJS	doshift/Makefile	/^OBJS        = lcdoshift.c$/;"	m
+Operation	ndis/src/qmi_header.h	/^	UInt16 Operation;$/;"	m	struct:_QC_ARP_HDR
+PLEN	ndis/src/qmi_header.h	/^	UInt8  PLEN;$/;"	m	struct:_QC_ARP_HDR
+PQCQMUX_MSG_HDR	ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMUX_MSG_HDR, *PQCQMUX_MSG_HDR;$/;"	t	typeref:struct:_QCQMUX_MSG_HDR
+PQMIWDS_RESP_MSG_HEADER	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_RESP_MSG_HEADER, *PQMIWDS_RESP_MSG_HEADER;$/;"	t	typeref:struct:_QMIWDS_RESP_MSG_HEADER
+PROCESS_ARP_PACKAGE	ndis/src/lc_cdc_ether.c	57;"	d	file:
+PROG	doshift/Makefile	/^PROG        = lcdoshift$/;"	m
+PWD	Makefile	/^PWD := $(shell pwd)$/;"	m
+Packet_Handle	ndis/src/qmi_header.h	/^	UInt32 Packet_Handle;$/;"	m	struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+ParseParamBool	doshift/lcdoshift.h	98;"	d
+ParseParamFloat	doshift/lcdoshift.h	94;"	d
+ParseParamHex	doshift/lcdoshift.h	90;"	d
+ParseParamInt	doshift/lcdoshift.h	86;"	d
+ParseParamString	doshift/lcdoshift.h	82;"	d
+Password	ndis/src/qmi_header.h	/^	char Password[WWAN_STRING_LEN];$/;"	m	struct:__anon9
+Pkt_Data_Handle	ndis/src/qmi_header.h	/^	UInt32 Pkt_Data_Handle;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+ProcessArpPacket	ndis/src/lc_cdc_ether.c	/^static void  ProcessArpPacket(UInt8 *pData, UInt32 packetlength)$/;"	f	file:
+Proto	ndis/src/qmi_header.h	/^	QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT Proto;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+Proto	ndis/src/qmi_header.h	/^	QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT Proto;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+ProtocolType	ndis/src/qmi_header.h	/^	UInt16 ProtocolType;$/;"	m	struct:_QC_ARP_HDR
+QCQMI	ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMI\/*, *QCQMI**\/ ;$/;"	t	typeref:struct:_QCQMI
+QCQMICTL_MSG_HDR	ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMICTL_MSG_HDR;$/;"	t	typeref:struct:_QCQMICTL_MSG_HDR
+QCQMI_CTL_FLAG_SERVICE	ndis/src/qmi_header.h	132;"	d
+QCQMI_HDR	ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMI_HDR\/*, *PQCQMI_HDR*\/;$/;"	t	typeref:struct:_QCQMI_HDR
+QCQMI_ProcessQMUXWDSIndication	ndis/src/qmi_oper.c	/^int QCQMI_ProcessQMUXWDSIndication(QCQMI* pQmi,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QCQMI_ProcessQMUXWDSResponse	ndis/src/qmi_oper.c	/^int QCQMI_ProcessQMUXWDSResponse(QCQMI* pQmi,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QCQMUX	ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMUX;$/;"	t	typeref:struct:_QCQMUX
+QCQMUX_HDR	ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMUX_HDR\/*, *QCQMUX_HDR**\/;$/;"	t	typeref:struct:_QCQMUX_HDR
+QCQMUX_MSG_HDR	ndis/src/qmi_header.h	/^}__attribute__((packed)) QCQMUX_MSG_HDR, *PQCQMUX_MSG_HDR;$/;"	t	typeref:struct:_QCQMUX_MSG_HDR
+QCTLV_TYPE_APN	ndis/src/qmi_header.h	345;"	d
+QCTLV_TYPE_AUTH_TYPE	ndis/src/qmi_header.h	346;"	d
+QCTLV_TYPE_PASSWORD	ndis/src/qmi_header.h	348;"	d
+QCTLV_TYPE_REQUIRED_PARAMETER	ndis/src/qmi_header.h	336;"	d
+QCTLV_TYPE_USER_NAME	ndis/src/qmi_header.h	347;"	d
+QCTL_GetClientID	ndis/src/qmi_oper.c	/^int  QCTL_GetClientID(UInt8* pMsgBuff,UInt32 length,UInt8 qmiType)$/;"	f
+QCTL_GetVersionReq	ndis/src/qmi_oper.c	/^int QCTL_GetVersionReq(UInt8* pMsgBuff,UInt32 length)$/;"	f
+QCTL_Procecess_GetClient_ID_Response	ndis/src/qmi_oper.c	/^int QCTL_Procecess_GetClient_ID_Response(QCQMI* pQmi,UInt8* fClientID,UInt8* fQMIType)$/;"	f
+QCTL_Procecess_GetVersion_Respons	ndis/src/qmi_oper.c	/^int QCTL_Procecess_GetVersion_Respons(QCQMI* pQmi,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QCTL_Procecess_ReleaseClient_ID_Response	ndis/src/qmi_oper.c	/^int QCTL_Procecess_ReleaseClient_ID_Response(QCQMI* pQmi,UInt8* fClientID,UInt8* fQMIType)$/;"	f
+QCTL_Procecess_SetDataFormat_Response	ndis/src/qmi_oper.c	/^int QCTL_Procecess_SetDataFormat_Response(QCQMI* pQmi,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QCTL_Procecess_SetInstanceId_Response	ndis/src/qmi_oper.c	/^int QCTL_Procecess_SetInstanceId_Response(QCQMI* pQmi,int* fSetInstanceIdFail,UInt32* fQMI_ID)$/;"	f
+QCTL_ReleaseClientID	ndis/src/qmi_oper.c	/^int QCTL_ReleaseClientID(UInt8* pMsgBuff,UInt32 length,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QCTL_SetDataFormatReq	ndis/src/qmi_oper.c	/^int QCTL_SetDataFormatReq(UInt8* pMsgBuff,UInt32 length)$/;"	f
+QCTL_SetInstanceId	ndis/src/qmi_oper.c	/^int QCTL_SetInstanceId(UInt8* pMsgBuff,UInt32 length)$/;"	f
+QC_ARP_HDR	ndis/src/qmi_header.h	/^}__attribute__((packed)) QC_ARP_HDR; $/;"	t	typeref:struct:_QC_ARP_HDR
+QC_ETH_HDR	ndis/src/qmi_header.h	/^}__attribute__((packed)) QC_ETH_HDR;$/;"	t	typeref:struct:_QC_ETH_HDR
+QC_WDS_Connect	ndis/src/qmi_oper.c	/^int QC_WDS_Connect(UInt8* pMsgBuff,$/;"	f
+QC_WDS_Disconnect	ndis/src/qmi_oper.c	/^int QC_WDS_Disconnect(UInt8* pMsgBuff,UInt32 length,NDIS_QMI_STATUS* pndis_status,UInt8 flag)$/;"	f
+QC_WDS_GetIPAddress	ndis/src/qmi_oper.c	/^int QC_WDS_GetIPAddress(UInt8* pMsgBuff,UInt32 length,UInt8 fClientID)$/;"	f
+QC_WDS_ModifyProfile	ndis/src/qmi_oper.c	/^int QC_WDS_ModifyProfile(UInt8* pMsgBuff,$/;"	f
+QC_WDS_Process_GetRunTimeSettings_Respons	ndis/src/qmi_oper.c	/^int  QC_WDS_Process_GetRunTimeSettings_Respons(QCQMUX_MSG_HDR* pQMuxMsg,NDIS_QMI_STATUS* pndis_status)$/;"	f
+QMICTLType	ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QCQMICTL_MSG_HDR
+QMICTLType	ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+QMICTLType	ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+QMICTLType	ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+QMICTLType	ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+QMICTLType	ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+QMICTLType	ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+QMICTLType	ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+QMICTLType	ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+QMICTLType	ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+QMICTLType	ndis/src/qmi_header.h	/^	UInt16 QMICTLType;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+QMICTL_CTL_FLAG_CMD	ndis/src/qmi_header.h	136;"	d
+QMICTL_CTL_FLAG_IND	ndis/src/qmi_header.h	138;"	d
+QMICTL_CTL_FLAG_REQUEST	ndis/src/qmi_header.h	169;"	d
+QMICTL_CTL_FLAG_RSP	ndis/src/qmi_header.h	137;"	d
+QMICTL_GETVERSION_RSP_TLV_TYPE_ADD_VERSION	ndis/src/qmi_header.h	337;"	d
+QMICTL_GET_CLIENT_ID_REQ	ndis/src/qmi_header.h	142;"	d
+QMICTL_GET_CLIENT_ID_REQ_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_GET_CLIENT_ID_REQ_MSG;$/;"	t	typeref:struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+QMICTL_GET_CLIENT_ID_RESP	ndis/src/qmi_header.h	143;"	d
+QMICTL_GET_CLIENT_ID_RESP_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_GET_CLIENT_ID_RESP_MSG;$/;"	t	typeref:struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+QMICTL_GET_VERSION_REQ	ndis/src/qmi_header.h	148;"	d
+QMICTL_GET_VERSION_REQ_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_GET_VERSION_REQ_MSG;$/;"	t	typeref:struct:_QMICTL_GET_VERSION_REQ_MSG
+QMICTL_GET_VERSION_RESP	ndis/src/qmi_header.h	149;"	d
+QMICTL_GET_VERSION_RESP_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_GET_VERSION_RESP_MSG;$/;"	t	typeref:struct:_QMICTL_GET_VERSION_RESP_MSG
+QMICTL_INVALID_CLIENT_ID_IND	ndis/src/qmi_header.h	147;"	d
+QMICTL_RELEASE_CLIENT_ID_REQ	ndis/src/qmi_header.h	144;"	d
+QMICTL_RELEASE_CLIENT_ID_REQ_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_RELEASE_CLIENT_ID_REQ_MSG;$/;"	t	typeref:struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+QMICTL_RELEASE_CLIENT_ID_RESP	ndis/src/qmi_header.h	145;"	d
+QMICTL_RELEASE_CLIENT_ID_RESP_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_RELEASE_CLIENT_ID_RESP_MSG;$/;"	t	typeref:struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+QMICTL_REVOKE_CLIENT_IDIND	ndis/src/qmi_header.h	146;"	d
+QMICTL_SET_DATA_FORMAT_REQ	ndis/src/qmi_header.h	150;"	d
+QMICTL_SET_DATA_FORMAT_REQ_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_SET_DATA_FORMAT_REQ_MSG;$/;"	t	typeref:struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+QMICTL_SET_DATA_FORMAT_RESP	ndis/src/qmi_header.h	151;"	d
+QMICTL_SET_DATA_FORMAT_RESP_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_SET_DATA_FORMAT_RESP_MSG;$/;"	t	typeref:struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT;$/;"	t	typeref:struct:_QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT
+QMICTL_SET_INSTANCE_ID_REQ	ndis/src/qmi_header.h	140;"	d
+QMICTL_SET_INSTANCE_ID_REQ_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_SET_INSTANCE_ID_REQ_MSG;$/;"	t	typeref:struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+QMICTL_SET_INSTANCE_ID_RESP	ndis/src/qmi_header.h	141;"	d
+QMICTL_SET_INSTANCE_ID_RESP_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMICTL_SET_INSTANCE_ID_RESP_MSG;$/;"	t	typeref:struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+QMIError	ndis/src/qmi_header.h	/^	UInt16 QMIError;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+QMIError	ndis/src/qmi_header.h	/^	UInt16 QMIError;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+QMIError	ndis/src/qmi_header.h	/^	UInt16 QMIError;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+QMIError	ndis/src/qmi_header.h	/^	UInt16 QMIError;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+QMIError	ndis/src/qmi_header.h	/^	UInt16 QMIError;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+QMIResult	ndis/src/qmi_header.h	/^	UInt16 QMIResult;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+QMIResult	ndis/src/qmi_header.h	/^	UInt16 QMIResult;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+QMIResult	ndis/src/qmi_header.h	/^	UInt16 QMIResult;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+QMIResult	ndis/src/qmi_header.h	/^	UInt16 QMIResult;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+QMIResult	ndis/src/qmi_header.h	/^	UInt16 QMIResult;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+QMIType	ndis/src/qmi_header.h	/^	UInt8  QMIType;    $/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+QMIType	ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QCQMI
+QMIType	ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QCQMI_HDR
+QMIType	ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+QMIType	ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+QMIType	ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+QMIType	ndis/src/qmi_header.h	/^	UInt8  QMIType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+QMIWDS_GET_PKT_SRVC_STATUS_IND	ndis/src/qmi_header.h	166;"	d
+QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG;$/;"	t	typeref:struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+QMIWDS_GET_RUNTIME_SETTINGS_MASK_IPV4_ADDR	ndis/src/qmi_header.h	421;"	d
+QMIWDS_GET_RUNTIME_SETTINGS_REQ	ndis/src/qmi_header.h	162;"	d
+QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG;$/;"	t	typeref:struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+QMIWDS_GET_RUNTIME_SETTINGS_RESP	ndis/src/qmi_header.h	163;"	d
+QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG;$/;"	t	typeref:struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR;$/;"	t	typeref:struct:_QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR
+QMIWDS_GET_RUNTIME_SETTINGS_TLV_TYPE_IPV4	ndis/src/qmi_header.h	418;"	d
+QMIWDS_GET_RUNTIME_SETTINGS_TLV_TYPE_IPV6	ndis/src/qmi_header.h	419;"	d
+QMIWDS_RESP_MSG_HEADER	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_RESP_MSG_HEADER, *PQMIWDS_RESP_MSG_HEADER;$/;"	t	typeref:struct:_QMIWDS_RESP_MSG_HEADER
+QMIWDS_START_NETWORK_INTERFACE_REQ	ndis/src/qmi_header.h	158;"	d
+QMIWDS_START_NETWORK_INTERFACE_RESP	ndis/src/qmi_header.h	159;"	d
+QMIWDS_START_NETWORK_INTERFACE_RESP_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_START_NETWORK_INTERFACE_RESP_MSG;$/;"	t	typeref:struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+QMIWDS_STOP_NETWORK_INTERFACE_REQ	ndis/src/qmi_header.h	160;"	d
+QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG;$/;"	t	typeref:struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+QMIWDS_STOP_NETWORK_INTERFACE_RESP	ndis/src/qmi_header.h	161;"	d
+QMI_CONNECT	ndis/src/qmi_oper.h	/^    QMI_CONNECT,$/;"	e	enum:__anon10
+QMI_DISCONNECT	ndis/src/qmi_oper.h	/^    QMI_DISCONNECT,$/;"	e	enum:__anon10
+QMI_ERR_AUTHENTICATION_FAILED	ndis/src/qmi_header.h	426;"	d
+QMI_ERR_CALL_FAILED	ndis/src/qmi_header.h	425;"	d
+QMI_ERR_IP_FAILED	ndis/src/qmi_header.h	428;"	d
+QMI_ERR_NO_NETWORK_FOUND	ndis/src/qmi_header.h	427;"	d
+QMI_GET_CLIENT_ID	ndis/src/qmi_oper.h	/^    QMI_GET_CLIENT_ID			= 0,$/;"	e	enum:__anon10
+QMI_GET_IP_ADDR	ndis/src/qmi_oper.h	/^    QMI_GET_IP_ADDR,$/;"	e	enum:__anon10
+QMI_GET_VERSION	ndis/src/qmi_oper.h	/^    QMI_GET_VERSION,$/;"	e	enum:__anon10
+QMI_ID	ndis/src/qmi_header.h	/^	UInt16 QMI_ID;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+QMI_MODIFY_PRO	ndis/src/qmi_oper.h	/^    QMI_MODIFY_PRO,$/;"	e	enum:__anon10
+QMI_RELEASE_CLIENT_ID	ndis/src/qmi_oper.h	/^    QMI_RELEASE_CLIENT_ID,$/;"	e	enum:__anon10
+QMI_RESULT_FAILURE	ndis/src/qmi_header.h	172;"	d
+QMI_RESULT_SUCCESS	ndis/src/qmi_header.h	171;"	d
+QMI_SET_DATA_FORMAT	ndis/src/qmi_oper.h	/^    QMI_SET_DATA_FORMAT,$/;"	e	enum:__anon10
+QMI_SET_INSTANCE	ndis/src/qmi_oper.h	/^    QMI_SET_INSTANCE,$/;"	e	enum:__anon10
+QMI_TLV_HDR	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMI_TLV_HDR;$/;"	t	typeref:struct:_QMI_TLV_HDR
+QMI_WDS_MODIFY_PROFILE_SETTINGS_REQ	ndis/src/qmi_header.h	156;"	d
+QMI_WDS_MODIFY_PROFILE_SETTINGS_RESP	ndis/src/qmi_header.h	157;"	d
+QMUXError	ndis/src/qmi_header.h	/^	UInt16 QMUXError;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+QMUXError	ndis/src/qmi_header.h	/^	UInt16 QMUXError;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+QMUXError	ndis/src/qmi_header.h	/^	UInt16 QMUXError;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+QMUXResult	ndis/src/qmi_header.h	/^	UInt16 QMUXResult;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+QMUXResult	ndis/src/qmi_header.h	/^	UInt16 QMUXResult;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+QMUXResult	ndis/src/qmi_header.h	/^	UInt16 QMUXResult;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+QMUXType	ndis/src/qmi_header.h	/^	UInt8  QMUXType;$/;"	m	struct:_QMUX_TYPE_VERSION_STRUCT
+QMUX_BROADCAST_CID	ndis/src/qmi_header.h	118;"	d
+QMUX_CTL_FLAG_MASK_COMPOUND	ndis/src/qmi_header.h	177;"	d
+QMUX_CTL_FLAG_MASK_TYPE	ndis/src/qmi_header.h	176;"	d
+QMUX_CTL_FLAG_SINGLE_MSG	ndis/src/qmi_header.h	174;"	d
+QMUX_CTL_FLAG_TYPE_CMD	ndis/src/qmi_header.h	175;"	d
+QMUX_CTL_FLAG_TYPE_IND	ndis/src/qmi_header.h	179;"	d
+QMUX_CTL_FLAG_TYPE_RSP	ndis/src/qmi_header.h	178;"	d
+QMUX_TYPE_ALL	ndis/src/qmi_header.h	/^	QMUX_TYPE_ALL = 0xFF$/;"	e	enum:__anon5
+QMUX_TYPE_CTL	ndis/src/qmi_header.h	/^    QMUX_TYPE_CTL = 0x00,$/;"	e	enum:__anon5
+QMUX_TYPE_DMS	ndis/src/qmi_header.h	/^	QMUX_TYPE_DMS = 0x02,$/;"	e	enum:__anon5
+QMUX_TYPE_MAX	ndis/src/qmi_header.h	/^	QMUX_TYPE_MAX,$/;"	e	enum:__anon5
+QMUX_TYPE_NAS	ndis/src/qmi_header.h	/^	QMUX_TYPE_NAS = 0x03,$/;"	e	enum:__anon5
+QMUX_TYPE_QOS	ndis/src/qmi_header.h	/^	QMUX_TYPE_QOS = 0x04,$/;"	e	enum:__anon5
+QMUX_TYPE_VERSION_STRUCT	ndis/src/qmi_header.h	/^}__attribute__((packed)) QMUX_TYPE_VERSION_STRUCT;$/;"	t	typeref:struct:_QMUX_TYPE_VERSION_STRUCT
+QMUX_TYPE_WDS	ndis/src/qmi_header.h	/^	QMUX_TYPE_WDS = 0x01,$/;"	e	enum:__anon5
+QWDS_PKT_DATA_CONNECTED	ndis/src/qmi_header.h	466;"	d
+QWDS_PKT_DATA_DISCONNECTED	ndis/src/qmi_header.h	465;"	d
+QWDS_PKT_DATA_SUSPENDED	ndis/src/qmi_header.h	467;"	d
+RM	doshift/Makefile	/^RM          = \/bin\/rm -f$/;"	m
+RX_MAX_QUEUE_MEMORY	ndis/src/lc_cdc_ether.c	42;"	d	file:
+RX_QLEN	ndis/src/lc_cdc_ether.c	43;"	d	file:
+ReadParseParam	doshift/lcdoshift.c	/^char* ReadParseParam(const char* FileName, char *VariableName)$/;"	f
+ReconfigRequired	ndis/src/qmi_header.h	/^	UInt8  ReconfigRequired;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+ResetUSB	doshift/lcdoshift.c	/^char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;$/;"	v
+ResponseArpPacket	ndis/src/lc_cdc_ether.c	/^static void  ResponseArpPacket(UInt8 *pData, UInt32 packetlength)$/;"	f	file:
+ResponseEndpoint	doshift/lcdoshift.c	/^int MessageEndpoint=0, ResponseEndpoint=0, defaultClass=0;$/;"	v
+SDU	ndis/src/qmi_header.h	/^	UInt8  SDU;   \/\/ point to qcqmux or qcqmictl_msg_hdr$/;"	m	struct:_QCQMI
+SET_DATA_FORMAT_LINK_PROTO_ETH	ndis/src/qmi_header.h	340;"	d
+SET_DATA_FORMAT_LINK_PROTO_IP	ndis/src/qmi_header.h	341;"	d
+SET_DATA_FORMAT_TLV_TYPE_LINK_PROTO	ndis/src/qmi_header.h	339;"	d
+SHOW_PROGRESS	doshift/lcdoshift.c	19;"	d	file:
+SenderHA	ndis/src/qmi_header.h	/^	UInt8  SenderHA[ETH_LENGTH_OF_ADDRESS];$/;"	m	struct:_QC_ARP_HDR
+SenderIP	ndis/src/qmi_header.h	/^	UInt32 SenderIP;$/;"	m	struct:_QC_ARP_HDR
+SierraMode	doshift/lcdoshift.c	/^char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0;$/;"	v
+Sleep_Time	ndis/src/qmi_header.h	37;"	d
+SonyMode	doshift/lcdoshift.c	/^char DetachStorageOnly=0, HuaweiMode=0, SierraMode=0, SonyMode=0, GCTMode=0;$/;"	v
+SrcMacAddress	ndis/src/qmi_header.h	/^	UInt8 SrcMacAddress[ETH_LENGTH_OF_ADDRESS];$/;"	m	struct:_QC_ETH_HDR
+THROTTLE_JIFFIES	ndis/src/lc_cdc_ether.c	53;"	d	file:
+TLV2Length	ndis/src/qmi_header.h	/^	UInt16 TLV2Length;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+TLV2Length	ndis/src/qmi_header.h	/^	UInt16 TLV2Length;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+TLV2Length	ndis/src/qmi_header.h	/^	UInt16 TLV2Length;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+TLV2Length	ndis/src/qmi_header.h	/^	UInt16 TLV2Length;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+TLV2Type	ndis/src/qmi_header.h	/^	UInt8  TLV2Type;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+TLV2Type	ndis/src/qmi_header.h	/^	UInt8  TLV2Type;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+TLV2Type	ndis/src/qmi_header.h	/^	UInt8  TLV2Type;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+TLV2Type	ndis/src/qmi_header.h	/^	UInt8  TLV2Type;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+TLVLength	ndis/src/qmi_header.h	/^	UInt16 TLVLength;$/;"	m	struct:_QMI_TLV_HDR
+TLVLength2	ndis/src/qmi_header.h	/^	UInt16 TLVLength2;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+TLVType	ndis/src/qmi_header.h	/^	UInt8  TLVType;$/;"	m	struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+TLVType	ndis/src/qmi_header.h	/^    UInt8  TLVType;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT
+TLVType	ndis/src/qmi_header.h	/^    UInt8  TLVType;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR
+TLVType	ndis/src/qmi_header.h	/^    UInt8  TLVType;$/;"	m	struct:_QMI_TLV_HDR
+TLVType2	ndis/src/qmi_header.h	/^	UInt8  TLVType2;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+TX_QLEN	ndis/src/lc_cdc_ether.c	45;"	d	file:
+TX_TIMEOUT_JIFFIES	ndis/src/lc_cdc_ether.c	49;"	d	file:
+TargetClass	doshift/lcdoshift.c	/^int DefaultVendor=0x1c9e, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;$/;"	v
+TargetHA	ndis/src/qmi_header.h	/^	UInt8  TargetHA[ETH_LENGTH_OF_ADDRESS];$/;"	m	struct:_QC_ARP_HDR
+TargetIP	ndis/src/qmi_header.h	/^	UInt32 TargetIP;$/;"	m	struct:_QC_ARP_HDR
+TargetProduct	doshift/lcdoshift.c	/^int DefaultVendor=0x1c9e, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;$/;"	v
+TargetProductList	doshift/lcdoshift.c	/^char TargetProductList[LINE_DIM];$/;"	v
+TargetVendor	doshift/lcdoshift.c	/^int DefaultVendor=0x1c9e, DefaultProduct=0, TargetVendor=0, TargetProduct=0, TargetClass=0;$/;"	v
+TempPP	doshift/lcdoshift.c	/^char *TempPP=NULL;$/;"	v
+TransactionId	ndis/src/qmi_header.h	/^	UInt16 TransactionId;$/;"	m	struct:_QCQMUX
+TransactionId	ndis/src/qmi_header.h	/^	UInt16 TransactionId;$/;"	m	struct:_QCQMUX_HDR
+TransactionId	ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QCQMICTL_MSG_HDR
+TransactionId	ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_REQ_MSG
+TransactionId	ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_GET_CLIENT_ID_RESP_MSG
+TransactionId	ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_GET_VERSION_REQ_MSG
+TransactionId	ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+TransactionId	ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_REQ_MSG
+TransactionId	ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_RELEASE_CLIENT_ID_RESP_MSG
+TransactionId	ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_REQ_MSG
+TransactionId	ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_SET_DATA_FORMAT_RESP_MSG
+TransactionId	ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+TransactionId	ndis/src/qmi_header.h	/^	UInt8 TransactionId;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_RESP_MSG
+Type	ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QCQMUX_MSG_HDR
+Type	ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG
+Type	ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG
+Type	ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG
+Type	ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_RESP_MSG_HEADER
+Type	ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG
+Type	ndis/src/qmi_header.h	/^    UInt16 Type;$/;"	m	struct:_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG
+TypeVersion	ndis/src/qmi_header.h	/^	QMUX_TYPE_VERSION_STRUCT  TypeVersion;$/;"	m	struct:_QMICTL_GET_VERSION_RESP_MSG
+UInt16	ndis/src/qmi_header.h	/^typedef unsigned short      UInt16;$/;"	t
+UInt32	ndis/src/qmi_header.h	/^typedef unsigned int        UInt32;$/;"	t
+UInt64	ndis/src/qmi_header.h	/^typedef unsigned long long  UInt64;$/;"	t
+UInt8	ndis/src/qmi_header.h	/^typedef unsigned char       UInt8;$/;"	t
+UNLINK_TIMEOUT_MS	ndis/src/lc_cdc_ether.c	56;"	d	file:
+USB_CTL_MSG_TYPE_QMI	ndis/src/qmi_header.h	133;"	d
+USB_DEVICE_Longcheer_DATA	ndis/src/lc_cdc_ether.c	1772;"	d	file:
+USB_DIR_IN	doshift/lcdoshift.c	981;"	d	file:
+USB_DIR_OUT	doshift/lcdoshift.c	980;"	d	file:
+USE_ELG	ndis/src/qmi_header.h	32;"	d
+USE_IOL	ndis/src/qmi_header.h	33;"	d
+UnInstallLctDriver	uninstall_driver	/^UnInstallLctDriver()$/;"	f
+UpLinkBytes	ndis/src/qmi_header.h	/^	UInt64 UpLinkBytes;$/;"	m	struct:_WWAN_FLOW_STATS
+UserName	ndis/src/qmi_header.h	/^	char UserName[WWAN_STRING_LEN];$/;"	m	struct:__anon9
+VERS	doshift/Makefile	/^VERS        = 1.1.0$/;"	m
+Value	ndis/src/qmi_header.h	/^	UInt8  Value;$/;"	m	struct:_QMICTL_SET_INSTANCE_ID_REQ_MSG
+WWAN_CONNECT_PARAMS	ndis/src/qmi_header.h	/^}__attribute__((packed)) WWAN_CONNECT_PARAMS;$/;"	t	typeref:struct:__anon9
+WWAN_FLOW_STATS	ndis/src/qmi_header.h	/^}__attribute__((packed)) WWAN_FLOW_STATS;$/;"	t	typeref:struct:_WWAN_FLOW_STATS
+WWAN_STATUS	ndis/src/lc_cdc_ether.c	/^} WWAN_STATUS;$/;"	t	typeref:struct:__anon12	file:
+WWAN_STRING_LEN	ndis/src/qmi_header.h	495;"	d
+WwanAuthProtocolChap	ndis/src/qmi_header.h	/^	WwanAuthProtocolChap = 0x02,$/;"	e	enum:__anon6
+WwanAuthProtocolMax	ndis/src/qmi_header.h	/^	WwanAuthProtocolMax  = 0xFF$/;"	e	enum:__anon6
+WwanAuthProtocolNone	ndis/src/qmi_header.h	/^    WwanAuthProtocolNone = 0x00,$/;"	e	enum:__anon6
+WwanAuthProtocolPap	ndis/src/qmi_header.h	/^	WwanAuthProtocolPap  = 0x01,$/;"	e	enum:__anon6
+WwanOperationConnect	ndis/src/qmi_header.h	/^	WwanOperationConnect    = 0x01,$/;"	e	enum:__anon7
+WwanOperationCount	ndis/src/qmi_header.h	/^	WwanOperationCount      = 0x04,$/;"	e	enum:__anon7
+WwanOperationDisconnect	ndis/src/qmi_header.h	/^	WwanOperationDisconnect = 0x02,$/;"	e	enum:__anon7
+WwanOperationMax	ndis/src/qmi_header.h	/^	WwanOperationMax        = 0xFF$/;"	e	enum:__anon7
+WwanOperationQueryReady	ndis/src/qmi_header.h	/^	WwanOperationQueryReady = 0x00,$/;"	e	enum:__anon7
+WwanOperationState	ndis/src/qmi_header.h	/^	WwanOperationState      = 0x03,$/;"	e	enum:__anon7
+WwanStateConnected	ndis/src/qmi_header.h	/^	WwanStateConnected     = 2,$/;"	e	enum:__anon8
+WwanStateConnecting	ndis/src/qmi_header.h	/^	WwanStateConnecting    = 1,$/;"	e	enum:__anon8
+WwanStateDisconnected	ndis/src/qmi_header.h	/^    WwanStateDisconnected  = 0,$/;"	e	enum:__anon8
+WwanStateDisconnecting	ndis/src/qmi_header.h	/^	WwanStateDisconnecting = 3$/;"	e	enum:__anon8
+_NDIS_QMI_STATUS	ndis/src/qmi_oper.h	/^typedef struct _NDIS_QMI_STATUS{	$/;"	s
+_QCQMI	ndis/src/qmi_header.h	/^typedef struct _QCQMI$/;"	s
+_QCQMICTL_MSG_HDR	ndis/src/qmi_header.h	/^typedef struct _QCQMICTL_MSG_HDR$/;"	s
+_QCQMI_HDR	ndis/src/qmi_header.h	/^typedef struct _QCQMI_HDR$/;"	s
+_QCQMUX	ndis/src/qmi_header.h	/^typedef struct _QCQMUX$/;"	s
+_QCQMUX_HDR	ndis/src/qmi_header.h	/^typedef struct _QCQMUX_HDR$/;"	s
+_QCQMUX_MSG_HDR	ndis/src/qmi_header.h	/^typedef struct _QCQMUX_MSG_HDR$/;"	s
+_QC_ARP_HDR	ndis/src/qmi_header.h	/^typedef struct _QC_ARP_HDR$/;"	s
+_QC_ETH_HDR	ndis/src/qmi_header.h	/^typedef struct _QC_ETH_HDR$/;"	s
+_QMICTL_GET_CLIENT_ID_REQ_MSG	ndis/src/qmi_header.h	/^typedef struct _QMICTL_GET_CLIENT_ID_REQ_MSG$/;"	s
+_QMICTL_GET_CLIENT_ID_RESP_MSG	ndis/src/qmi_header.h	/^typedef struct _QMICTL_GET_CLIENT_ID_RESP_MSG$/;"	s
+_QMICTL_GET_VERSION_REQ_MSG	ndis/src/qmi_header.h	/^typedef struct _QMICTL_GET_VERSION_REQ_MSG$/;"	s
+_QMICTL_GET_VERSION_RESP_MSG	ndis/src/qmi_header.h	/^typedef struct _QMICTL_GET_VERSION_RESP_MSG$/;"	s
+_QMICTL_RELEASE_CLIENT_ID_REQ_MSG	ndis/src/qmi_header.h	/^typedef struct _QMICTL_RELEASE_CLIENT_ID_REQ_MSG$/;"	s
+_QMICTL_RELEASE_CLIENT_ID_RESP_MSG	ndis/src/qmi_header.h	/^typedef struct _QMICTL_RELEASE_CLIENT_ID_RESP_MSG$/;"	s
+_QMICTL_SET_DATA_FORMAT_REQ_MSG	ndis/src/qmi_header.h	/^typedef struct _QMICTL_SET_DATA_FORMAT_REQ_MSG$/;"	s
+_QMICTL_SET_DATA_FORMAT_RESP_MSG	ndis/src/qmi_header.h	/^typedef struct _QMICTL_SET_DATA_FORMAT_RESP_MSG$/;"	s
+_QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT	ndis/src/qmi_header.h	/^typedef struct _QMICTL_SET_DATA_FORMAT_TLV_LINK_PROT$/;"	s
+_QMICTL_SET_INSTANCE_ID_REQ_MSG	ndis/src/qmi_header.h	/^typedef struct _QMICTL_SET_INSTANCE_ID_REQ_MSG$/;"	s
+_QMICTL_SET_INSTANCE_ID_RESP_MSG	ndis/src/qmi_header.h	/^typedef struct _QMICTL_SET_INSTANCE_ID_RESP_MSG$/;"	s
+_QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG	ndis/src/qmi_header.h	/^typedef struct _QMIWDS_GET_PKT_SRVC_STATUS_IND_MSG$/;"	s
+_QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG	ndis/src/qmi_header.h	/^typedef struct _QMIWDS_GET_RUNTIME_SETTINGS_REQ_MSG$/;"	s
+_QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG	ndis/src/qmi_header.h	/^typedef struct _QMIWDS_GET_RUNTIME_SETTINGS_RESP_MSG$/;"	s
+_QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR	ndis/src/qmi_header.h	/^typedef struct _QMIWDS_GET_RUNTIME_SETTINGS_TLV_IPV4_ADDR$/;"	s
+_QMIWDS_RESP_MSG_HEADER	ndis/src/qmi_header.h	/^typedef struct _QMIWDS_RESP_MSG_HEADER$/;"	s
+_QMIWDS_START_NETWORK_INTERFACE_RESP_MSG	ndis/src/qmi_header.h	/^typedef struct _QMIWDS_START_NETWORK_INTERFACE_RESP_MSG$/;"	s
+_QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG	ndis/src/qmi_header.h	/^typedef struct _QMIWDS_STOP_NETWORK_INTERFACE_REQ_MSG$/;"	s
+_QMI_TLV_HDR	ndis/src/qmi_header.h	/^typedef struct _QMI_TLV_HDR$/;"	s
+_QMUX_TYPE_VERSION_STRUCT	ndis/src/qmi_header.h	/^typedef struct _QMUX_TYPE_VERSION_STRUCT$/;"	s
+_WWAN_FLOW_STATS	ndis/src/qmi_header.h	/^typedef struct _WWAN_FLOW_STATS$/;"	s
+__QMI_HEADER_H__	ndis/src/qmi_header.h	23;"	d
+__QMI_OPER_H__	ndis/src/qmi_oper.h	2;"	d
+__ndis_command_t	ndis/src/lc_cdc_ether.c	/^typedef struct __ndis_command_t{$/;"	s	file:
+and	doshift/lcdoshift.h	62;"	d
+and_eq	doshift/lcdoshift.h	73;"	d
+bh	ndis/src/lc_cdc_ether.c	/^	struct tasklet_struct	bh;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::tasklet_struct	file:
+bitand	doshift/lcdoshift.h	67;"	d
+bitor	doshift/lcdoshift.h	68;"	d
+buffer	doshift/lcdoshift.c	/^char buffer[BUF_SIZE];$/;"	v
+busnum	doshift/lcdoshift.c	/^int devnum=-1, busnum=-1;$/;"	v
+bzero	ndis/src/qmi_oper.c	27;"	d	file:
+checkSuccess	doshift/lcdoshift.c	/^int checkSuccess()$/;"	f
+cmd	ndis/src/lc_cdc_ether.c	/^int            cmd;$/;"	m	struct:__ndis_command_t	file:
+compl	doshift/lcdoshift.h	69;"	d
+config_read	doshift/lcdoshift.c	/^char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;$/;"	v
+connection_status	ndis/src/lc_cdc_ether.c	/^	int connection_status;$/;"	m	struct:__anon12	file:
+control	ndis/src/lc_cdc_ether.c	/^	struct usb_interface		*control;$/;"	m	struct:lc_dev_state	typeref:struct:lc_dev_state::usb_interface	file:
+data	ndis/src/lc_cdc_ether.c	/^	struct usb_interface		*data;$/;"	m	struct:lc_dev_state	typeref:struct:lc_dev_state::usb_interface	file:
+data	ndis/src/lc_cdc_ether.c	/^	unsigned long		data [5];$/;"	m	struct:lc_cdc_net	file:
+data	ndis/src/lc_cdc_ether.c	/^UInt8  data[WWAN_STRING_LEN*3+sizeof(UInt32)*2];$/;"	m	struct:__ndis_command_t	file:
+defaultClass	doshift/lcdoshift.c	/^int MessageEndpoint=0, ResponseEndpoint=0, defaultClass=0;$/;"	v
+delay	ndis/src/lc_cdc_ether.c	/^	struct timer_list	delay;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::timer_list	file:
+detachDriver	doshift/lcdoshift.c	/^int detachDriver()$/;"	f
+dev	doshift/lcdoshift.c	/^struct usb_device *dev;$/;"	v	typeref:struct:usb_device
+dev	ndis/src/lc_cdc_ether.c	/^	struct lc_cdc_net		*dev;$/;"	m	struct:skb_data	typeref:struct:skb_data::lc_cdc_net	file:
+devdbg	ndis/src/lc_cdc_ether.c	227;"	d	file:
+deverr	ndis/src/lc_cdc_ether.c	231;"	d	file:
+devh	doshift/lcdoshift.c	/^struct usb_dev_handle *devh;$/;"	v	typeref:struct:usb_dev_handle
+deviceDescription	doshift/lcdoshift.c	/^void deviceDescription ()$/;"	f
+deviceInquire	doshift/lcdoshift.c	/^int deviceInquire ()$/;"	f
+devinfo	ndis/src/lc_cdc_ether.c	236;"	d	file:
+devnum	doshift/lcdoshift.c	/^int devnum=-1, busnum=-1;$/;"	v
+devwarn	ndis/src/lc_cdc_ether.c	233;"	d	file:
+done	ndis/src/lc_cdc_ether.c	/^	struct sk_buff_head	done;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::sk_buff_head	file:
+driver_desc	ndis/src/lc_cdc_ether.c	/^	const char 		*driver_desc;$/;"	m	struct:lc_cdc_net	file:
+driver_name	ndis/src/lc_cdc_ether.c	/^	const char		*driver_name;$/;"	m	struct:lc_cdc_net	file:
+driver_name	ndis/src/lc_cdc_ether.c	/^static const char driver_name [] = "lc_ether";$/;"	v	file:
+driver_of	ndis/src/lc_cdc_ether.c	/^static inline struct usb_driver *driver_of(struct usb_interface *intf)$/;"	f	file:
+driver_priv	ndis/src/lc_cdc_ether.c	/^	void			*driver_priv;$/;"	m	struct:lc_cdc_net	file:
+dumpspeed	ndis/src/lc_cdc_ether.c	/^static void dumpspeed(struct lc_cdc_net *dev, __le32 *speeds)$/;"	f	file:
+ether	ndis/src/lc_cdc_ether.c	/^	struct usb_cdc_ether_desc	*ether;$/;"	m	struct:lc_dev_state	typeref:struct:lc_dev_state::usb_cdc_ether_desc	file:
+fClientID	ndis/src/qmi_oper.h	/^	UInt8    		 fClientID;			$/;"	m	struct:_NDIS_QMI_STATUS
+fConnecting	ndis/src/qmi_oper.h	/^	bool             fConnecting;$/;"	m	struct:_NDIS_QMI_STATUS
+fConnectionError	ndis/src/qmi_oper.h	/^	UInt16           fConnectionError;	$/;"	m	struct:_NDIS_QMI_STATUS
+fConnectionStatus	ndis/src/qmi_oper.h	/^	int              fConnectionStatus;$/;"	m	struct:_NDIS_QMI_STATUS
+fCurMacAddress	ndis/src/lc_cdc_ether.c	/^static UInt8 fCurMacAddress[6]=$/;"	v	file:
+fDisconnecting	ndis/src/qmi_oper.h	/^	bool             fDisconnecting;$/;"	m	struct:_NDIS_QMI_STATUS
+fDstMacAddress	ndis/src/lc_cdc_ether.c	/^static UInt8 fDstMacAddress[6]=$/;"	v	file:
+fEthernetHeader	ndis/src/lc_cdc_ether.c	/^static QC_ETH_HDR fEthernetHeader;$/;"	v	file:
+fGetVersioning	ndis/src/qmi_oper.h	/^	bool             fGetVersioning;$/;"	m	struct:_NDIS_QMI_STATUS
+fIPAddress	ndis/src/qmi_oper.h	/^	UInt32           fIPAddress;$/;"	m	struct:_NDIS_QMI_STATUS
+fIPModeEnabled	ndis/src/qmi_oper.h	/^	bool             fIPModeEnabled;	$/;"	m	struct:_NDIS_QMI_STATUS
+fIPPacketSupport	ndis/src/qmi_oper.h	/^	bool             fIPPacketSupport;$/;"	m	struct:_NDIS_QMI_STATUS
+fLinkStatus	ndis/src/qmi_oper.h	/^	UInt8			 fLinkStatus;	$/;"	m	struct:_NDIS_QMI_STATUS
+fPacketHandle	ndis/src/qmi_oper.h	/^	UInt32           fPacketHandle;$/;"	m	struct:_NDIS_QMI_STATUS
+fPacketHandle1	ndis/src/qmi_oper.h	/^	UInt32           fPacketHandle1;$/;"	m	struct:_NDIS_QMI_STATUS
+fQMITransactionId	ndis/src/qmi_oper.c	/^static UInt8    fQMITransactionId = 0;$/;"	v	file:
+fQMIType	ndis/src/qmi_oper.h	/^	UInt8    		 fQMIType;$/;"	m	struct:_NDIS_QMI_STATUS
+fQMI_ID	ndis/src/qmi_oper.h	/^	UInt32           fQMI_ID;$/;"	m	struct:_NDIS_QMI_STATUS
+fSetInstanceIdFail	ndis/src/qmi_oper.h	/^	int              fSetInstanceIdFail;$/;"	m	struct:_NDIS_QMI_STATUS
+fVersion	ndis/src/qmi_oper.h	/^	char             fVersion[64];	$/;"	m	struct:_NDIS_QMI_STATUS
+find_first_bulk_input_endpoint	doshift/lcdoshift.c	/^int find_first_bulk_input_endpoint(struct usb_device *dev)$/;"	f
+find_first_bulk_output_endpoint	doshift/lcdoshift.c	/^int find_first_bulk_output_endpoint(struct usb_device *dev)$/;"	f
+flags	ndis/src/lc_cdc_ether.c	/^	unsigned long		flags;$/;"	m	struct:lc_cdc_net	file:
+g_cdc_dev	ndis/src/lc_cdc_ether.c	/^static struct lc_cdc_net *g_cdc_dev = NULL;$/;"	v	typeref:struct:lc_cdc_net	file:
+hard_mtu	ndis/src/lc_cdc_ether.c	/^	u32			hard_mtu;	\/* count any extra framing *\/$/;"	m	struct:lc_cdc_net	file:
+header	ndis/src/lc_cdc_ether.c	/^	struct usb_cdc_header_desc	*header;$/;"	m	struct:lc_dev_state	typeref:struct:lc_dev_state::usb_cdc_header_desc	file:
+hex2byte	doshift/lcdoshift.c	/^int hex2byte(const char *hex)$/;"	f
+hex2num	doshift/lcdoshift.c	/^int hex2num(char c)$/;"	f
+hexstr2bin	doshift/lcdoshift.c	/^int hexstr2bin(const char *hex, char *buffer, int len)$/;"	f
+illegal	ndis/src/lc_cdc_ether.c	/^	illegal = 0,$/;"	e	enum:skb_state	file:
+imanufact	doshift/lcdoshift.c	/^char imanufact[DESCR_MAX], iproduct[DESCR_MAX], iserial[DESCR_MAX];$/;"	v
+in	ndis/src/lc_cdc_ether.c	/^	unsigned		in, out;$/;"	m	struct:lc_cdc_net	file:
+init_status	ndis/src/lc_cdc_ether.c	/^static int init_status (struct lc_cdc_net *dev, struct usb_interface *intf)$/;"	f	file:
+interrupt	ndis/src/lc_cdc_ether.c	/^	struct urb		*interrupt;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::urb	file:
+intf	ndis/src/lc_cdc_ether.c	/^	struct usb_interface	*intf;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::usb_interface	file:
+intr_complete	ndis/src/lc_cdc_ether.c	/^static void intr_complete (struct urb *urb)$/;"	f	file:
+ip_address	ndis/src/lc_cdc_ether.c	/^	UInt32 ip_address;$/;"	m	struct:__anon12	file:
+iproduct	doshift/lcdoshift.c	/^char imanufact[DESCR_MAX], iproduct[DESCR_MAX], iserial[DESCR_MAX];$/;"	v
+iserial	doshift/lcdoshift.c	/^char imanufact[DESCR_MAX], iproduct[DESCR_MAX], iserial[DESCR_MAX];$/;"	v
+kDataIn	ndis/src/qmi_header.h	/^    kDataIn			= 0,$/;"	e	enum:__anon1
+kDataNone	ndis/src/qmi_header.h	/^    kDataNone$/;"	e	enum:__anon1
+kDataOther	ndis/src/qmi_header.h	/^    kDataOther,$/;"	e	enum:__anon1
+kDataOut	ndis/src/qmi_header.h	/^    kDataOut,$/;"	e	enum:__anon1
+kResetDone	ndis/src/qmi_header.h	/^    kResetDone$/;"	e	enum:__anon2
+kResetNeeded	ndis/src/qmi_header.h	/^    kResetNeeded,$/;"	e	enum:__anon2
+kResetNormal	ndis/src/qmi_header.h	/^    kResetNormal	= 0,$/;"	e	enum:__anon2
+kUSBModem_Connect_APN	ndis/src/qmi_header.h	459;"	d
+kUSBModem_Connect_Compression	ndis/src/qmi_header.h	462;"	d
+kUSBModem_Connect_Error	ndis/src/qmi_header.h	463;"	d
+kUSBModem_Connect_Password	ndis/src/qmi_header.h	461;"	d
+kUSBModem_Connect_UserName	ndis/src/qmi_header.h	460;"	d
+kUSBModem_Oper_Flag	ndis/src/qmi_header.h	458;"	d
+kevent	ndis/src/lc_cdc_ether.c	/^	struct work_struct	kevent;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::work_struct	file:
+kevent	ndis/src/lc_cdc_ether.c	/^kevent (struct work_struct *work)$/;"	f	file:
+lc_CDC_FAIL	ndis/src/lc_cdc_ether.c	1884;"	d	file:
+lc_CDC_OK	ndis/src/lc_cdc_ether.c	1883;"	d	file:
+lc_USB_MRECEIVE_BUFFER_SIZE	ndis/src/lc_cdc_ether.c	86;"	d	file:
+lc_USB_MRECEIVE_MAX_BUFFER_SIZE	ndis/src/lc_cdc_ether.c	88;"	d	file:
+lc_USB_RECEIVE_BUFFER_SIZE	ndis/src/lc_cdc_ether.c	84;"	d	file:
+lc_bh	ndis/src/lc_cdc_ether.c	/^static void lc_bh (unsigned long param)$/;"	f	file:
+lc_cdc_bind	ndis/src/lc_cdc_ether.c	/^static int lc_cdc_bind(struct lc_cdc_net *dev, struct usb_interface *intf)$/;"	f	file:
+lc_cdc_check_status_work	ndis/src/lc_cdc_ether.c	/^static void lc_cdc_check_status_work()$/;"	f	file:
+lc_cdc_exit	ndis/src/lc_cdc_ether.c	/^module_exit(lc_cdc_exit);$/;"	v
+lc_cdc_exit	ndis/src/lc_cdc_ether.c	/^static void __exit lc_cdc_exit(void)$/;"	f	file:
+lc_cdc_init	ndis/src/lc_cdc_ether.c	/^fs_initcall(lc_cdc_init);$/;"	v
+lc_cdc_init	ndis/src/lc_cdc_ether.c	/^static int __init lc_cdc_init(void)$/;"	f	file:
+lc_cdc_net	ndis/src/lc_cdc_ether.c	/^struct lc_cdc_net{$/;"	s	file:
+lc_cdc_probe	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_cdc_probe);$/;"	v
+lc_cdc_probe	ndis/src/lc_cdc_ether.c	/^lc_cdc_probe (struct usb_interface *udev, const struct usb_device_id *prod)$/;"	f
+lc_cdc_reset_resume	ndis/src/lc_cdc_ether.c	/^static int lc_cdc_reset_resume(struct usb_interface *intf)$/;"	f	file:
+lc_cdc_status	ndis/src/lc_cdc_ether.c	/^static void lc_cdc_status(struct lc_cdc_net *dev, struct urb *urb)$/;"	f	file:
+lc_cdc_unbind	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_cdc_unbind);$/;"	v
+lc_cdc_unbind	ndis/src/lc_cdc_ether.c	/^void lc_cdc_unbind(struct lc_cdc_net *dev, struct usb_interface *intf)$/;"	f
+lc_change_mtu	ndis/src/lc_cdc_ether.c	/^static int lc_change_mtu (struct net_device *net, int new_mtu)$/;"	f	file:
+lc_defer_kevent	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_defer_kevent);$/;"	v
+lc_defer_kevent	ndis/src/lc_cdc_ether.c	/^void lc_defer_kevent (struct lc_cdc_net *dev, int work)$/;"	f
+lc_dev_state	ndis/src/lc_cdc_ether.c	/^struct lc_dev_state {$/;"	s	file:
+lc_disconnect	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_disconnect);$/;"	v
+lc_disconnect	ndis/src/lc_cdc_ether.c	/^void lc_disconnect (struct usb_interface *intf)$/;"	f
+lc_eth_mac_addr	ndis/src/lc_cdc_ether.c	/^static int lc_eth_mac_addr(struct net_device *dev, void *p)$/;"	f	file:
+lc_ether_driver	ndis/src/lc_cdc_ether.c	/^static struct usb_driver lc_ether_driver = {$/;"	v	typeref:struct:usb_driver	file:
+lc_ethtool_ops	ndis/src/lc_cdc_ether.c	/^static struct ethtool_ops lc_ethtool_ops = {$/;"	v	typeref:struct:ethtool_ops	file:
+lc_get_drvinfo	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_get_drvinfo);$/;"	v
+lc_get_drvinfo	ndis/src/lc_cdc_ether.c	/^void lc_get_drvinfo (struct net_device *net, struct ethtool_drvinfo *info)$/;"	f
+lc_get_endpoints	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_get_endpoints);$/;"	v
+lc_get_endpoints	ndis/src/lc_cdc_ether.c	/^int lc_get_endpoints(struct lc_cdc_net *dev, struct usb_interface *intf)$/;"	f
+lc_get_ethernet_addr	ndis/src/lc_cdc_ether.c	/^static inline int lc_get_ethernet_addr(struct lc_cdc_net *dev)$/;"	f	file:
+lc_get_link	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_get_link);$/;"	v
+lc_get_link	ndis/src/lc_cdc_ether.c	/^u32 lc_get_link (struct net_device *net)$/;"	f
+lc_get_msglevel	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_get_msglevel);$/;"	v
+lc_get_msglevel	ndis/src/lc_cdc_ether.c	/^u32 lc_get_msglevel (struct net_device *net)$/;"	f
+lc_get_qmi_status	ndis/src/lc_cdc_ether.c	/^static int lc_get_qmi_status(struct usb_interface *intf)$/;"	f	file:
+lc_get_settings	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_get_settings);$/;"	v
+lc_get_settings	ndis/src/lc_cdc_ether.c	/^int lc_get_settings (struct net_device *net, struct ethtool_cmd *cmd)$/;"	f
+lc_get_stats	ndis/src/lc_cdc_ether.c	/^static struct net_device_stats *lc_get_stats (struct net_device *net)$/;"	f	file:
+lc_kdbg	ndis/src/qmi_oper.c	32;"	d	file:
+lc_kdbg	ndis/src/qmi_oper.c	36;"	d	file:
+lc_ndis_ioctl	ndis/src/lc_cdc_ether.c	/^static int lc_ndis_ioctl(struct net_device *dev,struct ifreq *req, int cmd)$/;"	f	file:
+lc_netdev_ops	ndis/src/lc_cdc_ether.c	/^static const struct net_device_ops lc_netdev_ops = {$/;"	v	typeref:struct:net_device_ops	file:
+lc_nway_reset	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_nway_reset);$/;"	v
+lc_nway_reset	ndis/src/lc_cdc_ether.c	/^int lc_nway_reset(struct net_device *net)$/;"	f
+lc_open	ndis/src/lc_cdc_ether.c	/^static int lc_open (struct net_device *net)$/;"	f	file:
+lc_products	ndis/src/lc_cdc_ether.c	/^static const struct usb_device_id	lc_products [] = {$/;"	v	typeref:struct:usb_device_id	file:
+lc_resume	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_resume);$/;"	v
+lc_resume	ndis/src/lc_cdc_ether.c	/^int lc_resume (struct usb_interface *intf)$/;"	f
+lc_send_qmi_request	ndis/src/lc_cdc_ether.c	/^static int lc_send_qmi_request(struct usb_interface *intf, UInt8 reqesy_type,$/;"	f	file:
+lc_set_msglevel	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_set_msglevel);$/;"	v
+lc_set_msglevel	ndis/src/lc_cdc_ether.c	/^void lc_set_msglevel (struct net_device *net, u32 level)$/;"	f
+lc_set_settings	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_set_settings);$/;"	v
+lc_set_settings	ndis/src/lc_cdc_ether.c	/^int lc_set_settings (struct net_device *net, struct ethtool_cmd *cmd)$/;"	f
+lc_skb_return	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_skb_return);$/;"	v
+lc_skb_return	ndis/src/lc_cdc_ether.c	/^void lc_skb_return (struct lc_cdc_net *dev, struct sk_buff *skb)$/;"	f
+lc_skb_return_arp	ndis/src/lc_cdc_ether.c	/^static void lc_skb_return_arp (struct lc_cdc_net *dev, struct sk_buff *skb)$/;"	f	file:
+lc_start_xmit	ndis/src/lc_cdc_ether.c	/^static int lc_start_xmit (struct sk_buff *skb, struct net_device *net)$/;"	f	file:
+lc_stop	ndis/src/lc_cdc_ether.c	/^static int lc_stop (struct net_device *net)$/;"	f	file:
+lc_suspend	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_suspend);$/;"	v
+lc_suspend	ndis/src/lc_cdc_ether.c	/^int lc_suspend (struct usb_interface *intf, pm_message_t message)$/;"	f
+lc_tx_timeout	ndis/src/lc_cdc_ether.c	/^static void lc_tx_timeout (struct net_device *net)$/;"	f	file:
+lc_unlink_rx_urbs	ndis/src/lc_cdc_ether.c	/^EXPORT_SYMBOL_GPL(lc_unlink_rx_urbs);$/;"	v
+lc_unlink_rx_urbs	ndis/src/lc_cdc_ether.c	/^void lc_unlink_rx_urbs(struct lc_cdc_net *dev)$/;"	f
+lct_id_table	lctserial.c	/^static struct usb_device_id lct_id_table [] = {$/;"	v	typeref:struct:usb_device_id	file:
+lct_modem_device	lctserial.c	/^static struct usb_serial_driver lct_modem_device = {$/;"	v	typeref:struct:usb_serial_driver	file:
+lct_modem_driver	lctserial.c	/^static struct usb_driver lct_modem_driver = {$/;"	v	typeref:struct:usb_driver	file:
+lct_modem_exit	lctserial.c	/^module_exit(lct_modem_exit);$/;"	v
+lct_modem_exit	lctserial.c	/^static void __exit lct_modem_exit(void)$/;"	f	file:
+lct_modem_init	lctserial.c	/^module_init(lct_modem_init);$/;"	v
+lct_modem_init	lctserial.c	/^static int __init lct_modem_init(void)$/;"	f	file:
+lct_serial_close	lctserial.c	/^static void lct_serial_close(struct tty_struct *tty,$/;"	f	file:
+lct_serial_open	lctserial.c	/^static int lct_serial_open(struct tty_struct *tty,$/;"	f	file:
+length	ndis/src/lc_cdc_ether.c	/^	size_t			length;$/;"	m	struct:skb_data	file:
+long_options	doshift/lcdoshift.c	/^static struct option long_options[] = {$/;"	v	typeref:struct:option	file:
+main	doshift/lcdoshift.c	/^int main(int argc, char **argv)$/;"	f
+max	ndis/src/lc_cdc_ether.c	147;"	d	file:
+maxpacket	ndis/src/lc_cdc_ether.c	/^	unsigned		maxpacket;$/;"	m	struct:lc_cdc_net	file:
+mii	ndis/src/lc_cdc_ether.c	/^	struct mii_if_info	mii;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::mii_if_info	file:
+min	ndis/src/lc_cdc_ether.c	151;"	d	file:
+msg_enable	ndis/src/lc_cdc_ether.c	/^	int			msg_enable;$/;"	m	struct:lc_cdc_net	file:
+msg_level	ndis/src/lc_cdc_ether.c	/^static int msg_level = -1;$/;"	v	file:
+ndis_command_t	ndis/src/lc_cdc_ether.c	/^} ndis_command_t;$/;"	t	typeref:struct:__ndis_command_t	file:
+ndis_connect	ndis/src/lc_cdc_ether.c	/^static int ndis_connect(struct lc_cdc_net *dev,char *accessString, $/;"	f	file:
+ndis_disconnect	ndis/src/lc_cdc_ether.c	/^static int ndis_disconnect(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_get_client_ID	ndis/src/lc_cdc_ether.c	/^static int ndis_get_client_ID(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_get_ip_addr	ndis/src/lc_cdc_ether.c	/^static int ndis_get_ip_addr(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_get_version_info	ndis/src/lc_cdc_ether.c	/^static int ndis_get_version_info(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_release_client_ID	ndis/src/lc_cdc_ether.c	/^static int ndis_release_client_ID(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_set_data_format	ndis/src/lc_cdc_ether.c	/^static int ndis_set_data_format(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_set_instance_ID	ndis/src/lc_cdc_ether.c	/^static int ndis_set_instance_ID(struct lc_cdc_net *dev)$/;"	f	file:
+ndis_status	ndis/src/lc_cdc_ether.c	/^static   NDIS_QMI_STATUS     ndis_status;$/;"	v	file:
+net	ndis/src/lc_cdc_ether.c	/^	struct net_device	*net;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::net_device	file:
+node_id	ndis/src/lc_cdc_ether.c	/^static u8	node_id [ETH_ALEN];$/;"	v	file:
+not	doshift/lcdoshift.h	64;"	d
+not_eq	doshift/lcdoshift.h	74;"	d
+obj-m	Makefile	/^obj-m := lctserial.o$/;"	m
+or	doshift/lcdoshift.h	63;"	d
+or_eq	doshift/lcdoshift.h	75;"	d
+out	ndis/src/lc_cdc_ether.c	/^	unsigned		in, out;$/;"	m	struct:lc_cdc_net	file:
+phy_mutex	ndis/src/lc_cdc_ether.c	/^	struct mutex		phy_mutex;	$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::mutex	file:
+printConfig	doshift/lcdoshift.c	/^void printConfig()$/;"	f
+printVersion	doshift/lcdoshift.c	/^void printVersion()$/;"	f
+printk_hex	ndis/src/qmi_oper.c	/^void printk_hex(UInt8 *buf,int buf_size)$/;"	f
+processQMIResponse	ndis/src/qmi_oper.c	/^int processQMIResponse(void *buffer,NDIS_QMI_STATUS* pndis_status)$/;"	f
+qmi_request_lock	ndis/src/lc_cdc_ether.c	/^static spinlock_t  qmi_request_lock; $/;"	v	file:
+qmi_sync	ndis/src/lc_cdc_ether.c	/^	int			qmi_sync;$/;"	m	struct:lc_cdc_net	file:
+readArguments	doshift/lcdoshift.c	/^int readArguments(int argc, char **argv)$/;"	f
+readConfigFile	doshift/lcdoshift.c	/^void readConfigFile(const char *configFilename)$/;"	f
+read_bulk	doshift/lcdoshift.c	/^int read_bulk(int endpoint, char *buffer, int length)$/;"	f
+release_usb_device	doshift/lcdoshift.c	/^void release_usb_device(int dummy) {$/;"	f
+resetUSB	doshift/lcdoshift.c	/^void resetUSB ()$/;"	f
+ret	doshift/lcdoshift.c	/^int ret;$/;"	v
+rt_debug	ndis/src/lc_cdc_ether.c	/^static int rt_debug = 0;$/;"	v	file:
+rx_cleanup	ndis/src/lc_cdc_ether.c	/^	rx_start, rx_done, rx_cleanup$/;"	e	enum:skb_state	file:
+rx_complete	ndis/src/lc_cdc_ether.c	/^static void rx_complete (struct urb *urb)$/;"	f	file:
+rx_defer_bh	ndis/src/lc_cdc_ether.c	/^static void rx_defer_bh(struct lc_cdc_net *dev, struct sk_buff *skb, struct sk_buff_head *list)$/;"	f	file:
+rx_done	ndis/src/lc_cdc_ether.c	/^	rx_start, rx_done, rx_cleanup$/;"	e	enum:skb_state	file:
+rx_process	ndis/src/lc_cdc_ether.c	/^static inline void rx_process (struct lc_cdc_net *dev, struct sk_buff *skb)$/;"	f	file:
+rx_start	ndis/src/lc_cdc_ether.c	/^	rx_start, rx_done, rx_cleanup$/;"	e	enum:skb_state	file:
+rx_submit	ndis/src/lc_cdc_ether.c	/^static void rx_submit (struct lc_cdc_net *dev, struct urb *urb, gfp_t flags)$/;"	f	file:
+rx_urb_size	ndis/src/lc_cdc_ether.c	/^	size_t			rx_urb_size;	\/* size for rx urbs *\/$/;"	m	struct:lc_cdc_net	file:
+rxq	ndis/src/lc_cdc_ether.c	/^	struct sk_buff_head	rxq;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::sk_buff_head	file:
+search_devices	doshift/lcdoshift.c	/^struct usb_device* search_devices( int *numFound, int vendor, int product, char* productList, int targetClass)$/;"	f
+show_progress	doshift/lcdoshift.c	/^char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;$/;"	v
+skb_data	ndis/src/lc_cdc_ether.c	/^struct skb_data {	\/* skb->cb is one of these *\/$/;"	s	file:
+skb_state	ndis/src/lc_cdc_ether.c	/^enum skb_state {$/;"	g	file:
+state	ndis/src/lc_cdc_ether.c	/^	enum skb_state		state;$/;"	m	struct:skb_data	typeref:enum:skb_data::skb_state	file:
+stats	ndis/src/lc_cdc_ether.c	/^	struct net_device_stats	stats;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::net_device_stats	file:
+status	ndis/src/lc_cdc_ether.c	/^	struct usb_host_endpoint *status;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::usb_host_endpoint	file:
+status_work	ndis/src/lc_cdc_ether.c	/^	struct delayed_work status_work;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::delayed_work	file:
+suspend_count	ndis/src/lc_cdc_ether.c	/^	unsigned char		suspend_count;$/;"	m	struct:lc_cdc_net	file:
+switchAltSetting	doshift/lcdoshift.c	/^int switchAltSetting ()$/;"	f
+switchConfiguration	doshift/lcdoshift.c	/^int switchConfiguration ()$/;"	f
+switchSendMessage	doshift/lcdoshift.c	/^int switchSendMessage ()$/;"	f
+sysmode	doshift/lcdoshift.c	/^char NeedResponse=0, InquireDevice=0, sysmode=0;$/;"	v
+targetDeviceCount	doshift/lcdoshift.c	/^int targetDeviceCount=0;$/;"	v
+tx_complete	ndis/src/lc_cdc_ether.c	/^static void tx_complete (struct urb *urb)$/;"	f	file:
+tx_defer_bh	ndis/src/lc_cdc_ether.c	/^static void tx_defer_bh(struct lc_cdc_net *dev, struct sk_buff *skb, struct sk_buff_head *list)$/;"	f	file:
+tx_done	ndis/src/lc_cdc_ether.c	/^	tx_start, tx_done,$/;"	e	enum:skb_state	file:
+tx_start	ndis/src/lc_cdc_ether.c	/^	tx_start, tx_done,$/;"	e	enum:skb_state	file:
+txq	ndis/src/lc_cdc_ether.c	/^	struct sk_buff_head	txq; $/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::sk_buff_head	file:
+u	ndis/src/lc_cdc_ether.c	/^	struct usb_cdc_union_desc	*u;$/;"	m	struct:lc_dev_state	typeref:struct:lc_dev_state::usb_cdc_union_desc	file:
+udev	ndis/src/lc_cdc_ether.c	/^	struct usb_device	*udev;$/;"	m	struct:lc_cdc_net	typeref:struct:lc_cdc_net::usb_device	file:
+unlink_urbs	ndis/src/lc_cdc_ether.c	/^static int unlink_urbs (struct lc_cdc_net *dev, struct sk_buff_head *q)$/;"	f	file:
+urb	ndis/src/lc_cdc_ether.c	/^	struct urb		*urb;$/;"	m	struct:skb_data	typeref:struct:skb_data::urb	file:
+verbose	doshift/lcdoshift.c	/^char verbose=0, show_progress=1, ResetUSB=0, CheckSuccess=0, config_read=0;$/;"	v
+version	doshift/lcdoshift.c	/^char *version="1.0.0";$/;"	v
+wait	ndis/src/lc_cdc_ether.c	/^	wait_queue_head_t	*wait;$/;"	m	struct:lc_cdc_net	file:
+write_bulk	doshift/lcdoshift.c	/^int write_bulk(int endpoint, char *message, int length)$/;"	f
+xid	ndis/src/lc_cdc_ether.c	/^	u32			xid;$/;"	m	struct:lc_cdc_net	file:
+xor	doshift/lcdoshift.h	70;"	d
+xor_eq	doshift/lcdoshift.h	76;"	d

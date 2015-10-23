@@ -1,7 +1,7 @@
 /*
  * NVRAM variable manipulation (Linux user mode half)
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: nvram_linux.c 365067 2012-10-26 15:51:28Z $
+ * $Id: nvram_linux.c 496107 2014-08-11 09:29:41Z $
  */
 
 #include <stdio.h>
@@ -34,6 +34,13 @@
 #include <bcmnvram.h>
 
 #include "ambitCfg.h" //Foxconn add, FredPeng, 04/17/2009
+
+#define CODE_BUFF	16
+#define HEX_BASE	16
+
+#define VALIDATE_BIT(bit) do { if ((bit < 0) || (bit > 31)) return NULL; } while (0)
+
+
 #define PATH_DEV_NVRAM "/dev/nvram"
 
 /* wklin added, 12/13/2006 */
@@ -105,7 +112,7 @@ nvram_init(void *unused)
 		goto err;
 	}
 
-	fcntl(nvram_fd, F_SETFD, FD_CLOEXEC);
+	(void)fcntl(nvram_fd, F_SETFD, FD_CLOEXEC);
 
 	return 0;
 
@@ -117,7 +124,7 @@ err:
 char *
 nvram_get(const char *name)
 {
-	size_t count = strlen(name) + 1;
+	ssize_t count = strlen(name) + 1;
 	char tmp[100], *value;
 	unsigned long *off = (unsigned long *) tmp;
 
@@ -146,6 +153,49 @@ nvram_get(const char *name)
 		free(off);
 
 	return value;
+}
+
+
+char *
+nvram_get_bitflag(const char *name, const int bit)
+{
+	VALIDATE_BIT(bit);
+	char *ptr = nvram_get(name);
+	unsigned long nvramvalue = 0;
+	unsigned long bitflagvalue = 1;
+
+	if (ptr) {
+		bitflagvalue = bitflagvalue << bit;
+		nvramvalue = strtoul(ptr, NULL, HEX_BASE);
+		if (nvramvalue) {
+			nvramvalue = nvramvalue & bitflagvalue;
+		}
+	}
+	return ptr ? (nvramvalue ? "1" : "0") : NULL;
+}
+
+int
+nvram_set_bitflag(const char *name, const int bit, const int value)
+{
+	VALIDATE_BIT(bit);
+	char nvram_val[CODE_BUFF];
+	char *ptr = nvram_get(name);
+	unsigned long nvramvalue = 0;
+	unsigned long bitflagvalue = 1;
+
+	memset(nvram_val, 0, sizeof(nvram_val));
+
+	if (ptr) {
+		bitflagvalue = bitflagvalue << bit;
+		nvramvalue = strtoul(ptr, NULL, HEX_BASE);
+		if (value) {
+			nvramvalue |= bitflagvalue;
+		} else {
+			nvramvalue &= (~bitflagvalue);
+		}
+	}
+	snprintf(nvram_val, sizeof(nvram_val)-1, "%lx", nvramvalue);
+	return nvram_set(name, nvram_val);
 }
 
 int

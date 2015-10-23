@@ -1,7 +1,7 @@
 #
 # Broadcom Linux Router Makefile
 # 
-# Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+# Copyright (C) 2014, Broadcom Corporation. All Rights Reserved.
 # 
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -171,6 +171,16 @@ export CFLAGS += -DBCMWPS
 #export CFLAGS += -DWFA_WPS_20_TESTBED
 endif
 
+ifeq ($(CONFIG_BT_IGMP),y)
+# WPS_NFC
+export CFLAGS += -DBT_IGMP_SUPPORT
+endif
+
+ifeq ($(CONFIG_NFC),y)
+# WPS_NFC
+export CFLAGS += -D__CONFIG_NFC__
+endif
+
 ifeq ($(CONFIG_EMF),y)
 export CFLAGS += -D__CONFIG_EMF__
 endif
@@ -239,19 +249,27 @@ endif
 ifeq ($(CONFIG_OPENSSL),y)
 export CFLAGS += -DSUPPORT_REMOTE_HTTPS
 endif
-
+ifeq ($(CONFIG_REMOTE_SMB_CONF),y)
+CFLAGS += -DREMOTE_SMB_CONF
+endif
+ifeq ($(CONFIG_REMOTE_USER_CONF),y)
+export CFLAGS += -DREMOTE_USER_CONF
+endif
+ifeq ($(CONFIG_USERSETUP),y)
+CFLAGS += -DUSERSETUP_SUPPORT
+endif
+ifeq ($(CONFIG_CLOUD_XAGENT_CONF),y)
+CFLAGS += -DXAGENT_CLOUD_SUPPORT
+endif
 ifeq ($(CONFIG_QOS_AUTO_CHECK_BW),y)
 export CFLAGS += -DQOS_AUTO_CHECK_BANDWIDTH
 endif
-
 ifeq ($(CONFIG_WPS_V20),y)
 export CFLAGS += -DINCLUDE_WPS_V20
 endif
-
 ifeq ($(CONFIG_5G_AUTO_CHANNEL),y)
 export CFLAGS += -DINCLUDE_5G_AUTO_CHANNEL
 endif
-
 ifneq (2_4,$(LINUX_VERSION))
 CRAMFSDIR := cramfs
 else
@@ -264,6 +282,13 @@ endif
 
 ifeq ($(CONFIG_ACCESSCONTROL),y)
 export CFLAGS += -DINCLUDE_ACCESSCONTROL
+endif
+ifeq ($(CONFIG_GUEST_MANAGE),y)
+CFLAGS += -DGUEST_MANAGE_SUPPORT
+endif
+
+ifeq ($(ENABLE_QUICK_QOS),y)
+export CFLAGS += -DINCLUDE_QUICK_QOS
 endif
 
 export CFLAGS += -DINCLUDE_UCP
@@ -281,7 +306,6 @@ export CFLAGS += -DBCM5301X
 export CFLAGS += -DACS_INTF_DETECT_PATCH
 export CFLAGS +=  -DCONFIG_RUSSIA_IPTV
 export CFLAGS += -DVIDEO_STREAMING_QOS
-export CFLAGS += -DSPEEDTEST_SUPPORT
 ifeq ($(INCLUDE_FBWIFI_FLAG),y)
 export CFLAGS += -DFBWIFI_FLAG
 endif
@@ -320,10 +344,19 @@ export CFLAGS += -DSTA_MODE
 export CFLAGS += -DPPP_RU_DESIGN
 export CFLAGS += -DEXT_ACS
 export CFLAGS += -DVLAN_SUPPORT
+export CFLAGS += -DARP_PROTECTION
 export CFLAGS += -DINCLUDE_DETECT_AP_MODE
+export CFLAGS += -DINCLUDE_APP_SYSTEM
+ifeq ($(CONFIG_EXTENDER_MODE),y)
+export CFLAGS += -DCONFIG_EXTENDER_MODE
 endif
-
-
+ifeq ($(CONFIG_SMART_MESH),y)
+export CFLAGS += -DCONFIG_SMART_MESH
+endif
+ifeq ($(CONFIG_ARLO),y)
+export CFLAGS += -DARLO_SUPPORT
+endif
+endif
 
 
 
@@ -405,6 +438,7 @@ endef
 # note : the dongle target is only for after pre-build 
 obj-$(CONFIG_USBAP) += bmac dongle
 
+obj-y += mpstat
 # always build libbcmcrypto
 obj-y += libbcmcrypto
 
@@ -518,7 +552,6 @@ obj-y += parser
 ifeq ($(CONFIG_VOIP),y)
 obj-y += voipd
 endif
-
 
 ifeq ($(CONFIG_ACOS_MODULES),y)
 #obj-y += ../../ap/acos
@@ -645,6 +678,10 @@ endif
 	fi
 	#	$(MAKE) acos-install
 	#water, 08/11/2009
+	rm -rf $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/build
+	rm -rf $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/source
+	rm -rf $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/modules.*
+	rm -rf $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/extra
 	find $(TARGETDIR) -name .svn  | xargs rm -rf
 	rm -rf $(TARGETDIR)/usr/bin/[
 	rm -rf $(TARGETDIR)/usr/bin/[[
@@ -656,8 +693,10 @@ endif
 	$(STRIP) $(TARGETDIR)/bin/eapd
 ifeq ($(PROFILE),R7000)
 	install -d $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/usbprinter
-	install usbprinter/GPL_NetUSB.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/usbprinter
-	install usbprinter/NetUSB.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/usbprinter
+	#install usbprinter/GPL_NetUSB.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/usbprinter
+	#install usbprinter/NetUSB.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/usbprinter
+	install usbprinter/bypassNetUSB/GPL_NetUSB.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/usbprinter
+	install usbprinter/bypassNetUSB/NetUSB.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/usbprinter
 	install usbprinter/KC_BONJOUR $(TARGETDIR)/usr/bin
 	install usbprinter/KC_PRINT $(TARGETDIR)/usr/bin
 	install -d $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/ufsd
@@ -667,17 +706,25 @@ ifeq ($(PROFILE),R7000)
 	install utelnetd/utelnetd $(TARGETDIR)/bin
 	install arm-uclibc/netgear-streaming-db $(TARGETDIR)/etc
 	install utelnetd/ookla $(TARGETDIR)/bin
-#	$(STRIP) $(TARGETDIR)/usr/bin/wsdl2h
-#	$(STRIP) $(TARGETDIR)/usr/bin/xmllint
-#	$(STRIP) $(TARGETDIR)/usr/bin/xmlcatalog
+	install fbwifi/fbwifi $(TARGETDIR)/bin
+	$(STRIP) $(TARGETDIR)/bin/fbwifi
+	# reduce the size here	
+	#$(STRIP) $(TARGETDIR)/usr/bin/xmllint
+	#$(STRIP) $(TARGETDIR)/usr/bin/xmlcatalog
 	$(STRIP) $(TARGETDIR)/lib/libssl.so
 	$(STRIP) $(TARGETDIR)/lib/libcrypto.so
 	$(STRIP) $(TARGETDIR)/usr/local/sbin/openvpn
 	$(STRIP) $(TARGETDIR)/bin/wget
 	$(STRIP) $(TARGETDIR)/sbin/curl
 	$(STRIP) $(TARGETDIR)/usr/sbin/tcpdump*
+	$(STRIP) $(TARGETDIR)/usr/sbin/zip
 	$(STRIP) $(TARGETDIR)/usr/lib/libcurl.a
 	$(STRIP) $(TARGETDIR)/usr/lib/libcurl.so*
+	$(STRIP) $(TARGETDIR)/usr/sbin/zipsplit
+	#$(STRIP) $(TARGETDIR)/usr/bin/wsdl2h
+	$(STRIP) $(TARGETDIR)/usr/lib/libstdc++.so.6
+	#$(STRIP) $(TARGETDIR)/bin/fbwifi
+	cp -f $(PLATFORMDIR)/hosts $(TARGETDIR)/etc/hosts
 	#remove uncessary file
 	rm -r -f $(TARGETDIR)/usr/share/doc
 	rm -r -f $(TARGETDIR)/usr/share/man
@@ -704,7 +751,6 @@ ifeq ($(CONFIG_IPERF),y)
 endif
 
 
-
 ifneq (2_4,$(LINUX_VERSION))
 ifeq ("$(CONFIG_USBAP)","y")
 	echo "=====> Don't delete wl_high.ko for USBAP"
@@ -724,8 +770,8 @@ endif
 endif
 	# Prepare filesystem
 	cd $(TARGETDIR) && $(TOP)/misc/rootprep.sh
-	cp -f $(PLATFORMDIR)/acsd $(TARGETDIR)/usr/sbin/acsd
-	cp -f $(PLATFORMDIR)/acs_cli $(TARGETDIR)/usr/sbin/acs_cli
+#	cp -f $(PLATFORMDIR)/acsd $(TARGETDIR)/usr/sbin/acsd
+#	cp -f $(PLATFORMDIR)/acs_cli $(TARGETDIR)/usr/sbin/acs_cli
 
 ifeq ($(CONFIG_SQUASHFS), y)
 	###########################################
@@ -912,7 +958,29 @@ else
 		rm -f $(LINUXDIR)/.config.chk ; \
 	fi
 endif
-
+ifeq ($(CONFIG_NFC), y)
+	if ! grep -q "CONFIG_PLAT_MUX_CONSOLE=y" $(LINUXDIR)/.config ; then \
+		cp $(LINUXDIR)/.config $(LINUXDIR)/.config.chk ; \
+		sed -e "s/# CONFIG_PLAT_MUX_CONSOLE is not set/CONFIG_PLAT_MUX_CONSOLE=y/g" $(LINUXDIR)/.config.chk > \
+		$(LINUXDIR)/.config ; \
+		rm -f $(LINUXDIR)/.config.chk ; \
+	fi
+	# Force UP before we fix NFC GKI communication issue
+	if grep -q "CONFIG_SMP=y" $(LINUXDIR)/.config ; then \
+		cp $(LINUXDIR)/.config $(LINUXDIR)/.config.chk ; \
+		sed -e "s/CONFIG_SMP=y/# CONFIG_SMP is not set/g" $(LINUXDIR)/.config.chk > \
+		$(LINUXDIR)/.config ; \
+		rm -f $(LINUXDIR)/.config.chk ; \
+		echo "# CONFIG_TINY_RCU is not set" >> $(LINUXDIR)/.config ; \
+	fi
+else
+	if grep -q "CONFIG_PLAT_MUX_CONSOLE=y" $(LINUXDIR)/.config ; then \
+		cp $(LINUXDIR)/.config $(LINUXDIR)/.config.chk ; \
+		sed -e "s/CONFIG_PLAT_MUX_CONSOLE=y/# CONFIG_PLAT_MUX_CONSOLE is not set/g" $(LINUXDIR)/.config.chk > \
+		$(LINUXDIR)/.config ; \
+		rm -f $(LINUXDIR)/.config.chk ; \
+	fi
+endif
 	# Make kernel config again if changed
 	if ! cmp $(LINUXDIR)/.config $(LINUXDIR)/.config.tmp ; then \
 		$(MAKE) -C $(LINUXDIR) $(SUBMAKE_SETTINGS) oldconfig ; \
@@ -925,7 +993,11 @@ endif
 ifneq (2_4,$(LINUX_VERSION))
 busybox-1.x/Config.h: dummy
 	cd busybox-1.x && rm -f Config.h && ln -sf include/autoconf.h Config.h && touch Config.h
-	cd busybox-1.x && cp configs/bbconfig-$(CONFIG_BUSYBOX_CONFIG)_$(PROFILE) .config && $(MAKE) clean
+ifneq ($(PROFILE),)	# PROFILE eq R6300v2 || R6250
+	+cd busybox-1.x && cp configs/bbconfig-$(CONFIG_BUSYBOX_CONFIG)_$(PROFILE) .config && $(MAKE) clean
+else
+	cd busybox-1.x && cp configs/bbconfig-$(CONFIG_BUSYBOX_CONFIG) .config && make clean
+endif
 
 busybox: busybox-1.x/Config.h
 	$(MAKE) -C busybox-1.x ARCH=$(ARCH) INSTALL
@@ -1167,6 +1239,8 @@ endif
 
 ifeq (2_6_36,$(LINUX_VERSION))
 iptables:
+	$(MAKE) -C iptables-1.4.12 BINDIR=/usr/sbin LIBDIR=/usr/lib \
+	    KERNEL_DIR=$(LINUXDIR) DO_IPV6=1
 
 iptables-install:
 ifeq ($(CONFIG_IPTABLES),y)
@@ -1321,6 +1395,36 @@ else
 	# Prevent to use generic rules"
 	@true
 endif
+# NFC
+nfc:
+ifneq (,$(and $(filter y,$(CONFIG_NFC)),$(wildcard nfc/Makefile)))
+	+$(MAKE) -C nfc EXTRA_LDFLAGS=$(EXTRA_LDFLAGS)
+else
+	# Prevent to use generic rules"
+	@true
+endif
+
+nfc-install:
+ifeq ($(CONFIG_NFC),y)
+	+$(if $(wildcard nfc/Makefile), \
+	    $(MAKE) -C nfc INSTALLDIR=$(INSTALLDIR) EXTRA_LDFLAGS=$(EXTRA_LDFLAGS) install \
+	   , \
+	    @true \
+	  )
+else
+	# Prevent to use generic rules"
+	@true
+endif
+
+nfc-clean:
+ifeq ($(CONFIG_NFC),y)
+	[ ! -f nfc/Makefile ] || $(MAKE) -C nfc clean
+else
+	# Prevent to use generic rules"
+	@true
+endif
+
+
 acos_link:
 ifneq ($(PROFILE),)
 	cd ../../project/acos/include; rm -f ambitCfg.h; ln -s ambitCfg_$(FW_TYPE)_$(PROFILE).h ambitCfg.h
@@ -1347,6 +1451,13 @@ gpl-install:
 
 gpl-clean:
 	$(MAKE) -C ../../ap/gpl clean
+
+.PHONY:fbwifi	
+fbwifi:
+	$(MAKE) -C ../../ap/acos/fbwifi CROSS=$(CROSS_COMPILE) STRIPTOOL=$(STRIP)
+
+fbwifi-clean:
+	$(MAKE) -C ../../ap/acos/fbwifi clean
 
 #Leon Lv Add below for UBD,Apr 15,2008
 .PHONY:ubd opendns

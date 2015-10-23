@@ -882,7 +882,8 @@ create_image (struct bar_progress *bp, double dl_total_time, bool done)
   */
   int dlbytes_size = 1 + MAX (size_grouped_len, 11);
   int progress_size = bp->width - (4 + 2 + dlbytes_size + 8 + 14);
-
+  /* Foxconn modify start, Alex Zhang, 01/03/2013 */
+  char str[8]="";
   /* The difference between the number of bytes used,
      and the number of columns used. */
   int bytes_cols_diff = 0;
@@ -895,16 +896,22 @@ create_image (struct bar_progress *bp, double dl_total_time, bool done)
     {
       int percentage = 100.0 * size / bp->total_length;
       assert (percentage <= 100);
-
+      sprintf (str, "%d", percentage);
+      update_status_file(str, 4, getpid());//http percentage
       if (percentage < 100)
         sprintf (p, "%2d%% ", percentage);
-      else
-        strcpy (p, "100%");
+      //else
+        //strcpy (p, "100%");
       p += 4;
     }
   else
+  {
+    calc_ftp_percentage(size_grouped, str);
+    update_status_file(str, 4, getpid());//ftp percentage
     APPEND_LITERAL ("    ");
-
+  }
+  /* Foxconn modify end, Alex Zhang, 01/03/2013 */
+  
   /* The progress bar: "[====>      ]" or "[++==>      ]". */
   if (progress_size && bp->total_length > 0)
     {
@@ -979,23 +986,30 @@ create_image (struct bar_progress *bp, double dl_total_time, bool done)
       *p++ = ' ';
     }
 
+  /* Foxconn modify start, Alex Zhang, 01/03/2013 */
   /* " 12.52K/s" */
   if (hist->total_time > 0 && hist->total_bytes)
     {
-      static const char *short_units[] = { "B/s", "K/s", "M/s", "G/s" };
+      static const char *short_units[] = { "B/s", "KB/s", "MB/s", "GB/s" };
       int units = 0;
       /* Calculate the download speed using the history ring and
          recent data that hasn't made it to the ring yet.  */
       wgint dlquant = hist->total_bytes + bp->recent_bytes;
       double dltime = hist->total_time + (dl_total_time - bp->recent_start);
       double dlspeed = calc_rate (dlquant, dltime, &units);
-      sprintf (p, " %4.*f%s", dlspeed >= 99.95 ? 0 : dlspeed >= 9.995 ? 1 : 2,
+      sprintf (p, "%4.*f%s", dlspeed >= 99.95 ? 0 : dlspeed >= 9.995 ? 1 : 2,
                dlspeed, short_units[units]);
+      update_status_file(p, 5, getpid());//speed
+
+    
+      sprintf (p, "%lld", dlquant);
+      update_status_file(p, 6, getpid());//bytes already download
+
       move_to_end (p);
     }
   else
     APPEND_LITERAL (" --.-K/s");
-
+  /* Foxconn modify end, Alex Zhang, 01/03/2013 */
   if (!done)
     {
       /* "  eta ..m ..s"; wait for three seconds before displaying the ETA.
@@ -1038,6 +1052,8 @@ create_image (struct bar_progress *bp, double dl_total_time, bool done)
         skip_eta:
           APPEND_LITERAL ("             ");
         }
+    //status=4 downloading
+    update_status_file("4", 3, getpid());  /* Foxconn modify, Alex Zhang, 01/03/2013 */
     }
   else
     {
@@ -1066,16 +1082,16 @@ create_image (struct bar_progress *bp, double dl_total_time, bool done)
 
 /* Print the contents of the buffer as a one-line ASCII "image" so
    that it can be overwritten next time.  */
-
+ /* Foxconn modify start, Alex Zhang, 01/03/2013 */
 static void
 display_image (char *buf)
 {
-  bool old = log_set_save_context (false);
-  logputs (LOG_VERBOSE, "\r");
-  logputs (LOG_VERBOSE, buf);
-  log_set_save_context (old);
+  //bool old = log_set_save_context (false);
+  //logputs (LOG_VERBOSE, "\r");
+  //logputs (LOG_VERBOSE, buf);
+  //log_set_save_context (old);
 }
-
+ /* Foxconn modify end, Alex Zhang, 01/03/2013 */
 static void
 bar_set_params (const char *params)
 {

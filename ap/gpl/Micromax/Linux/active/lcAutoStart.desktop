@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=LongCheer  AutoRun
+Name[en_US]=LongCheer AutoRun
+Exec=xhost +
+SwallowExec=
+SwallowTitle=
+Terminal=false
+TerminalOptions=
+Type=Application
+URL=
+X-KDE-SubstituteUID=false
+X-GNOME-Autostart-enabled=true
+GenericName[en_US]=

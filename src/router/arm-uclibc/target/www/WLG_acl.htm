@@ -106,7 +106,7 @@ function valid_add()
 {
  if(document.forms[0].MacSelect && parseInt(document.forms[0].MacSelect.length)==64)
  {
-   alert("<%1622%>");
+   alert("<%1783%>");
    return false;
  }
  return true;
@@ -118,9 +118,9 @@ function valid_edit(type)
  if(cf.macaddr.value.length == 0)//not select
  {
  if(type == 0)
- alert("<%1623%>");
+ alert("<%1784%>");
  else if(type == 1)
- alert("<%1624%>"); 
+ alert("<%1785%>"); 
  return false;
  }
  return true;
@@ -137,20 +137,20 @@ function showWpsAlert()
 {
     var cf = document.forms[0];
     if(cf.show_wps_alert.value == "1")
-        alert("<%56%>");
+        alert("<%66%>");
 }
 
 //Foxconn added start, Wins, 06/22/2011, @WPS v2.0
 function checkData()
 {
     var cf = document.forms[0];
-    var acl_mac_num = "<%1625%>";
+    var acl_mac_num = "<%1786%>";
     var needGrayOutWPS = 0;
 
     if (cf.accessLimit.checked) {
         if (acl_mac_num == "0")
         {
-            //if (!confirm("<%1626%>")){
+            //if (!confirm("<%1787%>")){
               //  return false;
             //}
             needGrayOutWPS = 1;
@@ -174,20 +174,20 @@ function checkData()
 
 </HEAD>
 <BODY  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="change_size();init_data();showWpsAlert();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%57%>">
-<img class="body-image" src="<%58%>">
+<img class="cover-image" src="<%74%>">
+<img class="body-image" src="<%75%>">
 <div id="full-page-container">
 
 <form id="target"  action="wlan_acl.cgi" method="post" name="formname">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-  <img class="subtop-image" src="<%59%>">
-<div class="subhead2"> <%1495%></div>
+  <img class="subtop-image" src="<%76%>">
+<div class="subhead2"> <%1658%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%61%>"  onclick="buttonClick(this,'<%61%>'); return checkData();"  type="submit" name="apply" class="button-apply" > <span class="roundleft_apply" ><%62%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%63%>" onClick="buttonClick(this,'<%63%>');location.href='<%355%>'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%64%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%78%>"  onclick="buttonClick(this,'<%78%>'); return checkData();"  type="submit" name="apply" class=<%79%> > <span class="<%80%>" ><%81%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="<%82%>">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%83%>" onClick="buttonClick(this,'<%83%>');location.href='<%417%>'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%84%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -195,7 +195,7 @@ function checkData()
     
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <TR>
-      <TD align="left" nowrap colspan="2" ><input type="checkbox" name="accessLimit" value="1" <%1627%> ><a href="javascript:loadhelp('WLG_acl','control')" tabindex="-1"><b><%1628%></b></a></td></tr>
+      <TD align="left" nowrap colspan="2" ><input type="checkbox" name="accessLimit" value="1" <%1788%> ><a href="javascript:loadhelp('WLG_acl','control')" tabindex="-1"><b><%1789%></b></a></td></tr>
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <tr>
       <td align="center" colspan="2" >
@@ -203,15 +203,15 @@ function checkData()
         <table border="1" cellpadding="0" cellspacing="0" width="100%">
           <tr>
             <td nowrap width="10%" align="center"><span class="thead">&nbsp;</span></td>
-            <td nowrap width="45%" align="center"><span class="thead"><%644%></span></td>
-            <td nowrap width="45%" align="center"><span class="thead"><%645%></span></td></tr>
-          <%1629%></table>
+            <td nowrap width="45%" align="center"><span class="thead"><%730%></span></td>
+            <td nowrap width="45%" align="center"><span class="thead"><%731%></span></td></tr>
+          <%1790%></table>
         </td></tr>
     <TR>
       <TD nowrap align=center colspan="2" >
-        &nbsp;&nbsp;&nbsp;<button type="submit" value="<%588%>" name="add" class="button-rule" onclick="buttonClick(this,'<%588%>');return(valid_add());"><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%588%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> 
-        &nbsp;&nbsp;&nbsp;<button type="submit" value="<%589%>" name="edit" class="button-rule" onclick="buttonClick(this,'<%589%>');return(valid_edit(0));"><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%589%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> 
-        &nbsp;&nbsp;&nbsp;<button type="submit" value="<%590%>" name="delete" class="button-rule" onclick="buttonClick(this,'<%590%>');return(valid_edit(1));"><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%590%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr> 
+        &nbsp;&nbsp;&nbsp;<button type="submit" value="<%674%>" name="add" class="button-rule" onclick="buttonClick(this,'<%674%>');return(valid_add());"><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%674%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> 
+        &nbsp;&nbsp;&nbsp;<button type="submit" value="<%527%>" name="edit" class="button-rule" onclick="buttonClick(this,'<%527%>');return(valid_edit(0));"><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%527%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> 
+        &nbsp;&nbsp;&nbsp;<button type="submit" value="<%675%>" name="delete" class="button-rule" onclick="buttonClick(this,'<%675%>');return(valid_edit(1));"><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%675%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr> 
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     </table></div></td></tr>
 <tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="WLG_acl_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
@@ -219,17 +219,17 @@ function checkData()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%266%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%267%> </span>
       </div>
 
 
 
   <input type="hidden" name="macaddr" value="">
   <input type="hidden" name="devicename" value="">
-  <input type="hidden" name="show_wps_alert" value="<%239%>">
+  <input type="hidden" name="show_wps_alert" value="<%272%>">
 <a name="helpframe-anchor"></a>
 </form>
 </div>

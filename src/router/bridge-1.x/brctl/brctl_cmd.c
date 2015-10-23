@@ -1,3 +1,4 @@
+/* Modified by Broadcom Corp. Portions Copyright (c) Broadcom Corp, 2009. */
 /*
  * Copyright (C) 2000 Lennert Buytenhek
  *
@@ -81,6 +82,10 @@ static int br_cmd_delbr(int argc, char*const* argv)
 	}
 }
 
+/*
+ * XXX, PR76663 Added wait option for addif interface(s) to wait till the
+ * added bridge port transitions to FORWARDING state.
+ */
 static int wait_to_forward_state(const char *br_ifname, const char *ifname)
 {
 	int err;
@@ -140,6 +145,7 @@ static int br_cmd_addif(int argc, char *const* argv)
 
 		switch(err) {
 		case 0:
+			/* XXX, PR76663 Wait till the port changes to forward state */
 			if (waitarg && wait_to_forward_state(brname, ifname))
 				break;
 			continue;

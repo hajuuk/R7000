@@ -1,7 +1,7 @@
 /*
  * Northstar coma mode.
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: hndcoma.c 400139 2013-05-03 02:31:23Z $
+ * $Id: hndcoma.c 406135 2013-06-06 04:57:34Z $
  */
 
 #include <linux/proc_fs.h>

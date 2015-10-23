@@ -138,7 +138,7 @@ function CheckAdverTimeVal(vField)
 		return false;
 	}
 	if((vField.value >1440 )||(vField.value <= 0 )){
-		alert(vField.name + " <%1333%>");
+		alert(vField.name + " <%1480%>");
 		vField.value = vField.form.hiddenAdverTime.value;
 		vField.focus();
 		return false;
@@ -160,7 +160,7 @@ function CheckTimeToLiveVal(vField)
 		return false	
 	}
 	if((vField.value > 255 )||(vField.value <= 0 )){
-		alert(vField.name + " <%1334%>")
+		alert(vField.name + " <%1481%>")
 		vField.value = vField.form.hiddenTimeToLive.value
 		vField.focus()
 		return false 
@@ -205,21 +205,21 @@ function init()
 </script>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="change_size(); init();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%57%>">
-<img class="body-image" src="<%58%>">
+<img class="cover-image" src="<%74%>">
+<img class="body-image" src="<%75%>">
 <div id="full-page-container">
 
 <form id="target"  name="formname" method="POST" action="upnp.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
  
-<img class="subtop-image" src="<%59%>">
-<div class="subhead2"> <%366%></div>
+<img class="subtop-image" src="<%76%>">
+<div class="subhead2"> <%435%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%61%>"  onClick="buttonClick(this,'<%61%>');return finishchech()" type="submit" name="apply" class="button-apply" > <span class="roundleft_apply" ><%62%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%63%>" onClick="buttonClick(this,'<%63%>');location.href='UPNP_upnp.htm'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%64%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;&nbsp;<button value="<%63%>" OnClick="buttonClick(this,'<%642%>');fresh();" type="button" name="refresh" class="button-rule" ><span class="roundleft_button"><span class="refresh-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%642%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%78%>"  onClick="buttonClick(this,'<%78%>');return finishchech()" type="submit" name="apply" class=<%79%> > <span class="<%80%>" ><%81%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="<%82%>">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%83%>" onClick="buttonClick(this,'<%83%>');location.href='UPNP_upnp.htm'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%84%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;&nbsp;<button value="<%83%>" OnClick="buttonClick(this,'<%728%>');fresh();" type="button" name="refresh" class="button-rule" ><span class="roundleft_button"><span class="refresh-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%728%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -229,35 +229,35 @@ function init()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 
-<tr><td nowrap width="46%"><input type="checkbox" name="UPnP" value="UPnP"><B><a href="javascript:loadhelp('UPNP_upnp','turnon')" tabindex="-1"><%1335%></a></B></td>
+<tr><td nowrap width="46%"><input type="checkbox" name="UPnP" value="UPnP"><B><a href="javascript:loadhelp('UPNP_upnp','turnon')" tabindex="-1"><%1482%></a></B></td>
 <td nowrap width="54%"></td></tr>
  
-<tr><td nowrap width="46%"><B><a href="javascript:loadhelp('UPNP_upnp','adv')" tabindex="-1"><%1336%></a> </B><%1337%></td>
-<td nowrap width="54%" align="right"><input type="text" class="num" name="AdverTime" size="5" maxlength="4" value="<%1338%>" onFocus="this.select();" ></td>
+<tr><td nowrap width="46%"><B><a href="javascript:loadhelp('UPNP_upnp','adv')" tabindex="-1"><%1483%></a> </B><%1484%></td>
+<td nowrap width="54%" align="right"><input type="text" class="num" name="AdverTime" size="5" maxlength="4" value="<%1485%>" onFocus="this.select();" ></td>
 </tr>
 
 <tr>
- <td nowrap width="46%"><B><a href="javascript:loadhelp('UPNP_upnp','live')" tabindex="-1"><%1339%></a></b> <%1340%></td>
-	<td nowrap width="54%" align="right"><input type="text" class="num" name="TimeToLive" size="4" maxlength="3" value="<%1341%>" onFocus="this.select();" ></td>
+ <td nowrap width="46%"><B><a href="javascript:loadhelp('UPNP_upnp','live')" tabindex="-1"><%1486%></a></b> <%1487%></td>
+	<td nowrap width="54%" align="right"><input type="text" class="num" name="TimeToLive" size="4" maxlength="3" value="<%1488%>" onFocus="this.select();" ></td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
- <td colspan="2"><b><a href="javascript:loadhelp('UPNP_upnp','table')" tabindex="-1"><%1342%></a></b></td>
+ <td colspan="2"><b><a href="javascript:loadhelp('UPNP_upnp','table')" tabindex="-1"><%1489%></a></b></td>
 </tr>
 
 <tr>
 <td colspan="2">
 
 <table border ="1" cellpadding ="0" cellspacing ="0" width="100%">
- <TR><TD width="10%" align="center"><span class="thead"><%1302%></span></TD>
- 	<TD width="15%" align="center"><span class="thead"><%605%></span></TD>
+ <TR><TD width="10%" align="center"><span class="thead"><%1449%></span></TD>
+ 	<TD width="15%" align="center"><span class="thead"><%691%></span></TD>
  	
-	 <TD width="15%" align="center"><span class="thead"><%1343%></span></TD>
-	 <TD width="15%" align="center"><span class="thead"><%1344%></span></TD>
-	 <TD width="25%" align="center"><span class="thead"><%449%></span></TD>
+	 <TD width="15%" align="center"><span class="thead"><%1490%></span></TD>
+	 <TD width="15%" align="center"><span class="thead"><%1491%></span></TD>
+	 <TD width="25%" align="center"><span class="thead"><%533%></span></TD>
 	</TR> 
-	<!><%1345%><!>
+	<!><%1492%><!>
 </table>
 </td>
 </tr>
@@ -272,18 +272,18 @@ function init()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%266%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%267%> </span>
       </div>
 
 
  
 
-<input type="hidden" value="<%1346%>" name="hiddenTurnUPnPOn">
-<input type="hidden" value="<%1338%>" name="hiddenAdverTime">
-<input type="hidden" value="<%1341%>" name="hiddenTimeToLive">
+<input type="hidden" value="<%1493%>" name="hiddenTurnUPnPOn">
+<input type="hidden" value="<%1485%>" name="hiddenAdverTime">
+<input type="hidden" value="<%1488%>" name="hiddenTimeToLive">
 
 <a name="helpframe-anchor"></a>
 </form>

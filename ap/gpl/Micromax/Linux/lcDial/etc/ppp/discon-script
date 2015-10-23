@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# description: chat script via com port when disconnect
+#
+MYHWPATH=/usr/local/lcDial
+
+"$MYHWPATH"/sbin/chat -v					\
+	TIMEOUT		10				\
+	ABORT		'\nBUSY\r'			\
+	ABORT		'\nNO ANSWER\r'			\
+	ABORT		'\nRINGING\r\n\r\nRINGING\r'	\
+    ABORT           '\nUsername/Password Incorrect\r'   \
+	SAY		"Beginning close connect...\n"		\
+    ''		ATH              \
+	NO\ CARRIER		AT				\
+    OK      ATE0V1          \
+    OK      ATS0=0          \
+    OK      \c                \
+	SAY     "closing...$TELEPHONE\n"            \

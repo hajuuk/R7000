@@ -1,0 +1,112 @@
+<html>
+<head>
+<%11%>
+<title><%3171%></title> 
+<link rel="stylesheet" type="text/css" href="style.css">
+<script language="JavaScript" type="text/javascript">
+<!-- Start Script
+function CloseWindow()
+{
+ top.window.opener=null;
+ top.window.close();
+}
+function msg_close()
+{
+ alert("<%3151%>");
+ CloseWindow();
+}
+function back_fun()
+{
+    //location.href=document.forms[0].back_file.value;
+	url = "http://"+location.host+"/" + document.forms[0].back_file.value;
+	top.location.href=url;
+}
+function next_fun()
+{
+    location.href=document.forms[0].next_file.value;
+}
+// End Script -->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
+<form name="formname" method="POST" action="usb_fail.cgi"> 
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+  <tr>
+   <td valign="top" align="center">
+     <h1><br><%3089%></h1>
+     <ul>     
+     </ul>
+   </td>
+  </tr>    
+<tr>
+   <td align="center">
+     <h1><br><%3185%> <%3186%></h1>
+     <ul>     
+     </ul>
+   </td>
+  </tr>
+  
+<%3187%>
+    <tr>
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+  </tr>
+<tr>
+<td valign="top" align="left">
+   <ul> 
+   <p><strong><%3188%></p></strong>
+     <p><%3189%></p>    
+     </ul>
+   </td>
+</tr>
+<%3190%>
+<%3191%>
+<tr>
+<td valign="top" align="left">
+   <ul> 
+   <p><strong><%3188%></p></strong>
+     <p><%3192%></p>   
+     </ul>
+   </td>
+</tr>
+<%3193%>
+  <tr>
+    <td>
+     <ul><%3194%><%3185%><%3195%>&nbsp;&nbsp;&nbsp;&nbsp;
+</ul>
+    <!--
+    <ul><%3196%>&nbsp;&nbsp;&nbsp;&nbsp;
+    </ul>
+    -->
+    <ul><%3197%> <%3185%> <%3198%>&nbsp;&nbsp;&nbsp;&nbsp;
+</ul>    
+    </td>
+  </tr>
+  <!--
+  <tr>
+   <td>
+     <ul>Click <strong>Back</strong> to return to the <strong><p>Broadband Account Settings</p></strong> screen:&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" name="next" value="&nbsp;&nbsp;Back&nbsp;&nbsp;" onclick="back_fun();">
+     </ul>
+   </td>
+  </tr>
+  -->
+  <tr>
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+  </tr>  
+    <tr><td align="center">
+  	<ul>
+	<input type="button" name="b_done" value="   <%1448%>   " onClick="msg_close()">
+  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <!--
+    <input type="button" name="next" value="   <%1570%>   " onclick="back_fun();">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    -->
+	<input type="button" name="b_done" value="   <%1556%>   " onClick="next_fun();">
+	</ul>
+</td></tr>  
+</table>
+<input type="hidden" name="back_file" value="start.htm">
+<input type="hidden" name="next_file" value="Modem_isp.htm">
+</form>
+</body>
+</html>

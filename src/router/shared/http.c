@@ -1,7 +1,7 @@
 /*
  * Generic HTTP routines
  *
- * Copyright (C) 2011, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: http.c 241182 2011-02-17 21:50:03Z $
+ * $Id: http.c 435851 2013-11-12 10:17:29Z $
  */
 
 #include <stdio.h>
@@ -77,7 +77,11 @@ wget(int method, const char *server, char *buf, size_t count, off_t offset)
 		return (0);
 	}
 
-	strncpy(url, server, sizeof(url));
+	if (strlen(server) >= sizeof(url)) {
+		dprintf("wget: server url is too long\n");
+		return 0;
+	}
+	strcpy(url, server);
 
 	/* Parse URL */
 	if (!strncmp(url, "http://", 7)) {

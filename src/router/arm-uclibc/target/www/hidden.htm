@@ -1,0 +1,101 @@
+<html>
+<head>
+<%11%>
+<title>Smart Wizard</title>
+<link rel="stylesheet" type="text/css" href="form.css">
+<script type="text/javascript">
+<!-- hide script from old browsers
+function selectEdit(value)
+{
+	if (value == 0)
+	    document.forms[0].select.value = 0;
+	else if (value == 1)
+		document.forms[0].select.value = 1;
+	else if (value == 5)
+		document.forms[0].select.value = 5;	
+}
+function do_submit()
+{
+    document.forms[0].submit();
+}
+function CloseWindow()
+{
+ top.window.opener=null;
+ top.window.close();
+}
+function msg_close()
+{
+ setTimeout('do_submit()',3000);
+ alert("Close this window. Most browsers will close when you click OK. \nIf your browser asks, follow the prompts to close and exit the browser.");
+ CloseWindow();
+}
+// -->
+</script>
+<style type="text/css">
+TD {FONT-SIZE: 10pt; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif}
+H1 {FONT-WEIGHT: bold; FONT-SIZE: 18pt; BACKGROUND: white; COLOR: #09c; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif}
+P { FONT-SIZE: 10pt; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif }
+.prgbar { font-family:Arial; padding:0px; height: 20px; width: 200px; font-weight: bolder; font-size: 10pt; border: 1px solid; border-color: #09c; color: #0000FF}
+</style>
+</head>
+
+<body bgcolor="#ffffff" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0">
+<form name="pm_hiddenpage" action="usbWan2Eth.cgi" method="post">
+<p>
+<div align="center">
+
+<table BORDER="0" CELLSPACING="1" CELLPADDING="0" width="100%">
+
+ <tr>
+    <td align="center">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br><br></td>
+ </tr>
+ 
+ <tr>
+    <td align="center"><h1>Hidden Function For WWAN</h1></td>
+ </tr>
+
+ <tr> 
+    <td background="liteblue.gif" height="12">&nbsp;</td>
+ </tr>
+ <tr>
+    <td align="center"><h1>Dump Connection Log:</h1></td>
+ </tr>
+<tr>
+	<td nowrap colspan="2" align="center"><INPUT type="submit" name="DumpLog" value="DumpLog">
+</tr>
+
+ <tr> 
+    <td background="liteblue.gif" height="12">&nbsp;</td>
+ </tr>  
+  <tr>
+    <td align="center"><h1>WAN to Ethernet State:</h1></td>
+ </tr>
+  <tr>
+    <td align="center" >
+    <br>
+    <input type="radio" name="CA_ON" value="1" <%3334%> onClick="selectEdit(5)" ><b> Enable WAN to Ethernet Port
+    </b><br><br></td>
+ </tr>
+ 
+ <tr>
+    <td align="center">
+    <input type="radio" name="CA_ON" value="1" <%3335%> onClick="selectEdit(1)" ><B> Disable WAN to Ethernet Port</B>
+    <br><br></td>
+ </tr>
+ <tr>
+    <td align="center">
+    <input type="button" name="Apply" value="   Apply  " onClick="this.form.submit();msg_close();"></td>
+ </tr> 
+ 
+</table>
+</div>
+<input type="hidden" name="select" value="0"> 
+</form>
+</BODY>
+
+</HTML>

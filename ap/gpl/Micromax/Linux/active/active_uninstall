@@ -1,0 +1,11 @@
+#! /bin/bash
+
+if [ "$(ps aux | grep -v grep | grep LCACTIVOR.jar  | awk '{print $2}')" != "" ]
+then
+	kill -9 $(ps aux | grep -v grep | grep LCACTIVOR.jar  | awk '{print $2}')
+fi
+
+
+
+
+

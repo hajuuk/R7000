@@ -1,0 +1,28 @@
+#!/bin/bash
+# description: after connected get rx/tx flux data
+
+if [ "x${1}" = "x" ]
+then
+    PPPLINKNAME="/var/run/ppp-LcPhone.pid"
+
+    if [ ! -f $PPPLINKNAME ]
+    then
+        exit 0
+    fi
+
+    PPPNAME=`cat $PPPLINKNAME | grep ppp`
+else
+    PPPNAME=${1}
+fi
+
+if [ "x${PPPNAME}" = "x" ]
+then
+    exit 0
+fi
+
+RXBYTES=`cat /proc/net/dev | grep ${PPPNAME} | awk  -F ':' '{print $2}' | awk '{print $1}'` 
+TXBYTES=`cat /proc/net/dev | grep ${PPPNAME} | awk  -F ':' '{print $2}' | awk '{print $9}'` 
+
+echo "0,${RXBYTES},${TXBYTES}"
+
+exit 0

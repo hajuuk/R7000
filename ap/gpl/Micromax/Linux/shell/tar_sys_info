@@ -1,0 +1,47 @@
+#!/bin/bash
+# description: get sys log and pc config info
+
+#check whether the user is root
+
+if [ `id | awk '{print $1}'` != "uid=0(root)" ]
+then
+    echo -e "You must run the process by root!"
+    echo -e "Finished, press any key to exit."
+    read -n 1
+    clear
+    exit
+fi
+
+SCRIPTPATH=$(cd $(dirname $0); pwd)
+INSTALLPATH="${SCRIPTPATH}/.."
+
+if [ -f /etc/issue ]
+then
+   cp -f /etc/issue .
+fi
+
+if [ -d ${INSTALLPATH}/log ]
+then 
+   cp -rf ${INSTALLPATH}/log .
+   mv -f log ourlog
+fi
+
+
+if [ -d ${INSTALLPATH}/config/log ]
+then
+   cp -rf ${INSTALLPATH}/config/log .
+   mv -f log logconfig
+fi
+
+if [ -d /var/log ]
+then
+   cp -rf /var/log .
+   mv -f log systemlog
+fi
+
+tar czf SysInfo.tar.gz issue ourlog logconfig systemlog
+
+rm -f issue
+rm -rf ourlog
+rm -rf logconfig
+rm -rf systemlog

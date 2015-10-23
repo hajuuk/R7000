@@ -1068,6 +1068,11 @@ struct net_device {
 
 	/* phy device may attach itself for hardware timestamping */
 	struct phy_device *phydev;
+	
+#ifdef BCMFA
+	bool			fa_on;
+#endif
+
 	/* foxconn wklin added start, 11/06/2008 */
     #define NETIF_ACOSFLAGS_NATHOOK    1      /* an acos nat enabled if */
     #define NETIF_ACOSFLAGS_WANHOOK    2      /* an acos nat enabled if */

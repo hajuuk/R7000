@@ -1,0 +1,22 @@
+1. Supported devices
+	------------------------------
+	longcheer cm55   	1c9e:9e00
+	longcheer wm6100 	1c9e:9604
+	longcheer wm7608	1c9e:9603
+	longcheer wm71		1c9e:9800
+	------------------------------
+2. How to install?
+	------------------------------
+	make
+	make install
+	------------------------------
+3. How to uninstall?
+	------------------------------
+	make uninstall
+	------------------------------
+4. How to run?
+	------------------------------
+	modprobe lctserial
+	------------------------------
+
+

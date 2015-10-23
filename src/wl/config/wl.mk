@@ -1,7 +1,7 @@
 # Helper makefile for building Broadcom wl device driver
 # This file maps wl driver feature flags (import) to WLFLAGS and WLFILES_SRC (export).
 #
-# Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+# Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
 # 
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -14,11 +14,19 @@
 # WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-# $Id: wl.mk 384173 2013-02-09 01:51:04Z $
+# $Id: wl.mk 534370 2015-02-13 05:37:36Z $
 
 
+
+ifeq ($(BCMDBG_PINGTRACK), 1)
+WLFLAGS += -DBCMDBG_PINGTRACK
+WLFILES_SRC_LO += src/wl/sys/wlc_ptrack.c
+endif
 
 # debug/internal
+ifeq ($(WL_EXPORT_CURPOWER),1)
+	WLFLAGS += -DWL_EXPORT_CURPOWER
+endif
 ifeq ($(DEBUG),1)
 	WLFLAGS += -DBCMDBG -DWLTEST -DRWL_WIFI -DWIFI_ACT_FRAME -DWLRWL -DWL_EXPORT_CURPOWER
 	WLRWL = 1
@@ -76,6 +84,14 @@ ifeq ($(WLATF),1)
 endif
 
 
+ifeq ($(NTGRARLO), 1)
+	WLFLAGS += -DNTGRARLO
+endif
+
+ifneq ($(WLC_MAX_UCODE_BSS),)
+	WLFLAGS += -DWLC_MAX_UCODE_BSS=$(WLC_MAX_UCODE_BSS)
+endif
+
 #ifdef BCMDBG_MEM
 ifeq ($(BCMDBG_MEM),1)
 	WLFLAGS += -DBCMDBG_MEM
@@ -91,8 +107,17 @@ endif
 #ifdef PKTQ_LOG
 ifeq ($(PKTQ_LOG),1)
 	WLFLAGS += -DPKTQ_LOG
+	ifeq ($(SCB_BS_DATA),1)
+		WLFILES_SRC_HI += src/wl/sys/wlc_bs_data.c
+		WLFLAGS += -DSCB_BS_DATA
+	endif
 endif
 #endif
+
+ifeq ($(PSPRETEND),1)
+	WLFLAGS += -DPSPRETEND
+	WLFLAGS += -DWL_CS_PKTRETRY -DWL_CS_RESTRICT_RELEASE
+endif
 
 #ifdef BCMDBG_TRAP
 # CPU debug traps (lomem access, divide by 0, etc) are enabled except when mogrified out for
@@ -151,8 +176,8 @@ ifeq ($(WL_HIGH),1)
 		ifeq ($(BCMUSBDEV_EP_FOR_RPCRETURN),1)
 			WLFLAGS += -DBCMUSBDEV_EP_FOR_RPCRETURN
 		endif
-		ifeq ($(WLMEDIA_LARGE_DNGL_AGG),1)
-			WLFLAGS += -DWLMEDIA_LARGE_DNGL_AGG
+		ifeq ($(BCMUSBDEV_COMPOSITE),1)
+			WLFLAGS += -DBCMUSBDEV_COMPOSITE
 		endif
 	endif
 endif
@@ -269,6 +294,9 @@ ifeq ($(WL),1)
 	WLFILES_SRC_HI += src/wl/sys/wlc_rate.c
 	WLFILES_SRC_HI += src/wl/sys/wlc_stf.c
 	WLFILES_SRC_HI += src/wl/sys/wlc_lq.c
+	ifneq ($(WLOBSSPROT),0)
+		WLFLAGS += -DWL_OBSSPROT
+	endif
 	ifneq ($(WLWSEC),0)
 		WLFLAGS += -DWLWSEC
 		WLFILES_SRC_HI += src/wl/sys/wlc_security.c
@@ -277,6 +305,13 @@ ifeq ($(WL),1)
 	WLFILES_SRC_HI += src/wl/sys/wlc_scb.c
 	WLFILES_SRC_HI += src/wl/sys/wlc_rate_sel.c
 	WLFILES_SRC_HI += src/wl/sys/wlc_scb_ratesel.c
+	WLFILES_SRC_HI += src/wl/sys/wlc_macfltr.c
+
+        ifeq ($(WL_PROXDETECT),1)
+		WLFLAGS += -DWL_PROXDETECT
+		WLFILES_SRC_HI += src/wl/proxd/src/wlc_pdsvc.c
+		WLFILES_SRC_HI += src/wl/proxd/src/wlc_pdrssi.c
+	endif
 
 #ifdef WL_LPC
 	ifeq ($(WL_LPC),1)
@@ -332,6 +367,9 @@ ifeq ($(WL),1)
 			WLFLAGS += -DWL_AP_TPC
 		endif
 #endif
+		ifeq ($(WL_CHANSPEC_TXPWR_MAX),1)
+			WLFLAGS += -DWL_CHANSPEC_TXPWR_MAX
+		endif
 	endif
 	WLFILES_SRC_HI += src/wl/sys/wlc_dfs.c
 #ifdef WL11D
@@ -860,6 +898,16 @@ ifeq ($(DPSTA),1)
 endif
 #endif
 
+#ifdef SMARTMESH
+ifeq ($(SMARTMESH),1)
+        WLFLAGS += -DSMARTMESH
+endif
+#endif
+
+ifeq ($(WAR_A6100_SEND_BAR_ADDBA),1)
+        WLFLAGS += -DWAR_A6100_SEND_BAR_ADDBA
+endif
+
 #ifndef LINUX_HYBRID
 # Router IBSS Security Support
 ifeq ($(ROUTER_SECURE_IBSS),1)
@@ -971,6 +1019,10 @@ endif
 ifeq ($(WLPROBRESP_SW),1)
 	WLFLAGS += -DWLPROBRESP_SW
 	WLFILES_SRC_HI += src/wl/sys/wlc_probresp.c
+ifeq ($(WLPROBRESP_MAC_FILTER),1)
+	WLFLAGS += -DWLPROBRESP_MAC_FILTER
+	WLFILES_SRC_HI += src/wl/sys/wlc_probresp_mac_filter.c
+endif
 endif
 #endif
 
@@ -1229,8 +1281,16 @@ endif
 ifeq ($(WOWL),1)
 	WLFLAGS += -DWOWL
 	WLFILES_SRC_HI += src/wl/sys/d11ucode_wowl.c
+	WLFILES_SRC_HI += src/wl/sys/d11ucode_p2p.c
+	WLFILES_SRC_HI += src/wl/sys/d11ucode_ge40.c
+	WLFILES_SRC_HI += src/wl/sys/d11ucode_ge24.c
 	WLFILES_SRC_HI += src/wl/sys/wlc_wowl.c
 	WLFILES_SRC_HI += src/wl/sys/wowlaestbls.c
+endif
+ifeq ($(WOWL_OS_OFFLOADS),1)
+ifneq ($(WLTEST),1)
+	WLFLAGS += -DWOWL_OS_OFFLOADS
+endif
 endif
 #endif
 
@@ -1333,6 +1393,13 @@ endif
 
 #ifdef WLMCHAN
 ifeq ($(WLMCHAN),1)
+ifeq ($(WL_HIGH),1)
+	WLFLAGS += -DWLTXPWR_CACHE
+else
+	ifneq ($(PHY_WLSRVSDB),1)
+		WLFLAGS += -DWLTXPWR_CACHE
+	endif
+endif
 	WLFLAGS += -DWLMCHAN
 	WLFILES_SRC_HI += src/wl/sys/wlc_mchan.c
 ifndef WLMULTIQUEUE
@@ -1397,6 +1464,19 @@ ifeq ($(WLMEDIA),1)
 	WLFLAGS += -DWLMEDIA_PEAKRATE
 endif
 #endif
+
+ifeq ($(WLMEDIA_FLAMES),1)
+        WLFLAGS += -DWLMEDIA_FLAMES
+endif
+
+
+#ifdef WL_WFDLL
+ifeq ($(WL_WFDLL),1)
+	WLFLAGS += -DWFD_PHY_LL
+ifeq ($(WL_WFDLLDBG),1)
+	WLFLAGS += -DWFD_PHY_LL_DEBUG
+endif
+endif
 
 #ifdef WLPKTDLYSTAT
 ifeq ($(WLPKTDLYSTAT),1)
@@ -1915,6 +1995,13 @@ ifeq ($(WET_TUNNEL),1)
 endif
 #endif
 
+#ifdef WLDURATION
+ifeq ($(WLDURATION),1)
+	WLFLAGS += -DWLDURATION
+	WLFILES_SRC += src/wl/sys/wlc_duration.c
+endif
+#endif
+
 #ifdef WL_BCN_COALESCING
 ifeq ($(WL_BCN_COALESCING),1)
 	WLFLAGS += -DWL_BCN_COALESCING
@@ -1922,8 +2009,81 @@ ifeq ($(WL_BCN_COALESCING),1)
 endif
 #endif
 
+#ifdef TINY_PKTJOIN
+ifeq ($(TINY_PKTJOIN),1)
+	WLFLAGS += -DTINY_PKTJOIN
+endif
+#endif
 
+#ifdef WL_RXEARLYRC
+ifeq ($(WL_RXEARLYRC),1)
+	WLFLAGS += -DWL_RXEARLYRC
+endif
+#endif
+
+#ifdef WLMCHAN
+#ifdef PROP_TXSTATUS
+ifeq ($(WLMCHAN),1)
+ifeq ($(PROP_TXSTATUS),1)
+	ifeq ($(WL_SPLIT),0)
+		WLFLAGS += -DWLMCHANPRECLOSE
+		WLFLAGS += -DBBPLL_PARR
+	endif
+endif
+endif
+#endif  ## PROP_TXSTATUS
+#endif  ## WLMCHAN
+
+#ifdef WLRXOV
+ifeq ($(WLRXOV),1)
+	WLFLAGS += -DWLRXOV
+endif
+#endif
+
+ifeq ($(PKTC_DONGLE),1)
+	WLFLAGS += -DPKTC_DONGLE
+endif
 
 # Legacy WLFILES pathless definition, please use new src relative path
 # in make files. 
 WLFILES := $(sort $(notdir $(WLFILES_SRC)))
+
+ifeq ($(AMPDU_HOSTREORDER), 1)
+	WLFLAGS += -DBRCMAPIVTW=128 -DWLAMPDU_HOSTREORDER
+endif
+
+# Work-arounds for ROM compatibility - relocate struct fields that were excluded in ROMs,
+# but are required in ROM offload builds.
+ifeq ($(WLC_PUB_OLDROM_BEAMFORMING_FIELDS),1)
+	EXTRA_DFLAGS += -DWLC_PUB_OLDROM_BEAMFORMING_FIELDS
+endif
+
+ifeq ($(WLC_STF_OLDROM_BEAMFORMING_FIELDS),1)
+	EXTRA_DFLAGS += -DWLC_STF_OLDROM_BEAMFORMING_FIELDS
+endif
+
+
+# used by the 4335c0 ROM. It avoids ROM abandons for every function that invokes this macro due to
+# additional devices added post tape-out.
+ifeq ($(IS_SINGLEBAND_5G_4335C0_ROM_COMPAT),1)
+	EXTRA_DFLAGS += -DIS_SINGLEBAND_5G_4335C0_ROM_COMPAT
+endif
+
+ifeq ($(WL_EVDATA_BSSINFO),1)
+	EXTRA_DFLAGS += -DWL_EVDATA_BSSINFO
+endif
+
+# Work-arounds for ROM compatibility to handle ROM that exclude MFP support.
+ifeq ($(WLC_MFP_ROM_COMPAT),1)
+	EXTRA_DFLAGS += -DWLC_MFP_ROM_COMPAT
+endif
+
+# This feature disables mac sleep on 11AC router platforms (zero packet loss).
+ifeq ($(WLMAC_RX_NO_SLEEP),1)
+	WLFLAGS += -DWLMAC_RX_NO_SLEEP
+endif
+
+# This feature disables mac sleep on 11AC router platforms (zero packet loss).
+ifeq ($(WLMAC_RX_NO_SLEEP),1)
+	WLFLAGS += -DWLMAC_RX_NO_SLEEP
+endif

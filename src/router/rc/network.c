@@ -1,7 +1,7 @@
 /*
  * Network services
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2014, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -816,7 +816,12 @@ start_lan(void)
          * inserted later again.
          */
 #ifdef AP_MODE
+#ifdef CONFIG_EXTENDER_MODE
+        if(!acosNvramConfig_match("enable_extender_mode", "1"))
+		    system("/sbin/rmmod br_dns_hijack support_mode=3>/dev/null");
+#else /* !CONFIG_EXTENDER_MODE */			
         system("/sbin/rmmod br_dns_hijack 2>/dev/null");
+#endif /* !CONFIG_EXTENDER_MODE */
 #endif
         /* Foxconn added end pling 03/18/2011 */
 
@@ -948,8 +953,12 @@ start_lan(void)
          * module to make GUI management, USB access
          * possible.
          */
-#ifdef STA_MODE
-        else if (nvram_match("enable_sta_mode", "1")) {
+#if (defined STA_MODE) || (defined CONFIG_EXTENDER_MODE)
+        else if (nvram_match("enable_sta_mode", "1")
+#ifdef CONFIG_EXTENDER_MODE
+            || nvram_match("enable_extender_mode", "1")
+#endif
+        ) {
 
             char command[128];
 #ifdef SAMBA_ENABLE
@@ -1013,6 +1022,34 @@ start_lan(void)
 #endif /* __CONFIG_EMF__ */
 	} /* For loop */
 
+#ifdef CONFIG_EXTENDER_MODE
+    if(acosNvramConfig_match("enable_extender_mode", "1"))
+	{
+	    /* Configure dpsta module */
+	    if (dpsta) {
+		    int32 i = 0;
+
+		    /* Enable and set the policy to in-band and cross-band
+		     * forwarding policy.
+		     */
+		    info.enable = 1;
+		    info.policy = atoi(nvram_safe_get("dpsta_policy"));
+		    info.lan_uif = atoi(nvram_safe_get("dpsta_lan_uif"));
+		    foreach(name, nvram_safe_get("dpsta_ifnames"), next) {
+			    strcpy(info.upstream_if[i], name);
+			    i++;
+		    }
+		    dpsta_ioctl("dpsta", &info, sizeof(dpsta_enable_info_t)); 
+
+		    /* Bring up dpsta interface */
+		    ifconfig("dpsta", IFUP, NULL, NULL);
+	    } else {
+		    info.enable = 0;
+		    dpsta_ioctl("dpsta", &info, sizeof(dpsta_enable_info_t)); 
+		    ifconfig("dpsta", 0, NULL, NULL);
+	    }
+	}
+#endif /* CONFIG_EXTENDER_MODE */	
 
 	/* Set initial QoS mode for LAN ports. */
 	set_et_qos_mode();
@@ -1093,13 +1130,571 @@ stop_lan(void)
 
 
 		/* Bring down LAN interface */
-#if 0 /* foxconn wklin removed start, 03/24/2011 */
-		ifconfig(lan_ifname, 0, NULL, NULL);
+#if ((defined WLAN_REPEATER) || (defined CONFIG_EXTENDER_MODE)) && (defined INCLUDE_DUAL_BAND)
+//#if 0 /* foxconn wklin removed start, 03/24/2011 */
+        if(acosNvramConfig_match("enable_extender_mode", "1"))
+		{
+		    ifconfig(lan_ifname, 0, NULL, NULL);
+
+		    /* Bring down bridged interfaces */
+		    if (strncmp(lan_ifname, "br", 2) == 0) {
+		    	lan_ifnames = nvram_safe_get(br_prefix);
+		    	foreach(name, lan_ifnames, next) {
+	    			if (!strcmp(name, "dpsta")) {
+	    				char dp_uif[80], *dpnext;
+	    				foreach(dp_uif, nvram_safe_get("dpsta_ifnames"),
+	    				        dpnext) {
+	    					eval("wlconf", dp_uif, "down");
+	    					ifconfig(dp_uif, 0, NULL, NULL);
+	    				}
+	    			}
+	    			sleep(1);/*borg*/
+	    			eval("wlconf", name, "down");
+	    			ifconfig(name, 0, NULL, NULL);
+	    			eval("brctl", "delif", lan_ifname, name);
+#ifdef __CONFIG_EMF__
+	    			/* Remove ifface from emf */
+	    			if (nvram_match("emf_enable", "1"))
+	    				eval("emf", "del", "iface", lan_ifname, name);
+#endif /* __CONFIG_EMF__ */
+	    		}
+#ifdef __CONFIG_EMF__
+	    		/* Stop the EMF for this LAN */
+	    		eval("emf", "stop", lan_ifname);
+	    		/* Remove Bridge from igs */
+	    		eval("igs", "del", "bridge", lan_ifname);
+	    		eval("emf", "del", "bridge", lan_ifname);
+#endif /* __CONFIG_EMF__ */
+    			eval("brctl", "delbr", lan_ifname);
+    		}
+	    	/* Bring down specific interface */
+	    	else if (strcmp(lan_ifname, ""))
+	    		eval("wlconf", lan_ifname, "down");
+		}		
+//#endif /* foxconn wklin removed end, 03/24/2011 */
+#endif /* ((defined WLAN_REPEATER) || (defined CONFIG_EXTENDER_MODE)) && (defined INCLUDE_DUAL_BAND) */
+        if(!acosNvramConfig_match("enable_extender_mode", "1"))
+		{
+            /* Foxconn add start, Jenny Zhao, 03/29/2011  @AP Mode*/
+            /* We should delete eth0 from br0 for router mode */
+            if (nvram_match("enable_ap_mode", "0")) {
+                char cmd[64];
+                /* Delete WAN interface from br0. */
+                sprintf(cmd, "brctl delif %s %s", nvram_get("lan_ifname"), nvram_get("wan_ifname"));
+                system(cmd);
+            }
+            /* Foxconn add end, Jenny Zhao, 03/29/2011 */
+        }
+	}
+
+	unlink("/tmp/ldhclnt");
+
+	dprintf("done\n");
+}
+
+#ifdef CONFIG_EXTENDER_MODE
+/* Foxconn add start, Max Ding, 11/10/2011 @wps auto change mode */
+void
+add_wl_if_for_br0(void)
+{
+	char *lan_ifname = nvram_safe_get("lan_ifname");
+	char br_ifname[80];
+	char name[80], *next;
+	char tmp[100];
+	int i, s, dpsta = 0;
+	struct ifreq ifr;
+	char buf[255], *ptr;
+	char lan_stp[10];
+	char *lan_ifnames;
+	char lan_dhcp[10];
+	char lan_ipaddr[15];
+	char lan_netmask[15];
+	char lan_hwaddr[15];
+	char hwaddr[ETHER_ADDR_LEN];
+	dpsta_enable_info_t info = { 0 };
+
+	/* The NVRAM variable lan_ifnames contains all the available interfaces. 
+	 * This is used to build the unbridged interface list. Once the unbridged list
+	 * is built lan_interfaces is rebuilt with only the interfaces in the bridge
+	 */
+
+	dprintf("%s\n", lan_ifname);
+
+	/* Foxconn, added by MJ., for DLAN AUTO IP, 2010.05.18 */
+#ifdef DLNA
+#ifdef DLNA_DEBUG
+	char auto_ip[8];
+    strcpy(auto_ip, acosNvramConfig_get("dlna_auto_ip"));
+	cprintf("dlna_auto_ip: %s. \n", auto_ip);
+#endif
+	if(nvram_match("dlna_auto_ip", "1"))
+    {
+	    if(nvram_match("auto_ip_backup", "0"))
+	    {/* dlna_auto_ip changed from 0 to 1. */
+			nvram_set("auto_ip_backup", "1");
+			/* Set default Auto IP values. */
+			nvram_set("tmp_lan_ipaddr", nvram_get("lan_ipaddr"));
+			nvram_set("lan_ipaddr", "169.254.146.254");
+
+			nvram_set("tmp_lan_netmask", nvram_get("lan_netmask"));
+			nvram_set("lan_netmask", "255.255.0.0");
+
+			nvram_set("tmp_lan_proto", nvram_get("lan_proto"));
+            nvram_set("lan_proto", "static");
+
+			nvram_set("tmp_rip_enable", nvram_get("rip_enable"));
+            nvram_set("rip_enable", "0");
+
+			nvram_commit();
+	    }
+    }else{/* dlna_auto_ip = 0 */
+		if(nvram_match("auto_ip_backup", "1"))
+		{/* dlan_auto_ip changed from 1 to 0. */
+			/* If user had changed the value, don't use tmp values.*/
+			if(!nvram_match("tmp_lan_netmask", "null")&&
+				nvram_match(nvram_get("lan_netmask"), "255.255.0.0")){
+				nvram_set("lan_netmask", nvram_get("tmp_lan_netmask"));
+				nvram_set("tmp_lan_netmask", "null");
+			}
+			if(!nvram_match("tmp_lan_ipaddr", "null")&& 
+				nvram_match(nvram_get("lan_ipaddr"), "169.254.146.254")){
+				nvram_set("lan_ipaddr", nvram_get("tmp_lan_ipaddr"));
+				nvram_set("tmp_lan_ipaddr", "null");
+			}
+			if(!nvram_match("tmp_lan_proto", "null")&&
+				nvram_match(nvram_get("lan_proto"), "static")){
+				nvram_set("lan_proto", nvram_get("tmp_lan_proto"));
+				nvram_set("tmp_lan_proto", "null");
+			}
+			if(!nvram_match("tmp_rip_enable", "null")&&
+				nvram_match(nvram_get("rip_enable"), "0")){
+				nvram_set("rip_enable", nvram_get("tmp_rip_enable"));
+				nvram_set("tmp_rip_enable", "null");
+			}
+			nvram_set("auto_ip_backup", "0");
+			nvram_commit();
+		}
+	}
+#ifdef DLNA_DEBUG
+	cprintf("-> netmask: %s\n", nvram_get("lan_netmask"));
+	cprintf("-> lan ip: %s\n", nvram_get("lan_ipaddr"));
+	cprintf("-> dhcp server: %s\n", nvram_get("lan_proto"));
+	cprintf("-> rip: %s\n", nvram_get("rip_enable"));	
+#endif
+
+
+	//nvram_commit();
+#endif
+	/* Foxconn, ended by MJ., for DLAN AUTO IP, 2010.05.18 */
+
+
+	/* Create links */
+	//symlink("/sbin/rc", "/tmp/ldhclnt");
+
+
+	nvram_unset("br0_ifname");
+	nvram_unset("br1_ifname");
+	nvram_unset("unbridged_ifnames");
+	nvram_unset("br0_ifnames");
+	nvram_unset("br1_ifnames");
+
+#if defined(__CONFIG_EXTACS__) || defined(__CONFIG_WL_ACI__)
+	nvram_unset("acs_ifnames");
+#endif /* defined(_CONFIG_EXTACS__) || defined(__CONFIG_WL_ACI__ */
+	/* If we're a travel router... then we need to make sure we get
+	 * the primary wireless interface up before trying to attach slave
+	 * interface(s) to the bridge
+	 */
+	if (nvram_match("ure_disable", "0") && nvram_match("router_disable", "0"))
+	{
+		eval("wlconf", nvram_get("wan0_ifname"), "up");
+	}
+
+
+	/* Bring up bridged interfaces */
+	for (i = 0; i < MAX_NO_BRIDGE; i++) {
+		if (!i) {
+			lan_ifname = nvram_safe_get("lan_ifname");
+			snprintf(lan_stp, sizeof(lan_stp), "lan_stp");
+			snprintf(lan_dhcp, sizeof(lan_dhcp), "lan_dhcp");
+			snprintf(lan_ipaddr, sizeof(lan_ipaddr), "lan_ipaddr");
+			snprintf(lan_hwaddr, sizeof(lan_hwaddr), "lan_hwaddr");
+			snprintf(lan_netmask, sizeof(lan_netmask), "lan_netmask");
+			lan_ifnames = nvram_safe_get("lan_ifnames");
+		}
+		else {
+			snprintf(tmp, sizeof(tmp), "lan%x_ifname", i);
+			lan_ifname = nvram_safe_get(tmp);
+			snprintf(lan_stp, sizeof(lan_stp), "lan%x_stp", i);
+			snprintf(lan_dhcp, sizeof(lan_dhcp), "lan%x_dhcp", i);
+			snprintf(lan_ipaddr, sizeof(lan_ipaddr), "lan%x_ipaddr", i);
+			snprintf(lan_hwaddr, sizeof(lan_hwaddr), "lan%x_hwaddr", i);
+			snprintf(lan_netmask, sizeof(lan_netmask), "lan%x_netmask", i);
+			snprintf(tmp, sizeof(tmp), "lan%x_ifnames", i);
+			lan_ifnames = nvram_safe_get(tmp);
+		}
+		if (strncmp(lan_ifname, "br", 2) == 0) {
+			/* Set the bridge ifname in brX_ifname */
+			snprintf(br_ifname, sizeof(br_ifname), "br%d_ifname", i);
+			nvram_set(br_ifname, lan_ifname);
+
+			//eval("brctl", "addbr", lan_ifname);
+			
+			/* Bob added start to avoid sending router solicitation packets, 09/03/2009 */
+#ifdef INCLUDE_IPV6
+			sprintf(buf, "echo 0 > /proc/sys/net/ipv6/conf/%s/router_solicitations", lan_ifname);
+			system(buf);
+#endif
+			/* Bob added end to avoid sending router solicitation packets, 09/03/2009 */ 
+			
+			//eval("brctl", "setfd", lan_ifname, "0");
+			/* Foxconn modified by Max Ding, 09/02/2011 @repeater should enable stp */
+			//if (nvram_match(lan_stp, "0")) 
+			//	eval("brctl", "stp", lan_ifname, "off");
+			//else
+			//	eval("brctl", "stp", lan_ifname, "on");
+#ifdef __CONFIG_EMF__
+			if (nvram_match("emf_enable", "1")) 
+			{
+				if( !strcmp(lan_ifname, "br0") )
+				{
+					/* Add br0 to emf/igs only if IGMP proxy is enabled*/
+					if (nvram_match("igmp_proxying_enable", "1"))
+					{
+						eval("emf", "add", "bridge", lan_ifname);
+						eval("igs", "add", "bridge", lan_ifname);
+					}
+				}
+				else
+				{
+					eval("emf", "add", "bridge", lan_ifname);
+					eval("igs", "add", "bridge", lan_ifname);
+				}
+			}
+#endif /* __CONFIG_EMF__ */
+			memset(hwaddr, 0, sizeof(hwaddr));
+
+			foreach(name, lan_ifnames, next) {
+
+				if (strncmp(name, "wl", 2) == 0) {
+					if (!wl_vif_enabled(name, tmp)) {
+						continue; /* Ignore disabled WL VIF */
+					}
+					wl_vif_hwaddr_set(name);
+				}
+
+				/* Bring up interface. Ignore any bogus/unknown interfaces on the NVRAM list */
+                //cprintf("--> ifconfig %s up\n", name);
+                /*Foxconn, add by MJ, for debugging 5G crash. */
+#if 0
+                if(!strcmp(name, "eth2")){
+                    cprintf("give up enable eth2 for debugging.\n");
+                    continue;
+                }
+#endif
+                /*Foxconn, add-end by MJ., for debugging 5G crash. */
+				if (ifconfig(name, IFUP | IFF_ALLMULTI, NULL, NULL)){
+					perror("ifconfig");
+				} else {
+					/* Set the logical bridge address to that of the first interface */
+					if ((s = socket(AF_INET, SOCK_RAW, IPPROTO_RAW)) < 0) {
+						perror("socket");
+						continue;
+					}
+					strncpy(ifr.ifr_name, lan_ifname, IFNAMSIZ);
+					/* Foxconn modify start, Max Ding, 06/12/2012 @WPS switch bug */
+					/* WPS bug because fail to switch mode: psr-ap --> psr-psr 
+					 * root cause is dpsta's hw addr is empty in the case
+					 */
+					if (ioctl(s, SIOCGIFHWADDR, &ifr) == 0){
+						if (memcmp(ifr.ifr_hwaddr.sa_data, "\0\0\0\0\0\0", ETHER_ADDR_LEN) == 0) {
+							struct ether_addr ea;
+							strncpy(ifr.ifr_name, name, IFNAMSIZ);
+							if (ioctl(s, SIOCGIFHWADDR, &ifr) == 0) {
+								/* Check nvram var lan_hwaddr first.
+								 * If it is non-zero, set the address.
+								 */
+								if (strcmp(nvram_safe_get(lan_hwaddr), "")) {
+								ether_atoe(nvram_get(lan_hwaddr),
+										   (unsigned char *)&ea);
+								memcpy(ifr.ifr_hwaddr.sa_data, &ea,
+									   ETHER_ADDR_LEN);
+								}
+								strncpy(ifr.ifr_name, lan_ifname, IFNAMSIZ);
+								ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
+								ioctl(s, SIOCSIFHWADDR, &ifr);
+	
+								memcpy(hwaddr, ifr.ifr_hwaddr.sa_data, ETHER_ADDR_LEN);
+							}
+						}
+						else
+						{
+							memcpy(hwaddr, ifr.ifr_hwaddr.sa_data, ETHER_ADDR_LEN);
+						}
+					}
+					/* Foxconn modify end, Max Ding, 06/12/2012 */
+					close(s);
+
+					/* If not a wl i/f then simply add it to the bridge */
+					if (eval("wlconf", name, "up")) {
+						if (strcmp(name, "vlan1") && eval("brctl", "addif", lan_ifname, name))/* Foxconn modified by Max Ding, 06/12/2012 @WPS switch bug */
+							perror("brctl");
+						else {
+							snprintf(tmp, sizeof(tmp), "br%x_ifnames", i);
+							ptr = nvram_get(tmp);
+							if (ptr)
+								snprintf(buf, sizeof(buf), "%s %s", ptr, name);
+							else
+								strncpy(buf, name, sizeof(buf));
+							nvram_set(tmp, buf);
+						}
+#ifdef __CONFIG_EMF__
+						if (nvram_match("emf_enable", "1"))
+							eval("emf", "add", "iface", lan_ifname, name);
+#endif /* __CONFIG_EMF__ */
+					} else {
+						char mode[] = "wlXXXXXXXXXX_mode";
+						int unit = -1;
+
+						/* get the instance number of the wl i/f */
+						wl_ioctl(name, WLC_GET_INSTANCE, &unit, sizeof(unit));
+
+						snprintf(mode, sizeof(mode), "wl%d_mode", unit);
+
+						/* WET specific configurations */
+						if (nvram_match(mode, "wet")) {
+							/* Receive all multicast frames in WET mode */
+							ifconfig(name, IFUP | IFF_ALLMULTI, NULL, NULL);
+
+							/* Enable host DHCP relay */
+							if (nvram_match("lan_dhcp", "1"))
+								wl_iovar_set(name, "wet_host_mac", ifr.ifr_hwaddr.sa_data, ETHER_ADDR_LEN);
+						}
+						/* Dont attach the main wl i/f in wds */
+						if ((strncmp(name, "wl", 2) != 0) && (nvram_match(mode, "wds"))){
+							/* Save this interface name in unbridged_ifnames
+							 * This behaviour is consistent with BEARS release
+							 */
+							ptr = nvram_get("unbridged_ifnames");
+							if (ptr)
+								snprintf(buf, sizeof(buf), "%s %s", ptr, name);
+							else
+								strncpy(buf, name, sizeof(buf));
+							nvram_set("unbridged_ifnames", buf);
+							continue;
+						}
+
+						/* Don't add main wl i/f when proxy sta is
+						 * enabled in both bands. Instead add the
+						 * dpsta interface.
+						 */
+						if (strstr(nvram_safe_get("dpsta_ifnames"), name)) {
+#if 0 /* orig */
+							strcpy(name, !dpsta ?  "dpsta" : "");
+							dpsta++;
+
+							/* Assign hw address */
+							if ((s = socket(AF_INET, SOCK_RAW, IPPROTO_RAW)) >= 0) {
+								strncpy(ifr.ifr_name, "dpsta", IFNAMSIZ);
+								if (ioctl(s, SIOCGIFHWADDR, &ifr) == 0 &&
+								    memcmp(ifr.ifr_hwaddr.sa_data, "\0\0\0\0\0\0",
+								           ETHER_ADDR_LEN) == 0) {
+									ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
+									memcpy(ifr.ifr_hwaddr.sa_data, hwaddr, ETHER_ADDR_LEN);
+									ioctl(s, SIOCSIFHWADDR, &ifr);
+								}
+								close(s);
+							}
+#else
+							/* Assign first wl i/f as dpsta hw address */
+							if ((s = socket(AF_INET, SOCK_RAW, IPPROTO_RAW)) >= 0) {
+								strncpy(ifr.ifr_name, "dpsta", IFNAMSIZ);
+								if (ioctl(s, SIOCGIFHWADDR, &ifr) == 0 &&
+								    memcmp(ifr.ifr_hwaddr.sa_data, "\0\0\0\0\0\0",
+								           ETHER_ADDR_LEN) == 0) {
+									strncpy(ifr.ifr_name, name, IFNAMSIZ);
+									if (ioctl(s, SIOCGIFHWADDR, &ifr) == 0) {
+										strncpy(ifr.ifr_name, "dpsta", IFNAMSIZ);
+										ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
+										ioctl(s, SIOCSIFHWADDR, &ifr);
+									}
+								}
+								close(s);
+							}
+
+							strcpy(name, !dpsta ?  "dpsta" : "");
+							dpsta++;
+#endif
+						}
+					
+						eval("brctl", "addif", lan_ifname, name);
+#ifdef __CONFIG_EMF__
+						if (nvram_match("emf_enable", "1"))
+							eval("emf", "add", "iface", lan_ifname, name);
+#endif /* __CONFIG_EMF__ */
+
+						snprintf(tmp, sizeof(tmp), "br%x_ifnames", i);
+						ptr = nvram_get(tmp);
+						if (ptr)
+							snprintf(buf,sizeof(buf),"%s %s", ptr, name);
+						else
+							strncpy(buf, name, sizeof(buf));
+						nvram_set(tmp, buf);
+
+					} /*if (eval("wlconf", na.....*/
+
+				} /* if (ifconfig(name,...*/
+
+			} /* foreach().... */
+
+			if (memcmp(hwaddr, "\0\0\0\0\0\0", ETHER_ADDR_LEN) &&
+			    (s = socket(AF_INET, SOCK_RAW, IPPROTO_RAW)) >= 0) {
+				strncpy(ifr.ifr_name, lan_ifname, IFNAMSIZ);
+				ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
+				memcpy(ifr.ifr_hwaddr.sa_data, hwaddr, ETHER_ADDR_LEN);
+				ioctl(s, SIOCSIFHWADDR, &ifr);
+				close(s);
+			}
+		} /* if (strncmp(lan_ifname....*/
+		/* specific non-bridged lan i/f */
+		//else if (strcmp(lan_ifname, "")) {
+		//	/* Bring up interface */
+		//	ifconfig(lan_ifname, IFUP, NULL, NULL);
+		//	/* config wireless i/f */
+		//	eval("wlconf", lan_ifname, "up");
+		//}
+		//else
+		//	continue ; /* lanX_ifname is empty string , so donot do anything */
+	
+		/* Get current LAN hardware address */
+		if ((s = socket(AF_INET, SOCK_RAW, IPPROTO_RAW)) >= 0) {
+			char eabuf[32];
+			strncpy(ifr.ifr_name, lan_ifname, IFNAMSIZ);
+			if (ioctl(s, SIOCGIFHWADDR, &ifr) == 0)
+				nvram_set(lan_hwaddr, ether_etoa((unsigned char *)ifr.ifr_hwaddr.sa_data, eabuf));
+			close(s);
+		}
+
+#ifdef __CONFIG_EMF__
+		/* Start the EMF for this LAN */
+		start_emf(lan_ifname);
+#endif /* __CONFIG_EMF__ */
+	} /* For loop */
+
+	/* Configure dpsta module */
+	if (dpsta) {
+		int32 i = 0;
+
+		/* Enable and set the policy to in-band and cross-band
+		 * forwarding policy.
+		 */
+		info.enable = 1;
+		info.policy = atoi(nvram_safe_get("dpsta_policy"));
+		info.lan_uif = atoi(nvram_safe_get("dpsta_lan_uif"));
+		foreach(name, nvram_safe_get("dpsta_ifnames"), next) {
+			strcpy(info.upstream_if[i], name);
+			i++;
+		}
+		dpsta_ioctl("dpsta", &info, sizeof(dpsta_enable_info_t)); 
+
+		/* Bring up dpsta interface */
+		ifconfig("dpsta", IFUP, NULL, NULL);
+	} else {
+		info.enable = 0;
+		dpsta_ioctl("dpsta", &info, sizeof(dpsta_enable_info_t)); 
+		ifconfig("dpsta", 0, NULL, NULL);
+	}
+
+	/* Set initial QoS mode for LAN ports. */
+	set_et_qos_mode();
+
+	/* start syslogd if either log_ipaddr or log_ram_enable is set */
+	if (nvram_invmatch("log_ipaddr", "") || nvram_match("log_ram_enable", "1")) {
+#if !defined(__CONFIG_BUSYBOX__) || defined(BB_SYSLOGD)
+		char *argv[] = {
+			"syslogd",
+			NULL,		/* -C */
+			NULL, NULL,	/* -R host */
+			NULL
+		};
+		int pid;
+		int argc = 1;
+
+		if (nvram_match("log_ram_enable", "1"))
+			argv[argc++] = "-C";
+
+		if (nvram_invmatch("log_ipaddr", "")) {
+			argv[argc++] = "-R";
+			argv[argc++] = nvram_get("log_ipaddr");
+		}
+
+
+		_eval(argv, NULL, 0, &pid);
+#else /* Busybox configured w/o syslogd */
+		cprintf("Busybox configured w/o syslogd\n");
+#endif
+	}
+
+	dprintf("%s %s\n",
+		nvram_safe_get("lan_ipaddr"),
+		nvram_safe_get("lan_netmask"));
+
+}
+
+void
+remove_wl_if_for_br0(void)
+{
+	char *lan_ifname = nvram_safe_get("lan_ifname");
+	char name[80], *next, signal[] = "XXXXXXXX";
+	char br_prefix[20];
+	char tmp[20];
+	int i = 0;
+	char* lan_ifnames;
+
+	dprintf("%s\n", lan_ifname);
+
+	/* Stop the syslogd daemon */
+	//eval("killall", "syslogd");
+	/* release the DHCP address and kill the client */
+	//snprintf(signal, sizeof(signal), "-%d", SIGUSR2);
+	//eval("killall", signal, "udhcpc");
+	//eval("killall", "udhcpc");
+
+	/* Remove static routes */
+	//del_lan_routes(lan_ifname);
+
+	/* Bring down unbridged interfaces,if any */
+	foreach(name, nvram_safe_get("unbridged_ifnames"), next) {
+		eval("wlconf", name, "down");
+		ifconfig(name, 0, NULL, NULL);
+	}
+
+	for (i = 0; i < MAX_NO_BRIDGE; i++) {
+		if (!i) {
+			lan_ifname = nvram_safe_get("br0_ifname");
+			snprintf(br_prefix, sizeof(br_prefix), "br0_ifnames");
+		}
+		else {
+			snprintf(tmp, sizeof(tmp), "br%x_ifname", i);
+			lan_ifname = nvram_safe_get(tmp);
+			snprintf(br_prefix, sizeof(br_prefix), "br%x_ifnames",i);
+		}
+		if (!strcmp(lan_ifname, ""))
+			continue;
+
+
+		/* Bring down LAN interface */
+#if (defined WLAN_REPEATER) && (defined INCLUDE_DUAL_BAND)
+//#if 0 /* foxconn wklin removed start, 03/24/2011 */
+		//ifconfig(lan_ifname, 0, NULL, NULL);
 
 		/* Bring down bridged interfaces */
 		if (strncmp(lan_ifname, "br", 2) == 0) {
 			lan_ifnames = nvram_safe_get(br_prefix);
 			foreach(name, lan_ifnames, next) {
+			if (!strcmp(name, "vlan1")) {
+				continue;
+			}
 				if (!strcmp(name, "dpsta")) {
 					char dp_uif[80], *dpnext;
 					foreach(dp_uif, nvram_safe_get("dpsta_ifnames"),
@@ -1108,6 +1703,7 @@ stop_lan(void)
 						ifconfig(dp_uif, 0, NULL, NULL);
 					}
 				}
+				sleep(1);/*borg*/
 				eval("wlconf", name, "down");
 				ifconfig(name, 0, NULL, NULL);
 				eval("brctl", "delif", lan_ifname, name);
@@ -1145,7 +1741,10 @@ stop_lan(void)
 	unlink("/tmp/ldhclnt");
 
 	dprintf("done\n");
+
 }
+/* Foxconn add end, Max Ding, 11/10/2011 */
+#endif /* CONFIG_EXTENDER_MODE */
 
 void
 start_wl(void)
@@ -1221,7 +1820,7 @@ start_wl(void)
 	
     /*Foxconn add start by Hank 03/07/2012*/
     /*disable roam_trigger when bridge mode*/
-#ifdef STA_MODE
+#if (defined STA_MODE) || (defined CONFIG_EXTENDER_MODE)
     if(nvram_match("enable_sta_mode","1")){
         system("wl roam_trigger -100");
         system("wl -i eth2 roam_trigger -100");
@@ -1230,6 +1829,16 @@ start_wl(void)
 		system("ifconfig eth1 allmulti");
 		system("ifconfig eth2 allmulti");
 		/*Foxconn add end by Hank 06/27/2012*/
+#ifdef CONFIG_EXTENDER_MODE
+    } else if(nvram_match("enable_extender_mode","1")){
+        system("wl roam_trigger -100");
+        system("wl -i eth2 roam_trigger -100");
+		/*Foxconn add start by Hank 06/27/2012*/
+		/*Fix can not see ssdp packet in bridge mode*/
+		system("ifconfig eth1 allmulti");
+		system("ifconfig eth2 allmulti");
+		/*Foxconn add end by Hank 06/27/2012*/
+#endif /* CONFIG_EXTENDER_MODE */
     }else{
         system("wl roam_trigger 0");
         system("wl -i eth2 roam_trigger 0");
@@ -1276,12 +1885,24 @@ start_wl(void)
 	  }
       eval("wl", "assert_type", "1");
 
+     /* Foxconn added start Antony 09/18/2015 Higher the ARP/ICMP/EAPOL priority */
+        system("wl -i eth1 boost_pri_proto 7");
+        system("wl -i eth2 boost_pri_proto 7");
+
+     /* Foxconn added end Antony 09/18/2015 */
     /* Foxconn added start by Antony 02/26/2014 The wifi driver could receive/transmit all multicast packets */      
     if(nvram_match("enable_sta_mode","1"))
     {
         system("wl -i eth1 allmulti 1");
         system("wl -i eth2 allmulti 1");
     }
+#ifdef CONFIG_EXTENDER_MODE      
+    if(nvram_match("enable_extender_mode","1"))
+    {
+        system("wl -i eth1 allmulti 1");
+        system("wl -i eth2 allmulti 1");
+    }
+#endif /* CONFIG_EXTENDER_MODE */
     else
     {
         system("wl -i eth1 allmulti 0");
@@ -2223,16 +2844,40 @@ void start_wlan(void)
             eval("brctl", "addif", "br1", wlif);
         }
         else
-        {
+        {            
+            /* Foxconn Perry added start, 11/17/2014, for extender mode */
+#ifdef CONFIG_EXTENDER_MODE
+            if(acosNvramConfig_match("enable_extender_mode", "1"))
+            {
+                ; /* not to add eth1 to bridge if extender mode is enabled. */
+            } else
+#endif /* CONFIG_EXTENDER_MODE */
+            /* Foxconn Perry added end, 11/17/2014, for extender mode */        
             eval("brctl", "addif", "br0", wlif);        /* pling added 04/03/2012 */
         }
     }
+    /* Foxconn Perry added start, 11/17/2014, for extender mode */
+#ifdef CONFIG_EXTENDER_MODE
+    else if(acosNvramConfig_match("enable_extender_mode", "1"))
+    {
+        ; /* not to set vlan group if extender mode is enabled. */
+    }
+#endif /* CONFIG_EXTENDER_MODE */
+    /* Foxconn Perry added end, 11/17/2014, for extender mode */
 #ifdef VLAN_SUPPORT
     else
     	add_if_to_vlan_group(wlif);
 #endif
     	
 #else /* CONFIG_RUSSIA_IPTV */
+    /* Foxconn Perry added start, 11/17/2014, for extender mode */
+#ifdef CONFIG_EXTENDER_MODE
+    if(acosNvramConfig_match("enable_extender_mode", "1"))
+    {
+        ; /* not to set vlan group if extender mode is enabled. */
+    } else
+#endif /* CONFIG_EXTENDER_MODE */
+    /* Foxconn Perry added end, 11/17/2014, for extender mode */
 	eval("brctl", "addif", lan_ifname, wlif);
 #endif /* CONFIG_RUSSIA_IPTV */
     /* Foxconn modified end, Wins, 05/07/11, @RU_IPTV */
@@ -2251,14 +2896,38 @@ void start_wlan(void)
         }
         else
         {
+            /* Foxconn Perry added start, 11/17/2014, for extender mode */
+#ifdef CONFIG_EXTENDER_MODE
+            if(acosNvramConfig_match("enable_extender_mode", "1"))
+            {
+                ; /* not to add eth1 to bridge if extender mode is enabled. */
+            } else
+#endif /* CONFIG_EXTENDER_MODE */
+            /* Foxconn Perry added end, 11/17/2014, for extender mode */
             eval("brctl", "addif", "br0", wl1_ifname);  /* pling added 04/03/2012 */
         }
     }
+    /* Foxconn Perry added start, 11/17/2014, for extender mode */
+#ifdef CONFIG_EXTENDER_MODE
+    else if(acosNvramConfig_match("enable_extender_mode", "1"))
+    {
+        ; /* not to set vlan group if extender mode is enabled. */
+    }
+#endif /* CONFIG_EXTENDER_MODE */
+    /* Foxconn Perry added end, 11/17/2014, for extender mode */
 #ifdef VLAN_SUPPORT
     else
     	add_if_to_vlan_group(wl1_ifname);
 #endif
 #else /* CONFIG_RUSSIA_IPTV */
+    /* Foxconn Perry added start, 11/17/2014, for extender mode */
+#ifdef CONFIG_EXTENDER_MODE
+    if(acosNvramConfig_match("enable_extender_mode", "1"))
+    {
+        ; /* not to set vlan group if extender mode is enabled. */
+    } else
+#endif /* CONFIG_EXTENDER_MODE */
+    /* Foxconn Perry added end, 11/17/2014, for extender mode */
 	eval("brctl", "addif", lan_ifname, wl1_ifname);
 #endif /* CONFIG_RUSSIA_IPTV */
     /* Foxconn modified end, Wins, 05/07/11, @RU_IPTV */
@@ -2295,6 +2964,10 @@ void start_wlan(void)
                 wl_vif_hwaddr_set(if_name);
                 ifconfig(if_name, IFUP, NULL, NULL);
 #ifdef VLAN_SUPPORT
+                /* Added by Foxconn Antony start 2015/06/21  for a bssid create for extender to scan newarby ap*/
+                if(bssid_num==2)
+                    continue;
+                /* Added by Foxconn Antony end 2015/06/21 */
                 if(nvram_match("enable_vlan", "enable"))
                     add_if_to_vlan_group(if_name);
                 else if(nvram_match(NVRAM_IPTV_ENABLED, "1") && (bssid_num==1))
@@ -2322,6 +2995,10 @@ void start_wlan(void)
             {
                 wl_vif_hwaddr_set(if_name_5g);
                 ifconfig(if_name_5g, IFUP, NULL, NULL);
+                /* Added by Foxconn Antony start 2015/06/21  for a bssid create for extender to scan newarby ap*/
+                if(bssid_num==2)
+                    continue;
+                /* Added by Foxconn Antony end 2015/06/21 */
 #ifdef VLAN_SUPPORT
                 if(nvram_match("enable_vlan", "enable"))
                     add_if_to_vlan_group(if_name_5g);

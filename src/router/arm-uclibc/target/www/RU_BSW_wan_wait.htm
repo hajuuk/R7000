@@ -1,0 +1,49 @@
+<html>
+<head>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<script language=javascript type=text/javascript>
+
+var t,objFrame,loadingImg;
+
+function updateProgress()
+{
+    loadingImg = new Image();
+    loadingImg.src = "loading.gif";
+    objFrame  =document.getElementById("loading");
+    objFrame.src = loadingImg.src;  
+    t = setTimeout("load_ruwancheck();",50000);
+    
+}
+
+function load_ruwancheck()
+{
+    location.href="RU_BSW_wan_check.htm";
+}
+
+</script>
+</head>
+<body bgcolor="#ffffff" onLoad="updateProgress()">
+<form method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_BSW_wan_wait">
+<input type=hidden name=submit_flag value="wait">
+<input type=hidden name=submit_wan value="0">
+<table align="center" style="width:76%">
+
+<tr style="height:50px"><td></td></tr>
+
+<tr><td style="font-family:Arial;font-size:14px;height:15px;text-align:center; font-weight:bold; color:#9d98ff;">
+    <h2><%2378%></h2></td>
+</tr>
+    
+<tr style="height:40px"><td></td></tr>
+
+<div>
+
+<tr><td style="text-align:center;line-height:20%;" ><img id="loading" frameborder="0" border="0" ></td></tr>
+
+</div>
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,1355 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<%11%>
+<title>NETGEAR Router <%12%></title> 
+<link rel="stylesheet" href="<%13%>">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<%14%>
+<script language="javascript" type="text/javascript">
+    
+<!--
+//var countryArr = []; 
+var countryArr = new Array();
+
+countryArr['1000'] = [ 
+<%2984%>
+];
+
+countryArr['0'] = [ 
+<%2985%>
+]; 
+
+/* Australia country code: 61 */
+countryArr['61'] = [ 
+<%2986%>
+]; 
+
+/* Austria country code: 43 */
+countryArr['43'] = [ 
+<%2987%>
+]; 
+
+/* Belgium country code: 32 */
+countryArr['32'] = [ 
+<%2988%>
+]; 
+
+/* Brazil country code: 55 */
+countryArr['55'] = [ 
+<%2989%>
+]; 
+
+/* Canada country code: 1001 */
+countryArr['1001'] = [ 
+<%2990%>
+]; 
+
+/* Chile country code: 56 */
+countryArr['56'] = [ 
+<%2991%>
+]; 
+
+/* Czech country code: 420 */
+countryArr['420'] = [ 
+<%2992%>
+]; 
+
+/* Denmark country code: 45 */
+countryArr['45'] = [ 
+<%2993%>
+]; 
+
+/* Dubai country code: 971 */
+countryArr['971'] = [ 
+<%2994%>
+]; 
+
+/* Finland   */
+countryArr['358'] = [ 
+<%2995%>
+]; 
+
+/* France  */
+countryArr['33'] = [ 
+<%2996%>
+]; 
+
+/* Germany  */
+countryArr['49'] = [ 
+<%2997%>
+]; 
+
+/* Hong Kong  */
+countryArr['852'] = [ 
+<%2998%>
+]; 
+
+/*  Hungary   */
+countryArr['36'] = [ 
+<%2999%>
+]; 
+
+/*  India   */
+countryArr['91'] = [ 
+<%3000%>
+]; 
+
+/*  Indonesia   */
+countryArr['62'] = [ 
+<%3001%>
+]; 
+
+/*  Italy  */
+countryArr['39'] = [ 
+<%3002%>
+]; 
+
+/*  Malaysia  */
+countryArr['60'] = [ 
+<%3003%>
+]; 
+
+/*  Mexico  */
+countryArr['521'] = [ 
+<%3004%>
+]; 
+
+/* Netherlands */
+countryArr['31'] = [ 
+<%3005%>
+]; 
+
+/* New Zealand  */
+countryArr['64'] = [ 
+<%3006%>
+]; 
+
+/* Norway */
+countryArr['47'] = [ 
+<%3007%>
+]; 
+
+/*   Peru   */
+countryArr['51'] = [ 
+<%3008%>
+]; 
+
+/*  Philippines    */
+countryArr['63'] = [ 
+<%3009%>
+]; 
+
+/*  Poland    */
+countryArr['48'] = [ 
+<%3010%>
+];
+
+/* Portugal */
+countryArr['351'] = [ 
+<%3011%>
+]; 
+
+/* Russia */
+countryArr['7'] = [ 
+<%3012%>
+]; 
+
+/*  Singapore   */
+countryArr['65'] = [ 
+<%3013%>
+]; 
+
+/*  Slovakia   */
+countryArr['421'] = [ 
+<%3014%>
+]; 
+
+/* South Africa */
+countryArr['27'] = [ 
+<%3015%>
+]; 
+
+/* Spain */
+countryArr['34'] = [ 
+<%3016%>
+]; 
+
+/*   Sweden   */
+countryArr['46'] = [ 
+<%3017%>
+]; 
+
+/* Switzerland */
+countryArr['41'] = [ 
+<%3018%>
+]; 
+
+/*   Taiwan   */
+countryArr['886'] = [ 
+<%3019%>
+]; 
+
+/*   Thailand   */
+countryArr['66'] = [ 
+<%3020%>
+]; 
+
+/* UK */
+countryArr['44'] = [ 
+<%3021%>
+]; 
+
+/* U.S.A. */
+countryArr['1'] = [ 
+<%3022%>
+]; 
+
+/* China */
+countryArr['86'] = [ 
+<%3023%>
+]; 
+
+countryArr['9999'] = [ 
+<%3024%>
+]; 
+
+/*
+function nw_check_data()
+{
+    var cf = document.forms[0];
+
+    if(!cf.w_lock_3G.checked)
+    {
+        cf.lock_3G.value = 0;
+    }
+    else
+    {
+        cf.lock_3G.value = 1; 
+        alert("You have chosen Mobile Broadband only\r\nThe usb modem would not attach to the network with a weak 3G signal!");
+    }
+    return true;	
+}*/
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.gif";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.gif";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+function checkCPINData()
+{
+	var cf = document.forms[0];
+	
+	var state = cf.runtime_status.value;
+	
+	cf.pin_code.disabled = false;
+	if(state == "PIN Required" || state == "PIN Number Error")
+	{
+	    if (cf.pin_code.value.length < 4 || cf.pin_code.value.length > 8) 
+	    {
+	    	alert("<%3025%>");
+	    	return false;
+	    }
+	    
+	    if (cf.pin_code.value.length >= 4 && cf.pin_code.value.length <= 8) 
+	    {
+		if (cf.pin_code.value.match(/[^\x30-\x39]/))
+	    	{
+	    		alert("<%3025%>");
+	    		return false;
+	    	}
+	    }
+	}
+    
+    return true;
+}
+
+function restore_username_passwd()
+{
+    var cf = document.forms[0];
+    var username = cf.ppp_username.value;
+    var passwd = cf.ppp_passwd.value;
+	
+    if (username == "<none>") 
+        cf.ppp_username.value = "guest";
+
+    if (passwd == "<none>")
+        cf.ppp_passwd.value = "guest";
+        
+    cf.ppp_username.disabled = false;
+    cf.ppp_passwd.disabled = false;        
+}
+
+function username_passwd_convert()
+{
+    var cf = document.forms[0];
+    var username = cf.w_ppp_username.value;
+    var passwd = cf.w_ppp_passwd.value;
+    if (username == "guest")
+        cf.ppp_username.value = "<none>";
+	
+    if (passwd == "guest")
+        cf.ppp_passwd.value = "<none>";
+}
+
+function init_username_passwd_EnableOrNot()
+{
+    var cf = document.forms[0];
+    cf.ppp_username.disabled = false;
+    cf.ppp_passwd.disabled = false;
+    /*
+    if(cf.wwan_isp_setting_index.value != "0" &&
+       cf.wwan_isp_setting_index.value != "4")   
+    {
+        cf.ppp_username.disabled = true;
+        cf.ppp_passwd.disabled = true;
+    }
+    */
+    
+}
+function init_username_passwd()
+{
+    var cf = document.forms[0];
+	
+    init_username_passwd_EnableOrNot();
+	
+    if(cf.wwan_isp_setting_index.value == "4" || cf.wwan_isp_setting_index.value == "12")
+    {
+        cf.ppp_username.value = "User";
+        cf.ppp_passwd.value = "password";
+    }
+    else if(cf.wwan_isp_setting_index.value == "18")
+    {
+        cf.ppp_username.value = "claro";
+        cf.ppp_passwd.value = "claro";
+    }
+    else if(cf.wwan_isp_setting_index.value == "20")
+    {
+        cf.ppp_username.value = "oi";
+        cf.ppp_passwd.value = "oi";
+    }
+    else if(cf.wwan_isp_setting_index.value == "21")
+    {
+        cf.ppp_username.value = "tim";
+        cf.ppp_passwd.value = "tim";
+    }
+    else if(cf.wwan_isp_setting_index.value == "22")
+    {
+        cf.ppp_username.value = "iesgprs";
+        cf.ppp_passwd.value = "iesgprs2002";
+    }
+    else if(cf.wwan_isp_setting_index.value == "36")
+    {
+        cf.ppp_username.value = "eplus";
+        cf.ppp_passwd.value = "gprs";
+    }  
+    else if(cf.wwan_isp_setting_index.value == "37")
+    {
+        cf.ppp_username.value = "t-mobile";
+        cf.ppp_passwd.value = "tm";
+    } 
+    else if(cf.wwan_isp_setting_index.value == "92")
+    {
+        cf.ppp_username.value = "o2wap";
+        cf.ppp_passwd.value = "password";
+    }
+    else if(cf.wwan_isp_setting_index.value == "93")
+    {
+        cf.ppp_username.value = "faster";
+        cf.ppp_passwd.value = "web";
+    }
+    else if(cf.wwan_isp_setting_index.value == "100")
+    {
+        cf.ppp_username.value = "web";
+        cf.ppp_passwd.value = "web";
+    }
+    else if(cf.wwan_isp_setting_index.value == "101")
+    {
+        cf.ppp_username.value = "web";
+        cf.ppp_passwd.value = "web";
+    } 
+    else if(cf.wwan_isp_setting_index.value == "109")
+    {
+        cf.ppp_username.value = "o2bb";
+        cf.ppp_passwd.value = "password";
+    }  
+    else if(cf.wwan_isp_setting_index.value == "112")
+    {
+        cf.ppp_username.value = "ppp@A1plus.at";
+        cf.ppp_passwd.value = "ppp";
+    }
+    else if(cf.wwan_isp_setting_index.value == "113")
+    {
+        cf.ppp_username.value = "gprs";
+        cf.ppp_passwd.value = "<none>";
+    }
+    else if(cf.wwan_isp_setting_index.value == "114")
+    {
+        cf.ppp_username.value = "web";
+        cf.ppp_passwd.value = "web";
+    }
+    else if(cf.wwan_isp_setting_index.value == "116")
+    {
+        cf.ppp_username.value = "web@telering.at";
+        cf.ppp_passwd.value = "web";
+    }
+    else if(cf.wwan_isp_setting_index.value == "119")
+    {
+        cf.ppp_username.value = "orange";
+        cf.ppp_passwd.value = "orange";
+    }
+    else if(cf.wwan_isp_setting_index.value == "120")
+    {
+        cf.ppp_username.value = "orange";
+        cf.ppp_passwd.value = "orange";
+    }
+    else if(cf.wwan_isp_setting_index.value == "121")
+    {
+        cf.ppp_username.value = "mts";
+        cf.ppp_passwd.value = "mts";
+    }
+    else if(cf.wwan_isp_setting_index.value == "122")
+    {
+        cf.ppp_username.value = "gdata";
+        cf.ppp_passwd.value = "gdata";
+    }
+    else if(cf.wwan_isp_setting_index.value == "123")
+    {
+        cf.ppp_username.value = "beeline";
+        cf.ppp_passwd.value = "beeline";
+    }
+    else if(cf.wwan_isp_setting_index.value == "125")
+    {
+        cf.ppp_username.value = "internet";
+        cf.ppp_passwd.value = "internet";
+    }
+    else if(cf.wwan_isp_setting_index.value == "126")
+    {
+        cf.ppp_username.value = "erainternet";
+        cf.ppp_passwd.value = "erainternet";
+    }
+    else if(cf.wwan_isp_setting_index.value == "127")
+    {
+        cf.ppp_username.value = "play";
+        cf.ppp_passwd.value = "<none>";
+    }
+    else if(cf.wwan_isp_setting_index.value == "165")
+    {
+        cf.ppp_username.value = "globe";
+        cf.ppp_passwd.value = "globe";
+    }
+    else if(cf.wwan_isp_setting_index.value == "173")
+    {
+        cf.ppp_username.value = "vivo";
+        cf.ppp_passwd.value = "vivo";
+    }
+    else if(cf.wwan_isp_setting_index.value == "175")
+    {
+        cf.ppp_username.value = "webgprs";
+        cf.ppp_passwd.value = "webgprs2002";
+    }
+    else if(cf.wwan_isp_setting_index.value == "178")
+    {
+        cf.ppp_username.value = "movistar";
+        cf.ppp_passwd.value = "movistar";
+    }
+    else if(cf.wwan_isp_setting_index.value == "180")
+    {
+        cf.ppp_username.value = "vodafone";
+        cf.ppp_passwd.value = "vodafone";
+    }
+    else if(cf.wwan_isp_setting_index.value == "181")
+    {
+        cf.ppp_username.value = "orange";
+        cf.ppp_passwd.value = "orange";
+    }
+    else if(cf.wwan_isp_setting_index.value == "185")
+    {
+        cf.ppp_username.value = "data@bob.at";
+        cf.ppp_passwd.value = "ppp";
+    }
+    else if(cf.wwan_isp_setting_index.value == "186")
+    {
+        cf.ppp_username.value = "web@telering.at";
+        cf.ppp_passwd.value = "web";
+    }      
+    else if(cf.wwan_isp_setting_index.value == "193")
+    {
+        cf.ppp_username.value = "ctnet@mycdma.cn";
+        cf.ppp_passwd.value = "vnet.mobi";
+    }
+    else if(cf.wwan_isp_setting_index.value == "195")
+    {
+        cf.ppp_username.value = "mobile";
+        cf.ppp_passwd.value = "internet";
+    }       
+    else
+    {
+        cf.ppp_username.value = "<none>";
+        cf.ppp_passwd.value = "<none>";
+    }		
+}
+
+function init_access_number()
+{
+    var cf = document.forms[0];
+    cf.cid.value = "1";
+    if(cf.wwan_isp_setting_index.value == "3" ||
+       cf.wwan_isp_setting_index.value == "5" ||
+       cf.wwan_isp_setting_index.value == "6" ||
+       cf.wwan_isp_setting_index.value == "7" ||
+       cf.wwan_isp_setting_index.value == "9" ||
+       cf.wwan_isp_setting_index.value == "10" ||
+       cf.wwan_isp_setting_index.value == "11" ||
+       cf.wwan_isp_setting_index.value == "12" ||
+       cf.wwan_isp_setting_index.value == "110" ||
+       cf.wwan_isp_setting_index.value == "112" ||
+       cf.wwan_isp_setting_index.value == "113" ||
+       cf.wwan_isp_setting_index.value == "114" ||
+       cf.wwan_isp_setting_index.value == "115" ||
+       cf.wwan_isp_setting_index.value == "116" ||
+       cf.wwan_isp_setting_index.value == "117" ||
+       cf.wwan_isp_setting_index.value == "118" ||
+       cf.wwan_isp_setting_index.value == "124" ||
+       cf.wwan_isp_setting_index.value == "125" ||
+       cf.wwan_isp_setting_index.value == "126" ||
+       cf.wwan_isp_setting_index.value == "127" ||
+       cf.wwan_isp_setting_index.value == "128" ||
+       cf.wwan_isp_setting_index.value == "135" ||
+       cf.wwan_isp_setting_index.value == "138" ||
+       cf.wwan_isp_setting_index.value == "140" ||
+       cf.wwan_isp_setting_index.value == "141" ||
+       cf.wwan_isp_setting_index.value == "142" ||
+       cf.wwan_isp_setting_index.value == "143" ||
+       cf.wwan_isp_setting_index.value == "144" ||
+       cf.wwan_isp_setting_index.value == "145" ||
+       cf.wwan_isp_setting_index.value == "146" ||
+       cf.wwan_isp_setting_index.value == "147" ||
+       cf.wwan_isp_setting_index.value == "148" ||
+       cf.wwan_isp_setting_index.value == "150" ||
+       cf.wwan_isp_setting_index.value == "151" ||
+       cf.wwan_isp_setting_index.value == "152" ||
+       cf.wwan_isp_setting_index.value == "153" ||
+       cf.wwan_isp_setting_index.value == "154" ||
+       cf.wwan_isp_setting_index.value == "155" ||
+       cf.wwan_isp_setting_index.value == "156" ||
+       cf.wwan_isp_setting_index.value == "157" ||
+       cf.wwan_isp_setting_index.value == "161" ||
+       cf.wwan_isp_setting_index.value == "162" ||
+       cf.wwan_isp_setting_index.value == "163" ||
+       cf.wwan_isp_setting_index.value == "164" ||
+       cf.wwan_isp_setting_index.value == "165" ||
+       cf.wwan_isp_setting_index.value == "166" ||
+       cf.wwan_isp_setting_index.value == "167" ||
+       cf.wwan_isp_setting_index.value == "168" ||
+       cf.wwan_isp_setting_index.value == "169" ||
+       cf.wwan_isp_setting_index.value == "170" ||
+       cf.wwan_isp_setting_index.value == "171" ||
+       cf.wwan_isp_setting_index.value == "172" ||
+       cf.wwan_isp_setting_index.value == "175" ||
+       cf.wwan_isp_setting_index.value == "176" ||
+       cf.wwan_isp_setting_index.value == "177" ||
+       cf.wwan_isp_setting_index.value == "178" ||
+       cf.wwan_isp_setting_index.value == "179" ||
+       cf.wwan_isp_setting_index.value == "180" ||
+       cf.wwan_isp_setting_index.value == "181" ||
+       cf.wwan_isp_setting_index.value == "182" ||
+       cf.wwan_isp_setting_index.value == "183" ||
+       cf.wwan_isp_setting_index.value == "184" ||
+       cf.wwan_isp_setting_index.value == "185" ||
+       cf.wwan_isp_setting_index.value == "186" ||
+       cf.wwan_isp_setting_index.value == "187" ||
+       cf.wwan_isp_setting_index.value == "188" ||
+       cf.wwan_isp_setting_index.value == "189" ||
+       cf.wwan_isp_setting_index.value == "190" ||
+       cf.wwan_isp_setting_index.value == "191"  /*china mobile*/
+       )
+  
+        cf.cid.value = "5";
+    else if (cf.wwan_isp_setting_index.value == "107")
+        cf.cid.value = "2";
+    else if (cf.wwan_isp_setting_index.value == "105")
+        cf.cid.value = "3";
+    else if (cf.wwan_isp_setting_index.value == "133")
+        cf.cid.value = "5";
+    else if (cf.wwan_isp_setting_index.value == "192" || /*China unicom*/
+             cf.wwan_isp_setting_index.value == "121" ||
+             cf.wwan_isp_setting_index.value == "122" ||
+             cf.wwan_isp_setting_index.value == "123" ||
+             cf.wwan_isp_setting_index.value == "194"  
+            )
+        cf.cid.value = "0";
+    else if (cf.wwan_isp_setting_index.value == "193" || /*China unicom*/
+             cf.wwan_isp_setting_index.value == "195"  
+            )  
+        cf.cid.value = "6";      /*China Telecom*/  
+}
+function set_APN_PDPType(selectObj, optionList) 
+{ 
+    var cf = document.forms[0];
+    var len = optionList.length; 
+    for (var i=0; i < len; i++) 
+    { 
+        if(cf.wwan_isp_setting_index.value == optionList[i].val) 
+        { 
+            cf.apn.value = optionList[i].txt;
+            if(cf.wwan_isp_setting_index.value == "123")
+                cf.pdp_type.value = "1"; 
+            else if(cf.wwan_isp_setting_index.value == "156")
+            	  cf.pdp_type.value = "3";
+            else	   
+                cf.pdp_type.value = "0"; 
+        } 
+    } 
+} 
+
+function ispChk()
+{
+    var cf = document.forms[0];
+    var mode = cf.sys_mode.value;
+    //var cidValue = "<%3026%>";
+    
+    //if(mode == "HSDPA")
+    {
+        cf.cid.value = "1";
+       // cf.apn.disabled = false;
+       // cf.pdp_type.disabled = false;    
+        if(cf.wwan_isp_setting_index.value == "0")
+        {
+            cf.pdp_type.value = cf.pdp_type_org.value;
+            cf.apn.value = cf.apn_org.value;
+            //cf.ppp_username.disabled = false;
+            //cf.ppp_passwd.disabled = false;
+            cf.cid.value = "0";//for spec v.14, if ISP choice is "other",the value is *99#.
+            cf.ppp_username.value = "<none>";
+            cf.ppp_passwd.value = "<none>";
+            document.getElementById("fh3_tbody").style.display="block";
+	        return true;
+        }
+      document.getElementById("fh3_tbody").style.display="none";
+	  set_APN_PDPType("wwan_setAPN",countryArr['9999']);
+	  //Setup Access number
+        init_access_number();
+    }
+    init_username_passwd();
+}
+
+function loadSettings()
+{
+    var cf = document.forms[0];
+    var mode = cf.sys_mode.value;
+    var pdp_type = cf.pdp_type_org.value;
+    var cidValue = "<%3026%>";
+
+    var country_index = "<%3027%>";
+    cf.ppp_username.value = "<%3028%>";
+    cf.w_ppp_username.value = cf.ppp_username.value;
+    cf.ppp_passwd.value = "<%3029%>"
+    cf.w_ppp_passwd.value = cf.ppp_passwd.value;
+	
+    init_username_passwd_EnableOrNot();
+    username_passwd_convert();
+	
+    //if(mode == "HSDPA")
+    {
+        cf.pdp_type.value = cf.pdp_type_org.value;
+        cf.apn.value = cf.apn_org.value;
+        cf.wwan_country_setting_index.value = country_index;    
+        setCountry(country_index);	
+        cf.cid.value = cidValue;
+    }
+
+}
+function connectCheck()
+{
+       var cf = document.forms[0];
+       var Conn = cf.runtime_status.value;
+       var msg ="<%3030%>";
+      
+       if(Conn == "connected" || Conn == "Connected")
+               alert(msg);
+	else
+		check_data();	
+               
+	return true;
+}
+
+
+function removeOptions(selectObj) 
+{ 
+    if (typeof selectObj != 'object') 
+    { 
+        selectObj = document.getElementById(selectObj); 
+    } 
+    var len = selectObj.options.length; 
+    for (var i=0; i < len; i++) 
+    { 
+        selectObj.options[0] = null; 
+    } 
+} 
+
+function setSelectOption(selectObj, optionList, firstOption, selected) 
+{ 
+    if (typeof selectObj != 'object') 
+    { 
+        selectObj = document.getElementById(selectObj); 
+    } 
+    //clear option
+    if(selectObj)
+        removeOptions(selectObj); 
+    // select count
+    var obj = countryArr[optionList];
+    var start = 0;     
+    var len = obj.length; 
+    for (var i=0; i < len; i++) 
+    { 
+        // setup option 
+        selectObj.options[start] = new Option(obj[i].txt, obj[i].val); 
+        // choose middle 
+        if(selected == obj[i].val) 
+        { 
+            selectObj.options[start].selected = true; 
+        } 
+         start ++; 
+    } 
+} 
+
+function setCountry(province) 
+{ 
+    var cf = document.forms[0];
+    var isp_index = "<%3031%>";
+    var mode = cf.sys_mode.value;	
+    //if(mode == "HSDPA")
+    {	
+        {
+            cf.apn.disabled = false;
+            cf.pdp_type.disabled = false;    
+        }
+
+        //setSelectOption('wwan_isp_setting_index', countryArr[province], null,isp_index); 
+        setSelectOption('wwan_isp_setting_index', province, null,isp_index); 
+    } 
+}
+
+function region_init() 
+{ 
+    var country_index = "<%3027%>";
+    setSelectOption('wwan_country_setting_index', '1000', null,country_index); 
+} 
+
+var DisableDNSIP = false;
+var DisablePingIP = false;
+
+function init()
+{
+    var cf = document.forms[0];
+    var mode = cf.sys_mode.value;
+    var status = cf.runtime_status.value;
+    var t_auto_conn = cf.auto_conn.value;
+    var t_manual_conn = cf.manual_conn.value;
+    var t_auto_roaming = cf.auto_roaming.value;
+    var t_re_conn = cf.reconn.value;
+    
+    
+	setInternetConnMode();
+    cf.wwan_isp_setting.value = "<%3031%>";
+    cf.wwan_country_setting.value = "<%3027%>";
+    cf.wwan_isp_setting_index.value = cf.wwan_isp_setting.value;
+    cf.wwan_country_setting_index.value = cf.wwan_country_setting.value;	
+    cf.pin_code.value= "<%3032%>";
+    
+    var checkIPIndex, current_wan_type,enable_hw_detect, failover_hw_time;
+    var dflag_DNS = cf.checkIPAssign[0].checked;
+    var dflag_IP = cf.checkIPAssign[1].checked;
+    var ping_ip = cf.ping_ip.value.split(".");
+
+    cf.failover_retry_interval.value = <%3033%>;
+    cf.failover_count.value = <%3034%>;
+    cf.failover_hw_time.value = <%3035%>;
+    cf.failover_resume.value = <%3036%>;
+    cf.failover_host_name.value = "<%3037%>";
+    checkIPIndex = <%3038%>;
+    current_wan_type = <%3039%>;
+    enable_hw_detect = <%3040%>;
+
+    if(enable_hw_detect == 1)
+        cf.w_enable_hw_detect.checked = true;
+    else
+        cf.w_enable_hw_detect.checked = false;
+	
+    cf.checkIPAssign[checkIPIndex].checked = true;
+    if (current_wan_type == 2)
+    {
+        if (checkIPIndex == 0)
+        {
+            DisableDNSIP = true;
+            DisablePingIP = true;
+            //dflag_WAN_DNS = true;
+            //dflag_DNS = false;
+            //dflag_IP = false;
+        }
+        else if (checkIPIndex == 1)
+        {
+            DisableDNSIP = false;
+            DisablePingIP = true;
+            //dflag_WAN_DNS = false;
+            //dflag_DNS = true;
+            //dflag_IP = false;
+        }
+        else
+        {
+            DisableDNSIP = true;
+            DisablePingIP = false;
+            //dflag_IP = true;
+            //dflag_WAN_DNS = false;
+            //dflag_DNS = false;
+        }
+    }
+    else
+    {
+        DisableDNSIP = true;
+        DisablePingIP = true;
+        dflag_WAN_DNS = true;
+        dflag_DNS = false;
+        dflag_IP = false;
+    }
+	setDisabled(dflag_IP,cf.PingIP1,cf.PingIP2,cf.PingIP3,cf.PingIP4);
+    cf.PingIP1.value = ping_ip[0];
+    cf.PingIP2.value = ping_ip[1];
+    cf.PingIP3.value = ping_ip[2];
+    cf.PingIP4.value = ping_ip[3];
+	
+    
+    if(t_manual_conn == "1")
+        cf.conn_mode.value = 1;
+    else
+        cf.conn_mode.value = 0;
+    
+    
+    if(status == "USB Device Not Support" || status == "NO USB Device Attached")
+    {
+        cf.ppp_username.value = "<none>";
+        cf.ppp_passwd.value = "<none>";
+        return true;
+    }
+	
+    cf.ppp_username.value = cf.w_ppp_username.value;
+    cf.ppp_passwd.value = cf.w_ppp_passwd.value;
+    region_init	();
+    setCountry(cf.wwan_country_setting.value);	
+	
+    init_username_passwd_EnableOrNot();
+    username_passwd_convert();
+    
+    //if(mode == "HSDPA")
+    {
+        if(cf.wwan_isp_setting.value == "0")
+        {
+            cf.apn.disabled = false;
+            cf.pdp_type.disabled = false;
+            cf.pdp_type.value = cf.pdp_type_org.value;
+            cf.apn.value = cf.apn_org.value;
+            cf.ppp_username.disabled = false;
+            cf.ppp_passwd.disabled = false;
+        }
+        else
+        {
+            cf.apn.disabled = false;
+            cf.pdp_type.disabled = false;
+
+            if(cf.apn_org.value == "")
+            {
+                set_APN_PDPType("wwan_setAPN",countryArr['9999']);
+            }
+            else
+            {
+                cf.pdp_type.value = cf.pdp_type_org.value;
+                cf.apn.value = cf.apn_org.value;            
+            }
+        }
+    }
+}
+
+function check_data()
+{
+    var cf = document.forms[0];
+
+    restore_username_passwd();
+       
+    if(cf.conn_mode[0].selectedIndex == 1)
+        cf.manual_conn.value = "1";
+    else
+        cf.manual_conn.value = "0";
+        
+    /* 
+    if(cf.w_reconn.checked)
+
+        cf.reconn.value = "1";
+    else
+        cf.reconn.value = "0";
+	
+    if(cf.w_auto_roaming.checked)
+
+        cf.auto_roaming.value = "1";
+    else
+        cf.auto_roaming.value = "0";
+	*/
+    //cf.wwan_isp_setting.value = cf.wwan_isp_setting_index.value;
+    //cf.wwan_country_setting.value = cf.wwan_country_setting_index.value;
+	
+    if (checkCPINData() == false)
+        return false;
+
+    return true;	
+}
+
+function setGray()
+{
+    var cf = document.forms[0];
+    var wan_type = "<%3039%>";
+    var usb_modem_detect = "<%3041%>";
+    var wwan_3G = "<%3042%>";
+    var wan0_IP = "<%3043%>";
+    var status = cf.runtime_status.value;
+    
+    if (wan_type == "1")
+    {
+        /*
+        if (wwan_3G == "1")	
+            alert ("<%3044%>");
+        else if (wwan_3G == "0")
+        	  alert ("3G mobile function is disabled.\r\nThis is not a DGN2200M board!");
+        */	  
+        cf.ppp_username.disabled = true;
+        cf.ppp_passwd.disabled = true;
+
+        //cf.w_auto_conn.disabled = true;
+        //cf.w_reconn.disabled = true;
+        //cf.w_auto_roaming.disabled = true;
+
+        //cf.Apply.disabled = true;
+        //cf.Cancel.disabled = true;
+        
+        cf.wwan_country_setting_index.disabled = true;
+        cf.wwan_isp_setting_index.disabled = true;
+        
+        cf.cid.disabled = true;
+        cf.apn.disabled = true;
+        cf.pdp_type.disabled = true;
+        
+        cf.pin_code.disabled = true;
+        
+
+    }
+
+
+}
+function do_submit()
+{
+	var cf = document.forms[0];
+	cf.submit();
+}
+
+function setInternetConnMode()
+{
+    var cf = document.forms[0];
+    var selected;
+    selected=cf.wan_type.selectedIndex;
+    if(selected == 0)
+    {
+        document.getElementById("fh_tbody").style.display="block";
+        document.getElementById("fh1_tbody").style.display="block";
+        document.getElementById("fh2_tbody").style.display="none";
+    }
+    else if(selected == 1)
+    {
+        document.getElementById("fh_tbody").style.display="block";
+        document.getElementById("fh1_tbody").style.display="none";
+        document.getElementById("fh2_tbody").style.display="block";
+    }
+    else if(selected == 2)
+    {
+        document.getElementById("fh_tbody").style.display="none";
+    }
+}
+function reset()
+{
+    window.location.href='WWan_wan.htm';
+}
+function setConnMode()
+{
+}
+function openStatusWindow()
+{
+    winoptions = "width=400,height=460,status=yes,resizable=yes";
+    openDataSubWin('RST_st_wwan.htm',winoptions);
+}
+
+//-->
+</script> 
+</head>
+<body  onload="change_size();init();ispChk();" class="page-body"  onResize="change_size();" >
+
+<img class="cover-image" src="<%74%>">
+<img class="body-image" src="<%75%>">
+<div id="full-page-container">
+
+  <form id="target"  name="frmRules" method="POST" action="wwan.cgi">
+    <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+    <img class="subtop-image" src="<%76%>">
+    <div class="subhead2"> <%393%></div>
+    <table border="0"    style="height:370px"  class="subhead2-table">
+      <tr align="left" valign="middle">
+        <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+          <button type="button" value="3g_conn_staus" name="3g_conn_staus" class="button-rule" onClick="buttonClick(this,'3g_conn_staus');openStatusWindow();"><span class="roundleft_button">&nbsp;&nbsp; <%2944%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+          <button type="submit" value="SUBMIT"  onClick="buttonClick(this,'<%78%>');return check_data()" name="Apply" class=<%79%> style="padding-left:10px"> <span class="<%80%>" ><%81%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="<%82%>">&nbsp;&nbsp;&nbsp;</span></button>
+          <button type="button" value="BUTTON"  onClick="buttonClick(this,'<%83%>');init();" name="Cancel" class="button-rule" style="padding-left:10px" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%84%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+        </td>
+      </tr>
+      <tr>
+        <td class="scrollpane-table-seperate-border" colspan="2">
+          <div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto">
+            <table style="border-collapse:collapse;width:97%">
+              <tr>
+                <td colspan="2" height="12" >
+                  <div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div>
+                </td>
+              </tr>
+              <tr>
+                <td width="50%"><b><%3045%></b></td>
+                <td width="50%" align="right">
+                  <select name="wan_type" value="<%3039%>" size="1" tabindex="10"  onchange=setInternetConnMode()>
+                    <option <%3046%> value=2 ><%3047%></option>
+	                  <option <%3048%> value=0 ><%3049%></option>
+	                  <option <%3050%> value=1 ><%3051%></option>
+                  </select> 
+                </td>    
+              </tr>
+              <tr>
+                <td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div>
+                </td>
+              </tr>
+              <tr>
+              <td colspan="2">
+                <div id="fh_tbody" style="display: block;">
+                  <table  cellpadding="2" cellspacing="0" width="100%">
+                    <tr>
+                      <td colspan="2"><b><%3052%></b>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="50%">&nbsp;<%3053%>: &nbsp;&nbsp;&nbsp;&nbsp;  <%3054%></td>
+                      <td width="50%">&nbsp;<%2928%>: &nbsp;&nbsp;&nbsp;&nbsp; <%2929%></td>  
+                    </tr>
+                    <tr>
+                      <td colspan="2">&nbsp;<%2932%>: &nbsp;&nbsp;&nbsp;&nbsp;  <%2933%>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2"><b><%3055%></b>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="50%">&nbsp;<%3056%></td>
+                      <td width="50%" align="right">	    
+                        <select name="wwan_country_setting_index" id="wwan_country_setting_index" onchange="setCountry(this.options[this.selectedIndex].value);ispChk();"> 
+                        </select>  
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="50%">&nbsp;<%572%></td>
+                      <td width="50%" align="right">
+                        <select name="wwan_isp_setting_index" id="wwan_isp_setting_index" onchange="ispChk();"> 
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+	                    <td width="50%">&nbsp;<a href="javascript:loadhelp('WWAN_wan','pin_code')" tabindex="-1"><%3057%></a></td>
+	                    <td width="50%" align="right" class="num"><input type="text" name="pin_code" value="<%3032%>"></td>
+                    </tr>
+                    <tr>
+                        <td width="50%">&nbsp;<a href="javascript:loadhelp('WWAN_wan','password')" tabindex="2"><%3058%></a></td>
+                        <td width="50%" class="num" align="right"><input type="text" name="puk_code"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" height="12" >
+                      <div id="fh3_tbody" style="display: none;">
+                       <div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div>
+                        <table cellpadding="2" cellspacing="0" width="100%"> 
+                          <tr>    
+                            <td width="25%">&nbsp;<a href="javascript:loadhelp('WWAN_wan','user_name')"><%579%></a></td>
+                            <td width="25%" class="num" maxlength="64"><input type="text" name="ppp_username"></td>
+                            <td width="25%">&nbsp;<a href="javascript:loadhelp('WWAN_wan','w_apn')"><%3059%></a></td>
+                            <td width="25%" class="num" align="right"><input type="text" name="apn" value="<%3060%>"></td>
+                          </tr>
+                        </table>
+
+                        <table cellpadding="2" cellspacing="0" width="100%"> 
+                          <tr>
+	                          <td width="25%">&nbsp;<a href="javascript:loadhelp('WWAN_wan','password')" tabindex="2"><%581%></a></td>
+	                          <td width="25%" class="num" maxlength="64"><input type="text" name="ppp_passwd"></td>
+	                          <td width="25%">&nbsp;<a href="javascript:loadhelp('WWAN_wan','w_dial_string')" tabindex="-1"><%3061%></td>
+	                          <td width="25%" align="right">
+                              <select name="cid" value="<%3026%>" size="1" tabindex="10" >
+                                <option <%3062%> value=0 >*99#</option>
+		                            <option <%3063%> value=1 >*99***1#</option>
+                                <option <%3064%> value=2 >*99***2#</option>
+                                <option <%3065%> value=3 >*99***3#</option>
+                                <option <%3066%> value=4 >*99***4#</option>
+                                <option <%3067%> value=5 >*98*1#</option>
+                                <option <%3068%> value=6 >#777</option>
+                              </select>
+	                          </td>
+                          </tr>
+                        </table>
+
+                        <table cellpadding="2" cellspacing="0" width="100%"> 
+                          <tr>
+                            <td width="25%">&nbsp<a href="javascript:loadhelp('WWAN_wan','w_pdp_type')" tabindex="-1"><%3069%></td>
+                            <td width="25%">
+                              <select name="pdp_type" value="<%3070%>" size="1" tabindex="10" >
+                                <option <%3071%> value=0 ><%3072%></option>
+                                <option <%3073%> value=1 ><%3074%></option>
+                                <option <%3075%> value=2 ><%3076%></option>
+                                <option <%3077%> value=3 ><%3078%></option>
+                              </select>
+                            </td>
+                            <td width="25%"> </td>
+                            <td width="25%"> </td>
+                          </tr>
+                        </table>
+                       </div>
+                      </td>
+                    </tr>
+                </div>
+                    <tr>
+                      <td colspan="2">
+                        <div id="fh1_tbody" style="display: block;">
+                          <table  cellpadding="2" cellspacing="0" width="100%">
+                            <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td>
+                            </tr>
+                            <tr>
+                              <td colspan="2"><a href="javascript:loadhelp('BAS_dual_wan','detectIP')" tabindex="-1"><b><%3079%></b></a></td>
+                            </tr>
+                            <tr>
+	                            <td><input type="radio" name="checkIPAssign" value="0" onClick="setDetectIP()" onChange="setCfgChanged()"><%3080%></td>
+	                            <td align="right"><input type="text" name="failover_host_name" size="24" maxlength="128"></td>
+                            </tr>
+                            <tr>
+	                            <td><input type="radio" name="checkIPAssign" value="1" onClick="setDetectIP()" onChange="setCfgChanged()"> <%3081%></td>
+	                            <td align="right" class="num">
+	                              <input type="text" name="PingIP1" class="num" size="4" maxlength="3" onFocus="if(DisablePingIP) this.blur()" onChange="setCfgChanged()">.
+	                              <input type="text" name="PingIP2" class="num" size="4" maxlength="3" onFocus="if(DisablePingIP) this.blur()" onChange="setCfgChanged()">.
+	                              <input type="text" name="PingIP3" class="num" size="4" maxlength="3" onFocus="if(DisablePingIP) this.blur()" onChange="setCfgChanged()">.
+	                              <input type="text" name="PingIP4" class="num" size="4" maxlength="3" onFocus="if(DisablePingIP) this.blur()" onChange="setCfgChanged()">
+	                            </td>
+                            </tr>
+                            <tr>
+	                            <td><a href="javascript:loadhelp('BAS_dual_wan','failover_retry_interval')" tabindex="-1">&nbsp;&nbsp;<%3082%></a></td>
+	                            <td align="right"><input type="text" class="num" name="failover_retry_interval" size="3" maxlength="3" onChange="setCfgChanged()"><%3083%></td>
+                            </tr>
+                            <tr>
+	                            <td><a href="javascript:loadhelp('BAS_dual_wan','failover_count')" tabindex="-1">&nbsp;&nbsp;<%3084%></a></td>
+	                            <td align="right"><input type="text" class="num" name="failover_count" size="3" maxlength="3" onChange="setCfgChanged()">(In &nbsp;Intervals)</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <div id="failover_hw_time123" style="display: none;">
+                                  <table  cellpadding="2" cellspacing="0" width="100%">
+                                    <tr>
+	                                    <td><a href="javascript:loadhelp('BAS_dual_wan','failover_resume')" tabindex="-1">&nbsp;&nbsp;<%3085%></a></td>
+	                                    <td align="right"><input type="text" class="num" name="failover_resume" size="3" maxlength="3" onChange="setCfgChanged()"><%3083%></td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <input type="checkbox" name="w_enable_hw_detect"> <%3086%>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <div id="failover_hw_time123" style="display: none;">
+                                  <table  cellpadding="2" cellspacing="0" width="100%">
+                                    <tr>
+	                                    <td><a href="javascript:loadhelp('BAS_dual_wan','failover_hw_time')" tabindex="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%3087%></a></td>
+	                                    <td align="right"><input type="text" class="num" name="failover_hw_time" size="3" maxlength="3" onChange="setCfgChanged()"><%3083%></td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>                            
+                              <td colspan="2">
+                                <div id="fh2_tbody" style="display: block;">
+                                  <table  cellpadding="2" cellspacing="0" width="100%">
+                                    <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div>
+                                    	  </td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="2"><b><%3088%></b></td>
+                                    </tr>
+                                    <tr>
+                                      <td width="50%" nowrap><b><%585%></b></td>
+                                      <td width="50%" align="right">
+                                        <select name="conn_mode" onChange="setConnMode()" size="1">
+                                          <option value=1><%586%></option>
+                                          <option value=0><%587%></option>
+                                        </select>
+                                      </td> 
+                                    </tr>
+                                    <tr>
+                                      <td nowrap><%589%></td>
+                                      <td align="right"><input type="text" class="num" name="ppp1_idletime" size="3" maxlength="3"></td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </td></tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+      <tr valign="middle" align="center">
+        <td class="table-seperate-border" colspan="2" style="padding-left:0px">
+          <div class="help-frame-div" > 
+            <iframe id="helpframe"  src="WWAN_wan_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();">
+            </iframe> 
+          </div> 
+        </td> 
+      </tr>
+    </table>
+    <img class="subfooter-image" src="img/subhead2-bottom.gif">
+    <div class="subhead2-bottom" >
+      <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+      <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%266%> </span>
+      <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+      <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%267%> </span>
+    </div>
+
+  <input type="hidden" name="wan_way" value="1500">    
+  <INPUT name=sys_mode type=hidden value= "<%2891%>">
+  <INPUT name=runtime_status type=hidden value= "<%3089%>">
+  <INPUT name=pdp_type_org type=hidden value= "<%3070%>">
+  <INPUT name=apn_org type=hidden value= "<%3090%>">
+  <INPUT name=auto_conn type=hidden value= "<%3091%>">
+  <INPUT name=manual_conn type=hidden value= "<%3092%>">
+  <INPUT name=auto_roaming type=hidden value= "<%3093%>">
+  <INPUT name=reconn type=hidden value= "<%3094%>">
+  <INPUT name=lock_ntwk type=hidden value= "<%3095%>">
+  <INPUT name=lock_3G type=hidden value= "<%3096%>">
+  <INPUT name=w_ppp_username type=hidden value= "<%3028%>">
+  <INPUT name=w_ppp_passwd type=hidden value= "<%3029%>">
+  <input type=hidden name="wwan_isp_setting">
+  <input type=hidden name="wwan_country_setting">
+  <input type=hidden name="change_to_basic_usb" value = "0">
+  <INPUT name=ping_ip type=hidden value= "<%3097%>">
+  <INPUT name=enable_hw_detect type=hidden value= "<%3040%>">
+  <input type="hidden" name="cfgChanged" value="0">
+  <input type="hidden" name="testpressed" value="0">
+  <INPUT name=isfromWIZ type=hidden value= "no">
+<a name="helpframe-anchor"></a>
+
+  </form>
+ </div>
+</body>
+
+</html>
+
+

@@ -1,0 +1,72 @@
+<html>
+<head>
+<%11%>
+<title><%3251%></title> 
+<link rel="stylesheet" type="text/css" href="style.css">
+<script language="JavaScript" type="text/javascript">
+<!-- Start Script
+function CloseWindow()
+{
+ top.window.opener=null;
+ top.window.close();
+}
+function msg_close()
+{
+ alert("<%3151%>");
+ CloseWindow();
+}
+
+function next_fun()
+{
+    location.href=document.forms[0].next_file.value;
+}
+function done_fun()
+{
+    location.href=document.forms[0].done_file.value;
+	return true;
+}
+// End Script -->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
+<form name="formname" method="POST" action="usb_success.cgi"> 
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+  <tr>
+   <td valign="top" align="center">
+     <h1><br><%3252%></h1>
+   </td>
+  </tr>
+     <tr>
+	<td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
+  </tr>
+  
+<tr>
+	<td align="center"><ul> 
+<%3253%>	
+	<%3254%><strong> <%3255%> </strong><%3256%> <strong><%3257%></strong> <%3258%></ul>
+<%3259%>
+<%3260%>	
+	<%3261%></ul>
+<%3262%>
+	<ul><%3263%>&nbsp;&nbsp;&nbsp;&nbsp;</ul>
+	</td>
+</tr>
+  <tr>
+	<td colspan="2" background="liteblue.gif" height="12"></td>
+  </tr>
+<tr>
+	<td colspan=2 align=center>
+	<ul>
+	<!--
+	<input type="Submit" name="Done" value= "   Skip   ">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	-->
+	<input type="BUTTON" name="Next" value= "   <%1556%>   " onClick="next_fun();">	
+	</ul>
+	</td></tr>
+</table>
+<input type="hidden" name="next_file" value="<%3264%>">
+<input type="hidden" name="done_file" value="Modem_status.htm">
+</form>
+</body>
+</html>

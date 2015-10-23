@@ -1,7 +1,7 @@
 /*
  * Router rc control script
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2014, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -84,6 +84,7 @@ static void rc_signal(int sig);
 /* Foxconn added start, Wins, 05/16/2011, @RU_IPTV */
 #if defined(CONFIG_RUSSIA_IPTV)
 static int is_russia_specific_support (void);
+static int is_china_specific_support (void); /* Foxconn add, Edward zhang, 09/05/2012, @add IPTV support for PR SKU*/
 #endif /* CONFIG_RUSSIA_IPTV */
 /* Foxconn added end, Wins, 05/16/2011, @RU_IPTV */
 /*Foxconn add start, edward zhang, 2013/07/03*/
@@ -889,8 +890,8 @@ static int config_iptv_params(void)
         int lan_vlan_port = 4;
         int lan_vlan_br = 1;
         char lan_vlan_ifname[16] = "";
-        char lan_vlan_ifnames[64] = "";
-        char lan_ifnames[64] = "";
+        char lan_vlan_ifnames[128] = "";
+        char lan_ifnames[128] = "";
         char lan_ifname[16] = "";
         int internet_vlan_id;
 
@@ -1130,6 +1131,16 @@ static int config_iptv_params(void)
                 nvram_set("wan_ifnames", "vlan2 ");
                 nvram_set("wan_ifname", "vlan2");
             }
+            /* Foxconn Perry added start, 11/17/2014, for extender mode */
+            /* set br0 as wan interface in extender mode */
+#ifdef CONFIG_EXTENDER_MODE
+            else if(nvram_match("enable_extender_mode", "1")) {   
+                nvram_set("vlan2ports", "0 5");
+                nvram_set("wan_ifnames", "br0 ");
+                nvram_set("wan_ifname", "br0");           
+            }
+#endif /* CONFIG_EXTENDER_MODE */
+            /* Foxconn Perry added end, 11/17/2014, for extender mode */
             else {
                 nvram_set("vlan2ports", "0 5u");
                 nvram_set("wan_ifnames", "eth0 ");
@@ -1138,8 +1149,22 @@ static int config_iptv_params(void)
 #else
             nvram_set("vlan2ports", "4 5");
 //#endif
+            
+            /* Foxconn Perry added start, 11/17/2014, for extender mode */
+            /* set br0 as wan interface in extender mode */
+#ifdef CONFIG_EXTENDER_MODE
+            if(nvram_match("enable_extender_mode", "1")) { 
+                nvram_set("wan_ifnames", "br0 ");
+                nvram_set("wan_ifname", "br0");           
+            } else {
+                nvram_set("wan_ifnames", "eth0 ");
+                nvram_set("wan_ifname", "eth0");
+            }
+#else /* !CONFIG_EXTENDER_MODE */
             nvram_set("wan_ifnames", "eth0 ");
             nvram_set("wan_ifname", "eth0");
+#endif /* !CONFIG_EXTENDER_MODE */
+            /* Foxconn Perry added end, 11/17/2014, for extender mode */
 #endif
 /* foxconn revise end ken chen @ 08/23/2013, to fix IGMP report duplicated in AP mode*/
         }
@@ -1245,6 +1270,544 @@ static int active_vlan(void)
 }
 #endif
 
+/* Foxconn Perry added start, 01/30/2015, for extender mode */
+#ifdef CONFIG_EXTENDER_MODE
+
+#define C_MAX_VAR_SIZE 256
+static int idxStrToLen(char *idxStr)
+{
+    if (idxStr == 0)
+        return 0;
+    if (strcmp(idxStr,"1") ==0 )
+        return 5; /* 40 bit = 5 * 8 */
+    else if (strcmp(idxStr,"2") ==0 )
+        return 13; /* 104 bit */
+    else if (strcmp(idxStr,"3") ==0 )
+        return 16; /* 128 bit */
+    else
+        return 0;
+}
+
+
+static int rc_ExtMode_configAP()
+{     
+    char tempVal[C_MAX_VAR_SIZE], val[C_MAX_VAR_SIZE];
+    char securityType[C_MAX_VAR_SIZE], ssid[C_MAX_VAR_SIZE];
+    char currentFlow[20];
+    char Passphrase[C_MAX_VAR_SIZE];
+    char apmode[C_MAX_VAR_SIZE];
+    char sta_band[20] = {0};
+    int  wepStatus; //0 - disable, 1 - 64bit, 2 - 128bit
+    char pcKey[C_MAX_VAR_SIZE];
+    char pcKeyLen[C_MAX_VAR_SIZE];
+    char pcDefaultKey[C_MAX_VAR_SIZE];
+    int  keylen, defaultKeyIdx;
+    char tempStr[160], wl_same_sec[16];
+    int disable_5g = 0;/* Foxconn added by Max Ding, 05/02/2013 */
+
+
+    //strcpy(currentFlow, "WirelessSetting");
+    strcpy(apmode, nvram_safe_get("ap_mode_cur"));
+    strcpy(sta_band, nvram_safe_get("sta_band_cur"));
+
+    /* 2.4G ssid */
+    strcpy(tempVal, nvram_safe_get("wla_ssid_backup"));
+    
+    if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+    {
+        nvram_set("wla_ssid_2", tempVal);
+        nvram_set("wla_temp_ssid_2", tempVal);
+    }
+    else if(0 == strcmp(sta_band, "5G"))
+    {
+        nvram_set("wla_ssid", tempVal);
+        nvram_set("wla_temp_ssid", tempVal);
+    }
+    
+    if (!disable_5g)/* Foxconn added by Max Ding, 05/02/2013 */
+    {
+        /* 5G ssid */
+        strcpy(tempVal, nvram_safe_get("wlg_ssid_backup"));
+        if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+        {
+            nvram_set("wlg_ssid_2", tempVal);
+            nvram_set("wlg_temp_ssid_2", tempVal);
+        }
+        else if(0 == strcmp(sta_band, "2.4G"))
+        {
+            nvram_set("wlg_ssid", tempVal);
+            nvram_set("wlg_temp_ssid", tempVal);
+        }
+    }
+    
+
+    /* security configuration */
+    if (strcmp(apmode, "2") == 0) //dual band
+    {               
+        //get values from 2.4g div
+        strcpy(securityType, nvram_safe_get("wla_secu_type_backup"));
+        if (strcmp(securityType, "None") == 0)//None
+        {
+            /* security type: None*/
+            if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                nvram_set("wla_secu_type_2", "None");
+            else if(0 == strcmp(sta_band, "5G"))
+                nvram_set("wla_secu_type", "None");
+        }
+        else if (strcmp(securityType, "WEP") == 0) //WEP
+        {   
+            if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                nvram_set("wla_secu_type_2", "WEP");
+            else if(0 == strcmp(sta_band, "5G"))
+                nvram_set("wla_secu_type", "WEP");
+            
+            strcpy(Passphrase, nvram_safe_get("wla_passphrase_backup"));
+            if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                nvram_set("wla_passphrase_2", Passphrase);
+            else if(0 == strcmp(sta_band, "5G"))
+                nvram_set("wla_passphrase", Passphrase);
+        
+            /* get wep status, 0-disable, 1-64bit, 2-128bit */
+            strcpy(tempVal, nvram_safe_get("wla_wep_length_backup"));
+            wepStatus = atoi(tempVal);
+            if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                nvram_set("wla_wep_length_2",tempVal);
+            else if(0 == strcmp(sta_band, "5G"))
+                nvram_set("wla_wep_length",tempVal);
+            
+            strcpy(pcKey, nvram_safe_get("wla_key1_backup"));
+            if (strcmp(pcKey,"") != 0)
+            {
+                sprintf(pcKeyLen,"%d", wepStatus);
+                if (0 != (keylen = idxStrToLen(pcKeyLen)))
+                {
+                    if (strlen(pcKey) != keylen*2)
+                        printf("httpd error key=%s,keykeylen=%d\n", pcKey, strlen(pcKey));
+                    else
+                    {
+                        if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                            nvram_set("wla_key1_2",pcKey);
+                        else if(0 == strcmp(sta_band, "5G"))
+                            nvram_set("wla_key1",pcKey);
+                    }
+                }
+            }
+            else
+            {
+                if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                    nvram_set("wla_key1_2","");
+                else if(0 == strcmp(sta_band, "5G"))
+                    nvram_set("wla_key1","");
+            }
+        
+            strcpy(pcKey, nvram_safe_get("wla_key2_backup"));
+            if (strcmp(pcKey,"") != 0)
+            {
+                sprintf(pcKeyLen,"%d", wepStatus);
+                if (0 != (keylen = idxStrToLen(pcKeyLen)))
+                {
+                    if (strlen(pcKey) != keylen*2)
+                        printf("httpd error key=%s,keykeylen=%d\n", pcKey, strlen(pcKey));
+                    else
+                    {
+                        if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                            nvram_set("wla_key2_2",pcKey);
+                        else if(0 == strcmp(sta_band, "5G"))
+                            nvram_set("wla_key2",pcKey);
+                    }
+                }
+            }
+            else
+            {
+                if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                    nvram_set("wla_key2_2","");
+                else if(0 == strcmp(sta_band, "5G"))
+                    nvram_set("wla_key2","");
+            }
+        
+            strcpy(pcKey, nvram_safe_get("wla_key3_backup"));
+            if (strcmp(pcKey,"") != 0)
+            {
+                sprintf(pcKeyLen,"%d", wepStatus);
+                if (0 != (keylen = idxStrToLen(pcKeyLen)))
+                {
+                    if (strlen(pcKey) != keylen*2)
+                        printf("httpd error key=%s,keykeylen=%d\n", pcKey, strlen(pcKey));
+                    else
+                    {
+                        if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                            nvram_set("wla_key3_2",pcKey);
+                        else if(0 == strcmp(sta_band, "5G"))
+                            nvram_set("wla_key3",pcKey);
+                    }
+                }
+            }
+            else
+            {
+                if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                    nvram_set("wla_key3_2","");
+                else if(0 == strcmp(sta_band, "5G"))
+                    nvram_set("wla_key3","");
+            }
+        
+            strcpy(pcKey, nvram_safe_get("wla_key4_backup"));
+            if (strcmp(pcKey,"") != 0)
+            {
+                sprintf(pcKeyLen,"%d", wepStatus);
+                if (0 != (keylen = idxStrToLen(pcKeyLen)))
+                {
+                    if (strlen(pcKey) != keylen*2)
+                        printf("httpd error key=%s,keykeylen=%d\n", pcKey, strlen(pcKey));
+                    else
+                    {
+                        if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                            nvram_set("wla_key4_2",pcKey);
+                        else if(0 == strcmp(sta_band, "5G"))
+                            nvram_set("wla_key4",pcKey);
+                    }
+                }
+            }
+            else
+            {
+                if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                    nvram_set("wla_key4_2","");
+                else if(0 == strcmp(sta_band, "5G"))
+                    nvram_set("wla_key4","");
+            }
+            
+            //I don't know if the following is needed??
+            /* It's time to set default key */
+            strcpy(pcDefaultKey, nvram_safe_get("wla_defaKey_backup"));
+            if (pcDefaultKey != NULL)
+                defaultKeyIdx = atoi(pcDefaultKey);
+                
+            sprintf(tempStr, "%d", (defaultKeyIdx-1));
+            if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                nvram_set("wla_defaKey_2",tempStr);
+            else if(0 == strcmp(sta_band, "5G"))
+                nvram_set("wla_defaKey",tempStr);
+        }
+        else //PSK
+        {
+            if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                nvram_set("wla_secu_type_2", securityType);
+            else if(0 == strcmp(sta_band, "5G"))
+                nvram_set("wla_secu_type", securityType);
+            
+            strcpy(Passphrase, nvram_safe_get("wla_passphrase_backup"));
+            if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "2.4G")))
+                nvram_set("wla_passphrase_2", Passphrase);
+            else if(0 == strcmp(sta_band, "5G"))
+                nvram_set("wla_passphrase", Passphrase);
+        }
+        
+        if (!disable_5g)/* Foxconn added by Max Ding, 05/02/2013 */
+        {
+            //get values from 5g div
+            strcpy(securityType, nvram_safe_get("wlg_secu_type_backup"));
+            if (strcmp(securityType, "None") == 0)//None
+            {
+                /* security type: None*/
+                if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                    nvram_set("wlg_secu_type_2", "None");
+                else if(0 == strcmp(sta_band, "2.4G"))
+                    nvram_set("wlg_secu_type", "None");
+            }
+            else if (strcmp(securityType, "WEP") == 0) //WEP
+            {                                
+                if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                    nvram_set("wlg_secu_type_2", "WEP");
+                else if(0 == strcmp(sta_band, "2.4G"))
+                    nvram_set("wlg_secu_type", "WEP");
+                
+                strcpy(Passphrase, nvram_safe_get("wlg_passphrase_backup"));
+                if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                    nvram_set("wlg_passphrase_2", Passphrase);
+                else if(0 == strcmp(sta_band, "2.4G"))
+                    nvram_set("wlg_passphrase", Passphrase);
+                
+                /* get wep status, 0-disable, 1-64bit, 2-128bit */
+                strcpy(tempVal, nvram_safe_get("wlg_wep_length_backup"));
+                wepStatus = atoi(tempVal);
+                if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                    nvram_set("wlg_wep_length_2",tempVal);
+                else if(0 == strcmp(sta_band, "2.4G"))
+                    nvram_set("wlg_wep_length",tempVal);
+                
+                strcpy(pcKey, nvram_safe_get("wlg_key1_backup"));
+                if (strcmp(pcKey,"") != 0)
+                {
+                    sprintf(pcKeyLen,"%d", wepStatus);
+                    if (0 != (keylen = idxStrToLen(pcKeyLen)))
+                    {
+                        if (strlen(pcKey) != keylen*2)
+                            printf("httpd error key=%s,keykeylen=%d\n", pcKey, strlen(pcKey));
+                        else
+                        {
+                            if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                                nvram_set("wlg_key1_2",pcKey);
+                            else if(0 == strcmp(sta_band, "2.4G"))
+                                nvram_set("wlg_key1",pcKey);
+                        }
+                    }
+                }
+                else
+                {
+                    if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                        nvram_set("wlg_key1_2","");
+                    else if(0 == strcmp(sta_band, "2.4G"))
+                        nvram_set("wlg_key1","");
+                }
+            
+                strcpy(pcKey, nvram_safe_get("wlg_key2_backup"));
+                if (strcmp(pcKey,"") != 0)
+                {
+                    sprintf(pcKeyLen,"%d", wepStatus);
+                    if (0 != (keylen = idxStrToLen(pcKeyLen)))
+                    {
+                        if (strlen(pcKey) != keylen*2)
+                            printf("httpd error key=%s,keykeylen=%d\n", pcKey, strlen(pcKey));
+                        else
+                        {
+                            if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                                nvram_set("wlg_key2_2",pcKey);
+                            else if(0 == strcmp(sta_band, "2.4G"))
+                                nvram_set("wlg_key2",pcKey);
+                        }
+                    }
+                }
+                else
+                {
+                    if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                        nvram_set("wlg_key2_2","");
+                    else if(0 == strcmp(sta_band, "2.4G"))
+                        nvram_set("wlg_key2","");
+                }
+            
+                strcpy(pcKey, nvram_safe_get("wlg_key3_backup"));
+                if (strcmp(pcKey,"") != 0)
+                {
+                    sprintf(pcKeyLen,"%d", wepStatus);
+                    if (0 != (keylen = idxStrToLen(pcKeyLen)))
+                    {
+                        if (strlen(pcKey) != keylen*2)
+                            printf("httpd error key=%s,keykeylen=%d\n", pcKey, strlen(pcKey));
+                        else
+                        {
+                            if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                                nvram_set("wlg_key3_2",pcKey);
+                            else if(0 == strcmp(sta_band, "2.4G"))
+                                nvram_set("wlg_key3",pcKey);
+                        }
+                    }
+                }
+                else
+                {
+                    if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                        nvram_set("wlg_key3_2","");
+                    else if(0 == strcmp(sta_band, "2.4G"))
+                        nvram_set("wlg_key3","");
+                }
+            
+                strcpy(pcKey, nvram_safe_get("wlg_key4_backup"));
+                if (strcmp(pcKey,"") != 0)
+                {
+                    sprintf(pcKeyLen,"%d", wepStatus);
+                    if (0 != (keylen = idxStrToLen(pcKeyLen)))
+                    {
+                        if (strlen(pcKey) != keylen*2)
+                            printf("httpd error key=%s,keykeylen=%d\n", pcKey, strlen(pcKey));
+                        else
+                        {
+                            if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                                nvram_set("wlg_key4_2",pcKey);
+                            else if(0 == strcmp(sta_band, "2.4G"))
+                                nvram_set("wlg_key4",pcKey);
+                        }
+                    }
+                }
+                else
+                {
+                    if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                        nvram_set("wlg_key4_2","");
+                    else if(0 == strcmp(sta_band, "2.4G"))
+                        nvram_set("wlg_key4","");
+                }
+                
+                //I don't know if the following is needed??
+                /* It's time to set default key */
+                strcpy(pcDefaultKey, nvram_safe_get("wlg_defaKey_backup"));
+                if (pcDefaultKey != NULL)
+                    defaultKeyIdx = atoi(pcDefaultKey);
+                    
+                sprintf(tempStr, "%d", (defaultKeyIdx-1));
+                
+                if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                    nvram_set("wlg_defaKey_2",tempStr);
+                else if(0 == strcmp(sta_band, "2.4G"))
+                    nvram_set("wlg_defaKey",tempStr);
+            }
+            else //PSK
+            {
+                if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                    nvram_set("wlg_secu_type_2", securityType);
+                else if(0 == strcmp(sta_band, "2.4G"))
+                    nvram_set("wlg_secu_type", securityType);
+                
+                strcpy(Passphrase, nvram_safe_get("wlg_passphrase_backup"));
+                if((0 == strcmp(sta_band, "both")) || (0 == strcmp(sta_band, "5G")))
+                    nvram_set("wlg_passphrase_2", Passphrase);
+                else if(0 == strcmp(sta_band, "2.4G"))
+                    nvram_set("wlg_passphrase", Passphrase);
+            }
+        }
+    }
+}
+
+
+
+void rc_backupWirelessParameter(){
+        acosNvramConfig_set("wla_ssid_backup",acosNvramConfig_get("wla_ssid"));
+        acosNvramConfig_set("wla_secu_type_backup",acosNvramConfig_get("wla_secu_type"));
+        acosNvramConfig_set("wla_wep_length_backup",acosNvramConfig_get("wla_wep_length"));
+        acosNvramConfig_set("wla_key1_backup",acosNvramConfig_get("wla_key1"));
+        acosNvramConfig_set("wla_key2_backup",acosNvramConfig_get("wla_key2"));
+        acosNvramConfig_set("wla_key3_backup",acosNvramConfig_get("wla_key3"));
+        acosNvramConfig_set("wla_key4_backup",acosNvramConfig_get("wla_key4"));
+        acosNvramConfig_set("wla_defaKey_backup",acosNvramConfig_get("wla_defaKey"));
+        acosNvramConfig_set("wla_auth_type_backup",acosNvramConfig_get("wla_auth_type"));
+        acosNvramConfig_set("wps_mixedmode_backup",acosNvramConfig_get("wps_mixedmode"));
+        acosNvramConfig_set("wla_passphrase_backup",acosNvramConfig_get("wla_passphrase"));
+        acosNvramConfig_set("wla_channel_backup",acosNvramConfig_get("wla_channel"));
+        acosNvramConfig_set("wla_mode_backup",acosNvramConfig_get("wla_mode"));
+        acosNvramConfig_set("wlg_ssid_backup",acosNvramConfig_get("wlg_ssid"));
+        acosNvramConfig_set("wlg_secu_type_backup",acosNvramConfig_get("wlg_secu_type"));
+        acosNvramConfig_set("wlg_wep_length_backup",acosNvramConfig_get("wlg_wep_length"));
+        acosNvramConfig_set("wlg_key1_backup",acosNvramConfig_get("wlg_key1"));
+        acosNvramConfig_set("wlg_key2_backup",acosNvramConfig_get("wlg_key2"));
+        acosNvramConfig_set("wlg_key3_backup",acosNvramConfig_get("wlg_key3"));
+        acosNvramConfig_set("wlg_key4_backup",acosNvramConfig_get("wlg_key4"));
+        acosNvramConfig_set("wlg_defaKey_backup",acosNvramConfig_get("wlg_defaKey"));
+        acosNvramConfig_set("wlg_auth_type_backup",acosNvramConfig_get("wlg_auth_type"));
+        acosNvramConfig_set("wps_mixedmode_backup",acosNvramConfig_get("wps_mixedmode"));
+        acosNvramConfig_set("wlg_passphrase_backup",acosNvramConfig_get("wlg_passphrase"));
+        acosNvramConfig_set("wlg_channel_backup",acosNvramConfig_get("wlg_channel"));
+        acosNvramConfig_set("wlg_mode_backup",acosNvramConfig_get("wlg_mode"));
+}
+
+
+void rc_backupGuestParameter(){
+        nvram_set("wla_ssid_2_backup", nvram_safe_get("wla_ssid_2"));
+        nvram_set("wla_secu_type_2_backup", nvram_safe_get("wla_secu_type_2"));
+        nvram_set("wla_wep_length_2_backup", nvram_safe_get("wla_wep_length_2"));
+        nvram_set("wla_key1_2_backup", nvram_safe_get("wla_key1_2"));
+        nvram_set("wla_key2_2_backup", nvram_safe_get("wla_key2_2"));
+        nvram_set("wla_key3_2_backup", nvram_safe_get("wla_key3_2"));
+        nvram_set("wla_key4_2_backup", nvram_safe_get("wla_key4_2"));
+        nvram_set("wla_defaKey_2_backup", nvram_safe_get("wla_defaKey_2"));
+        nvram_set("wla_auth_type_2_backup", nvram_safe_get("wla_auth_type_2"));
+        nvram_set("wps_temp_mixedmode_2_backup", nvram_safe_get("wps_temp_mixedmode_2"));
+        nvram_set("wla_passphrase_2_backup", nvram_safe_get("wla_passphrase_2"));
+        nvram_set("wla_channel_2_backup", nvram_safe_get("wla_channel_2"));
+        nvram_set("wla_mode_2_backup", nvram_safe_get("wla_mode_2"));
+        nvram_set("wlg_ssid_2_backup", nvram_safe_get("wlg_ssid_2"));
+        nvram_set("wlg_secu_type_2_backup", nvram_safe_get("wlg_secu_type_2"));
+        nvram_set("wlg_wep_length_2_backup", nvram_safe_get("wlg_wep_length_2"));
+        nvram_set("wlg_key1_2_backup", nvram_safe_get("wlg_key1_2"));
+        nvram_set("wlg_key2_2_backup", nvram_safe_get("wlg_key2_2"));
+        nvram_set("wlg_key3_2_backup", nvram_safe_get("wlg_key3_2"));
+        nvram_set("wlg_key4_2_backup", nvram_safe_get("wlg_key4_2"));
+        nvram_set("wlg_defaKey_2_backup", nvram_safe_get("wlg_defaKey_2"));
+        nvram_set("wlg_auth_type_2_backup", nvram_safe_get("wlg_auth_type_2"));
+        nvram_set("wps_temp_mixedmode_2_backup", nvram_safe_get("wps_temp_mixedmode_2"));
+        nvram_set("wlg_passphrase_2_backup", nvram_safe_get("wlg_passphrase_2"));
+        nvram_set("wlg_channel_2_backup", nvram_safe_get("wlg_channel_2"));
+        nvram_set("wlg_mode_2_backup", nvram_safe_get("wlg_temp_mode_2"));
+}
+
+static int config_extender_mode()
+{
+    if(nvram_match("TE_TEST", "1"))
+        return 0;
+
+    if(nvram_match("enable_sta_mode", "1"))
+    {
+        nvram_set("ap_mode_cur", "2");
+        nvram_set("enable_extender_mode", "1");
+        nvram_set("enable_sta_mode", "0");
+
+        if(nvram_match("bridge_interface", "0"))
+            nvram_set("sta_band_cur", "2.4G");
+        else
+            nvram_set("sta_band_cur", "5G");
+
+        nvram_set("eth_bind_band", "5G");
+
+        /* backup wifi settings */
+        if(nvram_match("wla_ssid_backup", ""))
+            rc_backupWirelessParameter();
+        
+        /* backup guest network settings */
+        if(nvram_match("wla_ssid_2_backup", ""))
+            rc_backupGuestParameter();
+    
+        /* config ap interface */        
+        rc_ExtMode_configAP();
+    }
+    else if(nvram_match("wla_wds_enable", "1") && nvram_match("wla_wds_mode", "1") 
+        && nvram_match("wla_repeater", "1"))
+    {
+        nvram_set("ap_mode_cur", "2");
+        nvram_set("enable_extender_mode", "1");
+        nvram_set("sta_band_cur", "2.4G");
+        nvram_set("eth_bind_band", "2.4G");
+        nvram_set("wla_wds_enable", "0");
+        nvram_set("wla_repeater", "0");
+
+        /* backup wifi settings */
+        if(nvram_match("wla_ssid_backup", ""))
+            rc_backupWirelessParameter();
+
+        /* backup guest network settings */
+        if(nvram_match("wla_ssid_2_backup", ""))
+            rc_backupGuestParameter();
+
+    
+        /* config ap interface */        
+        rc_ExtMode_configAP();
+
+    }
+    else if(nvram_match("wlg_wds_enable", "1") && nvram_match("wlg_wds_mode", "1") 
+        && nvram_match("wlg_repeater", "1"))
+    {
+        nvram_set("ap_mode_cur", "2");
+        nvram_set("enable_extender_mode", "1");
+        nvram_set("sta_band_cur", "5G");
+        nvram_set("eth_bind_band", "5G");
+        nvram_set("wlg_wds_enable", "0");
+        nvram_set("wlg_repeater", "0");
+
+        /* backup wifi settings */
+        if(nvram_match("wla_ssid_backup", ""))
+            rc_backupWirelessParameter();
+
+        /* backup guest network settings */
+        if(nvram_match("wla_ssid_2_backup", ""))
+            rc_backupGuestParameter();
+
+    
+        /* config ap interface */        
+        rc_ExtMode_configAP();
+
+    }
+
+    return 0;
+}
+
+#endif /* CONFIG_EXTENDER_MODE */
+/* Foxconn Perry added end, 01/30/2015, for extender mode */
+
+
 #if (defined INCLUDE_QOS) || (defined __CONFIG_IGMP_SNOOPING__)
 /* these settings are for BCM53115S switch */
 static int config_switch_reg(void)
@@ -1253,10 +1816,10 @@ static int config_switch_reg(void)
 
     if (
 #if (defined __CONFIG_IGMP_SNOOPING__)
-        nvram_match("emf_enable", "1") ||
+//        nvram_match("emf_enable", "1") ||
 #endif
 #if defined(CONFIG_RUSSIA_IPTV)
-		nvram_match("iptv_enabled", "1") ||
+//		nvram_match("iptv_enabled", "1") ||
 #endif          
 		nvram_match("enable_vlan", "enable") ||
         (nvram_match("qos_enable", "1")  
@@ -1351,6 +1914,25 @@ static void config_switch(void)
         { 0, 0, 0 }
     };
 
+        /* Foxconn Perry added start, 11/17/2014, for extender mode */
+        /* Set wan interface to br0 for extender mode. */
+#ifdef CONFIG_EXTENDER_MODE
+    struct nvram_tuple ext_mode[] = {
+        { "wan_ifname", "br0", 0 },
+        { "wan_ifnames", "br0 ", 0 },
+#if ( defined(R7000))
+        { "vlan1ports", "1 2 3 4 5*", 0 },
+        { "vlan2ports", "0 5", 0 },
+#else
+        { "vlan1ports", "0 1 2 3 5*", 0 },
+        { "vlan2ports", "4 5", 0 },
+#endif
+        { 0, 0, 0 }
+    };
+#endif /* CONFIG_EXTENDER_MODE */
+        /* Foxconn Perry added end, 11/17/2014, for extender mode */
+
+
     struct nvram_tuple *u = generic;
     int commit = 0;
 
@@ -1359,6 +1941,16 @@ static void config_switch(void)
         u = vlan;
     }
     /* foxconn Bob modified end 08/26/2013, not to bridge eth0 and vlan1 in the same bridge */
+    /* Foxconn Perry added start, 11/17/2014, for extender mode */
+#ifdef CONFIG_EXTENDER_MODE
+    else if(nvram_match("enable_extender_mode", "1"))
+    {
+        u = ext_mode;
+    }
+#endif /* CONFIG_EXTENDER_MODE */
+    /* Foxconn Perry added end, 11/17/2014, for extender mode */
+
+
 
     /* don't need vlan in repeater mode */
     if (nvram_match("wla_repeater", "1")
@@ -1537,20 +2129,56 @@ static int getVlanRule(vlan_rule vlan[C_MAX_VLAN_RULE])
     return numVlanRule;
 }
 #endif
+/* Foxconn add start, Edward zhang, 09/05/2012, @add IPTV support for PR SKU*/
+static int is_china_specific_support (void)
+{
+    int result = 0;
+    char sku_name[8];
+
+    /* Router Spec v2.0:                                                        *
+     *   Case 1: RU specific firmware.                                          *
+     *   Case 2: single firmware & region code is PR.                           *
+     *   Case 3: WW firmware & GUI language is Chinise.                         *
+     *   Case 4: single firmware & region code is WW & GUI language is Chinise. *
+     * Currently, new built firmware will be single firmware.                   */
+    strcpy(sku_name, nvram_get("sku_name"));
+    if (!strcmp(sku_name, "PR"))
+    {
+        /* Case 2: single firmware & region code is PR. */
+        /* Region is PR (0x0004) */
+        result = 1;
+    }
+    else if (!strcmp(sku_name, "WW"))
+    {
+        /* Region is WW (0x0002) */
+        char gui_region[16];
+        strcpy(gui_region, nvram_get("gui_region"));
+        if (!strcmp(gui_region, "Chinese"))
+        {
+            /* Case 4: single firmware & region code is WW & GUI language is Chinise */
+            /* GUI language is Chinise */
+            result = 1;
+        }
+    }
+
+    return result;
+}
+/* Foxconn add end, Edward zhang, 09/05/2012, @add IPTV support for PR SKU*/
 
 static int send_wps_led_cmd(int cmd, int arg)
 {
     int ret_val=0;
     int fd;
+    int new_arg;
 
     fd = open(DEV_WPS_LED, O_RDWR);
     if (fd < 0) 
         return -1;
 
     if (is_secure_wl())
-        arg = 1;
+        new_arg = 1;
     else
-        arg = 0;
+        new_arg = 0;
 
     switch (should_stop_wps())
     {
@@ -1567,8 +2195,17 @@ static int send_wps_led_cmd(int cmd, int arg)
         default:
             break;
     }
-
-    ret_val = ioctl(fd, cmd, arg);
+    /* Foxconn modified start, Jesse Chen 12/05/2012 @match "send_wps_led_cmd" function in wps_monitor.c*/
+    /* 
+     *In case 3400v2, We can use "WPS_LED_CHANGE_GREEN" or "WPS_LED_CHANGE_AMBER" change wps led status,
+     *need not to always follow it's wireless security settings
+     */
+#ifdef WNDR3400v2    
+    if ( (cmd == WPS_LED_CHANGE_GREEN) || (cmd == WPS_LED_CHANGE_AMBER) )
+         new_arg = arg;
+#endif
+    /* Foxconn modified end, Jesse Chen 12/05/2012 @match "send_wps_led_cmd" function in wps_monitor.c*/
+    ret_val = ioctl(fd, cmd, new_arg);
     close(fd);
 
     return ret_val;
@@ -2270,6 +2907,10 @@ canned_config:
 		/* foxconn modified start, zacker, 08/06/2010 */
 		/* Create a new value to inform loaddefault in "read_bd" */
 		nvram_set("load_defaults", "1");
+		/* foxconn added start, antony, 03/31/2015 */
+      nvram_set("qos_db_reset", "1");
+		/* foxconn added end, antony, 03/31/2015 */
+
         eval("read_bd"); /* foxconn wklin added, 10/22/2008 */
 		/* finished "read_bd", unset load_defaults flag */
 		nvram_unset("load_defaults");
@@ -2445,7 +3086,63 @@ sysinit(void)
         nvram_unset("wl0_vifs");
         nvram_unset("wl1_vifs");
         /* Foxconn added end pling 02/11/2011 */
-
+        /* Foxconn added start,James Hsu, 03/26/2015 # arlo interface BRCM nvram setting */
+#ifdef ARLO_SUPPORT
+        nvram_set("wl0.2_mbss_setting_override","1");
+        nvram_set("wl0.2_bss_block_multicast","1");
+        nvram_set("wl0.2_bcn","25");
+        nvram_set("wl0.2_dtim","41");
+        nvram_set("wl0.2_srl","15");
+        nvram_set("wl0.2_lrl","15");
+        nvram_set("wl0.2_force_bcn_rspec","4");
+        nvram_set("wl0.2_rateset","0x3f");
+        nvram_set("wl0.2_ampdu_rts","0");
+        nvram_set("wl0.2_ampdu_mpdu","8");
+        //nvram_set("wl0_taf_enable","1");
+        //nvram_set("toad_ifnames","eth1");
+        nvram_set("wl0.2_ampdu_ini_dead_timedout","5");
+        nvram_set("wl0.2_scb_activity_time","10");
+        nvram_set("wl0.2_psq_ageing_time","0");
+        nvram_set("wl0.2_txbf_virtif_disable","1");
+        system("cat /proc/meminfo >/tmp/meminfo.txt");
+        FILE *fp;
+        char buf[512];
+        char size[64],arlo_ssid[32];
+        int i,checksum=0;
+        fp=fopen("/tmp/meminfo.txt","r");
+        if(fp == NULL)
+        {
+            printf("Can't open file.");
+        }
+        else
+        {
+            for (i=0;i<10;i++)
+            {
+                fgets(buf, sizeof(buf), fp);
+                sscanf(buf,"%*s%s%*s",size);
+                //printf("%s\n",size);
+                if( i == 1 || i == 3 || i == 9 )
+                    checksum=checksum+atoi(size);
+            }
+        }
+        if(acosNvramConfig_match("wla_ssid_3",""))
+        {
+            sprintf(arlo_ssid,"NTGR_R7000_Arlo_%d",checksum);
+            printf("******** arlo_ssid %s **********\n",arlo_ssid);
+            acosNvramConfig_set("wla_ssid_3",arlo_ssid);
+        }
+        if(acosNvramConfig_match("wla_sec_profile_enable_3","0"))
+            acosNvramConfig_set("wla_sec_profile_enable_3", "1");
+        if(acosNvramConfig_match("wla_passphrase_3",""))
+            acosNvramConfig_set("wla_passphrase_3", "12345678");
+        if(acosNvramConfig_match("wla_secu_type_3","None"))
+            acosNvramConfig_set("wla_secu_type_3", "WPA2-PSK");
+        if(acosNvramConfig_match("x_handler_event_sink",""))
+            acosNvramConfig_set("x_handler_event_sink", "127.0.0.1:4002");
+        if(acosNvramConfig_match("x_handler_1002",""))
+            acosNvramConfig_set("x_handler_1002", "127.0.0.1:4001");
+#endif
+        /* Foxconn added end,James Hsu, 03/26/2015 */
         /*Foxconn lawrence added start, 2013/03/06, Restore wifi_on_off button for default*/
 	//nvram_set("wifi_on_off", "1"); Tab Tseng removed, 2014/02/27
         /*Foxconn lawrence added end, 2013/03/06, Restore wifi_on_off button for default*/
@@ -2455,6 +3152,8 @@ sysinit(void)
         /* foxconn modified end, zacker, 08/06/2010 */
 
 		/* Load ctf */
+
+
 		/* Foxconn added start pling 06/26/2014 */
 		/* Change CTF mode when access control is enabled */
 		if (nvram_match("access_control_mode", "1") &&
@@ -2539,10 +3238,8 @@ sysinit(void)
         /* Foxconn modified start pling 05/30/2014 */
         /* BRCM ARES: this workaround is not needed for 6.37.15.13 driver */
         //nvram_set("pci/2/1/mcsbw205ghpo", "0xBA768888"); 
-#if (defined R7000) && !(defined R6400)
         if (!nvram_match("pci/2/1/mcsbw205ghpo", "0xBA768600"))
             nvram_set("pci/2/1/mcsbw205ghpo", "0xBA768600");
-#endif
         /* foxconn added end by Bob 03/10/2014, BRCM's workaround for bridge mode connect fail issue. */
         
         
@@ -2653,6 +3350,7 @@ sysinit(void)
             /* Foxconn, [MJ] for debugging. */
             cprintf("--> insmod %s\n", ,module);
 			eval("insmod", module);
+		}	
 #endif
 
 #ifdef __CONFIG_SOUND__
@@ -2860,6 +3558,92 @@ do_timer(void)
 	return 0;
 }
 
+/* Foxconn add start, Edward zhang, 09/14/2012, @add ARP PROTECTION support for RU SKU*/
+#ifdef ARP_PROTECTION
+static int getTokens(char *str, char *delimiter, char token[][C_MAX_TOKEN_SIZE], int maxNumToken)
+{
+    char temp[16*1024];    
+    char *field;
+    int numToken=0, i, j;
+    char *ppLast = NULL;
+
+    /* Check for empty string */
+    if (str == NULL || str[0] == '\0')
+        return 0;
+   
+    /* Now get the tokens */
+    strcpy(temp, str);
+    
+    for (i=0; i<maxNumToken; i++)
+    {
+        if (i == 0)
+            field = strtok_r(temp, delimiter, &ppLast);
+        else 
+            field = strtok_r(NULL, delimiter, &ppLast);
+
+        /* Foxconn modified start, Wins, 06/27/2010 */
+        //if (field == NULL || field[0] == '\0')
+        if (field == NULL || (field != NULL && field[0] == '\0'))
+        /* Foxconn modified end, Wins, 06/27/2010 */
+        {
+            for (j=i; j<maxNumToken; j++)
+                token[j][0] = '\0';
+            break;
+        }
+
+        numToken++;
+        strcpy(token[i], field);
+    }
+
+    return numToken;
+}
+
+static int getReservedAddr(char reservedMacAddr[][C_MAX_TOKEN_SIZE], char reservedIpAddr[][C_MAX_TOKEN_SIZE])
+/* Foxconn modified end, zacker, 10/31/2008, @lan_setup_change */
+{
+    int numReservedMac=0, numReservedIp=0;
+    char *var;
+    
+    /* Read MAC and IP address tokens */
+    if ( (var = acosNvramConfig_get("dhcp_resrv_mac")) != NULL )
+    {
+        numReservedMac = getTokens(var, " ", reservedMacAddr, C_MAX_RESERVED_IP);
+    }
+    
+    if ( (var=acosNvramConfig_get("dhcp_resrv_ip")) != NULL )
+    {
+        numReservedIp = getTokens(var, " ", reservedIpAddr, C_MAX_RESERVED_IP);
+    }
+    
+    if (numReservedMac != numReservedIp)
+    {
+        printf("getReservedAddr: reserved mac and ip not match\n");
+    }
+    
+    return (numReservedMac<numReservedIp ? numReservedMac:numReservedIp);
+}
+
+static void config_arp_table(void)
+{
+    if(acosNvramConfig_match("arp_enable","enable"))
+    {
+        int i;
+        char resrvMacAddr[C_MAX_RESERVED_IP][C_MAX_TOKEN_SIZE];
+        char resrvIpAddr[C_MAX_RESERVED_IP][C_MAX_TOKEN_SIZE];
+        int numResrvAddr = getReservedAddr(resrvMacAddr, resrvIpAddr);
+        char arp_cmd[64];
+        for (i=0; i<numResrvAddr; i++)
+        {
+            sprintf(arp_cmd,"arp -s %s %s",resrvIpAddr[i],resrvMacAddr[i]);
+            printf("%s\n",arp_cmd);
+            system(arp_cmd);
+        }
+    }
+    
+    return 0;
+}
+#endif
+/* Foxconn add end, Edward zhang, 09/14/2012, @add ARP PROTECTION support for RU SKU*/
 /* Main loop */
 static void
 main_loop(void)
@@ -2903,6 +3687,7 @@ main_loop(void)
     nvram_set("wps_proc_status", "0");
     /* foxconn added end, zacker, 05/20/2010, @spec_1.9 */
     
+    nvram_set("enable_smart_mesh", "0");
     /* Foxconn Perry added start, 2011/05/13, for IPv6 router advertisment prefix information */
     /* reset IPv6 obsolete prefix information after reboot */
     nvram_set("radvd_lan_obsolete_ipaddr", "");
@@ -2934,6 +3719,13 @@ main_loop(void)
         nvram_set("wps_aplockdown_forceon", "0");
     /* Foxconn added end, zacker, 06/17/2010, @new_tmp_lock */
 
+    /* Foxconn added start, James Hsu, 06/17/2015 @ for extender mode can connect to root AP by wps */
+    if(acosNvramConfig_match("enable_extender_mode","1"))
+        acosNvramConfig_set("wps_pbc_apsta","enabled");
+    else
+        acosNvramConfig_set("wps_pbc_apsta","disabled");
+    /* Foxconn added end, James Hsu, 06/17/2015 @ for extender mode can connect to root AP by wps */
+
     /* Foxconn added start, Wins, 04/20/2011, @RU_IPTV */
 #ifdef CONFIG_RUSSIA_IPTV
 /* Foxconn modified, Edward zhang, 09/05/2012, @add IPTV support for PR SKU*/
@@ -2946,7 +3738,12 @@ main_loop(void)
 #endif
 #endif /* CONFIG_RUSSIA_IPTV */
     /* Foxconn added end, Wins, 04/20/2011, @RU_IPTV */
-
+/* Foxconn add start, Edward zhang, 09/14/2012, @add ARP PROTECTION support for RU SKU*/
+    if ((!is_russia_specific_support()) && (!is_china_specific_support()))
+    {
+        nvram_set(NVRAM_ARP_ENABLED, "disable");
+    }
+/* Foxconn add end, Edward zhang, 09/14/2012, @add ARP PROTECTION support for RU SKU*/
     /* Foxconn add start, Max Ding, 02/26/2010 */
 #ifdef RESTART_ALL_PROCESSES
     nvram_unset("restart_all_processes");
@@ -2992,6 +3789,7 @@ main_loop(void)
 
 	/* Restore defaults if necessary */
 	restore_defaults();
+
 
     /* Foxconn added start pling 06/20/2007 */
     /* Read board data again, since the "restore_defaults" action
@@ -3090,6 +3888,10 @@ main_loop(void)
                 close(2);
                 dup2(fd2, 2);
                 close(fd2);
+#if ((defined WLAN_REPEATER) || (defined CONFIG_EXTENDER_MODE)) && (defined INCLUDE_DUAL_BAND)
+                if(acosNvramConfig_match("enable_extender_mode", "1"))
+                    add_wl_if_for_br0();/* Foxconn added by Max Ding, 11/10/2011 @wps auto change mode  */
+#endif
                 start_wlan(); //<-- to hide messages generated here
                 close(2);
                 dup2(fd1, 2);
@@ -3186,6 +3988,22 @@ main_loop(void)
 			/* Fall through */
 		case START:
 			dprintf("START\n");
+
+            /* Foxconn Perry added start, 01/30/2015, for extender mode */
+#ifdef CONFIG_EXTENDER_MODE            
+            /* If previous firmware configure to station mode or WDS mode */
+            /* configure it to extender mode */
+/* Foxconn Antony added start 07/22/2015, remove the extender mode */
+#if 0
+            if(nvram_match("enable_sta_mode", "1") ||
+                nvram_match("wla_wds_enable", "1") ||
+                nvram_match("wlg_wds_enable", "1"))
+                config_extender_mode();
+#endif                
+/* Foxconn Antony added end 07/22/2015 */
+#endif /* CONFIG_EXTENDER_MODE */
+            /* Foxconn Perry added end, 01/30/2015, for extender mode */
+
 			pmon_init();
 			/* foxconn added start, zacker, 01/13/2012, @iptv_igmp */
 #ifdef CONFIG_RUSSIA_IPTV
@@ -3290,6 +4108,22 @@ main_loop(void)
 #endif
             }
             /* wklin modified end, 10/23/2008 */           
+
+            /*Foxconn Tab Tseng add start, 2015/03/30, disable WPS & smartconnet when smart mesh enable */
+#ifdef CONFIG_SMART_MESH
+            if (!nvram_match("enable_smart_mesh", "0"))
+            {
+                acosNvramConfig_set("enable_smart_mesh", "1");
+                acosNvramConfig_set("enable_band_steering", "0");
+                acosNvramConfig_set("wps_aplockdown_disable", "1");
+                acosNvramConfig_set("wsc_pin_disable", "1");
+                acosNvramConfig_set("wl0_wps_config_state", "0");
+                acosNvramConfig_set("wl1_wps_config_state", "0"); 
+
+            }
+#endif			
+            /*Foxconn Tab Tseng add start, 2015/03/30, disable WPS & smartconnet when smart mesh enable */
+            
             save_wlan_time();
 			start_bcmupnp();
             start_eapd();
@@ -3352,7 +4186,10 @@ main_loop(void)
                     eval("wl", "down");
                 }
 #endif
-
+      if(nvram_match("wla_wds_enable","1"))
+          nvram_set("wds_wifi_restart","1");
+      else
+          nvram_set("wds_wifi_restart","0");
 			/* Fall through */
 		case TIMER:
             /* Foxconn removed start pling 07/12/2006 */
@@ -3387,6 +4224,21 @@ main_loop(void)
                 else if (acosNvramConfig_match("dome_led_status", "OFF"))
                     send_wps_led_cmd(WPS_LED_BLINK_OFF, 2);
 			/* foxconn added end, zacker, 09/17/2009, @wps_led */
+			
+			    /* Foxconn added start by Jesse Chen, 11/16/2012 */    
+#if defined(INCLUDE_QUICK_QOS) 
+                if(acosNvramConfig_match("qos_enable", "1")
+                    &&acosNvramConfig_match("quick_qos_mode", "1")
+                    &&acosNvramConfig_match("wps_fasttrack_button_status", "1"))
+                {                   
+                    //wps button is set for fast lane                    
+                    if(acosNvramConfig_match("qos_fasttrack_enable", "1"))
+                        send_wps_led_cmd(WPS_LED_CHANGE_GREEN, 0);
+                    else
+                        send_wps_led_cmd(WPS_LED_CHANGE_GREEN, 1);            
+                }
+#endif	        
+                /* Foxconn added start by Jesse Chen, 11/16/2012 */
 
 			/* Wait for user input or state change */
 			while (signalled == -1) {
@@ -3452,6 +4304,10 @@ main_loop(void)
                 close(2);
                 dup2(fd2, 2);
                 close(fd2);
+#if ((defined WLAN_REPEATER) || (defined CONFIG_EXTENDER_MODE)) && (defined INCLUDE_DUAL_BAND)
+                if(acosNvramConfig_match("enable_extender_mode", "1"))
+                    add_wl_if_for_br0();/* Foxconn added by Max Ding, 11/10/2011 @wps auto change mode  */
+#endif
                 start_wlan(); //<-- to hide messages generated here
                 close(2);
                 dup2(fd1, 2);
@@ -3503,6 +4359,9 @@ main_loop(void)
             start_wps();
             sleep(2);           /* Wait for WSC to start */
             start_wl();
+#ifdef ARP_PROTECTION
+            config_arp_table();
+#endif 
 			/*Foxconn add start by Hank 06/14/2012*/
 			/*Enable 2.4G auto channel detect, call acsd to start change channel*/
 			//if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))

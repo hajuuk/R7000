@@ -1,0 +1,156 @@
+<HTML><HEAD>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<script language=javascript type=text/javascript src=funcs.js></script>
+<script language=javascript type=text/javascript src=bas_pppoe.js></script>
+<script language=javascript type=text/javascript>
+var lan_ip="<%300%>";
+var lan_subnet="<%554%>";
+
+function loadvalue()
+{
+	var form=document.forms[0];
+	var wan_assign=parent.pppoe_wan_assign;
+	if (wan_assign == "0")
+		form.WANAssign[0].checked = true;
+	else
+		form.WANAssign[1].checked = true;
+	setIP(form);
+	var pppoe_ip=parent.pppoe_static_ip;
+	if(pppoe_ip!="")
+	{
+		var ip_array=pppoe_ip.split('.');
+		form.WPethr1.value=ip_array[0];
+		form.WPethr2.value=ip_array[1];
+		form.WPethr3.value=ip_array[2];
+		form.WPethr4.value=ip_array[3];
+	}
+	if(parent.pppoe_dns1 == "" && parent.pppoe_dns2 == "")
+		form.DNSAssign[0].checked = true;
+	else
+		form.DNSAssign[1].checked = true;
+	setDNS(form);
+	var ether_get_dns1=parent.pppoe_dns1;
+	if (ether_get_dns1!="")
+	{
+		var dns1_array=ether_get_dns1.split('.');
+		form.DAddr1.value=dns1_array[0];
+		form.DAddr2.value=dns1_array[1];
+		form.DAddr3.value=dns1_array[2];
+		form.DAddr4.value=dns1_array[3];
+	}
+	var ether_get_dns2=parent.pppoe_dns2;
+	if (ether_get_dns2!="")
+	{
+		var dns2_array=ether_get_dns2.split('.');
+		form.PDAddr1.value=dns2_array[0];
+		form.PDAddr2.value=dns2_array[1];
+		form.PDAddr3.value=dns2_array[2];
+		form.PDAddr4.value=dns2_array[3];
+	}
+}
+</script>
+</HEAD>
+
+<BODY onLoad="loadvalue();" bgcolor=#ffffff>
+<FORM method="POST" action="ru_wan_flow.cgi">
+<INPUT type=hidden name=submit_page value="RU_manual_pppoe2">
+<INPUT type=hidden name=submit_flag value="setup">
+<input type=hidden name=submit_wan value="0">
+
+<input type="hidden" name="pppoe_ipaddr">
+<input type="hidden" name="pppoe_dnsaddr1">
+<input type="hidden" name="pppoe_dnsaddr2">
+<input type="hidden" name="STATIC_DNS">
+
+<div>
+<div>
+<TABLE align="center" style="width:76%">
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR><TD colSpan="2" class="left_text"><h2><%2379%></h2></TD></TR>
+
+<TR><TD colSpan="2" class="left_text"><%2406%></TD></TR>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR><TD colspan="2" class="center_text"><%2407%></TD></TR>
+
+<TR>
+	<TD colSpan="2" class="left_text">
+	<input type="radio" name="WANAssign" value="0" checked onClick="setIP(document.forms[0])"><%537%>
+	</TD>
+</TR>
+<TR>
+	<TD colSpan="2" class="left_text">
+	<input type="radio" name="WANAssign" value="1" onClick="setIP(document.forms[0])"><%532%>
+	</TD>
+</TR>
+<TR>
+	<TD class="centerTd"><%533%></TD>
+	<TD align=right>
+	<input type="text" name="WPethr1"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);" >.
+	<input type="text" name="WPethr2"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="WPethr3"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="WPethr4"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">
+	</TD>
+</TR>
+
+<TR>
+	<TD colspan="2" class="center_text"><%536%></TD>
+</TR>
+<TR>
+	<TD colSpan="2" class="left_text">
+	<input type="radio" name="DNSAssign" value="0" checked onClick="setDNS(document.forms[0])"><%531%>
+	</TD>
+</TR>
+<TR>
+	<TD colSpan="2" class="left_text">
+	<input type="radio" name="DNSAssign" value="1" onClick="setDNS(document.forms[0])"><%538%>
+	</TD>
+</TR>
+<TR>
+	<TD class="centerTd"><%539%></TD>
+	<TD align=right>
+	<input type="text" name="DAddr1"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);" >.
+	<input type="text" name="DAddr2"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="DAddr3"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="DAddr4"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">
+	</TD>
+</TR>
+<TR>
+	<TD class="centerTd"><%540%></TD>
+	<TD align=right>
+	<input type="text" name="PDAddr1"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);" >.
+	<input type="text" name="PDAddr2"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="PDAddr3"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">.
+	<input type="text" name="PDAddr4"  size="3" autocomplete="off" maxlength="3" onFocus="this.select();" onkeydown="keydown(event,this);" onKeyPress="return getkey('num',event);" onkeyup="keyup(event,this);">
+	</TD>
+</TR>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR>
+	<td colspan="2" align="center" class="text-align:center;">
+		<button class="purpleBtn" type="button" style="width:100px" name="back" value="submit" onClick='location.href="RU_manual_pppoe.htm";'><span><%1570%></span></button>
+        <button class="purpleBtn" type="button" style="width:100px" name="next" value="submit" onClick='RU_check_pppoe();'><span><%1572%></span></button>
+
+	</td>
+
+</TR>
+
+</TABLE>
+</div>
+</div>
+</FORM>
+</BODY>
+</HTML>

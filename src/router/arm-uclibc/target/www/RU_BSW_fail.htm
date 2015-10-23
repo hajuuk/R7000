@@ -1,0 +1,57 @@
+<html>
+<head>
+<%11%>
+<title>NETGEAR Router <%12%></title> 
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<script language="JavaScript" type="text/javascript">
+
+function selectEdit(value)
+{
+	if (value == 0)
+		document.forms[0].select.value = 0;
+	else if (value == 1)
+		document.forms[0].select.value = 1;
+
+	document.forms[0].submit();
+}
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form name="RU_BSW_fail" action="blkDetWan.cgi" method="POST">
+<table align="center" style="width:76%">
+
+<tr style="height:10px">
+<td></td>
+</tr>
+
+<tr>
+	<td class="left_text"><h2><%2374%></h2></td>
+</tr>
+<tr>
+	<td class="left_text"><p><%2375%></p></td>
+</tr>
+
+<tr style="height:10px">
+<td></td>
+</tr>
+
+<tr>
+	<td class="left_text"><p><%2376%></p></td>
+</tr>
+
+<tr style="height:10px">
+<td></td>
+</tr>
+
+<tr>
+	<td class="center_text">
+		<button type="button" style="width:100px" value="submit" class="purpleBtn" name="quit" onClick="selectEdit(1)" ><span><%1448%></span></button>
+        <button type="button" style="width:150px" value="submit" class="purpleBtn" name="next" onClick="selectEdit(0)" ><span><%2377%></span></button>
+	</td>
+</tr>
+</table>
+<input type="hidden" name="select" value="0">
+</form>
+</body>
+</html>

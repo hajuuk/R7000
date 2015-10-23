@@ -1,7 +1,7 @@
 /*
  * Broadcom chipcommon NAND flash interface
  *
- * Copyright (C) 2013, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -39,6 +39,20 @@
 #define NFL_BOOT_OS_SIZE		0x2000000
 #define NFL_BBT_SIZE			0x100000
 
+#ifdef __ARM_ARCH_7A__
+#define NFL_BIG_BOOT_SIZE		0x800000	/* 8 MB */
+#define NFL_BIG_BOOT_OS_SIZE		0x2600000	/* 38 MB */
+#define NFL_1M_BLOCK_SIZE		1024		/* KB */
+
+#define nfl_boot_size(nfl)		((((nfl)->blocksize >> 10) >= NFL_1M_BLOCK_SIZE) ? \
+						NFL_BIG_BOOT_SIZE : NFL_BOOT_SIZE)
+#define nfl_boot_os_size(nfl)		((((nfl)->blocksize >> 10) >= NFL_1M_BLOCK_SIZE) ? \
+						NFL_BIG_BOOT_OS_SIZE : NFL_BOOT_OS_SIZE)
+#else
+#define nfl_boot_size(nfl)		NFL_BOOT_SIZE
+#define nfl_boot_os_size(nfl)		NFL_BOOT_OS_SIZE
+#endif /* __ARM_ARCH_7A__ */
+
 #ifndef _CFE_
 /* Command functions  commands */
 #define CMDFUNC_ERASE1			1
@@ -60,13 +74,14 @@ struct hndnand {
 	uint oobsize;		/* OOB size per page */
 	uint numblocks;		/* Number of blocks */
 	uint32 type;		/* Type */
-	uint size;		/* Total size in bytes */
-	uint8 id[5];
+	uint size;		/* Total size in Mbytes */
+	uint8 id[8];
 	uint32 base;
 	uint32 phybase;
 
 	uint sectorsize;	/* 512 or 1K */
 	uint sparesize;		/* Spare size per sector */
+	uint eccbytes;		/* ECC code bytes per sector */
 	uint ecclevel0;		/* ECC algorithm for blocks 0 */
 	uint ecclevel;		/* ECC algorithm for blocks other than block 0 */
 	uint32 chipidx;		/* Current active chip index */

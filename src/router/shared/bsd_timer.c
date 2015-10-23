@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  *
  * Low resolution timer interface linux specific implementation.
  *
- * $Id: bsd_timer.c 327734 2012-04-16 17:25:20Z $
+ * $Id: bsd_timer.c 307770 2012-01-12 15:58:51Z $
  */
 
 /*

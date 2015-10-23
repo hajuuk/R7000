@@ -1,0 +1,59 @@
+<HTML><HEAD>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<script language=javascript type=text/javascript src=funcs.js></script>
+<script language=javascript type=text/javascript>
+function loadvalue()
+{
+}
+
+function conf_later()
+{
+	var cf=document.forms[0];
+	
+	cf.submit_flag.value="quit";
+	cf.submit();
+}
+</script>
+</HEAD>
+
+<BODY bgcolor=#ffffff>
+<FORM method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_isp_fail">
+<input type=hidden name=submit_flag value="setup">
+<input type=hidden name=submit_wan value="0">
+
+<div>
+<div>
+<TABLE align="center" style="width:76%">
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<TR><TD colspan="2" class="left_text"><h2><%2379%></h2></TD></TR>
+
+<tr>
+	<td colspan="2" class="left_text">
+	<script>document.write("<%2395%>")</script>
+	</td>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<tr>
+	<td colspan="2" align="center" class="text-align:center;">
+        <button class="purpleBtn" type="button" style="width:150px" name="again" value="submit" onclick='location.href="RU_MC_login.htm"'><span><%2396%></span></button>
+        <button class="purpleBtn" type="button" style="width:150px" name="later" value="submit" onclick="conf_later();"><span><%2397%></span></button>
+	</td>
+
+</tr>
+</TABLE>
+</div>
+</div>
+</FORM>
+</BODY>
+</HTML>

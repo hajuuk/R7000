@@ -1,0 +1,113 @@
+#!/bin/bash
+CONFNAME=runlcactivator
+START_CONFNAME=S99$CONFNAME
+STOP_CONFNAME=K10$CONFNAME
+
+
+if [ "$(ps aux | grep -v grep | grep LCACTIVOR.jar  | awk '{print $2}')" != "" ]
+then
+	kill -9 $(ps aux | grep -v grep | grep LCACTIVOR.jar  | awk '{print $2}')
+fi
+
+
+INSTALL_PATH=$1
+
+#create active programe shell script wangxiaoming 201012 
+
+echo -e "#!/bin/bash" > $INSTALL_PATH/LCACTIVOR.sh
+
+echo -e "if [ \"\$(ps aux | grep -v grep | grep LCACTIVOR.jar  | awk '{print \$2}')\" != \"\" ]" >> $INSTALL_PATH/LCACTIVOR.sh
+echo -e "then" >> $INSTALL_PATH/LCACTIVOR.sh
+echo -e "exit" >> $INSTALL_PATH/LCACTIVOR.sh
+echo -e "fi" >> $INSTALL_PATH/LCACTIVOR.sh
+
+echo -e "export JAVA_HOME=${INSTALL_PATH}/java/jre1.5.0_15" >> $INSTALL_PATH/LCACTIVOR.sh
+echo -e "export CLASSPATH=${INSTALL_PATH}/java/jre1.5.0_15/lib:." >> $INSTALL_PATH/LCACTIVOR.sh
+echo -e "APPDIR=${INSTALL_PATH}" >> $INSTALL_PATH/LCACTIVOR.sh
+echo -e "cd \${APPDIR}" >> $INSTALL_PATH/LCACTIVOR.sh
+echo -e "\${APPDIR}/java/jre1.5.0_15/bin/java -Djava.library.path=\${APPDIR}/lib -jar LCACTIVOR.jar &" >> $INSTALL_PATH/LCACTIVOR.sh
+chmod +x $INSTALL_PATH/LCACTIVOR.sh
+
+cp $INSTALL_PATH/active/lcAutoStart.desktop /etc/xdg/autostart/
+chmod a+x /etc/xdg/autostart/lcAutoStart.desktop
+echo "rm -f /etc/xdg/autostart/lcAutoStart.desktop" >> $INSTALL_PATH/active/active_uninstall
+
+for AUTORUNPATH in `find /home/ -mount -name "[Aa]utostart" -type d`;
+do
+
+
+    echo "AUTORUNPATH=$AUTORUNPATH"
+    if [ -d $ADDRUNLEVEL ] ; then
+       cp $INSTALL_PATH/active/lcAutoStart.desktop $AUTORUNPATH
+        chmod a+x $AUTORUNPATH/lcAutoStart.desktop
+        echo "rm -f $AUTORUNPATH/lcAutoStart.desktop" >> $INSTALL_PATH/active/active_uninstall
+    fi
+done
+for AUTORUNPATH in `find /root/ -mount -name "[Aa]utostart" -type d`;
+do
+    echo "AUTORUNPATH=$AUTORUNPATH"
+    if [ -d $ADDRUNLEVEL ] ; then
+       cp $INSTALL_PATH/active/lcAutoStart.desktop $AUTORUNPATH
+        chmod a+x $AUTORUNPATH/lcAutoStart.desktop
+        echo "rm -f $AUTORUNPATH/lcAutoStart.desktop" >> $INSTALL_PATH/active/active_uninstall
+    fi
+done
+
+
+#install the configuration file for auto run in boot
+sed "s#CURPATH#${INSTALL_PATH}#g" $INSTALL_PATH/active/skeleton > $INSTALL_PATH/active/skeleton.bak
+
+sed "s#parameter#$2#g" $INSTALL_PATH/active/skeleton.bak > $INSTALL_PATH/active/$CONFNAME
+
+rm -f $INSTALL_PATH/active/skeleton.bak
+
+
+
+if [ -d /etc/init.d ]
+then
+    cp -f $INSTALL_PATH/active/$CONFNAME /etc/init.d/
+    chmod a+x /etc/init.d/$CONFNAME
+    CONFPATH=/etc/init.d
+elif [ -d /etc/rc.d ]
+then
+    cp -f $INSTALL_PATH/active/$CONFNAME /etc/rc.d/
+    chmod a+x /etc/rc.d/$CONFNAME
+    CONFPATH=/etc/rc.d
+fi
+
+echo "rm -f $CONFPATH/$CONFNAME" >> $INSTALL_PATH/active/active_uninstall
+
+#use command
+for ADDRUNLEVEL in `find /etc/ -name "rc[2345].d" -type d`;
+do
+    echo "ADDRUNLEVEL=$ADDRUNLEVEL"
+    if [ -d $ADDRUNLEVEL ] ; then
+        if [ -L "$ADDRUNLEVEL/$START_CONFNAME" ] ; then
+            rm -f $ADDRUNLEVEL/$START_CONFNAME
+            rm -f $ADDRUNLEVEL/$STOP_CONFNAME
+        fi
+        ln -sv $CONFPATH/$CONFNAME $ADDRUNLEVEL/$START_CONFNAME
+        chmod a+x $ADDRUNLEVEL/$START_CONFNAME
+        ln -sv $CONFPATH/$CONFNAME $ADDRUNLEVEL/$STOP_CONFNAME
+        chmod a+x $ADDRUNLEVEL/$STOP_CONFNAME
+    
+        echo "rm -f $ADDRUNLEVEL/$START_CONFNAME" >> $INSTALL_PATH/active/active_uninstall
+        echo "rm -f $ADDRUNLEVEL/$STOP_CONFNAME" >> $INSTALL_PATH/active/active_uninstall
+    fi
+done
+
+if [ -f /etc/init.d/.depend.start ]
+then
+    rm -f /etc/init.d/.depend.start
+    rm -f /etc/init.d/.depend.stop
+    chkconfig -a runlcactivator
+fi
+
+
+
+cp "$INSTALL_PATH"/active/startUSBModem /sbin/
+chmod a+x /sbin/startUSBModem
+echo "rm -f /sbin/startUSBModem" >> "$INSTALL_PATH"/active/active_uninstall
+
+#"$INSTALL_PATH"/LCACTIVOR.sh
+#"$INSTALL_PATH"/USBModem>>/dev/null 2>&1

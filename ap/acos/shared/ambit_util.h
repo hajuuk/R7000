@@ -84,6 +84,13 @@ extern int isValidIpAddr(char *ipAddr);
 extern int isValidNetworkAddr(char *ipAddr);
 extern int isValidNetmask(char *mask);
 extern int isLanSubnet(char *ipAddr);
+#if (defined WLAN_REPEATER) || (defined CONFIG_EXTENDER_MODE)
+/* add by Foxconn Michael for network device */
+extern int isBRSubnet(char *ipAddr);
+#endif
+#ifdef OPENVPN_SUPPORT
+extern int isOpenvpnLanSubnet(char *ipAddr); /* Foxconn added by Max Ding, 04/10/2014 OpenVPN: support tun and tap at the same time */
+#endif
 /* Foxconn add start, Max Ding, 10/31/2008 for @RU_two_wan */
 #ifdef STATIC_PPPOE
 extern int isSecWanSubnet(char *ipAddr);
@@ -205,6 +212,7 @@ extern int ambitSetLogFilter(unsigned int log_filter);
 extern int is_russian_case(void); /* foxconn added, zacker, 07/08/2011 */
 
 extern void replaceString(char *input_str, int size, char *ori_str, char *new_str);
+extern int convert_string(char *str_in_out, unsigned int str_out_len);
 
 extern int doKillPid(char_t *fmt, ...);
 extern int doSystem(char_t *fmt, ...);

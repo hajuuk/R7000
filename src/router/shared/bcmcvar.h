@@ -2,7 +2,7 @@
  * Broadcom Home Gateway Reference Design
  * Broadcom Web Page Configuration Variables
  *
- * Copyright (C) 2011, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
- * $Id: bcmcvar.h 241182 2011-02-17 21:50:03Z $
+ * $Id: bcmcvar.h 458674 2014-02-27 11:23:19Z $
  */
 
 #ifndef _bcmcvar_h
@@ -112,10 +112,10 @@ typedef struct UPLOAD_CONSTRAINTS upload_constraints;
 #define NVRAM_MAX_NETIF		8	/* Maximum number of suppoters NVRAM interfaces
 					 * (wan,vlan,wl) of each type
 					 */
-#define NVRAM_MAX_STRINGSIZE	256
+#define NVRAM_MAX_STRINGSIZE	512
 
 #define NVRAM_CHECKSUM_FILLER	"NVRAMTemporaryChecksumFiller"
-#define NVRAM_CHECKSUM_LINENUM	1 	/* Line number where checksum is located starting from
+#define NVRAM_CHECKSUM_LINENUM	1	/* Line number where checksum is located starting from
 					 * zero
 					 */
 

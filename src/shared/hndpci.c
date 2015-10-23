@@ -1,7 +1,7 @@
 /*
  * Low-Level PCI and SI support for BCM47xx
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $Id: hndpci.c 358999 2012-09-26 05:59:33Z $
+ * $Id: hndpci.c 404499 2013-05-28 01:06:37Z $
  */
 
 #include <bcm_cfg.h>
@@ -122,7 +122,7 @@ hndpci_set_busid(uint busid)
 
 static int
 hndpci_pci_coreunit(uint bus)
-{	int i;
+{	uint i;
 
 	ASSERT(bus >= 1);
 	for (i = SI_PCI_MAXCORES - 1; i >= 0; i--) {

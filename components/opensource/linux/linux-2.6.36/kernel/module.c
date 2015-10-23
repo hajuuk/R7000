@@ -1,3 +1,4 @@
+/* Modified by Broadcom Corp. Portions Copyright (c) Broadcom Corp, 2012. */
 /*
    Copyright (C) 2002 Richard Henderson
    Copyright (C) 2001 Rusty Russell, 2002, 2010 Rusty Russell IBM.
@@ -303,6 +304,8 @@ static bool find_symbol_in_section(const struct symsearch *syms,
 {
 	struct find_symbol_arg *fsa = data;
 
+//printk(KERN_EMERG"symnum=%d syms->start[symnum].name=%08x fsa=%08x\n",symnum,syms->start[symnum].name,fsa);
+//printk(KERN_EMERG"symnum=%d syms->start[symnum].name=%s fsa->name=%s\n",symnum,syms->start[symnum].name,fsa->name);
 	if (strcmp(syms->start[symnum].name, fsa->name) != 0)
 		return false;
 
@@ -3185,6 +3188,18 @@ void print_modules(void)
 {
 	struct module *mod;
 	char buf[8];
+
+	/* Show each module name and core base address for
+	 * GDB source code trace dump
+	 */
+	preempt_disable();
+	list_for_each_entry_rcu(mod, &modules, list) {
+		printk("module:  %s\t %p\t %u\n",
+			mod->name,
+			mod->module_core,
+			mod->init_size + mod->core_size);
+	}
+	preempt_enable();
 
 	printk(KERN_DEFAULT "Modules linked in:");
 	/* Most callers should already have preempt disabled, but make sure */

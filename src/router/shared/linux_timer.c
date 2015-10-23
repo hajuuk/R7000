@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,7 @@
  *
  * Low resolution timer interface linux specific implementation.
  *
- * $Id: linux_timer.c 342502 2012-07-03 03:08:12Z $
+ * $Id: linux_timer.c 440374 2013-12-02 14:44:47Z $
  */
 
 /*
@@ -43,6 +43,8 @@
 #include <stdio.h>	    // for printf, etc.
 #include <sys/time.h>
 #include <time.h>
+
+#include <typedefs.h>
 
 /* define TIMER_PROFILE to enable code which guages how accurate the timer functions are.
  * For each expiring timer the code will print the expected time interval and the actual time
@@ -748,8 +750,10 @@ int bcm_timer_module_init(int timer_entries, bcm_timer_module_id *module_id)
 * Cleanup internal resources used by this timer module. It deletes all
 * pending timer entries from the backend timer system as well.
 */
+/* ARGSUSED */
 int bcm_timer_module_cleanup(bcm_timer_module_id module_id)
 {
+	UNUSED_PARAMETER(module_id);
 	module_id = 0;
 	return 0;
 }
@@ -764,9 +768,10 @@ int bcm_timer_module_enable(bcm_timer_module_id module_id, int enable)
 	return 0;
 }
 
+/* ARGSUSED */
 int bcm_timer_create(bcm_timer_module_id module_id, bcm_timer_id *timer_id)
 {
-	module_id = 0;
+	UNUSED_PARAMETER(module_id);
 	return timer_create(CLOCK_REALTIME, NULL, (timer_t *)timer_id);
 }
 

@@ -124,6 +124,16 @@ EXPORT_SYMBOL(clip_tbl_hook);
 
 #include <linux/netfilter_arp.h>
 
+#define C_MAX_TOKEN_SIZE        128
+#define C_MAX_RESERVED_IP       64
+typedef struct ArpControlProfile {
+        char enable[12];
+        int numResrvAddr;
+        char resrvMacAddr[C_MAX_RESERVED_IP][C_MAX_TOKEN_SIZE];
+        char resrvIpAddr[C_MAX_RESERVED_IP][C_MAX_TOKEN_SIZE];
+}T_ArpCtlProfile;
+T_ArpCtlProfile arp_profile = {"disable", 0 ,"", ""};
+/*foxconn add end,edward zhang, 2012/1/16 @arp protection*/
 /*
  *	Interface to generic neighbour cache.
  */
@@ -908,6 +918,34 @@ static int arp_process(struct sk_buff *skb)
     }
 #endif
     /* fxcn added by dennis end,01/02/2013, */
+/*foxconn add start,edward zhang, 2012/11/16 @arp protection*/
+#ifdef ARP_PROTECTION
+
+    if(!strcmp(skb->dev->name, "br0") && !strcmp(arp_profile.enable,"enable"))
+    {
+        unsigned char mac[64] = "";
+        unsigned char ip[16] = "";
+        int need_drop = 1;
+        int i;
+        sprintf(mac,"%02x:%02x:%02x:%02x:%02x:%02x",sha[0],sha[1],sha[2],sha[3],sha[4],sha[5]);
+        sprintf(ip,"%08x",ntohl(sip));
+        //printk("ip:%s  mac:%s\n",ip,mac);
+        for(i=0 ;i<arp_profile.numResrvAddr ; i++)
+        {
+            if(strcmp(arp_profile.resrvIpAddr[i],ip))
+                continue;
+            else if(!strcmp(arp_profile.resrvMacAddr[i],mac))
+            {
+                need_drop = 0;
+                break;
+            }
+
+        }
+        if(need_drop)
+            goto out;
+    }
+#endif
+/*foxconn add end,edward zhang, 2012/11/16 @arp protection*/
 
 	if (arp->ar_op == htons(ARPOP_REQUEST) &&
 	    ip_route_input_noref(skb, tip, sip, 0, dev) == 0) {
@@ -952,7 +990,13 @@ static int arp_process(struct sk_buff *skb)
 			}
 		}
 	}
+/* Foxconn add start, Edward zhang, 09/14/2012, @add ARP PROTECTION support for RU SKU*/
+#ifdef ARP_PROTECTION
 
+    if(!strcmp(skb->dev->name, "br0") && !strcmp(arp_profile.enable,"enable"))
+        goto out;
+#endif
+/* Foxconn add end, Edward zhang, 09/14/2012, @add ARP PROTECTION support for RU SKU*/
 	/* Update our ARP tables */
 
 	n = __neigh_lookup(&arp_tbl, &sip, dev, 0);
@@ -1228,6 +1272,15 @@ static int arp_req_delete(struct net *net, struct arpreq *r,
 
 int arp_ioctl(struct net *net, unsigned int cmd, void __user *arg)
 {
+/*foxconn add start,edward zhang, 2012/11/16 @arp protection*/
+#ifdef ARP_PROTECTION
+	unsigned long args[1];
+	int i;
+
+	if (copy_from_user(args, arg, sizeof(args)))
+		return -EFAULT;
+#endif
+/*foxconn add start,edward zhang, 2012/11/16 @arp protection*/
 	int err,b_updated;
 	struct arpreq r;
 	struct net_device *dev = NULL;
@@ -1252,6 +1305,21 @@ int arp_ioctl(struct net *net, unsigned int cmd, void __user *arg)
                         return b_updated; 
 			break;
 	        /* Foxconn tab tseng added end, 2013/05/27, for xbox qos */
+/*foxconn add start,edward zhang, 2012/11/16 @arp protection*/
+#ifdef ARP_PROTECTION
+		case SIOCREJARP:
+            printk("<0>%s %d\n",__FUNCTION__,__LINE__);
+			if(copy_from_user(&arp_profile, (void __user *)args[0], sizeof(T_ArpCtlProfile)))
+            {
+                //printk("<0>number1:%d,enable:%s\n",arp_profile.numResrvAddr,arp_profile.enable);
+                return -EFAULT;
+            }
+            /*printk("<0>number:%d,enable:%s\n",arp_profile.numResrvAddr,arp_profile.enable);
+            for(i= 0;i<arp_profile.numResrvAddr;i++)
+            printk("<0>ip:%s mac %s\n",arp_profile.resrvIpAddr[i],arp_profile.resrvMacAddr[i]);*/
+            return 0;
+#endif
+/*foxconn add end,edward zhang, 2012/11/16 @arp protection*/
 		default:
 			return -EINVAL;
 	}

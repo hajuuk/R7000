@@ -399,6 +399,19 @@ static int associate_dev(struct us_data *us, struct usb_interface *intf)
 	us->pusb_dev = interface_to_usbdev(intf);
 	us->pusb_intf = intf;
 	us->ifnum = intf->cur_altsetting->desc.bInterfaceNumber;
+
+    #if 1 /* foxconn Han edited, 08/25/2014 debug message*/
+	printk("-- %s %s\n", __func__, __FILE__);
+	printk("Vendor: 0x%04x, Product: 0x%04x, Revision: 0x%04x\n",
+			le16_to_cpu(us->pusb_dev->descriptor.idVendor),
+			le16_to_cpu(us->pusb_dev->descriptor.idProduct),
+			le16_to_cpu(us->pusb_dev->descriptor.bcdDevice));
+	printk("Interface Subclass: 0x%02x, Protocol: 0x%02x\n",
+			intf->cur_altsetting->desc.bInterfaceSubClass,
+			intf->cur_altsetting->desc.bInterfaceProtocol);
+
+    #endif 
+
 	US_DEBUGP("Vendor: 0x%04x, Product: 0x%04x, Revision: 0x%04x\n",
 			le16_to_cpu(us->pusb_dev->descriptor.idVendor),
 			le16_to_cpu(us->pusb_dev->descriptor.idProduct),
@@ -521,6 +534,13 @@ static int get_device_info(struct us_data *us, const struct usb_device_id *id,
 			idesc->bInterfaceProtocol :
 			unusual_dev->useTransport;
 	us->fflags = USB_US_ORIG_FLAGS(id->driver_info);
+    
+    #if 1
+    printk("\n%s %s %d id->driver_info=0x%X\n",__func__,__FILE__,__LINE__,id->driver_info);
+    printk("vid %04x pid %04x: %lx\n", le16_to_cpu(dev->descriptor.idVendor), le16_to_cpu(dev->descriptor.idProduct), us->fflags);
+    printk("subclass=0x%X,protocol=0x%X,%X\n",us->subclass,us->protocol,idesc->bInterfaceProtocol);
+    #endif
+
 	adjust_quirks(us);
 
 	if (us->fflags & US_FL_IGNORE_DEVICE) {
@@ -720,7 +740,11 @@ static int usb_stor_acquire_resources(struct us_data *us)
 		if (p)
 			return p;
 	}
-
+	if(us->fflags & US_FL_IGNORE_SCSI_DEVICE)
+	{
+	    printk(KERN_INFO USB_STORAGE "SCSI device ignored\n");
+	    return -ENODEV;
+	}
 	/* Start up our control thread */
 	th = kthread_run(usb_stor_control_thread, us, "usb-storage");
 	if (IS_ERR(th)) {
@@ -874,6 +898,7 @@ int usb_stor_probe1(struct us_data **pus,
 
 	US_DEBUGP("USB Mass Storage device detected\n");
 
+printk("%s %s %d id->idVendor=0x%X,idProduct=0x%X,driver_info=0x%X\n",__func__,__FILE__,__LINE__,id->idVendor,id->idProduct,id->driver_info);
 	/*
 	 * Ask the SCSI layer to allocate a host structure, with extra
 	 * space at the end for our private us_data structure.
@@ -936,8 +961,10 @@ int usb_stor_probe2(struct us_data *us)
 		result = -ENXIO;
 		goto BadDevice;
 	}
-	US_DEBUGP("Transport: %s\n", us->transport_name);
-	US_DEBUGP("Protocol: %s\n", us->protocol_name);
+	US_DEBUGP("Transport: %s 0x%X\n", us->transport_name,us->subclass);
+	US_DEBUGP("Protocol: %s 0x%X\n", us->protocol_name,us->protocol);
+	printk("Transport: %s 0x%X\n", us->transport_name,us->subclass);
+	printk("Protocol: %s 0x%X\n", us->protocol_name,us->protocol);
 
 	/* fix for single-lun devices */
 	if (us->fflags & US_FL_SINGLE_LUN)
@@ -947,6 +974,12 @@ int usb_stor_probe2(struct us_data *us)
 	result = get_pipes(us);
 	if (result)
 		goto BadDevice;
+
+#if 1
+printk("%s %s class=0x%X,subc=0x%X,proto=0x%X\n",__func__,__FILE__,us->pusb_dev->descriptor.bDeviceClass,
+    us->pusb_dev->descriptor.bDeviceSubClass,
+    us->pusb_dev->descriptor.bDeviceProtocol);
+#endif
 
 	/* Acquire all the other resources and add the host */
 	result = usb_stor_acquire_resources(us);

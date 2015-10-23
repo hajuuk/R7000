@@ -669,7 +669,7 @@ static struct init_tags {
 	{ tag_size(tag_core), ATAG_CORE },
 	{ 1, PAGE_SIZE, 0xff },
 	{ tag_size(tag_mem32), ATAG_MEM },
-	{ MEM_SIZE, PHYS_OFFSET },
+	{ MEM_SIZE, CONFIG_DRAM_BASE },
 	{ 0, ATAG_NONE }
 };
 
@@ -770,6 +770,8 @@ void __init setup_arch(char **cmdline_p)
 	struct machine_desc *mdesc;
 	char *from = default_command_line;
 
+	init_tags.mem.start = PHYS_OFFSET;
+
 	unwind_init();
 
 	setup_processor();
@@ -778,6 +780,8 @@ void __init setup_arch(char **cmdline_p)
 
 	if (mdesc->soft_reboot)
 		reboot_setup("s");
+
+	mdesc->boot_params = PHYS_OFFSET + (CONFIG_BOARD_PARAMS_PHYS - CONFIG_DRAM_BASE);
 
 	if (__atags_pointer)
 		tags = phys_to_virt(__atags_pointer);

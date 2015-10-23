@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<head>
+<%11%>
+<TITLE><%410%></TITLE>
+<link rel="stylesheet" href="form.css">
+
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+var defaultInterval = 5;
+ var interval = 5;
+
+function loadInterval()
+{
+ intervalId = setInterval("getStatisticPage()", interval * 1000);
+ intervalId2 = setInterval("setDefaultInterval()", 20);
+ }
+
+ function setDefaultInterval()
+ {
+ document.SetIntervalForm.interval.value = defaultInterval ;
+ clearInterval(intervalId2) ;
+ }
+
+
+ function resetInterval(newInterval)
+ {
+ interval = parseInt(newInterval);
+ if ( isNaN(interval) || interval < 0)
+ {
+ interval = defaultInterval
+ }
+ document.SetIntervalForm.interval.value = interval ;
+ clearInterval(intervalId) ;
+ intervalId = setInterval("getStatisticPage()", interval * 1000);
+ }
+
+
+ function stopInterval() 
+ {
+ clearInterval(intervalId) ;
+ document.SetIntervalForm.interval.value = "" ;
+ }
+
+ function getStatisticPage()
+ {
+ myTitle = "PNC Statistic " ;
+ parent.StatTable_3g.location.href = "RST_st_wwan.htm" ;
+ parent.StatTable_xdsl.location.href = "<%3131%><%3132%><%3133%><%3134%><%3135%><%3136%>" ;
+ } 
+
+</script>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF" onLoad="loadInterval();document.forms[0].elements[1].focus();">
+<FORM method="POST" NAME="SetIntervalForm" action="POST" onSubmit="resetInterval(document.SetIntervalForm.interval.value);return false;">
+<input type="hidden" name="Load" value="H">
+ <P>
+ <div align="CENTER">
+ <TABLE BORDER=0 WIDTH=510 HEIGHT=34 VALIGN=top>
+ <TR> 
+ <TD WIDTH=170 align="CENTER"><B><%1381%> :</B></TD>
+<TD align="CENTER" nowrap><INPUT TYPE="TEXT" NAME="interval" SIZE="4" MAXLENGTH="4" VALUE=" "> <%2119%></TD>
+<TD WIDTH=80> </TD>
+<TD WIDTH=80 ALIGN="center" VALIGN="middle"><INPUT TYPE="BUTTON" NAME="SetIntvl" VALUE="<%1383%>" WIDTH="80" onClick="resetInterval(document.SetIntervalForm.interval.value)"></TD>
+<TD WIDTH=20> &nbsp; </TD>
+<td WIDTH=100 ALIGN="center" VALIGN="middle"><INPUT TYPE="BUTTON" NAME="stopIntvl" VALUE="  <%1384%>  " WIDTH="80" onClick="return stopInterval()"></TD> 
+<TD WIDTH=20> &nbsp; </TD>
+<TD WIDTH=80 align="center" VALIGN="middle"><input type=button name="close" value="<%492%>" onclick="top.window.close();"></TD>
+</TR>
+
+</TABLE>
+</div>
+
+
+<input type="hidden" name="Button" value="<%78%>">
+</FORM>
+</BODY>
+</HTML>

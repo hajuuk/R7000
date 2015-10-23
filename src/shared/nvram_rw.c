@@ -1,7 +1,7 @@
 /*
  * NVRAM variable manipulation (direct mapped flash)
  *
- * Copyright (C) 2012, Broadcom Corporation. All Rights Reserved.
+ * Copyright (C) 2015, Broadcom Corporation. All Rights Reserved.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -61,7 +61,7 @@ char *devinfo_flashdrv_nvram = "flash0.devinfo";
 
 static struct nvram_header *devinfo_nvram_header = NULL;
 static unsigned char devinfo_nvram_nvh[MAX_NVRAM_SPACE];
-#endif
+#endif /* _CFE_ && BCM_DEVINFO */
 
 #ifdef _CFE_
 /* For NAND boot, flash0.nvram will be changed to nflash0.nvram */
@@ -80,10 +80,6 @@ extern int kernel_initial;
 /* Convenience */
 #define KB * 1024
 #define MB * 1024 * 1024
-
-#ifndef NVRAM_RESET_GPIO_WAIT
-#define NVRAM_RESET_GPIO_WAIT	5000 /* in ms */
-#endif
 
 char *
 nvram_get(const char *name)
@@ -172,7 +168,7 @@ BCMINITFN(nvram_reset)(void  *si)
 		return FALSE;
 
 	/* GPIO reset is asserted low */
-	for (msec = 0; msec < NVRAM_RESET_GPIO_WAIT; msec++) {
+	for (msec = 0; msec < 5000; msec++) {
 		if (si_gpioin(sih) & ((uint32) 1 << gpio))
 			return FALSE;
 		OSL_DELAY(1000);
@@ -193,7 +189,7 @@ BCMINITFN(nand_find_nvram)(hndnand_t *nfl, uint32 off)
 	int rlen = sizeof(nand_nvh);
 	int len;
 
-	for (; off < NFL_BOOT_SIZE; off += blocksize) {
+	for (; off < nfl_boot_size(nfl); off += blocksize) {
 		if (hndnand_checkbadb(nfl, off) != 0)
 			continue;
 
@@ -262,7 +258,7 @@ BCMINITFN(find_nvram)(si_t *sih, bool embonly, bool *isemb)
 
 			blocksize = nfl_info->blocksize;
 			off = blocksize;
-			for (; off < NFL_BOOT_SIZE; off += blocksize) {
+			for (; off < nfl_boot_size(nfl_info); off += blocksize) {
 				if (hndnand_checkbadb(nfl_info, off) != 0)
 					continue;
 				nvh = (struct nvram_header *)OSL_UNCACHED(flbase + off);
@@ -411,7 +407,7 @@ BCMINITFN(_nvram_read)(void *buf, int idx)
 	src = idx == 0 ? (uint32 *) nvram_header : (uint32 *) devinfo_nvram_nvh;
 #else
 	src = (uint32 *) nvram_header;
-#endif
+#endif /* _CFE_ && BCM_DEVINFO */
 
 	dst = (uint32 *) buf;
 

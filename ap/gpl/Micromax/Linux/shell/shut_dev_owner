@@ -1,0 +1,28 @@
+#!/bin/sh
+# description: kill owner pid of device
+export LANG="en_US.UTF-8"
+export COLUMNS=256
+LOGFILE="/tmp/lcActiveUSBModem.log"
+
+echo " start to shut down owner of device!!! ====" >> $LOGFILE
+if [ "$1" = "" ]; then
+        echo " parameter error" >> $LOGFILE
+else
+        DEVICE=$1
+fi
+
+BINPID=`/bin/fuser $DEVICE`
+SBINPID=`/sbin/fuser $DEVICE`
+
+if test $BINPID; then
+	echo " kill owner of $DEVICE /bin/fuser $BINPID" >> $LOGFILE
+	`/bin/fuser -k -15 $DEVICE`
+	exit 0
+fi
+
+if test $SBINPID; then
+	echo " kill owner of $DEVICE /sbin/fuser $SBINPID " >> $LOGFILE
+	`/sbin/fuser -k -15 $DEVICE`
+	exit 0
+fi
+

@@ -1,0 +1,98 @@
+<html><head>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="ru_style.css">
+<script language=javascript type=text/javascript src=funcs.js></script>
+<script language=javascript type=text/javascript src=bas_l2tp.js></script>
+<script language=javascript type=text/javascript>
+var isp_type=parent.isp_type;
+
+function loadvalue()
+{
+	var cf=document.forms[0];
+	parent.l2tp_server_ipaddr=parent.vpn_server;
+
+	cf.l2tp_username.value=parent.l2tp_username;
+	cf.l2tp_passwd.value=parent.l2tp_password;
+	cf.l2tp_serv_ip.value=parent.l2tp_server_ipaddr;
+}
+
+</script>
+</head>
+
+<body onload="loadvalue();" bgcolor="#ffffff">
+<form method="POST" action="ru_wan_flow.cgi">
+<input type=hidden name=submit_page value="RU_isp_l2tp">
+<input type=hidden name=submit_flag value="setup">
+<input type=hidden name=submit_wan value="0">
+
+<input name="l2tp_myip" type="hidden">
+<input name="l2tp_mynetmask" type="hidden">
+<input name="l2tp_gateway" type="hidden">
+<input name="l2tp_conn_id" value="" type="hidden">
+<input name="DNSAssign" type="hidden">
+<input name="WANAssign" type="hidden">
+<input name="change_wan_type" value="0" type="hidden">
+<input name="run_test" type="hidden">
+<input name="l2tp_dod" value="0" type="hidden">
+<input name="STATIC_DNS" type="hidden">
+<input name="l2tp_dnsaddr1" type="hidden">
+<input name="l2tp_dnsaddr2" type="hidden">
+<input name="conflict_wanlan" type="hidden">
+<input name="ether_ipaddr" type="hidden">
+<input name="ether_subnet" type="hidden">
+<input name="ether_gateway" type="hidden">
+<input name="ether_dnsaddr1" type="hidden">
+<input name="ether_dnsaddr2" type="hidden">
+<input name="basic_type" value="0" type="hidden">
+<input name="ppp_login_type" value="2" type="hidden">
+<input name="welcome_wan_type" type="hidden">
+
+<div>
+<div>
+<table align="center" style="width:76%">
+<tbody>
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+<tr><td colspan="2" class="left_text"><h2><%2379%></h2></td></tr>
+
+<tr>
+	<td colspan="2" class="left_text"><%2387%></td>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<tr>
+	<td class="bigcenterTd"><%579%></td>
+    <td class="textRow"><input value="undefined" name="l2tp_username" type="text"></td>
+</tr>
+<tr>
+	<td class="bigcenterTd"><%581%></td>
+    <td class="textRow"><input value="undefined" name="l2tp_passwd" type="text"></td>
+</tr>
+<tr>
+	<td class="bigcenterTd"><%622%></td>
+    <td class="textRow"><input value="undefined" name="l2tp_serv_ip" type="text"></td>
+</tr>
+
+<tr style="height:10px">
+<td colspan="2"></td>
+</tr>
+
+<tr>
+	<td colspan="2" align="center" class="text-align:center;">
+		<button type="button" style="width:100px" value="submit" class="purpleBtn" name="back" onclick='location.href="RU_welcome.htm"'><span><%1570%></span></button>
+        <button type="button" style="width:100px" value="submit" class="purpleBtn" name="next" onclick="RU_l2tp_user_info();"><span><%1572%></span></button>
+	</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</form>
+</body>
+</html>
