@@ -59,6 +59,7 @@
 #define IOV_COUNTERS		6
 #define IOV_DUMP_CTF		7
 #define IOV_DUMP_CTRACE		8
+#define IOV_DUMP		9
 
 #if defined(linux) || defined(__ECOS)
 #define SIOCSETCUP		(SIOCDEVPRIVATE + ETCUP)

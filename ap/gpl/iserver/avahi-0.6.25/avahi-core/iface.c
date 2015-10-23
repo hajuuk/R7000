@@ -50,9 +50,9 @@ void avahi_interface_address_update_rrs(AvahiInterfaceAddress *a, int remove_rrs
     assert(a);
     m = a->monitor;
 
-	if( strcmp(a->interface->hardware->name,"br0") )
-		return;
-		
+if((strcmp(a->interface->hardware->name,"eth0")==0) || (strcmp(a->interface->hardware->name,"vlan2")==0)|| (strcmp(a->interface->hardware->name,"wl0.1")==0)|| (strcmp(a->interface->hardware->name,"wl1.1")==0))
+	return;
+
     if (m->list_complete &&
         avahi_interface_address_is_relevant(a) &&
         avahi_interface_is_relevant(a->interface) &&
@@ -176,8 +176,8 @@ static int interface_mdns_mcast_join(AvahiInterface *i, int join) {
     int r;
     assert(i);
 
-	if( strcmp(i->hardware->name,"br0") )
-		return -1;
+if((strcmp(i->hardware->name,"eth0")==0)|| (strcmp(i->hardware->name,"vlan2")==0)|| (strcmp(i->hardware->name,"wl0.1")==0)|| (strcmp(i->hardware->name,"w11.1")==0))
+	return -1;
 
     if (!!join  == !!i->mcast_joined)
         return 0;

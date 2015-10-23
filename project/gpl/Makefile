@@ -38,7 +38,7 @@ SUBDIRS += bzip2
 #SUBDIRS +=lzo-2.06
 ifeq ($(CONFIG_OPENVPN),y)
 SUBDIRS +=openvpn-2.3.1
-SUBDIRS +=GeoIP-1.5.1
+#SUBDIRS +=GeoIP-1.5.1
 endif
 # allenwen add for openvpn
 
@@ -46,7 +46,6 @@ ifeq ($(CONFIG_TCPDUMP),y)
 SUBDIRS +=libpcap-1.4.0
 SUBDIRS +=tcpdump-4.4.0
 endif
-
 
 ifeq ($(CONFIG_RIP),y)
 SUBDIRS	+= zebra

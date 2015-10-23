@@ -326,6 +326,10 @@
 #define HNBU_USBSSPHY_SLEEP1	0x71    /* 2 byte USB SSPHY sleep */
 #define HNBU_USBSSPHY_SLEEP2	0x72    /* 2 byte USB SSPHY sleep */
 #define HNBU_USBSSPHY_SLEEP3	0x73    /* 2 byte USB SSPHY sleep */
+#define HNBU_USBSSPHY_MDIO		0x74	/* USB SSPHY INIT regs setting */
+#define HNBU_USB30PHY_NOSS		0x75	/* USB30 NO Super Speed */
+#define HNBU_USB30PHY_U1U2		0x76	/* USB30 PHY U1U2 Enable */
+#define HNBU_USB30PHY_REGS		0x77	/* USB30 PHY REGs update */
 
 #define HNBU_SROM3SWRGN		0x80	/* 78 bytes; srom rev 3 s/w region without crc8
 					 * plus extra info appended.
@@ -333,6 +337,13 @@
 #define HNBU_RESERVED		0x81	/* Reserved for non-BRCM post-mfg additions */
 #define HNBU_CUSTOM1		0x82	/* 4 byte; For non-BRCM post-mfg additions */
 #define HNBU_CUSTOM2		0x83	/* Reserved; For non-BRCM post-mfg additions */
+#define HNBU_ACPAPARAM		0x84	/* ACPHY PAPARAM */
+#define HNBU_ACPA_CCK		0x86	/* ACPHY PA trimming parameters: CCK */
+#define HNBU_ACPA_40		0x87	/* ACPHY PA trimming parameters: 40 */
+#define HNBU_ACPA_80		0x88	/* ACPHY PA trimming parameters: 80 */
+#define HNBU_ACPA_4080		0x89	/* ACPHY PA trimming parameters: 40/80 */
+#define HNBU_SUBBAND5GVER	0x8a	/* subband5gver */
+#define HNBU_PAPARAMBWVER	0x8b	/* paparambwver */
 
 
 #endif /* !defined(LINUX_POSTMOGRIFY_REMOVAL) */

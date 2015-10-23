@@ -3,7 +3,7 @@
 <head>
 <%11%>
 <title>NETGEAR Router <%12%></title> 
-<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="<%13%>">
 <link rel="stylesheet" href="css/scrollbar.css">
 <link rel="stylesheet" href="css/button.css">
 
@@ -13,7 +13,7 @@
 
 <script src="script/script.js"></script>
 <link rel="stylesheet" href="form.css">
-<%13%>
+<%14%>
 <style type="text/css">
     a {
         color: blue;
@@ -40,12 +40,12 @@
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -54,9 +54,12 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -97,14 +100,14 @@
 //-->
 </script></head>
 <body onload="change_size();"  class="page-body" onResize="change_size();" >
-<img class="cover-image" src="img/cover-image.gif">
-<img class="body-image" src="img/subhead2-background.jpg"> 
+<img class="cover-image" src="<%60%>">
+<img class="body-image" src="<%61%>"> 
 <div id="full-page-container">
 
 <form id="target"  name="frmService" method="post" action="usb_remote_invite.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-    <img class="subtop-image" src="img/subhead2-top.gif">
-<div class="subhead2"><%1982%></div>
+    <img class="subtop-image" src="<%62%>">
+<div class="subhead2"><%2000%></div>
 
 <table border="0"    style="height:370px"  class="subhead2-table">
 
@@ -113,12 +116,12 @@
 <tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
 
 <tr><td colspan="2" height="12" >
-    <%2088%>
+    <%2106%>
 </td></tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
-    <td colspan="2" ><%2089%></td>
+    <td colspan="2" ><%2107%></td>
 </tr>
 
 
@@ -128,16 +131,16 @@
 <tr>
     <td colspan="2" >
 		<table border="0">
-			<tr><td colspan="2"><b><%2090%>:&nbsp;<%2091%></b></td></tr>
+			<tr><td colspan="2"><b><%2108%>:&nbsp;<%2109%></b></td></tr>
 			<tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
 			<tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
-			<tr><td colspan="2"><%2092%></td></tr>
+			<tr><td colspan="2"><%2110%></td></tr>
 			<tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
 			<tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
-			<tr><td colspan="2"><%2093%></td></tr>
+			<tr><td colspan="2"><%2111%></td></tr>
 			<tr>
 				<td colspan="2" align="center">
-					&nbsp;&nbsp;&nbsp;<button value="Unregister" onclick="buttonClick(this,'do_unregister');" type="submit" name="Unregister" class="button-rule" ><span class="roundleft_button">&nbsp;&nbsp;&nbsp;&nbsp; <%2094%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+					&nbsp;&nbsp;&nbsp;<button value="Unregister" onclick="buttonClick(this,'do_unregister');" type="submit" name="Unregister" class="button-rule" ><span class="roundleft_button">&nbsp;&nbsp;&nbsp;&nbsp; <%2112%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 				</td>
 			</tr>
 		</table>
@@ -153,10 +156,10 @@
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%227%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%228%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
       </div>
 
 <a name="helpframe-anchor"></a>

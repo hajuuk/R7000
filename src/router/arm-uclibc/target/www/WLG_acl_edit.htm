@@ -3,7 +3,7 @@
 <head>
 <%11%>
 <title>NETGEAR Router <%12%></title> 
-<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="<%13%>">
 <link rel="stylesheet" href="css/scrollbar.css">
 <link rel="stylesheet" href="css/button.css">
 
@@ -37,12 +37,12 @@
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -51,9 +51,12 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -109,13 +112,13 @@ function checkmac(F)
     /*
     if (F.device.value.match(/[\"|\'| ]/g))
     {
-        alert("<%975%>");
+        alert("<%985%>");
         return false;
     }
     */
     if(F.device.value=="")
     {
-    alert("<%1581%>");
+    alert("<%1591%>");
     return false;
 }else
 {
@@ -152,21 +155,21 @@ function MACAddressBlur(address)
 </SCRIPT>
 </HEAD>
 <BODY  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="change_size();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="img/cover-image.gif">
-<img class="body-image" src="img/subhead2-background.jpg">
+<img class="cover-image" src="<%60%>">
+<img class="body-image" src="<%61%>">
 <div id="full-page-container">
 
 
 <form id="target"  action="wlan_acl_edit.cgi" method="post" name="formname">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-  <img class="subtop-image" src="img/subhead2-top.gif">
-<div class="subhead2"> <%1448%></div>
+  <img class="subtop-image" src="<%62%>">
+<div class="subhead2"> <%1458%></div>
 <TABLE border=0  style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%601%>"  onclick="buttonClick(this,'<%601%>');return checkmac(this.form)" type="submit" name="accept" class="button-apply" > <span class="roundleft_apply" ><%60%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%61%>" onClick="buttonClick(this,'<%61%>');location.href='WLG_acl.htm'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%62%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%609%>"  onclick="buttonClick(this,'<%609%>');return checkmac(this.form)" type="submit" name="accept" class="button-apply" > <span class="roundleft_apply" ><%65%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%66%>" onClick="buttonClick(this,'<%66%>');location.href='WLG_acl.htm'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%67%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -174,11 +177,11 @@ function MACAddressBlur(address)
     
 	<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <TR>
-      <TD width="50%" nowrap align="left"><%624%>:</td>
-      <TD width="50%" nowrap align="left"><INPUT TYPE="text" name="device" maxLength=20 value="<%1586%>" ></TD></TR> 
+      <TD width="50%" nowrap align="left"><%632%>:</td>
+      <TD width="50%" nowrap align="left"><INPUT TYPE="text" name="device" maxLength=20 value="<%1596%>" ></TD></TR> 
     <TR>
-       <TD nowrap align="left"><%625%>:</td>
-       <TD nowrap align="left"><INPUT TYPE="text" class="num" maxLength=17 name="adr" value=<%1587%> ></TD> </TR> 
+       <TD nowrap align="left"><%633%>:</td>
+       <TD nowrap align="left"><INPUT TYPE="text" class="num" maxLength=17 name="adr" value=<%1597%> ></TD> </TR> 
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     
   </table></div></td></tr>
@@ -187,15 +190,15 @@ function MACAddressBlur(address)
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%227%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%228%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
       </div>
 
 
 
-  <input type="hidden" name="macaddr" value="<%1587%>">
+  <input type="hidden" name="macaddr" value="<%1597%>">
 <a name="helpframe-anchor"></a>
 </form>
 </div>

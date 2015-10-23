@@ -234,6 +234,49 @@ stop_dns(void)
 }
 #endif	/* __CONFIG_NAT__ */
 
+int
+start_nfc(void)
+{
+	int ret = 0;
+#ifdef __CONFIG_NFC__
+	char nsa_cmd[255];
+	char *nsa_msglevel = NULL;
+
+	/* For PF#1 debug only + */
+	if (nvram_match("nsa_only", "1")) {
+		dprintf("nsa_only mode, ignore nsa_server!\n");
+		return 0;
+	}
+	/* For PF#1 debug only - */
+
+
+	sprintf(nsa_cmd, "/bin/nsa_server -d /dev/ttyS1 -u /tmp/ --all=%s&",
+		nsa_msglevel ? nsa_msglevel : "0");
+	eval("sh", "-c", nsa_cmd);
+#endif /* __CONFIG_NFC__ */
+
+	return ret;
+}
+
+int
+stop_nfc(void)
+{
+	int ret = 0;
+#ifdef __CONFIG_NFC__
+
+	/* For PF#1 debug only + */
+	if (nvram_match("nsa_only", "1")) {
+		dprintf("nsa_only mode, ignore killall nsa_server!\n");
+		return 0;
+	}
+	/* For PF#1 debug only - */
+
+	ret = eval("killall", "nsa_server");
+#endif /* __CONFIG_NFC__ */
+
+	return ret;
+}
+
 /*
 */
 #ifdef __CONFIG_IPV6__
@@ -613,13 +656,6 @@ stop_httpd(void)
 }
 
 #ifdef PLC
-/* Run time check for if gigled must be started based on nvram keys */
-static int
-target_uses_gigled(void)
-{
-	return nvram_match("wl0_plc", "1") || nvram_match("wl1_plc", "1");
-}
-
 static int
 start_gigled(void)
 {
@@ -878,6 +914,17 @@ stop_telnet(void)
 
 
 int
+stop_wps(void)
+{
+	int ret = 0;
+
+   	ret = eval("killall","wps_monitor");
+   	ret = eval("rm", "-f", "/tmp/wps_monitor.pid"); /* foxconn added, zacker */
+   	ret = eval("killall","wps_ap");
+
+	return ret;
+}
+int
 start_wps(void)
 {
 	char *wps_argv[] = {"/bin/wps_monitor", NULL};
@@ -924,17 +971,6 @@ start_wps(void)
 
 }
 
-int
-stop_wps(void)
-{
-	int ret = 0;
-
-   	ret = eval("killall","wps_monitor");
-   	ret = eval("rm", "-f", "/tmp/wps_monitor.pid"); /* foxconn added, zacker */
-   	ret = eval("killall","wps_ap");
-
-	return ret;
-}
 int
 start_bcmupnp(void)
 {
@@ -1046,7 +1082,22 @@ stop_eapd(void)
 int
 start_acsd(void)
 {
-	int ret = eval("/usr/sbin/acsd");
+int ret;
+
+    if(nvram_match("enable_ccs", "1"))
+    {
+        nvram_set("acs_rt_sw", "1");
+        nvram_set("acs_2g_ch_no_restrict", "1");
+        nvram_set("acs_no_lockout", "1");
+    }
+    else
+    {
+        nvram_unset("acs_rt_sw");
+        nvram_unset("acs_2g_ch_no_restrict");
+        nvram_unset("acs_no_lockout");
+    }
+	//ret=eval("/usr/sbin/acsd");
+	ret=system("/usr/sbin/acsd &");
 
 	return ret;
 }
@@ -1059,6 +1110,20 @@ stop_acsd(void)
 	return ret;
 }
 #endif /* BCM_DCS || EXT_ACS */
+
+int start_bsd(void)
+{
+	int ret = eval("gbsd");
+
+	return ret;
+}
+
+int stop_bsd(void)
+{
+	int ret = system("killall gbsd");
+
+	return ret;
+}
 
 
 #if defined(PHYMON)
@@ -1103,6 +1168,92 @@ void enable_gro(int interval)
 	}
 #endif /* LINUX26 */
 }
+#if defined(LINUX_2_6_36)
+static void
+parse_blkdev_port(char *devname, int *port)
+{
+	FILE *fp;
+	char buf[256];
+	char uevent_path[32];
+
+	sprintf(uevent_path, "/sys/block/%s/uevent", devname);
+
+	if ((fp = fopen(uevent_path, "r")) == NULL)
+		goto exit;
+
+	while (fgets(buf, sizeof(buf), fp) != NULL) {
+		if (strstr(buf, "PHYSDEVPATH=") != NULL) {
+			/* PHYSDEVPATH=/devices/pci/hcd/root_hub/root_hub_num-lport/... */
+			sscanf(buf, "%*[^/]/%*[^/]/%*[^/]/%*[^/]/%*[^/]/%*[^-]-%d", port);
+			break;
+		}
+	}
+
+exit:
+	if (fp)
+		fclose(fp);
+}
+
+static void
+samba_storage_conf(void)
+{
+	extern char *mntdir;
+	FILE *mnt_file;
+	struct mntent *mount_entry;
+	char *mount_point = NULL;
+	char basename[16], devname[16];
+	char *argv[3] = {"echo", "", NULL};
+	char share_dir[16], path[32];
+	int port = -1;
+
+	mnt_file = setmntent("/proc/mounts", "r");
+
+	while ((mount_entry = getmntent(mnt_file)) != NULL) {
+		mount_point = mount_entry->mnt_dir;
+
+		if (strstr(mount_point, mntdir) == NULL)
+			continue;
+
+		/* Parse basename */
+		sscanf(mount_point, "/%*[^/]/%*[^/]/%s", basename);
+
+		/* Parse mounted storage partition */
+		if (strncmp(basename, "sd", 2) == 0) {
+			sscanf(basename, "%3s", devname);
+
+			parse_blkdev_port(devname, &port);
+
+			if (port == 1)
+				sprintf(share_dir, "[usb3_%s]", basename);
+			else if (port == 2)
+				sprintf(share_dir, "[usb2_%s]", basename);
+			else
+				sprintf(share_dir, "[%s]", basename);
+		} else
+			sprintf(share_dir, "[%s]", basename);
+
+		/* Create storage partitions */
+		argv[1] = &share_dir;
+		_eval(argv, ">>/tmp/samba/lib/smb.conf", 0, NULL);
+
+		sprintf(path, "path = %s", mount_point);
+		argv[1] = &path;
+		_eval(argv, ">>/tmp/samba/lib/smb.conf", 0, NULL);
+
+		argv[1] = "writeable = yes";
+		_eval(argv, ">>/tmp/samba/lib/smb.conf", 0, NULL);
+
+		argv[1] = "browseable = yes";
+		_eval(argv, ">>/tmp/samba/lib/smb.conf", 0, NULL);
+
+		argv[1] = "guest ok = yes";
+		_eval(argv, ">>/tmp/samba/lib/smb.conf", 0, NULL);
+	}
+
+	endmntent(mnt_file);
+}
+#endif /* LINUX_2_6_36 */
+
 
 int
 start_samba()
@@ -1197,11 +1348,66 @@ stop_samba()
 	eval("killall", "smbd");
 	eval("rm", "-r", "/tmp/samba/var/locks");
 	eval("rm", "/tmp/samba/private/passdb.tdb");
+#if defined(LINUX_2_6_36)
+	eval("rm", "/tmp/samba/private/secrets.tdb");
+#endif	/* LINUX_2_6_36 */
 
 	enable_gro(0);
 
 	return 0;
 }
+
+#if defined(LINUX_2_6_36)
+#define SAMBA_LOCK_FILE      "/tmp/samba_lock"
+
+int
+restart_samba(void)
+{
+	int lock_fd = -1, retry = 3;
+
+	while (retry--) {
+		if ((lock_fd = open(SAMBA_LOCK_FILE, O_RDWR|O_CREAT|O_EXCL, 0444)) < 0)
+			sleep(1);
+		else
+			break;
+	}
+
+	if (retry < 0)
+		return -1;
+
+	stop_samba();
+	start_samba();
+	usleep(200000);
+
+	close(lock_fd);
+	unlink(SAMBA_LOCK_FILE);
+
+	return 0;
+}
+
+#define MEM_SIZE_THRESH	65536
+void
+reclaim_mem_earlier(void)
+{
+	FILE *fp;
+	char memdata[256] = {0};
+	uint memsize = 0;
+
+	if ((fp = fopen("/proc/meminfo", "r")) != NULL) {
+		while (fgets(memdata, 255, fp) != NULL) {
+			if (strstr(memdata, "MemTotal") != NULL) {
+				sscanf(memdata, "MemTotal:        %d kB", &memsize);
+				break;
+			}
+		}
+		fclose(fp);
+	}
+
+	/* Reclaiming memory at earlier time */
+	if (memsize > MEM_SIZE_THRESH)
+		system("echo 14336 > /proc/sys/vm/min_free_kbytes");
+}
+#endif /* LINUX_2_6_36 */
 #endif /* __CONFIG_SAMBA__ */
 
 #ifdef __CONFIG_DLNA_DMR__
@@ -1297,24 +1503,6 @@ int stop_norton(void)
 
 #endif /* __CONFIG_NORTON__ */
 
-#if defined(LINUX_2_6_36) && defined(__CONFIG_COMA__)
-int
-start_comad(void)
-{
-	int ret = eval("/usr/sbin/comad");
-
-	return ret;
-}
-
-int
-stop_comad(void)
-{
-	int ret = eval("killall", "comad");
-
-	return ret;
-}
-#endif /* LINUX_2_6_36 && __CONFIG_COMA__ */
-
 int
 start_services(void)
 {
@@ -1368,6 +1556,9 @@ start_services(void)
 #if defined(BCM_DCS) || defined(EXT_ACS)
 	start_acsd();
 #endif
+			if(nvram_match("enable_band_steering", "1") && nvram_match("wla_wlanstate", "Enable")&& nvram_match("wlg_wlanstate", "Enable"))
+	    start_bsd();
+	    
 #ifdef __CONFIG_SAMBA__
 	start_samba();
 #endif
@@ -1381,16 +1572,10 @@ start_services(void)
 #endif
 
 #ifdef PLC
-	if (target_uses_gigled()) {
-		start_plcnvm();
-		start_plcboot();
-		start_gigled();
-	}
+	start_plcnvm();
+	start_plcboot();
+	start_gigled();
 #endif
-
-#if defined(LINUX_2_6_36) && defined(__CONFIG_COMA__)
-	start_comad();
-#endif /* LINUX_2_6_36 && __CONFIG_COMA__ */
 
 	dprintf("done\n");
 	return 0;
@@ -1445,6 +1630,7 @@ stop_services(void)
 #if defined(BCM_DCS) || defined(EXT_ACS)
 	stop_acsd();
 #endif
+	stop_bsd();
 #ifdef __CONFIG_SAMBA__
 	stop_samba();
 #endif
@@ -1467,10 +1653,6 @@ stop_services(void)
 #ifdef	__CONFIG_NORTON__
     stop_norton();
 #endif /* __CONFIG_NORTON__ */
-
-#if defined(LINUX_2_6_36) && defined(__CONFIG_COMA__)
-	stop_comad();
-#endif /* LINUX_2_6_36 && __CONFIG_COMA__ */
 
 	dprintf("done\n");
 	return 0;

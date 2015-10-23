@@ -219,6 +219,9 @@ int nf_queue(struct sk_buff *skb,
 		break;
 	}
 
+	/* Set packet's nf flag to indicate non-optimized segmentation */
+	skb->tcpf_nf = 1;
+
 	segs = skb_gso_segment(skb, 0);
 	/* Does not use PTR_ERR to limit the number of error codes that can be
 	 * returned by nf_queue.  For instance, callers rely on -ECANCELED to mean

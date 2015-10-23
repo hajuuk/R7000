@@ -3,7 +3,7 @@
 <head>
 <%11%>
 <title>NETGEAR Router <%12%></title>
-<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="<%13%>">
 <link rel="stylesheet" href="css/scrollbar.css">
 <link rel="stylesheet" href="css/button.css">
 
@@ -17,7 +17,7 @@
 	classes.num.all.fontFamily = "Courier";
 	classes.num.all.fontSize = "10pt" ;
 </style>
-<%13%>
+<%14%>
 <script language="javascript" type="text/javascript">
 <!--
   
@@ -38,12 +38,12 @@
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -52,9 +52,12 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -213,14 +216,14 @@ function enableFwpf()
 </script>
 </head>
 <body  onload="change_size(); init();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="img/cover-image.gif">
-<img class="body-image" src="img/subhead2-background.jpg">
+<img class="cover-image" src="<%60%>">
+<img class="body-image" src="<%61%>">
 <div id="full-page-container">
 
 <form id="target"  name="formname" method="POST" action="pforward.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="img/subhead2-top.gif">
-<div class="subhead2"> <%348%></div>
+<img class="subtop-image" src="<%62%>">
+<div class="subhead2"> <%355%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 
@@ -229,44 +232,44 @@ function enableFwpf()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
 <td colspan="2">
-<p><tabindex="-1"><b><%817%></b></a></p></td>
+<p><tabindex="-1"><b><%827%></b></a></p></td>
 </tr>
 <tr>
-<td colspan="2"><input type="radio" checked name="serv_type" value="pf" onClick="doTypeChange(0)"><%818%></td>
+<td colspan="2"><input type="radio" checked name="serv_type" value="pf" onClick="doTypeChange(0)"><%828%></td>
 </tr>
 <tr>
-<td colspan="2"><input type="radio" name="serv_type" value="pt" onClick="doTypeChange(1)"><%819%></td>
+<td colspan="2"><input type="radio" name="serv_type" value="pt" onClick="doTypeChange(1)"><%829%></td>
 </tr>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-    <td width="45%" valign="top"><a href="javascript:loadhelp('FW_forward','setup')" tabindex="-1"><b><%820%></b></a></td>
-    <td width="65%"><a href="javascript:loadhelp('FW_forward','setup')" tabindex="-1"><b><%821%></b></a></td>
+    <td width="45%" valign="top"><a href="javascript:loadhelp('FW_forward','setup')" tabindex="-1"><b><%830%></b></a></td>
+    <td width="65%"><a href="javascript:loadhelp('FW_forward','setup')" tabindex="-1"><b><%831%></b></a></td>
 </tr>
 <tr>
     <td valign="top">
 	    <select name="svs_gm" size="1" onChange="javascript:showIP()">
-	        <%822%>
+	        <%832%>
 	        </SELECT></td>
     <td nowrap>
         <input type="text" name="SV_IP1" class="num" size="4" maxlength="3" value="192" onFocus="this.select();" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.
         <input type="text" name="SV_IP2" class="num" size="4" maxlength="3" value="168" onFocus="this.select();" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
         <input type="text" name="SV_IP3" class="num" size="4" maxlength="3" value="0" onFocus="this.select();" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
         <input type="text" name="SV_IP4" class="num" size="4" maxlength="3" value="" onFocus="this.select();" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)">
-	    &nbsp;&nbsp;&nbsp;<button type="Submit" value="<%568%>" name="svAdd" class="button-rule" onclick="buttonClick(this,'<%568%>');if(!validIp()) return false; Check(0);"><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%568%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
+	    &nbsp;&nbsp;&nbsp;<button type="Submit" value="<%576%>" name="svAdd" class="button-rule" onclick="buttonClick(this,'<%576%>');if(!validIp()) return false; Check(0);"><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%576%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr><td colspan="2" style="width:90%">
         <table border ="1" cellpadding ="2" cellspacing ="0" width="100%">
 			<tr>
 				<td nowrap width="3%" align="center"><span class="thead">&nbsp;</span></td>
 				<td nowrap width="3%" align="center"><span class="thead">#</span></td>
-		 	    <td width="26%" align="center"><span class="thead"><%820%></span></td>
-				<td width="12%" align="center"><span class="thead"><%823%></span></td>
-				<td width="12%" align="center"><span class="thead"><%824%></span></td>
-		 	    <td width="12%" align="center"><span class="thead"><%825%></span></td>
-		 	    <td width="12%" align="center"><span class="thead"><%826%></span></td>		 	    
-				<td width="20%" align="center"><span class="thead"><%827%></span></td></tr>
-		    <%828%>
+		 	    <td width="26%" align="center"><span class="thead"><%830%></span></td>
+				<td width="12%" align="center"><span class="thead"><%833%></span></td>
+				<td width="12%" align="center"><span class="thead"><%834%></span></td>
+		 	    <td width="12%" align="center"><span class="thead"><%835%></span></td>
+		 	    <td width="12%" align="center"><span class="thead"><%836%></span></td>		 	    
+				<td width="20%" align="center"><span class="thead"><%837%></span></td></tr>
+		    <%838%>
 		</table>
 </td></tr>
 
@@ -274,10 +277,10 @@ function enableFwpf()
 
 
 <tr><td colspan="2" align="center" height="35" valign="bottom">
-	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%829%>" name="Edit" class="button-rule" onclick="buttonClick(this,'<%829%>');Check(1);"><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%829%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%830%>" name="Delete" class="button-rule" onclick="buttonClick(this,'<%830%>');Check(2);"><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%830%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%839%>" name="Edit" class="button-rule" onclick="buttonClick(this,'<%839%>');Check(1);"><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%839%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%840%>" name="Delete" class="button-rule" onclick="buttonClick(this,'<%840%>');Check(2);"><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%840%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 <BR><BR>
-	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%831%>" name="Add" class="button-rule" onclick="buttonClick(this,'<%831%>');Check(3);"><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%831%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%841%>" name="Add" class="button-rule" onclick="buttonClick(this,'<%841%>');Check(3);"><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%841%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td></tr>
 </table></div></td></tr>
 <tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="FW_forward_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
@@ -285,20 +288,20 @@ function enableFwpf()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%227%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%228%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
       </div>
 
 
 
     <input type="hidden" name="selectService" value="">
-    <input type="hidden" name="lanIP" value="<%832%>">
+    <input type="hidden" name="lanIP" value="<%842%>">
     <input type="hidden" name="action" value="init">
     <input type="hidden" name="selectEntry" value="">
     <input type="hidden" name="inputIP" value="">
-    <input type="hidden" name="entryData" value="<%833%>">
+    <input type="hidden" name="entryData" value="<%843%>">
     <input type="hidden" name="fwpf_enable">
 <a name="helpframe-anchor"></a>
 </form>

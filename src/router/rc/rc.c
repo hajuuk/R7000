@@ -91,6 +91,29 @@ extern struct nvram_tuple router_defaults[];
 
 #define RESTORE_DEFAULTS() \
 	(!nvram_match("restore_defaults", "0") || nvram_invmatch("os_name", "linux"))
+#ifdef LINUX_2_6_36
+static int
+coma_uevent(void)
+{
+	char *modalias = NULL;
+	char lan_ifname[32], *lan_ifnames, *next;
+
+	modalias = getenv("MODALIAS");
+	if (!strcmp(modalias, "platform:coma_dev")) {
+
+		/* down WiFi adapter */
+		lan_ifnames = nvram_safe_get("lan_ifnames");
+		foreach(lan_ifname, lan_ifnames, next) {
+			if (!strncmp(lan_ifname, "eth", 3)) {
+				eval("wl", "-i", lan_ifname, "down");
+			}
+		}
+
+		system("echo \"2\" > /proc/bcm947xx/coma");
+	}
+	return 0;
+}
+#endif /* LINUX_2_6_36 */
 
 #define RESTORE_DEFAULTS() (!nvram_match("restore_defaults", "0") || nvram_invmatch("os_name", "linux"))
 
@@ -807,24 +830,24 @@ static int config_iptv_params(void)
     /* Swap LAN1 ~ LAN4 due to reverse labeling */
 #if defined(R7000)
     if (iptv_bridge_intf & IPTV_LAN1)
-        strcat(vlan_iptv_ports, "4 ");
-    else
-        strcat(vlan1_ports, "4 ");
-
-    if (iptv_bridge_intf & IPTV_LAN2)   /* Foxconn modified pling 02/09/2012, fix a typo */
-        strcat(vlan_iptv_ports, "3 ");
-    else
-        strcat(vlan1_ports, "3 ");
-
-    if (iptv_bridge_intf & IPTV_LAN3)
-        strcat(vlan_iptv_ports, "2 ");
-    else
-        strcat(vlan1_ports, "2 ");
-    
-    if (iptv_bridge_intf & IPTV_LAN4)
         strcat(vlan_iptv_ports, "1 ");
     else
         strcat(vlan1_ports, "1 ");
+
+    if (iptv_bridge_intf & IPTV_LAN2)   /* Foxconn modified pling 02/09/2012, fix a typo */
+        strcat(vlan_iptv_ports, "2 ");
+    else
+        strcat(vlan1_ports, "2 ");
+
+    if (iptv_bridge_intf & IPTV_LAN3)
+        strcat(vlan_iptv_ports, "3 ");
+    else
+        strcat(vlan1_ports, "3 ");
+    
+    if (iptv_bridge_intf & IPTV_LAN4)
+        strcat(vlan_iptv_ports, "4 ");
+    else
+        strcat(vlan1_ports, "4 ");
 #else
     if (iptv_bridge_intf & IPTV_LAN1)
         strcat(vlan_iptv_ports, "3 ");
@@ -2089,6 +2112,11 @@ sysinit(void)
 	mkdir("/tmp/samba/private", 0777);
 	mkdir("/tmp/samba/var", 0777);
 	mkdir("/tmp/samba/var/locks", 0777);
+
+#if defined(LINUX_2_6_36)
+	/* To improve SAMBA upload performance */
+	reclaim_mem_earlier();
+#endif /* LINUX_2_6_36 */
 #endif
 
 #ifdef BCMQOS
@@ -2165,10 +2193,11 @@ sysinit(void)
 		/* Load the EMF & IGMP Snooper modules */
 		load_emf();
 #endif /*  __CONFIG_EMF__ */
+#if 0
 #if defined(__CONFIG_HSPOT__) || defined(__CONFIG_NPS__)
 		eval("insmod", "proxyarp");
 #endif /*  __CONFIG_HSPOT__ || __CONFIG_NPS__ */
-
+#endif
     /* Bob added start to avoid sending unexpected dad, 09/16/2009 */
 #ifdef INCLUDE_IPV6
 		if (nvram_match("ipv6ready","1"))
@@ -2511,158 +2540,6 @@ do_timer(void)
 	return 0;
 }
 
-#ifdef AUTO_UPGRADE_CFE
-
-#include <mtd/mtd-user.h>
-#define IMAGE_BLOCK_SIZE        0x20000
-
-static int writeXndmtd
-(
-    char *mtdFileName, 
-    FILE *fp, 
-    unsigned int imageSize,
-    unsigned long checksum
-)
-{
-    mtd_info_t mtd_info;
-    erase_info_t erase_info;    
-    unsigned int block_offset = 0;
-    unsigned long block_size;
-    int mtd_fd = -1;
-    char partition_data[8];
-    off_t offset;
-    char buf[IMAGE_BLOCK_SIZE];
-    int count;
-    int curr_offset, last_block_offset;    
-
-    /* Open MTD device and get sector size */
-    if ((mtd_fd = open(mtdFileName, O_RDWR)) < 0 ||
-        ioctl(mtd_fd, MEMGETINFO, &mtd_info) != 0)
-    {
-        perror("mtd open");
-        return 0;
-    }
-
-    erase_info.length = mtd_info.erasesize;
-    block_size = mtd_info.erasesize;
-
-    /* foxconn added start, zacker, 03/30/2011, 128K/block nflash */
-    if (IMAGE_BLOCK_SIZE < block_size)
-        printf("\nWARNING: IMAGE_BLOCK_SIZE(0x%x) < block_size(0x%x)!!!\n",
-                IMAGE_BLOCK_SIZE, block_size);
-    /* foxconn added end, zacker, 03/30/2011, 128K/block nflash */
-
-    printf("Writing %u bytes to %s", imageSize, mtdFileName);
-
-    /* Write file or URL to MTD device */
-
-    /* foxconn added start, zacker, 06/11/2011 */
-    {
-        unsigned char *pImage = NULL;
-        int fail_count = 0;
-
-        if ((pImage = malloc(imageSize)) == NULL)
-        {
-            printf("malloc fail. imageSize=%d\n",
-                        imageSize);
-            block_offset = 0;
-            goto cleanup;
-        }
-
-        /* Now read the whole file into buffer */
-        count = fread(pImage, 1, imageSize, fp);
-        if (count != imageSize)
-        {
-            printf("fread fail. count=%d imageSize=%d\n",
-                        count, imageSize);
-            block_offset = 0;
-            goto cleanup;
-        }
-
-        /* don't use MEMUNLOCK and MEMERASE for nflash */
-nflash_try_again:
-        count = write(mtd_fd, pImage, imageSize);
-        if ((count < 0) || (count != imageSize))
-        {
-            fail_count++;
-            printf("[%d]write fail. count=%d imageSize=%d\n",
-                        fail_count, count, imageSize);
-            if (fail_count > 3)
-            {
-                block_offset = 0;
-                goto cleanup;
-            }
-            else
-            {
-                lseek(mtd_fd, 0, SEEK_SET);
-                goto nflash_try_again;
-            }
-        }
-
-        block_offset = imageSize;
-cleanup:
-        if (pImage)
-        {
-            free(pImage);
-            pImage = NULL;
-        }
-    }
-    /* foxconn added end, zacker, 06/11/2011 */
-		fsync(mtd_fd);
-
-    cprintf("\nUpgrade OK!\n");
-
-    if (mtd_fd >= 0)
-        close (mtd_fd);
-
-    return block_offset;
-}
-
-int calculateFileSize(FILE *fd, unsigned long *size)
-{
-    unsigned long start = 0;
-    unsigned long end = 0;
-
-    if (!size)
-        return 0;
-    if (fseek(fd, 0L, SEEK_SET) < 0)
-    {
-        *size = 0;
-        return 0;
-    }
-    if ((start = ftell(fd)) < 0)
-    {
-        *size = 0;
-        return 0;
-    }
-    if (fseek(fd, 0L, SEEK_END) < 0)
-    {
-        *size = 0;
-        return 0;
-    }
-    if ((end = ftell(fd)) < 0)
-    {
-        *size = 0;
-        return 0;
-    }
-    if (fseek(fd, 0L, SEEK_SET) < 0)
-    {
-        *size = 0;
-        return 0;
-    }
-    if ((end - start) < 0)
-    {
-        *size = 0;
-        return 0;
-    }
-    else 
-        *size = end - start;
-
-    return 1;
-}
-
-#endif
-
 /* Main loop */
 static void
 main_loop(void)
@@ -2832,6 +2709,7 @@ main_loop(void)
             stop_eapd();
 			stop_bcmupnp();
 			stop_wlan();
+				stop_bsd();
 			/*Foxconn add start by Hank 06/14/2012*/
 			/*Enable 2.4G auto channel detect, kill acsd for stop change channel*/
 			if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))
@@ -2900,6 +2778,24 @@ main_loop(void)
             /* Must call it when start wireless */
             start_wl();
             /* Foxconn add end by aspen Bai, 09/10/2008 */
+			/*Foxconn add start by Antony 06/16/2013 Start the bandsteering*/
+
+    
+      if((strcmp(nvram_safe_get("wla_ssid"),nvram_safe_get("wlg_ssid") )!=0))
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),nvram_safe_get("wlg_secu_type") )!=0)
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),"None") || strcmp(nvram_safe_get("wlg_secu_type"),"None"))
+      {
+          if(strcmp(nvram_safe_get("wla_passphrase"),nvram_safe_get("wlg_passphrase"))!=0) 
+              nvram_set("enable_band_steering", "0");
+      }
+			if(nvram_match("enable_band_steering", "1") && nvram_match("wla_wlanstate", "Enable")&& nvram_match("wlg_wlanstate", "Enable"))
+				start_bsd();
+			/*Foxconn add end by Antony 06/16/2013*/
+
 			/*Foxconn add start by Hank 06/14/2012*/
 			/*Enable 2.4G auto channel detect, call acsd to start change channel*/
 			if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))
@@ -2943,6 +2839,7 @@ main_loop(void)
             stop_wps();
             stop_nas();
             stop_eapd(); 
+    				stop_bsd();
             stop_bcmupnp();
 			
 			stop_lan();
@@ -3073,45 +2970,27 @@ main_loop(void)
             start_wl();
 			/*Foxconn add start by Hank 06/14/2012*/
 			/*Enable 2.4G auto channel detect, call acsd to start change channel*/
+
 			if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))
 				start_acsd();
 			/*Foxconn add end by Hank 06/14/2012*/
+    
+      if((strcmp(nvram_safe_get("wla_ssid"),nvram_safe_get("wlg_ssid") )!=0))
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),nvram_safe_get("wlg_secu_type") )!=0)
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),"None") || strcmp(nvram_safe_get("wlg_secu_type"),"None"))
+      {
+          if(strcmp(nvram_safe_get("wla_passphrase"),nvram_safe_get("wlg_passphrase"))!=0) 
+              nvram_set("enable_band_steering", "0");
+      }
+
+
+			if(nvram_match("enable_band_steering", "1") && nvram_match("wla_wlanstate", "Enable")&& nvram_match("wlg_wlanstate", "Enable"))
+				start_bsd();
             /* Now start ACOS services */
-
-#ifdef AUTO_UPGRADE_CFE
-            #define PATHNAME_IMAGE "/etc/linux.trx"
-            #define BOOT_LOADER_IMAGE "/etc/R7000_cfe_V1.0.18"
-		
-            FILE *img_fp = NULL; 
-            unsigned long file_size = 0;
-            if (acosNvramConfig_match("cfe_version", "v1.0.17"))
-            {
-                /***********************************************************************/
-                /* Erase brcmnand */
-                cprintf("**************%s(%d): Erase brcmnand....\n", __FUNCTION__, __LINE__);
-                mtd_erase("brcmnand");
-                /***********************************************************************/
-                /* Erase OpenVPN */
-                cprintf("**************%s(%d): Erase OpenVPN....\n", __FUNCTION__, __LINE__);
-                system("cat /dev/mtdblock18 > /tmp/mtdblock18");
-                if ((img_fp = fopen ("/tmp/mtdblock18", "r")) != NULL)
-                {
-           	        calculateFileSize(img_fp, &file_size);
-                    writeXndmtd ("/dev/mtd18", img_fp, file_size, 0);
-                }
-                
-                /***********************************************************************/
-                cprintf("**************%s(%d): Writing Boot code....\n", __FUNCTION__, __LINE__);
-                if ((img_fp = fopen (BOOT_LOADER_IMAGE, "r")) != NULL)
-                {
-           	        calculateFileSize(img_fp, &file_size);
-                    writeXndmtd ("/dev/mtd0", img_fp, file_size, 0);
-                }
-                /***********************************************************************/
-            }
-
-#endif 			
-            
             eval("acos_init");
             eval("acos_service", "start");
 
@@ -3219,6 +3098,10 @@ main_loop(void)
 		    stop_nas();
             stop_eapd();
             stop_bcmupnp();
+
+			/*Foxconn add start by Antony 06/16/2013*/
+				stop_bsd();
+			/*Foxconn add end by Antony 06/16/2013*/
             
 			stop_wlan();
             
@@ -3293,6 +3176,24 @@ main_loop(void)
 			if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))
 				start_acsd();
 			/*Foxconn add end by Hank 06/14/2012*/
+
+			/*Foxconn add start by Antony 06/16/2013 Start the bandsteering*/
+    
+      if((strcmp(nvram_safe_get("wla_ssid"),nvram_safe_get("wlg_ssid") )!=0))
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),nvram_safe_get("wlg_secu_type") )!=0)
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),"None") || strcmp(nvram_safe_get("wlg_secu_type"),"None"))
+      {
+          if(strcmp(nvram_safe_get("wla_passphrase"),nvram_safe_get("wlg_passphrase"))!=0) 
+              nvram_set("enable_band_steering", "0");
+      }
+
+			if(nvram_match("enable_band_steering", "1") && nvram_match("wla_wlanstate", "Enable")&& nvram_match("wlg_wlanstate", "Enable"))
+				start_bsd();
+			/*Foxconn add end by Antony 06/16/2013*/
 
             /* Start wsc if it is in 'unconfiged' state */
             if (nvram_match("wl0_wps_config_state", "0") && !nvram_match("wsc_pin_disable", "1"))
@@ -3471,6 +3372,11 @@ main(int argc, char **argv)
 			else if (!strcmp(argv[1], "block"))
                 return hotplug_block(); /* wklin modified, 02/09/2011 */
 #endif
+#if defined(LINUX_2_6_36)
+			else if (!strcmp(argv[1], "platform"))
+				return coma_uevent();
+#endif /* LINUX_2_6_36 */
+
         /*foxconn modified end, water, @usb porting, 11/11/2008*/
 		} else {
 			fprintf(stderr, "usage: hotplug [event]\n");

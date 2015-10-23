@@ -213,6 +213,7 @@ extern si_t *ai_kattach(osl_t *osh);
 extern void ai_scan(si_t *sih, void *regs, uint devid);
 
 extern uint ai_flag(si_t *sih);
+extern uint ai_flag_alt(si_t *sih);
 extern void ai_setint(si_t *sih, int siflag);
 extern uint ai_coreidx(si_t *sih);
 extern uint ai_corevendor(si_t *sih);
@@ -230,6 +231,8 @@ extern uint32 ai_addrspace(si_t *sih, uint asidx);
 extern uint32 ai_addrspacesize(si_t *sih, uint asidx);
 extern void ai_coreaddrspaceX(si_t *sih, uint asidx, uint32 *addr, uint32 *size);
 extern uint ai_wrap_reg(si_t *sih, uint32 offset, uint32 mask, uint32 val);
+
+extern void si_viewall(si_t *sih, bool verbose);
 
 #ifdef BCMDBG
 extern void ai_view(si_t *sih, bool verbose);

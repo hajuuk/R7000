@@ -196,7 +196,7 @@ void print_file (int number, char *filename)
 
 void end_child ()
 {
-    printf("end_child invoked.\n");
+    printf("end_child invoked for child (%d).\n", getpid());
     /* Foxconn, added by MJ., 2010.04.29, for connections counting. */
 /*    if(con_st != NULL)
     {
@@ -228,6 +228,10 @@ void end_child ()
         close (1);
         close (2);
     }
+    
+#ifdef MAX_USB_ACCESS
+    dec_conn_num();
+#endif
 }
 
 
@@ -270,7 +274,7 @@ void handler_sigchld (int sig)
     bftpd_log("%s\n", __FUNCTION__);
 
     /* Foxconn, added by MJ., 2010.03.30, for connections counting. */
-#ifdef MAX_USB_ACCESS_OLD
+#if 0 //def MAX_USB_ACCESS_OLD		// compiler flag is not used
     if(con_st != NULL)
     {
         FILE *pfp;
@@ -304,9 +308,13 @@ void handler_sigchld (int sig)
 
 
     /* Get the child's return code so that the zombie dies */
-    pid = wait (NULL);
-    for (i = 0; i < bftpd_list_count (child_list); i++)
+    // pid = wait (NULL);
+    pid = waitpid(-1, NULL, WNOHANG);
+    
+    while (pid > 0)
     {
+    	for (i = 0; i < bftpd_list_count (child_list); i++)
+    	{
         childpid = bftpd_list_get (child_list, i);
         if (childpid->pid == pid)
         {
@@ -319,7 +327,9 @@ void handler_sigchld (int sig)
 	    dec_conn_num();
 #endif	    
         }
-    }
+    	}
+    	pid = waitpid(-1, NULL, WNOHANG);    /* check for more children */
+  	}
 }
 
 void handler_sigterm (int signum)
@@ -503,10 +513,24 @@ int main (int argc, char **argv)
         //exit(1);
     }
     /* attach the shared memory segment, at a different address. */
-    if(segment_id != -1){
-        con_st = (CON_STATISTIC*) shmat (segment_id, (void*) 0x5000000, 0);
-        printf ("shared memory reattached at address %p\n", con_st);
-    }    else {
+    if(segment_id != -1)
+    {
+        //con_st = (CON_STATISTIC*) shmat (segment_id, (void*) 0x5000000, 0);
+        con_st = (CON_STATISTIC*) shmat (segment_id, NULL, 0);
+                
+        if(con_st != -1)
+        {
+        		printf ("shared memory reattached at address %p\n", con_st);
+        		con_st->ftp_num = 0;
+        }
+        else
+        {
+            con_st = NULL;
+            printf ("shared memory reattached failed\n");
+      	}
+    }    
+    else 
+    {
         con_st = NULL;
 	printf ("fail to get shared memory reattached at address \n");
     }	
@@ -673,30 +697,63 @@ int main (int argc, char **argv)
              */
             if (sock > 0)
             {
+                int pid2;
+                int status;
+
                 pid = fork ();
                 if (!pid)
                 {               /* child */
-                    close (0);
-                    close (1);
-                    close (2);
-                    isparent = 0;
-                    dup2 (sock, fileno (stdin));
-                    dup2 (sock, fileno (stderr));
-                    break;
+                    pid2 = fork();
+                    if (!pid2)
+                    {
+                        close (0);
+                        close (1);
+                        close (2);
+                        isparent = 0;
+                        dup2 (sock, fileno (stdin));
+                        dup2 (sock, fileno (stderr));
+                        break;
+                    }
+                    else
+                        exit(0);
                 }
                 else
                 {               /* parent */
                     struct bftpd_childpid *tmp_pid;
+                    pid_t ret;
 
+                    ret = waitpid(pid, &status, 0);
+                    if (WIFEXITED(status))
+                        printf("child %d WIFEXITED\n", pid);
+                    if (WEXITSTATUS(status))
+                        printf("child %d WEXITSTATUS\n", pid);
+                    if (WIFSIGNALED(status))
+                        printf("child %d WIFSIGNALED\n", pid);
+                    if (WTERMSIG(status))
+                        printf("child %d WTERMSIG\n", pid);
+                    if (WCOREDUMP(status))
+                        printf("child %d WCOREDUMP\n", pid);
+                    if (WIFSTOPPED(status))
+                        printf("child %d WIFSTOPPED\n", pid);
+                    if (WSTOPSIG(status))
+                        printf("child %d WSTOPSIG\n", pid);
+                    if (WIFCONTINUED(status))
+                        printf("child %d WIFCONTINUED\n", pid);
+
+#if 0   /* don't need to keep child pid anymore */
 		    tmp_pid = malloc (sizeof (struct bftpd_childpid));
                     tmp_pid->pid = pid;
                     tmp_pid->sock = sock;
                     bftpd_list_add (&child_list, tmp_pid);
-#ifdef MAX_USB_ACCESS		    
-		    inc_conn_num();
 #endif
-	         }		
-             }
+                    if (ret != pid)
+                        perror("waitpid");
+                    close(sock); /* parent don't need this 'accept' socket, leave it to client */
+#ifdef MAX_USB_ACCESS		    
+		            inc_conn_num();
+#endif
+	            }		
+            }
         }
     }
 
@@ -714,7 +771,7 @@ int main (int argc, char **argv)
     /* Foxconn, added by MJ., 2010.03.25, for count the totoal connections
      * of accessing USB dir.
      */
-#ifdef MAX_USB_ACCESS_OLD
+#if 0 //def MAX_USB_ACCESS_OLD		// compiler flag is not used
     if(con_st != NULL)
     {
 	FILE *pfp;

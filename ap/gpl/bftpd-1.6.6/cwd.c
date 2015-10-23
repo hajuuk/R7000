@@ -46,7 +46,7 @@ int bftpd_cwd_chdir(char *dir)
 
 	/* Foxconn added start pling 05/14/2009 */
 	/* Sanity check, don't allow user to get outside of the /shares  */
-	if (strlen(tmp) == 0 || strcmp(tmp, "/") == 0) {
+	if (strlen(tmp) == 0 /*|| strcmp(tmp, "/") == 0*/) {
 		free(tmp);
 		errno = EACCES;
 		return -1;
@@ -55,10 +55,10 @@ int bftpd_cwd_chdir(char *dir)
 
 	/* Foxconn added start pling 09/02/2012 */
 	/* WNDR4500v2 IR45/46/47, don't allow user to access outside /shares */
-	if (strncmp(tmp, "/shares", 7) != 0) {
+	if (strncmp(tmp, "/shares", 7) != 0 && strcmp(tmp, "/") != 0) {
 		free(tmp);
 		bftpd_log("Block cwd to '%s'\n", tmp);
-		errno = EACCES;
+		errno = ENOENT; //EACCES;
 		return -1;
 	}
 	/* Foxconn added end pling 09/02/2012 */

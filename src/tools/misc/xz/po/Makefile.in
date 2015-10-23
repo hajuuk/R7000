@@ -21,7 +21,7 @@ srcdir = .
 top_srcdir = ..
 
 
-prefix = /disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/src/router/squashfs-4.2
+prefix = /disk2/antony/R7000/GPL/V1.0.2.120/V1.0.2.120_1.0.17/src/router/squashfs-4.2
 exec_prefix = ${prefix}
 datarootdir = ${prefix}/share
 datadir = ${datarootdir}
@@ -34,12 +34,12 @@ INSTALL_DATA = ${INSTALL} -m 644
 # We use $(mkdir_p).
 # In automake <= 1.9.x, $(mkdir_p) is defined either as "mkdir -p --" or as
 # "$(mkinstalldirs)" or as "$(install_sh) -d". For these automake versions,
-# ${SHELL} /disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/src/tools/misc/xz/build-aux/install-sh does not start with $(SHELL), so we add it.
+# ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.120/V1.0.2.120_1.0.17/src/tools/misc/xz/build-aux/install-sh does not start with $(SHELL), so we add it.
 # In automake >= 1.10, /bin/mkdir -p is derived from ${MKDIR_P}, which is defined
 # either as "/path/to/mkdir -p" or ".../install-sh -c -d". For these automake
 # versions, $(mkinstalldirs) and $(install_sh) are unused.
-mkinstalldirs = $(SHELL) ${SHELL} /disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/src/tools/misc/xz/build-aux/install-sh -d
-install_sh = $(SHELL) ${SHELL} /disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/src/tools/misc/xz/build-aux/install-sh
+mkinstalldirs = $(SHELL) ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.120/V1.0.2.120_1.0.17/src/tools/misc/xz/build-aux/install-sh -d
+install_sh = $(SHELL) ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.120/V1.0.2.120_1.0.17/src/tools/misc/xz/build-aux/install-sh
 MKDIR_P = /bin/mkdir -p
 mkdir_p = /bin/mkdir -p
 

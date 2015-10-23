@@ -3,7 +3,7 @@
 <head>
 <%11%>
  <title>NETGEAR Router <%12%></title>
-<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="<%13%>">
 <link rel="stylesheet" href="css/scrollbar.css">
 <link rel="stylesheet" href="css/button.css">
 
@@ -85,24 +85,24 @@ function showWarningMsg()
         if (cf.watermark.value == "0")
             return true;
         
-        msg+="<%1828%>";
+        msg+="<%1846%>";
         if (cf.contrl_type.value == "1")
-            msg+=cf.watermark.value + " <%1829%> ";
+            msg+=cf.watermark.value + " <%1847%> ";
         else
-            msg+=cf.watermark.value + " <%1830%> ";
+            msg+=cf.watermark.value + " <%1848%> ";
 
-        msg+="<%1831%> ";
+        msg+="<%1849%> ";
         msg+=cf.warning_time.value;
         submitflag = true;
     }
     else if (cf.warning_state.value == "3")
     {
-        msg+="<%1832%>";
+        msg+="<%1850%>";
         if (cf.contrl_type.value == "1")
-            msg+= cf.cntime_limit.value + " <%1833%>) ";
+            msg+= cf.cntime_limit.value + " <%1851%>) ";
         else
-            msg+=cf.volume_limit.value + " <%1830%>) ";
-        msg+="<%1834%> ";
+            msg+=cf.volume_limit.value + " <%1848%>) ";
+        msg+="<%1852%> ";
         msg+=cf.warning_time.value;
     }
     
@@ -124,20 +124,20 @@ function showWarningMsg()
 <TABLE BORDER=0 WIDTH=400 HEIGHT=34 VALIGN=top>
 
 <tr>
-    <td><b><%1191%>:</b><INPUT TYPE="TEXT" NAME="interval" SIZE="4" MAXLENGTH="4" VALUE=" "> <%1835%></td>
-    <td>&nbsp;&nbsp;&nbsp;<button TYPE="BUTTON" value="<%1193%>" NAME="SetIntvl" class="button-rule" onClick="buttonClick(this,'<%1193%>');resetInterval(document.SetIntervalForm.interval.value)"><span class="roundleft_button">&nbsp;&nbsp; <%1193%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+    <td><b><%1201%>:</b><INPUT TYPE="TEXT" NAME="interval" SIZE="4" MAXLENGTH="4" VALUE=" "> <%1853%></td>
+    <td>&nbsp;&nbsp;&nbsp;<button TYPE="BUTTON" value="<%1203%>" NAME="SetIntvl" class="button-rule" onClick="buttonClick(this,'<%1203%>');resetInterval(document.SetIntervalForm.interval.value)"><span class="roundleft_button">&nbsp;&nbsp; <%1203%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
 </tr>
 </TABLE>
 </div>
 <input type="hidden" name="Button" value="Apply">
-<input name=traffic_on type=hidden value= "<%1836%>">
-<input name=contrl_type type=hidden value= "<%1837%>">
-<input name=contrl_dir type=hidden value= "<%1838%>">
-<input name=volume_limit type=hidden value= "<%1839%>">
-<input name=cntime_limit type=hidden value= "<%1840%>">
-<input name=watermark type=hidden value= "<%1841%>">
-<input name=warning_state type=hidden value= "<%257%>">
-<input name=warning_time type=hidden value= "<%1842%>">
+<input name=traffic_on type=hidden value= "<%1854%>">
+<input name=contrl_type type=hidden value= "<%1855%>">
+<input name=contrl_dir type=hidden value= "<%1856%>">
+<input name=volume_limit type=hidden value= "<%1857%>">
+<input name=cntime_limit type=hidden value= "<%1858%>">
+<input name=watermark type=hidden value= "<%1859%>">
+<input name=warning_state type=hidden value= "<%263%>">
+<input name=warning_time type=hidden value= "<%1860%>">
 </FORM>
 </BODY>
 </HTML>

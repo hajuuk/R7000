@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/disk2/antony/R7000/GPL/V1.0.1.22/V1.0.1.22_1.0.15/src/router/iptables-1.4.12/src/install/lib'
+libdir='/disk2/antony/R7000/GPL/V1.0.2.120/V1.0.2.120_1.0.17/src/router/iptables-1.4.12/src/install/lib'

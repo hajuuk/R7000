@@ -3,7 +3,7 @@
 <head>
 <%11%>
 <title>NETGEAR Router <%12%></title>
-<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="<%13%>">
 <link rel="stylesheet" href="css/scrollbar.css">
 <link rel="stylesheet" href="css/button.css">
 
@@ -17,7 +17,7 @@
 	classes.num.all.fontFamily = "Courier";
 	classes.num.all.fontSize = "10pt" ;
 </style>
-<%13%>
+<%14%>
 <script language="javascript" type="text/javascript">
 <!--
 
@@ -38,12 +38,12 @@
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".bas-help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -52,6 +52,8 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
@@ -156,9 +158,9 @@ function checkData()
 {
     var cf = document.forms[0];
     var msg = "";
-	var openvpnEnable = "<%412%>";
+	var openvpnEnable = "<%420%>";
     
-    msg+= checkBlank(cf.pppoe_username, "<%462%>");
+    msg+= checkBlank(cf.pppoe_username, "<%471%>");
 
     if (cf.useInterfaceId.checked)
     {
@@ -168,19 +170,17 @@ function checkData()
            || !(isHex(cf.IPv6_interface_id1.value) && isHex(cf.IPv6_interface_id2.value) && isHex(cf.IPv6_interface_id3.value) && isHex(cf.IPv6_interface_id4.value)))
         {
 
-            msg+= "<%2297%>";
+            msg+= "<%2335%>";
         }
         else 
             cf.ipv6_interface_id.value = cf.IPv6_interface_id1.value+":"+cf.IPv6_interface_id2.value+":"+cf.IPv6_interface_id3.value+":"+cf.IPv6_interface_id4.value;
     }
 	else
 		cf.ipv6_interfaceid_enable.value = 0;	
-       	 
-    if(<%1332%><1280){
+       	    
+    if(<%1342%><1280){
          msg+="MTU should not less than 1280 when IPV6 enable. Please change setting in WAN Setup.";
     }
-
-
     if (msg.length > 1)
     {
         alert(msg);
@@ -188,7 +188,7 @@ function checkData()
     }
 
 	if(openvpnEnable == "enable"){
-		alert("<%2298%>");
+		alert("<%2336%>");
 		return false;
 	}
 
@@ -219,100 +219,100 @@ function loadSettings()
 </script>
 </head>
 <body  onload="change_size();loadSettings();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="img/cover-image.gif">
-<img class="body-image" src="img/subhead2-background.jpg">
+<img class="cover-image" src="<%60%>">
+<img class="body-image" src="<%61%>">
 <div id="full-page-container">
 
 <form id="target"  name="formname" method="POST" action="ipv6_pppoe.cgi" >
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
-<img class="subtop-image" src="img/subhead2-top.gif">
-<div class="subhead2"> <%1028%></div>
+<img class="subtop-image" src="<%62%>">
+<div class="subhead2"> <%1038%></div>
 <table border="0"     class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-<button type="submit" value="SUBMIT"  onClick="buttonClick(this,'<%59%>');return checkData()" name="apply" class="button-apply" style="padding-left:10px"> <span class="roundleft_apply" ><%60%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-<button type="button" value="BUTTON"  onClick="buttonClick(this,'<%61%>');reset();loadSettings();" name="Cancel" class="button-rule" style="padding-left:10px" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%62%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-<button type="button" value="BUTTON"  onClick="buttonClick(this,'Refresh');location.reload();" name="Refresh" class="button-rule" style="padding-left:10px" ><span class="roundleft_button"><span class ="refresh-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%2299%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<button type="submit" value="SUBMIT"  onClick="buttonClick(this,'<%64%>');return checkData()" name="apply" class="button-apply" style="padding-left:10px"> <span class="roundleft_apply" ><%65%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+<button type="button" value="BUTTON"  onClick="buttonClick(this,'<%66%>');reset();loadSettings();" name="Cancel" class="button-rule" style="padding-left:10px" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%67%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<button type="button" value="BUTTON"  onClick="buttonClick(this,'Refresh');location.reload();" name="Refresh" class="button-rule" style="padding-left:10px" ><span class="roundleft_button"><span class ="refresh-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%2337%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
 <tr><td colspan="2" class="scrollpane-table-seperate-border"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
 
 <tr>
- <td width="50%"><a><b><%2300%></b></a></td>
+ <td width="50%"><a><b><%2338%></b></a></td>
  <td width="50%" align="right">
     <select name="login_type" onChange="setServer()">
-        <option><%496%></option>
-        <option><%2301%></option>
-        <option><%2302%></option>
-        <option><%2303%></option>
-        <option><%2304%></option>
-        <option><%2305%></option>
-        <option selected><%469%></option>
-        <option ><%2306%></option>
+        <option><%505%></option>
+        <option><%2339%></option>
+        <option><%2340%></option>
+        <option><%2341%></option>
+        <option><%2342%></option>
+        <option><%2343%></option>
+        <option selected><%478%></option>
+        <option ><%2344%></option>
     </select>
  </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-	<td><b><%474%></b></td>
-	<td align="right"><input type="text" name="pppoe_username" size="15" maxlength="63" value="<%2358%>"></td>
+	<td><b><%483%></b></td>
+	<td align="right"><input type="text" name="pppoe_username" size="15" maxlength="63" value="<%2396%>"></td>
 </tr>
 <tr>
-	<td><b><%476%></b></td>
-	<td align="right"><input type="password" name="pppoe_passwd" size="15" maxlength="63" value="<%2359%>"></td>
-</tr>
-
-<tr>
-	<td nowrap><%2360%> &nbsp;</td>
-	<td align="right"><input type="text" name="pppoe_servicename" maxlength="63" size="15" value="<%2361%>"></td>
+	<td><b><%485%></b></td>
+	<td align="right"><input type="password" name="pppoe_passwd" size="15" maxlength="63" value="<%2397%>"></td>
 </tr>
 
 <tr>
-<td width="50%" nowrap><b><%480%></b></td>
+	<td nowrap><%2398%> &nbsp;</td>
+	<td align="right"><input type="text" name="pppoe_servicename" maxlength="63" size="15" value="<%2399%>"></td>
+</tr>
+
+<tr>
+<td width="50%" nowrap><b><%489%></b></td>
 <td width="50%" align="right">
     <select name="pppoe_dod" onChange="" size="1">
-        <option value=0><%481%></option>
-        <option value=1><%482%></option>
-        <option value=2><%483%></option>
+        <option value=0><%490%></option>
+        <option value=1><%491%></option>
+        <option value=2><%492%></option>
     </select></td>
 </tr>
 
 <tr>
-    <td colspan="2" ><b><%2308%></b></td>
+    <td colspan="2" ><b><%2346%></b></td>
 </tr>
 <tr>
-    <td colspan="2" ><img src="spacer.gif" width="20" height="12" border="0"><%2309%></td>
+    <td colspan="2" ><img src="spacer.gif" width="20" height="12" border="0"><%2347%></td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-    <td width="50%" colspan="2" ><b><%315%></b></td>
+    <td width="50%" colspan="2" ><b><%322%></b></td>
 </tr>
 <tr>
 
 </tr>
 <tr>
-    <td colspan="2" ><b><%2310%></b></td>
+    <td colspan="2" ><b><%2348%></b></td>
 </tr>
 <tr>
-    <td colspan="2" ><img src="spacer.gif" width="20" height="12" border="0"><%2311%></td>
+    <td colspan="2" ><img src="spacer.gif" width="20" height="12" border="0"><%2349%></td>
 </tr>
 <tr>
-	<td nowrap colspan="2"><b><%2312%></b></td>
+	<td nowrap colspan="2"><b><%2350%></b></td>
 </tr>
 <tr>
-	<td colspan="2" nowrap><input type="radio" name="IpAssign" value="dhcp" <%2313%>><%2314%></td>
+	<td colspan="2" nowrap><input type="radio" name="IpAssign" value="dhcp" <%2351%>><%2352%></td>
 </tr>
 <tr>
-	<td colspan="2" nowrap><input type="radio" name="IpAssign" value="auto" <%2315%>><%2306%></td>
+	<td colspan="2" nowrap><input type="radio" name="IpAssign" value="auto" <%2353%>><%2344%></td>
 </tr>
 <tr>
     <td colspan="2" ><img src="spacer.gif" width="20" height="1" border="0">
 </tr>
 
 <tr>
-    <td nowrap colspan="2"><input  type="checkbox" <%2316%> name="useInterfaceId" value="" onclick= "checkInterfaceID();"><b><%2317%></b></td>
+    <td nowrap colspan="2"><input  type="checkbox" <%2354%> name="useInterfaceId" value="" onclick= "checkInterfaceID();"><b><%2355%></b></td>
 </tr>
 <tr>
 	<td colspan="2" ><img src="spacer.gif" width="20" height="12" border="0"><input type="text" name="IPv6_interface_id1" class="num" size="4" maxlength="4" value="" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheckv6(this,0)">:<input type="text" name="IPv6_interface_id2" class="num" size="4" maxlength="4" value="" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheckv6(this,0)">:<input type="text" name="IPv6_interface_id3" class="num" size="4" maxlength="4" value="" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheckv6(this,0)">:<input type="text" name="IPv6_interface_id4" class="num" size="4" maxlength="4" value="" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheckv6(this,1)"></td>
@@ -325,18 +325,18 @@ function loadSettings()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%227%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%228%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
       </div>
 
 
 
 <input type="hidden" name="ipv6_interfaceid_enable" value="">
-<input type="hidden" name="ipv6_interface_id" value="<%2318%>">
+<input type="hidden" name="ipv6_interface_id" value="<%2356%>">
 <INPUT type="hidden" name="ipv6_proto" value= "pppoe">
-<INPUT type="hidden" name="wan_proto" value= "<%389%>">
+<INPUT type="hidden" name="wan_proto" value= "<%396%>">
 <a name="helpframe-anchor"></a>
 </form>
 

@@ -3,7 +3,7 @@
 <head>
 <%11%>
 <title>NETGEAR Router <%12%></title> 
-<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="<%13%>">
 <link rel="stylesheet" href="css/scrollbar.css">
 <link rel="stylesheet" href="css/button.css">
 
@@ -17,10 +17,10 @@
 classes.num.all.fontFamily = "Courier";
 classes.num.all.fontSize = "10pt" ;
 </style>
-<%13%>
+<%14%>
 <script language="javascript" type="text/javascript">
 <!--
-<%1724%>
+<%1734%>
   
     $(document).ready(function()
     {	
@@ -30,7 +30,7 @@ classes.num.all.fontSize = "10pt" ;
         });
 		
 		/* check whether QoS down streaming feature is enabled */
-		if("<%1725%>"=="1")
+		if("<%1735%>"=="1")
 			location.href = "QOS_down_streaming.htm";
     });
 
@@ -139,7 +139,7 @@ function loadSettings()
         cf.check_bw.disabled = true;
         
         var setButton=document.getElementsByName("setup_qos_rule");
-        setButton[0].outerHTML='<button type="submit" disabled value="qos_setrule_mark" name="setup_qos_rule" class="button-grey" onclick="buttonClick(this,\'qos_setrule_mark\');" ><span class="roundleft_grey">&nbsp;&nbsp; <%1726%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+        setButton[0].outerHTML='<button type="submit" disabled value="qos_setrule_mark" name="setup_qos_rule" class="button-grey" onclick="buttonClick(this,\'qos_setrule_mark\');" ><span class="roundleft_grey">&nbsp;&nbsp; <%1736%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
         setButton[0].style.cursor='default';          
 	}
     else
@@ -156,7 +156,7 @@ function loadSettings()
             //cf.check_bw.disabled = true;
             
             var checkButton=document.getElementsByName("check_bw");
-            checkButton[0].outerHTML='<button type="submit" disabled value="Check" name="check_bw" class="button-grey" onClick="buttonClick(this,\'Check\');return checkWanIp();"><span class="roundleft_grey">&nbsp;&nbsp; <%1281%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+            checkButton[0].outerHTML='<button type="submit" disabled value="Check" name="check_bw" class="button-grey" onClick="buttonClick(this,\'Check\');return checkWanIp();"><span class="roundleft_grey">&nbsp;&nbsp; <%1291%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
             checkButton[0].style.cursor='default';        
             
 
@@ -167,7 +167,7 @@ function loadSettings()
 function checkData()
 {
 	var cf = document.forms[0];
-	var qos_up_bw_limit = "<%1727%>";
+	var qos_up_bw_limit = "<%1737%>";
 	interval = parseInt(cf.bandwidth.value);
 	if ( isNaN(interval) || interval <= 0 ||
 		(cf.rate.selectedIndex == 0 && (interval < 64 || interval > 9999)) ||
@@ -175,7 +175,7 @@ function checkData()
 		cf.bandwidth.value.match(/[^0-9]/g) ||
 		cf.bandwidth.value.match(/^0/))
 	{
-		alert("<%1728%>");
+		alert("<%1738%>");
 		return false;
 	}
 	return true;
@@ -189,11 +189,11 @@ function checkWanIp()
 function loadAlert()
 {
     var cf = document.forms[0];
-    var fromcgi = "<%1729%>";
+    var fromcgi = "<%1739%>";
     
     if (fromcgi == "AlertOk")
     {
-        alert("<%1730%>");
+        alert("<%1740%>");
     }
 }
 
@@ -245,20 +245,20 @@ function check_bw_sel()
 </script> 
 </head>
 <body  onload="change_size();loadSettings();loadAlert();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="img/cover-image.gif">
-<img class="body-image" src="img/subhead2-background.jpg">
+<img class="cover-image" src="<%60%>">
+<img class="body-image" src="<%61%>">
 <div id="full-page-container">
 
 <form id="target"  name="frmRules" method="POST" action="qos_main.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="img/subhead2-top.gif">
-<div class="subhead2"> <%316%></div>
+<img class="subtop-image" src="<%62%>">
+<div class="subhead2"> <%323%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%59%>"  onclick="buttonClick(this,'<%59%>');return checkData();"  type="submit" name="apply" class="button-apply" > <span class="roundleft_apply" ><%60%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%61%>" onclick="buttonClick(this,'<%61%>');loadSettings();" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%62%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%64%>"  onclick="buttonClick(this,'<%64%>');return checkData();"  type="submit" name="apply" class="button-apply" > <span class="roundleft_apply" ><%65%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%66%>" onclick="buttonClick(this,'<%66%>');loadSettings();" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%67%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -268,35 +268,35 @@ function check_bw_sel()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
-<td colspan="2"><input type="checkbox" name="wmm_enable" value="1"><a href="javascript:loadhelp('QOS_main','wifi')" tabindex="-1"> <b><%1731%></b></a></td>
+<td colspan="2"><input type="checkbox" name="wmm_enable" value="1"><a href="javascript:loadhelp('QOS_main','wifi')" tabindex="-1"> <b><%1741%></b></a></td>
 </tr>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
-<td colspan="2"><input type="checkbox" name="qosEnable" value="1" checked><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1732%></b></a></td>
+<td colspan="2"><input type="checkbox" name="qosEnable" value="1" checked><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1742%></b></a></td>
 </tr>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
-<td colspan="2"><input type="checkbox" name="bwEnable" value="1" onclick="check_bw_sel()"><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1733%></b></a></td>
+<td colspan="2"><input type="checkbox" name="bwEnable" value="1" onclick="check_bw_sel()"><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1743%></b></a></td>
 </tr>
 
 <tr>
 <td colspan="2" ><img src="spacer.gif" width="40" height="12" border="0">
-<input type="radio" name="bw_sel" value="1" onclick="update_bw_sel(1)"><%1734%>&nbsp;<%1735%>
+<input type="radio" name="bw_sel" value="1" onclick="update_bw_sel(1)"><%1744%>&nbsp;<%1745%>
 <input type="text" name="bandwidth" size="6" maxlength="4" value="">
 <select name="rate" size=1>
-<option value="1000"><%1736%></option>
-<option value="1000000"><%1737%></option>
+<option value="1000"><%1746%></option>
+<option value="1000000"><%1747%></option>
 </select>
 </td>
 </tr>
 <tr>
 <td colspan="2" ><img src="spacer.gif" width="40" height="12" border="0">
-<input type="radio" name="bw_sel" value="2" onclick="update_bw_sel(2)"><%1738%>  <!><%1739%><!>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1281%>" name="check_bw" class="button-rule" onclick="buttonClick(this,'<%1281%>');return checkWanIp();"><span class="roundleft_button">&nbsp;&nbsp; <%1281%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<input type="radio" name="bw_sel" value="2" onclick="update_bw_sel(2)"><%1748%>  <!><%1749%><!>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1291%>" name="check_bw" class="button-rule" onclick="buttonClick(this,'<%1291%>');return checkWanIp();"><span class="roundleft_button">&nbsp;&nbsp; <%1291%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
@@ -304,8 +304,8 @@ function check_bw_sel()
 <td colspan="2"></td>
 </tr>
 <tr>
-<td colspan="2" ><b><%1740%></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1726%>" name="setup_qos_rule" class="button-rule" onclick="buttonClick(this,'<%1726%>');" ><span class="roundleft_button">&nbsp;&nbsp; <%1726%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<td colspan="2" ><b><%1750%></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1736%>" name="setup_qos_rule" class="button-rule" onclick="buttonClick(this,'<%1736%>');" ><span class="roundleft_button">&nbsp;&nbsp; <%1736%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 &nbsp;&nbsp;&nbsp;<button type="submit" value="1" name="video_streaming_qos" class="button-rule" onclick="buttonClick(this,'video_streaming_qos');" ><span class="roundleft_button">&nbsp;&nbsp; QoS Video Streaming Tunning</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
@@ -316,14 +316,14 @@ function check_bw_sel()
 <tr>
 <input type="hidden" name="select" value="-1">
 <input type="hidden" name="priority_sel" value="-1">
-<INPUT type="hidden" name=WMM_value value="<%1741%>">
-<input type="hidden" name="qos_enable" value="<%1742%>">
-<input type="hidden" name="qos_bw_enable" value="<%1743%>">
-<input type="hidden" name="uplink_bw" value="<%1744%>">
-<input type="hidden" name="repeater" value="<%367%>">
-<input type="hidden" name="repeater_an" value="<%368%>">
-<input type="hidden" name="bw_set_sel" value="<%1745%>">
-<input type="hidden" name="enable_apmode" value="<%369%>">
+<INPUT type="hidden" name=WMM_value value="<%1751%>">
+<input type="hidden" name="qos_enable" value="<%1752%>">
+<input type="hidden" name="qos_bw_enable" value="<%1753%>">
+<input type="hidden" name="uplink_bw" value="<%1754%>">
+<input type="hidden" name="repeater" value="<%374%>">
+<input type="hidden" name="repeater_an" value="<%375%>">
+<input type="hidden" name="bw_set_sel" value="<%1755%>">
+<input type="hidden" name="enable_apmode" value="<%376%>">
 </tr>
 </table></div></td></tr>
 <tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="QOS_main_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
@@ -331,10 +331,10 @@ function check_bw_sel()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%227%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%228%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
       </div>
 
 

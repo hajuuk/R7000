@@ -3,7 +3,7 @@
 <head>
 <%11%>
 <title>NETGEAR Router <%12%></title> 
-<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="<%13%>">
 <link rel="stylesheet" href="css/scrollbar.css">
 <link rel="stylesheet" href="css/button.css">
 
@@ -17,7 +17,7 @@
 classes.num.all.fontFamily = "Courier";
 classes.num.all.fontSize = "10pt" ;
 </style>
-<%13%>
+<%14%>
 <script language="javascript" type="text/javascript">
 <!--
 
@@ -218,20 +218,20 @@ function checkData()
 </script> 
 </head>
 <body  onload="change_size();loadSettings();loadAlert();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="img/cover-image.gif">
-<img class="body-image" src="img/subhead2-background.jpg">
+<img class="cover-image" src="<%60%>">
+<img class="body-image" src="<%61%>">
 <div id="full-page-container">
 
 <form id="target"  name="frmRules" method="POST" action="qos_video_streaming.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="img/subhead2-top.gif">
+<img class="subtop-image" src="<%62%>">
 <div class="subhead2"> QoS Video Streaming Tunning</div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%59%>"  onclick="buttonClick(this,'<%59%>');return checkData();"  type="submit" name="apply" class="button-apply" > <span class="roundleft_apply" ><%60%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%61%>" onclick="buttonClick(this,'<%61%>');loadSettings();" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%62%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%64%>"  onclick="buttonClick(this,'<%64%>');return checkData();"  type="submit" name="apply" class="button-apply" > <span class="roundleft_apply" ><%65%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%66%>" onclick="buttonClick(this,'<%66%>');loadSettings();" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%67%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -431,28 +431,28 @@ function checkData()
 
 
 <tr>
-<input type="hidden" name="NV_QOS_ENABLE" value="<%1797%>">
-<input type="hidden" name="NV_YoutubeIP" value="<%1806%>">
-<input type="hidden" name="NV_WIN_BWSTATBLE" value="<%1807%>">
-<input type="hidden" name="NV_WIN_BWCHG" value="<%1808%>">
-<input type="hidden" name="NV_WIN_BWHDROP" value="<%1809%>">
-<input type="hidden" name="NV_WIN_ADAPT" value="<%1810%>">
-<input type="hidden" name="NV_WIN_RUNNING" value="<%1811%>">
-<input type="hidden" name="NV_EQUAL_METHOD" value="<%1812%>">
-<input type="hidden" name="NV_EQUAL_RANG_PERCENT" value="<%1813%>">
-<input type="hidden" name="NV_EQUAL_RANG_NUMBER" value="<%1814%>">
-<input type="hidden" name="NV_PER_TOLERANCE" value="<%1815%>">
-<input type="hidden" name="NV_PER_TOLERANCE_PICKUP" value="<%1816%>">
-<input type="hidden" name="NV_DELTA_BWL_MIN" value="<%1817%>">
-<input type="hidden" name="NV_DELTA_BWL_PICKUP_MIN" value="<%1818%>">
-<input type="hidden" name="NV_BWL_ZERO" value="<%1819%>">
-<input type="hidden" name="NV_ZERO_TRAFFIC" value="<%1820%>">
-<input type="hidden" name="NV_BWH_MIN" value="<%1821%>">
-<input type="hidden" name="NV_FORCE_DROP_PERIOD" value="<%1822%>">
-<input type="hidden" name="NV_CONFIG_AVG_Q_SIZE" value="<%1823%>">
-<input type="hidden" name="NV_BWL_PREDROP_PERIOD" value="<%1824%>">
-<input type="hidden" name="NV_NEED_CHECK_BWH_IN_VAGUE" value="<%1825%>">
-<input type="hidden" name="NV_BWL_LIMIT_REAL_PERCENT" value="<%1826%>">
+<input type="hidden" name="NV_QOS_ENABLE" value="<%1812%>">
+<input type="hidden" name="NV_YoutubeIP" value="<%1821%>">
+<input type="hidden" name="NV_WIN_BWSTATBLE" value="<%1822%>">
+<input type="hidden" name="NV_WIN_BWCHG" value="<%1823%>">
+<input type="hidden" name="NV_WIN_BWHDROP" value="<%1824%>">
+<input type="hidden" name="NV_WIN_ADAPT" value="<%1825%>">
+<input type="hidden" name="NV_WIN_RUNNING" value="<%1826%>">
+<input type="hidden" name="NV_EQUAL_METHOD" value="<%1827%>">
+<input type="hidden" name="NV_EQUAL_RANG_PERCENT" value="<%1828%>">
+<input type="hidden" name="NV_EQUAL_RANG_NUMBER" value="<%1829%>">
+<input type="hidden" name="NV_PER_TOLERANCE" value="<%1830%>">
+<input type="hidden" name="NV_PER_TOLERANCE_PICKUP" value="<%1831%>">
+<input type="hidden" name="NV_DELTA_BWL_MIN" value="<%1832%>">
+<input type="hidden" name="NV_DELTA_BWL_PICKUP_MIN" value="<%1833%>">
+<input type="hidden" name="NV_BWL_ZERO" value="<%1834%>">
+<input type="hidden" name="NV_ZERO_TRAFFIC" value="<%1835%>">
+<input type="hidden" name="NV_BWH_MIN" value="<%1836%>">
+<input type="hidden" name="NV_FORCE_DROP_PERIOD" value="<%1837%>">
+<input type="hidden" name="NV_CONFIG_AVG_Q_SIZE" value="<%1838%>">
+<input type="hidden" name="NV_BWL_PREDROP_PERIOD" value="<%1839%>">
+<input type="hidden" name="NV_NEED_CHECK_BWH_IN_VAGUE" value="<%1840%>">
+<input type="hidden" name="NV_BWL_LIMIT_REAL_PERCENT" value="<%1841%>">
 
 </tr>
 </table></div></td></tr>

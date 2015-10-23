@@ -709,6 +709,20 @@ void do_stor(char *filename, int flags)
 	gzFile my_zip_file = NULL;
 #endif
 
+	if (!mapped)
+	{
+		bftpd_log("Memory error in storing file.\n");
+		control_printf(SL_FAILURE, "553 An unknown error occured on the server.");
+		return;
+	}
+
+	if (strncmp(mapped, "/shares/", strlen("/shares/")) != 0)
+	{
+		bftpd_log("Tried to access files outside '/shares'!\n");
+		control_printf(SL_FAILURE, "550 Error: Access Denied.");
+		free(mapped);
+		return;
+	}
 
     /* Foxconn, added by MJ., 2010.04.08, for check if file is locked. */
 #ifdef LOCK_DEBUG
@@ -1122,6 +1136,14 @@ void command_retr(char *filename)
 	{
 		bftpd_log("Memory error in sending file.\n", 0);
 		control_printf(SL_FAILURE, "553 An unknown error occured on the server.", 9);
+		return;
+	}
+
+	if (strncmp(mapped, "/shares/", strlen("/shares/")) != 0)
+	{
+		bftpd_log("Tried to access files outside '/shares'!\n");
+		control_printf(SL_FAILURE, "553 No such file or directory.");
+		free(mapped);
 		return;
 	}
 

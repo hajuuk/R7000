@@ -164,6 +164,7 @@ typedef struct dma_info {
 	uint32 		d64_rs0_cd_mask; /* rx current descriptor pointer mask */
 	uint16		rs0cd;		/* cached value of rcvstatus0 currdescr */
 	uint16		xs0cd;		/* cached value of xmtstatus0 currdescr */
+	uint16		xs0cd_snapshot;	/* snapshot of xmtstatus0 currdescr */
 } dma_info_t;
 
 /*
@@ -852,7 +853,7 @@ dma64_dd_upd(dma_info_t *di, dma64dd_t *ddring, dmaaddr_t pa, uint outidx, uint3
 		}
 	}
 
-#if defined(__ARM_ARCH_7A__) && !defined(__NetBSD__)
+#if defined(BCM47XX_CA9) && !defined(__NetBSD__)
 	DMA_MAP(di->osh, (void *)(((uint)(&ddring[outidx])) & ~0x1f), 32, DMA_TX, NULL, NULL);
 #endif /* __ARM_ARCH_7A__ && !__NetBSD__ */
 }
@@ -894,17 +895,17 @@ _dma_detach(dma_info_t *di)
 	if (DMA64_ENAB(di) && DMA64_MODE(di)) {
 		if (di->txd64)
 			DMA_FREE_CONSISTENT(di->osh, ((int8 *)(uintptr)di->txd64 - di->txdalign),
-			                    di->txdalloc, (di->txdpaorig), &di->tx_dmah);
+			                    di->txdalloc, (di->txdpaorig), di->tx_dmah);
 		if (di->rxd64)
 			DMA_FREE_CONSISTENT(di->osh, ((int8 *)(uintptr)di->rxd64 - di->rxdalign),
-			                    di->rxdalloc, (di->rxdpaorig), &di->rx_dmah);
+			                    di->rxdalloc, (di->rxdpaorig), di->rx_dmah);
 	} else if (DMA32_ENAB(di)) {
 		if (di->txd32)
 			DMA_FREE_CONSISTENT(di->osh, ((int8 *)(uintptr)di->txd32 - di->txdalign),
-			                    di->txdalloc, (di->txdpaorig), &di->tx_dmah);
+			                    di->txdalloc, (di->txdpaorig), di->tx_dmah);
 		if (di->rxd32)
 			DMA_FREE_CONSISTENT(di->osh, ((int8 *)(uintptr)di->rxd32 - di->rxdalign),
-			                    di->rxdalloc, (di->rxdpaorig), &di->rx_dmah);
+			                    di->rxdalloc, (di->rxdpaorig), di->rx_dmah);
 	} else
 		ASSERT(0);
 
@@ -1086,6 +1087,14 @@ _dma_rxinit(dma_info_t *di)
 	if (di->nrxd == 0)
 		return;
 
+	/* During the reset procedure, the active rxd may not be zero if pktpool is
+	 * enabled, we need to reclaim active rxd to avoid rxd being leaked.
+	 */
+	if ((POOL_ENAB(di->pktpool)) && (NRXDACTIVE(di->rxin, di->rxout))) {
+		_dma_rxreclaim(di);
+	}
+
+	ASSERT(di->rxin == di->rxout);
 	di->rxin = di->rxout = di->rs0cd = 0;
 
 	/* clear rx descriptor ring */
@@ -1193,7 +1202,7 @@ _dma_rx(dma_info_t *di)
 	uint len;
 	uint pkt_len;
 	int resid = 0;
-#if defined(BCM4335) || defined(BCM4345)
+#if defined(BCM4335) || defined(BCM4345) || defined(BCM4350) || defined(BCM43602)
 	dma64regs_t *dregs = di->d64rxregs;
 #endif
 
@@ -1202,8 +1211,8 @@ next_frame:
 	if (head == NULL)
 		return (NULL);
 
-#if ((!defined(__mips__) && !defined(__ARM_ARCH_7A__)) || defined(__NetBSD__))
-#if defined(BCM4335) || defined(BCM4345)
+#if (!defined(__mips__) && !defined(BCM47XX_CA9))
+#if defined(BCM4335) || defined(BCM4345) || defined(BCM4350) || defined(BCM43602)
 	if ((R_REG(osh, &dregs->control) & D64_RC_GE)) {
 		/* In case of glommed pkt get length from hwheader */
 		len = ltoh16(*((uint16 *)(PKTDATA(di->osh, head)) + di->rxoffset/2 + 2)) + 4;
@@ -1218,7 +1227,7 @@ next_frame:
 #else
 	{
 	int read_count = 0;
-#if defined(__mips__)
+#if defined(__mips__) || defined(__NetBSD__)
 	for (read_count = 200;
 	     (!(len = ltoh16(*(uint16 *)OSL_UNCACHED(PKTDATA(di->osh, head)))) &&
 	       read_count); read_count--) {
@@ -1388,7 +1397,7 @@ _dma_rxfill(dma_info_t *di)
 		 * will flush the cache.
 		*/
 		*(uint32 *)(PKTDATA(di->osh, p)) = 0;
-#if defined(linux) && defined(__ARM_ARCH_7A__)
+#if defined(linux) && defined(BCM47XX_CA9)
 		DMA_MAP(di->osh, (void *)((uint)PKTDATA(di->osh, p) & ~0x1f),
 			32, DMA_TX, NULL, NULL);
 #endif
@@ -1789,7 +1798,7 @@ dma_ringalloc(osl_t *osh, uint32 boundary, uint size, uint16 *alignbits, uint* a
 	    (desc_strtaddr & boundary)) {
 		*alignbits = dma_align_sizetobits(size);
 		DMA_FREE_CONSISTENT(osh, va,
-		                    size, *descpa, dmah);
+		                    size, *descpa, *dmah);
 		va = DMA_ALLOC_CONSISTENT(osh, size, *alignbits, alloced, descpa, dmah);
 	}
 	return va;
@@ -2539,7 +2548,7 @@ dma64_txinit(dma_info_t *di)
 	if (di->ntxd == 0)
 		return;
 
-	di->txin = di->txout = di->xs0cd = 0;
+	di->txin = di->txout = di->xs0cd = di->xs0cd_snapshot = 0;
 	di->hnddma.txavail = di->ntxd - 1;
 
 	/* clear tx descriptor ring */
@@ -3141,7 +3150,7 @@ dma64_getnexttxp(dma_info_t *di, txd_range_t range)
 		hnddma_seg_map_t *map = NULL;
 		uint size, j, nsegs;
 
-#if ((!defined(__mips__) && !defined(__ARM_ARCH_7A__)) || defined(__NetBSD__))
+#if ((!defined(__mips__) && !defined(BCM47XX_CA9)) || defined(__NetBSD__))
 		dmaaddr_t pa;
 		PHYSADDRLOSET(pa, (BUS_SWAP32(R_SM(&di->txd64[i].addrlow)) - di->dataoffsetlow));
 		PHYSADDRHISET(pa, (BUS_SWAP32(R_SM(&di->txd64[i].addrhigh)) - di->dataoffsethigh));
@@ -3156,14 +3165,14 @@ dma64_getnexttxp(dma_info_t *di, txd_range_t range)
 				break;
 			}
 		} else {
-#if ((!defined(__mips__) && !defined(__ARM_ARCH_7A__)) || defined(__NetBSD__))
+#if ((!defined(__mips__) && !defined(BCM47XX_CA9)) || defined(__NetBSD__))
 			size = (BUS_SWAP32(R_SM(&di->txd64[i].ctrl2)) & D64_CTRL2_BC_MASK);
 #endif
 			nsegs = 1;
 		}
 
 		for (j = nsegs; j > 0; j--) {
-#if ((!defined(__mips__) && !defined(__ARM_ARCH_7A__)) || defined(__NetBSD__))
+#if ((!defined(__mips__) && !defined(BCM47XX_CA9)) || defined(__NetBSD__))
 			W_SM(&di->txd64[i].addrlow, 0xdeadbeef);
 			W_SM(&di->txd64[i].addrhigh, 0xdeadbeef);
 #endif
@@ -3174,7 +3183,7 @@ dma64_getnexttxp(dma_info_t *di, txd_range_t range)
 				i = NEXTTXD(i);
 		}
 
-#if ((!defined(__mips__) && !defined(__ARM_ARCH_7A__)) || defined(__NetBSD__))
+#if ((!defined(__mips__) && !defined(BCM47XX_CA9)) || defined(__NetBSD__))
 		DMA_UNMAP(di->osh, pa, size, DMA_TX, txp, map);
 #endif
 	}
@@ -3197,7 +3206,7 @@ dma64_getnextrxp(dma_info_t *di, bool forceall)
 {
 	uint16 i, curr;
 	void *rxp;
-#if ((!defined(__mips__) && !defined(__ARM_ARCH_7A__)) || defined(__NetBSD__))
+#if ((!defined(__mips__) && !defined(BCM47XX_CA9)) || defined(__NetBSD__))
 	dmaaddr_t pa;
 #endif
 
@@ -3226,7 +3235,7 @@ dma64_getnextrxp(dma_info_t *di, bool forceall)
 	ASSERT(rxp);
 	di->rxp[i] = NULL;
 
-#if ((!defined(__mips__) && !defined(__ARM_ARCH_7A__)) || defined(__NetBSD__))
+#if ((!defined(__mips__) && !defined(BCM47XX_CA9)) || defined(__NetBSD__))
 	PHYSADDRLOSET(pa, (BUS_SWAP32(R_SM(&di->rxd64[i].addrlow)) - di->dataoffsetlow));
 	PHYSADDRHISET(pa, (BUS_SWAP32(R_SM(&di->rxd64[i].addrhigh)) - di->dataoffsethigh));
 
@@ -3330,7 +3339,7 @@ dma64_txrotate(dma_info_t *di)
 }
 
 uint
-dma_addrwidth(si_t *sih, void *dmaregs)
+BCMATTACHFN(dma_addrwidth)(si_t *sih, void *dmaregs)
 {
 	dma32regs_t *dma32regs;
 	osl_t *osh;
@@ -3383,6 +3392,7 @@ static bool
 _dma_rxtx_error(dma_info_t *di, bool istx)
 {
 	uint32 status1 = 0;
+	uint16 curr;
 
 	if (DMA64_ENAB(di) && DMA64_MODE(di)) {
 
@@ -3392,6 +3402,21 @@ _dma_rxtx_error(dma_info_t *di, bool istx)
 
 			if ((status1 & D64_XS1_XE_MASK) != D64_XS1_XE_NOERR)
 				return TRUE;
+			else if (si_coreid(di->sih) == GMAC_CORE_ID && si_corerev(di->sih) >= 4) {
+				curr = (uint16)(B2I(((R_REG(di->osh, &di->d64txregs->status0) &
+					D64_XS0_CD_MASK) - di->xmtptrbase) &
+					D64_XS0_CD_MASK, dma64dd_t));
+
+				if (NTXDACTIVE(di->txin, di->txout) != 0 &&
+					curr == di->xs0cd_snapshot) {
+
+					/* suspicious */
+					return TRUE;
+				}
+				di->xs0cd_snapshot = di->xs0cd = curr;
+
+				return FALSE;
+			}
 			else
 				return FALSE;
 		}
