@@ -168,7 +168,10 @@ BOOL token_contains_name_in_list(const char *username,
 	}
 
 	while (*list != NULL) {
-		if (token_contains_name(mem_ctx, username, sharename,token, *list)) {
+     /* Modify by Antony 11/13/2013 start for directory authorization */
+      if(strcmp(*list,username)==0) {
+//		if (token_contains_name(mem_ctx, username, sharename,token, *list)) {
+     /* Modify by Antony 11/13/2013 end */
 			TALLOC_FREE(mem_ctx);
 			return True;
 		}

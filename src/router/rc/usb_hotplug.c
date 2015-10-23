@@ -192,7 +192,8 @@ retry:
         ret = system(buf);
 
 #ifdef USE_KERNEL_NTFS        
-		get_vol_id(source);
+        if (ret == 0 )        // foxconn add by ken chen, 11/13/2013, fix crash issue when mount fs failed.
+		    get_vol_id(source);
 #endif        
 
         /* can't judge if mount is successful*/
@@ -440,6 +441,7 @@ int usb_mount_block(int major_no, int minor_no, char *mntdev)
 #ifdef USB_DEBUG
         cprintf("%s:%d error mouting disk\n",__func__, __LINE__);
 #endif
+        system("killall -SIGHUP httpd"); /* foxconn add ken chen, 11/08/2013, re-enable smb just in case other usb disks are live */
         return 0;
     }
     /* Bob added start 04/01/2011, to log usb activities */
@@ -633,9 +635,11 @@ int usb_umount_block(int major_no, int minor_no)
     snprintf(path, 128, "/tmp/mnt/not_approved%dpart%d", 16*(major_no/64) + minor_no/16, minor_no%16);
     rval2 = umount2(path, MNT_DETACH);
 
-    if (rval != 0 && rval2 != 0)
+    if (rval != 0 && rval2 != 0) {
+        system("killall -SIGHUP httpd");    /* foxconn add ken chen, 11/08/2013, re-enable smb just in case other usb disks are live */
         return 0;
-
+    }
+		
     /* only remove the volume name file of the unmounted device */
     device = minor_no/16;
     part = minor_no%16;

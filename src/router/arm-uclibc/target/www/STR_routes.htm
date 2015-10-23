@@ -34,12 +34,12 @@
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -48,9 +48,12 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -117,12 +120,12 @@ function chgSel(index)
 	<table border="1" cellpadding="2" cellspacing="0" width="100%">
 	<tr><td width="5%" align="center"><span class="thead"> &nbsp;</span></td>
 		<td width="5%" align="center"><span class="thead">#</span></td>
-		<td width="15%" align="center"><span class="thead"><%1262%></b></td>
-		<td width="25%" align="center"><span class="thead"><%1263%></b></td>
-		<td width="25%" align="center"><span class="thead"><%1264%></b></td>
-		<td width="25%" align="center"><span class="thead"><%1265%></b></td>
+		<td width="15%" align="center"><span class="thead"><%1273%></b></td>
+		<td width="25%" align="center"><span class="thead"><%1274%></b></td>
+		<td width="25%" align="center"><span class="thead"><%1275%></b></td>
+		<td width="25%" align="center"><span class="thead"><%1276%></b></td>
 	</tr>
-	<%1266%>
+	<%1277%>
 	</table>
 </td>
 </tr>
@@ -131,9 +134,9 @@ function chgSel(index)
 
 <tr>
 	<td colspan="2" align="center">
-		&nbsp;&nbsp;&nbsp;<button type="SUBMIT" value="<%572%>" name="Add" class="button-rule" onclick="buttonClick(this,'<%572%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%572%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-		&nbsp;&nbsp;&nbsp;<button type="submit" value="<%573%>" name="Edit" class="button-rule" onclick="buttonClick(this,'<%573%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%573%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-		&nbsp;&nbsp;&nbsp;<button type="submit" value="<%574%>" name="Delete" class="button-rule" onclick="buttonClick(this,'<%574%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%574%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		&nbsp;&nbsp;&nbsp;<button type="SUBMIT" value="<%573%>" name="Add" class="button-rule" onclick="buttonClick(this,'<%573%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%573%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		&nbsp;&nbsp;&nbsp;<button type="submit" value="<%574%>" name="Edit" class="button-rule" onclick="buttonClick(this,'<%574%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%574%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		&nbsp;&nbsp;&nbsp;<button type="submit" value="<%575%>" name="Delete" class="button-rule" onclick="buttonClick(this,'<%575%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%575%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 		<input type="hidden" name="select" value="-1">
 	</td>
 </tr>

@@ -28,7 +28,7 @@ var initRegion;
 var changeMsg = "<%15%>";
 var notShown = true; // only shown region change message once
 var initialized = false;
-var device_id="<%1385%>";
+var device_id="<%1396%>";
   
     $(document).ready(function()
     {	
@@ -47,12 +47,12 @@ var device_id="<%1385%>";
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -61,9 +61,12 @@ var device_id="<%1385%>";
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -214,15 +217,15 @@ function setOpMode()
         if ((sec_type_2G == "WEP") || (sec_type_2G == "WPA-PSK"))
         {
             cf.opmode.options.length = 1;
-        	cf.opmode.options[0].text = "<%1386%>";
+        	cf.opmode.options[0].text = "<%1397%>";
         	cf.opmode.options[0].value = "g and b";
         }
         else
         {
             cf.opmode.options.length = 3;
-        	cf.opmode.options[0].text = "<%1386%>";
-        	cf.opmode.options[1].text = "<%1387%>";
-        	cf.opmode.options[2].text = "<%1388%>";
+        	cf.opmode.options[0].text = "<%1397%>";
+        	cf.opmode.options[1].text = "<%1398%>";
+        	cf.opmode.options[2].text = "<%1399%>";
         	cf.opmode.options[0].value = "g and b";
         	cf.opmode.options[1].value = "130Mbps";
         	cf.opmode.options[2].value = "300Mbps";
@@ -234,15 +237,15 @@ function setOpMode()
         if ((sec_type_2G == "WEP") || (sec_type_2G == "WPA-PSK"))
         {
             cf.opmode.options.length = 1;
-        	cf.opmode.options[0].text = "<%1386%>";
+        	cf.opmode.options[0].text = "<%1397%>";
         	cf.opmode.options[0].value = "g and b";
         }
         else
         {
             cf.opmode.options.length = 3;
-        	cf.opmode.options[0].text = "<%1386%>";
-        	cf.opmode.options[1].text = "<%1387%>";
-        	cf.opmode.options[2].text = "<%1388%>";
+        	cf.opmode.options[0].text = "<%1397%>";
+        	cf.opmode.options[1].text = "<%1398%>";
+        	cf.opmode.options[2].text = "<%1399%>";
         	cf.opmode.options[0].value = "g and b";
         	cf.opmode.options[1].value = "130Mbps";
         	cf.opmode.options[2].value = "300Mbps";
@@ -254,16 +257,16 @@ function setOpMode()
     	if ((sec_type_2G == "WEP") || (sec_type_2G == "WPA-PSK"))
         {
         	cf.opmode.options.length = 1;
-        	cf.opmode.options[0].text = "<%1386%>";
+        	cf.opmode.options[0].text = "<%1397%>";
         	cf.opmode.options[0].value = "g and b";                     
         	//cf.opmode.selectedIndex = currentMode;                      
         }                          
         else
         {
         	cf.opmode.options.length = 3;
-        	cf.opmode.options[0].text = "<%1386%>";
-        	cf.opmode.options[1].text = "<%1389%>";
-        	cf.opmode.options[2].text = "<%1390%>";
+        	cf.opmode.options[0].text = "<%1397%>";
+        	cf.opmode.options[1].text = "<%1400%>";
+        	cf.opmode.options[2].text = "<%1401%>";
         	cf.opmode.options[0].value = "g and b";
         	cf.opmode.options[1].value = "130Mbps";
         	cf.opmode.options[2].value = "300Mbps";
@@ -412,19 +415,19 @@ function showWpsAlert()
     
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <tr>
-      <td colspan="2"><a href="javascript:loadhelp('WLG_wireless','network')" tabindex="-1"><b><%1332%></b> </a></td></tr>
+      <td colspan="2"><a href="javascript:loadhelp('WLG_wireless','network')" tabindex="-1"><b><%1343%></b> </a></td></tr>
     <tr>
       <td colspan="2">
-        <input type="checkbox"  <%1393%> name="ssid_bc" value="ssid_bc"> <%130%> </td></tr>
+        <input type="checkbox"  <%1404%> name="ssid_bc" value="ssid_bc"> <%130%> </td></tr>
     <%125%>
     <tr>
       <td nowrap colspan="2">
-        <input type="checkbox"  <%1394%> name="enable_isolation" value="enable_isolation"> <%127%> </td></tr>
+        <input type="checkbox"  <%1405%> name="enable_isolation" value="enable_isolation"> <%127%> </td></tr>
     <%128%>
     <tr>
       <td width="50%" align="left"><%131%>:</td>
       <td width="50%">
-        <input type="text" name="ssid" value="<%1395%>" size="20" maxlength="32"></td></tr>
+        <input type="text" name="ssid" value="<%1406%>" size="20" maxlength="32"></td></tr>
     <tr>
       <td nowrap><%71%>:</td>
       <td align="left">
@@ -467,7 +470,7 @@ function showWpsAlert()
           <select name="w_channel" size=1><option selected><%134%></option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option></select></td></tr>
     <tr>
       <td nowrap><%135%>:</td>
-      <td nowrap><select name="opmode" onchange="chgCh(2);"><%1396%></select></td></tr>
+      <td nowrap><select name="opmode" onchange="chgCh(2);"><%1407%></select></td></tr>
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <tr>
       <td colspan="2"><a href="javascript:loadhelp('WLG_wireless','security')" tabindex="-1"><b><%137%></b></a></td></tr>
@@ -513,13 +516,13 @@ function showWpsAlert()
 
 
 
-  <input type="hidden" name="initChannel" value="<%1398%>">
+  <input type="hidden" name="initChannel" value="<%1409%>">
   <input type="hidden" name="tempSetting" value="<%233%>">
   <input type="hidden" name="tempRegion" value="<%234%>">
   <input type="hidden" name="wds_enable" value="<%235%>">  
   <input type="hidden" name="only_mode" value="0">
   <input type="hidden" name="show_wps_alert" value="<%237%>">
-  <input type="hidden" name="security_type_2G" value="<%1401%>">
+  <input type="hidden" name="security_type_2G" value="<%1412%>">
 <a name="helpframe-anchor"></a>
 </form>
 

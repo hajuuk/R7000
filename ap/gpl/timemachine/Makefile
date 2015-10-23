@@ -20,7 +20,7 @@ SUBDIRS += libxml2-2.7.2
 endif
 SUBDIRS += openssl-0.9.8e
 SUBDIRS += netatalk-utility
-SUBDIRS += netatalk-2.2.0
+SUBDIRS += netatalk-2.2.5
 ifeq ($(ARCH),arm)
 AR = arm-brcm-linux-uclibcgnueabi-ar 
 CC = arm-brcm-linux-uclibcgnueabi-gcc
@@ -114,20 +114,20 @@ endif
 	rm -f $(TARGETDIR)/etc/netatalk/afppasswd
 	ln -s /tmp/netatalk/afppasswd $(TARGETDIR)/etc/netatalk/afppasswd
 	install -d -m0755 $(TARGETDIR)/usr/config/netatalk
-	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.0/etc/afpd/afpd $(TARGETDIR)/usr/sbin/
-	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.0/bin/afppasswd/afppasswd $(TARGETDIR)/usr/sbin/
-	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.0/etc/cnid_dbd/cnid_dbd $(TARGETDIR)/usr/sbin/
-	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.0/etc/cnid_dbd/cnid_metad $(TARGETDIR)/usr/sbin/
-	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.0/etc/uams/.libs/*.so $(TARGETDIR)/usr/lib/uams/
+	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/afpd/afpd $(TARGETDIR)/usr/sbin/
+	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/bin/afppasswd/afppasswd $(TARGETDIR)/usr/sbin/
+	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/cnid_dbd/cnid_dbd $(TARGETDIR)/usr/sbin/
+	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/cnid_dbd/cnid_metad $(TARGETDIR)/usr/sbin/
+	install -m 755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/etc/uams/.libs/*.so $(TARGETDIR)/usr/lib/uams/
 	rm -f $(TARGETDIR)/usr/lib/uams/uams_dhx.so
 	rm -f $(TARGETDIR)/usr/lib/uams/uams_dhx2.so
 	ln -s /usr/lib/uams/uams_dhx_passwd.so $(TARGETDIR)/usr/lib/uams/uams_dhx.so
 	ln -s /usr/lib/uams/uams_dhx2_passwd.so $(TARGETDIR)/usr/lib/uams/uams_dhx2.so
-	cp $(TIMEMACHINE_PATH)/netatalk-2.2.0/files/AppleVolumes.default $(TARGETDIR)/usr/config/netatalk/
-	cp $(TIMEMACHINE_PATH)/netatalk-2.2.0/files/AppleVolumes.system $(TARGETDIR)/etc/netatalk/
-	install -m0600 $(TIMEMACHINE_PATH)/netatalk-2.2.0/files/afpd.conf $(TARGETDIR)/etc/netatalk/
-	install -m0755 $(TIMEMACHINE_PATH)/netatalk-2.2.0/files/afpd.init $(TARGETDIR)/etc/init.d/afpd
-	install -m0755 $(TIMEMACHINE_PATH)/netatalk-2.2.0/files/detach_afp_shares $(TARGETDIR)/usr/sbin/detach_afp_shares
+	cp $(TIMEMACHINE_PATH)/netatalk-2.2.5/files/AppleVolumes.default $(TARGETDIR)/usr/config/netatalk/
+	cp $(TIMEMACHINE_PATH)/netatalk-2.2.5/files/AppleVolumes.system $(TARGETDIR)/etc/netatalk/
+	install -m0600 $(TIMEMACHINE_PATH)/netatalk-2.2.5/files/afpd.conf $(TARGETDIR)/etc/netatalk/
+	install -m0755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/files/afpd.init $(TARGETDIR)/etc/init.d/afpd
+	install -m0755 $(TIMEMACHINE_PATH)/netatalk-2.2.5/files/detach_afp_shares $(TARGETDIR)/usr/sbin/detach_afp_shares
 	rm -f $(TARGETDIR)/etc/shadow
 	rm -f $(TARGETDIR)/etc/shadow+
 	ln -s /tmp/config/shadow $(TARGETDIR)/etc/shadow

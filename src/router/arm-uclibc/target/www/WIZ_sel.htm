@@ -34,12 +34,12 @@
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -48,6 +48,8 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
@@ -88,7 +90,7 @@
 
 function checkSel(){
  if (document.formname.WANDetc[0].checked == true)
- //window.location.href="<%1347%>";
+ //window.location.href="<%1358%>";
  window.location.href="genie_detwan.htm";
  else
  window.location.href="BAS_basic.htm";
@@ -124,18 +126,18 @@ function caCheckSel()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 			<tr>
-				<td colspan="2"><b><%1348%></b></td>
+				<td colspan="2"><b><%1359%></b></td>
 			</tr>
 			<tr></tr>
 			<tr>
-				<td colspan="2"><b><%1349%></b></td>
+				<td colspan="2"><b><%1360%></b></td>
 			</tr>
 			<tr></tr>
 			<tr>
-				<td colspan="2"><input type="radio"  checked name="WANDetc" value="AutoDetc"><%1350%></td>
+				<td colspan="2"><input type="radio"  checked name="WANDetc" value="AutoDetc"><%1361%></td>
 			</tr>
 			<tr>
-				<td colspan="2" nowrap><input type="radio" name="WANDetc" value="MyDetc"><%1351%></td>
+				<td colspan="2" nowrap><input type="radio" name="WANDetc" value="MyDetc"><%1362%></td>
 			</tr>
 			
 <tr> 
@@ -144,7 +146,7 @@ function caCheckSel()
 <tr>
 	<td colspan="2" align="center">
 
-		&nbsp;&nbsp;&nbsp;<button type="Button" value="<%1352%>" name="next" class="button-rule" onClick="buttonClick(this,'<%1352%>');checkSel()"><span class="roundleft_button">&nbsp;&nbsp; <%1352%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		&nbsp;&nbsp;&nbsp;<button type="Button" value="<%1363%>" name="next" class="button-rule" onClick="buttonClick(this,'<%1363%>');checkSel()"><span class="roundleft_button">&nbsp;&nbsp; <%1363%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 
 </table></div></td></tr>
 <tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="WIZ_sel_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
@@ -160,7 +162,7 @@ function caCheckSel()
 
 
 
-<INPUT TYPE="hidden" NAME="wps_in_progress" VALUE="<%1353%>">
+<INPUT TYPE="hidden" NAME="wps_in_progress" VALUE="<%1364%>">
 <a name="helpframe-anchor"></a>
 </form>
 </div>

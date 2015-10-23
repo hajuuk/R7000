@@ -47,9 +47,9 @@
 
 /*formal version control*/
 #define AMBIT_HARDWARE_VERSION     "U12H270T00"
-#define AMBIT_SOFTWARE_VERSION     "V1.0.2.164"
+#define AMBIT_SOFTWARE_VERSION     "V1.0.2.194"
 #define AMBIT_UI_VERSION           "1.0.15"
-#define STRING_TBL_VERSION         "1.0.2.164_2.1.33.10"
+#define STRING_TBL_VERSION         "1.0.2.194_2.1.36.2"
 
 #define AMBIT_PRODUCT_NAME          "R7000"
 #define AMBIT_PRODUCT_DESCRIPTION   "802.11ac Dual Band Gigabit Wireless Router R7000"
@@ -122,8 +122,8 @@
 #define ML2_MTD_WR                  "/dev/mtd10"
 
 #if defined(X_ST_ML)
-#define ST_SUPPORT_NUM              (7)        /* The maxium value can be 2-10. */
-#define LANG_TBL_MTD_START          (9)         /* pling modified 06/10/2013, for R7000 */
+#define ST_SUPPORT_NUM              (9)        /* The maxium value can be 2-10. */
+#define LANG_TBL_MTD_START          (9)
 #define LANG_TBL_MTD_END            (LANG_TBL_MTD_START + ST_SUPPORT_NUM - 1)
 #define FLASH_MTD_ML_SIZE           0x10000
 #define BUILTIN_LANGUAGE            "English"

@@ -115,12 +115,12 @@
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -129,9 +129,12 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -223,7 +226,7 @@ function showWpsAlert()
 <form id="target"  method="POST" action="wlg_sec_profile_main.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
   <img class="subtop-image" src="<%61%>">
-<div class="subhead2"> <%1532%></div>
+<div class="subhead2"> <%1543%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
@@ -236,10 +239,10 @@ function showWpsAlert()
     
     <tr>
       <td colspan="2" align="left">
-      <iframe allowTransparency="true"  src="<%1533%>" id="2g_setting" name="wl2gsetting" onload="SetCwinHeight(this);iframe1Load();" marginHeight=0 marginWidth=0 scrolling=no width="100%" frameborder="0"></iframe></td></tr>
+      <iframe allowTransparency="true"  src="<%1544%>" id="2g_setting" name="wl2gsetting" onload="SetCwinHeight(this);iframe1Load();" marginHeight=0 marginWidth=0 scrolling=no width="100%" frameborder="0"></iframe></td></tr>
     <tr>
       <td colspan="2" align="left">    
-      <iframe allowTransparency="true"  src="<%1534%>" id="5g_setting" name="wl5gsetting" onload="SetCwinHeight(this);iframe2Load();" marginHeight=0 marginWidth=0 scrolling=no width="100%" frameborder="0"></iframe></td></tr>
+      <iframe allowTransparency="true"  src="<%1545%>" id="5g_setting" name="wl5gsetting" onload="SetCwinHeight(this);iframe2Load();" marginHeight=0 marginWidth=0 scrolling=no width="100%" frameborder="0"></iframe></td></tr>
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     
   </table></div></td></tr>

@@ -427,21 +427,21 @@ am__relativize = \
     dir1=`echo "$$dir1" | sed -e "$$sed_rest"`; \
   done; \
   reldir="$$dir2"
-ACLOCAL = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/tools/misc/xz/build-aux/missing --run aclocal-1.11
-AMTAR = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/tools/misc/xz/build-aux/missing --run tar
+ACLOCAL = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/tools/misc/xz/build-aux/missing --run aclocal-1.11
+AMTAR = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/tools/misc/xz/build-aux/missing --run tar
 AM_CFLAGS =  -pthread -fvisibility=hidden -Wall -Wextra -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-aliasing -Wfloat-equal -Wundef -Wshadow -Wpointer-arith -Wbad-function-cast -Wwrite-strings -Wlogical-op -Waggregate-return -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes -Wmissing-declarations -Wmissing-noreturn -Wredundant-decls
 AR = ar
 AS = as
-AUTOCONF = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/tools/misc/xz/build-aux/missing --run autoconf
-AUTOHEADER = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/tools/misc/xz/build-aux/missing --run autoheader
-AUTOMAKE = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/tools/misc/xz/build-aux/missing --run automake-1.11
+AUTOCONF = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/tools/misc/xz/build-aux/missing --run autoconf
+AUTOHEADER = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/tools/misc/xz/build-aux/missing --run autoheader
+AUTOMAKE = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/tools/misc/xz/build-aux/missing --run automake-1.11
 AWK = gawk
 CC = gcc -std=gnu99
 CCAS = gcc -std=gnu99
 CCASDEPMODE = depmode=gcc3
-CCASFLAGS = -Os -O2 -DBCMNVRAM -DBCMWPA2 -DRESTART_ALL_PROCESSES -D__CONFIG_USBAP__ -DBCMQOS -DBCMWPS -D__CONFIG_EMF__ -DTRAFFIC_MGMT_RSSI_POLICY -DPHYMON -DSUPPORT_REMOTE_HTTPS -DINCLUDE_WPS_V20 -DINCLUDE_5G_AUTO_CHANNEL -DOPENDNS_PARENTAL_CONTROL -DINCLUDE_ACCESSCONTROL -DINCLUDE_UCP -DU12H270 -DR7000 -DMULTIPLE_SSID -DENABLE_ML -DOPEN_SOURCE_SUPPORT -DBCM53125 -DBCM5301X -DCONFIG_RUSSIA_IPTV -DVIDEO_STREAMING_QOS -DDLNA -DHTTP_ACCESS_USB -DMAX_USB_ACCESS -DSAMBA_ENABLE -DUSB_NEW_SPEC -DINCLUDE_WIFI_BUTTON -DINCLUDE_USB_LED -DINCLUDE_DUAL_BAND -DSINGLE_FIRMWARE -DINCLUDE_GET_ST_CHKSUM -DUNIFIED_STR_TBL -DFIRST_MTD_ROTATION -DWIFI_ON_OFF_SCHE -DAUTO_CONN_24HR -DIGMP_PROXY -DAP_MODE -D__CONFIG_IGMP_SNOOPING__ -DLINUX26 -DINCLUDE_IPV6 -DPRESET_WL_SECURITY -DNEW_BCM_WPS_IPC -DSUPPORT_AC_MODE -DSTA_MODE -DPPP_RU_DESIGN -DEXT_ACS -DBCM_DCS -DEXT_ACS  -I. -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE -DCOMP_DEFAULT=\"xz\" -Wall -DGZIP_SUPPORT -DXZ_SUPPORT -I/disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/router/squashfs-4.2/../../tools/misc/xz/src/liblzma/api -DXATTR_SUPPORT -DXATTR_DEFAULT
+CCASFLAGS = -Os -O2 -DBCMNVRAM -DBCMWPA2 -DRESTART_ALL_PROCESSES -D__CONFIG_USBAP__ -DBCMQOS -DBCMWPS -D__CONFIG_EMF__ -DTRAFFIC_MGMT_RSSI_POLICY -DPHYMON -DSUPPORT_REMOTE_HTTPS -DINCLUDE_WPS_V20 -DINCLUDE_5G_AUTO_CHANNEL -DOPENDNS_PARENTAL_CONTROL -DINCLUDE_ACCESSCONTROL -DINCLUDE_UCP -DU12H270 -DR7000 -DMULTIPLE_SSID -DENABLE_ML -DOPEN_SOURCE_SUPPORT -DBCM53125 -DBCM5301X -DCONFIG_RUSSIA_IPTV -DVIDEO_STREAMING_QOS -DDLNA -DHTTP_ACCESS_USB -DMAX_USB_ACCESS -DSAMBA_ENABLE -DUSB_NEW_SPEC -DINCLUDE_WIFI_BUTTON -DINCLUDE_USB_LED -DINCLUDE_DUAL_BAND -DSINGLE_FIRMWARE -DINCLUDE_GET_ST_CHKSUM -DUNIFIED_STR_TBL -DFIRST_MTD_ROTATION -DWIFI_ON_OFF_SCHE -DAUTO_CONN_24HR -DIGMP_PROXY -DAP_MODE -D__CONFIG_IGMP_SNOOPING__ -DLINUX26 -DINCLUDE_IPV6 -DPRESET_WL_SECURITY -DNEW_BCM_WPS_IPC -DSUPPORT_AC_MODE -DSTA_MODE -DPPP_RU_DESIGN -DEXT_ACS -DBCM_DCS -DEXT_ACS  -I. -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE -DCOMP_DEFAULT=\"xz\" -Wall -DGZIP_SUPPORT -DXZ_SUPPORT -I/disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/router/squashfs-4.2/../../tools/misc/xz/src/liblzma/api -DXATTR_SUPPORT -DXATTR_DEFAULT
 CCDEPMODE = depmode=gcc3
-CFLAGS = -Os -O2 -DBCMNVRAM -DBCMWPA2 -DRESTART_ALL_PROCESSES -D__CONFIG_USBAP__ -DBCMQOS -DBCMWPS -D__CONFIG_EMF__ -DTRAFFIC_MGMT_RSSI_POLICY -DPHYMON -DSUPPORT_REMOTE_HTTPS -DINCLUDE_WPS_V20 -DINCLUDE_5G_AUTO_CHANNEL -DOPENDNS_PARENTAL_CONTROL -DINCLUDE_ACCESSCONTROL -DINCLUDE_UCP -DU12H270 -DR7000 -DMULTIPLE_SSID -DENABLE_ML -DOPEN_SOURCE_SUPPORT -DBCM53125 -DBCM5301X -DCONFIG_RUSSIA_IPTV -DVIDEO_STREAMING_QOS -DDLNA -DHTTP_ACCESS_USB -DMAX_USB_ACCESS -DSAMBA_ENABLE -DUSB_NEW_SPEC -DINCLUDE_WIFI_BUTTON -DINCLUDE_USB_LED -DINCLUDE_DUAL_BAND -DSINGLE_FIRMWARE -DINCLUDE_GET_ST_CHKSUM -DUNIFIED_STR_TBL -DFIRST_MTD_ROTATION -DWIFI_ON_OFF_SCHE -DAUTO_CONN_24HR -DIGMP_PROXY -DAP_MODE -D__CONFIG_IGMP_SNOOPING__ -DLINUX26 -DINCLUDE_IPV6 -DPRESET_WL_SECURITY -DNEW_BCM_WPS_IPC -DSUPPORT_AC_MODE -DSTA_MODE -DPPP_RU_DESIGN -DEXT_ACS -DBCM_DCS -DEXT_ACS  -I. -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE -DCOMP_DEFAULT=\"xz\" -Wall -DGZIP_SUPPORT -DXZ_SUPPORT -I/disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/router/squashfs-4.2/../../tools/misc/xz/src/liblzma/api -DXATTR_SUPPORT -DXATTR_DEFAULT
+CFLAGS = -Os -O2 -DBCMNVRAM -DBCMWPA2 -DRESTART_ALL_PROCESSES -D__CONFIG_USBAP__ -DBCMQOS -DBCMWPS -D__CONFIG_EMF__ -DTRAFFIC_MGMT_RSSI_POLICY -DPHYMON -DSUPPORT_REMOTE_HTTPS -DINCLUDE_WPS_V20 -DINCLUDE_5G_AUTO_CHANNEL -DOPENDNS_PARENTAL_CONTROL -DINCLUDE_ACCESSCONTROL -DINCLUDE_UCP -DU12H270 -DR7000 -DMULTIPLE_SSID -DENABLE_ML -DOPEN_SOURCE_SUPPORT -DBCM53125 -DBCM5301X -DCONFIG_RUSSIA_IPTV -DVIDEO_STREAMING_QOS -DDLNA -DHTTP_ACCESS_USB -DMAX_USB_ACCESS -DSAMBA_ENABLE -DUSB_NEW_SPEC -DINCLUDE_WIFI_BUTTON -DINCLUDE_USB_LED -DINCLUDE_DUAL_BAND -DSINGLE_FIRMWARE -DINCLUDE_GET_ST_CHKSUM -DUNIFIED_STR_TBL -DFIRST_MTD_ROTATION -DWIFI_ON_OFF_SCHE -DAUTO_CONN_24HR -DIGMP_PROXY -DAP_MODE -D__CONFIG_IGMP_SNOOPING__ -DLINUX26 -DINCLUDE_IPV6 -DPRESET_WL_SECURITY -DNEW_BCM_WPS_IPC -DSUPPORT_AC_MODE -DSTA_MODE -DPPP_RU_DESIGN -DEXT_ACS -DBCM_DCS -DEXT_ACS  -I. -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE -DCOMP_DEFAULT=\"xz\" -Wall -DGZIP_SUPPORT -DXZ_SUPPORT -I/disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/router/squashfs-4.2/../../tools/misc/xz/src/liblzma/api -DXATTR_SUPPORT -DXATTR_DEFAULT
 CFLAG_VISIBILITY = -fvisibility=hidden
 CPP = gcc -std=gnu99 -E
 CPPFLAGS = 
@@ -482,7 +482,7 @@ LN_S = ln -s
 LTLIBICONV = -liconv
 LTLIBINTL = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/tools/misc/xz/build-aux/missing --run makeinfo
+MAKEINFO = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/tools/misc/xz/build-aux/missing --run makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 MSGFMT = /usr/bin/msgfmt
@@ -518,10 +518,10 @@ USE_NLS = yes
 VERSION = 5.0.3
 XGETTEXT = /usr/bin/xgettext
 XGETTEXT_015 = /usr/bin/xgettext
-abs_builddir = /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/tools/misc/xz/src/liblzma
-abs_srcdir = /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/tools/misc/xz/src/liblzma
-abs_top_builddir = /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/tools/misc/xz
-abs_top_srcdir = /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/tools/misc/xz
+abs_builddir = /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/tools/misc/xz/src/liblzma
+abs_srcdir = /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/tools/misc/xz/src/liblzma
+abs_top_builddir = /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/tools/misc/xz
+abs_top_srcdir = /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/tools/misc/xz
 ac_ct_AR = 
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -551,7 +551,7 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/tools/misc/xz/build-aux/install-sh
+install_sh = ${SHELL} /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/tools/misc/xz/build-aux/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -560,7 +560,7 @@ mandir = ${datarootdir}/man
 mkdir_p = /bin/mkdir -p
 oldincludedir = /usr/include
 pdfdir = ${docdir}
-prefix = /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/router/squashfs-4.2
+prefix = /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/router/squashfs-4.2
 program_transform_name = s,x,x,
 psdir = ${docdir}
 sbindir = ${exec_prefix}/sbin

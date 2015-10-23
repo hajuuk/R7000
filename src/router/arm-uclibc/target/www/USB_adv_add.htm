@@ -39,19 +39,19 @@ function checkData()
 	var r, re, fail;
 	var usb_folder_string = cf.usb_folder.value;
 	fail = 1;
-	<%2061%>
+	<%2077%>
 	if(fail == 1)
-        msg+= "<%2062%>\n";
+        msg+= "<%2078%>\n";
 	
 	if (cf.usb_folder.value == "")
-		 msg+= "<%2063%>\n";
+		 msg+= "<%2079%>\n";
 	if ( (cf.usb_folder.value.match( /[\x2E-\x2E]/ )) )
 	   {
-			alert("<%2062%>\n");
+			alert("<%2078%>\n");
 			return false;
 	   }
 	if (cf.share_name.value == "")
-		msg+= "<%2064%>\n";
+		msg+= "<%2080%>\n";
 	
     if (   (cf.share_name.value.match( /[\x22-\x22]/ ))
         || (cf.share_name.value.match( /[\x3A-\x3A]/ ))
@@ -66,9 +66,9 @@ function checkData()
        )
 	{
 		cf.share_name.focus();
-		msg+= "<%2065%>.\n";
+		msg+= "<%2081%>.\n";
 	}	
-	<%2066%>
+	<%2082%>
     if (msg.length > 1)
 	{
 		alert(msg);
@@ -82,7 +82,7 @@ function checkData()
     isAllAdmin = cf.isAllAdminFolder.value;    
     if ( cf.no_dlna.value != 1 ) {
        if(isAllAdmin > 0 && (cf.read_access.selectedIndex == 1) && (cf.write_access.selectedIndex == 1) )
-           alert("<%2026%>");
+           alert("<%2042%>");
     }
     pageRefresh();
     return true;
@@ -95,14 +95,14 @@ function loadSettings()
     if (partition != "-1")
         cf.usb_device[partition].selected = true;
     
-    var NotExistFolder = "<%2067%>";
+    var NotExistFolder = "<%2083%>";
     if (NotExistFolder == "1")
     {
         opener.document.location.href = "USB_adv.htm";
         window.close();
     }
     else if (NotExistFolder == "2")
-        alert("<%2062%>\n");
+        alert("<%2078%>\n");
 }
 
 function pageRefresh()
@@ -138,7 +138,7 @@ function chgWt()
     <table border="0"   width="100%">
 
     <tr>
-        <td><h1><%2057%></h1></td>
+        <td><h1><%2073%></h1></td>
     </tr>
 <tr>
  <td>
@@ -149,40 +149,40 @@ function chgWt()
 <table border="1" cellpadding="2" cellspacing="0" width="100%">
 <tr>
 <td align="center" nowrap="nowrap" width="40%">
-<p align="left"><span class="thead"><%2068%></span></td>
+<p align="left"><span class="thead"><%2084%></span></td>
 <td align="center" nowrap="nowrap" width="60%">
 <p align="left"><select name="usb_device" size="1" >
-        <%2069%>
+        <%2085%>
     </select></td>
 </tr>
 <tr>
 <td align="center" nowrap="nowrap" width="40%">
-<p align="left"><span class="thead"><%2070%></span></td>
+<p align="left"><span class="thead"><%2086%></span></td>
 <td align="center" nowrap="nowrap" width="60%"> 
-<input name="usb_folder" style="float: left" value="<%2071%>">
+<input name="usb_folder" style="float: left" value="<%2087%>">
 &nbsp;&nbsp;&nbsp;<button type="button" value="<%381%>" name="Browse" class="button-rule" onClick="buttonClick(this,'<%381%>');Browse_folder();"><span class="roundleft_button">&nbsp;&nbsp; <%381%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
 </tr>
 <tr>
 <td align="center" nowrap="nowrap" width="40%">
-<p align="left"><span class="thead"><%2013%></span></td>
+<p align="left"><span class="thead"><%2029%></span></td>
 <td align="center" nowrap="nowrap" width="60%"> 
-<input name="share_name" value="<%2072%>" size="21" maxlength="20" style="float: left"></td>
+<input name="share_name" value="<%2088%>" size="21" maxlength="20" style="float: left"></td>
 </tr>
 <tr>
 <td align="center" nowrap="nowrap" width="40%">
-<p align="left"><span class="thead"><%2073%></span></td>
+<p align="left"><span class="thead"><%2089%></span></td>
 <td align="center" nowrap="nowrap" width="60%">
 <p align="left"><select name="read_access" size="1" onchange="chgRd()">
-        <option value=0><%2074%></option>
-        <option value=1 <%2075%> ><%2076%></option>
+        <option value=0><%2090%></option>
+        <option value=1 <%2091%> ><%2092%></option>
     </select></td>
 </tr>
 <td align="center" nowrap="nowrap" width="40%">
-<p align="left"><span class="thead"><%2077%></span></td>
+<p align="left"><span class="thead"><%2093%></span></td>
 <td align="center" nowrap="nowrap" width="60%">
 <p align="left"><select name="write_access" size="1" onchange="chgWt()">
-        <option value=0><%2074%></option>
-        <option value=1 <%2078%> ><%2076%></option>
+        <option value=0><%2090%></option>
+        <option value=1 <%2094%> ><%2092%></option>
     </select></td>
 </tr>
 </table>
@@ -210,8 +210,8 @@ function chgWt()
 </table>
 <INPUT name=mode type=hidden value="add">
 <INPUT name=fromPage type=hidden value="1">
-<INPUT name=selectp type=hidden value="<%2079%>">
-<INPUT name=isAllAdminFolder type=hidden value="<%2080%>">
-<input name="no_dlna" type="hidden" value="<%2059%>">
+<INPUT name=selectp type=hidden value="<%2095%>">
+<INPUT name=isAllAdminFolder type=hidden value="<%2096%>">
+<input name="no_dlna" type="hidden" value="<%2075%>">
 </form>
 </body></html>

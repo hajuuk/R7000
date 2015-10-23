@@ -34,12 +34,12 @@
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -48,9 +48,12 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -100,40 +103,41 @@ function check_ca()
 
 function apply_check()
 {
-	var pingEnable = "<%728%>";
-	var ntp_sync = "<%729%>";
-	var ddns_enable_check = "<%695%>";
-	var old_protocol = "<%730%>";
+	var pingEnable = "<%737%>";
+	var ntp_sync = "<%738%>";
+	var ddns_enable_check = "<%699%>";
+	var old_protocol = "<%739%>";
 	var new_protocol;
-	var service_port = "<%731%>";
-	var redirectGW = "<%732%>";
-	var ipv6_protocol = "<%513%>";
+	var service_port = "<%740%>";
+	var redirectGW = "<%741%>";
+	var ipv6_protocol = "<%514%>";
 	var new_redirectGW;
 	var cf = document.forms[0];
 /*	
 	if(pingEnable == 0)
 	{
-		alert("<%733%>");
+		alert("<%742%>");
 	}else{
 	//do noting
 	}
 
 	if(ntp_sync == 0){
-		alert("<%734%>");
+		alert("<%743%>");
 	}
 */
+if(cf.openvpnActive.checked){
 	if(ddns_enable_check == 0){
-		alert("<%735%>");
+		alert("<%744%>");
 	}
 
 	if((cf.openvpn_service_port.value < 1) || (cf.openvpn_service_port.value > 65535)){
-		alert("<%736%>");
+		alert("<%745%>");
 		cf.openvpn_service_port.focus();
 		return false;
 	}
 
 	if(ipv6_protocol != "disable"){
-		alert("<%737%>");
+		alert("<%746%>");
 		cf.openvpnActive.focus();
 		return false;
 	}
@@ -151,26 +155,27 @@ function apply_check()
 		new_redirectGW = 'auto';
 
 	if((new_protocol != old_protocol) || (cf.openvpn_service_port.value != service_port) || (new_redirectGW != redirectGW)){
-		alert("<%738%>");
+		alert("<%747%>");
+	}
 	}
 	return true;
 }
 
 function ddns_check()
 {
-	var ddns_enable_check = "<%695%>";
-	var openvpnEnable = "<%416%>";
+	var ddns_enable_check = "<%699%>";
+	var openvpnEnable = "<%417%>";
 	
 	var cf = document.forms[0];
 
 	if(openvpnEnable == "disable"){
-		alert("<%739%>");
+		alert("<%748%>");
 		cf.openvpnActive.focus();
 		return false;
 	}
 
 	if(ddns_enable_check == 0){
-		alert("<%740%>");
+		alert("<%749%>");
 	}
 
 	return true;
@@ -189,7 +194,7 @@ function ddns_check()
 <img class="subtop-image" src="<%61%>">
 <div class="subhead2"> <%354%></div>
 
-<%741%>
+<%750%>
 
 <table border="0"    style="height:370px"  class="subhead2-table">
 
@@ -205,13 +210,13 @@ function ddns_check()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
     <td colspan="2">
-    <input type="checkbox" name="openvpnActive" value="openvpnEnable" <%742%>> <b><%743%></b>
+    <input type="checkbox" name="openvpnActive" value="openvpnEnable" <%751%>> <b><%752%></b>
     </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <TR>
-<TD nowrap><%744%>
+<TD nowrap><%753%>
 </TR>
 <tr>
 	<td colspan="2" align="left">
@@ -221,7 +226,7 @@ function ddns_check()
 	
 </tr>
 <TR>
-<TD nowrap><%745%>
+<TD nowrap><%754%>
 </TR>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
@@ -229,34 +234,35 @@ function ddns_check()
 
 <tr>
 
-	<td align="left"><b><h2><%746%></h2></b></td>
+	<td align="left"><b><h2><%755%></h2></b></td>
 </tr>
 
 <TR style="display:none">
-<TD nowrap><%747%>
-<input type="radio" name="openvpn_iface_type" value="tun" > <%748%> 
-<input type="radio" name="openvpn_iface_type" value="tap" checked > <%749%> </TD>
+<TD nowrap><%756%>
+<input type="radio" name="openvpn_iface_type" value="tun" > <%757%> 
+<input type="radio" name="openvpn_iface_type" value="tap" checked > <%758%> </TD>
 </TR>
 
 <TR>
-<TD nowrap><%750%>
-<input type="radio" name="openvpn_protocol" value="udp" <%751%> > <%591%> 
-<input type="radio" name="openvpn_protocol" value="tcp" <%752%> > <%590%> </TD>
+<TD nowrap><%759%>
+<input type="radio" name="openvpn_protocol" value="udp" <%760%> > <%592%> 
+<input type="radio" name="openvpn_protocol" value="tcp" <%761%> > <%591%> </TD>
 </TR>
 
 <tr>
-    <td width="50%" align="left" nowrap><%753%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="openvpn_service_port" value = "<%731%>" size="6" height="12" maxlength="8"></td>
+    <td width="50%" align="left" nowrap><%762%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="openvpn_service_port" value = "<%740%>" size="6" height="12" maxlength="8"></td>
 </tr>
 
 <TR>
-<TD nowrap><%754%>
-<input type="radio" name="openvpn_redirectGW" value="all" <%755%> > <%756%> 
-<input type="radio" name="openvpn_redirectGW" value="onlylan" <%757%> > <%758%>
-</TD></TR>
+<TD nowrap><%763%>
+<input type="radio" name="openvpn_redirectGW" value="all" <%764%> > <%765%> 
+<input type="radio" name="openvpn_redirectGW" value="onlylan" <%766%> > <%767%>
+<input type="radio" name="openvpn_redirectGW" value="auto" <%768%> > <%769%> </TD>
+</TR>
 
 <tr style="display:none">
 
-	<td align="left"><%759%></td>
+	<td align="left"><%770%></td>
 
 	<td colspan="2" align="center">
 	&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="CA.CRT" name="ca_download" class="button-rule" onclick="buttonClick(this,'CA.CRT');window.location.href = 'ca.crt';"><span class="roundleft_button">&nbsp;&nbsp; CA.CRT</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
@@ -268,7 +274,7 @@ function ddns_check()
 
 <tr style="display:none">
 
-	<td align="left"><%760%></td>
+	<td align="left"><%771%></td>
 
 	<td colspan="2" align="center">
 	&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="CLIENT1_CONFIG" name="client1_download" class="button-rule" onclick="buttonClick(this,'CLIENT1_CONFIG');window.location.href = 'client1.ovpn';"><span class="roundleft_button">&nbsp;&nbsp; CLIENT1_CONFIG</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>

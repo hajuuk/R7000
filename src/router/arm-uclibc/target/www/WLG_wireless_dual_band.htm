@@ -130,12 +130,12 @@ var chgCh_cnt = 0;
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -144,9 +144,12 @@ var chgCh_cnt = 0;
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -1512,7 +1515,7 @@ function showWpsAlert()
 
 function ShowWEPAlert()
 {
-	alert("<%1500%>");
+	alert("<%1511%>");
 }
 
 // -->
@@ -1678,7 +1681,7 @@ function ShowWEPAlert()
     <tr>
       <td nowrap colspan="2">
         <%164%>: <input type="text" autocomplete="off" name="passphraseStr" size="14" maxlength="32" value=""> &nbsp;
-        &nbsp;&nbsp;&nbsp;<button type="button" value="<%1397%>" name="keygen" class="button-rule" onClick="buttonClick(this,'<%1397%>');calcPassphrase(this.form)"><span class="roundleft_button">&nbsp;&nbsp; <%1397%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
+        &nbsp;&nbsp;&nbsp;<button type="button" value="<%1408%>" name="keygen" class="button-rule" onClick="buttonClick(this,'<%1408%>');calcPassphrase(this.form)"><span class="roundleft_button">&nbsp;&nbsp; <%1408%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
     <tr>
       <td nowrap="nowrap" colspan="2">
           <tr>
@@ -1841,7 +1844,7 @@ function ShowWEPAlert()
     <tr>
       <td nowrap colspan="2">
         <%164%>: <input type="text" name="passphraseStr_an" autocomplete="off" size="14" maxlength="32" value=""> &nbsp;
-        &nbsp;&nbsp;&nbsp;<button type="button" value="<%1397%>" name="Generate_an" class="button-rule" onClick="buttonClick(this,'<%1397%>');calcPassphrase_an(this.form)"><span class="roundleft_button">&nbsp;&nbsp; <%1397%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
+        &nbsp;&nbsp;&nbsp;<button type="button" value="<%1408%>" name="Generate_an" class="button-rule" onClick="buttonClick(this,'<%1408%>');calcPassphrase_an(this.form)"><span class="roundleft_button">&nbsp;&nbsp; <%1408%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
     <tr>
       <td nowrap="nowrap" colspan="2">
           <tr>

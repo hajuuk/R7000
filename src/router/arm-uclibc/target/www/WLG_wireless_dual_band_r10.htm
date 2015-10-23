@@ -134,12 +134,12 @@ var chgCh_cnt = 0;
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -148,9 +148,11 @@ var chgCh_cnt = 0;
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
-
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -1784,6 +1786,11 @@ function showWpsAlert()
 }
 
 
+function ValidateNumber(e, pnumber)
+{
+
+    e.value=e.value.replace(/[^\d]/g,'');
+}
 // -->
 </script>
 </head>
@@ -2009,7 +2016,7 @@ function showWpsAlert()
         <option value="2"><%171%></option></select></td></tr>
     <tr>
       <td nowrap="nowrap"><%172%>:</td>
-      <td nowrap="nowrap"><input type="text" name="wpa_en_gk_int" size=10 maxLength=5 value="<%173%>">&nbsp;&nbsp;<%174%></td></tr>    
+      <td nowrap="nowrap"><input type="text" name="wpa_en_gk_int" onKeyUp="return ValidateNumber(this,value)" size=10 maxLength=5 value="<%173%>">&nbsp;&nbsp;<%174%></td></tr>    
     <tr>
     <td nowrap><%175%>:</td>
     <td nowrap  class="num">
@@ -2019,7 +2026,7 @@ function showWpsAlert()
         <input type="text" name="RADIUSAddr4_wla" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td></tr>
     <tr>
       <td nowrap="nowrap"><%176%>:</td>
-      <td nowrap="nowrap"><input type="text" name="wpa_en_radius_port" size=10 maxLength=5 value="<%177%>"></td></tr>    
+      <td nowrap="nowrap"><input type="text" name="wpa_en_radius_port" onKeyUp="return ValidateNumber(this,value)" size=10 maxLength=5 value="<%177%>"></td></tr>    
     <tr>
       <td nowrap="nowrap"><%178%>:</td>
       <td nowrap="nowrap"><input type="text" name="wpa_en_radius_ss" size=20 maxLength=130 value="<%179%>"></td></tr>    
@@ -2221,7 +2228,7 @@ function showWpsAlert()
         <option value="2"><%171%></option></select></td></tr>
     <tr>
       <td nowrap="nowrap"><%172%>:</td>
-      <td nowrap="nowrap"><input type="text" name="wpa_en_gk_int_wlg" size=10 maxLength=5 value="<%228%>">&nbsp;&nbsp;<%174%></td></tr>    
+      <td nowrap="nowrap"><input type="text" name="wpa_en_gk_int_wlg" onKeyUp="return ValidateNumber(this,value)" size=10 maxLength=5 value="<%228%>">&nbsp;&nbsp;<%174%></td></tr>    
     <tr>
     <td nowrap><%175%>:</td>
     <td nowrap  class="num">
@@ -2231,7 +2238,7 @@ function showWpsAlert()
         <input type="text" name="RADIUSAddr4_wlg" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td></tr>
     <tr>
       <td nowrap="nowrap"><%176%>:</td>
-      <td nowrap="nowrap"><input type="text" name="wpa_en_radius_port_wlg" size=10 maxLength=5 value="<%229%>"></td></tr>    
+      <td nowrap="nowrap"><input type="text" name="wpa_en_radius_port_wlg" onKeyUp="return ValidateNumber(this,value)" size=10 maxLength=5 value="<%229%>"></td></tr>    
     <tr>
       <td nowrap="nowrap"><%178%>:</td>
       <td nowrap="nowrap"><input type="text" name="wpa_en_radius_ss_wlg" size=20 maxLength=130 value="<%230%>"></td></tr>    

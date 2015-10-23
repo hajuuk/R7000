@@ -1,0 +1,3 @@
+atalk_addr.lo: atalk_addr.c ../../config.h
+
+../../config.h:

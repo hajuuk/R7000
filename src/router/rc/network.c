@@ -1235,6 +1235,16 @@ start_wl(void)
     }
     
     system("wl -i eth1 pspretend_threshold 4");
+    /*Foxconn add start by Antony start 09/13/2013 Add rf support of Russia Region */
+    if (nvram_match("wla_region", "14"))
+    {
+        system("wl -i eth2 txpwr1 -o -d 14");
+    }
+    else
+    {
+        system("wl -i eth2 txpwr1 -1");
+    }
+    /*Foxconn add start by Antony end 09/13/2013 */
     
 }
 

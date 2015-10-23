@@ -38,12 +38,12 @@
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -52,9 +52,12 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -105,8 +108,8 @@ function checkData()
 	var rv_dv_name=cf.reserved_devname.value.split("|");
 	var i, conflict, reply;
 
-	var str_dhcp_start = "<%1003%>";
-	var str_dhcp_end = "<%1004%>"
+	var str_dhcp_start = "<%1014%>";
+	var str_dhcp_end = "<%1015%>"
 	var dhcp_startaddr = str_dhcp_start.split(".");
 	var dhcp_endaddr = str_dhcp_end.split(".");
 
@@ -116,9 +119,9 @@ function checkData()
 
 	if(checkMacStr(cf.rsv_mac))
 		msg+= "<%0%>\n";
-	msg+= checkBlank(cf.dv_name, "<%628%>");
+	msg+= checkBlank(cf.dv_name, "<%629%>");
 	if (cf.dv_name.value.match( /[^\x20-\x7E]/ ))
-		msg+="<%979%>\n";
+		msg+="<%990%>\n";
 	if (msg.length > 1)
 	{
 		alert(msg);
@@ -143,7 +146,7 @@ function checkData()
         i++;
     }
     if (conflict) {
-        reply = confirm("<%1013%>");
+        reply = confirm("<%1024%>");
         if (!reply)
             return false;
     }
@@ -162,7 +165,7 @@ function loadSettings()
 	cf.rsv_ip3.value = rsv_ip[2];
 	cf.rsv_ip4.value = rsv_ip[3];
 
-	cf.rsv_mac.value = "<%1019%>";
+	cf.rsv_mac.value = "<%1030%>";
     cf.orig_rsv_mac.value = cf.rsv_mac.value;
     cf.dv_name.value = cf.orig_dv_name.value;
 }
@@ -178,7 +181,7 @@ function loadSettings()
 <form id="target"  method="POST" action="reserv.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
 	<img class="subtop-image" src="<%61%>">
-<div class="subhead2"> <%997%></div>
+<div class="subhead2"> <%1008%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
@@ -193,16 +196,16 @@ function loadSettings()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
-	<td width="50%" nowrap><%435%></td>
+	<td width="50%" nowrap><%436%></td>
 	<td width="50%" align="left" class="num">
 		<input type="text" name="rsv_ip1" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="rsv_ip2" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="rsv_ip3" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="rsv_ip4" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
 </tr>
 <tr>
-	<td width="50%" nowrap><%629%></td>
+	<td width="50%" nowrap><%630%></td>
 	<td width="50%" align="left" class="num"><input type="text" name="rsv_mac" class="num" size="17" maxlength="17"></td>
 </tr>
 <tr>
-	<td width="50%" nowrap><%628%></td>
+	<td width="50%" nowrap><%629%></td>
 	<td width="50%" align="left">
 		<input type="text" name="dv_name" size="20" maxlength="20">
 	</td>
@@ -225,14 +228,14 @@ function loadSettings()
 
 
 
-<INPUT name=rsv_ip type=hidden value= "<%1020%>">
+<INPUT name=rsv_ip type=hidden value= "<%1031%>">
 <INPUT name=rsv_mode type=hidden value="edit">
-<input type="hidden" name="reserved_ips" value="<%1016%>">
-<input type="hidden" name="reserved_macs" value="<%1017%>">
-<input type="hidden" name="reserved_devname" value="<%1018%>">
+<input type="hidden" name="reserved_ips" value="<%1027%>">
+<input type="hidden" name="reserved_macs" value="<%1028%>">
+<input type="hidden" name="reserved_devname" value="<%1029%>">
 <input type="hidden" name="orig_rsv_ip" value="">
 <input type="hidden" name="orig_rsv_mac" value="">
-<input type="hidden" name="orig_dv_name" value="<%1021%>">
+<input type="hidden" name="orig_dv_name" value="<%1032%>">
 <a name="helpframe-anchor"></a>
 </form>
 </div>

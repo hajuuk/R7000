@@ -1,4 +1,4 @@
-cmd_applets/usage := gcc -Wp,-MD,applets/.usage.d  -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer      -I/disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/router/busybox-1.x/include -o applets/usage applets/usage.c  
+cmd_applets/usage := gcc -Wp,-MD,applets/.usage.d  -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer      -I/disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/router/busybox-1.x/include -o applets/usage applets/usage.c  
 
 deps_applets/usage := \
   applets/usage.c \
@@ -36,7 +36,7 @@ deps_applets/usage := \
   /usr/lib/gcc/i386-redhat-linux/4.3.2/include/stddef.h \
   /usr/include/bits/confname.h \
   /usr/include/getopt.h \
-  /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/router/busybox-1.x/include/usage.h \
+  /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/router/busybox-1.x/include/usage.h \
     $(wildcard include/config/ture/adduser/to/group.h) \
     $(wildcard include/config/ktop.h) \
     $(wildcard include/config/inux.h) \
@@ -157,7 +157,7 @@ deps_applets/usage := \
     $(wildcard include/config/ture/xargs/support/confirmation.h) \
     $(wildcard include/config/ture/xargs/support/termopt.h) \
     $(wildcard include/config/ture/xargs/support/zero/term.h) \
-  /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/router/busybox-1.x/include/applets.h \
+  /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/router/busybox-1.x/include/applets.h \
     $(wildcard include/config/feature/verbose/usage.h) \
     $(wildcard include/config/ture/installer.h) \
     $(wildcard include/config/ture/suid.h) \

@@ -102,7 +102,7 @@ SUBDIRS += iproute2
 # Foxconn add start by Hank for ecosystem support 08/14/2012 
 ifeq ($(CONFIG_WGET),y)
 OPENSSL_DIR = $(GPLTOPDIR)/openssl
-WGET_DIR = wget-1.12
+#WGET_DIR = wget-1.12
 SUBDIRS += $(WGET_DIR)
 endif
 

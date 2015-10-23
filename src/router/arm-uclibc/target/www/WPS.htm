@@ -35,12 +35,12 @@ var submit_flag = false;
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -49,9 +49,12 @@ var submit_flag = false;
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -115,7 +118,7 @@ function do_submit()
 <form id="target"  method=post action="wps_button.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
 <img class="subtop-image" src="<%61%>">
-<div class="subhead2"> <%1030%></div>
+<div class="subhead2"> <%1041%></div>
 <table  border=0    style="height:370px"  class="subhead2-table">
 
 
@@ -125,18 +128,18 @@ function do_submit()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr></tr>
-<tr><p class=MsoNormal><td colspan="2" ><b><%2187%>:</b></td></p></tr>
+<tr><p class=MsoNormal><td colspan="2" ><b><%2203%>:</b></td></p></tr>
 <tr>
-<td colspan="3"><input type="radio" name="WPS_type" value="Push Button" checked><%2188%>
+<td colspan="3"><input type="radio" name="WPS_type" value="Push Button" checked><%2204%>
 </td></tr>
-   <tr><td colspan="2" ><p style='margin-left:15pt'><%2189%></p></td></tr>
+   <tr><td colspan="2" ><p style='margin-left:15pt'><%2205%></p></td></tr>
 <tr>
 <TD colspan=3>
 <p class=MsoNormal align=center>
         <a href="#"><image src="wps_icon_on.bmp" onClick="do_submit();" border=1></a>
 </p></TD></TR>
 <tr>
-<td colspan="3"><input type="radio" name="WPS_type" value="PIN Number" onClick="location.href='WPS_PIN.htm'" ><%2190%></td></tr>
+<td colspan="3"><input type="radio" name="WPS_type" value="PIN Number" onClick="location.href='WPS_PIN.htm'" ><%2206%></td></tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr></tr>
 </table></div></td></tr>
@@ -153,7 +156,7 @@ function do_submit()
 
 
 
-<INPUT TYPE="hidden" NAME="wps_in_progress" VALUE="<%1353%>">
+<INPUT TYPE="hidden" NAME="wps_in_progress" VALUE="<%1364%>">
 <a name="helpframe-anchor"></a>
 </form>
 </div>

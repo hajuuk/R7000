@@ -39,12 +39,12 @@
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -53,9 +53,12 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -110,11 +113,11 @@ function checkmac(F)
     F.adr.value = F.adr.value.toLowerCase();
     temp=F.adr.value;
     if(F.adr.value==""){
-        alert("<%1584%>");
+        alert("<%1595%>");
         return false;
     }else{
         if((F.device.value == "UNKNOWN")||(F.device.value == "UNKNOWN NAME")||(""==F.device.value)){
-            alert("<%1585%>");
+            alert("<%1596%>");
             return false;
         }
         /*
@@ -190,12 +193,12 @@ function sel(dev, adr)
 <form id="target"  action="wlan_acl_add.cgi" method="post" name="formname">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
   <img class="subtop-image" src="<%61%>">
-<div class="subhead2"> <%1452%></div>
+<div class="subhead2"> <%1463%></div>
 <TABLE border=0  style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%572%>" onclick="buttonClick(this,'<%572%>');return checkmac(this.form)" type="submit" name="add" class="button-rule" ><span class="roundleft_button"><span class ="add-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%572%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;&nbsp;<button value="<%65%>" onClick="buttonClick(this,'<%65%>');location.href='WLG_acl.htm'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%66%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;&nbsp;<button value="<%65%>" OnClick="buttonClick(this,'<%626%>');fresh();" type="button" name="refresh" class="button-rule" ><span class="roundleft_button"><span class="refresh-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%626%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%573%>" onclick="buttonClick(this,'<%573%>');return checkmac(this.form)" type="submit" name="add" class="button-rule" ><span class="roundleft_button"><span class ="add-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%573%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;&nbsp;<button value="<%65%>" onClick="buttonClick(this,'<%65%>');location.href='WLG_acl.htm'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%66%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;&nbsp;<button value="<%65%>" OnClick="buttonClick(this,'<%627%>');fresh();" type="button" name="refresh" class="button-rule" ><span class="roundleft_button"><span class="refresh-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%627%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -203,26 +206,26 @@ function sel(dev, adr)
     
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <tr>
-      <td colspan="2" align="left"><a href="javascript:loadhelp('WLG_acl_add','card')" tabindex="-1"><b><%1586%></b></a></td></tr>
+      <td colspan="2" align="left"><a href="javascript:loadhelp('WLG_acl_add','card')" tabindex="-1"><b><%1597%></b></a></td></tr>
     <TR>
       <TD colspan="2">
         <table border="1" cellpadding="0" cellspacing="0" width="100%">
           <tr>
             <td width="10%" align="center"><span class="thead">&nbsp;</span></td>
-	        <td width="45%" align="center"><span class="thead"><%628%></span></td>
-	        <td width="45%" align="center"><span class="thead"><%629%></span></td></tr>
-	      <%1587%></table></td></tr>
+	        <td width="45%" align="center"><span class="thead"><%629%></span></td>
+	        <td width="45%" align="center"><span class="thead"><%630%></span></td></tr>
+	      <%1598%></table></td></tr>
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <tr>
-      <td align="left" colspan="2"><a href="javascript:loadhelp('WLG_acl_add','entry')" tabindex="-1"><b> <%1588%></b></a></td></tr>
+      <td align="left" colspan="2"><a href="javascript:loadhelp('WLG_acl_add','entry')" tabindex="-1"><b> <%1599%></b></a></td></tr>
     <tr>
       <td colspan="2">
         <TABLE border=0 width="100%" align="left">
           <TR>
-            <TD align="left" nowrap> <%628%>:</td>
+            <TD align="left" nowrap> <%629%>:</td>
             <td><INPUT type="text" name="device" maxLength=20 value=""></TD></TR>
           <TR>
-            <TD align="left" nowrap> <%629%>:</td>
+            <TD align="left" nowrap> <%630%>:</td>
             <td><INPUT type="text" name="adr" maxLength=17 value=""></TD></TR></table></td></tr>
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     </table></div></td></tr>

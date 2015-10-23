@@ -38,12 +38,12 @@
 
     function showHelpIframe() {
 
-
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".bas-help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -52,9 +52,12 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
+
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -156,7 +159,7 @@ function loadSettings()
 <form id="target"  name="formname" method="POST" action="ipv6_disable.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
 <img class="subtop-image" src="<%61%>">
-<div class="subhead2"> <%1032%></div>
+<div class="subhead2"> <%1043%></div>
 <table border="0"     class="subhead2-table">
 
 <tr align="left" valign="middle">
@@ -168,17 +171,17 @@ function loadSettings()
 
 <tr><td colspan="2" class="scrollpane-table-seperate-border"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
 <tr>
- <td width="50%"><a><b><%2324%></b></a></td>
+ <td width="50%"><a><b><%2340%></b></a></td>
  <td width="50%" align="right">
     <select name="login_type" onChange="setServer()">
-        <option selected><%500%></option>
-        <option><%2325%></option>
-        <option><%2326%></option>
-        <option><%2327%></option>
-        <option ><%2328%></option>
-        <option ><%2329%></option>
-        <option ><%473%></option>
-        <option ><%2330%></option>
+        <option selected><%502%></option>
+        <option><%2341%></option>
+        <option><%2342%></option>
+        <option><%2343%></option>
+        <option ><%2344%></option>
+        <option ><%2345%></option>
+        <option ><%475%></option>
+        <option ><%2346%></option>
     </select>
  </td>
 </tr>

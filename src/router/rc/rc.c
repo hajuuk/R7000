@@ -807,24 +807,24 @@ static int config_iptv_params(void)
     /* Swap LAN1 ~ LAN4 due to reverse labeling */
 #if defined(R7000)
     if (iptv_bridge_intf & IPTV_LAN1)
-        strcat(vlan_iptv_ports, "4 ");
-    else
-        strcat(vlan1_ports, "4 ");
-
-    if (iptv_bridge_intf & IPTV_LAN2)   /* Foxconn modified pling 02/09/2012, fix a typo */
-        strcat(vlan_iptv_ports, "3 ");
-    else
-        strcat(vlan1_ports, "3 ");
-
-    if (iptv_bridge_intf & IPTV_LAN3)
-        strcat(vlan_iptv_ports, "2 ");
-    else
-        strcat(vlan1_ports, "2 ");
-    
-    if (iptv_bridge_intf & IPTV_LAN4)
         strcat(vlan_iptv_ports, "1 ");
     else
         strcat(vlan1_ports, "1 ");
+
+    if (iptv_bridge_intf & IPTV_LAN2)   /* Foxconn modified pling 02/09/2012, fix a typo */
+        strcat(vlan_iptv_ports, "2 ");
+    else
+        strcat(vlan1_ports, "2 ");
+
+    if (iptv_bridge_intf & IPTV_LAN3)
+        strcat(vlan_iptv_ports, "3 ");
+    else
+        strcat(vlan1_ports, "3 ");
+    
+    if (iptv_bridge_intf & IPTV_LAN4)
+        strcat(vlan_iptv_ports, "4 ");
+    else
+        strcat(vlan1_ports, "4 ");
 #else
     if (iptv_bridge_intf & IPTV_LAN1)
         strcat(vlan_iptv_ports, "3 ");
