@@ -291,6 +291,8 @@ void dirlist_one_file(char *name, FILE *client, char verbose)
        return;
     }
 
+    /* Foxconn added start pling 09/14/2013 */
+    /* Don't allow users to see files/dir other than /shares */
     char *cwd = bftpd_cwd_getcwd();
     if (cwd != NULL)
     {
@@ -302,6 +304,8 @@ void dirlist_one_file(char *name, FILE *client, char verbose)
         }
         free(cwd);
     }
+    /* Foxconn added end pling 09/14/2013 */
+
     /* Foxconn added start pling 06/20/2009 */
     /* Don't let 'guest' user see "Admin-read" folders */
     if (S_ISDIR(statbuf.st_mode) || S_ISLNK(statbuf.st_mode))

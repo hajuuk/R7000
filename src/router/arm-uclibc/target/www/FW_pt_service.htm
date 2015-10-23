@@ -20,8 +20,8 @@
 <%14%>
 <script language="javascript" type="text/javascript">
 <!-- hide script from old browsers
-var df_sel = <%1663%>;
-var fwpt_action = <%1664%>;
+var df_sel = <%1681%>;
+var fwpt_action = <%1682%>;
 
   
     $(document).ready(function()
@@ -132,7 +132,7 @@ function setDisable(disable)
 function loadSettings()
 {
 	var cf = document.forms[0];
-	var src_ip_type = "<%1665%>";
+	var src_ip_type = "<%1683%>";
 	if (src_ip_type == "2")
 	{
 		var src_ip = cf.src_ip.value.split(".");
@@ -152,22 +152,22 @@ function loadSettings()
 	}
 	setsrc();
 
-	var pt_type = "<%1666%>";
+	var pt_type = "<%1684%>";
 	if (pt_type == "17")
 		cf.pt_type.selectedIndex = 1;
 	else
 		cf.pt_type.selectedIndex = 0;
-	cf.pt_port.value = "<%1667%>";
+	cf.pt_port.value = "<%1685%>";
 
-	var in_port_type = "<%1668%>";
+	var in_port_type = "<%1686%>";
 	if (in_port_type == "6")
 		cf.in_port_type.selectedIndex = 1;
 	else if (in_port_type == "17")
 		cf.in_port_type.selectedIndex = 2;
 	else
 		cf.in_port_type.selectedIndex = 0;
-	cf.in_port_start.value = "<%1669%>";
-	cf.in_port_end.value = "<%1670%>";
+	cf.in_port_start.value = "<%1687%>";
+	cf.in_port_end.value = "<%1688%>";
 
 	if (df_sel)
 		setDisable(true);
@@ -181,7 +181,7 @@ function checkPort(name, port)
 	if (port.length == 0)
 		msg = name + " <%1%>";
 	if (isNaN(portNum) || portNum < 1 || portNum > 65534 || !_isNumeric(portNum))
-		msg = "<%1671%>" + name + "<%1672%>";
+		msg = "<%1689%>" + name + "<%1690%>";
 	return msg;
 }
 
@@ -191,11 +191,11 @@ function checkData()
 	var msg = "";
 
 	if (cf.pt_name.value.length == 0)
-		msg += "<%1673%>";
+		msg += "<%1691%>";
 
 	if(cf.pt_name.value==""||cf.pt_name.value.match( /[^\x20-\x7E]/ ))
 	{
-		alert("<%849%>");
+		alert("<%868%>");
 		cf.pt_name.focus();
 		return false;
 	}
@@ -213,15 +213,15 @@ function checkData()
 		}
 	}
 
-	msg += checkPort("<%1674%>", cf.pt_port.value);
+	msg += checkPort("<%1692%>", cf.pt_port.value);
 
-	msg += checkPort("<%1675%>", cf.in_port_start.value);
+	msg += checkPort("<%1693%>", cf.in_port_start.value);
 
 	if (cf.in_port_end.value.length > 0)
 	{
-		msg += checkPort("<%1676%>", cf.in_port_end.value);
+		msg += checkPort("<%1694%>", cf.in_port_end.value);
 		if (parseInt(cf.in_port_end.value,10) < parseInt(cf.in_port_start.value,10))
-			msg += "<%1677%>";
+			msg += "<%1695%>";
 	}
 
 	if (msg.length > 0)
@@ -245,20 +245,20 @@ function checkData()
 </script>
 </head>
 <body  onload="change_size();loadSettings();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%59%>">
-<img class="body-image" src="<%60%>">
+<img class="cover-image" src="<%62%>">
+<img class="body-image" src="<%63%>">
 <div id="full-page-container">
 
 <form id="target"  name="formname" action="fwpt_service.cgi" method="POST">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="<%61%>">
-<div class="subhead2"> <%1678%></div>
+<img class="subtop-image" src="<%64%>">
+<div class="subhead2"> <%1696%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%63%>"  onclick="buttonClick(this,'<%63%>');if(!checkData()) return false;" type="submit" name="apply" class="button-apply" > <span class="roundleft_apply" ><%64%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%65%>" onClick="buttonClick(this,'<%65%>');location.href='FW_pt.htm'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%66%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%66%>"  onclick="buttonClick(this,'<%66%>');if(!checkData()) return false;" type="submit" name="apply" class="button-apply" > <span class="roundleft_apply" ><%67%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%68%>" onClick="buttonClick(this,'<%68%>');location.href='FW_pt.htm'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%69%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -269,17 +269,17 @@ function checkData()
 <td colspan="2">
 	<table border ="0" cellpadding ="0" cellspacing ="0" width="100%">
 	<tr>
-	<td colspan="2"><tabindex="-1"><b><%1679%></b></a></td></tr>
+	<td colspan="2"><tabindex="-1"><b><%1697%></b></a></td></tr>
 	<tr>
-	<TD NOWRAP width="37%"><%835%></td>
-	<TD NOWRAP width="63%"><input type="text" name="pt_name" size="15" maxlength="30" value="<%1680%>"></td>
+	<TD NOWRAP width="37%"><%854%></td>
+	<TD NOWRAP width="63%"><input type="text" name="pt_name" size="15" maxlength="30" value="<%1698%>"></td>
 	</tr>
 	<tr>
-	<td nowrap width="37%"><%1658%></td>
+	<td nowrap width="37%"><%1676%></td>
 	<td nowrap width="63%">
 	<select name="src_ip_type" onChange="setsrc();">
-		<option value=1><%1681%></option>
-		<option value=2><%1682%></option>
+		<option value=1><%1699%></option>
+		<option value=2><%1700%></option>
 	</select>
 	</td>
 	</tr>
@@ -291,36 +291,36 @@ function checkData()
 	</span></td>
 	</tr>      
 	<tr>
-	<TD NOWRAP width="37%"><%569%></td>
+	<TD NOWRAP width="37%"><%579%></td>
 	<TD NOWRAP width="63%">
 		<select name="pt_type" size="1">
-		<option value=6><%591%></option>
-		<option value=17><%592%></option>
+		<option value=6><%601%></option>
+		<option value=17><%602%></option>
 		</SELECT></TD>
 	</TR>
 	<tr>
-	<TD NOWRAP width="37%"><%1674%></td>
+	<TD NOWRAP width="37%"><%1692%></td>
 	<TD NOWRAP width="63%"><input type="text" class="num" name="pt_port" size="6" maxlength="5" >(1~65534)</td>
 	</tr>
 	<tr>
 	<td colspan="2" background="liteblue.gif" height="12">&nbsp; </td></tr>
 	<tr>
-	<td colspan="2"><tabindex="-1"><b><%1657%></b></a></td></tr>
+	<td colspan="2"><tabindex="-1"><b><%1675%></b></a></td></tr>
 	<tr>
-	<TD NOWRAP width="37%"><%649%>:</td>
+	<TD NOWRAP width="37%"><%659%>:</td>
 	<TD NOWRAP width="63%">
 		<select name="in_port_type" size="1">
-		<option value=100><%593%></option>
-		<option value=6><%591%></option>
-		<option value=17><%592%></option>
+		<option value=100><%603%></option>
+		<option value=6><%601%></option>
+		<option value=17><%602%></option>
 		</SELECT></TD>
 	</TR>
 	<tr>
-	<TD NOWRAP width="37%"><%594%></td>
+	<TD NOWRAP width="37%"><%604%></td>
 	<TD NOWRAP width="63%"><input type="text" class="num" name="in_port_start" size="6" maxlength="5">(1~65534)</td>
 	</tr>
 	<tr>
-	<TD NOWRAP width="37%"><%595%></td>
+	<TD NOWRAP width="37%"><%605%></td>
 	<TD NOWRAP width="63%"><input type="text" class="num" name="in_port_end" size="6" maxlength="5">(1~65534)</td>
 	</tr>
 	</table>
@@ -334,15 +334,15 @@ function checkData()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%231%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%235%> </span>
       </div>
 
 
 
-<input type="hidden" name="src_ip" value="<%1683%>">
+<input type="hidden" name="src_ip" value="<%1701%>">
 <input type="hidden" name="out_port_type" value="0">
 <a name="helpframe-anchor"></a>
 </form>

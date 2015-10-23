@@ -51,7 +51,7 @@ endif
 OBJS := nvram_linux.o
 ifeq ($(CONFIG_ACOS_MODULES),y)
 OBJS += $(ACOSNVRAM)/acosNvramConfig.o
-#OBJS += $(ACOSNVRAM)/defaults.o
+OBJS += $(ACOSNVRAM)/defaults.o
 endif
 
 CFLAGS += -fPIC

@@ -228,9 +228,15 @@ void end_child ()
         close (1);
         close (2);
     }
+    
+    /* Foxconn added start pling 09/14/2013 */
+    /* This was done in SIGCHLD handler before.
+     * Now since we fork twice, we decrement counter here.
+     */
 #ifdef MAX_USB_ACCESS
     dec_conn_num();
 #endif
+    /* Foxconn added end pling 09/14/2013 */
 }
 
 
@@ -307,10 +313,12 @@ void handler_sigchld (int sig)
 
 
     /* Get the child's return code so that the zombie dies */
+	/*Foxconn modify start by Hank 10/01/2013*/
     // pid = wait (NULL);
     pid = waitpid(-1, NULL, WNOHANG);
     
     while (pid > 0)
+	/*Foxconn modify end by Hank 10/01/2013*/
     {
     	for (i = 0; i < bftpd_list_count (child_list); i++)
     	{
@@ -326,8 +334,10 @@ void handler_sigchld (int sig)
 	    dec_conn_num();
 #endif	    
         }
+		/*Foxconn modify start by Hank 10/01/2013*/
     	}
     	pid = waitpid(-1, NULL, WNOHANG);    /* check for more children */
+		/*Foxconn modify end by Hank 10/01/2013*/
   	}
 }
 
@@ -512,6 +522,7 @@ int main (int argc, char **argv)
         //exit(1);
     }
     /* attach the shared memory segment, at a different address. */
+	/*Foxconn modify start by Hank 10/01/2013*/
     if(segment_id != -1)
     {
         //con_st = (CON_STATISTIC*) shmat (segment_id, (void*) 0x5000000, 0);
@@ -530,6 +541,7 @@ int main (int argc, char **argv)
     }    
     else 
     {
+	/*Foxconn modify end by Hank 10/01/2013*/
         con_st = NULL;
 	printf ("fail to get shared memory reattached at address \n");
     }	
@@ -696,6 +708,8 @@ int main (int argc, char **argv)
              */
             if (sock > 0)
             {
+                /* Foxconn modified start pling 09/14/2013 */
+                /* Avoid zombie ftp process, by fork twice */
                 int pid2;
                 int status;
 
@@ -753,6 +767,7 @@ int main (int argc, char **argv)
 #endif
 	            }		
             }
+            /* Foxconn modified end pling 09/14/2013 */
         }
     }
 

@@ -602,10 +602,16 @@ igmp_interface_group_add(
 		  up.s_addr = upstream;
 		  upstream_interface = igmprt_interface_lookup(router,up);
 		  if (igmp_interface_group_lookup(upstream_interface,mreq.imr_multiaddr) == NULL) {
+/* foxconn revised by ken chen, 12/03/2013, don't add igmp group in kernel */
+#if 0
 		    if (setsockopt(router->igmprt_up_socket, IPPROTO_IP, IP_ADD_MEMBERSHIP, (void *) &mreq, sizeof(mreq)) < 0) { 
 		      //perror("setsockopt - IP_ADD_MEMBERSHIP");
 		      //exit(1);
 		    }
+#else
+            ;
+#endif
+/* foxconn revised by ken chen, 12/03/2013, don't add igmp group in kernel */
 		  }
 		} 
 	}

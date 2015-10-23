@@ -231,6 +231,7 @@ struct passwd *uam_getname(void *private, char *name, const int len)
         return pwent;
         
     /* if we have a NT domain name try with it */
+#if 0
     if (obj->options.ntdomain && obj->options.ntseparator) {
         /* FIXME What about charset ? */
         size_t ulen = strlen(obj->options.ntdomain) + strlen(obj->options.ntseparator) + strlen(name);
@@ -252,6 +253,7 @@ struct passwd *uam_getname(void *private, char *name, const int len)
             }
         }
     }
+#endif 
 #ifndef NO_REAL_USER_NAME
 
     if ( (size_t) -1 == (namelen = convert_string((utf8_encoding())?CH_UTF8_MAC:obj->options.maccharset,

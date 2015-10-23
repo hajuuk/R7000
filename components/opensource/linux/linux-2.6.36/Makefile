@@ -375,7 +375,8 @@ KBUILD_CFLAGS += -DBCMDRIVER -Dlinux
 #Enable debug flag end
 ifeq ($(PROFILE),R7000)
 KBUILD_CFLAGS += -DMULTIPLE_SSID -DSAMBA_ENABLE -DX_ST_ML
-
+#[Bob] add for writing kernel crash dump to mtd.
+#KBUILD_CFLAGS += -DKERNEL_CRASH_DUMP_TO_MTD
 KBUILD_CFLAGS += -DU12H270 -DR7000
 KBUILD_CFLAGS += -DBCM53125
 
@@ -722,7 +723,7 @@ ifneq ($(KCFLAGS),)
 endif
 
 # Bob added to build debug version wireless driver
-#KBUILD_CFLAGS += -DDHD_DEBUG -DWLTEST -DBCMDBG
+#KBUILD_CFLAGS += -DDHD_DEBUG -DWLTEST -DBCMDBG -DBCMDBG_ASSERT
 
 # Use --build-id when available.
 LDFLAGS_BUILD_ID = $(patsubst -Wl$(comma)%,%,\

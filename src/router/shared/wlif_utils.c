@@ -93,7 +93,8 @@ wl_wlif_is_psta(char *ifname)
 char *
 get_ifname_by_wlmac(unsigned char *mac, char *name)
 {
-	char nv_name[16], os_name[16], if_name[16];
+	char nv_name[16], os_name[16];
+	static char if_name[16];
 	char tmptr[] = "lanXX_ifnames";
 	char *ifnames, *ifname;
 	int i;
@@ -112,6 +113,27 @@ get_ifname_by_wlmac(unsigned char *mac, char *name)
 
 	if (osifname_to_nvifname(os_name, nv_name, sizeof(nv_name)) < 0)
 		return 0;
+	/* find for dpsta */
+	if (wl_wlif_is_psta(os_name))
+		return name;
+
+	ifnames = nvram_get("dpsta_ifnames");
+	if (ifnames && (find_in_list(ifnames, nv_name) || find_in_list(ifnames, os_name))) {
+		/* find dpsta in which bridge */
+		for (i = 0; i < WLIFU_MAX_NO_BRIDGE; i++) {
+			sprintf(tmptr, "br%d_ifnames", i);
+			sprintf(if_name, "br%d", i);
+			ifnames = nvram_get(tmptr);
+			ifname = if_name;
+
+			if (ifnames) {
+				/* the name in ifnames may nvifname or osifname */
+				if (find_in_list(ifnames, nv_name) ||
+				    find_in_list(ifnames, os_name))
+					return ifname;
+			}
+		}
+	}
 
 	/* find for lan */
 	for (i = 0; i < WLIFU_MAX_NO_BRIDGE; i++) {

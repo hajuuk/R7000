@@ -69,6 +69,7 @@ install:
 	rm -f $(TARGETDIR)/etc/avahi/services
 	ln -s /tmp/avahi/services $(TARGETDIR)/etc/avahi/services
 	install -d -m0755 $(TARGETDIR)/etc/init.d
+	install -m 755 $(PKG_INSTALL_DIR)/usr/lib/libdb-*.so $(TARGETDIR)/usr/lib/
 ifneq ($(CONFIG_ISERVER),y)
 	install -m0755 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/avahi-daemon.init $(TARGETDIR)/etc/init.d/avahi-daemon	
 	install -m 755 $(PKG_INSTALL_DIR)/usr/lib/libgdbm.so.* $(TARGETDIR)/usr/lib/
@@ -100,7 +101,6 @@ else
 endif
 ifneq ($(CONFIG_ISERVER),y)
 	install -m 755 $(PKG_INSTALL_DIR)/usr/lib/libgcrypt.so.* $(TARGETDIR)/usr/lib/
-	install -m 755 $(PKG_INSTALL_DIR)/usr/lib/libdb-*.so $(TARGETDIR)/usr/lib/
 	install -m 755 $(PKG_INSTALL_DIR)/usr/lib/libxml2.so $(TARGETDIR)/usr/lib/
 	install -m 755 $(PKG_INSTALL_DIR)/usr/lib/libxml2.so.* $(TARGETDIR)/usr/lib/
 endif

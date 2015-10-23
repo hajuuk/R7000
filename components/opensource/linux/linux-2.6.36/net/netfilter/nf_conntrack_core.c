@@ -72,6 +72,8 @@
 #include <ctf/hndctf.h>
 
 #define NFC_CTF_ENABLED	(1 << 31)
+#else
+#define BCMFASTPATH_HOST
 #endif /* HNDCTF */
 
 int (*nfnetlink_parse_nat_setup_hook)(struct nf_conn *ct,
@@ -247,8 +249,11 @@ ip_conntrack_ipct_add(struct sk_buff *skb, u_int32_t hooknum,
 	 * live counter of brc entry whenever a received packet
 	 * matches corresponding ipc entry matches.
 	 */
-	if ((skb->dev != NULL) && ctf_isbridge(kcih, skb->dev))
+	if ((skb->dev != NULL) && ctf_isbridge(kcih, skb->dev)) {
 		ipc_entry.brcp = ctf_brc_lkup(kcih, eth_hdr(skb)->h_source);
+		if (ipc_entry.brcp != NULL)
+			ctf_brc_release(kcih, ipc_entry.brcp);
+	}
 
 	hh = skb_dst(skb)->hh;
 	if (hh != NULL) {
@@ -353,6 +358,7 @@ ip_conntrack_ipct_add(struct sk_buff *skb, u_int32_t hooknum,
 			ipc_entry.action |= brcp->action;
 			ipc_entry.txif = brcp->txifp;
 			ipc_entry.vid = brcp->vid;
+			ctf_brc_release(kcih, brcp);
 		}
 	}
 
@@ -396,6 +402,8 @@ ip_conntrack_ipct_add(struct sk_buff *skb, u_int32_t hooknum,
 		ctf_ipc_t *ipct;
 		ipct = ctf_ipc_lkup(kcih, &ipc_entry, ipver == 6);
 		*(uint32 *)&skb->pktc_cb[4] = (uint32)ipct;
+		if (ipct != NULL)
+			ctf_ipc_release(kcih, ipct);
 	}
 #endif
 
@@ -454,20 +462,28 @@ ip_conntrack_ipct_delete(struct nf_conn *ct, int ct_timeout)
 		/* Postpone the deletion of ct entry if there are frames
 		 * flowing in this direction.
 		 */
-		if ((ipct != NULL) && (ipct->live > 0)) {
-			ipct->live = 0;
-			ct->timeout.expires = jiffies + ct->expire_jiffies;
-			add_timer(&ct->timeout);
-			return (-1);
+		if (ipct != NULL) {
+			if (ipct->live > 0) {
+				ipct->live = 0;
+				ctf_ipc_release(kcih, ipct);
+				ct->timeout.expires = jiffies + ct->expire_jiffies;
+				add_timer(&ct->timeout);
+				return (-1);
+			}
+			ctf_ipc_release(kcih, ipct);
 		}
 
 		ipct = ctf_ipc_lkup(kcih, &repl_ipct, v6);
 
-		if ((ipct != NULL) && (ipct->live > 0)) {
-			ipct->live = 0;
-			ct->timeout.expires = jiffies + ct->expire_jiffies;
-			add_timer(&ct->timeout);
-			return (-1);
+		if (ipct != NULL) {
+			if (ipct->live > 0) {
+				ipct->live = 0;
+				ctf_ipc_release(kcih, ipct);
+				ct->timeout.expires = jiffies + ct->expire_jiffies;
+				add_timer(&ct->timeout);
+				return (-1);
+			}
+			ctf_ipc_release(kcih, ipct);
 		}
 	}
 

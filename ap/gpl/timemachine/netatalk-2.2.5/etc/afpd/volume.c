@@ -519,6 +519,7 @@ static void volset(struct vol_option *options, struct vol_option *save,
             p = strtok(NULL, ",");
         }
 
+        options[VOLOPT_FLAGS].i_value |= AFPVOL_UNIX_PRIV;
     } else if (optionok(tmp, "cnidserver:", val)) {
         setoption(options, save, VOLOPT_CNIDSERVER, val);
 

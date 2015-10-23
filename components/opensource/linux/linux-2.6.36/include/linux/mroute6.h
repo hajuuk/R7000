@@ -211,6 +211,8 @@ struct mfc6_cache {
 
 #define MFC6_LINES		64
 
+/* Bob modified start 04/01/2013 for ipv6ready */
+#if 0
 #define MFC6_HASH(a, g) (((__force u32)(a)->s6_addr32[0] ^ \
 			  (__force u32)(a)->s6_addr32[1] ^ \
 			  (__force u32)(a)->s6_addr32[2] ^ \
@@ -219,6 +221,14 @@ struct mfc6_cache {
 			  (__force u32)(g)->s6_addr32[1] ^ \
 			  (__force u32)(g)->s6_addr32[2] ^ \
 			  (__force u32)(g)->s6_addr32[3]) % MFC6_LINES)
+#endif
+			  
+#define MFC6_HASH(a, g) (((__force u32)(a)->s6_addr32[0] ^ \
+			  (__force u32)(a)->s6_addr32[1] ^ \
+			  (__force u32)(a)->s6_addr32[2] ^ \
+			  (__force u32)(a)->s6_addr32[3]) % MFC6_LINES)			  
+/* Bob modified end 04/01/2013 for ipv6ready */
+
 
 #define MFC_ASSERT_THRESH (3*HZ)		/* Maximal freq. of asserts */
 

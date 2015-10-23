@@ -912,7 +912,6 @@ asmlinkage int vprintk(const char *fmt, va_list args)
 	printed_len += vscnprintf(printk_buf + printed_len,
 				  sizeof(printk_buf) - printed_len, fmt, args);
 
-
 	p = printk_buf;
 
 	/* Do we have a loglevel in the string? */
@@ -1764,4 +1763,23 @@ void kmsg_dump(enum kmsg_dump_reason reason)
 		dumper->dump(dumper, reason, s1, l1, s2, l2);
 	spin_unlock_irqrestore(&dump_list_lock, flags);
 }
+
+#if defined(KERNEL_CRASH_DUMP_TO_MTD) || defined(CONFIG_CRASHLOG)
+/*
+ * To write the kernel log buffer to nvram on a crash we need a pointer to it,
+ * so return the buffer and the size of it. We also write some info into the
+ * log so that postprocessing tools can find the current location in the
+ * rotating buffer
+ */
+char *get_logbuf (void)
+{
+	printk("NVRAM LOG %d %d %d\n",log_buf_len,log_start,log_end);
+	return (log_buf);
+}
+
+int get_logsize (void)
+{
+	return (log_buf_len);
+}
+#endif
 #endif

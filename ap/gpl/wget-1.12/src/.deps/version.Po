@@ -1,1 +1,1 @@
-version.o: version.c
+version.o version.o: version.c

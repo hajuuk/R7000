@@ -51,6 +51,11 @@
 /* Foxconn added end, Wins, 04/11/2011 */
 #define WPS_LED_BLINK_AP_LOCKDOWN   _IOWR(WPS_LED_IOCTL_NUM, 18, int *)
 
+/* Foxconn added start, ken chen, 12/13/2013, support LED_CONTROL_SETTINGS */
+#define LED_CONTROL_ENABLE_BLINK    _IOWR(WPS_LED_IOCTL_NUM, 19, int *)
+#define LED_CONTROL_DISABLE_BLINK   _IOWR(WPS_LED_IOCTL_NUM, 20, int *)
+#define LED_CONTROL_TURN_OFF        _IOWR(WPS_LED_IOCTL_NUM, 21, int *)
+/* Foxconn added end, ken chen, 12/13/2013, support LED_CONTROL_SETTINGS */
 
 #define WPS_LED_STOP_NO         (0)
 #define WPS_LED_STOP_RADIO_OFF  (1)

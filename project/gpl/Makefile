@@ -38,7 +38,7 @@ SUBDIRS += bzip2
 #SUBDIRS +=lzo-2.06
 ifeq ($(CONFIG_OPENVPN),y)
 SUBDIRS +=openvpn-2.3.1
-SUBDIRS +=GeoIP-1.5.1
+#SUBDIRS +=GeoIP-1.5.1
 endif
 # allenwen add for openvpn
 
@@ -46,7 +46,6 @@ ifeq ($(CONFIG_TCPDUMP),y)
 SUBDIRS +=libpcap-1.4.0
 SUBDIRS +=tcpdump-4.4.0
 endif
-
 
 ifeq ($(CONFIG_RIP),y)
 SUBDIRS	+= zebra
@@ -102,7 +101,7 @@ SUBDIRS += iproute2
 # Foxconn add start by Hank for ecosystem support 08/14/2012 
 ifeq ($(CONFIG_WGET),y)
 OPENSSL_DIR = $(GPLTOPDIR)/openssl
-#WGET_DIR = wget-1.12
+WGET_DIR = wget-1.12
 SUBDIRS += $(WGET_DIR)
 endif
 
@@ -110,7 +109,7 @@ endif
 SUBDIRS += zip30 unzip60
 
 
-all: config
+all: ECOSYSTEM config
 	for i in ${SUBDIRS}; do \
 		(cd $$i; make) || exit 1; \
 	done

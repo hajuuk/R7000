@@ -1,4 +1,4 @@
-This is wget.info, produced by makeinfo version 4.12 from wget.texi.
+This is wget.info, produced by makeinfo version 4.8 from wget.texi.
 
 INFO-DIR-SECTION Network Applications
 START-INFO-DIR-ENTRY
@@ -4462,58 +4462,58 @@ Concept Index
 
 
 Tag Table:
-Node: Top793
-Node: Overview2165
-Node: Invoking5587
-Node: URL Format6440
-Ref: URL Format-Footnote-19030
-Node: Option Syntax9132
-Node: Basic Startup Options11809
-Node: Logging and Input File Options12614
-Node: Download Options16002
-Node: Directory Options39608
-Node: HTTP Options42313
-Node: HTTPS (SSL/TLS) Options57394
-Node: FTP Options63069
-Node: Recursive Retrieval Options67535
-Node: Recursive Accept/Reject Options75403
-Node: Exit Status78883
-Node: Recursive Download79906
-Node: Following Links83079
-Node: Spanning Hosts84041
-Node: Types of Files86238
-Node: Directory-Based Limits90600
-Node: Relative Links93692
-Node: FTP Links94529
-Node: Time-Stamping95396
-Node: Time-Stamping Usage97044
-Node: HTTP Time-Stamping Internals98892
-Ref: HTTP Time-Stamping Internals-Footnote-1100168
-Node: FTP Time-Stamping Internals100367
-Node: Startup File101833
-Node: Wgetrc Location102747
-Node: Wgetrc Syntax103567
-Node: Wgetrc Commands104287
-Node: Sample Wgetrc119229
-Node: Examples124752
-Node: Simple Usage125113
-Node: Advanced Usage126534
-Node: Very Advanced Usage130246
-Node: Various131741
-Node: Proxies132446
-Node: Distribution135297
-Node: Web Site135635
-Node: Mailing Lists135930
-Node: Internet Relay Chat137996
-Node: Reporting Bugs138282
-Node: Portability140801
-Node: Signals142426
-Node: Appendices143109
-Node: Robot Exclusion143455
-Node: Security Considerations147250
-Node: Contributors148434
-Node: Copying this manual154074
-Node: GNU Free Documentation License154313
-Node: Concept Index179483
+Node: Top792
+Node: Overview2164
+Node: Invoking5586
+Node: URL Format6439
+Ref: URL Format-Footnote-19029
+Node: Option Syntax9131
+Node: Basic Startup Options11808
+Node: Logging and Input File Options12613
+Node: Download Options16001
+Node: Directory Options39607
+Node: HTTP Options42312
+Node: HTTPS (SSL/TLS) Options57393
+Node: FTP Options63068
+Node: Recursive Retrieval Options67534
+Node: Recursive Accept/Reject Options75402
+Node: Exit Status78882
+Node: Recursive Download79905
+Node: Following Links83078
+Node: Spanning Hosts84040
+Node: Types of Files86237
+Node: Directory-Based Limits90599
+Node: Relative Links93691
+Node: FTP Links94528
+Node: Time-Stamping95395
+Node: Time-Stamping Usage97043
+Node: HTTP Time-Stamping Internals98891
+Ref: HTTP Time-Stamping Internals-Footnote-1100167
+Node: FTP Time-Stamping Internals100366
+Node: Startup File101832
+Node: Wgetrc Location102746
+Node: Wgetrc Syntax103566
+Node: Wgetrc Commands104286
+Node: Sample Wgetrc119228
+Node: Examples124751
+Node: Simple Usage125112
+Node: Advanced Usage126533
+Node: Very Advanced Usage130245
+Node: Various131740
+Node: Proxies132445
+Node: Distribution135296
+Node: Web Site135634
+Node: Mailing Lists135929
+Node: Internet Relay Chat137995
+Node: Reporting Bugs138281
+Node: Portability140800
+Node: Signals142425
+Node: Appendices143108
+Node: Robot Exclusion143454
+Node: Security Considerations147249
+Node: Contributors148433
+Node: Copying this manual154073
+Node: GNU Free Documentation License154312
+Node: Concept Index179482
 
 End Tag Table

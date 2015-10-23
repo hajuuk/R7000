@@ -253,6 +253,7 @@ wl_vif_hwaddr_set(const char *name)
 	char *ea;
 	char hwaddr[20];
 	struct ifreq ifr;
+
 	snprintf(hwaddr, sizeof(hwaddr), "%s_hwaddr", name);
 	ea = nvram_get(hwaddr);
 	if (ea == NULL) {
@@ -260,14 +261,12 @@ wl_vif_hwaddr_set(const char *name)
 		return;
 	}
 
-
 	fprintf(stderr, "NET: Setting %s hw addr to %s\n", name, ea);
 	ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
 	ether_atoe(ea, (unsigned char *)ifr.ifr_hwaddr.sa_data);
 	if ((rc = soc_req(name, SIOCSIFHWADDR, &ifr)) < 0) {
 		fprintf(stderr, "NET: Error setting hw for %s; returned %d\n", name, rc);
 	}
-
 }
 
 #ifdef __CONFIG_EMF__
@@ -725,21 +724,24 @@ start_lan(void)
 						 * dpsta interface.
 						 */
 						if (strstr(nvram_safe_get("dpsta_ifnames"), name)) {
-							strcpy(name, !dpsta ?  "dpsta" : "");
-							dpsta++;
-
-							/* Assign hw address */
+							/* Assign first wl i/f as dpsta hw address */
 							if ((s = socket(AF_INET, SOCK_RAW, IPPROTO_RAW)) >= 0) {
 								strncpy(ifr.ifr_name, "dpsta", IFNAMSIZ);
 								if (ioctl(s, SIOCGIFHWADDR, &ifr) == 0 &&
 								    memcmp(ifr.ifr_hwaddr.sa_data, "\0\0\0\0\0\0",
 								           ETHER_ADDR_LEN) == 0) {
-									ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
-									memcpy(ifr.ifr_hwaddr.sa_data, hwaddr, ETHER_ADDR_LEN);
-									ioctl(s, SIOCSIFHWADDR, &ifr);
+									strncpy(ifr.ifr_name, name, IFNAMSIZ);
+									if (ioctl(s, SIOCGIFHWADDR, &ifr) == 0) {
+										strncpy(ifr.ifr_name, "dpsta", IFNAMSIZ);
+										ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
+										ioctl(s, SIOCSIFHWADDR, &ifr);
+									}
 								}
 								close(s);
 							}
+
+							strcpy(name, !dpsta ?  "dpsta" : "");
+							dpsta++;
 						}
 					
 						eval("brctl", "addif", lan_ifname, name);
@@ -1235,6 +1237,21 @@ start_wl(void)
     }
     
     system("wl -i eth1 pspretend_threshold 4");
+    
+    system("wl -i eth1 mfp_enable 0");
+    system("wl -i eth2 mfp_enable 0");
+
+    if (nvram_match("enable_atf", "1"))
+    {
+//      system("wl -i eth2 shmem 0x80 2");
+      eval("wl", "-i", "eth2", "frameburst", "1");
+	  }
+	  else
+	  {
+      eval("wl", "-i", "eth2", "frameburst", "1");
+	  }
+      eval("wl", "assert_type", "1");
+      
     /*Foxconn add start by Antony start 09/13/2013 Add rf support of Russia Region */
     if (nvram_match("wla_region", "14"))
     {
@@ -1245,7 +1262,7 @@ start_wl(void)
         system("wl -i eth2 txpwr1 -1");
     }
     /*Foxconn add start by Antony end 09/13/2013 */
-    
+      
 }
 
 #ifdef __CONFIG_NAT__

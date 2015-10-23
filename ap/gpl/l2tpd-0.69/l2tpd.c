@@ -650,8 +650,17 @@ void fxc_add_gw(int act, struct in_addr inetaddr) /*1: add, 2: del*/
             sprintf(command, "route add -host %s dev %s", getGateway, wan_ifname);
             system(command);
             /* Foxconn added end pling 03/30/2012 */
+            
+            /* Foxconn removed start by Bob, 12/23/2013, 
+            the default route should be removed when act==2, but for unknown reason, 
+            the default route is not deleted in end user's environmnet, so we just add host route here. 
+            It's unnecessary to add default route. */
+            /*
             sprintf(command, "route add default gw %s", getGateway) ;
             system(command);
+            */
+            /* Foxconn removed end by Bob, 12/23/2013 */
+            
 #ifdef DEBUG_SERV_IP_ROUTING
             printf("%s: %s\n", __FUNCTION__, command);
 #endif

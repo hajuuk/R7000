@@ -989,15 +989,53 @@ static struct mfc6_cache *ip6mr_cache_find(struct mr6_table *mrt,
 					   struct in6_addr *origin,
 					   struct in6_addr *mcastgrp)
 {
-	int line = MFC6_HASH(mcastgrp, origin);
-	struct mfc6_cache *c;
+	/* Bob modified start, 04/01/2013, ipv6ready logo */
+	
+	int line;
+	struct mfc6_cache *c=NULL;
+	
+#if 0	//debug purpose
+	struct in6_addr *mc_addr;
+	char pkt_buff[1024];
+	
+	mc_addr = origin;
+	sprintf(pkt_buff, "origin: %02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x\n", 
+									mc_addr->s6_addr[0], mc_addr->s6_addr[1], mc_addr->s6_addr[2], mc_addr->s6_addr[3], mc_addr->s6_addr[4], mc_addr->s6_addr[5], mc_addr->s6_addr[6], mc_addr->s6_addr[7], mc_addr->s6_addr[8], mc_addr->s6_addr[9], mc_addr->s6_addr[10], mc_addr->s6_addr[11], mc_addr->s6_addr[12], mc_addr->s6_addr[13], mc_addr->s6_addr[14], mc_addr->s6_addr[15]);
+	printk(KERN_EMERG"%s\n", pkt_buff);
+	
+	mc_addr = mcastgrp;
+	sprintf(pkt_buff, "mcastgrp: %02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x\n", 
+									mc_addr->s6_addr[0], mc_addr->s6_addr[1], mc_addr->s6_addr[2], mc_addr->s6_addr[3], mc_addr->s6_addr[4], mc_addr->s6_addr[5], mc_addr->s6_addr[6], mc_addr->s6_addr[7], mc_addr->s6_addr[8], mc_addr->s6_addr[9], mc_addr->s6_addr[10], mc_addr->s6_addr[11], mc_addr->s6_addr[12], mc_addr->s6_addr[13], mc_addr->s6_addr[14], mc_addr->s6_addr[15]);
+	printk(KERN_EMERG"%s\n", pkt_buff);
+#endif
+	
+	line = MFC6_HASH(mcastgrp, origin);
 
-	list_for_each_entry(c, &mrt->mfc6_cache_array[line], list) {
-		if (ipv6_addr_equal(&c->mf6c_origin, origin) &&
-		    ipv6_addr_equal(&c->mf6c_mcastgrp, mcastgrp))
+	list_for_each_entry(c, &mrt->mfc6_cache_array[line], list) 
+	
+	{
+
+
+#if 0	//debug purpose
+		mc_addr = &c->mf6c_mcastgrp;
+		sprintf(pkt_buff, "mcastgrp: %02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x", 
+											mc_addr->s6_addr[0], mc_addr->s6_addr[1], mc_addr->s6_addr[2], mc_addr->s6_addr[3], 
+											mc_addr->s6_addr[4], mc_addr->s6_addr[5], mc_addr->s6_addr[6], mc_addr->s6_addr[7],
+											mc_addr->s6_addr[8], mc_addr->s6_addr[9], mc_addr->s6_addr[10], mc_addr->s6_addr[11],
+											mc_addr->s6_addr[12], mc_addr->s6_addr[13], mc_addr->s6_addr[14], mc_addr->s6_addr[15] );
+		printk(KERN_EMERG"%s\n", pkt_buff);
+#endif
+
+		/* if (ipv6_addr_equal(&c->mf6c_origin, origin) &&
+		    ipv6_addr_equal(&c->mf6c_mcastgrp, mcastgrp)) */
+		    
+		if ( ipv6_addr_equal(&c->mf6c_mcastgrp, mcastgrp))
 			return c;
 	}
+	
+
 	return NULL;
+	/* Bob modified end, 04/01/2013, ipv6ready logo */
 }
 
 /*
@@ -1903,10 +1941,35 @@ static int ip6_mr_forward(struct net *net, struct mr6_table *mrt,
 {
 	int psend = -1;
 	int vif, ct;
+	struct dst_entry *dst = skb_dst(skb);
+	static struct net_device *lan_device = NULL;
 
 	vif = cache->mf6c_parent;
 	cache->mfc_un.res.pkt++;
 	cache->mfc_un.res.bytes += skb->len;
+	
+	
+	/* Bob added start, 08/19/2009, ipv6ready v6LC.1.1.10 part J */
+	if(! (ipv6_hdr(skb)->daddr.s6_addr[1] & 0x0f))
+	{
+	    goto dont_forward;
+	}
+	/* Bob added end, 08/19/2009, ipv6ready v6LC.1.1.10 part J */
+	/* Bob added start, 08/19/2009, ipv6ready v6LC.5.1.4 part B */
+	if(!lan_device)
+	    lan_device = dev_get_by_name(&init_net, "eth0");    //todo: not to hardcode br0
+	    //lan_device = dev_get_by_name("br0");    //todo: not to hardcode br0
+    if (skb->len > lan_device->mtu) 
+	{
+		skb->dev = lan_device;
+		icmpv6_send(skb, ICMPV6_PKT_TOOBIG, 0, lan_device->mtu);
+		//IP6_INC_STATS_BH((skb_dst(skb)->dev), ip6_dst_idev(dst), IPSTATS_MIB_INTOOBIGERRORS);
+	  //IP6_INC_STATS_BH((skb_dst(skb)->dev), ip6_dst_idev(dst), IPSTATS_MIB_FRAGFAILS);
+			 
+		kfree_skb(skb);
+		return -EMSGSIZE;
+	}
+	/* Bob added end, 08/19/2009, ipv6ready v6LC.5.1.4 part B */
 
 	/*
 	 * Wrong interface: drop packet and (maybe) send PIM assert.

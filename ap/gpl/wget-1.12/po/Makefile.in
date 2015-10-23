@@ -22,7 +22,7 @@ srcdir = .
 top_srcdir = ..
 
 
-prefix = /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/src/router/arm-uclibc/target
+prefix = /home/hyang/Project/WNDR4500/August19/2011_04_14_WNDR4500_Alpha/src/router/mipsel-uclibc/target
 exec_prefix = ${prefix}
 datarootdir = ${prefix}/share
 datadir = ${datarootdir}
@@ -35,26 +35,26 @@ INSTALL_DATA = ${INSTALL} -m 644
 # We use $(mkdir_p).
 # In automake <= 1.9.x, $(mkdir_p) is defined either as "mkdir -p --" or as
 # "$(mkinstalldirs)" or as "$(install_sh) -d". For these automake versions,
-# $(SHELL) /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/ap/gpl/wget-1.12/build-aux/install-sh does not start with $(SHELL), so we add it.
+# $(SHELL) /home/hyang/Project/WNDR4500/August19/2011_04_14_WNDR4500_Alpha/ap/gpl/wget-1.12/build-aux/install-sh does not start with $(SHELL), so we add it.
 # In automake >= 1.10, /bin/mkdir -p is derived from ${MKDIR_P}, which is defined
 # either as "/path/to/mkdir -p" or ".../install-sh -c -d". For these automake
 # versions, $(mkinstalldirs) and $(install_sh) are unused.
-mkinstalldirs = $(SHELL) $(SHELL) /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/ap/gpl/wget-1.12/build-aux/install-sh -d
-install_sh = $(SHELL) $(SHELL) /disk2/antony/R7000/GPL/V1.0.2.194/V1.0.2.194_1.0.15/ap/gpl/wget-1.12/build-aux/install-sh
+mkinstalldirs = $(SHELL) $(SHELL) /home/hyang/Project/WNDR4500/August19/2011_04_14_WNDR4500_Alpha/ap/gpl/wget-1.12/build-aux/install-sh -d
+install_sh = $(SHELL) $(SHELL) /home/hyang/Project/WNDR4500/August19/2011_04_14_WNDR4500_Alpha/ap/gpl/wget-1.12/build-aux/install-sh
 MKDIR_P = /bin/mkdir -p
 mkdir_p = /bin/mkdir -p
 
 GMSGFMT_ = /usr/bin/msgfmt
 GMSGFMT_no = /usr/bin/msgfmt
-GMSGFMT_yes = /usr/bin/msgfmt
+GMSGFMT_yes = :
 GMSGFMT = $(GMSGFMT_$(USE_MSGCTXT))
 MSGFMT_ = /usr/bin/msgfmt
 MSGFMT_no = /usr/bin/msgfmt
-MSGFMT_yes = /usr/bin/msgfmt
+MSGFMT_yes = :
 MSGFMT = $(MSGFMT_$(USE_MSGCTXT))
 XGETTEXT_ = /usr/bin/xgettext
 XGETTEXT_no = /usr/bin/xgettext
-XGETTEXT_yes = /usr/bin/xgettext
+XGETTEXT_yes = :
 XGETTEXT = $(XGETTEXT_$(USE_MSGCTXT))
 MSGMERGE = msgmerge
 MSGMERGE_UPDATE = /usr/bin/msgmerge --update

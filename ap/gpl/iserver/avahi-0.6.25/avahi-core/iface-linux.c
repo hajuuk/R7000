@@ -151,7 +151,7 @@ static void netlink_callback(AvahiNetlink *nl, struct nlmsghdr *n, void* userdat
          * it is Avahi will start to announce its records on this
          * interface and send out queries for subscribed records on
          * it */
-        if( !strcmp(hw->name,"br0") )
+        if(strcmp(hw->name,"ppp0"))
         {
         avahi_hw_interface_check_relevant(hw);
 
@@ -177,8 +177,8 @@ static void netlink_callback(AvahiNetlink *nl, struct nlmsghdr *n, void* userdat
             return;
 
         /* Free our object */
-        if(!strcmp(hw->name,"br0"))
-        	avahi_hw_interface_free(hw, 0);
+        if(strcmp(hw->name,"ppp0"))
+        avahi_hw_interface_free(hw, 0);
         
     } else if (n->nlmsg_type == RTM_NEWADDR || n->nlmsg_type == RTM_DELADDR) {
 

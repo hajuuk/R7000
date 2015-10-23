@@ -6,13 +6,13 @@
 <script type="text/javascript">
 <!--
 var pchar = "|"; // progress char
-<%790%>
+<%808%>
 var maxchars = 45; 
-<%791%>
-<%792%>
+<%809%>
+<%810%>
 var maxchars = 50; 
-<%793%>
-var delay_time = <%794%>; // msecs
+<%811%>
+var delay_time = <%812%>; // msecs
 var charcount = 0; 
 function makeStr(strsize, fillchar)
 {
@@ -21,6 +21,14 @@ function makeStr(strsize, fillchar)
 		temp = temp + fillchar;
 	return temp;
 }
+function do_submit()
+	{
+    var objFrame  =document.getElementById("loading");
+		loadingImg = new Image();
+    loadingImg.src = "loading.gif";
+		document.forms[0].submit();
+		objFrame.src = loadingImg.src;  
+	}
 function updateProgress()
 {
 	var cf = document.forms[0];
@@ -32,14 +40,14 @@ function updateProgress()
 		setTimeout("updateProgress()",delay_time);
 	}
 	else
-        window.location.href=cf.next_file.value;
+              do_submit();
 }
 //-->
 </script>
-<link rel="stylesheet" type="text/css" href="<%2419%>"/>
+<link rel="stylesheet" type="text/css" href="<%2478%>"/>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="updateProgress()">
-<form name="update">
+<form name="formname" method="POST" action="genie_restoring.cgi">
 <table colspan="2" border="0" cellpadding="0" cellspacing="3"  width="99%">
 <tr style="height:10px">
 	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
@@ -47,12 +55,12 @@ function updateProgress()
 <tr>
 	<td>&nbsp;</td>
 	<td class="centerTd">
-		 <h2><%2483%></h2>
+		 <h2><%2542%></h2>
         </td>
 	<td>&nbsp;</td>
 </tr>
 <tr>
-	<td>&nbsp;</td><td class="textRow centerTd" ><%2484%></td><td>&nbsp;</td>
+	<td>&nbsp;</td><td class="textRow centerTd" ><%2543%></td><td>&nbsp;</td>
 <tr>
 <tr style="height:40px">
 	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
@@ -68,7 +76,8 @@ function updateProgress()
 	</tr>
 	
 </table>
-	<input type="hidden" name="next_file" value="<%789%>">
+	<input type="hidden" name="next_file" value="<%807%>">
+       <input type="hidden" name="record" value="<%2544%>">
 </form>
 </body>
 </html>
