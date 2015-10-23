@@ -61,3 +61,5 @@ endif
 
 INCLUDE_IPV6_FLAG=y
 CONFIG_WGET=y
+# 6rd support
+IPV6RD_ENABLE_FLAG=y

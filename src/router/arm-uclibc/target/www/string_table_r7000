@@ -4,7 +4,7 @@ lang_ori_english="Auto English German Chinese Korean Russian Spanish Polish Fren
 ////////////////////////////////Please keep the line below as it is ///////////////////////////////////////////////////////////////
 lang_ori="Auto English Deutsch 中文 한국어 Русский Español Polski Français Italiano Svenska Dansk Nederlands Ελληνικά Norsk Čeština Slovenščina Português Magyar Română Suomi Slovenčina Türkiye 日本語"
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-version="1.0.3.68_2.1.38.1"
+version="1.0.3.80_2.1.38.1"
 language="English"
 support_url="http://kbserver.netgear.com/main.asp"
 
@@ -1968,5 +1968,17 @@ led_control_settings="LED Control Settings"
 led_setting_1="Enable blinking on Internet LED, LAN LED, Wireless LED and USB LED when data traffic is detected"
 led_setting_2="Disable blinking on Internet LED, LAN LED, Wireless LED and USB LED when data traffic is detected"
 led_setting_3="Turn off all LEDs except Power LED"
+
+6rd="6rd"
+6rd_br="6rd Prefix Information"
+6rd_auto="Get dynamically from ISP"
+6rd_manual="Use fixed parameters"
+6rd_prefix="6rd Prefix / 6rd Prefix Length"
+6rd_masklen="IPv4 Mask Length"
+6rd_ipv4br_address="IPv4 Border Router Address"
+6rd_wan_dns="Set the WAN IPv6 DNS Server"
+6rd_wan_default_dns="Default Servers"
+6rd_wan_custom_dns="Custom Servers"
+
 support_gpl="GNU GPL"
 

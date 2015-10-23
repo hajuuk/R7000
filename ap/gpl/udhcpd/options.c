@@ -46,6 +46,9 @@ struct dhcp_option options[] = {
 	{"bootfile",	OPTION_STRING,				0x43},
 	{"rfc3442", OPTION_STRING  | OPTION_LIST | OPTION_REQ,	0x79}, /* classless-static-routes, foxconn added by EricHuang, 12/20/2007 */
 	{"rfc3442", OPTION_STRING  | OPTION_LIST | OPTION_REQ,	0xf9}, /* foxconn added, 03/08/2010, @option249 */
+#ifdef ACOS_IPV6RD
+	{"rfc5969", OPTION_STRING  | OPTION_LIST | OPTION_REQ,	0xd4}, /* Foxconn added by Kent, 06/25/2014, @option212 for IPv6rd*/
+#endif
 	{"",		0x00,				0x00}
 };
 

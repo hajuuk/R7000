@@ -112,6 +112,23 @@ static void fill_options(char *dest, unsigned char *option, struct dhcp_option *
         return;
     }
     /* foxconn added end by EricHuang, 03/12/2008 */
+#ifdef ACOS_IPV6RD
+    if ( strcmp(type_p->name, "rfc5969") == 0 )
+    {
+        FILE *fp=0;
+        
+        fp = fopen("/tmp/udhcpc.ipv6rd", "w+");
+
+        if (fp)
+        {
+            fwrite(option, 1, len, fp);
+            fclose(fp);
+        }
+        
+        dest += sprintf(dest, "%d", len); /* only save the length here ... */
+        return;
+    }
+#endif
     
 
 	optlen = option_lengths[type];

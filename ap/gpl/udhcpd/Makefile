@@ -69,6 +69,10 @@ ifeq ($(CONFIG_NEW_WANDETECT),y)
 CFLAGS += -DNEW_WANDETECT
 endif
 
+ifeq ($(IPV6RD_ENABLE_FLAG),y)
+CFLAGS += -DACOS_IPV6RD
+endif
+
 all: $(EXEC1) $(EXEC2) $(EXEC3)
 	$(STRIP) --remove-section=.note --remove-section=.comment $(EXEC1) $(EXEC2) $(EXEC3)
 

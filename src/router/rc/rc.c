@@ -2077,6 +2077,9 @@ sysinit(void)
         /* foxconn modified end, zacker, 08/06/2010 */
 
 		/* Load ctf */
+		if (nvram_match("access_control_mode", "1") &&
+			!nvram_match("ctf_disable", "1"))
+			nvram_set("ctf_disable", "1");
     /* Foxconn added start pling 08/19/2010 */
     /* Make sure the NVRAM "ctf_disable" exist, otherwise 
      * MultiSsidCntrl will not work.
@@ -2145,7 +2148,8 @@ sysinit(void)
         
         /* foxconn added start by Bob 03/10/2014, BRCM's workaround for bridge mode connect fail issue. */
         /* Reduce transmit power at 5G band, HT20,  OFDM MCS 0,1,2 Reduce from 21.5db to 20 db. */
-        nvram_set("pci/2/1/mcsbw205ghpo", "0xBA768888");
+        if (!nvram_match("pci/2/1/mcsbw205ghpo", "0xBA768600"))
+            nvram_set("pci/2/1/mcsbw205ghpo", "0xBA768600");
         /* foxconn added end by Bob 03/10/2014, BRCM's workaround for bridge mode connect fail issue. */
         
         
