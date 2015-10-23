@@ -285,6 +285,8 @@ static int create_ipv6_listener(struct listener **link, int port)
 }
 #endif
 
+extern int bind_addr;   /* Foxconn added pling 08/26/2013 */
+
 struct listener *create_wildcard_listeners(int port)
 {
 #if !(defined(IP_PKTINFO) || (defined(IP_RECVDSTADDR) && defined(IP_RECVIF) && defined(IP_SENDSRCADDR)))
@@ -297,7 +299,13 @@ struct listener *create_wildcard_listeners(int port)
   int tcpfd, fd;
 
   addr.in.sin_family = AF_INET;
-  addr.in.sin_addr.s_addr = INADDR_ANY;
+  //addr.in.sin_addr.s_addr = INADDR_ANY;
+  /* Foxconn added start pling 08/26/2013 */
+  /* Bind to LAN IP address, so it will not receive
+   * any loopback DNS queries */
+  if (bind_addr)
+      addr.in.sin_addr.s_addr = bind_addr;
+  /* Foxconn added end pling 08/26/2013 */
   addr.in.sin_port = htons(port);
 #ifdef HAVE_SOCKADDR_SA_LEN
   addr.in.sin_len = sizeof(struct sockaddr_in);
@@ -362,21 +370,29 @@ struct listener *create_bound_listeners(struct irec *interfaces, int port)
   for (iface = interfaces ;iface; iface = iface->next)
     if (iface->addr.sa.sa_family == AF_INET)
       {
-	struct listener *new = safe_malloc(sizeof(struct listener));
-	new->family = iface->addr.sa.sa_family;
-	new->next = listeners;
-	listeners = new;
-	if ((new->tcpfd = socket(iface->addr.sa.sa_family, SOCK_STREAM, 0)) == -1 ||
-	    (new->fd = socket(iface->addr.sa.sa_family, SOCK_DGRAM, 0)) == -1 ||
-	    setsockopt(new->fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1 ||
-	    setsockopt(new->tcpfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1 ||
-	    /* See Stevens 16.6 */
-	    (flags = fcntl(new->tcpfd, F_GETFL, 0)) == -1 ||
-	    fcntl(new->tcpfd, F_SETFL, flags | O_NONBLOCK) == -1 ||
-	    bind(new->tcpfd, &iface->addr.sa, sa_len(&iface->addr)) == -1 ||
-	    bind(new->fd, &iface->addr.sa, sa_len(&iface->addr)) == -1 ||
-	    listen(new->tcpfd, 5) == -1)
-	  die("failed to to create listening socket: %s", NULL);
+	    /* Foxconn added start pling 08/26/2013 */
+	    /* Only listen on LAN interface, but not others */
+	    if (bind_addr != 0 && iface->addr.in.sin_addr.s_addr != bind_addr)
+	    {
+	        printf("bypass unwanted i/f (0x%08x)\n", iface->addr.in.sin_addr.s_addr);
+	        continue;
+	    }
+	    /* Foxconn added end pling 08/26/2013 */
+	    struct listener *new = safe_malloc(sizeof(struct listener));
+	    new->family = iface->addr.sa.sa_family;
+	    new->next = listeners;
+	    listeners = new;
+	    if ((new->tcpfd = socket(iface->addr.sa.sa_family, SOCK_STREAM, 0)) == -1 ||
+	      (new->fd = socket(iface->addr.sa.sa_family, SOCK_DGRAM, 0)) == -1 ||
+	      setsockopt(new->fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1 ||
+	      setsockopt(new->tcpfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1 ||
+	      /* See Stevens 16.6 */
+	      (flags = fcntl(new->tcpfd, F_GETFL, 0)) == -1 ||
+	      fcntl(new->tcpfd, F_SETFL, flags | O_NONBLOCK) == -1 ||
+	      bind(new->tcpfd, &iface->addr.sa, sa_len(&iface->addr)) == -1 ||
+	      bind(new->fd, &iface->addr.sa, sa_len(&iface->addr)) == -1 ||
+	      listen(new->tcpfd, 5) == -1)
+	      die("failed to to create listening socket: %s", NULL);
       }
   
   return listeners;
@@ -454,6 +470,24 @@ void check_servers(struct daemon *daemon, struct irec *interfaces)
 	  for (iface = interfaces; iface; iface = iface->next)
 	    if (sockaddr_isequal(&new->addr, &iface->addr))
 	      break;
+
+	  /* Foxconn added start pling 08/26/2013 */
+	  /* Don't load these special addresses from resolv.conf 
+	   * to avoid DNS queries loopback to dnsmasq itself */
+	  if (strcmp(addrbuff, "0.0.0.0") == 0 ||
+	      strcmp(addrbuff, "127.0.0.1") == 0 ||
+	      strcmp(addrbuff, "255.255.255.255") == 0 ||
+	      strlen(addrbuff) < 7)
+	  {
+#ifdef USE_SYSLOG
+	      syslog(LOG_WARNING, "ignoring nameserver %s - invalid address", addrbuff);
+#endif
+	      printf("ignoring nameserver %s - invalid address\n", addrbuff);
+	      free(new);
+	      continue;
+	  }
+	  /* Foxconn added end pling 08/26/2013 */
+
 	  if (iface)
 	    {
 #ifdef USE_SYSLOG /* foxconn wklin added, 08/13/2007 */

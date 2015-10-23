@@ -111,7 +111,7 @@ function checkData()
 	if (cf.fwpt_timeout.value.length == 0 || !_isNumeric(timeout) || timeout <= 0 ||
 		cf.fwpt_timeout.value.match ( /^0/ ))
 	{
-		alert("<%1651%>");
+		alert("<%1704%>");
 		return false;
 	}
 	else
@@ -124,7 +124,7 @@ function doTypeChange(newIndex)
 {
 	var cf = document.forms[0];
 	if (newIndex == 0)
-		location.href = "FW_forward2.htm";
+		location.href = "FW_forward3.htm";
 	else if (newIndex == 1)
 		location.href = "FW_pt.htm";
 }
@@ -141,7 +141,7 @@ function srvAction(index)
         case 1:
             if (count == 20)
             {
-                alert("<%1652%>");
+                alert("<%1705%>");
                 return false;
             }
             cf.Add.value = "Add";
@@ -161,20 +161,20 @@ function srvAction(index)
 </script>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="change_size();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%59%>">
-<img class="body-image" src="<%60%>">
+<img class="cover-image" src="<%62%>">
+<img class="body-image" src="<%63%>">
 <div id="full-page-container">
 
 <form id="target"  name="formname" method="POST" action="fwpt.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="<%61%>">
-<div class="subhead2"> <%352%></div>
+<img class="subtop-image" src="<%64%>">
+<div class="subhead2"> <%368%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%63%>"  onclick="buttonClick(this,'<%63%>');return checkData();"  type="submit" name="srvApply" class="button-apply" > <span class="roundleft_apply" ><%64%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%65%>" onclick="buttonClick(this,'<%65%>');"  type="reset" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%66%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%66%>"  onclick="buttonClick(this,'<%66%>');return checkData();"  type="submit" name="srvApply" class="button-apply" > <span class="roundleft_apply" ><%67%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%68%>" onclick="buttonClick(this,'<%68%>');"  type="reset" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%69%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -185,29 +185,29 @@ function srvAction(index)
 
 <tr>
 <td colspan="2">
-<p><tabindex="-1"><b><%833%></b></a></p></td>
+<p><tabindex="-1"><b><%867%></b></a></p></td>
 </tr>
 <tr>
-<td colspan="2"><input type="radio" name="serv_type" value="pf" onClick="doTypeChange(0)"><%834%></td>
+<td colspan="2"><input type="radio" name="serv_type" value="pf" onClick="doTypeChange(0)"><%868%></td>
 </tr>
 <tr>
-<td colspan="2"><input type="radio" checked name="serv_type" value="pt" onClick="doTypeChange(1)"><%835%></td>
+<td colspan="2"><input type="radio" checked name="serv_type" value="pt" onClick="doTypeChange(1)"><%869%></td>
 </tr>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
-<tr><td nowrap width="46%"><input type="checkbox" name="fwpt_enable" value="1" <%1653%>><B><tabindex=-1><%1654%></a></B></td>
+<tr><td nowrap width="46%"><input type="checkbox" name="fwpt_enable" value="1" <%1706%>><B><tabindex=-1><%1707%></a></B></td>
 <td nowrap width="54%"></td></tr>
 <tr></tr>
 <tr>
-<td nowrap width="46%"><B><a href="javascript:loadhelp('FW_pt','pt_timeout')" tabindex=-1><%1655%></a></B><%1309%></td>
-<td nowrap width="54%" align="right"><input type="text" class="num" name="fwpt_timeout" size="5" maxlength="4" value="<%1656%>" onFocus="this.select();" ></td>
+<td nowrap width="46%"><B><a href="javascript:loadhelp('FW_pt','pt_timeout')" tabindex=-1><%1708%></a></B><%1346%></td>
+<td nowrap width="54%" align="right"><input type="text" class="num" name="fwpt_timeout" size="5" maxlength="4" value="<%1709%>" onFocus="this.select();" ></td>
 </tr>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
- <td colspan="2"><b><tabindex=-1><%1657%></a></b></td>
+ <td colspan="2"><b><tabindex=-1><%1710%></a></b></td>
 </tr>
 
 <tr>
@@ -216,21 +216,21 @@ function srvAction(index)
 <TR>
 	<td nowrap width="3%" align="center"><span class="thead">&nbsp;</span></td>
 	<td nowrap width="3%" align="center"><span class="thead">#</span></td>
-	<td nowrap align="center"><span class="thead"><%503%></span></td>
-	<td nowrap align="center"><span class="thead"><%836%></span></td>
-	<td nowrap align="center"><span class="thead"><%569%></span></td>
-	<td nowrap align="center"><span class="thead"><%1658%></span></td>
-	<td nowrap align="center"><span class="thead"><%1659%></span></td></tr>
+	<td nowrap align="center"><span class="thead"><%525%></span></td>
+	<td nowrap align="center"><span class="thead"><%870%></span></td>
+	<td nowrap align="center"><span class="thead"><%591%></span></td>
+	<td nowrap align="center"><span class="thead"><%1711%></span></td>
+	<td nowrap align="center"><span class="thead"><%1712%></span></td></tr>
 </TR> 
-	<%1660%>
+	<%1713%>
 </table>
 </td>
 </tr>
 
 <tr><td colspan="2" align="center" height="35" valign="bottom">
-&nbsp;&nbsp;&nbsp;<button type="button" value="<%1661%>" name="srvAdd" class="button-rule" onclick="buttonClick(this,'<%1661%>');srvAction(1);"><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%1661%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button type="button" value="<%845%>" name="srvEdit" class="button-rule" onclick="buttonClick(this,'<%845%>');srvAction(2);"><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%845%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button type="button" value="<%846%>" name="srvDelete" class="button-rule" onclick="buttonClick(this,'<%846%>');srvAction(3);"><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%846%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="button" value="<%1714%>" name="srvAdd" class="button-rule" onclick="buttonClick(this,'<%1714%>');srvAction(1);"><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%1714%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="button" value="<%877%>" name="srvEdit" class="button-rule" onclick="buttonClick(this,'<%877%>');srvAction(2);"><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%877%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="button" value="<%878%>" name="srvDelete" class="button-rule" onclick="buttonClick(this,'<%878%>');srvAction(3);"><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%878%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td></tr>
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
@@ -241,10 +241,10 @@ function srvAction(index)
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%231%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%235%> </span>
       </div>
 
 
@@ -255,7 +255,7 @@ function srvAction(index)
 <input type=hidden name=Edit value="">
 <input type=hidden name=Delete value="">
 <input type=hidden name=Apply value="Apply">
-<input type=hidden name=policyCount value="<%1662%>">
+<input type=hidden name=policyCount value="<%1715%>">
 <a name="helpframe-anchor"></a>
 </form>
 </div>

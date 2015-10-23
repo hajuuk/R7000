@@ -500,6 +500,14 @@ int ip6_forward(struct sk_buff *skb)
 				    ICMPV6_NOT_NEIGHBOUR, 0);
 			goto error;
 		}
+#if 1 /* IPv6Ready- Test v6LC.1.1.10 Part C: Request sent from unspecified address
+       * RFC 2460: Internet Protocol, Version 6 (IPv6) Specification
+       */ 
+		if (addrtype == IPV6_ADDR_ANY) {
+		   //IP6_INC_STATS(ip6_dst_idev(dst), IPSTATS_MIB_INDISCARDS);
+		   goto drop;
+      }
+#endif		
 	}
 
 	mtu = dst_mtu(dst);

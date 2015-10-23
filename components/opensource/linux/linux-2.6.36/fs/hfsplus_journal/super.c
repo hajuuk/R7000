@@ -175,7 +175,7 @@ int hfsplus_sync_fs(struct super_block *sb, int wait)
 	struct hfsplus_vh *vhdr = HFSPLUS_SB(sb).s_vhdr;
 
 	int write_backup = 0;
-	int error, error2;
+	int error=0, error2;
 
 	if (!wait)
 		return 0;

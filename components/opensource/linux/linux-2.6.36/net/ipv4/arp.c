@@ -124,6 +124,15 @@ EXPORT_SYMBOL(clip_tbl_hook);
 
 #include <linux/netfilter_arp.h>
 
+#define C_MAX_TOKEN_SIZE        128
+#define C_MAX_RESERVED_IP       64
+typedef struct ArpControlProfile {
+        char enable[12];
+        int numResrvAddr;
+        char resrvMacAddr[C_MAX_RESERVED_IP][C_MAX_TOKEN_SIZE];
+        char resrvIpAddr[C_MAX_RESERVED_IP][C_MAX_TOKEN_SIZE];
+}T_ArpCtlProfile;
+T_ArpCtlProfile arp_profile = {"disable", 0 ,"", ""};
 /*
  *	Interface to generic neighbour cache.
  */
@@ -896,6 +905,32 @@ static int arp_process(struct sk_buff *skb)
     }
 #endif
     /* foxconn wklin modified end, 02/02/2007 */
+#ifdef ARP_PROTECTION
+
+    if(!strcmp(skb->dev->name, "br0") && !strcmp(arp_profile.enable,"enable"))
+    {
+        unsigned char mac[64] = "";
+        unsigned char ip[16] = "";
+        int need_drop = 1;
+        int i;
+        sprintf(mac,"%02x:%02x:%02x:%02x:%02x:%02x",sha[0],sha[1],sha[2],sha[3],sha[4],sha[5]);
+        sprintf(ip,"%08x",ntohl(sip));
+        //printk("ip:%s  mac:%s\n",ip,mac);
+        for(i=0 ;i<arp_profile.numResrvAddr ; i++)
+        {
+            if(strcmp(arp_profile.resrvIpAddr[i],ip))
+                continue;
+            else if(!strcmp(arp_profile.resrvMacAddr[i],mac))
+            {
+                need_drop = 0;
+                break;
+            }
+
+        }
+        if(need_drop)
+            goto out;
+    }
+#endif
 
 	if (arp->ar_op == htons(ARPOP_REQUEST) &&
 	    ip_route_input_noref(skb, tip, sip, 0, dev) == 0) {
@@ -940,7 +975,11 @@ static int arp_process(struct sk_buff *skb)
 			}
 		}
 	}
+#ifdef ARP_PROTECTION
 
+    if(!strcmp(skb->dev->name, "br0") && !strcmp(arp_profile.enable,"enable"))
+        goto out;
+#endif
 	/* Update our ARP tables */
 
 	n = __neigh_lookup(&arp_tbl, &sip, dev, 0);
@@ -1216,6 +1255,13 @@ static int arp_req_delete(struct net *net, struct arpreq *r,
 
 int arp_ioctl(struct net *net, unsigned int cmd, void __user *arg)
 {
+#ifdef ARP_PROTECTION
+	unsigned long args[1];
+	int i;
+
+	if (copy_from_user(args, arg, sizeof(args)))
+		return -EFAULT;
+#endif
 	int err,b_updated;
 	struct arpreq r;
 	struct net_device *dev = NULL;
@@ -1240,6 +1286,19 @@ int arp_ioctl(struct net *net, unsigned int cmd, void __user *arg)
                         return b_updated; 
 			break;
 	        /* Foxconn tab tseng added end, 2013/05/27, for xbox qos */
+#ifdef ARP_PROTECTION
+		case SIOCREJARP:
+            printk("<0>%s %d\n",__FUNCTION__,__LINE__);
+			if(copy_from_user(&arp_profile, (void __user *)args[0], sizeof(T_ArpCtlProfile)))
+            {
+                //printk("<0>number1:%d,enable:%s\n",arp_profile.numResrvAddr,arp_profile.enable);
+                return -EFAULT;
+            }
+            /*printk("<0>number:%d,enable:%s\n",arp_profile.numResrvAddr,arp_profile.enable);
+            for(i= 0;i<arp_profile.numResrvAddr;i++)
+            printk("<0>ip:%s mac %s\n",arp_profile.resrvIpAddr[i],arp_profile.resrvMacAddr[i]);*/
+            return 0;
+#endif
 		default:
 			return -EINVAL;
 	}

@@ -195,7 +195,9 @@ int hfsplus_create_cat(hfsplus_handle_t *hfsplus_handle, u32 cnid, struct inode 
 
 	dprint(DBG_CAT_MOD, "create_cat: %s,%u(%d)\n", str->name, cnid, inode->i_nlink);
 	sb = dir->i_sb;
-	hfs_find_init(HFSPLUS_SB(sb).cat_tree, &fd);
+	err = hfs_find_init(HFSPLUS_SB(sb).cat_tree, &fd);
+	if (err)
+		return err;
 
 	hfsplus_cat_build_key(sb, fd.search_key, cnid, NULL);
 	entry_size = hfsplus_fill_cat_thread(sb, &entry, S_ISDIR(inode->i_mode) ?
@@ -253,7 +255,9 @@ int hfsplus_delete_cat(hfsplus_handle_t *hfsplus_handle, u32 cnid, struct inode 
 
 	dprint(DBG_CAT_MOD, "delete_cat: %s,%u\n", str ? str->name : NULL, cnid);
 	sb = dir->i_sb;
-	hfs_find_init(HFSPLUS_SB(sb).cat_tree, &fd);
+	err = hfs_find_init(HFSPLUS_SB(sb).cat_tree, &fd);
+	if (err)
+		return err;
 
 	if (!str) {
 		int len;
@@ -326,7 +330,9 @@ int hfsplus_rename_cat(hfsplus_handle_t *hfsplus_handle, u32 cnid,
 	dprint(DBG_CAT_MOD, "rename_cat: %u - %lu,%s - %lu,%s\n", cnid, src_dir->i_ino, src_name->name,
 		dst_dir->i_ino, dst_name->name);
 	sb = src_dir->i_sb;
-	hfs_find_init(HFSPLUS_SB(sb).cat_tree, &src_fd);
+	err = hfs_find_init(HFSPLUS_SB(sb).cat_tree, &src_fd);
+	if (err)
+		return err;
 	dst_fd = src_fd;
 
 	/* find the old dir entry and read the data */
@@ -334,6 +340,10 @@ int hfsplus_rename_cat(hfsplus_handle_t *hfsplus_handle, u32 cnid,
 	err = hfs_brec_find(hfsplus_handle, &src_fd);
 	if (err)
 		goto out;
+	if (src_fd.entrylength > sizeof(entry) || src_fd.entrylength < 0) {
+		err = -EIO;
+		goto out;
+	}
 
 	hfs_bnode_read(src_fd.bnode, &entry, src_fd.entryoffset,
 				src_fd.entrylength);

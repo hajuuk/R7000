@@ -17,7 +17,7 @@ old_library='libavahi-core.a'
 inherited_linker_flags=' -pthread'
 
 # Libraries that this one depends upon.
-dependency_libs=' -L/home/edward/R7000/Bric/release/V1.0.2.200/V1.0.2.120_1.0.17/ap/gpl/iserver/build/usr/lib /usr/lib/libavahi-common.la'
+dependency_libs=' -L/home/edward/GPL/V1.0.3.28_1.1.22PRRU/ap/gpl/iserver/build/usr/lib /usr/lib/libavahi-common.la'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''

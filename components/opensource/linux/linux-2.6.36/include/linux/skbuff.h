@@ -359,6 +359,7 @@ struct sk_buff {
 	__u8			tcpf_smb:1,
 				tcpf_hdrbuf:1,
 				tcpf_nf:1;
+
 	unsigned int		len,
 				data_len;
 	__u16			mac_len,

@@ -60,6 +60,15 @@ struct file_memory {
   long length;
   int mmap_p;
 };
+typedef struct status
+{
+  char url[1024];
+  char filename[256];
+  char filesize[64];
+  char status[2];
+  char percentage[8];
+  char speed[8];
+}status_t;
 
 #define HYPHENP(x) (*(x) == '-' && !*((x) + 1))
 
@@ -73,6 +82,10 @@ char **sepstring (const char *);
 bool subdir_p (const char *, const char *);
 void fork_to_background (void);
 
+int update_status_file(char *str, int flag, int pid);
+int create_mission_folder(int pid);
+void tr_wait_msec( long int msec );
+int calc_ftp_percentage(char *str, char *per);
 char *aprintf (const char *, ...) GCC_FORMAT_ATTR (1, 2);
 char *concat_strings (const char *, ...);
 

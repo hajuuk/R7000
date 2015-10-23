@@ -124,13 +124,13 @@ avahi_autoipd-main.o: main.c ../config.h \
  ../avahi-common/malloc.h ../avahi-common/cdecl.h \
  ../avahi-common/gccmacro.h ../avahi-common/timeval.h \
  ../avahi-daemon/setproctitle.h \
- /disk2/antony/R7000/temp/V1.0.2.0_1.0.16/ap/gpl/iserver/build/usr/include/libdaemon/dfork.h \
- /disk2/antony/R7000/temp/V1.0.2.0_1.0.16/ap/gpl/iserver/build/usr/include/libdaemon/dsignal.h \
- /disk2/antony/R7000/temp/V1.0.2.0_1.0.16/ap/gpl/iserver/build/usr/include/libdaemon/dlog.h \
+ /home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/libdaemon/dfork.h \
+ /home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/libdaemon/dsignal.h \
+ /home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/libdaemon/dlog.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/syslog.h \
  /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/sys/syslog.h \
- /disk2/antony/R7000/temp/V1.0.2.0_1.0.16/ap/gpl/iserver/build/usr/include/libdaemon/dpid.h \
- /disk2/antony/R7000/temp/V1.0.2.0_1.0.16/ap/gpl/iserver/build/usr/include/libdaemon/dexec.h \
+ /home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/libdaemon/dpid.h \
+ /home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/libdaemon/dexec.h \
  main.h iface.h
 
 ../config.h:
@@ -389,19 +389,19 @@ avahi_autoipd-main.o: main.c ../config.h \
 
 ../avahi-daemon/setproctitle.h:
 
-/disk2/antony/R7000/temp/V1.0.2.0_1.0.16/ap/gpl/iserver/build/usr/include/libdaemon/dfork.h:
+/home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/libdaemon/dfork.h:
 
-/disk2/antony/R7000/temp/V1.0.2.0_1.0.16/ap/gpl/iserver/build/usr/include/libdaemon/dsignal.h:
+/home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/libdaemon/dsignal.h:
 
-/disk2/antony/R7000/temp/V1.0.2.0_1.0.16/ap/gpl/iserver/build/usr/include/libdaemon/dlog.h:
+/home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/libdaemon/dlog.h:
 
 /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/syslog.h:
 
 /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/sys/syslog.h:
 
-/disk2/antony/R7000/temp/V1.0.2.0_1.0.16/ap/gpl/iserver/build/usr/include/libdaemon/dpid.h:
+/home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/libdaemon/dpid.h:
 
-/disk2/antony/R7000/temp/V1.0.2.0_1.0.16/ap/gpl/iserver/build/usr/include/libdaemon/dexec.h:
+/home/antony/2012_11_02_BSP_6.30.153.0/ap/gpl/iserver/build/usr/include/libdaemon/dexec.h:
 
 main.h:
 

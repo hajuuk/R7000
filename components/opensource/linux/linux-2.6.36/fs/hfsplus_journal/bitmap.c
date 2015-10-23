@@ -179,6 +179,8 @@ int hfsplus_block_free(hfsplus_handle_t *hfsplus_handle, struct super_block *sb,
 	mapping = HFSPLUS_SB(sb).alloc_file->i_mapping;
 	pnr = offset / PAGE_CACHE_BITS;
 	page = read_mapping_page(mapping, pnr, NULL);
+	if (IS_ERR(page))
+		goto kaboom;
 	pptr = kmap(page);
 	curr = pptr + (offset & (PAGE_CACHE_BITS - 1)) / 32;
 	end = pptr + PAGE_CACHE_BITS / 32;
@@ -211,6 +213,8 @@ int hfsplus_block_free(hfsplus_handle_t *hfsplus_handle, struct super_block *sb,
 		hfsplus_journalled_set_page_dirty(hfsplus_handle, page);
 		kunmap(page);
 		page = read_mapping_page(mapping, ++pnr, NULL);
+		if (IS_ERR(page))
+			goto kaboom;
 		pptr = kmap(page);
 		curr = pptr;
 		end = pptr + PAGE_CACHE_BITS / 32;
@@ -229,4 +233,10 @@ out:
 	mutex_unlock(&HFSPLUS_SB(sb).alloc_mutex);
 
 	return 0;
+
+kaboom:
+	pr_crit("unable to mark blocks free: error %ld\n", PTR_ERR(page));
+	mutex_unlock(&HFSPLUS_SB(sb).alloc_mutex);
+
+	return -EIO;
 }

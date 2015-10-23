@@ -13,18 +13,47 @@
 <title>NETGEAR Router <%12%></title>
 <script type="text/javascript" id="sourcecode">
 <!--
- $(document).ready(function() {
-        $('#content').jScrollPane('scrollbarMargin:5px');
-
-		// Workaround for known Opera issue which breaks demo (see
-	// http://jscrollpane.kelvinluck.com/known_issues.html#opera-scrollbar )
-		// IE calculates the width incorrectly first time round (it
-		// doesn't count the space used by the native scrollbar) so
-		// we re-trigger if necessary.
-	});
+    $(function()
+    {
+        $('#content').each(
+            function()
+            {
+                $(this).jScrollPane(
+                {
+                    showArrows: $(this).is('.arrow')
+                }
+            );
+            var api = $(this).data('jsp');
+            var throttleTimeout;
+            $(window).bind(
+                'resize',
+            function()
+            {
+                if ($.browser.msie) {
+                    // IE fires multiple resize events while you are dragging the browser window which
+                    // causes it to crash if you try to update the scrollpane on every one. So we need
+                    // to throttle it to fire a maximum of once every 50 milliseconds...
+                    if (!throttleTimeout) {
+                        throttleTimeout = setTimeout(
+                            function()
+                            {
+                                api.reinitialise();
+                                throttleTimeout = null;
+                            },
+                            50
+                        );
+                    }
+                } else {
+                    api.reinitialise();
+                }
+            }
+            );
+            }
+        )
+    });
 //-->
 </script>
 
 </head>
-<%1763%>
+<%1830%>
 </html>

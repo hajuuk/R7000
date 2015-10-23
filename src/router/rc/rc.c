@@ -84,6 +84,7 @@ static void rc_signal(int sig);
 /* Foxconn added start, Wins, 05/16/2011, @RU_IPTV */
 #if defined(CONFIG_RUSSIA_IPTV)
 static int is_russia_specific_support (void);
+static int is_china_specific_support (void); 
 #endif /* CONFIG_RUSSIA_IPTV */
 /* Foxconn added end, Wins, 05/16/2011, @RU_IPTV */
 
@@ -91,6 +92,29 @@ extern struct nvram_tuple router_defaults[];
 
 #define RESTORE_DEFAULTS() \
 	(!nvram_match("restore_defaults", "0") || nvram_invmatch("os_name", "linux"))
+#ifdef LINUX_2_6_36
+static int
+coma_uevent(void)
+{
+	char *modalias = NULL;
+	char lan_ifname[32], *lan_ifnames, *next;
+
+	modalias = getenv("MODALIAS");
+	if (!strcmp(modalias, "platform:coma_dev")) {
+
+		/* down WiFi adapter */
+		lan_ifnames = nvram_safe_get("lan_ifnames");
+		foreach(lan_ifname, lan_ifnames, next) {
+			if (!strncmp(lan_ifname, "eth", 3)) {
+				eval("wl", "-i", lan_ifname, "down");
+			}
+		}
+
+		system("echo \"2\" > /proc/bcm947xx/coma");
+	}
+	return 0;
+}
+#endif /* LINUX_2_6_36 */
 
 #define RESTORE_DEFAULTS() (!nvram_match("restore_defaults", "0") || nvram_invmatch("os_name", "linux"))
 
@@ -227,58 +251,13 @@ static void convert_wlan_params(void)
     nvram_set("wla_ssid", nvram_safe_get("wl0_ssid"));
     nvram_set("wla_temp_ssid", nvram_safe_get("wl0_ssid"));
 
-    if ( strncmp(nvram_safe_get("wl0_akm"), "psk psk2", 7) == 0 )
-    {
-        nvram_set("wla_secu_type", "WPA-AUTO-PSK");
-        nvram_set("wla_temp_secu_type", "WPA-AUTO-PSK");
-        nvram_set("wla_passphrase", nvram_safe_get("wl0_wpa_psk"));
-
-        /* If router changes from 'unconfigured' to 'configured' state by
-         * adding a WPS client, the wsc_randomssid and wsc_randomkey will
-         * be set. In this case, router should use mixedmode security.
-         */
-
-        if (!nvram_match("wps_randomssid", "") ||
-            !nvram_match("wps_randomkey", ""))
-        {
-            nvram_set("wla_secu_type", "WPA-AUTO-PSK");
-            nvram_set("wla_temp_secu_type", "WPA-AUTO-PSK");
-
-            nvram_set("wl0_akm", "psk psk2 ");
-            nvram_set("wl0_crypto", "tkip+aes");
-
-            nvram_set("wps_mixedmode", "2");
-            //nvram_set("wps_randomssid", "");
-            //nvram_set("wps_randomkey", "");
-            config_flag = 1;
-            /* Since we changed to mixed mode, 
-             * so we need to disable WDS if it is already enabled
-             */
-            if (nvram_match("wla_wds_enable", "1"))
-            {
-                nvram_set("wla_wds_enable",  "0");
-                nvram_set("wl0_wds", "");
-                nvram_set("wl0_mode", "ap");
-            }
-        }
-        else
-        {
-            /* Foxconn added start pling 02/25/2007 */
-            /* Disable WDS if it is already enabled */
-            if (nvram_match("wla_wds_enable", "1"))
-            {
-                nvram_set("wla_wds_enable",  "0");
-                nvram_set("wl0_wds", "");
-                nvram_set("wl0_mode", "ap");
-            }
-            /* Foxconn added end pling 02/25/2007 */
-        }
-    }
-    else if ( strncmp(nvram_safe_get("wl0_akm"), "psk2", 4) == 0 )
+    if (( strncmp(nvram_safe_get("wl0_akm"), "psk2", 4) == 0 ) || 
+    	  ( strncmp(nvram_safe_get("wl0_akm"), "psk psk2", 7) == 0 ))
     {
         nvram_set("wla_secu_type", "WPA2-PSK");
         nvram_set("wla_temp_secu_type", "WPA2-PSK");
         nvram_set("wla_passphrase", nvram_safe_get("wl0_wpa_psk"));
+        nvram_set("wl0_akm", "psk2");
 
 
         /* If router changes from 'unconfigured' to 'configured' state by
@@ -300,25 +279,19 @@ static void convert_wlan_params(void)
         if (!nvram_match("wps_randomssid", "") ||
             !nvram_match("wps_randomkey", ""))
         {
-            nvram_set("wla_secu_type", "WPA-AUTO-PSK");
-            nvram_set("wla_temp_secu_type", "WPA-AUTO-PSK");
+        nvram_set("wla_secu_type", "WPA2-PSK");
+        nvram_set("wla_temp_secu_type", "WPA2-PSK");
+//            nvram_set("wla_secu_type", "WPA-AUTO-PSK");
+//            nvram_set("wla_temp_secu_type", "WPA-AUTO-PSK");
 
-            nvram_set("wl0_akm", "psk psk2 ");
-            nvram_set("wl0_crypto", "tkip+aes");
+            nvram_set("wl0_akm", "psk2");
+            nvram_set("wl0_crypto", "aes");
 
             nvram_set("wps_mixedmode", "2");
             //nvram_set("wps_randomssid", "");
             //nvram_set("wps_randomkey", "");
             config_flag = 1;
-            /* Since we changed to mixed mode, 
-             * so we need to disable WDS if it is already enabled
-             */
-            if (nvram_match("wla_wds_enable", "1"))
-            {
-                nvram_set("wla_wds_enable",  "0");
-                nvram_set("wl0_wds", "");
-                nvram_set("wl0_mode", "ap");
-            }
+
         }
         else
         {
@@ -490,57 +463,12 @@ static void convert_wlan_params(void)
     nvram_set("wlg_ssid", nvram_safe_get("wl1_ssid"));
     nvram_set("wlg_temp_ssid", nvram_safe_get("wl1_ssid"));
 
-    if ( strncmp(nvram_safe_get("wl1_akm"), "psk psk2", 7) == 0 )
-    {
-        nvram_set("wlg_secu_type", "WPA-AUTO-PSK");
-        nvram_set("wlg_temp_secu_type", "WPA-AUTO-PSK");
-        nvram_set("wlg_passphrase", nvram_safe_get("wl1_wpa_psk"));
-
-        /* If router changes from 'unconfigured' to 'configured' state by
-         * adding a WPS client, the wsc_randomssid and wsc_randomkey will
-         * be set. In this case, router should use mixedmode security.
-         */
-
-        if (!nvram_match("wps_randomssid", "") ||
-            !nvram_match("wps_randomkey", ""))
-        {
-            nvram_set("wlg_secu_type", "WPA-AUTO-PSK");
-            nvram_set("wlg_temp_secu_type", "WPA-AUTO-PSK");
-
-            nvram_set("wl1_akm", "psk psk2 ");
-            nvram_set("wl1_crypto", "tkip+aes");
-
-            nvram_set("wps_mixedmode", "2");
-            //nvram_set("wps_randomssid", "");
-            //nvram_set("wps_randomkey", "");
-            config_flag = 1;
-            /* Since we changed to mixed mode, 
-             * so we need to disable WDS if it is already enabled
-             */
-            if (nvram_match("wlg_wds_enable", "1"))
-            {
-                nvram_set("wlg_wds_enable",  "0");
-                nvram_set("wl1_wds", "");
-                nvram_set("wl1_mode", "ap");
-            }
-        }
-        else
-        {
-            /* Foxconn added start pling 02/25/2007 */
-            /* Disable WDS if it is already enabled */
-            if (nvram_match("wlg_wds_enable", "1"))
-            {
-                nvram_set("wlg_wds_enable",  "0");
-                nvram_set("wl1_wds", "");
-                nvram_set("wl1_mode", "ap");
-            }
-            /* Foxconn added end pling 02/25/2007 */
-        }
-    }
-    else if ( strncmp(nvram_safe_get("wl1_akm"), "psk2", 4) == 0 )
+    if ( (strncmp(nvram_safe_get("wl1_akm"), "psk2", 4) == 0) || 
+    	( strncmp(nvram_safe_get("wl1_akm"), "psk psk2", 7) == 0 ))
     {
         nvram_set("wlg_secu_type", "WPA2-PSK");
         nvram_set("wlg_temp_secu_type", "WPA2-PSK");
+        nvram_set("wl1_akm", "psk2");
         nvram_set("wlg_passphrase", nvram_safe_get("wl1_wpa_psk"));
 
 
@@ -564,25 +492,17 @@ static void convert_wlan_params(void)
         if (!nvram_match("wps_randomssid", "") ||
             !nvram_match("wps_randomkey", ""))
         {
-            nvram_set("wlg_secu_type", "WPA-AUTO-PSK");
-            nvram_set("wlg_temp_secu_type", "WPA-AUTO-PSK");
+            nvram_set("wlg_secu_type", "WPA2-PSK");
+            nvram_set("wlg_temp_secu_type", "WPA2-PSK");
 
-            nvram_set("wl1_akm", "psk psk2 ");
-            nvram_set("wl1_crypto", "tkip+aes");
+            nvram_set("wl1_akm", "psk2");
+            nvram_set("wl1_crypto", "aes");
 
-            nvram_set("wps_mixedmode", "2");
+            nvram_unset("wps_mixedmode");
             //nvram_set("wps_randomssid", "");
             //nvram_set("wps_randomkey", "");
             config_flag = 1;
-            /* Since we changed to mixed mode, 
-             * so we need to disable WDS if it is already enabled
-             */
-            if (nvram_match("wlg_wds_enable", "1"))
-            {
-                nvram_set("wlg_wds_enable",  "0");
-                nvram_set("wl1_wds", "");
-                nvram_set("wl1_mode", "ap");
-            }
+
         }
         else
         {
@@ -789,7 +709,7 @@ static int config_iptv_params(void)
     /*added by dennis start,05/04/2012,for guest network reconnect issue*/
     char br0_ifnames[64]="";
     char if_name[16]="";
-    char wl_param[16]="";
+    char wl_param[32]="";   
     char command[128]="";
     int i = 0;
     /*added by dennis end,05/04/2012,for guest network reconnect issue*/
@@ -865,8 +785,8 @@ static int config_iptv_params(void)
 
     if (iptv_bridge_intf & IPTV_MASK)
     {
-        char lan_ifnames[32] = "vlan1 ";
-        char wan_ifnames[32] = "vlan2 ";
+        char lan_ifnames[64] = "vlan1 ";   
+        char wan_ifnames[64] = "vlan2 ";   
     
 #ifdef __CONFIG_IGMP_SNOOPING__
         /* always enable snooping for IPTV */
@@ -892,7 +812,30 @@ static int config_iptv_params(void)
             strcat(wan_ifnames, "eth2 ");
         else
             strcat(lan_ifnames, "eth2 ");
-
+        if (iptv_bridge_intf & IPTV_WLAN3)
+            strcat(wan_ifnames, "wl0.1 ");
+        else 
+        {
+            for(i = MIN_BSSID_NUM; i <= MAX_BSSID_NUM; i++){
+                sprintf(wl_param, "%s_%d", "wla_sec_profile_enable", i);     
+                if(nvram_match(wl_param, "1")){
+                    sprintf(if_name, "wl0.%d ", i-1);
+                    strcat(lan_ifnames, if_name);
+                }
+            }
+        }
+        if (iptv_bridge_intf & IPTV_WLAN4)
+            strcat(wan_ifnames, "wl1.1 ");
+        else
+        {
+            for(i = MIN_BSSID_NUM; i <= MAX_BSSID_NUM; i++){
+                sprintf(wl_param, "%s_%d", "wlg_sec_profile_enable", i); 
+                if(nvram_match(wl_param, "1")){
+                    sprintf(if_name, "wl1.%d ", i-1);
+                    strcat(lan_ifnames, if_name);
+                }
+            }
+        }
         
 
         //nvram_set("lan_ifnames", lan_ifnames);
@@ -929,13 +872,24 @@ static int config_iptv_params(void)
 #endif
         {
 #if ( defined(R7000))
-            nvram_set("vlan2ports", "0 5u");
+/* foxconn revise start ken chen @ 08/23/2013, to fix IGMP report duplicated in AP mode*/
+            if (nvram_match("enable_ap_mode", "1")) {
+                nvram_set("vlan2ports", "0 5");
+                nvram_set("wan_ifnames", "vlan2 ");
+                nvram_set("wan_ifname", "vlan2");
+            }
+            else {
+                nvram_set("vlan2ports", "0 5u");
+                nvram_set("wan_ifnames", "eth0 ");
+                nvram_set("wan_ifname", "eth0");
+            }
 #else
             nvram_set("vlan2ports", "4 5");
-#endif
+//#endif
             nvram_set("wan_ifnames", "eth0 ");
             nvram_set("wan_ifname", "eth0");
-
+#endif
+/* foxconn revise end ken chen @ 08/23/2013, to fix IGMP report duplicated in AP mode*/
         }
     }
 
@@ -1227,6 +1181,39 @@ static int is_russia_specific_support (void)
 
     return result;
 }
+static int is_china_specific_support (void)
+{
+    int result = 0;
+    char sku_name[8];
+
+    /* Router Spec v2.0:                                                        *
+     *   Case 1: RU specific firmware.                                          *
+     *   Case 2: single firmware & region code is PR.                           *
+     *   Case 3: WW firmware & GUI language is Chinise.                         *
+     *   Case 4: single firmware & region code is WW & GUI language is Chinise. *
+     * Currently, new built firmware will be single firmware.                   */
+    strcpy(sku_name, nvram_get("sku_name"));
+    if (!strcmp(sku_name, "PR"))
+    {
+        /* Case 2: single firmware & region code is PR. */
+        /* Region is PR (0x0004) */
+        result = 1;
+    }
+    else if (!strcmp(sku_name, "WW"))
+    {
+        /* Region is WW (0x0002) */
+        char gui_region[16];
+        strcpy(gui_region, nvram_get("gui_region"));
+        if (!strcmp(gui_region, "Chinese"))
+        {
+            /* Case 4: single firmware & region code is WW & GUI language is Chinise */
+            /* GUI language is Chinise */
+            result = 1;
+        }
+    }
+
+    return result;
+}
 #endif /* CONFIG_RUSSIA_IPTV */
 /* Foxconn added end, Wins, 04/20/2011 @RU_IPTV */
 
@@ -1234,15 +1221,16 @@ static int send_wps_led_cmd(int cmd, int arg)
 {
     int ret_val=0;
     int fd;
+    int new_arg;
 
     fd = open(DEV_WPS_LED, O_RDWR);
     if (fd < 0) 
         return -1;
 
     if (is_secure_wl())
-        arg = 1;
+        new_arg = 1;
     else
-        arg = 0;
+        new_arg = 0;
 
     switch (should_stop_wps())
     {
@@ -1259,8 +1247,17 @@ static int send_wps_led_cmd(int cmd, int arg)
         default:
             break;
     }
-
-    ret_val = ioctl(fd, cmd, arg);
+    /* Foxconn modified start, Jesse Chen 12/05/2012 @match "send_wps_led_cmd" function in wps_monitor.c*/
+    /* 
+     *In case 3400v2, We can use "WPS_LED_CHANGE_GREEN" or "WPS_LED_CHANGE_AMBER" change wps led status,
+     *need not to always follow it's wireless security settings
+     */
+#ifdef WNDR3400v2    
+    if ( (cmd == WPS_LED_CHANGE_GREEN) || (cmd == WPS_LED_CHANGE_AMBER) )
+         new_arg = arg;
+#endif
+    /* Foxconn modified end, Jesse Chen 12/05/2012 @match "send_wps_led_cmd" function in wps_monitor.c*/
+    ret_val = ioctl(fd, cmd, new_arg);
     close(fd);
 
     return ret_val;
@@ -2070,6 +2067,9 @@ sysinit(void)
 	mkdir("/var/run", 0777);
 	mkdir("/var/tmp", 0777);
 	mkdir("/tmp/media", 0777);
+	/* Foxconn added start by Kathy, 10/14/2013 @ Facebook WiFi */
+    mkdir("/tmp/fbwifi", 0777);
+	/* Foxconn added end by Kathy, 10/14/2013 @ Facebook WiFi */
 
 #ifdef __CONFIG_UTELNETD__
 	/* If kernel enable unix908 pty then we have to make following things. */
@@ -2089,6 +2089,11 @@ sysinit(void)
 	mkdir("/tmp/samba/private", 0777);
 	mkdir("/tmp/samba/var", 0777);
 	mkdir("/tmp/samba/var/locks", 0777);
+
+#if defined(LINUX_2_6_36)
+	/* To improve SAMBA upload performance */
+	reclaim_mem_earlier();
+#endif /* LINUX_2_6_36 */
 #endif
 
 #ifdef BCMQOS
@@ -2165,10 +2170,11 @@ sysinit(void)
 		/* Load the EMF & IGMP Snooper modules */
 		load_emf();
 #endif /*  __CONFIG_EMF__ */
+#if 0
 #if defined(__CONFIG_HSPOT__) || defined(__CONFIG_NPS__)
 		eval("insmod", "proxyarp");
 #endif /*  __CONFIG_HSPOT__ || __CONFIG_NPS__ */
-
+#endif
     /* Bob added start to avoid sending unexpected dad, 09/16/2009 */
 #ifdef INCLUDE_IPV6
 		if (nvram_match("ipv6ready","1"))
@@ -2198,6 +2204,13 @@ sysinit(void)
 #endif
 		/* Foxconn added end pling 09/02/2010 */
 
+        /* foxconn added start by Bob 12/12/2013, BRCM suggest not to enable rxchain power save */
+        nvram_set("wl_rxchain_pwrsave_enable", "0");
+        nvram_unset("wl0_rxchain_pwrsave_enable");
+        nvram_unset("wl1_rxchain_pwrsave_enable");
+        /* foxconn added end by Bob 12/12/2013, BRCM suggest not to enable rxchain power save */
+        
+                
 		//modules = nvram_get("kernel_mods") ? : "et bcm57xx wl";
 		/*Foxconn modify start by Hank for insert dpsta 08/27/2012*/
 		/*Foxconn modify start by Hank for insert proxyarp 10/05/2012*/
@@ -2511,156 +2524,88 @@ do_timer(void)
 	return 0;
 }
 
-#ifdef AUTO_UPGRADE_CFE
-
-#include <mtd/mtd-user.h>
-#define IMAGE_BLOCK_SIZE        0x20000
-
-static int writeXndmtd
-(
-    char *mtdFileName, 
-    FILE *fp, 
-    unsigned int imageSize,
-    unsigned long checksum
-)
+#ifdef ARP_PROTECTION
+static int getTokens(char *str, char *delimiter, char token[][C_MAX_TOKEN_SIZE], int maxNumToken)
 {
-    mtd_info_t mtd_info;
-    erase_info_t erase_info;    
-    unsigned int block_offset = 0;
-    unsigned long block_size;
-    int mtd_fd = -1;
-    char partition_data[8];
-    off_t offset;
-    char buf[IMAGE_BLOCK_SIZE];
-    int count;
-    int curr_offset, last_block_offset;    
+    char temp[16*1024];    
+    char *field;
+    int numToken=0, i, j;
+    char *ppLast = NULL;
 
-    /* Open MTD device and get sector size */
-    if ((mtd_fd = open(mtdFileName, O_RDWR)) < 0 ||
-        ioctl(mtd_fd, MEMGETINFO, &mtd_info) != 0)
-    {
-        perror("mtd open");
+    /* Check for empty string */
+    if (str == NULL || str[0] == '\0')
         return 0;
-    }
-
-    erase_info.length = mtd_info.erasesize;
-    block_size = mtd_info.erasesize;
-
-    /* foxconn added start, zacker, 03/30/2011, 128K/block nflash */
-    if (IMAGE_BLOCK_SIZE < block_size)
-        printf("\nWARNING: IMAGE_BLOCK_SIZE(0x%x) < block_size(0x%x)!!!\n",
-                IMAGE_BLOCK_SIZE, block_size);
-    /* foxconn added end, zacker, 03/30/2011, 128K/block nflash */
-
-    printf("Writing %u bytes to %s", imageSize, mtdFileName);
-
-    /* Write file or URL to MTD device */
-
-    /* foxconn added start, zacker, 06/11/2011 */
+   
+    /* Now get the tokens */
+    strcpy(temp, str);
+    
+    for (i=0; i<maxNumToken; i++)
     {
-        unsigned char *pImage = NULL;
-        int fail_count = 0;
+        if (i == 0)
+            field = strtok_r(temp, delimiter, &ppLast);
+        else 
+            field = strtok_r(NULL, delimiter, &ppLast);
 
-        if ((pImage = malloc(imageSize)) == NULL)
+        /* Foxconn modified start, Wins, 06/27/2010 */
+        //if (field == NULL || field[0] == '\0')
+        if (field == NULL || (field != NULL && field[0] == '\0'))
+        /* Foxconn modified end, Wins, 06/27/2010 */
         {
-            printf("malloc fail. imageSize=%d\n",
-                        imageSize);
-            block_offset = 0;
-            goto cleanup;
+            for (j=i; j<maxNumToken; j++)
+                token[j][0] = '\0';
+            break;
         }
 
-        /* Now read the whole file into buffer */
-        count = fread(pImage, 1, imageSize, fp);
-        if (count != imageSize)
-        {
-            printf("fread fail. count=%d imageSize=%d\n",
-                        count, imageSize);
-            block_offset = 0;
-            goto cleanup;
-        }
-
-        /* don't use MEMUNLOCK and MEMERASE for nflash */
-nflash_try_again:
-        count = write(mtd_fd, pImage, imageSize);
-        if ((count < 0) || (count != imageSize))
-        {
-            fail_count++;
-            printf("[%d]write fail. count=%d imageSize=%d\n",
-                        fail_count, count, imageSize);
-            if (fail_count > 3)
-            {
-                block_offset = 0;
-                goto cleanup;
-            }
-            else
-            {
-                lseek(mtd_fd, 0, SEEK_SET);
-                goto nflash_try_again;
-            }
-        }
-
-        block_offset = imageSize;
-cleanup:
-        if (pImage)
-        {
-            free(pImage);
-            pImage = NULL;
-        }
+        numToken++;
+        strcpy(token[i], field);
     }
-    /* foxconn added end, zacker, 06/11/2011 */
-		fsync(mtd_fd);
 
-    cprintf("\nUpgrade OK!\n");
-
-    if (mtd_fd >= 0)
-        close (mtd_fd);
-
-    return block_offset;
+    return numToken;
 }
 
-int calculateFileSize(FILE *fd, unsigned long *size)
+static int getReservedAddr(char reservedMacAddr[][C_MAX_TOKEN_SIZE], char reservedIpAddr[][C_MAX_TOKEN_SIZE])
 {
-    unsigned long start = 0;
-    unsigned long end = 0;
-
-    if (!size)
-        return 0;
-    if (fseek(fd, 0L, SEEK_SET) < 0)
+    int numReservedMac=0, numReservedIp=0;
+    char *var;
+    
+    /* Read MAC and IP address tokens */
+    if ( (var = acosNvramConfig_get("dhcp_resrv_mac")) != NULL )
     {
-        *size = 0;
-        return 0;
+        numReservedMac = getTokens(var, " ", reservedMacAddr, C_MAX_RESERVED_IP);
     }
-    if ((start = ftell(fd)) < 0)
+    
+    if ( (var=acosNvramConfig_get("dhcp_resrv_ip")) != NULL )
     {
-        *size = 0;
-        return 0;
+        numReservedIp = getTokens(var, " ", reservedIpAddr, C_MAX_RESERVED_IP);
     }
-    if (fseek(fd, 0L, SEEK_END) < 0)
+    
+    if (numReservedMac != numReservedIp)
     {
-        *size = 0;
-        return 0;
+        printf("getReservedAddr: reserved mac and ip not match\n");
     }
-    if ((end = ftell(fd)) < 0)
-    {
-        *size = 0;
-        return 0;
-    }
-    if (fseek(fd, 0L, SEEK_SET) < 0)
-    {
-        *size = 0;
-        return 0;
-    }
-    if ((end - start) < 0)
-    {
-        *size = 0;
-        return 0;
-    }
-    else 
-        *size = end - start;
-
-    return 1;
+    
+    return (numReservedMac<numReservedIp ? numReservedMac:numReservedIp);
 }
 
+static void config_arp_table(void)
+{
+    if(acosNvramConfig_match("arp_enable","enable"))
+    {
+        int i;
+        char resrvMacAddr[C_MAX_RESERVED_IP][C_MAX_TOKEN_SIZE];
+        char resrvIpAddr[C_MAX_RESERVED_IP][C_MAX_TOKEN_SIZE];
+        int numResrvAddr = getReservedAddr(resrvMacAddr, resrvIpAddr);
+        char arp_cmd[64];
+        for (i=0; i<numResrvAddr; i++)
+        {
+            sprintf(arp_cmd,"arp -s %s %s",resrvIpAddr[i],resrvMacAddr[i]);
+            printf("%s\n",arp_cmd);
+            system(arp_cmd);
+        }
+    }
+    
+    return 0;
+}
 #endif
 
 /* Main loop */
@@ -2734,14 +2679,17 @@ main_loop(void)
 
     /* Foxconn added start, Wins, 04/20/2011, @RU_IPTV */
 #ifdef CONFIG_RUSSIA_IPTV
-    if (!is_russia_specific_support())
+    if ((!is_russia_specific_support()) && (!is_china_specific_support()))
     {
         nvram_set(NVRAM_IPTV_ENABLED, "0");
         nvram_set(NVRAM_IPTV_INTF, "0x00");
     }
 #endif /* CONFIG_RUSSIA_IPTV */
     /* Foxconn added end, Wins, 04/20/2011, @RU_IPTV */
-
+    if ((!is_russia_specific_support()) && (!is_china_specific_support()))
+    {
+        nvram_set(NVRAM_ARP_ENABLED, "disable");
+    }
     /* Foxconn add start, Max Ding, 02/26/2010 */
 #ifdef RESTART_ALL_PROCESSES
     nvram_unset("restart_all_processes");
@@ -2832,6 +2780,7 @@ main_loop(void)
             stop_eapd();
 			stop_bcmupnp();
 			stop_wlan();
+				stop_bsd();
 			/*Foxconn add start by Hank 06/14/2012*/
 			/*Enable 2.4G auto channel detect, kill acsd for stop change channel*/
 			if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))
@@ -2900,9 +2849,28 @@ main_loop(void)
             /* Must call it when start wireless */
             start_wl();
             /* Foxconn add end by aspen Bai, 09/10/2008 */
+			/*Foxconn add start by Antony 06/16/2013 Start the bandsteering*/
+
+    
+      if((strcmp(nvram_safe_get("wla_ssid"),nvram_safe_get("wlg_ssid") )!=0))
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),nvram_safe_get("wlg_secu_type") )!=0)
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),"None") || strcmp(nvram_safe_get("wlg_secu_type"),"None"))
+      {
+          if(strcmp(nvram_safe_get("wla_passphrase"),nvram_safe_get("wlg_passphrase"))!=0) 
+              nvram_set("enable_band_steering", "0");
+      }
+			if(nvram_match("enable_band_steering", "1") && nvram_match("wla_wlanstate", "Enable")&& nvram_match("wlg_wlanstate", "Enable"))
+				start_bsd();
+			/*Foxconn add end by Antony 06/16/2013*/
+
 			/*Foxconn add start by Hank 06/14/2012*/
 			/*Enable 2.4G auto channel detect, call acsd to start change channel*/
-			if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))
+			//if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))
+			if(nvram_match("enable_sta_mode","0"))
 				start_acsd();
 			/*Foxconn add end by Hank 06/14/2012*/
             nvram_commit();         /* Save WCN obtained parameters */
@@ -2943,6 +2911,7 @@ main_loop(void)
             stop_wps();
             stop_nas();
             stop_eapd(); 
+    				stop_bsd();
             stop_bcmupnp();
 			
 			stop_lan();
@@ -3073,45 +3042,28 @@ main_loop(void)
             start_wl();
 			/*Foxconn add start by Hank 06/14/2012*/
 			/*Enable 2.4G auto channel detect, call acsd to start change channel*/
-			if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))
+
+			//if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))
+			if(nvram_match("enable_sta_mode","0"))
 				start_acsd();
 			/*Foxconn add end by Hank 06/14/2012*/
+    
+      if((strcmp(nvram_safe_get("wla_ssid"),nvram_safe_get("wlg_ssid") )!=0))
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),nvram_safe_get("wlg_secu_type") )!=0)
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),"None") || strcmp(nvram_safe_get("wlg_secu_type"),"None"))
+      {
+          if(strcmp(nvram_safe_get("wla_passphrase"),nvram_safe_get("wlg_passphrase"))!=0) 
+              nvram_set("enable_band_steering", "0");
+      }
+
+
+			if(nvram_match("enable_band_steering", "1") && nvram_match("wla_wlanstate", "Enable")&& nvram_match("wlg_wlanstate", "Enable"))
+				start_bsd();
             /* Now start ACOS services */
-
-#ifdef AUTO_UPGRADE_CFE
-            #define PATHNAME_IMAGE "/etc/linux.trx"
-            #define BOOT_LOADER_IMAGE "/etc/R7000_cfe_V1.0.18"
-		
-            FILE *img_fp = NULL; 
-            unsigned long file_size = 0;
-            if (acosNvramConfig_match("cfe_version", "v1.0.17"))
-            {
-                /***********************************************************************/
-                /* Erase brcmnand */
-                cprintf("**************%s(%d): Erase brcmnand....\n", __FUNCTION__, __LINE__);
-                mtd_erase("brcmnand");
-                /***********************************************************************/
-                /* Erase OpenVPN */
-                cprintf("**************%s(%d): Erase OpenVPN....\n", __FUNCTION__, __LINE__);
-                system("cat /dev/mtdblock18 > /tmp/mtdblock18");
-                if ((img_fp = fopen ("/tmp/mtdblock18", "r")) != NULL)
-                {
-           	        calculateFileSize(img_fp, &file_size);
-                    writeXndmtd ("/dev/mtd18", img_fp, file_size, 0);
-                }
-                
-                /***********************************************************************/
-                cprintf("**************%s(%d): Writing Boot code....\n", __FUNCTION__, __LINE__);
-                if ((img_fp = fopen (BOOT_LOADER_IMAGE, "r")) != NULL)
-                {
-           	        calculateFileSize(img_fp, &file_size);
-                    writeXndmtd ("/dev/mtd0", img_fp, file_size, 0);
-                }
-                /***********************************************************************/
-            }
-
-#endif 			
-            
             eval("acos_init");
             eval("acos_service", "start");
 
@@ -3178,6 +3130,18 @@ main_loop(void)
                 else if (acosNvramConfig_match("dome_led_status", "OFF"))
                     send_wps_led_cmd(WPS_LED_BLINK_OFF, 2);
 			/* foxconn added end, zacker, 09/17/2009, @wps_led */
+#if defined(INCLUDE_QUICK_QOS) 
+                if(acosNvramConfig_match("qos_enable", "1")
+                    &&acosNvramConfig_match("quick_qos_mode", "1")
+                    &&acosNvramConfig_match("wps_fasttrack_button_status", "1"))
+                {                   
+                    //wps button is set for fast lane                    
+                    if(acosNvramConfig_match("qos_fasttrack_enable", "1"))
+                        send_wps_led_cmd(WPS_LED_CHANGE_GREEN, 0);
+                    else
+                        send_wps_led_cmd(WPS_LED_CHANGE_GREEN, 1);            
+                }
+#endif	        
 
 			/* Wait for user input or state change */
 			while (signalled == -1) {
@@ -3219,6 +3183,10 @@ main_loop(void)
 		    stop_nas();
             stop_eapd();
             stop_bcmupnp();
+
+			/*Foxconn add start by Antony 06/16/2013*/
+				stop_bsd();
+			/*Foxconn add end by Antony 06/16/2013*/
             
 			stop_wlan();
             
@@ -3288,11 +3256,33 @@ main_loop(void)
             start_wps();
             sleep(2);           /* Wait for WSC to start */
             start_wl();
+#ifdef ARP_PROTECTION
+            config_arp_table();
+#endif 
 			/*Foxconn add start by Hank 06/14/2012*/
 			/*Enable 2.4G auto channel detect, call acsd to start change channel*/
-			if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))
+			//if((nvram_match("wla_channel", "0") || nvram_match("wlg_channel", "0")) && nvram_match("enable_sta_mode","0"))
+			if(nvram_match("enable_sta_mode","0"))
 				start_acsd();
 			/*Foxconn add end by Hank 06/14/2012*/
+
+			/*Foxconn add start by Antony 06/16/2013 Start the bandsteering*/
+    
+      if((strcmp(nvram_safe_get("wla_ssid"),nvram_safe_get("wlg_ssid") )!=0))
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),nvram_safe_get("wlg_secu_type") )!=0)
+          nvram_set("enable_band_steering", "0");      	
+
+      if(strcmp(nvram_safe_get("wla_secu_type"),"None") || strcmp(nvram_safe_get("wlg_secu_type"),"None"))
+      {
+          if(strcmp(nvram_safe_get("wla_passphrase"),nvram_safe_get("wlg_passphrase"))!=0) 
+              nvram_set("enable_band_steering", "0");
+      }
+
+			if(nvram_match("enable_band_steering", "1") && nvram_match("wla_wlanstate", "Enable")&& nvram_match("wlg_wlanstate", "Enable"))
+				start_bsd();
+			/*Foxconn add end by Antony 06/16/2013*/
 
             /* Start wsc if it is in 'unconfiged' state */
             if (nvram_match("wl0_wps_config_state", "0") && !nvram_match("wsc_pin_disable", "1"))
@@ -3471,6 +3461,11 @@ main(int argc, char **argv)
 			else if (!strcmp(argv[1], "block"))
                 return hotplug_block(); /* wklin modified, 02/09/2011 */
 #endif
+#if defined(LINUX_2_6_36)
+			else if (!strcmp(argv[1], "platform"))
+				return coma_uevent();
+#endif /* LINUX_2_6_36 */
+
         /*foxconn modified end, water, @usb porting, 11/11/2008*/
 		} else {
 			fprintf(stderr, "usage: hotplug [event]\n");

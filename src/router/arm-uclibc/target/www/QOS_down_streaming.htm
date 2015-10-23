@@ -21,7 +21,7 @@ classes.num.all.fontSize = "10pt" ;
 <%14%>
 <script language="javascript" type="text/javascript">
 <!--
-//<%1741%>
+//<%1808%>
   
     $(document).ready(function()
     {	
@@ -115,7 +115,7 @@ classes.num.all.fontSize = "10pt" ;
 				setTimeout(setHelpIframeVisible,500);
 			}
         }
-             change_size();
+		change_size();
 
     }
     function moveToHTMLend()
@@ -283,7 +283,7 @@ function getQosHelpFile()
 	}
 
 }
-function loadSettings()
+function loadSettings(onCancelClick)
 {
 	var cf = document.forms[0];
 
@@ -302,7 +302,7 @@ function loadSettings()
 	else
 		cf.qosEnable.checked = false;
 		
-	
+	if(onCancelClick==0)
 		document.getElementById("qosHelpFile").innerHTML="<iframe id=helpframe  src=QOS_WMM_h.htm class=help-iframe scrolling=no name=helpframe frameborder=0  onload=showHelpIframe();></iframe>";;
         /*
 	if (cf.qos_bw_enable.value == "1")
@@ -313,6 +313,7 @@ function loadSettings()
 	{
 		cf.bwEnable.checked = false;
 	}
+
 	check_bw_sel();
 
 	var bw = cf.uplink_bw.value.split(" ");
@@ -322,6 +323,32 @@ function loadSettings()
 	else if (bw[1] == "Mbps")
 		cf.rate.selectedIndex = 1;
 	*/
+    if (cf.qos_fasttrack_enable.value == "0")  
+        cf.fast_track_enable.checked = false;
+    else
+        cf.fast_track_enable.checked = true;
+            
+    if (cf.wps_fasttrack_button_status.value == "0")  
+    {
+        cf.wps_fasttrack_button[0].checked = true;
+        cf.wps_fasttrack_button[1].checked = false;
+    }
+    else
+    {
+        cf.wps_fasttrack_button[1].checked = true;
+        cf.wps_fasttrack_button[0].checked = false;
+    }
+
+    if(cf.quick_qos_firstlogin.value == "true")
+        alert("<%1859%>");
+        
+    if(cf.fast_track_hid.value == "true")
+        document.getElementById("fasttrack_hidden").style.display="none";
+    else
+        document.getElementById("fasttrack_hidden").style.display="block";
+        
+    checkQosMode();
+    
 	getBdUnit(cf.uplink_bw.value);
     if (cf.enable_apmode.value == "1" || (cf.enable_stamode.value == "1")) {
 		cf.qosEnable.disabled = true;
@@ -335,8 +362,14 @@ function loadSettings()
         cf.check_bw.disabled = true;
         
         var setButton=document.getElementsByName("setup_qos_rule");
-        setButton[0].outerHTML='<button type="submit" disabled value="qos_setrule_mark" name="setup_qos_rule" class="button-grey" onclick="buttonClick(this,\'qos_setrule_mark\');" ><span class="roundleft_grey">&nbsp;&nbsp; <%1743%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
-        setButton[0].style.cursor='default';          
+        setButton[0].outerHTML='<button type="submit" disabled value="qos_setrule_mark" name="setup_qos_rule" class="button-grey" onclick="buttonClick(this,\'qos_setrule_mark\');" ><span class="roundleft_grey">&nbsp;&nbsp; <%1810%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+        setButton[0].style.cursor='default'; 
+
+        setDisabled(true,cf.quick_qos_mode[0],cf.quick_qos_mode[1],cf.quick_qos_rule[0],
+            cf.quick_qos_rule[1],cf.add_rule,cf.reset_rule,cf.edit_rule,cf.delete_rule,cf.delete_all_rule);
+        setDisabled(true,cf.serviceList,cf.service_priorityList,cf.highestserviceList,
+            cf.highserviceList,cf.normalserviceList,cf.lowserviceList,cf.qos_policy_name,cf.qos_mac_address,cf.qos_device_name,cf.device_priorityList);
+        setDisabled(true,cf.fast_track_enable,cf.priorityList,cf.wps_fasttrack_button[0],cf.wps_fasttrack_button[1]);
 	}
     else
     {
@@ -352,13 +385,20 @@ function loadSettings()
             //cf.check_bw.disabled = true;
             
             var checkButton=document.getElementsByName("check_bw");
-            checkButton[0].outerHTML='<button type="submit" disabled value="Check" name="check_bw" class="button-grey" onClick="buttonClick(this,\'Check\');return checkWanIp();"><span class="roundleft_grey">&nbsp;&nbsp; <%1297%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
-            checkButton[0].style.cursor='default';        
+            checkButton[0].outerHTML='<button type="submit" disabled value="Check" name="check_bw" class="button-grey" onClick="buttonClick(this,\'Check\');return checkWanIp();"><span class="roundleft_grey">&nbsp;&nbsp; <%1334%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+            checkButton[0].style.cursor='default';       
             
+            setDisabled(true,cf.quick_qos_mode[0],cf.quick_qos_mode[1],cf.quick_qos_rule[0],
+                cf.quick_qos_rule[1],cf.add_rule,cf.reset_rule,cf.edit_rule,cf.delete_rule,cf.delete_all_rule);
+            setDisabled(true,cf.serviceList,cf.service_priorityList,cf.highestserviceList,
+                cf.highserviceList,cf.normalserviceList,cf.lowserviceList,cf.qos_policy_name,cf.qos_mac_address,cf.qos_device_name,cf.device_priorityList);
+            setDisabled(true,cf.fast_track_enable,cf.priorityList,cf.wps_fasttrack_button[0],cf.wps_fasttrack_button[1]);
 
         }
     }
-	
+    
+            
+
 	
 	/* loadsettings for down streaming. */
     
@@ -381,31 +421,57 @@ function loadSettings()
 function checkData()
 {
 	var cf = document.forms[0];
-	var qos_up_bw_limit = "<%1744%>";
+	var qos_up_bw_limit = "<%1811%>";
+	interval = parseInt(cf.bandwidth.value);
 	/*
-	interval = parseFloat(cf.bandwidth.value);
-		
-    if  ( isNaN(interval) ||
-		((cf.rate.selectedIndex == 0) && (interval < 0)) ||
-		((cf.rate.selectedIndex == 1) && (interval > qos_up_bw_limit) ) ||
-		!(/^[0-9]+(\.[0-9]{1,4})?$/).test(cf.bandwidth.value)		
-		)
-		
+	if ( isNaN(interval) || interval <= 0 ||
+		(cf.rate.selectedIndex == 0 && (interval < 64 || interval > 9999)) ||
+		(cf.rate.selectedIndex == 1 && interval > qos_up_bw_limit )||
+		cf.bandwidth.value.match(/[^0-9]/g) ||
+		cf.bandwidth.value.match(/^0/))
 	{
-		alert("<%1745%>");
+		alert("<%1812%>");
 		return false;
 	}
 	return true;
 	*/
-		interval = parseInt(cf.bandwidth.value);
-			if  ( isNaN(interval) ||
+    if(cf.quick_qos_mode[0].checked == true)
+        cf.quick_qos_mode_value.value = "0"
+    else 
+        cf.quick_qos_mode_value.value = "1"
+        
+    if(cf.quick_qos_rule[0].checked == true)
+        cf.quick_qos_rule_value.value = "0"
+    else 
+        cf.quick_qos_rule_value.value = "1"
+        
+    if(cf.fast_track_enable.checked == true)
+        cf.qos_fasttrack_enable.value = "1";
+    else
+        cf.qos_fasttrack_enable.value = "0";
+    if(cf.wps_fasttrack_button[0].checked == true)
+        cf.wps_fasttrack_button_status.value = "0";
+    else
+        cf.wps_fasttrack_button_status.value = "1";
+    if (cf.qos_fasttrack_select_device.value == "") 
+    {
+        cf.qos_fasttrack_select_device.value = "<%478%>";
+    }
+        
+    if(cf.quick_qos_mode_value.value == "1")
+    {
+        if(cf.priorityList.selectedIndex != -1)   
+            cf.quick_qos_select_priority.value = cf.priorityList.value; 
+    }
+
+	if  ( isNaN(interval) ||
 		((cf.rate.selectedIndex == 0) && (interval < 0)) ||
 		((cf.rate.selectedIndex == 1) && (interval > qos_up_bw_limit) ) ||
 		!(/^[0-9]+(\.[0-9]{1,4})?$/).test(cf.bandwidth.value)		
 		)
 		
 	{
-		alert("<%1745%>");
+		alert("<%1812%>");
 		return false;
 	}
 	else
@@ -438,9 +504,10 @@ var maxchars = 75;
 var delay_time=360; // msecs
 var charcount = 0; 
 
+
 function checkWanIp()
 {
-  
+    
 	var cf = document.forms[0];
 	var ckbandwidth=cf.bandwidth.value;
 	var check_bw = "check_bw=check";
@@ -550,7 +617,7 @@ function grayout_allBtn()
 	grayout_applybtn("applyBtn");
 	grayout_button("cancelBtn");
 	grayout_button("checkBtn");
-	grayout_button("setup_qos_ruleBtn");
+	//grayout_button("setup_qos_ruleBtn");
 
 }
 
@@ -559,19 +626,19 @@ function ungrayout_allBtn()
 	ungrayout_applybtn("applyBtn");
 	ungrayout_button("cancelBtn");
 	ungrayout_button("checkBtn");
-	ungrayout_button("setup_qos_ruleBtn");
+	//ungrayout_button("setup_qos_ruleBtn");
 	
 }
-
 function loadAlert()
 {
     var cf = document.forms[0];
-    //var fromcgi = "<%1746%>";
-    
-    //if (fromcgi == "AlertOk")
-    //{
-    //    alert("<%1747%>");
-   // }
+    var dflag = !cf.qosEnable.checked;
+
+    setDisabled(dflag,cf.quick_qos_mode[0],cf.quick_qos_mode[1],cf.quick_qos_rule[0],
+        cf.quick_qos_rule[1],cf.add_rule,cf.reset_rule,cf.edit_rule,cf.delete_rule,cf.delete_all_rule);
+    setDisabled(dflag,cf.serviceList,cf.service_priorityList,cf.highestserviceList,
+        cf.highserviceList,cf.normalserviceList,cf.lowserviceList,cf.qos_policy_name,cf.qos_mac_address,cf.qos_device_name,cf.device_priorityList);
+    setDisabled(dflag,cf.fast_track_enable,cf.priorityList,cf.wps_fasttrack_button[0],cf.wps_fasttrack_button[1]);
 }
 function GetXmlHttpObject()
 {
@@ -594,53 +661,7 @@ function GetXmlHttpObject()
 	return xmlHttp;
 }
 
-/*
-function update_bw_sel(index)
-{
-    var cf = document.forms[0];
-    
-    if (index == 1)
-    {
-        cf.bw_sel.checked = true;
-        //cf.bw_sel[1].checked = false;
-        //cf.check_bw.disabled = true;
-        cf.bw_set_sel.value = "1";
-    }
-    else
-    {
-        cf.bw_sel.checked = false;
-        //cf.bw_sel[1].checked = true;
-        //cf.check_bw.disabled = false;
-        cf.bw_set_sel.value = "2";
-    }
-    
-    return true;
-}
 
-function check_bw_sel()
-{
-    var cf = document.forms[0];
-    if(!cf.bwEnable.checked)
-    {
-        cf.bw_sel.disabled = true;
-        //cf.bw_sel[1].disabled = true;
-        //cf.check_bw.disabled = true;
-        
-    }
-    else
-    {
-        cf.bw_sel.disabled = false;
-        //cf.bw_sel[1].disabled = false;
-        cf.bandwidth.disabled = false;
-        cf.rate.disabled = false;
-        if (cf.bw_set_sel.value == "2")
-            update_bw_sel(2);
-        else
-            update_bw_sel(1);
-    }
-}
-
-*/
 function loadSettings2()
 {
 	var cf = document.forms[0];
@@ -976,24 +997,271 @@ function selMACTab(idx,policy,devName,mac){
 	cf.device_name.value=devName;
 }
 
+function chg_quick_qos_mode()
+{
+    var cf = document.forms[0];
+    if(cf.quick_qos_mode[0].checked == true)
+        cf.quick_qos_mode_value.value = "0"
+    else
+        cf.quick_qos_mode_value.value = "1"
+    checkQosMode();
+}
+
+function checkQosMode()
+{
+    var cf = document.forms[0];
+    if (cf.quick_qos_mode_value.value == "0")  
+    {
+        cf.quick_qos_mode[0].checked = true;
+        document.getElementById("qos_rule_mode").style.display="block";
+        document.getElementById("qos_fast_track").style.display="none";
+        if (cf.quick_qos_rule_value.value == "0")
+        {
+            cf.quick_qos_rule[0].checked = true;
+            document.getElementById("qos_by_service").style.display="block";
+            document.getElementById("qos_by_device").style.display="none";
+            document.getElementById("qos_service_rule").style.display="block";
+            document.getElementById("qos_device_rule").style.display="none";
+        }
+        else
+        {
+            cf.quick_qos_rule[1].checked = true; 
+            document.getElementById("qos_by_device").style.display="block";
+            document.getElementById("qos_by_service").style.display="none";
+            document.getElementById("qos_device_rule").style.display="block";
+            document.getElementById("qos_service_rule").style.display="none";
+        }
+    }
+    else
+    {
+        cf.quick_qos_mode[1].checked = true; 
+        document.getElementById("qos_fast_track").style.display="block";
+        document.getElementById("qos_rule_mode").style.display="none";
+        document.getElementById("qos_by_service").style.display="none";
+        document.getElementById("qos_by_device").style.display="none";
+        document.getElementById("qos_service_rule").style.display="none";
+        document.getElementById("qos_device_rule").style.display="none";
+    }
+    return true;
+}
+
+function chg_quick_qos_rule()
+{
+    var cf = document.forms[0];
+    if(cf.quick_qos_rule[0].checked == true)
+        cf.quick_qos_rule_value.value = "0"
+    else
+        cf.quick_qos_rule_value.value = "1"
+    checkQosMode();
+}
+
+function add_service_rule()
+{
+    var cf = document.forms[0];
+    if(cf.serviceList.value == "qos_add_application")
+    {
+        cf.add_new_service.value = "1";
+        buttonFilter();
+        cf.submit();
+    }
+    else
+        cf.add_new_service.value = "0";
+    return true;
+}
+function sel(mac_index, policy_name, dev_name, macaddr, priority)
+{
+    var cf = document.forms[0];
+    if (cf.quick_qos_mode_value.value == "0")  
+    {
+        cf.qos_policy_name.value = policy_name;
+        cf.qos_device_name.value = dev_name;
+        cf.qos_mac_address.value = macaddr;
+        cf.device_priorityList.selectedIndex = 3 - priority;
+        cf.select.value = mac_index;
+    }
+    else
+        cf.qos_fasttrack_select_device.value = macaddr;
+}
+function chg_qos_rule()
+{
+    var cf = document.forms[0];
+    if (cf.quick_qos_rule_value.value == "0")
+    {
+        cf.quick_qos_select_rule.value = cf.serviceList.value;
+        cf.quick_qos_select_priority.value = cf.service_priorityList.value;
+    }
+    else if(cf.quick_qos_rule_value.value == "1")
+    {
+        if (cf.qos_policy_name.value == "") 
+        { 
+            alert("<%1793%>");
+            return false;
+        }
+        if (cf.qos_policy_name.value == "") 
+        { 
+            alert("<%1026%>");
+            return false;
+        }
+        if (!check_mac())
+        {
+            alert("<%0%>");
+            return false;
+        }
+        cf.quick_qos_select_rule.value = [cf.qos_mac_address.value,cf.qos_policy_name.value,cf.qos_device_name.value].join("&");
+        cf.quick_qos_select_priority.value = cf.device_priorityList.value;
+    }
+}
+
+function check_mac()
+{
+    var cf = document.forms[0];
+    var msg = "";
+    var m1;
+    var mac = cf.qos_mac_address.value.split(":");
+        
+    cf.mac1.value = mac[0];
+    cf.mac2.value = mac[1];
+    cf.mac3.value = mac[2];
+    cf.mac4.value = mac[3];
+    cf.mac5.value = mac[4];
+    cf.mac6.value = mac[5];
+    if(checkMacAddress(cf.mac1, cf.mac2, cf.mac3, cf.mac4, cf.mac5, cf.mac6))
+        msg += "<%0%>\n";
+    else if (cf.mac1.value == "00" && cf.mac2.value == "00" && cf.mac3.value == "00" && 
+        cf.mac4.value == "00" && cf.mac5.value == "00" && cf.mac6.value == "00")
+        msg += "<%0%>\n";
+    else if (cf.mac1.value == "FF" && cf.mac2.value == "FF" && cf.mac3.value == "FF" && 
+        cf.mac4.value == "FF" && cf.mac5.value == "FF" && cf.mac6.value == "FF")
+        msg += "<%0%>\n";
+    else{
+        m1 = parseInt(cf.mac1.value, 16);
+        if (m1 & 1)
+            msg += "<%0%>\n";
+    }
+    if (msg.length > 1) {
+        alert(msg);
+        return false;
+    }
+    return true;
+}
+
+function click_service(priority)
+{
+    var cf = document.forms[0]; 
+    if (cf.quick_qos_rule_value.value == "0")
+    {
+        if(priority == 0)
+        {            
+            if(cf.highestserviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.highestserviceList.value;
+            cf.quick_qos_click_priority.value = "0";
+            cf.highserviceList.selectedIndex = -1;
+            cf.normalserviceList.selectedIndex = -1;
+            cf.lowserviceList.selectedIndex = -1;
+        }
+        else if (priority == 1)
+        {
+            if(cf.highserviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.highserviceList.value;
+            cf.quick_qos_click_priority.value = "1";
+            cf.highestserviceList.selectedIndex = -1;
+            cf.normalserviceList.selectedIndex = -1;
+            cf.lowserviceList.selectedIndex = -1;
+        }
+        else if (priority == 2)
+        {
+            if(cf.normalserviceList.selectedIndex != -1)  
+                cf.quick_qos_click_rule.value = cf.normalserviceList.value;
+            cf.quick_qos_click_priority.value = "2";
+            cf.highestserviceList.selectedIndex = -1;
+            cf.highserviceList.selectedIndex = -1;
+            cf.lowserviceList.selectedIndex = -1;
+        }
+        else if (priority == 3)
+        {
+            if(cf.lowserviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.lowserviceList.value; 
+            cf.quick_qos_click_priority.value = "3";
+            cf.highestserviceList.selectedIndex = -1;
+            cf.highserviceList.selectedIndex = -1;
+            cf.normalserviceList.selectedIndex = -1;
+        }
+        cf.highestdeviceList.selectedIndex = -1;
+        cf.highdeviceList.selectedIndex = -1;
+        cf.normaldeviceList.selectedIndex = -1;
+        cf.lowdeviceList.selectedIndex = -1;
+    }
+    else
+    {
+        if(priority == 0)
+        {            
+            if(cf.highestdeviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.highestdeviceList.value;
+            cf.quick_qos_click_priority.value = "0";
+            cf.highdeviceList.selectedIndex = -1;
+            cf.normaldeviceList.selectedIndex = -1;
+            cf.lowdeviceList.selectedIndex = -1;
+        }
+        else if (priority == 1)
+        {
+            if(cf.highdeviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.highdeviceList.value;
+            cf.quick_qos_click_priority.value = "1";
+            cf.highestdeviceList.selectedIndex = -1;
+            cf.normaldeviceList.selectedIndex = -1;
+            cf.lowdeviceList.selectedIndex = -1;
+        }
+        else if (priority == 2)
+        {
+            if(cf.normaldeviceList.selectedIndex != -1)  
+                cf.quick_qos_click_rule.value = cf.normaldeviceList.value;
+            cf.quick_qos_click_priority.value = "2";
+            cf.highestdeviceList.selectedIndex = -1;
+            cf.highdeviceList.selectedIndex = -1;
+            cf.lowdeviceList.selectedIndex = -1;
+        }
+        else if (priority == 3)
+        {
+            if(cf.lowdeviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.lowdeviceList.value;
+            cf.quick_qos_click_priority.value = "3";
+            cf.highestdeviceList.selectedIndex = -1;
+            cf.highdeviceList.selectedIndex = -1;
+            cf.normaldeviceList.selectedIndex = -1;
+        }
+        cf.highestserviceList.selectedIndex = -1;
+        cf.highserviceList.selectedIndex = -1;
+        cf.normalserviceList.selectedIndex = -1;
+        cf.lowserviceList.selectedIndex = -1;
+    }
+    return false;
+}
+
+function show_fasttrack_warning()
+{
+    var cf = document.forms[0];
+    if(cf.wps_fasttrack_button_status.value == "0")
+    alert("WPS function can still be setup on GUI, and the soft button can be used instead of the physical button.");
+}
+
 //-->
 </script> 
 </head>
-<body  onload="change_size();loadSettings();loadAlert();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%59%>">
-<img class="body-image" src="<%60%>">
+<body  onload="change_size();loadSettings(0);loadAlert();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="<%62%>">
+<img class="body-image" src="<%63%>">
 <div id="full-page-container">
 
 <form id="target"  name="frmRules" method="POST" action="qos_main.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="<%61%>">
-<div class="subhead2"> <%320%></div>
+<img class="subtop-image" src="<%64%>">
+<div class="subhead2"> <%330%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button id="applyBtn" value="Apply"  onclick="buttonClick(this,'Apply');buttonFilter();return checkData();"  type="button" name="apply" class="button-apply" > <span class="roundleft_apply" ><%64%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button id="cancelBtn" value="Cancel" onclick="buttonClick(this,'Cancel');buttonFilter();loadSettings();" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%66%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button id="applyBtn" value="Apply"  onclick="buttonClick(this,'Apply');buttonFilter();return checkData();"  type="button" name="apply" class="button-apply" > <span class="roundleft_apply" ><%67%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button id="cancelBtn" value="Cancel" onclick="buttonClick(this,'Cancel');buttonFilter();loadSettings();" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%69%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -1004,9 +1272,9 @@ function selMACTab(idx,policy,devName,mac){
 <td>
 <!-- tabs -->
 <ul class="tabs" width="100%" >
-    <li><a id="WMMTab" onFocus="this.blur()" href="#"><span><%1801%></span></a></li>
-    <li><a id="UpstreamTab" onFocus="this.blur()" href="#"><span><font size='2'><%1802%></font></span></a></li>    
-    <li><a id="DownstreamTab" onFocus="this.blur()" href="#"><span><font size='2'><%1803%></font></span></a></li>    
+    <li><a id="WMMTab" onFocus="this.blur()" href="#"><span><%1860%></span></a></li>
+    <li><a id="UpstreamTab" onFocus="this.blur()" href="#"><span><font size='2'><%1861%></font></span></a></li>    
+    <li><a id="DownstreamTab" onFocus="this.blur()" href="#"><span><font size='2'><%1862%></font></span></a></li>    
 </ul>
 <!-- tab "panes" -->
 <div class="pane" id="wmm-pane">
@@ -1016,11 +1284,11 @@ function selMACTab(idx,policy,devName,mac){
 
 <!-- content of WMM start -->
 <tr>
-<td colspan="2"><input type="checkbox" name="wmm_enable_2g" value="1"><a href="javascript:loadhelp('QOS_main','wifi')" tabindex="-1"> <b><%1804%></b></a></td>
+<td colspan="2"><input type="checkbox" name="wmm_enable_2g" value="1"><a href="javascript:loadhelp('QOS_main','wifi')" tabindex="-1"> <b><%1863%></b></a></td>
 </tr>
 
 <tr>
-<td colspan="2"><input type="checkbox" name="wmm_enable_5g" value="1"><a href="javascript:loadhelp('QOS_main','wifi')" tabindex="-1"> <b><%1805%></b></a></td>
+<td colspan="2"><input type="checkbox" name="wmm_enable_5g" value="1"><a href="javascript:loadhelp('QOS_main','wifi')" tabindex="-1"> <b><%1864%></b></a></td>
 </tr>
 <!-- content of WMM end -->
 
@@ -1034,7 +1302,7 @@ function selMACTab(idx,policy,devName,mac){
 
 <!--
 <tr>
-<td colspan="3"><input type="checkbox" name="qosEnable" value="1" checked><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1749%></b></a></td>
+<td colspan="3"><input type="checkbox" name="qosEnable" value="1" checked><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1816%></b></a></td>
 </tr>
 
 <tr><td colspan="4" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
@@ -1044,7 +1312,7 @@ function selMACTab(idx,policy,devName,mac){
 <table CELLPADDING=0 CELLSPACING=0 id="upstream-table" style="padding:0;margin:0;border:0;">
 
 <tr>
-<td colspan="3"><input type="checkbox" name="qosEnable" value="1"> <b><%1749%></b></td>
+<td colspan="3"><input type="checkbox" name="qosEnable" value="1" onclick="loadAlert()";> <b><%1816%></b></td>
 
 <td rowspan="2">&nbsp;&nbsp;&nbsp;<img src="poweredbyookla.png" border="0"></td>
 </tr>
@@ -1052,14 +1320,14 @@ function selMACTab(idx,policy,devName,mac){
 <tr>
 <td><img src="spacer.gif" height="30" width="23" border="0"></td>
 <td> 
-<label id ="bw_sel" for="bw_sel"><b><%1751%>:&nbsp;<%1752%></b></label>
+<label id ="bw_sel" for="bw_sel"><b><%1818%>:&nbsp;<%1819%></b></label>
 <input type="text" name="bandwidth" size="6" maxlength="6" value="">
 <select name="rate" size=1>
-<option value="1000"><%1753%></option>
-<option value="1000000"><%1754%></option>
+<option value="1000"><%1820%></option>
+<option value="1000000"><%1821%></option>
 </select>
 
-&nbsp;&nbsp;&nbsp;<button type="button" id="checkBtn" value="<%1806%>" name="check_bw" class="button-rule" onclick="buttonClick(this,'<%1806%>');return checkWanIp();"><span class="roundleft_button">&nbsp;&nbsp; <%1806%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="button" id="checkBtn" value="<%1865%>" name="check_bw" class="button-rule" onclick="buttonClick(this,'<%1865%>');return checkWanIp();"><span class="roundleft_button">&nbsp;&nbsp; <%1865%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 </table>
@@ -1067,40 +1335,213 @@ function selMACTab(idx,policy,devName,mac){
 
 <tr>
 <td><img src="spacer.gif" height="12" width="23" border="0"></td>
-<td colspan="3" id="check_info" style="display: none;"><%1807%>
+<td colspan="3" id="check_info" style="display: none;"><%1866%>
 <input type="text" name="progress" class="prgbar" value="" style="color: blue" size="20"
     contentEditable="false" onkeydown="return false;" onbeforeeditfocus="return false;" onpaste="return false;">	
 </td>
 
 <td colspan="3" id="check_result" style="display: none;">
-	<%1808%>&nbsp;<font color=#ADA7D7><b id="uplink_bd"></b></font>
+	<%1867%>&nbsp;<font color=#ADA7D7><b id="uplink_bd"></b></font>
 </td>
 
-<td colspan="3" id="check_nowan" style="display: none;"><%1809%></td>
-<td colspan="3" id="check_unreach" style="display: none;"><%1810%></td>
+<td colspan="3" id="check_nowan" style="display: none;"><%1868%></td>
+<td colspan="3" id="check_unreach" style="display: none;"><%1869%></td>
 
 </tr>
+
 
 <!--
 <tr>
 <td colspan="2" ><img src="spacer.gif" width="40" height="12" border="0">
-<input type="radio" name="bw_sel" value="2" onclick="update_bw_sel(2)"><%1755%>  <!><%1756%><!>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1297%>" name="check_bw" class="button-rule" onclick="buttonClick(this,'<%1297%>');return checkWanIp();"><span class="roundleft_button">&nbsp;&nbsp; <%1297%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<input type="radio" name="bw_sel" value="2" onclick="update_bw_sel(2)"><%1822%>  <!><%1823%><!>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1334%>" name="check_bw" class="button-rule" onclick="buttonClick(this,'<%1334%>');return checkWanIp();"><span class="roundleft_button">&nbsp;&nbsp; <%1334%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 -->
-
-<tr>
-	<td colspan="3"></td>
-</tr>
-<tr>
-<td colspan="3" ><b><%1757%></b>&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;<button id="setup_qos_ruleBtn" type="submit" value="Setup QoS rule" name="setup_qos_rule" class="button-rule" onclick="buttonClick(this,'Setup QoS rule');" ><span class="roundleft_button">&nbsp;&nbsp; <%1743%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+</table>
 <!--
+<tr>
+<td colspan="3" ><b><%1824%></b>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<button id="setup_qos_ruleBtn" type="submit" value="Setup QoS rule" name="setup_qos_rule" class="button-rule" onclick="buttonClick(this,'Setup QoS rule');" ><span class="roundleft_button">&nbsp;&nbsp; <%1810%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 &nbsp;&nbsp;&nbsp;<button type="submit" value="1" name="video_streaming_qos" class="button-rule" onclick="buttonClick(this,'video_streaming_qos');" ><span class="roundleft_button">&nbsp;&nbsp; QoS Video Streaming Tunning</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
--->
 	</td>
 </tr>
+-->
+<table width="100%" CELLPADDING=0 CELLSPACING=0 id="upstream-table" style="padding:0;margin:0;border:0;">
+<tr><td><table cellspacing="3" cellpadding="0" width="80%">
+    <td width="25%"><b><%1870%></b></td>
+    <td width="25%"><input type="radio" name="quick_qos_mode" value="rule_mode" onClick="chg_quick_qos_mode();" ><B><%1871%></a></B></td>
+    <td ><div id="fasttrack_hidden" style="display: block;"><table cellpadding="0" cellspacing="3" width="100%">
+    <input type="radio" name="quick_qos_mode" value="fasttrack_mode" onClick="chg_quick_qos_mode();"><B><%1872%></a></B></table></div></td>
+    </table></td></tr>
+
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+
+<tr><td colspan="2"><div id="qos_rule_mode" style="display: block;">
+    <table cellpadding="0" cellspacing="3" width="100%">
+    <tr><td><table cellspacing="3" cellpadding="0" width="80%">
+    <td width="25%"><b><%1873%></b></td>
+    <td width="25%"><input type="radio" name="quick_qos_rule" value="qos_service" onClick="chg_quick_qos_rule();" ><B><%1874%></a></B></td>
+    <td ><input type="radio" name="quick_qos_rule" value="qos_device" onClick="chg_quick_qos_rule();"><B><%1875%></a></B></td>
+    </table></td></tr>
+    
+<tr><td colspan="2"><div id="qos_by_service" style="display: block;">
+<table cellpadding="0" cellspacing="3" width="80%">
+    <tr><td width="25%"><b><%1803%></b></td>
+    <td ><select name="serviceList" size="1" onChange="add_service_rule();" style="height:20px;width:200px">
+        <%1876%></select></td></tr>
+    <br>
+    <tr><td width="25%"><b><%1795%></b></td>
+    <td><select name="service_priorityList" size="1" style="height:20px;width:80px">
+        <option value="0"><%1797%></option><option value="1"><%1798%></option><option value="2"><%1799%></option><option value="3"><%1800%></option>
+        </select></td></tr>
+    </table></div></td></tr>
+
+    <tr><td colspan="2"><div id="qos_by_device" style="display: block;">
+    <table cellpadding="0" cellspacing="3" width="100%">
+    <tr><td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td></tr>
+    <tr><td colspan="2"><b><%1877%></b></td></tr>
+    <tr><td colspan="2"><table border="1" cellpadding="0" cellspacing="0" width="100%">
+    <%1878%>
+    </table></td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td width="40%"><b><%1796%></b></td>
+    <td><input type="text" name="qos_policy_name" size="20" maxlength="32"></td></tr>
+    <tr><td width="40%"><b><%652%></b></td>
+    <td><input type="text" name="qos_mac_address" size="20" maxlength="32"></td></tr>
+    <tr><td width="40%"><b><%651%></b></td>
+    <td><input type="text" name="qos_device_name" size="20" maxlength="32"></td></tr>
+    <tr><td width="25%"><b><%1795%></b></td>
+    <td><select name="device_priorityList" size="1" style="height:20px;width:100px">
+        <option value="0"><%1797%></option><option value="1"><%1798%></option><option value="2"><%1799%></option><option value="3"><%1800%></option>
+        </select></td></tr>
+    </table></div></td></tr>   
+    
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+    <tr>
+    <td colspan="2" align="center">
+        &nbsp;&nbsp;&nbsp;<button type="submit" value="<%595%>" name="add_rule" class="button-rule" onclick="buttonClick(this,'<%595%>');chg_qos_rule();" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%595%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+        &nbsp;&nbsp;&nbsp;<button type="submit" value="<%1879%>" name="reset_rule" class="button-rule" onclick="buttonClick(this,'<%1879%>');chg_qos_rule();" ><span class="roundleft_button"><span >&nbsp;&nbsp;&nbsp;&nbsp;  <%1879%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    </td>
+    </tr>
+
+    <tr><td colspan="2"><div id="qos_service_rule" style="display: block;">
+    <table border="1" cellpadding="0" cellspacing="0" width="100%">
+    <span class="thead"><%1871%></span>
+    <tr>
+        <td nowrap width="25%" align="center">
+        <span class="thead"><%1880%> 1: <%1797%></span>
+        </td>
+        <td nowrap width="25%" align="center">
+        <span class="thead"><%1880%> 2: <%1798%></span>
+        </td>
+        <td nowrap width="25%" align="center">
+        <span class="thead"><%1880%> 3: <%1799%></span>
+        </td>
+        <td nowrap width="25%" align="center">
+        <span class="thead"><%1880%> 4: <%1800%></span>
+        </td>
+    </tr>
+    <tr>
+        <td nowrap width="25%" align="center">
+        <select name="highestserviceList" multiple onchange="click_service(0);" style="height:150px;width:120px;">
+            <%1881%>
+            </select> 
+        </td>
+       <td nowrap width="25%" align="center">
+        <select name="highserviceList" multiple onchange="click_service(1);" style="height:150px;width:120px;">
+            <%1882%>
+        </select> 
+        </td>
+        <td nowrap width="25%" align="center">
+        <select name="normalserviceList" multiple onchange="click_service(2);" style="height:150px;width:120px;">
+            <%1883%>
+            </select> 
+        </td>
+        <td nowrap width="25%" align="center">
+        <select name="lowserviceList" multiple onchange="click_service(3);" style="height:150px;width:120px;">
+            <%1884%>
+            </select> 
+        </td>
+    </tr>
+    </table></div></td></tr>
+
+    <tr><td colspan="2"><div id="qos_device_rule" style="display: block;">
+    <table border="1" cellpadding="0" cellspacing="0" width="100%">
+    <span class="thead"><%1871%></span>
+    <tr>
+        <td nowrap width="25%" align="center">
+        <span class="thead"><%1880%> 1: <%1797%></span>
+        </td>
+        <td nowrap width="25%" align="center">
+        <span class="thead"><%1880%> 2: <%1798%></span>
+        </td>
+        <td nowrap width="25%" align="center">
+        <span class="thead"><%1880%> 3: <%1799%></span>
+        </td>
+        <td nowrap width="25%" align="center">
+        <span class="thead"><%1880%> 4: <%1800%></span>
+        </td>
+    </tr>
+    <tr>
+        <td nowrap width="25%" align="center">
+        <select name="highestdeviceList" multiple onchange="click_service(0);" style="height:150px;width:120px;">
+            <%1885%>
+        </select> 
+        </td>
+        <td nowrap width="25%" align="center">
+        <select name="highdeviceList" multiple onchange="click_service(1);" style="height:150px;width:120px;">
+            <%1886%>
+        </select> 
+        </td>
+        <td nowrap width="25%" align="center">
+        <select name="normaldeviceList" multiple onchange="click_service(2);" style="height:150px;width:120px;">
+            <%1887%>
+        </select> 
+        </td>
+        <td nowrap width="25%" align="center">
+        <select name="lowdeviceList" multiple onchange="click_service(3);" style="height:150px;width:120px;">
+        <%1888%>
+            </select> 
+        </td>
+    </tr>
+    </table></div></td></tr>
+
+    <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+    <tr>
+        <td colspan="2" align="center">
+            &nbsp;&nbsp;&nbsp;<button type="submit" value="<%596%>" name="edit_rule" class="button-rule" onclick="buttonClick(this,'<%596%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%596%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+            &nbsp;&nbsp;&nbsp;<button type="submit" value="<%597%>" name="delete_rule" class="button-rule" onclick="buttonClick(this,'<%597%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%597%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+            &nbsp;&nbsp;&nbsp;<button type="submit" value="<%1855%>" name="delete_all_rule" class="button-rule" onclick="buttonClick(this,'<%1855%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%1855%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+        </td>
+    </tr>
+</table></div></td></tr>
+
+<tr><td colspan="2"><div id="qos_fast_track" style="display: block;">
+<table cellpadding="0" cellspacing="3" width="100%">
+    <tr><td width="20%"><b><%1889%></b></td>
+    <td><%1890%></td></tr>
+    <tr><td><input type="checkbox" name="fast_track_enable" value="1"><b ><%1891%></b></td></tr>
+    <tr><td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td></tr>
+    <tr><td colspan="2"><b><%1877%></b></td></tr>
+    <tr><td colspan="2"><table border="1" cellpadding="0" cellspacing="0" width="100%">
+    <%1892%>
+    </table></td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td width="25%"><b><%1893%>:</b></td>
+    <td><%1894%></td></tr>
+    <tr><td width="25%"><b><%1895%></b></td>
+    <td><select name="priorityList" size="1" style="height:20px;width:80px">
+        <option value="50%" <%1896%> >50%</option><option value="60%" <%1897%>>60%</option><option value="70%" <%1898%>>70%</option><option value="80%" <%1899%>>80%</option>
+        </select>
+    </td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td colspan="2"><%1900%></td></tr>
+    <tr><td>
+    <input type="radio" name="wps_fasttrack_button" value="wps"><B><%1901%></a></B></td></tr>
+    <tr><td>
+    <input type="radio" name="wps_fasttrack_button" value="fasttrack" onClick="show_fasttrack_warning();" ><B><%1902%></a></B> </td></tr>   
+</table></div></td></tr>
 <!-- content of upstream end -->
 
 </table>
@@ -1112,16 +1553,16 @@ function selMACTab(idx,policy,devName,mac){
 
 <!-- content of downstream start -->
 <tr>
-<td colspan="2"><input type="checkbox" name="qosStreamingEnable" value="1" <%1811%>><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1812%> </b></a></td>
+<td colspan="2"><input type="checkbox" name="qosStreamingEnable" value="1" <%1903%>><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1904%> </b></a></td>
 </tr>
 
 <tr>
-<td colspan="2">&nbsp;&nbsp;&nbsp;<input type="checkbox" name="AutoUpdateEnable" value="1" <%1813%>><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1814%> </b></a>
-&nbsp;&nbsp;&nbsp;<button type="button" value="<%1815%>" name="check_update" class="button-rule" onclick="check_start();"><span class="roundleft_button">&nbsp;&nbsp; <%1815%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<td colspan="2">&nbsp;&nbsp;&nbsp;<input type="checkbox" name="AutoUpdateEnable" value="1" <%1905%>><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1906%> </b></a>
+&nbsp;&nbsp;&nbsp;<button type="button" value="<%1907%>" name="check_update" class="button-rule" onclick="check_start();"><span class="roundleft_button">&nbsp;&nbsp; <%1907%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 <tr>
-<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><%1816%><%1817%></b></td>
+<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><%1908%><%1909%></b></td>
 </tr>
 
 
@@ -1131,7 +1572,7 @@ function selMACTab(idx,policy,devName,mac){
 <table align="left" border="0" width="100%">
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-<td colspan="2" ><b>Add Rules:</b>&nbsp;&nbsp;<input type="radio" name="ruleSelect" value="1" onClick="chgSel();" <%1818%> ><%1819%>&nbsp;&nbsp;<input type="radio" name="ruleSelect" value="2" onClick="chgSel();" <%1820%>><%1821%>
+<td colspan="2" ><b><%1910%>:</b>&nbsp;&nbsp;<input type="radio" name="ruleSelect" value="1" onClick="chgSel();" <%1911%> ><%1912%>&nbsp;&nbsp;<input type="radio" name="ruleSelect" value="2" onClick="chgSel();" <%1913%>><%1914%>
 </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
@@ -1144,7 +1585,7 @@ function selMACTab(idx,policy,devName,mac){
 <td colspan="2">
 <div id="mac_list" style="display: none;">
 <table align="left" border="0" width="100%">
-<%1822%>
+<%1915%>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 </table>
 </div>
@@ -1156,7 +1597,7 @@ function selMACTab(idx,policy,devName,mac){
 <div id="qos_name" style="display: none;">
 <table align="left" border="0" width="100%">
 <tr>
-<td width="15%" size=1><%1823%></td>
+<td width="15%" size=1><%1916%></td>
  <td width="85%"> 
  <input type="text" name="name" size="33" maxlength="32">
 </td>
@@ -1171,7 +1612,7 @@ function selMACTab(idx,policy,devName,mac){
 <div id="qos_keyword" style="display: none;">
 <table align="left" border="0" width="100%">
 <tr>
-<td width="15%" size=1><%1824%></td>
+<td width="15%" size=1><%1917%></td>
  <td width="85%"> 
  <input type="text" name="keyword" size="33" maxlength="101">
 </td>
@@ -1185,12 +1626,12 @@ function selMACTab(idx,policy,devName,mac){
 <td colspan="2">
 <div id="qos_macaddress" style="display: none;">
 <table align="left" border="0" width="100%">
-<td width="15%" size=1><%630%></td>
+<td width="15%" size=1><%652%></td>
  <td width="85%"> 
  <input type="text" name="mac" size="33" maxlength="17">
 </td>
 </tr>
-<td width="15%" size=1><%629%></td>
+<td width="15%" size=1><%651%></td>
  <td width="85%"> 
  <input type="text" name="device_name" size="33" maxlength="32">
 </td>
@@ -1206,28 +1647,28 @@ function selMACTab(idx,policy,devName,mac){
 <table align="left" border="0" width="100%">
 <tr>
 <td colspan="2" align="center">
-&nbsp;&nbsp;&nbsp;<button type="submit" value="Add" name="add_qos" class="button-rule" onclick="buttonClick(this,'Add');return check_data_add();"><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%573%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="submit" value="Add" name="add_qos" class="button-rule" onclick="buttonClick(this,'Add');return check_data_add();"><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%595%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 &nbsp;&nbsp;&nbsp;<button type="button" value="Reset" name="reset_qos" class="button-rule" onclick="qos_reset();" ><span class="roundleft_button">&nbsp;&nbsp;  Reset</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
-<tr><td colspan="2" ><b><%1825%></b></td></tr>
+<tr><td colspan="2" ><b><%1918%></b></td></tr>
 <tr>
 <td colspan="2">
 	<table border="1">
 		<tr><td align="middle">
-			<%1826%>
+			<%1919%>
 		</tr></td>
 		<tr><td>
-	        <select name="QosDatabaseList" size="6" onclick="selectCustomTab();" ><%1827%></select> 
+	        <select name="QosDatabaseList" size="6" onclick="selectCustomTab();" ><%1920%></select> 
 		</tr></td>
 	</table>
 </td>
 </tr>
 <tr>
 <td colspan="2" align="center">
-&nbsp;&nbsp;&nbsp;<button type="submit" value="Edit" name="edit_qos" class="button-rule" onclick="buttonClick(this,'Edit');return check_data_edit();" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%574%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button type="submit" value="Delete" name="delete_qos" class="button-rule" onclick="buttonClick(this,'Delete');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%575%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button type="submit" value="Delete All" name="delete_all_qos" class="button-rule" onclick="buttonClick(this,'Delete All');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%1797%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+&nbsp;&nbsp;&nbsp;<button type="submit" value="Edit" name="edit_qos" class="button-rule" onclick="buttonClick(this,'Edit');return check_data_edit();" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%596%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="submit" value="Delete" name="delete_qos" class="button-rule" onclick="buttonClick(this,'Delete');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%597%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="submit" value="Delete All" name="delete_all_qos" class="button-rule" onclick="buttonClick(this,'Delete All');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%1855%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
 </tr>
 
 </table>
@@ -1239,7 +1680,7 @@ function selMACTab(idx,policy,devName,mac){
 <td colspan="2">
 <div id="qos_table_list" style="display: none;">
 <table align="left" border="0" width="100%">
-<%1828%>
+<%1921%>
 </table>
 </div>
 </td>
@@ -1253,24 +1694,42 @@ function selMACTab(idx,policy,devName,mac){
 <tr>
 <input type="hidden" name="select" value="-1">
 <input type="hidden" name="priority_sel" value="-1">
-<INPUT type="hidden" name="WMM_value_2g" value="<%1829%>">
-<INPUT type="hidden" name="WMM_value_5g" value="<%1830%>">
-<input type="hidden" name="qos_enable" value="<%1759%>">
-<input type="hidden" name="qos_bw_enable" value="<%1760%>">
-<input type="hidden" name="uplink_bw" value="<%1761%>">
-<input type="hidden" name="repeater" value="<%371%>">
-<input type="hidden" name="repeater_an" value="<%372%>">
-<input type="hidden" name="bw_set_sel" value="<%1762%>">
-<input type="hidden" name="enable_apmode" value="<%373%>">
-<input type="hidden" name="enable_stamode" value="<%374%>">
+<INPUT type="hidden" name="WMM_value_2g" value="<%1922%>">
+<INPUT type="hidden" name="WMM_value_5g" value="<%1923%>">
+<input type="hidden" name="qos_enable" value="<%1826%>">
+<input type="hidden" name="qos_bw_enable" value="<%1827%>">
+<input type="hidden" name="uplink_bw" value="<%1828%>">
+<input type="hidden" name="repeater" value="<%392%>">
+<input type="hidden" name="repeater_an" value="<%393%>">
+<input type="hidden" name="bw_set_sel" value="<%1829%>">
+<input type="hidden" name="enable_apmode" value="<%394%>">
+<input type="hidden" name="enable_stamode" value="<%395%>">
 
-<input type="hidden" name="qos_down_streaming_enable" value="<%1831%>">
-<input type="hidden" name="qos_update_enable" value="<%1832%>">
-<input type="hidden" name="choose_selection" value="<%1833%>">
-<input type="hidden" name="office_idx" value="<%1834%>">
-<input type="hidden" name="custom_idx" value="<%1835%>">
-<input type="hidden" name="custom_mac_idx" value="<%1836%>">
-<input type="hidden" name="apply_page" value="<%1837%>">
+<input type="hidden" name="qos_down_streaming_enable" value="<%1924%>">
+<input type="hidden" name="qos_update_enable" value="<%1925%>">
+<input type="hidden" name="choose_selection" value="<%1926%>">
+<input type="hidden" name="office_idx" value="<%1927%>">
+<input type="hidden" name="custom_idx" value="<%1928%>">
+<input type="hidden" name="custom_mac_idx" value="<%1929%>">
+<input type="hidden" name="apply_page" value="<%1930%>">
+<input type="hidden" name="fast_track_hid" value="<%1931%>">
+<input type="hidden" name="quick_qos_mode_value" value="<%1932%>">
+<input type="hidden" name="quick_qos_rule_value" value="<%1804%>">
+<input type="hidden" name="wps_fasttrack_button_status" value="<%1933%>">
+<input type="hidden" name="add_new_service" value="0">
+<input type="hidden" name="quick_qos_click_rule" value="">
+<input type="hidden" name="quick_qos_click_priority" value="">
+<input type="hidden" name="quick_qos_select_rule" value="">
+<input type="hidden" name="quick_qos_select_priority" value="">
+<input type="hidden" name="qos_fasttrack_select_device" value="">
+<input type="hidden" name="qos_fasttrack_enable" value="<%1934%>">
+<input type="hidden" name="mac1" value="">
+<input type="hidden" name="mac2" value="">
+<input type="hidden" name="mac3" value="">
+<input type="hidden" name="mac4" value="">
+<input type="hidden" name="mac5" value="">
+<input type="hidden" name="mac6" value="">
+<input type="hidden" name="quick_qos_firstlogin" value="<%1935%>">
 <!--[if IE 6]>
 <input type="hidden" name="browser_ver" value="ie6">
 <![endif]-->
@@ -1281,10 +1740,10 @@ function selMACTab(idx,policy,devName,mac){
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%231%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%235%> </span>
       </div>
 
 <a name="helpframe-anchor"></a>

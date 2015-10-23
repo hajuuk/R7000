@@ -118,26 +118,26 @@ function checkData()
 	var pin_attack_count = parseInt(cf.pin_attack_count.value,10);
 
 	if ((!_isNumeric(cf.frag.value)) || isNaN(frag) || frag > 2346 || frag < 256) {
-		alert("<%1421%>");
+		alert("<%1473%>");
 		return false;
 	}
 	else
 		cf.frag.value = parseInt(cf.frag.value,10);
 	if ((!_isNumeric(cf.rts.value)) || isNaN(rts) || rts > 2347 || rts < 1) {
-		alert("<%1422%>");
+		alert("<%1474%>");
 		return false;
 	}
 	else
 		cf.rts.value = parseInt(cf.rts.value,10);
 		
     if ((!_isNumeric(cf.frag_an.value)) || isNaN(frag_an) || frag_an > 2346 || frag_an < 256) {
-		alert("<%1421%>");
+		alert("<%1473%>");
 		return false;
 	}
 	else
 		cf.frag_an.value = parseInt(cf.frag_an.value,10);
 	if ((!_isNumeric(cf.rts_an.value)) || isNaN(rts_an) || rts_an > 2347 || rts_an < 1) {
-		alert("<%1422%>");
+		alert("<%1474%>");
 		return false;
 	}
 	else
@@ -294,20 +294,20 @@ function display_wps_attack_compromise()
 </script>
 </head>
 <body  onload="change_size();loadSettings();highLightMenu('adv_header', 'adv_wireless_set');check_wifi_sche();check_wifi_sche();showWpsAlert();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%59%>">
-<img class="body-image" src="<%60%>">
+<img class="cover-image" src="<%62%>">
+<img class="body-image" src="<%63%>">
 <div id="full-page-container">
 
 <form id="target"  name="formname" method="POST" action="wlg_adv.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="<%61%>">
-<div class="subhead2"> <%347%></div>
+<img class="subtop-image" src="<%64%>">
+<div class="subhead2"> <%363%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%63%>"  onclick="buttonClick(this,'<%63%>');return checkData();" type="submit" name="Apply" class="button-apply" > <span class="roundleft_apply" ><%64%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%65%>" onclick="buttonClick(this,'<%65%>');reset();loadSettings();" type="button" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%66%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%66%>"  onclick="buttonClick(this,'<%66%>');return checkData();" type="submit" name="Apply" class="button-apply" > <span class="roundleft_apply" ><%67%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%68%>" onclick="buttonClick(this,'<%68%>');reset();loadSettings();" type="button" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%69%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -315,36 +315,36 @@ function display_wps_attack_compromise()
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-  <td nowrap colspan="2"><a href="javascript:loadhelp('WLG_adv','settings')" tabindex="-1"><b><%1513%></b></a></td></tr>
+  <td nowrap colspan="2"><a href="javascript:loadhelp('WLG_adv','settings')" tabindex="-1"><b><%1565%></b></a></td></tr>
 <tr>
   <td colspan="2">
-    <input type="checkbox"  <%1514%> name="enable_ap" value="enable_ap" onclick="check_wifi_sche()"> <%1427%> </td></tr>
+    <input type="checkbox"  <%1566%> name="enable_ap" value="enable_ap" onclick="check_wifi_sche()"> <%1479%> </td></tr>
 <tr>
 <tr>
       <td nowrap colspan="2">
-        <input type="checkbox"  <%1515%> name="enable_coexistence" value="enable_coexistence"> <%1516%></td></tr> 
-  <td align=left>&nbsp;&nbsp;<%1428%>:&nbsp;&nbsp;</td>
+        <input type="checkbox"  <%1567%> name="enable_coexistence" value="enable_coexistence"> <%1568%></td></tr> 
+  <td align=left>&nbsp;&nbsp;<%1480%>:&nbsp;&nbsp;</td>
   <td align=left>
-    <input TYPE="text" NAME="frag" size=5 maxlength=4 value="<%1517%>"></td></tr>
+    <input TYPE="text" NAME="frag" size=5 maxlength=4 value="<%1569%>"></td></tr>
 <tr>
-  <td align=left>&nbsp;&nbsp;<%1430%>:&nbsp;&nbsp;</td>
+  <td align=left>&nbsp;&nbsp;<%1482%>:&nbsp;&nbsp;</td>
   <td align=left>
-    <input TYPE="text" NAME="rts" size=5 maxlength=4 value="<%1518%>"></td></tr>
+    <input TYPE="text" NAME="rts" size=5 maxlength=4 value="<%1570%>"></td></tr>
 <tr>
-  <td align=left>&nbsp;&nbsp;<%1432%></td>
+  <td align=left>&nbsp;&nbsp;<%1484%></td>
   <td align=left>
-      <select name="enable_shortpreamble"><option value="" <%1433%>><%1434%></option><option value="enable_shortpreamble" <%1519%>><%1436%></option></select></td></tr>
+      <select name="enable_shortpreamble"><option value="" <%1485%>><%1486%></option><option value="enable_shortpreamble" <%1571%>><%1488%></option></select></td></tr>
 <tr>
   <td colspan="2">
     <div >
-    <input id="wifi_sche_div1" type="checkbox"  <%1437%> name="wifi_onoff" value="wifi_onoff"> <%889%> 
+    <input id="wifi_sche_div1" type="checkbox"  <%1489%> name="wifi_onoff" value="wifi_onoff"> <%923%> 
     </div>
   </td>
 </tr>
 <tr>
   <td colspan="2" >
     <div id="wifi_sche_div2">
-      <b><%1438%></b>
+      <b><%1490%></b>
     </div>
   </td>
 </tr>
@@ -352,59 +352,59 @@ function display_wps_attack_compromise()
   <td colspan="2">
     <div >
     <table border="1" cellpadding="2" cellspacing="0" width="100%">
-	<tr><td width="10%" align="center"><span class="thead"><%1439%></b></td>
-		<td width="20%" align="center"><span class="thead"><%1440%></b></td>
-		<td width="20%" align="center"><span class="thead"><%1441%></b></td>
-		<td width="50%" align="center"><span class="thead"><%1442%></b></td>
+	<tr><td width="10%" align="center"><span class="thead"><%1491%></b></td>
+		<td width="20%" align="center"><span class="thead"><%1492%></b></td>
+		<td width="20%" align="center"><span class="thead"><%1493%></b></td>
+		<td width="50%" align="center"><span class="thead"><%1494%></b></td>
 	</tr>
-	<%1443%>
+	<%1495%>
 	</table>
 	</div>
   </td>
 </tr>
 <tr>
   <td colspan="2" align="center">
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%1423%>" id="add_sche" name="add_sche" class="button-rule" onclick="buttonClick(this,'<%1423%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%1423%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%574%>" id="edit_sche" name="edit_sche" class="button-rule" onclick="buttonClick(this,'<%574%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%574%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%575%>" id="del_sche" name="del_sche" class="button-rule" onclick="buttonClick(this,'<%575%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%575%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%1475%>" id="add_sche" name="add_sche" class="button-rule" onclick="buttonClick(this,'<%1475%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%1475%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%596%>" id="edit_sche" name="edit_sche" class="button-rule" onclick="buttonClick(this,'<%596%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%596%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%597%>" id="del_sche" name="del_sche" class="button-rule" onclick="buttonClick(this,'<%597%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%597%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
   </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-  <td nowrap colspan="2"><a href="javascript:loadhelp('WLG_adv','settings')" tabindex="-1"><b><%1520%></b></a></td></tr>
+  <td nowrap colspan="2"><a href="javascript:loadhelp('WLG_adv','settings')" tabindex="-1"><b><%1572%></b></a></td></tr>
 <tr>
   <td colspan="2">
-    <input type="checkbox"  <%1521%> name="enable_ap_an" value="w_5g_enable_ap" onclick="check_wifi_sche()"> <%1427%> </td></tr>
+    <input type="checkbox"  <%1573%> name="enable_ap_an" value="w_5g_enable_ap" onclick="check_wifi_sche()"> <%1479%> </td></tr>
 <tr>
       <td nowrap colspan="2">
-        <input type="checkbox"  <%1522%> name="enable_coexistence_an" value="enable_coexistence_an"> <%1516%></td></tr>
+        <input type="checkbox"  <%1574%> name="enable_coexistence_an" value="enable_coexistence_an"> <%1568%></td></tr>
 
 
 
 <tr>
  
-  <td align=left>&nbsp;&nbsp;<%1428%>:&nbsp;&nbsp;</td>
+  <td align=left>&nbsp;&nbsp;<%1480%>:&nbsp;&nbsp;</td>
   <td align=left>
-    <input TYPE="text" NAME="frag_an" size=5 maxlength=4 value="<%1523%>"></td></tr>
+    <input TYPE="text" NAME="frag_an" size=5 maxlength=4 value="<%1575%>"></td></tr>
 <tr>
-  <td align=left>&nbsp;&nbsp;<%1430%>:&nbsp;&nbsp;</td>
+  <td align=left>&nbsp;&nbsp;<%1482%>:&nbsp;&nbsp;</td>
   <td align=left>
-    <input TYPE="text" NAME="rts_an" size=5 maxlength=4 value="<%1524%>"></td></tr>
+    <input TYPE="text" NAME="rts_an" size=5 maxlength=4 value="<%1576%>"></td></tr>
 <tr>
-  <td align=left>&nbsp;&nbsp;<%1432%></td>
+  <td align=left>&nbsp;&nbsp;<%1484%></td>
   <td align=left>
-      <select name="enable_shortpreamble_an"><option value="" <%1525%>><%1434%></option><option value="w_5g_enable_shortpreamble" <%1526%>><%1436%></option></select></td></tr>
+      <select name="enable_shortpreamble_an"><option value="" <%1577%>><%1486%></option><option value="w_5g_enable_shortpreamble" <%1578%>><%1488%></option></select></td></tr>
 <tr>
   <td colspan="2">
     <div >
-    <input id="wifi_5g_sche_div1" type="checkbox"  <%1527%> name="wifi_onoff_an" value="wifi_onoff_an"> <%889%> 
+    <input id="wifi_5g_sche_div1" type="checkbox"  <%1579%> name="wifi_onoff_an" value="wifi_onoff_an"> <%923%> 
     </div>
   </td>
 </tr>
 <tr>
   <td colspan="2" >
     <div id="wifi_5g_sche_div2">
-    <b><%1438%></b>
+    <b><%1490%></b>
     </div>
   </td>
 </tr>
@@ -412,47 +412,47 @@ function display_wps_attack_compromise()
   <td colspan="2">
     <div >
     <table border="1" cellpadding="2" cellspacing="0" width="100%">
-	<tr><td width="10%" align="center"><span class="thead"><%1439%></b></td>
-		<td width="20%" align="center"><span class="thead"><%1440%></b></td>
-		<td width="20%" align="center"><span class="thead"><%1441%></b></td>
-		<td width="50%" align="center"><span class="thead"><%1442%></b></td>
+	<tr><td width="10%" align="center"><span class="thead"><%1491%></b></td>
+		<td width="20%" align="center"><span class="thead"><%1492%></b></td>
+		<td width="20%" align="center"><span class="thead"><%1493%></b></td>
+		<td width="50%" align="center"><span class="thead"><%1494%></b></td>
 	</tr>
-	<%1528%>
+	<%1580%>
 	</table>
 	</div>
   </td>
 </tr>
 <tr>
   <td colspan="2" align="center">
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%1423%>" id="add_sche_an" name="add_sche_an" class="button-rule" onclick="buttonClick(this,'<%1423%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%1423%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%574%>" id="edit_sche_an" name="edit_sche_an" class="button-rule" onclick="buttonClick(this,'<%574%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%574%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%575%>" id="del_sche_an" name="del_sche_an" class="button-rule" onclick="buttonClick(this,'<%575%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%575%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%1475%>" id="add_sche_an" name="add_sche_an" class="button-rule" onclick="buttonClick(this,'<%1475%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%1475%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%596%>" id="edit_sche_an" name="edit_sche_an" class="button-rule" onclick="buttonClick(this,'<%596%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%596%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%597%>" id="del_sche_an" name="del_sche_an" class="button-rule" onclick="buttonClick(this,'<%597%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%597%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
   </td>
 </tr>
   <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 
  <tr>
-  <td width="60%" colspan="2" ><b><%1444%></b></td>
+  <td width="60%" colspan="2" ><b><%1496%></b></td>
  </tr>
 
  <tr>
 
-  <%1445%>
-  <td width="60%">&nbsp;&nbsp;<%1446%>:</td>
-  <td width="40%"><b><font size=4><%1447%></font></b></td>
-  <%1448%>
-  <%1449%>
-  <td width="60%"><font color=gray>&nbsp;&nbsp;<%1446%>:</font></td>
-  <td width="40%"><b><font size=4 color=gray><%1447%></font></b></td>
-  <%1450%>
+  <%1497%>
+  <td width="60%">&nbsp;&nbsp;<%1498%>:</td>
+  <td width="40%"><b><font size=4><%1499%></font></b></td>
+  <%1500%>
+  <%1501%>
+  <td width="60%"><font color=gray>&nbsp;&nbsp;<%1498%>:</font></td>
+  <td width="40%"><b><font size=4 color=gray><%1499%></font></b></td>
+  <%1502%>
   
  </tr>
 
  <tr>
   <td colspan=2>
-  <INPUT TYPE="checkbox" NAME="pin_disable" VALUE="1" <%1451%> onclick="display_wps_attack_compromise();">
-  <%1529%> <%1530%> <%1454%><%1531%>
+  <INPUT TYPE="checkbox" NAME="pin_disable" VALUE="1" <%1503%> onclick="display_wps_attack_compromise();">
+  <%1581%> <%1582%> <%1506%><%1583%>
   </td>
  </tr>
  
@@ -460,38 +460,38 @@ function display_wps_attack_compromise()
   <td colspan=2>
     <div id="wps_display" style="display: none;">
     	<DD>
-    	<INPUT TYPE="checkbox" NAME="prevent_pin_compromise" VALUE="1" onclick = "javascript:setGray();" <%1532%> >
-        	<%1533%>
-        	<input TYPE="text" class="num" NAME="pin_attack_count" size=2 maxlength=2 value="<%1534%>" style="width:20px" ;">
-         	<%1535%> 
+    	<INPUT TYPE="checkbox" NAME="prevent_pin_compromise" VALUE="1" onclick = "javascript:setGray();" <%1584%> >
+        	<%1585%>
+        	<input TYPE="text" class="num" NAME="pin_attack_count" size=2 maxlength=2 value="<%1586%>" style="width:20px" ;">
+         	<%1587%> 
          	<DD>
-         	<%1536%>
+         	<%1588%>
     </div>
   </td>
  </tr>
 
  <tr>
   <td colspan=2>
-  <INPUT TYPE="checkbox" NAME="wsc_config" <%1455%> onclick="set2GState();">
-  <%1529%>  <%1537%><%1531%>
+  <INPUT TYPE="checkbox" NAME="wsc_config" <%1507%> onclick="set2GState();">
+  <%1581%>  <%1589%><%1583%>
   </td>
  </tr>
  <tr>
   <td colspan=2>
-  <INPUT TYPE="checkbox" NAME="wsc_config_an" <%1538%> onclick="set5GState();">
-  <%1529%><%1539%> <%1531%>
+  <INPUT TYPE="checkbox" NAME="wsc_config_an" <%1590%> onclick="set5GState();">
+  <%1581%><%1591%> <%1583%>
   </td>
  </tr>
 
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
-<%1540%>
+<%1592%>
 <tr>
-  <td nowrap><a href="javascript:loadhelp('WLG_adv','access')" tabindex="-1"><b><%1464%></b></a></td>
+  <td nowrap><a href="javascript:loadhelp('WLG_adv','access')" tabindex="-1"><b><%1516%></b></a></td>
   <td align="left">
-      &nbsp;&nbsp;&nbsp;<button type="button" value="access" name="access" class="button-rule" onClick="buttonClick(this,'access');self.location.href='WLG_acl.htm'"><span class="roundleft_button">&nbsp;&nbsp; <%1465%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
+      &nbsp;&nbsp;&nbsp;<button type="button" value="access" name="access" class="button-rule" onClick="buttonClick(this,'access');self.location.href='WLG_acl.htm'"><span class="roundleft_button">&nbsp;&nbsp; <%1517%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td></tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
-<%1541%>	
+<%1593%>	
 
 </table></div></td></tr>
 <tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="WLG_adv_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
@@ -499,25 +499,25 @@ function display_wps_attack_compromise()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%231%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%235%> </span>
       </div>
 
 
 
-<input type="hidden" name="wps_enable" value="<%1466%>">
-<input type="hidden" name="show_wps_alert" value="<%237%>">
-<input type="hidden" name="wifi_2g_state" value="<%1323%>">
-<input type="hidden" name="wifi_5g_state" value="<%1324%>">
-<input type="hidden" name="wifi_2g_sche" value="<%1467%>">
+<input type="hidden" name="wps_enable" value="<%1518%>">
+<input type="hidden" name="show_wps_alert" value="<%240%>">
+<input type="hidden" name="wifi_2g_state" value="<%1360%>">
+<input type="hidden" name="wifi_5g_state" value="<%1361%>">
+<input type="hidden" name="wifi_2g_sche" value="<%1519%>">
 <input type="hidden" name="wifi_2g_sche_onoff" value="">
-<input type="hidden" name="wifi_5g_sche" value="<%1542%>">
+<input type="hidden" name="wifi_5g_sche" value="<%1594%>">
 <input type="hidden" name="wifi_5g_sche_onoff" value="">
-<input type="hidden" name="wifi_2g_sche_num" value="<%1468%>">
-<input type="hidden" name="wifi_5g_sche_num" value="<%1543%>">
-<input type="hidden" name="ntp_synced_flag" value="<%738%>">
+<input type="hidden" name="wifi_2g_sche_num" value="<%1520%>">
+<input type="hidden" name="wifi_5g_sche_num" value="<%1595%>">
+<input type="hidden" name="ntp_synced_flag" value="<%768%>">
 <input type="hidden" name="select_2g_sche" value="-1">
 <input type="hidden" name="select_5g_sche" value="-1">
 <a name="helpframe-anchor"></a>

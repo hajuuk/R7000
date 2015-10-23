@@ -3,7 +3,7 @@
 <%11%>
 <title>NETGEAR Router <%12%></title>
 <link rel="stylesheet" href="form.css">
-<link rel="stylesheet" href="<%1722%>");%>">
+<link rel="stylesheet" href="<%13%>">
 <link rel="stylesheet" href="css/scrollbar.css">
 <link rel="stylesheet" href="css/button.css">
 <%14%>
@@ -13,7 +13,7 @@
 var pchar = "|"; // progress char
 var maxchars = 90; 
 var delay_time = 1500; // msecs
-var charcount = <%1723%>;
+var charcount = <%1775%>;
 var update_count = 0;
 
 function stop1()
@@ -31,7 +31,7 @@ function warning()
 {
 	var cf = document.forms[0];
 	if (!cf.ver_check_ena.checked) {
-		if (confirm("<%1724%>")) {
+		if (confirm("<%1776%>")) {
 			cf.ver_check_enable.value = 0;
             do_submit();
             return;
@@ -106,7 +106,7 @@ function set_ver_check()
 <table border="0" cellpadding="0" cellspacing="3" width="100%">
 <tr>
 <td colspan="2">
-<h1><%1725%></H1>
+<h1><%1777%></H1>
 </td>
 </tr>
 
@@ -115,7 +115,7 @@ function set_ver_check()
 </tr>
 
 <tr>
-<td colspan="2"><%1726%>90<%1727%></td>
+<td colspan="2"><%1778%>90<%1779%></td>
 </tr>
 <tr></tr>
 <tr></tr>
@@ -129,22 +129,22 @@ function set_ver_check()
 <TR>
 <TD colspan="2" nowrap valign=top>
     <div id="ver_checkbox" style ="visibility:visible">
-        <input type=checkbox NAME=ver_check_ena value="1" onclick='warning();' <%1298%>><%1728%></td>
+        <input type=checkbox NAME=ver_check_ena value="1" onclick='warning();' <%1335%>><%1780%></td>
     </div>
 </tr>
 <tr></tr>
 <tr></tr>
 
 <tr><td colspan="2" align="center">
-<button type="BUTTON" value="<%65%>" name="Cancel" class="button-rule" onClick="return stop1();"><span class="roundleft_button">&nbsp;&nbsp; <%65%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<button type="BUTTON" value="<%68%>" name="Cancel" class="button-rule" onClick="return stop1();"><span class="roundleft_button">&nbsp;&nbsp; <%68%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 
 </td></tr>
 </table>
 <input type="hidden" name="stop" value="no">
 <input type="hidden" name="menu_top_hide" value="no">
-<input type="hidden" name="pgbarcount" value="<%1723%>">
-<input type="hidden" name="ver_check_enable" value="<%1729%>">
-<input type="hidden" name="enable_ap_mode" value="<%373%>">
+<input type="hidden" name="pgbarcount" value="<%1775%>">
+<input type="hidden" name="ver_check_enable" value="<%1781%>">
+<input type="hidden" name="enable_ap_mode" value="<%394%>">
 </form>
 <p></p>
 </body>

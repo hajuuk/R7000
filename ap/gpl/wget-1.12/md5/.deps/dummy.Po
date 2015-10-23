@@ -1,1 +1,1 @@
-dummy.o: dummy.c
+dummy.o dummy.o: dummy.c

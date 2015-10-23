@@ -87,6 +87,7 @@
 #define ETHER_TYPE_89_0D	0x890d		/* 89-0d frame for TDLS */
 
 #define ETHER_TYPE_PPP_SES	0x8864		/* PPPoE Session */
+#define ETHER_TYPE_IAPP_L2_UPDATE	0x6	/* IAPP L2 update frame */
 
 #define ETHER_TYPE_IPV6		0x86dd		/* IPV6 */
 

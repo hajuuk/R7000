@@ -1,6 +1,6 @@
 
 
-export CROSS_COMPILE = "arm-uclibc-linux-2.6.36-"
+export CROSS_COMPILE = "mipsel-uclibc-linux26-"
 
 #export PATH +=/projects/hnd/tools/linux/hndtools-mipsel-linux-uclibc-4.2.3/bin
 
@@ -19,8 +19,8 @@ export PKG_CONFIG_PATH += $(TOP)/../../ap/gpl/openssl/tmp/usr/local/ssl/lib/pkgc
 all: .conf  makecurl
 .conf:
 	cd source ; \
-	./configure 	--target=arm-linux \
-			--host=arm-linux \
+	./configure 	--target=mipsel-linux \
+			--host=mipsel-linux \
 			--build=$(BUILD) \
 			--prefix='$(shell pwd)/tmp' \
 			--with-ssl \

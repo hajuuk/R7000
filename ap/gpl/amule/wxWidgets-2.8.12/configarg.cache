@@ -1,0 +1,2 @@
+wxUSE_GUI=no
+wxUSE_UNICODE=yes

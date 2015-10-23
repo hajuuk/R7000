@@ -17,7 +17,7 @@ old_library=''
 inherited_linker_flags=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -L/home/edward/R7000/Bric/release/V1.0.2.200/V1.0.2.120_1.0.17/src/router/nvram -L/home/edward/R7000/Bric/release/V1.0.2.200/V1.0.2.120_1.0.17/src/router/arm-uclibc/install/nvram/usr/lib -lnvram'
+dependency_libs=' -L/home/edward/GPL/V1.0.3.28_1.1.22PRRU/src/router/nvram -L/home/edward/GPL/V1.0.3.28_1.1.22PRRU/src/router/arm-uclibc/install/nvram/usr/lib -lnvram'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''
@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/edward/R7000/Bric/release/V1.0.2.200/V1.0.2.120_1.0.17/src/router/arm-uclibc/target/usr/local/lib/openvpn/plugins'
+libdir='/home/edward/GPL/V1.0.3.28_1.1.22PRRU/src/router/arm-uclibc/target/usr/local/lib/openvpn/plugins'

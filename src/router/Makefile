@@ -265,6 +265,9 @@ endif
 ifeq ($(CONFIG_ACCESSCONTROL),y)
 export CFLAGS += -DINCLUDE_ACCESSCONTROL
 endif
+ifeq ($(ENABLE_QUICK_QOS),y)
+export CFLAGS += -DINCLUDE_QUICK_QOS
+endif
 
 export CFLAGS += -DINCLUDE_UCP
 
@@ -278,9 +281,12 @@ export CFLAGS += -DENABLE_ML
 export CFLAGS += -DOPEN_SOURCE_SUPPORT
 export CFLAGS += -DBCM53125
 export CFLAGS += -DBCM5301X
+export CFLAGS += -DACS_INTF_DETECT_PATCH
 export CFLAGS +=  -DCONFIG_RUSSIA_IPTV
 export CFLAGS += -DVIDEO_STREAMING_QOS
-
+ifeq ($(INCLUDE_FBWIFI_FLAG),y)
+export CFLAGS += -DFBWIFI_FLAG
+endif
 ifeq ($(CONFIG_DLNA),y)
 export CFLAGS += -DDLNA
 #export CFLAGS += -DDLNA_DEBUG
@@ -312,7 +318,10 @@ export CFLAGS += -DSUPPORT_AC_MODE
 export CFLAGS += -DSTA_MODE
 export CFLAGS += -DPPP_RU_DESIGN
 export CFLAGS += -DEXT_ACS
+export CFLAGS += -DARP_PROTECTION
 endif
+
+
 
 
 
@@ -484,7 +493,7 @@ obj-$(CONFIG_SWRESETD) += swresetd
 obj-$(CONFIG_PHYMON_UTILITY) += phymon
 #endif
 #if defined(EXT_ACS)
-obj-$(CONFIG_EXTACS) += acsd
+#obj-$(CONFIG_EXTACS) += acsd
 #endif
 obj-$(CONFIG_VMSTAT) += vmstat
 
@@ -493,6 +502,9 @@ obj-$(CONFIG_IPROUTE2) += iproute2
 obj-$(CONFIG_IPUTILS) += iputils
 obj-$(CONFIG_DHCPV6S) += dhcp6s
 obj-$(CONFIG_DHCPV6C) += dhcp6c
+
+obj-$(CONFIG_BCMBSD) += gbsd
+
 obj-$(CONFIG_TASKSET) += taskset
 #speed up USB throughput
 
@@ -529,8 +541,11 @@ endif
 #
 
 
-all: acos_link version $(LINUXDIR)/.config $(obj-y)
+all: acos_link version $(LINUXDIR)/.config linux_kernel $(obj-y)
         # Also build kernel
+        
+
+linux_kernel:        
 ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
 	$(MAKE) -C $(LINUXDIR) zImage
 	$(MAKE) CONFIG_SQUASHFS=$(CONFIG_SQUASHFS) -C $(SRCBASE)/router/compressed
@@ -598,7 +613,7 @@ ifneq (2_4,$(LINUX_VERSION))
 else
 	$(MAKE) -C $(LINUXDIR) $(SUBMAKE_SETTINGS) clean
 endif
-#	$(MAKE) -C $(SRCBASE)/cfe/build/broadcom/bcm947xx ARCH=$(ARCH) clean
+	$(MAKE) -C $(SRCBASE)/cfe/build/broadcom/bcm947xx ARCH=$(ARCH) clean
 #	[ ! -f $(SRCBASE)/tools/misc/Makefile ] || $(MAKE) -C $(SRCBASE)/tools/misc clean
 
 distclean mrproper: clean
@@ -643,7 +658,11 @@ ifeq ($(PROFILE),R7000)
 	install usbprinter/KC_PRINT $(TARGETDIR)/usr/bin
 	install -d $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/ufsd
 	install ufsd/ufsd.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/ufsd
+	install ufsd/chkntfs $(TARGETDIR)/bin
+	install utelnetd/utelnetd $(TARGETDIR)/bin
 	install arm-uclibc/netgear-streaming-db $(TARGETDIR)/etc
+	install utelnetd/ookla $(TARGETDIR)/bin
+	install fbwifi/fbwifi $(TARGETDIR)/bin
 	install prebuilt/AccessCntl.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
 	install prebuilt/opendns.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
 	install prebuilt/acos_nat.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
@@ -652,11 +671,9 @@ ifeq ($(PROFILE),R7000)
 	install prebuilt/ubd.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
 	install prebuilt/br_dns_hijack.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
 	install prebuilt/l7_filter.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
-	install ufsd/chkntfs $(TARGETDIR)/bin
-	install utelnetd/utelnetd $(TARGETDIR)/bin
-	install arm-uclibc/netgear-streaming-db $(TARGETDIR)/etc
-
+	
 endif
+
 
 
 ifneq (2_4,$(LINUX_VERSION))
@@ -678,6 +695,8 @@ endif
 endif
 	# Prepare filesystem
 	cd $(TARGETDIR) && $(TOP)/misc/rootprep.sh
+	cp -f $(PLATFORMDIR)/acsd $(TARGETDIR)/usr/sbin/acsd
+	cp -f $(PLATFORMDIR)/acs_cli $(TARGETDIR)/usr/sbin/acs_cli
 
 ifeq ($(CONFIG_SQUASHFS), y)
 	###########################################
@@ -1119,8 +1138,6 @@ endif
 
 ifeq (2_6_36,$(LINUX_VERSION))
 iptables:
-#	$(MAKE) -C iptables-1.4.12 BINDIR=/usr/sbin LIBDIR=/usr/lib \
-#	    KERNEL_DIR=$(LINUXDIR) DO_IPV6=1
 
 iptables-install:
 ifeq ($(CONFIG_IPTABLES),y)

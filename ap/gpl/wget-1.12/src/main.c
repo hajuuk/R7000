@@ -774,6 +774,54 @@ format_and_print_line (const char *prefix, const char *line,
   xfree (line_dup);
 }
 
+#define MAX_XSS_CONVERT_LEN 5   /* strlen("&#40;") */
+static int decode_url(char *str_in_out, unsigned int str_out_len)
+{
+    int  i = 0;
+    int  j = 0;
+    int  i_len = 0;
+    char *buf = NULL;
+    int  ret = 0;
+
+    if (NULL == str_in_out)
+    {
+        ret = -1;
+        goto out;
+    }
+    
+    i_len = strlen(str_in_out);
+    
+    if (0 == i_len || 0 == str_out_len)
+    {
+        ret = -1;
+        goto out;
+    }
+    buf = str_in_out;
+    if (NULL == buf)
+    {
+        ret = -2;
+        goto out;
+    }
+    buf = malloc((MAX_XSS_CONVERT_LEN * i_len) + 1);
+    
+    for (i=0; i<i_len; i++)
+    {
+        if (('%' == str_in_out[i])&&('2' == str_in_out[i+1])&&('6' == str_in_out[i+2]))
+        {
+            sprintf(&buf[j], "&");
+            j++;
+            i+=2;
+        }
+        else
+            buf[j++] = str_in_out[i];
+    }
+    buf[j] = '\0';
+    sprintf(str_in_out, "%s", buf);
+    if (NULL != buf)
+        free(buf);   
+out:
+    return ret;
+}
 static void
 print_version (void)
 {
@@ -1004,6 +1052,7 @@ main (int argc, char **argv)
 
   nurl = argc - optind;
 
+  decode_url(argv[optind],strlen(argv[optind]));
   /* All user options have now been processed, so it's now safe to do
      interoption dependency checks. */
 

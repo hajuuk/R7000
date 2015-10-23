@@ -1367,8 +1367,12 @@ ppp_send_frame(struct ppp *ppp, struct sk_buff *skb)
 		/* for data packets, record the time */
 		//ppp->last_xmit = jiffies;
         /* foxconn wklin modified start, 01/18/2007 */
-		if (!skb->sk) /* record the time if not from IP stack */
-		    ppp->last_xmit = jiffies;
+		/* Foxconn modified start pling 08/26/2013 */
+		/* skb->sk seems can't use to identify whether packet is from IP stack
+		 * or not. Use skb->skb_iif instead (==0 means it come from "lo") */
+		//if (!skb->sk) /* record the time if not from IP stack */
+		if (skb->skb_iif )
+		/* Foxconn modified end pling 08/26/2013 */		    ppp->last_xmit = jiffies;
         /* foxconn wklin modified end, 01/02/2007 */
 #endif /* CONFIG_PPP_FILTER */
 	}
@@ -1437,9 +1441,13 @@ ppp_send_frame(struct ppp *ppp, struct sk_buff *skb)
 	if (ppp->flags & SC_LOOP_TRAFFIC) {
 		if (ppp->file.rq.qlen > PPP_MAX_RQLEN)
 			goto drop;
-        /* Foxconn added start, Winster Chan, 01/02/2007 */
-		if (skb->sk) {
-				if (skb->data[0]==0x00 && skb->data[1]==0x21 &&
+		/* Foxconn added start, Winster Chan, 01/02/2007 */
+		/* Foxconn modified start pling 08/26/2013 */
+		/* skb->sk seems can't use to identify whether packet is from IP stack
+		 * or not. Use skb->skb_iif instead (==0 means it come from "lo") */
+		//if (skb->sk) {
+		if (!skb->skb_iif ) { 
+		/* Foxconn modified end pling 08/26/2013 */				if (skb->data[0]==0x00 && skb->data[1]==0x21 &&
 					skb->data[11]==0x01 && skb->data[18]==0xFF)
 				{
 					printk("PPP: Received triggerring packet.\n");

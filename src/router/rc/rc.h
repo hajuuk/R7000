@@ -41,8 +41,10 @@
 #define IPTV_LAN4               0x08
 #define IPTV_WLAN1              0x10
 #define IPTV_WLAN2              0x20
-#define IPTV_WLAN_ALL           (IPTV_WLAN1 | IPTV_WLAN2)   //0x30
-#define IPTV_MASK               (IPTV_LAN1 | IPTV_LAN2 | IPTV_LAN3 | IPTV_LAN4 | IPTV_WLAN1 | IPTV_WLAN2)   //0x3F
+#define IPTV_WLAN3              0x40
+#define IPTV_WLAN4              0x80
+#define IPTV_WLAN_ALL           (IPTV_WLAN1 | IPTV_WLAN2 | IPTV_WLAN3 | IPTV_WLAN4)   //0xF0
+#define IPTV_MASK               (IPTV_LAN1 | IPTV_LAN2 | IPTV_LAN3 | IPTV_LAN4 | IPTV_WLAN1 | IPTV_WLAN2 | IPTV_WLAN3 | IPTV_WLAN4)   //0xFF
 
 #define VCFG_PAGE               0xFFFF
 #define VCFG_REG                0xFD
@@ -56,6 +58,9 @@
 #endif /* CONFIG_RUSSIA_IPTV */
 /* foxconn modified end, zacker, 01/13/2012, @iptv_igmp */
 
+#define NVRAM_ARP_ENABLED        "arp_enable"
+#define C_MAX_TOKEN_SIZE        128
+#define C_MAX_RESERVED_IP       64
 #ifdef LINUX26
 #define AGLOG_MAJOR_NUM             123
 #define WPS_LED_MAJOR_NUM           253

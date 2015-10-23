@@ -51,6 +51,8 @@
 # include <sys/eventfd.h>
 #endif
 
+#define MAX_MEDIA_FILE 10000
+
 #define REMOTE_NOTIFY_FILE  "/tmp/remote_change"
 #define REMOTE_PAIRING_FILE  "/tmp/shares/forked_daapd.remote"
 #include <event.h>
@@ -311,8 +313,7 @@ process_media_file(char *file, time_t mtime, off_t size, int compilation)
   int id;
   int ret;
 
-
-if(file_number>=10000)
+if(file_number>=MAX_MEDIA_FILE)
     return;
 
   db_file_stamp_bypath(file, &stamp, &id);
@@ -389,7 +390,10 @@ if(file_number>=10000)
 	       && (strcmp(ext, ".aac") != 0)
 	       && (strcmp(ext, ".amr") != 0)
 	       && (strcmp(ext, ".awb") != 0)
-	       && (strcmp(ext, ".au4") != 0))
+	       && (strcmp(ext, ".au4") != 0)
+	       && (strcmp(ext, ".mov") != 0)
+	       && (strcmp(ext, ".m4v") != 0)
+	       && (strcmp(ext, ".mp4") != 0))
 	    {
 	        /* Artwork - don't scan */
 	        goto out;
@@ -679,9 +683,15 @@ process_directory(char *path, int flags)
 	}
 
       if (S_ISREG(sb.st_mode))
+      {
+if(file_number<MAX_MEDIA_FILE)
 	process_file(entry, sb.st_mtime, sb.st_size, compilation, flags);
+      }
       else if (S_ISDIR(sb.st_mode))
+      {
+if(file_number<MAX_MEDIA_FILE)
 	push_dir(&dirstack, entry);
+      }
       else
 	DPRINTF(E_LOG, L_SCAN, "Skipping %s, not a directory, symlink nor regular file\n", entry);
     }
@@ -751,7 +761,8 @@ process_directories(char *root, int flags)
 
   while ((path = pop_dir(&dirstack)))
     {
-      process_directory(path, flags);
+  if(file_number<MAX_MEDIA_FILE)
+    process_directory(path, flags);
 
       free(path);
 

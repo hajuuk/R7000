@@ -2006,12 +2006,14 @@ evhttp_send_reply_start(struct evhttp_request *req, int code,
 	evhttp_connection_stop_detectclose(req->evcon);
 
 	evhttp_response_code(req, code, reason);
+#if 0
 	if (req->major == 1 && req->minor == 1) {
 		/* use chunked encoding for HTTP/1.1 */
 		evhttp_add_header(req->output_headers, "Transfer-Encoding",
 		    "chunked");
 		req->chunked = 1;
 	}
+#endif	
 	evhttp_make_header(req->evcon, req);
 	evhttp_write_buffer(req->evcon, NULL, NULL);
 }

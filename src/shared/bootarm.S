@@ -73,7 +73,7 @@ atrom:
 	/* install the exception handler in RAM */
 	ldr	r0,=text_start
 	eor	r1,r1,r1
-	ldr	r2,=disable_arm_ints
+	ldr	r2,=disable_arm_irq
 1:	ldmia	r0!,{r4-r7}
 	stmia	r1!,{r4-r7}
 	cmp	r2,r0

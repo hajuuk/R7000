@@ -589,7 +589,12 @@ transcode_needed(struct evkeyvalq *headers, char *file_codectype)
 
 	      client_codecs = roku_codecs;
 	    }
-	  else if (strncmp(user_agent, "Hifidelio", strlen("Hifidelio")) == 0)
+      else if (strncmp(user_agent, "AppleCoreMedia", strlen("AppleCoreMedia")) == 0)
+        {
+          DPRINTF(E_DBG, L_XCODE, "Client is a AppleCoreMedia, using iTunes codecs\n"); 
+          client_codecs = itunes_codecs;       
+      }      	  
+      else if (strncmp(user_agent, "Hifidelio", strlen("Hifidelio")) == 0)
 	    {
 	      DPRINTF(E_DBG, L_XCODE, "Client is a Hifidelio device, allegedly cannot transcode\n");
 

@@ -334,13 +334,16 @@ static struct dentry *hfsplus_file_lookup(struct inode *dir, struct dentry *dent
 	inode->i_ino = dir->i_ino;
 	INIT_LIST_HEAD(&HFSPLUS_I(inode).open_dir_list);
 	mutex_init(&HFSPLUS_I(inode).extents_lock);
+
 	HFSPLUS_I(inode).flags = HFSPLUS_FLG_RSRC;
 
-	hfs_find_init(HFSPLUS_SB(sb).cat_tree, &fd);
+	err = hfs_find_init(HFSPLUS_SB(sb).cat_tree, &fd);
+	if (!err) {
 	err = hfsplus_find_cat(&hfsplus_handle, sb, dir->i_ino, &fd);
 	if (!err)
 		err = hfsplus_cat_read_inode(inode, &fd);
 	hfs_find_exit(&hfsplus_handle, &fd);
+	}
 	if (err) {
 		iput(inode);
 		hfsplus_journal_stop(&hfsplus_handle);

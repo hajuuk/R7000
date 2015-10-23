@@ -63,6 +63,10 @@ int is_wl_secu_mode_smp = 0;
 static int wps_led_is_on_smp = 0;
 static int wps_led_state_smp_old = 0;
 
+/* foxconn added start, ken chen, 12/13/2013, Support LED_CONTROL_SETTINGS */
+int led_control_settings_smp = 3;    /* 1=enable_blink, 2=disable_blink, 3=turn_off */
+/* foxconn added end, ken chen, 12/13/2013, Support LED_CONTROL_SETTINGS */
+
 /*
  * as from 2.5, kernels no longer have an init_tasks structure
  * so we need some other way of telling a new secondary core
@@ -535,6 +539,11 @@ static int usb1_normal_blink_smp(void)
 
     static int interrupt_count1 = -1;
     static int usb1_pkt_cnt_old_smp = 0;
+    /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
+    int led_on, led_off;
+    led_on = (led_control_settings_smp == 3) ? 1 : 0;
+	led_off = (led_control_settings_smp == 2) ? 0 : 1;
+    /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
     
     interrupt_count1++;
     if (interrupt_count1 == (LED_BLINK_RATE * 2))
@@ -543,7 +552,8 @@ static int usb1_normal_blink_smp(void)
     }    
     if (interrupt_count1 == 0){
         /*Foxconn, [MJ], turn off USB_Led. */
-        gpio_led_on_off(GPIO_USB1_LED, 0);
+        //gpio_led_on_off(GPIO_USB1_LED, 0);
+        gpio_led_on_off(GPIO_USB1_LED, led_on);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */
     }
     else if (interrupt_count1 == LED_BLINK_RATE)
     {
@@ -552,7 +562,8 @@ static int usb1_normal_blink_smp(void)
             usb1_pkt_cnt_old_smp = usb1_pkt_cnt_smp;
 //old0=usb1_pkt_cnt_old;
             /*Foxconn, [MJ], turn on USB_Led. */
-            gpio_led_on_off(GPIO_USB1_LED, 1);
+            //gpio_led_on_off(GPIO_USB1_LED, 1);
+            gpio_led_on_off(GPIO_USB1_LED, led_off);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */
             //printk("<1> turn on USB_LED.\n");
         }
     }
@@ -574,6 +585,13 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
 	struct rtnl_link_stats64 temp;
 	const struct rtnl_link_stats64 *stats;
 	static int repeat_2g=4,repeat_5g=4;
+    /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
+	int led_on;
+	int led_off;
+	led_on = (led_control_settings_smp == 3) ? 1 : 0;
+	led_off = (led_control_settings_smp == 2) ? 0 : 1;
+	/* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
+
     interrupt_wifi_count++;
 
     if (interrupt_wifi_count == (LED_BLINK_RATE * 2))
@@ -584,7 +602,8 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
    	    if (interrupt_wifi_count == 0)
    	    {
         /*Foxconn, [MJ], turn off USB_Led. */
-            gpio_led_on_off(GPIO_WIFI_2G_LED, 0);
+            //gpio_led_on_off(GPIO_WIFI_2G_LED, 0);
+			gpio_led_on_off(GPIO_WIFI_2G_LED, led_on);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */
         }
         else if(interrupt_wifi_count == LED_BLINK_RATE)
         {
@@ -600,7 +619,8 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
 
                 if((wifi_2g_tx_cnt_old_smp!=stats->tx_packets) || (wifi_2g_rx_cnt_old_smp!=stats->rx_packets))
                 {
-            				gpio_led_on_off(GPIO_WIFI_2G_LED, 1);
+            				//gpio_led_on_off(GPIO_WIFI_2G_LED, 1);
+							gpio_led_on_off(GPIO_WIFI_2G_LED, led_off);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */
             				wifi_2g_tx_cnt_old_smp=stats->tx_packets;
             				wifi_2g_rx_cnt_old_smp=stats->rx_packets;
                     repeat_2g=0;                
@@ -608,7 +628,8 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
                 else if( repeat_2g <4)
                 {
                     repeat_2g++;
-            				gpio_led_on_off(GPIO_WIFI_2G_LED, 1);
+            				//gpio_led_on_off(GPIO_WIFI_2G_LED, 1);
+							gpio_led_on_off(GPIO_WIFI_2G_LED, led_off);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */
             				
             		}
             }
@@ -626,7 +647,8 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
    	    if (interrupt_wifi_count == 0)
    	    {
         /*Foxconn, [MJ], turn off USB_Led. */
-            gpio_led_on_off(GPIO_WIFI_5G_LED, 0);
+            //gpio_led_on_off(GPIO_WIFI_5G_LED, 0);
+			gpio_led_on_off(GPIO_WIFI_5G_LED, led_on);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */
         }
         else if(interrupt_wifi_count == LED_BLINK_RATE)
         {
@@ -641,7 +663,8 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
     	          stats = dev_get_stats(net_dev, &temp);
                 if((wifi_5g_tx_cnt_old_smp!=stats->tx_packets) || (wifi_5g_rx_cnt_old_smp!=stats->rx_packets))
                 {
-            				gpio_led_on_off(GPIO_WIFI_5G_LED, 1);
+            				//gpio_led_on_off(GPIO_WIFI_5G_LED, 1);
+							gpio_led_on_off(GPIO_WIFI_5G_LED, led_off);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */
             				wifi_5g_tx_cnt_old_smp=stats->tx_packets;
             				wifi_5g_rx_cnt_old_smp=stats->rx_packets;
             				repeat_5g=0;
@@ -649,8 +672,8 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
                 else if( repeat_5g <4)
                 {
                     repeat_5g++;
-            				gpio_led_on_off(GPIO_WIFI_5G_LED, 1);
-            				
+            		//gpio_led_on_off(GPIO_WIFI_5G_LED, 1);
+					gpio_led_on_off(GPIO_WIFI_5G_LED, led_off);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */            				
             		}
 
             }    
@@ -672,6 +695,12 @@ static int usb2_normal_blink_smp(void)
 {
     static int interrupt_count2 = -1;
     static int first_both_usb = 0;
+	
+	/* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
+	int led_on, led_off;
+	led_on = (led_control_settings_smp == 3) ? 1 : 0;
+	led_off = (led_control_settings_smp == 2) ? 0 : 1;
+	/* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
 
 	if(usb1_led_state_smp==1){
 		if(usb1_led_state_old_smp==0 || usb2_led_state_old_smp==0)
@@ -681,16 +710,19 @@ static int usb2_normal_blink_smp(void)
 			interrupt_count2++;
 		
 			if (interrupt_count2%50 == 0)
-				gpio_led_on_off(GPIO_USB2_LED, 0);
+				//gpio_led_on_off(GPIO_USB2_LED, 0);
+				gpio_led_on_off(GPIO_USB2_LED, led_on);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */            				
 			else if (interrupt_count2%50 == 25)
-				gpio_led_on_off(GPIO_USB2_LED, 1);
+				//gpio_led_on_off(GPIO_USB2_LED, 1);
+				gpio_led_on_off(GPIO_USB2_LED, led_off);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */
 		
 			if(interrupt_count2>=500){
 				interrupt_count2=0;
 				first_both_usb=0;
 			}
 		}else
-			gpio_led_on_off(GPIO_USB2_LED, 0);
+			//gpio_led_on_off(GPIO_USB2_LED, 0);
+			gpio_led_on_off(GPIO_USB2_LED, led_on);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */            				
 		
 	}
 
@@ -705,7 +737,8 @@ static int usb2_normal_blink_smp(void)
     
     if (interrupt_count2 == 0){
         /*Foxconn, [MJ], turn off USB_Led. */
-        gpio_led_on_off(GPIO_USB2_LED, 0);
+        //gpio_led_on_off(GPIO_USB2_LED, 0);
+		gpio_led_on_off(GPIO_USB2_LED, led_on);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */            				
     }
     else if (interrupt_count2 == LED_BLINK_RATE)
     {
@@ -714,7 +747,8 @@ static int usb2_normal_blink_smp(void)
             usb2_pkt_cnt_old_smp = usb2_pkt_cnt_smp;
 //old1=usb2_pkt_cnt_old;
             /*Foxconn, [MJ], turn on USB_Led. */
-            gpio_led_on_off(GPIO_USB2_LED, 1);
+            //gpio_led_on_off(GPIO_USB2_LED, 1);
+			gpio_led_on_off(GPIO_USB2_LED, led_off);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */
             //printk("<1> turn on USB_LED.\n");
         }
     }
@@ -731,6 +765,10 @@ static int usb2_normal_blink_smp(void)
 static int normal_blink(void)
 {
     static int interrupt_count = -1;
+    /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
+    int led_on;
+    led_on = (led_control_settings_smp == 3) ? 0 : 1;
+    /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
 
     interrupt_count++;
     if (interrupt_count == LED_BLINK_RATE_NORMAL * 2)
@@ -739,13 +777,18 @@ static int normal_blink(void)
     if (interrupt_count == 0)
         gpio_led_on_off(WPS_LED_GPIO, 0);
     else if (interrupt_count == LED_BLINK_RATE_NORMAL)
-        gpio_led_on_off(WPS_LED_GPIO, 1);
+        //gpio_led_on_off(WPS_LED_GPIO, 1);
+		gpio_led_on_off(WPS_LED_GPIO, led_on);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */            				
 }
 
 static void quick_blink(void)
 {
     static int blink_interval = 500; /* 5 seconds */
     static int interrupt_count = -1;
+    /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
+    int led_on;
+    led_on = (led_control_settings_smp == 3) ? 0 : 1;
+    /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
 
     blink_interval--;
     interrupt_count++;
@@ -755,7 +798,8 @@ static void quick_blink(void)
     if (interrupt_count == 0)
         gpio_led_on_off(WPS_LED_GPIO, 0);
     else if (interrupt_count == LED_BLINK_RATE_QUICK)
-        gpio_led_on_off(WPS_LED_GPIO, 1);
+        //gpio_led_on_off(WPS_LED_GPIO, 1);
+		gpio_led_on_off(WPS_LED_GPIO, led_on);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */            				
         
     if ( blink_interval <= 0 )
     {
@@ -767,6 +811,10 @@ static void quick_blink(void)
 static void quick_blink2(void)
 {
     static int interrupt_count = -1;
+    /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
+    int led_on;
+    led_on = (led_control_settings_smp == 3) ? 0 : 1;
+    /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
 
     interrupt_count++;
     if (interrupt_count == LED_BLINK_RATE_QUICK * 2)
@@ -775,12 +823,17 @@ static void quick_blink2(void)
     if (interrupt_count == 0)
         gpio_led_on_off(WPS_LED_GPIO, 0);
     else if (interrupt_count == LED_BLINK_RATE_QUICK)
-        gpio_led_on_off(WPS_LED_GPIO, 1);
+        //gpio_led_on_off(WPS_LED_GPIO, 1);
+        gpio_led_on_off(WPS_LED_GPIO, led_on);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */            				
 }
 
 static int wps_ap_lockdown_blink(void)
 {
     static int interrupt_count = -1;
+    /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
+    int led_on;
+    led_on = (led_control_settings_smp == 3) ? 0 : 1;
+    /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
 
     interrupt_count++;
     if (interrupt_count == LED_BLINK_RATE_QUICK * 10)
@@ -789,7 +842,8 @@ static int wps_ap_lockdown_blink(void)
     if (interrupt_count == 0)
         gpio_led_on_off(WPS_LED_GPIO, 0);
     else if (interrupt_count == LED_BLINK_RATE_QUICK)
-        gpio_led_on_off(WPS_LED_GPIO, 1);
+        //gpio_led_on_off(WPS_LED_GPIO, 1);
+		gpio_led_on_off(WPS_LED_GPIO, led_on);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */            				
 }
 
 /*Foxconn add end by Hank 05/31/2013*/
@@ -811,13 +865,32 @@ static void ipi_timer(void)
 	if (cpu == 0){
 		if ( wps_led_state_smp == 0 ){
 #if defined(R7000)
+            /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
+            int led_on;
+            led_on = (led_control_settings_smp == 3) ? 0 : 1;
+            /* foxconn add start ken chen, 12/13/2013, to support LED control Settings */
+			
 			if (wps_led_state_smp_old != 0)
 				gpio_led_on_off(WPS_LED_GPIO, 0);
 
 			if ((!is_wl_secu_mode_smp) && wps_led_is_on_smp)
 				gpio_led_on_off(WPS_LED_GPIO, 0);
-			if (is_wl_secu_mode_smp && (!wps_led_is_on_smp))
-				gpio_led_on_off(WPS_LED_GPIO, 1);
+
+            //if (is_wl_secu_mode_smp && (!wps_led_is_on_smp))
+            //    gpio_led_on_off(WPS_LED_GPIO, 1);
+				
+            /* foxconn add start, ken chen, 12/13/2013, to support LED control Settings */
+            if (led_on) {
+                if (is_wl_secu_mode_smp && (!wps_led_is_on_smp)) {
+                    gpio_led_on_off(WPS_LED_GPIO, led_on);
+                }
+            }
+			else {
+                if (is_wl_secu_mode_smp && (wps_led_is_on_smp)) {
+                    gpio_led_on_off(WPS_LED_GPIO, led_on);  
+                }
+            }
+            /* foxconn add end, ken chen, 12/13/2013, to support LED control Settings */
 #else
 			if (wps_led_state_smp_old != 0)
 				gpio_led_on_off(WPS_LED_GPIO, 1);

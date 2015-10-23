@@ -24,7 +24,7 @@ var initialized = false;
 function displayWepRadio()
 {
     var cf = document.forms[0];
-    var wlan_mode = "<%1547%>";
+    var wlan_mode = "<%1599%>";
     
     if (wlan_mode == "g&#32;and&#32;b")//Up to 54Mbps
     {
@@ -70,10 +70,10 @@ function initScrn()
 function wpapskCheck()
 {
     var cf = document.forms[0];
-    var wlan_mode = "<%1547%>";
+    var wlan_mode = "<%1599%>";
     if (wlan_mode != "g&#32;and&#32;b")
     {
-        alert("<%33%>");
+        alert("<%35%>");
     	document.forms[0].submit();
     }
     else
@@ -82,10 +82,10 @@ function wpapskCheck()
 function autopskCheck()
 {
     var cf = document.forms[0];
-    var wlan_mode = "<%1547%>";
+    var wlan_mode = "<%1599%>";
     if (wlan_mode != "g&#32;and&#32;b")
     {
-        alert("<%36%>");
+        alert("<%38%>");
         document.forms[0].submit();
     }
     else
@@ -100,13 +100,13 @@ function checkData()
     
     if (cf.ssid.value == "")
     {
-        alert("<%40%>");
+        alert("<%42%>");
         return false;
     }
 
     if (cf.ssid.value.match( /[^\x20-\x7E]/ ))
     {
-        alert("<%41%>");
+        alert("<%43%>");
         cf.ssid.focus();
         return false;
     }
@@ -150,58 +150,60 @@ function checkData()
 <tr>
 <td colspan="2" background="liteblue.gif" height="12">&nbsp; </td></tr>
 <tr>
-<td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','wireless')" tabindex="-1"><b><%124%> - <%1548%></b></a></td>
+<td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','wireless')" tabindex="-1"><b><%127%> - <%1600%></b></a></td>
 </tr>
 <tr>
-<td align="left"><input type="checkbox" name="enable_bssid" value="1"><%1549%></td>
+<td align="left"><input type="checkbox" name="enable_bssid" value="1"><%1601%></td>
 </tr>
 
 <tr>
-<td align="left"><input type="checkbox" name="enable_ssid_bc" value="1"><%130%></td>
+<td align="left"><input type="checkbox" name="enable_ssid_bc" value="1"><%133%></td>
 </tr>
 
-<%125%>
-<tr>
-<td align="left"><input type="checkbox" name="allow_see_access" value="1"><%1550%></td>
-</tr>
 <%128%>
+<tr>
+<td align="left"><input type="checkbox" name="allow_see_access" value="1"><%1602%></td>
+</tr>
+<%131%>
 
 <tr>
-<td width="50%" align="left"><%1551%>:</td>
+<td width="50%" align="left"><%1603%>:</td>
 <td width="50%">
-<input type="text" name="ssid" value="<%1552%>" size="20" maxlength="32"></td>
+<input type="text" name="ssid" value="<%1604%>" size="20" maxlength="32"></td>
 </tr>
 
 <tr>
     <td colspan="2" background="liteblue.gif" height="12">&nbsp; </td></tr>
 <tr>
-    <td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','security')" tabindex="-1"><b><%137%> - <%1548%></b></a></td></tr>
+    <td colspan="2"><a href="javascript:parent.loadhelp('WLG_wireless_2','security')" tabindex="-1"><b><%140%> - <%1600%></b></a></td></tr>
 
 <tr><td colspan="2">
 <table cellpadding="0" cellspacing="3" width="100%">
 <tr>
-        <td colspan="2"><input type="radio" name="security_type" value="Disable" checked ><%138%><td></tr>
+        <td colspan="2"><input type="radio" name="security_type" value="Disable" checked ><%141%><td></tr>
 <tr>
         <td colspan="2">
             <div id="wep_radio_2G" style="display: block;">
-            <input type="radio" name="security_type" value="WEP" onClick="buttonFilter();this.form.submit();" ><%139%>
+            <input type="radio" name="security_type" value="WEP" onClick="buttonFilter();this.form.submit();" ><%142%>
             </div>    
         </td></tr>
+<!--
 <tr>
-    <td colspan="2"><input type="radio" name="security_type" value="WPA-PSK" <%140%> onClick="wpapskCheck();" ><%141%></td></tr>
+    <td colspan="2"><input type="radio" name="security_type" value="WPA-PSK" <%145%> onClick="wpapskCheck();" ><%143%></td></tr>
+-->    
 <tr>
-        <td colspan="2"><input type="radio" name="security_type" value="WPA2-PSK" <%140%> onClick="buttonFilter();this.form.submit();" ><%142%></td></tr>
+        <td colspan="2"><input type="radio" name="security_type" value="WPA2-PSK" <%145%> onClick="buttonFilter();this.form.submit();" ><%144%></td></tr>
 <tr>
-        <td colspan="2"><input type="radio" name="security_type" value="AUTO-PSK" <%140%> onClick="autopskCheck();" ><%143%></td></tr>
+        <td colspan="2"><input type="radio" name="security_type" value="AUTO-PSK" <%145%> onClick="autopskCheck();" ><%146%></td></tr>
 </table>
 </td></tr>
   </table>
   <input type="hidden" name="only_mode" value="0">
-  <input type="hidden" name="bssid_enable" value="<%1561%>">
-  <input type="hidden" name="ssid_bc_enable" value="<%1562%>">
+  <input type="hidden" name="bssid_enable" value="<%1613%>">
+  <input type="hidden" name="ssid_bc_enable" value="<%1614%>">
 
-<input type="hidden" name="enable_allow_see_access" value="<%1563%>"> 
-  <input type="hidden" name="enable_apmode" value="<%373%>">
+<input type="hidden" name="enable_allow_see_access" value="<%1615%>"> 
+  <input type="hidden" name="enable_apmode" value="<%394%>">
 </form>
 </body>
 </html>

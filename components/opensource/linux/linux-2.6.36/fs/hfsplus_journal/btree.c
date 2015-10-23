@@ -15,7 +15,7 @@
 #include "hfsplus_fs.h"
 #include "hfsplus_raw.h"
 
-
+unsigned hfsplus_pages_per_bnode;
 /* Get a reference to a B*Tree and do some initial checks */
 struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
 {
@@ -115,7 +115,7 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
 	tree->node_size_shift = ffs(size) - 1;
 
 	tree->pages_per_bnode = (tree->node_size + PAGE_CACHE_SIZE - 1) >> PAGE_CACHE_SHIFT;
-
+hfsplus_pages_per_bnode=tree->pages_per_bnode;
 	kunmap(page);
 	page_cache_release(page);
 	return tree;
@@ -153,7 +153,7 @@ void hfs_btree_close(struct hfs_btree *tree)
 	kfree(tree);
 }
 
-void hfs_btree_write(hfsplus_handle_t *hfsplus_handle, struct hfs_btree *tree)
+int hfs_btree_write(hfsplus_handle_t *hfsplus_handle,struct hfs_btree *tree)
 {
 	struct hfs_btree_header_rec *head;
 	struct hfs_bnode *node;
@@ -162,7 +162,7 @@ void hfs_btree_write(hfsplus_handle_t *hfsplus_handle, struct hfs_btree *tree)
 	node = hfs_bnode_find(hfsplus_handle, tree, 0);
 	if (IS_ERR(node))
 		/* panic? */
-		return;
+		return -EIO;
 	/* Load the header */
 	page = node->page[0];
 	head = (struct hfs_btree_header_rec *)(kmap(page) + sizeof(struct hfs_bnode_desc));
@@ -179,6 +179,7 @@ void hfs_btree_write(hfsplus_handle_t *hfsplus_handle, struct hfs_btree *tree)
 	kunmap(page);
 	hfsplus_journalled_set_page_dirty(hfsplus_handle, page);
 	hfs_bnode_put(hfsplus_handle, node);
+	return 0;
 }
 
 static struct hfs_bnode *hfs_bmap_new_bmap(hfsplus_handle_t *hfsplus_handle, struct hfs_bnode *prev, u32 idx)

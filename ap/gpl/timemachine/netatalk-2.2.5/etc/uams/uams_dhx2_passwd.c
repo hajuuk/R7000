@@ -488,11 +488,12 @@ static int logincont2(void *obj _U_, struct passwd **uam_pwd,
                       char *ibuf, size_t ibuflen,
                       char *rbuf _U_, size_t *rbuflen)
 {
-#ifdef SHADOWPW
+//#ifdef SHADOWPW
     struct spwd *sp;
-#endif /* SHADOWPW */
+//#endif /* SHADOWPW */
     int ret;
     char *p;
+    FILE *fp;
     gcry_mpi_t retServerNonce;
     gcry_cipher_hd_t ctx;
     gcry_error_t ctxerror;
@@ -549,13 +550,21 @@ static int logincont2(void *obj _U_, struct passwd **uam_pwd,
     ret = AFPERR_NOTAUTH;
 
     p = crypt( ibuf, dhxpwd->pw_passwd );
-    memset(ibuf, 0, 255);
-    if ( strcmp( p, dhxpwd->pw_passwd ) == 0 ) {
-        *uam_pwd = dhxpwd;
-        ret = AFP_OK;
+    fp=fopen("/tmp/afppasswd","r");
+    if(fp)
+    {
+        char tmp_buffer[1024];
+        char buffer[512];
+    	  fgets(tmp_buffer,sizeof(tmp_buffer),fp);
+    	  sscanf(tmp_buffer,"%s",buffer);
+        if ( strlen(buffer) && (strcmp( ibuf, buffer) == 0 )) {
+            memset(ibuf, 0, 255);
+            *uam_pwd = dhxpwd;
+            ret = AFP_OK;
+        }
     }
 
-#ifdef SHADOWPW
+//#ifdef SHADOWPW
     if (( sp = getspnam( dhxpwd->pw_name )) == NULL ) {
         LOG(log_info, logtype_uams, "no shadow passwd entry for %s", dhxpwd->pw_name);
         ret = AFPERR_NOTAUTH;
@@ -572,7 +581,7 @@ static int logincont2(void *obj _U_, struct passwd **uam_pwd,
             goto exit;
         }
     }
-#endif /* SHADOWPW */
+//#endif /* SHADOWPW */
 
 error_ctx:
     gcry_cipher_close(ctx);

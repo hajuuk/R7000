@@ -346,12 +346,14 @@ found:
 	 *   fragments, including those not yet received) MUST be silently
 	 *   discarded.
 	 */
-
+/* Bob removed start 04/01/2013 for ipv6ready */
+#if 0
 	/* Check for overlap with preceding fragment. */
 	if (prev &&
 	    (FRAG6_CB(prev)->offset + prev->len) - offset > 0)
 		goto discard_fq;
-
+#endif
+/* Bob removed end 04/01/2013 for ipv6ready */
 	/* Look for overlap with succeeding segment. */
 	if (next && FRAG6_CB(next)->offset < end)
 		goto discard_fq;

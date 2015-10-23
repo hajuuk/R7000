@@ -89,6 +89,9 @@
 #define SIOCGARP	0x8954		/* get ARP table entry		*/
 #define SIOCSARP	0x8955		/* set ARP table entry		*/
 #define SIOCPIDARP	0x8956		/* Foxconn tab tseng add,set pid  */
+#ifdef ARP_PROTECTION
+#define SIOCREJARP	0x8957		/* do not reply ARP 		*/
+#endif
 
 /* RARP cache control calls. */
 #define SIOCDRARP	0x8960		/* delete RARP table entry	*/

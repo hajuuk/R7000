@@ -38,7 +38,7 @@ SUBDIRS += bzip2
 #SUBDIRS +=lzo-2.06
 ifeq ($(CONFIG_OPENVPN),y)
 SUBDIRS +=openvpn-2.3.1
-SUBDIRS +=GeoIP-1.5.1
+#SUBDIRS +=GeoIP-1.5.1
 endif
 # allenwen add for openvpn
 
@@ -100,9 +100,13 @@ endif
 SUBDIRS += iproute2
 
 # Foxconn add start by Hank for ecosystem support 08/14/2012 
+ifeq ($(CONFIG_DOWNLOADER),y)
+SUBDIRS +=transmission
+SUBDIRS +=amule
+endif
 ifeq ($(CONFIG_WGET),y)
 OPENSSL_DIR = $(GPLTOPDIR)/openssl
-#WGET_DIR = wget-1.12
+WGET_DIR = wget-1.12
 SUBDIRS += $(WGET_DIR)
 endif
 
@@ -110,7 +114,7 @@ endif
 SUBDIRS += zip30 unzip60
 
 
-all: config
+all: ECOSYSTEM config
 	for i in ${SUBDIRS}; do \
 		(cd $$i; make) || exit 1; \
 	done
@@ -127,7 +131,8 @@ dlna:
 
 ECOSYSTEM:
 ifeq ($(CONFIG_WGET),y)
-	mkdir -p $(OPENSSL_DIR)/lib && rm -rf $(OPENSSL_DIR)/lib/libssl.so.1.0.0 && cp $(TOOLCHAIN)/usr/lib/libssl.so.1.0.0 $(OPENSSL_DIR)/lib/
+	mkdir -p $(OPENSSL_DIR)/lib && rm -rf $(OPENSSL_DIR)/lib/libssl.so.1.0.0 && rm -rf $(OPENSSL_DIR)/include/openssl
+	cp $(TOOLCHAIN)/usr/lib/libssl.so.1.0.0 $(OPENSSL_DIR)/lib/ && cp -r $(TOOLCHAIN)/usr/include/openssl $(OPENSSL_DIR)/include/
 	cd $(WGET_DIR) && $(CONFIGURE) CFLAGS="$(CFLAGS) -DMB_CUR_MAX=1" LDFLAGS="$(LDFLAGS) -L$(OPENSSL_DIR)" \
 		--with-ssl=openssl --with-libssl-prefix=$(OPENSSL_DIR) --prefix=$(TARGETDIR)
 endif

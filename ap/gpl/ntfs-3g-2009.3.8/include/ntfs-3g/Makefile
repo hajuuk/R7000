@@ -37,21 +37,13 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-build_triplet = arm-brcm-linux-uclibcgnueabi-gnu26
-else ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
+ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
 build_triplet = mipsel-uclibc-linux-gnu26
 else
 build_triplet = mipsel-unknown-linux-uclibc
 endif
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-host_triplet = arm-unknown-elf
-else
 host_triplet = mipsel-unknown-elf
-endif
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-target_triplet = arm-brcm-linux-uclibcgnueabi-gnu26
-else ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
+ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
 target_triplet = mipsel-uclibc-linux-gnu26
 else
 target_triplet = mipsel-unknown-linux-uclibc
@@ -91,50 +83,42 @@ HEADERS = $(noinst_HEADERS) $(ntfs3ginclude_HEADERS)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-ACLOCAL = ${SHELL} $(BASEDIR)/ap/gpl/ntfs-3g-2009.3.8/missing --run aclocal-1.9
-else
 ACLOCAL = ${SHELL} /home/peter/projects/WNR3500L/Linux2.6/mainstream/bcm4718/ap/gpl/ntfs-3g-2009.3.8/missing --run aclocal-1.9
-endif
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-AMTAR = ${SHELL} $(BASEDIR)/ap/gpl/ntfs-3g-2009.3.8/missing --run tar
-else
 AMTAR = ${SHELL} /home/peter/projects/WNR3500L/Linux2.6/mainstream/bcm4718/ap/gpl/ntfs-3g-2009.3.8/missing --run tar
-endif
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-AR = arm-brcm-linux-uclibcgnueabi-ar
-else ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
+ifneq ($(CROSS_COMPILE_PREFIX),)
+AR = $(CROSS_COMPILE_PREFIX)ar
+else
+ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
 AR = mipsel-linux-uclibc-ar
 else
 AR = mipsel-uclibc-ar
 endif
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-AUTOCONF = ${SHELL} $(BASEDIR)/ap/gpl/ntfs-3g-2009.3.8/missing --run autoconf
-AUTOHEADER = ${SHELL} $(BASEDIR)/ap/gpl/ntfs-3g-2009.3.8/missing --run autoheader
-AUTOMAKE = ${SHELL} $(BASEDIR)/ap/gpl/ntfs-3g-2009.3.8/missing --run automake-1.9
-else
+endif
 AUTOCONF = ${SHELL} /home/peter/projects/WNR3500L/Linux2.6/mainstream/bcm4718/ap/gpl/ntfs-3g-2009.3.8/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/peter/projects/WNR3500L/Linux2.6/mainstream/bcm4718/ap/gpl/ntfs-3g-2009.3.8/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/peter/projects/WNR3500L/Linux2.6/mainstream/bcm4718/ap/gpl/ntfs-3g-2009.3.8/missing --run automake-1.9
-endif
 AWK = gawk
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-CC = arm-brcm-linux-uclibcgnueabi-gcc
-else ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
+ifneq ($(CROSS_COMPILE_PREFIX),)
+CC = $(CROSS_COMPILE_PREFIX)gcc
+else
+ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
 CC = mipsel-linux-uclibc-gcc
 else
 CC = mipsel-uclibc-gcc
 endif
+endif
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O3 -Wall
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-CPP = arm-brcm-linux-uclibcgnueabi-gcc -E
-else ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
+ifneq ($(CROSS_COMPILE_PREFIX),)
+CPP = $(CROSS_COMPILE_PREFIX)gcc -E
+else
+ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
 CPP = mipsel-linux-uclibc-gcc -E
 else
 CPP = mipsel-uclibc-gcc -E
+endif
 endif
 CPPFLAGS = 
 CXX = g++
@@ -179,11 +163,7 @@ LTLIBOBJS =  ${LIBOBJDIR}memcmp$U.lo ${LIBOBJDIR}lstat$U.lo ${LIBOBJDIR}stat$U.l
 MAINT = #
 MAINTAINER_MODE_FALSE = 
 MAINTAINER_MODE_TRUE = #
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-MAKEINFO = ${SHELL} $(BASEDIR)/ap/gpl/ntfs-3g-2009.3.8/missing --run makeinfo
-else
 MAKEINFO = ${SHELL} /home/peter/projects/WNR3500L/Linux2.6/mainstream/bcm4718/ap/gpl/ntfs-3g-2009.3.8/missing --run makeinfo
-endif
 MKDIR_P = $(mkdir_p)
 MV = /bin/mv
 NTFS_DEVICE_DEFAULT_IO_OPS_FALSE = #
@@ -207,12 +187,14 @@ RUN_LDCONFIG_TRUE =
 SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/sh
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-STRIP = arm-brcm-linux-uclibcgnueabi-strip
-else ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
+ifneq ($(CROSS_COMPILE_PREFIX),)
+STRIP = $(CROSS_COMPILE_PREFIX)strip
+else
+ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
 STRIP = mipsel-linux-uclibc-strip
 else
 STRIP = mipsel-uclibc-strip
+endif
 endif
 VERSION = 2009.3.8
 WINDOWS_FALSE = 
@@ -230,25 +212,15 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-build = arm-brcm-linux-uclibcgnueabi-gnu26
-build_alias = arm-brcm-linux-uclibcgnueabi-linux26
-else ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
+ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
 build = mipsel-uclibc-linux-gnu26
 build_alias = mipsel-uclibc-linux26
 else
 build = mipsel-unknown-linux-uclibc
 build_alias = mipsel-linux-uclibc
 endif
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-build_cpu = arm
-else
 build_cpu = mipsel
-endif
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-build_os = linux-gnu26
-build_vendor = uclibcgnueabi
-else ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
+ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
 build_os = linux-gnu26
 build_vendor = uclibc
 else
@@ -260,25 +232,15 @@ datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-host = arm-unknown-elf
-host_alias = arm
-host_cpu = arm
-else
 host = mipsel-unknown-elf
 host_alias = mipsel
 host_cpu = mipsel
-endif
 host_os = elf
 host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-install_sh = $(BASEDIR)/ap/gpl/ntfs-3g-2009.3.8/install-sh
-else
 install_sh = /home/peter/projects/WNR3500L/Linux2.6/mainstream/bcm4718/ap/gpl/ntfs-3g-2009.3.8/install-sh
-endif
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -291,9 +253,7 @@ pdfdir = ${docdir}
 pkgconfigdir = $(libdir)/pkgconfig
 #prefix = /usr/local
 prefix = $(TARGETDIR)/usr/sbin
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-program_transform_name = s&^&arm-brcm-linux-uclibcgnueabi-&
-else ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
+ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
 program_transform_name = s&^&mipsel-uclibc-linux26-&
 else
 program_transform_name = s&^&mipsel-linux-uclibc-&
@@ -305,25 +265,15 @@ rootsbindir = /sbin
 sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 sysconfdir = ${prefix}/etc
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-target = arm-brcm-linux-uclibcgnueabi-gnu26
-target_alias = arm-brcm-linux-uclibcgnueabi
-else ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
+ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
 target = mipsel-uclibc-linux-gnu26
 target_alias = mipsel-uclibc-linux26
 else
 target = mipsel-unknown-linux-uclibc
 target_alias = mipsel-linux-uclibc
 endif
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-target_cpu = arm
-else
 target_cpu = mipsel
-endif
-ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
-target_os = linux-gnu26
-target_vendor = uclibcgnueabi
-else ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
+ifeq ($(LINUXDIR), $(SRCBASE)/linux/linux-2.6)
 target_os = linux-gnu26
 target_vendor = uclibc
 else

@@ -1340,6 +1340,16 @@ int ad_open( const char *path, int adflags, int oflags, int mode, struct adouble
     if (!(adflags & ADFLAGS_HF))
         return 0;
 
+    if(strcmp(path,".")==0)
+    {
+        char dir[1024];
+        getcwd(dir,sizeof(dir));
+        if(strstr(dir,"Private Directory Data"))
+            return 0;
+    }
+    if(strstr(path,"Private Directory Data"))
+        return 0;
+
     /* ****************************************** */
 
     if (ad_meta_fileno(ad) != -1) { /* the file is already open */
@@ -1362,8 +1372,6 @@ int ad_open( const char *path, int adflags, int oflags, int mode, struct adouble
     memset(ad->ad_eid, 0, sizeof( ad->ad_eid ));
     ad->ad_rlen = 0;
     ad_p = ad->ad_ops->ad_path( path, adflags );
-    if(strstr(path,"HFS+ Private Directory Data"))
-        return 0;
     hoflags = oflags & ~(O_CREAT | O_EXCL);
     if (!(adflags & ADFLAGS_RDONLY)) {
         hoflags = (hoflags & ~(O_RDONLY | O_WRONLY)) | O_RDWR;

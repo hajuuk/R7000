@@ -45,13 +45,15 @@
 #define WLAN_REGION          WW_VERSION
 #define FW_REGION            WW_VERSION   /* true f/w region */
 
+/* Foxconn add start, Max Ding, 12/05/2012 */
 #define ISP_BRIC             1
 #define ISP_VERSION          ISP_BRIC /* just for internet firmware upgrade path */
+/* Foxconn add end, Max Ding, 12/05/2012 */
 /*formal version control*/
 #define AMBIT_HARDWARE_VERSION     "U12H270T00"
-#define AMBIT_SOFTWARE_VERSION     "V1.0.2.200"
-#define AMBIT_UI_VERSION           "1.0.18PRRU"
-#define STRING_TBL_VERSION         "1.0.2.200_2.1.36.2"
+#define AMBIT_SOFTWARE_VERSION     "V1.0.3.28"
+#define AMBIT_UI_VERSION           "1.1.22PRRU"
+#define STRING_TBL_VERSION         "1.0.3.28_2.1.36.1"
 
 #define AMBIT_PRODUCT_NAME          "R7000"
 #define AMBIT_PRODUCT_DESCRIPTION   "802.11ac Dual Band Gigabit Wireless Router R7000"
@@ -108,7 +110,6 @@
 
 #define GPIO_WIFI_2G_LED            13
 #define GPIO_WIFI_5G_LED            12
-
 #define GPIO_WIFI_SUMMARY_LED       15
 
 

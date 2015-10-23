@@ -11,7 +11,6 @@
 ***
 ****************************************************************************/
 
-
 #include <linux/version.h>
 #include <linux/module.h>
 #include <linux/init.h>
@@ -49,6 +48,10 @@ extern int wifi_2g_led_state_smp;
 extern int wifi_5g_led_state_smp;
 #endif
 
+/* foxconn added start, ken chen, 12/13/2013, Support LED_CONTROL_SETTINGS */
+extern int led_control_settings_smp;
+/* foxconn added end, ken chen, 12/13/2013, Support LED_CONTROL_SETTINGS */
+
 static int
 wps_led_open(struct inode *inode, struct file * file)
 {
@@ -83,7 +86,6 @@ unsigned long arg)
      *       Otherwise, we might change the wireless LED
      *       by accident.
     */
-    
 #if (defined INCLUDE_USB_LED)
     if (cmd == USB_LED_STATE_ON || cmd == USB_LED_STATE_OFF)
     {
@@ -240,6 +242,21 @@ unsigned long arg)
 #endif
 		/*Foxconn add end by Hank 05/31/2013*/
             break;
+
+        /* foxconn added start, ken chen, 12/13/2013, Support LED_CONTROL_SETTINGS */
+        case LED_CONTROL_ENABLE_BLINK:
+            led_control_settings_smp = 1;
+            break;
+
+        case LED_CONTROL_DISABLE_BLINK:
+            led_control_settings_smp = 2;
+            break;
+
+        case LED_CONTROL_TURN_OFF:
+            led_control_settings_smp = 3;			
+            break;
+		
+		/* foxconn added end, ken chen, 12/13/2013, Support LED_CONTROL_SETTINGS */
 
         default:
             break;

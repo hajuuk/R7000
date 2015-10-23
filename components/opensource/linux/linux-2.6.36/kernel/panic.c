@@ -48,6 +48,14 @@ static long no_blink(int state)
 long (*panic_blink)(int state);
 EXPORT_SYMBOL(panic_blink);
 
+#ifdef CONFIG_CRASHLOG
+void  nvram_store_crash(void);
+#endif
+
+#ifdef KERNEL_CRASH_DUMP_TO_MTD
+int flash_write_buffer(void);
+#endif
+
 /**
  *	panic - halt the system
  *	@fmt: The text string to print
@@ -99,6 +107,14 @@ NORET_TYPE void panic(const char * fmt, ...)
 	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
 
 	bust_spinlocks(0);
+	
+#ifdef KERNEL_CRASH_DUMP_TO_MTD
+        flash_write_buffer();
+#endif
+
+#ifdef CONFIG_CRASHLOG
+	nvram_store_crash();
+#endif
 
 	if (!panic_blink)
 		panic_blink = no_blink;

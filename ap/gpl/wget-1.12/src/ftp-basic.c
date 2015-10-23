@@ -1148,10 +1148,12 @@ ftp_size (int csock, const char *file, wgint *size)
        */
       xfree (respline);
       *size = 0;
+      update_status_file("0", 2, getpid()); 
       return FTPOK;
     }
 
   errno = 0;
+  update_status_file(respline+4, 2, getpid()); //ftp filesize
   *size = str_to_wgint (respline + 4, NULL, 10);
   if (errno)
     {
@@ -1163,11 +1165,16 @@ ftp_size (int csock, const char *file, wgint *size)
        */
       xfree (respline);
       *size = 0;
+      update_status_file("0", 2, getpid()); 
       return FTPOK;
     }
 
   xfree (respline);
   /* All OK.  */
+  if( *size == 0 )
+  {
+    update_status_file("3", 3, getpid());
+  }
   return FTPOK;
 }
 

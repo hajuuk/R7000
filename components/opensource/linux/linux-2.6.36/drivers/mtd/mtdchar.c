@@ -1092,6 +1092,33 @@ static void __exit cleanup_mtdchar(void)
 	__unregister_chrdev(MTD_CHAR_MAJOR, 0, 1 << MINORBITS, "mtd");
 }
 
+#ifdef KERNEL_CRASH_DUMP_TO_MTD
+
+extern char *get_logbuf(void);
+extern char *get_logsize(void);
+int flash_write_buffer()
+{
+	struct mtd_info *nvram_mtd;
+	
+	char *buffer;
+	int buf_len;
+	int len;
+
+	nvram_mtd = get_mtd_device(NULL, 5);
+
+	if (!nvram_mtd) {
+		printk("%s(%d): NVRAM not found\n", __FUNCTION__, __LINE__);
+		return -ENODEV;
+	}
+	
+	buf_len = get_logsize();
+    buffer = get_logbuf();
+	nvram_mtd->write(nvram_mtd, 0, buf_len, &len, buffer);
+done:
+	return 0;
+}
+#endif //KERNEL_CRASH_DUMP_TO_MTD
+
 module_init(init_mtdchar);
 module_exit(cleanup_mtdchar);
 

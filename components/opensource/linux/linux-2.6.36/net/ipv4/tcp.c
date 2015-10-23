@@ -2707,7 +2707,8 @@ struct sk_buff BCMFASTPATH_HOST *tcp_tso_segment(struct sk_buff *skb, int featur
 	 * layer.
 	 */
 	/* Remove by Foxconn Peter 06/14/2013 For ipv6 web login issue */
-	if (!skb->tcpf_nf && !(skb_shinfo(skb)->frag_list) && (ip_hdr(skb)->version == 4)) {
+        //if (!skb->tcpf_nf) {
+	if (0) {
 		return skb_tcp_segment(skb, features, oldlen, thlen);
 	}
 

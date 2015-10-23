@@ -861,6 +861,10 @@ int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
     case SIOCPIDARP:   //Foxconn tab tsng add, 2013/05/23 ,ioctl pid to arp
 		err = arp_ioctl(net, cmd, (void __user *)arg);
 		break;
+#ifdef ARP_PROTECTION
+	case SIOCREJARP:
+		return arp_ioctl(net, cmd, (void __user *)arg);
+#endif
 	case SIOCGIFADDR:
 	case SIOCSIFADDR:
 	case SIOCGIFBRDADDR:

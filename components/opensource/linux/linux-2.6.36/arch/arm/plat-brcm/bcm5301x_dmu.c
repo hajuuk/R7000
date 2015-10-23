@@ -366,6 +366,21 @@ static struct clk_lookup soc_clk_lookups[] = {
 	.clk            = &clk_genpll_ch[5],
 	}
 };
+void dmu_gpiomux_init(void)
+{
+#ifdef CONFIG_PLAT_MUX_CONSOLE
+	void * __iomem reg_addr;
+	u32 reg;
+
+	/* CRU_RESET register */
+	reg_addr = (void *)(SOC_DMU_BASE_VA + 0x1c0);
+
+	/* set iproc_reset_n to 0 to use UART1, but it never comes back */
+	reg = readl(reg_addr);
+	reg &= ~((u32)0xf << 12);
+	writel(reg, reg_addr);
+#endif /* CONFIG_PLAT_MUX_CONSOLE */
+}
 
 /* 
  * Install above clocks into clock lookup table 
@@ -421,6 +436,7 @@ void __init soc_dmu_init( struct clk *	clk_ref )
 	/* Initialize clocks */
 	soc_clocks_init( reg_base + 0x100, clk_ref );	/* CRU LCPLL control0 */
 
+	dmu_gpiomux_init();
 }
 
 

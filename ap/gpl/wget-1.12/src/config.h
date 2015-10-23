@@ -21,7 +21,7 @@
 #define BITSIZEOF_WCHAR_T 32
 
 /* Define to the number of bits in type 'wint_t'. */
-#define BITSIZEOF_WINT_T 32
+#define BITSIZEOF_WINT_T 0
 
 /* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
    systems. This function is required for `alloca.c' support on those systems.
@@ -185,7 +185,7 @@
 /* #undef HAVE_GETTEXT */
 
 /* Define if you have the iconv() function and it works. */
-#define HAVE_ICONV 1
+/* #undef HAVE_ICONV */
 
 /* Define to 1 if you have the `inet_ntoa' function. */
 #define HAVE_INET_NTOA 1
@@ -208,7 +208,7 @@
 #define HAVE_ISATTY 1
 
 /* Define to 1 if you have the `iswcntrl' function. */
-#define HAVE_ISWCNTRL 1
+/* #undef HAVE_ISWCNTRL */
 
 /* Define if you have <langinfo.h> and nl_langinfo(CODESET). */
 #define HAVE_LANGINFO_CODESET 1
@@ -239,16 +239,16 @@
 #define HAVE_MAP_ANONYMOUS 1
 
 /* Define to 1 if you have the `mbrtowc' function. */
-#define HAVE_MBRTOWC 1
+/* #undef HAVE_MBRTOWC */
 
 /* Define to 1 if you have the `mbsinit' function. */
-#define HAVE_MBSINIT 1
+/* #undef HAVE_MBSINIT */
 
 /* Define to 1 if <wchar.h> declares mbstate_t. */
-#define HAVE_MBSTATE_T 1
+/* #undef HAVE_MBSTATE_T */
 
 /* Define to 1 if you have the `mbtowc' function. */
-#define HAVE_MBTOWC 1
+/* #undef HAVE_MBTOWC */
 
 /* Define if we're compiling support for MD5. */
 #define HAVE_MD5 1
@@ -293,7 +293,7 @@
 #define HAVE_SIGNED_SIG_ATOMIC_T 1
 
 /* Define to 1 if 'wchar_t' is a signed integer type. */
-/* #undef HAVE_SIGNED_WCHAR_T */
+#define HAVE_SIGNED_WCHAR_T 1
 
 /* Define to 1 if 'wint_t' is a signed integer type. */
 /* #undef HAVE_SIGNED_WINT_T */
@@ -341,7 +341,7 @@
 #define HAVE_STRDUP 1
 
 /* Define to 1 if you have the `strerror_r' function. */
-#define HAVE_STRERROR_R 1
+/* #undef HAVE_STRERROR_R */
 
 /* Define to 1 if you have the <strings.h> header file. */
 #define HAVE_STRINGS_H 1
@@ -443,22 +443,22 @@
 #define HAVE_VSNPRINTF 1
 
 /* Define to 1 if you have the <wchar.h> header file. */
-#define HAVE_WCHAR_H 1
+/* #undef HAVE_WCHAR_H */
 
 /* Define if you have the 'wchar_t' type. */
 #define HAVE_WCHAR_T 1
 
 /* Define to 1 if you have the <wctype.h> header file. */
-#define HAVE_WCTYPE_H 1
+/* #undef HAVE_WCTYPE_H */
 
 /* Define to 1 if you have the `wcwidth' function. */
-#define HAVE_WCWIDTH 1
+/* #undef HAVE_WCWIDTH */
 
 /* Define to 1 if you have the <winsock2.h> header file. */
 /* #undef HAVE_WINSOCK2_H */
 
 /* Define if you have the 'wint_t' type. */
-#define HAVE_WINT_T 1
+/* #undef HAVE_WINT_T */
 
 /* Define if fnmatch.h can be included. */
 #define HAVE_WORKING_FNMATCH_H 1
@@ -470,7 +470,7 @@
 #define HAVE___FSETLOCKING 1
 
 /* Define as const if the declaration of iconv() needs const. */
-#define ICONV_CONST 
+/* #undef ICONV_CONST */
 
 /* Define to 1 if lseek does not detect pipes. */
 /* #undef LSEEK_PIPE_BROKEN */
@@ -507,9 +507,6 @@
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "wget"
-
-/* Define to the home page for this package. */
-/* #undef PACKAGE_URL */
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "1.12"
@@ -566,11 +563,11 @@
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'wchar_t'. */
-#define WCHAR_T_SUFFIX u
+#define WCHAR_T_SUFFIX 
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'wint_t'. */
-#define WINT_T_SUFFIX u
+#define WINT_T_SUFFIX 
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
    significant byte first (like Motorola and SPARC, unlike Intel). */
@@ -659,7 +656,7 @@
 #endif
 
 /* Define to a type if <wchar.h> does not define. */
-/* #undef mbstate_t */
+#define mbstate_t int
 
 /* Define to `int' if <sys/types.h> does not define. */
 /* #undef pid_t */

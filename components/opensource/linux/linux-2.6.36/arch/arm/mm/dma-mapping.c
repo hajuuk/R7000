@@ -422,21 +422,10 @@ EXPORT_SYMBOL(dma_free_coherent);
  * platforms with CONFIG_DMABOUNCE.
  * Use the driver DMA support - see dma-mapping.h (dma_sync_*)
  */
-#if 1 /*Ares Test*/
-void dump_stack(void);
-#endif
-
 void ___dma_single_cpu_to_dev(const void *kaddr, size_t size,
 	enum dma_data_direction dir)
 {
 	unsigned long paddr;
-#if 1 /*Ares Test*/
-	if (!virt_addr_valid(kaddr) || !virt_addr_valid(kaddr + size - 1))  {
-		printk("\n ___dma_single_cpu_to_dev  still hit BUG kaddr %p size %d\n", kaddr, size);
-		return;
-	}
-		BUG_ON(!virt_addr_valid(kaddr) || !virt_addr_valid(kaddr + size - 1));
-#endif
 
 	BUG_ON(!virt_addr_valid(kaddr) || !virt_addr_valid(kaddr + size - 1));
 
@@ -536,6 +525,14 @@ void ___dma_page_dev_to_cpu(struct page *page, unsigned long off,
 		outer_inv_range(paddr, paddr + size);
 
 	dma_cache_maint_page(page, off, size, dir, dmac_unmap_area);
+#ifdef CONFIG_BCM47XX
+	/*
+	 * Merged from Linux-2.6.37
+	 * Mark the D-cache clean for this page to avoid extra flushing.
+	 */
+	if (dir != DMA_TO_DEVICE && off == 0 && size >= PAGE_SIZE)
+		set_bit(PG_dcache_clean, &page->flags);
+#endif /* CONFIG_BCM47XX */
 }
 EXPORT_SYMBOL(___dma_page_dev_to_cpu);
 

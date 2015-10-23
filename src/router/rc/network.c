@@ -253,6 +253,7 @@ wl_vif_hwaddr_set(const char *name)
 	char *ea;
 	char hwaddr[20];
 	struct ifreq ifr;
+
 	snprintf(hwaddr, sizeof(hwaddr), "%s_hwaddr", name);
 	ea = nvram_get(hwaddr);
 	if (ea == NULL) {
@@ -260,14 +261,12 @@ wl_vif_hwaddr_set(const char *name)
 		return;
 	}
 
-
 	fprintf(stderr, "NET: Setting %s hw addr to %s\n", name, ea);
 	ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
 	ether_atoe(ea, (unsigned char *)ifr.ifr_hwaddr.sa_data);
 	if ((rc = soc_req(name, SIOCSIFHWADDR, &ifr)) < 0) {
 		fprintf(stderr, "NET: Error setting hw for %s; returned %d\n", name, rc);
 	}
-
 }
 
 #ifdef __CONFIG_EMF__
@@ -725,21 +724,24 @@ start_lan(void)
 						 * dpsta interface.
 						 */
 						if (strstr(nvram_safe_get("dpsta_ifnames"), name)) {
-							strcpy(name, !dpsta ?  "dpsta" : "");
-							dpsta++;
-
-							/* Assign hw address */
+							/* Assign first wl i/f as dpsta hw address */
 							if ((s = socket(AF_INET, SOCK_RAW, IPPROTO_RAW)) >= 0) {
 								strncpy(ifr.ifr_name, "dpsta", IFNAMSIZ);
 								if (ioctl(s, SIOCGIFHWADDR, &ifr) == 0 &&
 								    memcmp(ifr.ifr_hwaddr.sa_data, "\0\0\0\0\0\0",
 								           ETHER_ADDR_LEN) == 0) {
-									ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
-									memcpy(ifr.ifr_hwaddr.sa_data, hwaddr, ETHER_ADDR_LEN);
-									ioctl(s, SIOCSIFHWADDR, &ifr);
+									strncpy(ifr.ifr_name, name, IFNAMSIZ);
+									if (ioctl(s, SIOCGIFHWADDR, &ifr) == 0) {
+										strncpy(ifr.ifr_name, "dpsta", IFNAMSIZ);
+										ifr.ifr_hwaddr.sa_family = ARPHRD_ETHER;
+										ioctl(s, SIOCSIFHWADDR, &ifr);
+									}
 								}
 								close(s);
 							}
+
+							strcpy(name, !dpsta ?  "dpsta" : "");
+							dpsta++;
 						}
 					
 						eval("brctl", "addif", lan_ifname, name);
@@ -1235,6 +1237,21 @@ start_wl(void)
     }
     
     system("wl -i eth1 pspretend_threshold 4");
+    
+    system("wl -i eth1 mfp_enable 0");
+    system("wl -i eth2 mfp_enable 0");
+
+    if (nvram_match("enable_atf", "1"))
+    {
+//      system("wl -i eth2 shmem 0x80 2");
+      eval("wl", "-i", "eth2", "frameburst", "1");
+	  }
+	  else
+	  {
+      eval("wl", "-i", "eth2", "frameburst", "1");
+	  }
+      eval("wl", "assert_type", "1");
+      
     /*Foxconn add start by Antony start 09/13/2013 Add rf support of Russia Region */
     if (nvram_match("wla_region", "14"))
     {
@@ -1245,7 +1262,7 @@ start_wl(void)
         system("wl -i eth2 txpwr1 -1");
     }
     /*Foxconn add start by Antony end 09/13/2013 */
-    
+      
 }
 
 #ifdef __CONFIG_NAT__
@@ -2101,6 +2118,10 @@ void start_wlan(void)
     int ru_iptv_en = 0;
     int wlan1_en = 0;
     int wlan2_en = 0;
+/* Foxconn added start, Edward zhang, 09/04/2012, @IPTV Guese network */
+    int wlan3_en = 0;
+    int wlan4_en = 0;
+/* Foxconn added end, Edward zhang, 09/04/2012, @IPTV Guese network */
     if (nvram_match(NVRAM_IPTV_ENABLED, "1"))
     {
         strcpy(iptv_intf, nvram_get(NVRAM_IPTV_INTF));
@@ -2113,6 +2134,12 @@ void start_wlan(void)
         if (iptv_intf_val & IPTV_WLAN2)
         /* Foxconn modified end pling 04/20/2012 */
             wlan2_en = 1;
+/* Foxconn added start, Edward zhang, 09/04/2012, @IPTV Guese network */
+        /*else*/ if (iptv_intf_val & IPTV_WLAN3)
+            wlan3_en = 1;
+       	/*else*/ if (iptv_intf_val & IPTV_WLAN4)
+            wlan4_en = 1;
+/* Foxconn added end, Edward zhang, 09/04/2012, @IPTV Guese network */
         ru_iptv_en = 1;
     }
 #endif /* CONFIG_RUSSIA_IPTV */
@@ -2187,7 +2214,12 @@ void start_wlan(void)
             {
                 wl_vif_hwaddr_set(if_name);
                 ifconfig(if_name, IFUP, NULL, NULL);
-	            eval("brctl", "addif", lan_ifname, if_name);
+/* Foxconn added start, Edward zhang, 09/04/2012, @IPTV Guese network */
+                if (wlan3_en)
+                    eval("brctl", "addif", "br1", if_name);
+                else
+                    eval("brctl", "addif", lan_ifname, if_name);
+/* Foxconn added nd, Edward zhang, 09/04/2012, @IPTV Guese network */
             }
         }
         for (bssid_num=1; bssid_num<=3; bssid_num++)
@@ -2200,7 +2232,12 @@ void start_wlan(void)
             {
                 wl_vif_hwaddr_set(if_name_5g);
                 ifconfig(if_name_5g, IFUP, NULL, NULL);
-	            eval("brctl", "addif", lan_ifname, if_name_5g);
+/* Foxconn added start, Edward zhang, 09/04/2012, @IPTV Guese network */
+                if (wlan4_en)
+                    eval("brctl", "addif", "br1", if_name_5g);
+                else
+                    eval("brctl", "addif", lan_ifname, if_name_5g);
+/* Foxconn added end, Edward zhang, 09/04/2012, @IPTV Guese network */
             }
         }
     }

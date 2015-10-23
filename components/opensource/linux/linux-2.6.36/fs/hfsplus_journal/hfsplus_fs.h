@@ -335,7 +335,7 @@ int hfsplus_block_free(hfsplus_handle_t *, struct super_block *, u32, u32);
 /* btree.c */
 struct hfs_btree *hfs_btree_open(struct super_block *, u32);
 void hfs_btree_close(struct hfs_btree *);
-void hfs_btree_write(hfsplus_handle_t *, struct hfs_btree *);
+int hfs_btree_write(hfsplus_handle_t *,struct hfs_btree *);
 struct hfs_bnode *hfs_bmap_alloc(hfsplus_handle_t *, struct hfs_btree *);
 void hfs_bmap_free(hfsplus_handle_t *, struct hfs_bnode *);
 
@@ -393,7 +393,7 @@ extern const struct file_operations hfsplus_dir_operations;
 
 /* extents.c */
 int hfsplus_ext_cmp_key(const hfsplus_btree_key *, const hfsplus_btree_key *);
-void hfsplus_ext_write_extent(hfsplus_handle_t *, struct inode *);
+int hfsplus_ext_write_extent(hfsplus_handle_t *, struct inode *);
 int hfsplus_get_block(struct inode *, sector_t, struct buffer_head *, int);
 int hfsplus_free_fork(hfsplus_handle_t *handle, struct super_block *, u32, struct hfsplus_fork_raw *, int);
 int hfsplus_file_extend(hfsplus_handle_t *, struct inode *);

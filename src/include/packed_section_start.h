@@ -59,6 +59,10 @@
 	#endif   /* BWL_PACKED_SECTION */
 #endif   /* _MSC_VER */
 
+#if defined(__GNUC__) && defined(EFI)
+#pragma pack(push)
+#pragma pack(1)
+#endif
 
 /* Declare compiler-specific directives for structure packing. */
 #if defined(_MSC_VER)

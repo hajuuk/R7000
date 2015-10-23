@@ -1742,6 +1742,15 @@ SendResp_resizedimg(struct upnphttp * h, char * object)
 		CloseSocket_upnphttp(h);
 		goto resized_error;
 	}
+	else
+	{
+	    newpid = fork();
+	   	if( newpid )
+    	{
+    	    exit(0);
+	    }
+	}
+	
 #endif
 	if( h->reqflags & (FLAG_XFERSTREAMING|FLAG_RANGE) )
 	{
@@ -1983,6 +1992,14 @@ SendResp_dlnafile(struct upnphttp * h, char * object)
 	{
 		CloseSocket_upnphttp(h);
 		goto error;
+	}
+	else
+	{
+	    newpid = fork();
+	   	if( newpid )
+    	{
+    	    exit(0);
+	    }
 	}
 #endif
 

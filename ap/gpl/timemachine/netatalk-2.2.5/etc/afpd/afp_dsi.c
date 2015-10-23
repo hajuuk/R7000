@@ -44,6 +44,11 @@
 #include "fork.h"
 #include "dircache.h"
 
+#define WOL
+#ifdef WOL
+time_t last_wol=0;
+#define WOL_INTERVAL  300
+#endif
 #ifdef FORCE_UIDGID
 #warning UIDGID
 #include "uid.h"
@@ -461,6 +466,9 @@ void afp_over_dsi(AFPObj *obj)
     int rc_idx;
     u_int32_t err, cmd;
     u_int8_t function;
+#ifdef WOL
+    time_t now;
+#endif
 
     AFPobj = obj;
     obj->exit = afp_dsi_die;
@@ -683,6 +691,15 @@ void afp_over_dsi(AFPObj *obj)
                 LOG(log_debug, logtype_afpd, "==> Finished AFP command: %s -> %s",
                     AfpNum2name(function), AfpErr2name(err));
 
+#ifdef WOL
+               time(&now);
+			   if(difftime(now,last_wol)>= WOL_INTERVAL)
+               {
+                    system("wol");
+                    last_wol=now;
+                }
+                
+#endif                
                 dsi->flags &= ~DSI_RUNNING;
 #ifdef FORCE_UIDGID
             	/* bring everything back to old euid, egid */

@@ -342,7 +342,7 @@ init(int argc, char * * argv)
 	int debug_flag = 0;
 	int verbose_flag = 0;
 	int options_flag = 0;
-	struct sigaction sa;
+	struct sigaction sa,sa2;
 	const char * presurl = NULL;
 	const char * optionsfile = "/etc/minidlna.conf";
 	char mac_str[13];
@@ -353,6 +353,9 @@ init(int argc, char * * argv)
 	char ip_addr[INET_ADDRSTRLEN + 3] = {'\0'};
 	char log_str[72] = "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn";
 	char *log_level = NULL;
+  sigset_t blockMask, emptyMask;
+
+
 
 	/* first check if "-f" option is used */
 	for(i=2; i<argc; i++)
@@ -824,7 +827,6 @@ init(int argc, char * * argv)
 		strncpyt(presentationurl, presurl, PRESENTATIONURL_MAX_LEN);
 	else
 		strcpy(presentationurl, "/");
-printf("1\n");
 	/* set signal handler */
 	memset(&sa, 0, sizeof(struct sigaction));
 	sa.sa_handler = sigterm;
@@ -839,6 +841,20 @@ printf("1\n");
 
 	if(signal(SIGPIPE, SIG_IGN) == SIG_ERR) {
 		DPRINTF(E_FATAL, L_GENERAL, "Failed to ignore SIGPIPE signals. EXITING.\n");
+	}
+
+  sigemptyset(&blockMask);
+  sigaddset(&blockMask, SIGCHLD);
+  if (sigprocmask(SIG_UNBLOCK, &blockMask, NULL) == -1)
+  {
+  	printf("failed to unlock SIGCHLD in minidna.exe\n");
+  }
+
+//	memset(&sa2, 0, sizeof(struct sigaction));
+//	sa2.sa_handler = sigchld;
+	if(signal(SIGCHLD, SIG_IGN) == SIG_ERR) 
+	{
+		DPRINTF(E_FATAL, L_GENERAL, "Failed to set SIGCHLD signals. EXITING.\n");
 	}
 
 	writepidfile(pidfilename, pid);
@@ -971,7 +987,7 @@ printf("\n\n\n\nminidlan:scan finished\n\n\n");
 		start_scanner();
 #endif
 	}
-	signal(SIGCHLD, SIG_IGN);
+//	signal(SIGCHLD, SIG_IGN);
 	if( sqlite3_threadsafe() && sqlite3_libversion_number() >= 3005001 &&
 	    GETFLAG(INOTIFY_MASK) && pthread_create(&inotify_thread, NULL, start_inotify, NULL) )
 	{
