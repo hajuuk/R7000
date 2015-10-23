@@ -228,7 +228,6 @@ void end_child ()
         close (1);
         close (2);
     }
-    
 #ifdef MAX_USB_ACCESS
     dec_conn_num();
 #endif

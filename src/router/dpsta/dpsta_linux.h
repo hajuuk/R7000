@@ -28,7 +28,6 @@
 #define DPSTA_LAN_UIF_AUTO	0	/* UIF is not assigned/fixed for LAN traffic */
 #define DPSTA_LAN_UIF_2G	1	/* Use 2G as UIF for LAN traffic */
 #define DPSTA_LAN_UIF_5G	2	/* Use 5G as UIF for LAN traffic */
-#define DPSTA_LAN_UIF_AUTO_5G	3	/* UIF is not assigned/fixed for LAN traffic (default 5G) */
 
 #define DPSTA_NUM_UPSTREAM_IF	2
 

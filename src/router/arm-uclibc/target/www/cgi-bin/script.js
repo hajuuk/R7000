@@ -151,6 +151,7 @@ function ungrayout_applybtn(ButtonName)
     
     selectedButton[0].disabled = false;
 }  
+
 function Security5G_disabled()
 {
 	$("input[name=security_type_an][@type=radio]").attr("disabled", "true");	

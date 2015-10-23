@@ -34,12 +34,12 @@
 
     function showHelpIframe() {
 
+
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
-            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -48,12 +48,9 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
-        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
-           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
-
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -108,44 +105,44 @@ function chSession(newsession)
 </script> 
 </head>
 <body  onload="change_size();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%60%>">
-<img class="body-image" src="<%61%>">
+<img class="cover-image" src="<%59%>">
+<img class="body-image" src="<%60%>">
 <div id="full-page-container">
 
 <form id="target"  name="frmService" method="POST" action="pppoe2_fw_serv.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-	<img class="subtop-image" src="<%62%>">
-<div class="subhead2"> <%338%></div>
+	<img class="subtop-image" src="<%61%>">
+<div class="subhead2"> <%335%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%64%>"  onclick="buttonClick(this,'<%64%>');"  type="submit" name="apply" class="button-apply" > <span class="roundleft_apply" ><%65%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%66%>" onclick="buttonClick(this,'<%66%>');"  type="reset" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%67%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%63%>"  onclick="buttonClick(this,'<%63%>');"  type="submit" name="apply" class="button-apply" > <span class="roundleft_apply" ><%64%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%65%>" onclick="buttonClick(this,'<%65%>');"  type="reset" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%66%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
 <tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
 
         <tr> <td colspan="2">
-<%541%>			
-            <input type="radio" name=pppoesession value=session1 onClick="chSession(1);"><%542%>
-            <input checked type="radio" name=pppoesession value=session2 onClick="chSession(2);"><%543%><br>
-<%544%>			
+<%537%>			
+            <input type="radio" name=pppoesession value=session1 onClick="chSession(1);"><%538%>
+            <input checked type="radio" name=pppoesession value=session2 onClick="chSession(2);"><%539%><br>
+<%540%>			
 		</td>
 	</tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
  <TR>
- <TD align="left" colspan="2"><a href="javascript:loadhelp('BKS_service','block')" tabindex="-1"><b><%567%></b></a><br>
- <input type="radio" <%2283%> name="skeyword" value="never"><%548%><br> 
- <input type="radio" <%2284%> name="skeyword" value="perschedule"><%550%><br>
- <input type="radio" <%2285%> name="skeyword" value="always"><%552%>
+ <TD align="left" colspan="2"><a href="javascript:loadhelp('BKS_service','block')" tabindex="-1"><b><%563%></b></a><br>
+ <input type="radio" <%2269%> name="skeyword" value="never"><%544%><br> 
+ <input type="radio" <%2270%> name="skeyword" value="perschedule"><%546%><br>
+ <input type="radio" <%2271%> name="skeyword" value="always"><%548%>
  </TD>
  </TR>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
 	<td colspan="2">
-		<a href="javascript:loadhelp('BKS_service','table')" tabindex="-1"><b><%571%></b></a></td>
+		<a href="javascript:loadhelp('BKS_service','table')" tabindex="-1"><b><%567%></b></a></td>
 </tr>
 	<tr>
 	<td colspan="2">
@@ -153,20 +150,20 @@ function chSession(newsession)
 		<tr>
 			<td nowrap align="center" width="6%">&nbsp;	 	</td>
 			<td nowrap align="center" width="6%"><span class="thead"># </span>	</td>
-			<td nowrap align="center"><span class="thead"><%572%></span></td>
-			<td nowrap align="center"><span class="thead"><%573%></span></td>
-			<td nowrap align="center"><span class="thead"><%574%></span></td>
+			<td nowrap align="center"><span class="thead"><%568%></span></td>
+			<td nowrap align="center"><span class="thead"><%569%></span></td>
+			<td nowrap align="center"><span class="thead"><%570%></span></td>
 		</tr>
-		<%2286%>
+		<%2272%>
         </table>
 	</td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
 <td colspan="2" align="center">
-	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%576%>" name="Add" class="button-rule" onclick="buttonClick(this,'<%576%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%576%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%577%>" name="Edit" class="button-rule" onclick="buttonClick(this,'<%577%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%577%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%578%>" name="Delete" class="button-rule" onclick="buttonClick(this,'<%578%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%578%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%572%>" name="Add" class="button-rule" onclick="buttonClick(this,'<%572%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%572%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%573%>" name="Edit" class="button-rule" onclick="buttonClick(this,'<%573%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%573%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+	&nbsp;&nbsp;&nbsp;<button type="Submit" value="<%574%>" name="Delete" class="button-rule" onclick="buttonClick(this,'<%574%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%574%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
@@ -176,10 +173,10 @@ function chSession(newsession)
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%231%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
       </div>
 
 

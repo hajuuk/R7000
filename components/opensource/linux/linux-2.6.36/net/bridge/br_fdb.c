@@ -35,11 +35,7 @@ static int mac_cnt = 0;
 #include <typedefs.h>
 #include <osl.h>
 #include <ctf/hndctf.h>
-#else
-#define BCMFASTPATH_HOST
-#endif	/* HNDCTF */
 
-#ifdef HNDCTF
 static void
 br_brc_init(ctf_brc_t *brc, unsigned char *ea, struct net_device *rxdev)
 {
@@ -75,7 +71,7 @@ br_brc_init(ctf_brc_t *brc, unsigned char *ea, struct net_device *rxdev)
 void
 br_brc_add(unsigned char *ea, struct net_device *rxdev)
 {
-	ctf_brc_t brc_entry, *brcp;
+	ctf_brc_t brc_entry;
 
 	/* Add brc entry only if packet is received on ctf 
 	 * enabled interface
@@ -91,12 +87,10 @@ br_brc_add(unsigned char *ea, struct net_device *rxdev)
 #endif
 
 	/* Add the bridge cache entry */
-	if ((brcp = ctf_brc_lkup(kcih, ea)) == NULL)
+	if (ctf_brc_lkup(kcih, ea) == NULL)
 		ctf_brc_add(kcih, &brc_entry);
-	else {
-		ctf_brc_release(kcih, brcp);
+	else
 		ctf_brc_update(kcih, &brc_entry);
-	}
 
 	return;
 }
@@ -263,14 +257,10 @@ void br_fdb_cleanup(unsigned long _data)
 				 * on this connection for timeout period.
 				 */
 				brcp = ctf_brc_lkup(kcih, f->addr.addr);
-				if (brcp != NULL) {
-					if (brcp->live > 0) {
-						brcp->live = 0;
-						ctf_brc_release(kcih, brcp);
-						f->ageing_timer = jiffies;
-						continue;
-					}
-					ctf_brc_release(kcih, brcp);
+				if ((brcp != NULL) && (brcp->live > 0)) {
+					brcp->live = 0;
+					f->ageing_timer = jiffies;
+					continue;
 				}
 #endif /* HNDCTF */
 				fdb_delete(f);

@@ -33,9 +33,6 @@
 #define SET_LDO_VOLTAGE_LNLDO2_SEL	10
 #define SET_LNLDO_PWERUP_LATCH_CTRL	11
 
-#define BBPLL_NDIV_FRAC_BITS		24
-#define P1_DIV_SCALE_BITS			12
-
 extern void si_pmu_init(si_t *sih, osl_t *osh);
 extern void si_pmu_chip_init(si_t *sih, osl_t *osh);
 extern void si_pmu_pll_init(si_t *sih, osl_t *osh, uint32 xtalfreq);
@@ -44,7 +41,6 @@ extern void si_pmu_res_init(si_t *sih, osl_t *osh);
 extern void si_pmu_swreg_init(si_t *sih, osl_t *osh);
 extern uint32 si_pmu_force_ilp(si_t *sih, osl_t *osh, bool force);
 extern uint32 si_pmu_enb_ht_req(si_t *sih, osl_t *osh, bool enb);
-extern void si_pmu_res_minmax_update(si_t *sih, osl_t *osh);
 
 extern uint32 si_pmu_si_clock(si_t *sih, osl_t *osh);
 extern uint32 si_pmu_cpu_clock(si_t *sih, osl_t *osh);
@@ -60,15 +56,7 @@ extern uint si_pll_minresmask_reset(si_t *sih, osl_t *osh);
 extern void si_pmu_rcal(si_t *sih, osl_t *osh);
 extern void si_pmu_pllupd(si_t *sih);
 extern void si_pmu_spuravoid(si_t *sih, osl_t *osh, uint8 spuravoid);
-/* below function are only for BBPLL parallel purpose */
-extern void si_pmu_spuravoid_isdone(si_t *sih, osl_t *osh, uint32 min_res_mask,
-uint32 max_res_mask, uint32 clk_ctl_st, uint8 spuravoid);
-extern void si_pmu_pll_off_PARR(si_t *sih, osl_t *osh, uint32 *min_res_mask,
-uint32 *max_res_mask, uint32 *clk_ctl_st);
-/* below function are only for BBPLL parallel purpose */
 extern void si_pmu_gband_spurwar(si_t *sih, osl_t *osh);
-extern uint32 si_pmu_cal_fvco(si_t *sih, osl_t *osh);
-extern uint32 si_mac_clk(si_t *sih, osl_t *osh);
 
 extern bool si_pmu_is_otp_powered(si_t *sih, osl_t *osh);
 extern uint32 si_pmu_measure_alpclk(si_t *sih, osl_t *osh);

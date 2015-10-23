@@ -484,7 +484,7 @@ obj-$(CONFIG_SWRESETD) += swresetd
 obj-$(CONFIG_PHYMON_UTILITY) += phymon
 #endif
 #if defined(EXT_ACS)
-#obj-$(CONFIG_EXTACS) += acsd
+obj-$(CONFIG_EXTACS) += acsd
 #endif
 obj-$(CONFIG_VMSTAT) += vmstat
 
@@ -493,9 +493,6 @@ obj-$(CONFIG_IPROUTE2) += iproute2
 obj-$(CONFIG_IPUTILS) += iputils
 obj-$(CONFIG_DHCPV6S) += dhcp6s
 obj-$(CONFIG_DHCPV6C) += dhcp6c
-
-obj-$(CONFIG_BCMBSD) += gbsd
-
 obj-$(CONFIG_TASKSET) += taskset
 #speed up USB throughput
 
@@ -1122,6 +1119,8 @@ endif
 
 ifeq (2_6_36,$(LINUX_VERSION))
 iptables:
+#	$(MAKE) -C iptables-1.4.12 BINDIR=/usr/sbin LIBDIR=/usr/lib \
+#	    KERNEL_DIR=$(LINUXDIR) DO_IPV6=1
 
 iptables-install:
 ifeq ($(CONFIG_IPTABLES),y)

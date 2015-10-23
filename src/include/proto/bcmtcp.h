@@ -41,8 +41,6 @@
 #define TCP_FLAG_RST            0x0004
 #define TCP_FLAG_SYN            0x0002
 #define TCP_FLAG_FIN            0x0001
-#define TCP_HLEN_MASK           0xf000
-#define TCP_HLEN_SHIFT          12
 
 /* These fields are stored in network order */
 BWL_PRE_PACKED_STRUCT struct bcmtcp_hdr

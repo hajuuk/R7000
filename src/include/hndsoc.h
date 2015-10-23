@@ -217,7 +217,6 @@
  * communicate w/PMU regarding clock control.
  */
 #define SI_CLK_CTL_ST		0x1e0		/* clock control and status */
-#define SI_PWR_CTL_ST		0x1e8		/* For memory clock gating */
 
 /* clk_ctl_st register */
 #define	CCS_FORCEALP		0x00000001	/* force ALP request */

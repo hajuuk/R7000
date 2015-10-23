@@ -4,8 +4,8 @@ top_builddir := ..
 builddir     := .
 top_srcdir  := ..
 srcdir      := .
-ksourcedir  := /disk2/antony/R7000/GPL/V1.0.2.120/V1.0.2.120_1.0.17/components/opensource/linux/linux-2.6.36
-prefix      := /disk2/antony/R7000/GPL/V1.0.2.120/V1.0.2.120_1.0.17/src/router/iptables-1.4.12/src/install
+ksourcedir  := /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/components/opensource/linux/linux-2.6.36
+prefix      := /disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/src/router/iptables-1.4.12/src/install
 exec_prefix := ${prefix}
 libdir      := ${exec_prefix}/lib
 libexecdir  := ${exec_prefix}/libexec
@@ -18,7 +18,7 @@ CPPFLAGS       :=
 LDFLAGS        := 
 regular_CFLAGS := -Wall -Waggregate-return -Wmissing-declarations 	-Wmissing-prototypes -Wredundant-decls -Wshadow -Wstrict-prototypes 	-Winline -pipe
 regular_CPPFLAGS := -D_LARGEFILE_SOURCE=1 -D_LARGE_FILES -D_FILE_OFFSET_BITS=64 -D_REENTRANT 	-DXTABLES_LIBDIR=\"${xtlibdir}\" -DXTABLES_INTERNAL
-kinclude_CPPFLAGS :=  -I/disk2/antony/R7000/GPL/V1.0.2.120/V1.0.2.120_1.0.17/components/opensource/linux/linux-2.6.36/include -I/disk2/antony/R7000/GPL/V1.0.2.120/V1.0.2.120_1.0.17/components/opensource/linux/linux-2.6.36/include
+kinclude_CPPFLAGS :=  -I/disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/components/opensource/linux/linux-2.6.36/include -I/disk2/antony/R7000/GPL/V1.0.2.164/V1.0.2.164_1.0.15/components/opensource/linux/linux-2.6.36/include
 
 AM_CFLAGS      := ${regular_CFLAGS}
 AM_CPPFLAGS     = ${regular_CPPFLAGS} -I${top_builddir}/include -I${top_builddir} -I${top_srcdir}/include ${kinclude_CPPFLAGS}

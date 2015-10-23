@@ -52,9 +52,6 @@ typedef struct {
 	uint16	pcie_reqsize;
 	uint16	pcie_mps;
 	uint8	pciecap_devctrl2_offset; /* PCIE DevControl2 reg offset in the config space */
-	uint32	pciecap_ltr0_reg_offset; /* PCIE LTR0 reg offset in the config space */
-	uint32	pciecap_ltr1_reg_offset; /* PCIE LTR1 reg offset in the config space */
-	uint32	pciecap_ltr2_reg_offset; /* PCIE LTR2 reg offset in the config space */
 	uint8	pcie_configspace[PCI_CONFIG_SPACE_SIZE];
 } pcicore_info_t;
 
@@ -159,9 +156,6 @@ pcicore_init(si_t *sih, osl_t *osh, void *regs)
 		pi->pciecap_devctrl_offset = cap_ptr + PCIE_CAP_DEVCTRL_OFFSET;
 		pi->pciecap_lcreg_offset = cap_ptr + PCIE_CAP_LINKCTRL_OFFSET;
 		pi->pciecap_devctrl2_offset = cap_ptr + PCIE_CAP_DEVCTRL2_OFFSET;
-		pi->pciecap_ltr0_reg_offset = cap_ptr + PCIE_CAP_LTR0_REG_OFFSET;
-		pi->pciecap_ltr1_reg_offset = cap_ptr + PCIE_CAP_LTR1_REG_OFFSET;
-		pi->pciecap_ltr2_reg_offset = cap_ptr + PCIE_CAP_LTR2_REG_OFFSET;
 	} else if (sih->buscoretype == PCIE_CORE_ID) {
 		pi->regs.pcieregs = (sbpcieregs_t*)regs;
 		cap_ptr = pcicore_find_pci_capability(pi->osh, PCI_CAP_PCIECAP_ID, NULL, NULL);
@@ -169,9 +163,6 @@ pcicore_init(si_t *sih, osl_t *osh, void *regs)
 		pi->pciecap_lcreg_offset = cap_ptr + PCIE_CAP_LINKCTRL_OFFSET;
 		pi->pciecap_devctrl_offset = cap_ptr + PCIE_CAP_DEVCTRL_OFFSET;
 		pi->pciecap_devctrl2_offset = cap_ptr + PCIE_CAP_DEVCTRL2_OFFSET;
-		pi->pciecap_ltr0_reg_offset = cap_ptr + PCIE_CAP_LTR0_REG_OFFSET;
-		pi->pciecap_ltr1_reg_offset = cap_ptr + PCIE_CAP_LTR1_REG_OFFSET;
-		pi->pciecap_ltr2_reg_offset = cap_ptr + PCIE_CAP_LTR2_REG_OFFSET;
 		pi->pcie_power_save = TRUE; /* Enable pcie_power_save by default */
 	} else
 		pi->regs.pciregs = (sbpciregs_t*)regs;
@@ -611,122 +602,6 @@ pcie_ltrenable(void *pch, uint32 mask, uint32 val)
 		return 0;
 }
 
-/* JIRA:SWWLAN-28745
-    val and return value:
-	0  Disabled
-	1  Enable using Message signaling[Var A]
-	2  Enable using Message signaling[Var B]
-	3  Enable using WAKE# signaling
-*/
-uint8
-pcie_obffenable(void *pch, uint32 mask, uint32 val)
-{
-	pcicore_info_t *pi = (pcicore_info_t *)pch;
-	uint32 reg_val;
-	uint8 offset;
-
-	offset = pi->pciecap_devctrl2_offset;
-	if (!offset)
-		return 0;
-
-	reg_val = OSL_PCI_READ_CONFIG(pi->osh, offset, sizeof(uint32));
-
-	/* set operation */
-	if (mask) {
-		reg_val = (reg_val & ~PCIE_CAP_DEVCTRL2_OBFF_ENAB_MASK) |
-			((val << PCIE_CAP_DEVCTRL2_OBFF_ENAB_SHIFT) &
-			PCIE_CAP_DEVCTRL2_OBFF_ENAB_MASK);
-		OSL_PCI_WRITE_CONFIG(pi->osh, offset, sizeof(uint32), reg_val);
-		reg_val = OSL_PCI_READ_CONFIG(pi->osh, offset, sizeof(uint32));
-	}
-
-	return  (reg_val & PCIE_CAP_DEVCTRL2_OBFF_ENAB_MASK) >> PCIE_CAP_DEVCTRL2_OBFF_ENAB_SHIFT;
-}
-
-uint32
-pcie_ltr_reg(void *pch, uint32 reg, uint32 mask, uint32 val)
-{
-	pcicore_info_t *pi = (pcicore_info_t *)pch;
-	uint32 reg_val;
-	uint32 offset;
-
-	if (PCIE_GEN1(pi->sih))
-		return 0;
-
-	if (reg == PCIE_CAP_LTR0_REG)
-		offset = pi->pciecap_ltr0_reg_offset;
-	else if (reg == PCIE_CAP_LTR1_REG)
-		offset = pi->pciecap_ltr1_reg_offset;
-	else if (reg == PCIE_CAP_LTR2_REG)
-		offset = pi->pciecap_ltr2_reg_offset;
-	else {
-		PCI_ERROR(("pcie_ltr_reg: unsupported LTR register offset %d\n",
-			reg));
-		return 0;
-	}
-
-	if (!offset)
-		return 0;
-
-	if (mask) { /* set operation */
-		reg_val = val;
-		pcie_writereg(pi->sih, pi->regs.pcieregs, PCIE_CONFIGREGS, offset, reg_val);
-	}
-	else { /* get operation */
-		reg_val = pcie_readreg(pi->sih, pi->regs.pcieregs, PCIE_CONFIGREGS, offset);
-	}
-
-	return reg_val;
-}
-
-uint32
-pcieltrspacing_reg(void *pch, uint32 mask, uint32 val)
-{
-	pcicore_info_t *pi = (pcicore_info_t *)pch;
-	si_t *sih = pi->sih;
-	sbpcieregs_t *pcieregs = pi->regs.pcieregs;
-	uint32 retval;
-
-	if (PCIE_GEN1(sih))
-		return 0;
-
-	ASSERT(pcieregs != NULL);
-
-	if (mask) { /* set operation */
-		retval = val;
-		W_REG(pi->osh, &(pcieregs->ltrspacing), val);
-	}
-	else { /* get operation */
-		retval = R_REG(pi->osh, &(pcieregs->ltrspacing));
-	}
-
-	return retval;
-}
-
-uint32
-pcieltrhysteresiscnt_reg(void *pch, uint32 mask, uint32 val)
-{
-	pcicore_info_t *pi = (pcicore_info_t *)pch;
-	si_t *sih = pi->sih;
-	sbpcieregs_t *pcieregs = pi->regs.pcieregs;
-	uint32 retval;
-
-	if (PCIE_GEN1(sih))
-		return 0;
-
-	ASSERT(pcieregs != NULL);
-
-	if (mask) { /* set operation */
-		retval = val;
-		W_REG(pi->osh, &(pcieregs->ltrhysteresiscnt), val);
-	}
-	else { /* get operation */
-		retval = R_REG(pi->osh, &(pcieregs->ltrhysteresiscnt));
-	}
-
-	return retval;
-}
-
 static void
 pcie_extendL1timer(pcicore_info_t *pi, bool extend)
 {
@@ -1158,9 +1033,8 @@ pcie_set_L1_entry_time(void *pch, uint32 val)
 	if (val > 0x7F)
 		return;
 
-	data = pcie_readreg(sih, pcieregs, PCIE_CONFIGREGS, PCIECFGREG_PDL_CTRL1);
-	pcie_writereg(pch, pcieregs, PCIE_CONFIGREGS,
-		PCIECFGREG_PDL_CTRL1, (data & ~0x7F0000) | (val << 16));
+	data = pcie_readreg(sih, pcieregs, PCIE_CONFIGREGS, 0x1004);
+	pcie_writereg(pch, pcieregs, PCIE_CONFIGREGS, 0x1004, (data & ~0x7F0000) | (val << 16));
 }
 
 /* mode : 0 -- reset, 1 -- tx, 2 -- rx */
@@ -1176,66 +1050,11 @@ pcie_set_error_injection(void *pch, uint32 mode)
 		return;
 
 	if (mode == 0)
-		pcie_writereg(pch, pcieregs, PCIE_CONFIGREGS, PCIECFGREG_REG_PHY_CTL7, 0);
+		pcie_writereg(pch, pcieregs, PCIE_CONFIGREGS, 0x181c, 0);
 	else if (mode == 1)
-		pcie_writereg(pch, pcieregs, PCIE_CONFIGREGS, PCIECFGREG_REG_PHY_CTL7, 0x14031);
+		pcie_writereg(pch, pcieregs, PCIE_CONFIGREGS, 0x181c, 0x14031);
 	else
-		pcie_writereg(pch, pcieregs, PCIE_CONFIGREGS, PCIECFGREG_REG_PHY_CTL7, 0x2c031);
-}
-
-void
-pcie_set_L1substate(void *pch, uint32 substate)
-{
-	pcicore_info_t *pi = (pcicore_info_t *)pch;
-	si_t *sih = pi->sih;
-	sbpcieregs_t *pcieregs = pi->regs.pcieregs;
-	uint32 data;
-
-	ASSERT(PCIE_GEN2(sih));
-	ASSERT(substate <= 3);
-
-	if (substate != 0) {
-		/* turn on ASPM L1 */
-		data = pcie_readreg(sih, pcieregs, PCIE_CONFIGREGS, pi->pciecap_lcreg_offset);
-		pcie_writereg(sih, pcieregs, PCIE_CONFIGREGS, pi->pciecap_lcreg_offset, data | 2);
-
-		/* enable LTR */
-		pcie_ltrenable(pch, 1, 1);
-	}
-
-	/* PML1_sub_control1 can only be accessed by OSL_PCI_xxxx_CONFIG */
-	data = OSL_PCI_READ_CONFIG(pi->osh, PCIECFGREG_PML1_SUB_CTRL1, sizeof(uint32)) & 0xfffffff0;
-
-	/* JIRA:SWWLAN-28455 */
-	if (substate & 1)
-		data |= PCI_PM_L1_2_ENA_MASK | ASPM_L1_2_ENA_MASK;
-
-	if (substate & 2)
-		data |= PCI_PM_L1_1_ENA_MASK | ASPM_L1_1_ENA_MASK;
-
-	OSL_PCI_WRITE_CONFIG(pi->osh, PCIECFGREG_PML1_SUB_CTRL1, sizeof(uint32), data);
-}
-
-uint32
-pcie_get_L1substate(void *pch)
-{
-	pcicore_info_t *pi = (pcicore_info_t *)pch;
-	si_t *sih = pi->sih;
-	uint32 data, substate = 0;
-
-	ASSERT(PCIE_GEN2(sih));
-	UNUSED_PARAMETER(sih);
-
-	data = OSL_PCI_READ_CONFIG(pi->osh, PCIECFGREG_PML1_SUB_CTRL1, sizeof(uint32));
-
-	/* JIRA:SWWLAN-28455 */
-	if (data & (PCI_PM_L1_2_ENA_MASK | ASPM_L1_2_ENA_MASK))
-		substate |= 1;
-
-	if (data & (PCI_PM_L1_1_ENA_MASK | ASPM_L1_1_ENA_MASK))
-		substate |= 2;
-
-	return substate;
+		pcie_writereg(pch, pcieregs, PCIE_CONFIGREGS, 0x181c, 0x2c031);
 }
 
 /* ***** Functions called during driver state changes ***** */
@@ -1248,9 +1067,7 @@ BCMATTACHFN(pcicore_attach)(void *pch, char *pvars, int state)
 	if (!PCIE_GEN1(sih)) {
 		if ((BCM4360_CHIP_ID == CHIPID(sih->chip)) ||
 		    (BCM43460_CHIP_ID == CHIPID(sih->chip)) ||
-		    (BCM4350_CHIP_ID == CHIPID(sih->chip)) ||
-		    (BCM4352_CHIP_ID == CHIPID(sih->chip)) ||
-		    (BCM4335_CHIP_ID == CHIPID(sih->chip)))
+		    (BCM4352_CHIP_ID == CHIPID(sih->chip)))
 			pi->pcie_reqsize = PCIE_CAP_DEVCTRL_MRRS_1024B;
 		return;
 	}
@@ -1665,120 +1482,6 @@ pcie_get_link_speed(void* pch)
 	return (data & PCIE_LINKSPEED_MASK) >> PCIE_LINKSPEED_SHIFT;
 }
 
-uint32
-pcie_survive_perst(void* pch, uint32 mask, uint32 val)
-{
-#ifdef SURVIVE_PERST_ENAB
-	pcicore_info_t *pi = (pcicore_info_t *)pch;
-	sbpcieregs_t *pcieregs = pi->regs.pcieregs;
-	uint32 w;
-
-	/* mask and set */
-	if (mask || val) {
-		w = (R_REG(pi->osh, (&pcieregs->control)) & ~mask) | val;
-		W_REG(pi->osh, (&pcieregs->control), w);
-	}
-	/* readback */
-	return R_REG(pi->osh, (&pcieregs->control));
-#else
-	return 0;
-#endif /* SURVIVE_PERST_ENAB */
-}
-
-#if defined(BCMDBG_DUMP)
-const struct fielddesc pcie_plp_regdesc[] = {
-	{ "Mode 0x%04x ",		PCIE_PLP_MODEREG,		4},
-	{ "Status 0x%04x ",		PCIE_PLP_STATUSREG,		4},
-	{ "LTSSMControl 0x%04x ",	PCIE_PLP_LTSSMCTRLREG,		4},
-	{ "LinkNumber 0x%04x ",		PCIE_PLP_LTLINKNUMREG,		4},
-	{ "LaneNumber 0x%04x ",		PCIE_PLP_LTLANENUMREG,		4},
-	{ "N_FTS 0x%04x ",		PCIE_PLP_LTNFTSREG,		4},
-	{ "Attention 0x%04x ",		PCIE_PLP_ATTNREG,		4},
-	{ "AttentionMask 0x%04x ",	PCIE_PLP_ATTNMASKREG,		4},
-	{ "RxErrCnt 0x%04x ",		PCIE_PLP_RXERRCTR,		4},
-	{ "RxFramingErrCnt 0x%04x ",	PCIE_PLP_RXFRMERRCTR,		4},
-	{ "TestCtrl 0x%04x ",		PCIE_PLP_TESTCTRLREG,		4},
-	{ "SERDESCtrlOvrd 0x%04x ",	PCIE_PLP_SERDESCTRLOVRDREG,	4},
-	{ "TimingparamOvrd 0x%04x ",	PCIE_PLP_TIMINGOVRDREG,		4},
-	{ "RXTXSMdbgReg 0x%04x ",	PCIE_PLP_RXTXSMDIAGREG,		4},
-	{ "LTSSMdbgReg 0x%04x\n",	PCIE_PLP_LTSSMDIAGREG,		4},
-	{ NULL, 0, 0}
-};
-
-const struct fielddesc pcie_dllp_regdesc[] =  {
-	{"LinkControl 0x%04x ",		PCIE_DLLP_LCREG,		4},
-	{"LinkStatus 0x%04x ",		PCIE_DLLP_LSREG,		4},
-	{"LinkAttention 0x%04x ",	PCIE_DLLP_LAREG,		4},
-	{"LinkAttentionMask 0x%04x ",	PCIE_DLLP_LAMASKREG,		4},
-	{"NextTxSeqNum 0x%04x ",	PCIE_DLLP_NEXTTXSEQNUMREG,	4},
-	{"AckedTxSeqNum 0x%04x ",	PCIE_DLLP_ACKEDTXSEQNUMREG,	4},
-	{"PurgedTxSeqNum 0x%04x ",	PCIE_DLLP_PURGEDTXSEQNUMREG,	4},
-	{"RxSeqNum 0x%04x ",		PCIE_DLLP_RXSEQNUMREG,		4},
-	{"LinkReplay 0x%04x ",		PCIE_DLLP_LRREG,		4},
-	{"LinkAckTimeout 0x%04x ",	PCIE_DLLP_LACKTOREG,		4},
-	{"PowerManagementThreshold 0x%04x ", PCIE_DLLP_PMTHRESHREG,	4},
-	{"RetryBufferwrptr 0x%04x ",	PCIE_DLLP_RTRYWPREG,		4},
-	{"RetryBufferrdptr 0x%04x ",	PCIE_DLLP_RTRYRPREG,		4},
-	{"RetryBufferpuptr 0x%04x ",	PCIE_DLLP_RTRYPPREG,		4},
-	{"RetryBufferRd/Wr 0x%04x ",	PCIE_DLLP_RTRRWREG,		4},
-	{"ErrorCountthreshold 0x%04x ",	PCIE_DLLP_ECTHRESHREG,		4},
-	{"TLPErrorcounter 0x%04x ",	PCIE_DLLP_TLPERRCTRREG,		4},
-	{"Errorcounter 0x%04x ",	PCIE_DLLP_ERRCTRREG,		4},
-	{"NAKRecdcounter 0x%04x ",	PCIE_DLLP_NAKRXCTRREG,		4},
-	{"Test 0x%04x\n",		PCIE_DLLP_TESTREG,		4},
-	{ NULL, 0, 0}
-};
-
-const struct fielddesc pcie_tlp_regdesc[] = {
-	{"Config 0x%04x ",		PCIE_TLP_CONFIGREG,		4},
-	{"Workarounds 0x%04x ",		PCIE_TLP_WORKAROUNDSREG,	4},
-	{"WR-DMA-UA 0x%04x ",		PCIE_TLP_WRDMAUPPER,		4},
-	{"WR-DMA-LA 0x%04x ",		PCIE_TLP_WRDMALOWER,		4},
-	{"WR-DMA Len/BE 0x%04x ",	PCIE_TLP_WRDMAREQ_LBEREG,	4},
-	{"RD-DMA-UA 0x%04x ",		PCIE_TLP_RDDMAUPPER,		4},
-	{"RD-DMA-LA 0x%04x ",		PCIE_TLP_RDDMALOWER,		4},
-	{"RD-DMA Len 0x%04x ",		PCIE_TLP_RDDMALENREG,		4},
-	{"MSI-DMA-UA 0x%04x ",		PCIE_TLP_MSIDMAUPPER,		4},
-	{"MSI-DMA-LA 0x%04x ",		PCIE_TLP_MSIDMALOWER,		4},
-	{"MSI-DMALen 0x%04x ",		PCIE_TLP_MSIDMALENREG,		4},
-	{"SlaveReqLen 0x%04x ",		PCIE_TLP_SLVREQLENREG,		4},
-	{"FlowControlInput 0x%04x ",	PCIE_TLP_FCINPUTSREQ,		4},
-	{"TxStateMachine 0x%04x ",	PCIE_TLP_TXSMGRSREQ,		4},
-	{"AddressAckXferCnt 0x%04x ",	PCIE_TLP_ADRACKCNTARBLEN,	4},
-	{"DMACompletion HDR0 0x%04x ",	PCIE_TLP_DMACPLHDR0,		4},
-	{"DMACompletion HDR1 0x%04x ",	PCIE_TLP_DMACPLHDR1,		4},
-	{"DMACompletion HDR2 0x%04x ",	PCIE_TLP_DMACPLHDR2,		4},
-	{"DMACompletionMISC0 0x%04x ",	PCIE_TLP_DMACPLMISC0,		4},
-	{"DMACompletionMISC1 0x%04x ",	PCIE_TLP_DMACPLMISC1,		4},
-	{"DMACompletionMISC2 0x%04x ",	PCIE_TLP_DMACPLMISC2,		4},
-	{"SplitControllerReqLen 0x%04x ", PCIE_TLP_SPTCTRLLEN,		4},
-	{"SplitControllerMISC0 0x%04x ", PCIE_TLP_SPTCTRLMSIC0,		4},
-	{"SplitControllerMISC1 0x%04x ", PCIE_TLP_SPTCTRLMSIC1,		4},
-	{"bus/dev/func 0x%04x ",	PCIE_TLP_BUSDEVFUNC,		4},
-	{"ResetCounter 0x%04x ",	PCIE_TLP_RESETCTR,		4},
-	{"RetryBufferValue 0x%04x ",	PCIE_TLP_RTRYBUF,		4},
-	{"TargetDebug1 0x%04x ",	PCIE_TLP_TGTDEBUG1,		4},
-	{"TargetDebug2 0x%04x ",	PCIE_TLP_TGTDEBUG2,		4},
-	{"TargetDebug3 0x%04x\n",	PCIE_TLP_TGTDEBUG3,		4},
-	{ NULL, 0, 0}
-};
-
-#endif 
-
-#if defined(WLTEST) || defined(BCMDBG_DUMP)
-/* Dump PCIE Info */
-int
-pcicore_dump_pcieinfo(void *pch, struct bcmstrbuf *b)
-{
-	pcicore_info_t *pi = (pcicore_info_t *)pch;
-
-	if (!PCIE_GEN1(pi->sih) && !PCIE_GEN2(pi->sih))
-		return BCME_ERROR;
-
-	bcm_bprintf(b, "PCIE link speed: %d\n", pcie_get_link_speed(pch));
-	return 0;
-}
-#endif
 
 #if defined(BCMDBG_DUMP)
 
@@ -1867,4 +1570,16 @@ pcicore_dump_pcieregs(void *pch, struct bcmstrbuf *b)
 	return 0;
 }
 
+/* Dump PCIE Info */
+int
+pcicore_dump_pcieinfo(void *pch, struct bcmstrbuf *b)
+{
+	pcicore_info_t *pi = (pcicore_info_t *)pch;
+
+	if (!PCIE_GEN1(pi->sih) && !PCIE_GEN2(pi->sih))
+		return BCME_ERROR;
+
+	bcm_bprintf(b, "PCIE link speed: %d\n", pcie_get_link_speed(pch));
+	return 0;
+}
 #endif	

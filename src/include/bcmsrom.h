@@ -35,8 +35,6 @@ extern int srom_read(si_t *sih, uint bus, void *curmap, osl_t *osh,
 extern int srom_write(si_t *sih, uint bus, void *curmap, osl_t *osh,
                       uint byteoff, uint nbytes, uint16 *buf);
 
-extern int srom_write_short(si_t *sih, uint bustype, void *curmap, osl_t *osh,
-                            uint byteoff, uint16 value);
 extern int srom_otp_cisrwvar(si_t *sih, osl_t *osh, char *vars, int *count);
 extern int srom_otp_write_region_crc(si_t *sih, uint nbytes, uint16* buf16, bool write);
 

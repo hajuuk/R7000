@@ -54,56 +54,6 @@ counter_type link_read_bytes_global;  /* GLOBAL */
 counter_type link_write_bytes_global; /* GLOBAL */
 
 #define IPcountry_lookup "/tmp/IPcountry_lookup"
-#define Route_country_lookup "/tmp/Router_country_lookup"
-
-int
-route_country_lookup(void)
-{
-	char buff[256],debug[1024];
-	FILE *fp;
-
-	//sprintf(buff,"/usr/bin/geoiplookup -f /usr/share/GeoIP/GeoIP.dat %s >> /tmp/IPcountry_lookup",IPfrom);
-	sprintf(buff,"wget \"http://www.speedtest.net/api/country\" -O /tmp/Router_country_lookup");
-
-	sprintf(debug,"echo '##########%s(%d)buff=%s' > /dev/console",__func__,__LINE__,buff);
-	//system(debug);
-
-	system(buff);
-	sleep(5);
-
-	fp = fopen(Route_country_lookup, "r");
-    if (fp)
-    {
-        fgets(buff, sizeof(buff), fp);
-		if(strcmp(buff,"") == 0){
-			sprintf(debug,"echo '[OpenVPN]route_country_lookup() failed' > /dev/console");
-			system(debug);
-		}
-			
-		//sprintf(debug,"echo '##########ip_country_lookup() %s' > /dev/console",buff);
-		//system(debug);
-        fclose(fp);
-    }else{
-    	sprintf(debug,"echo '[OpenVPN]route_country_lookup() connection failed' > /dev/console");
-		system(debug);
-    }
-
-	if(strstr(buff,"US") != 0){
-		//IP address from US
-		return 1;
-	}else if((strstr(buff,"EU") != 0) || (strstr(buff,"FR") != 0) || (strstr(buff,"GB") != 0) || (strstr(buff,"DE") != 0) || (strstr(buff,"IT") != 0)){
-		//IP address from Europe,France, UK, Germary
-		return 2;
-	}
-
-	//unlink(Route_country_lookup);
-
-	return 0;
-
-
-	
-}//allenwen Foxconn
-
 
 int
 ip_country_lookup(char *IPfrom)
@@ -111,11 +61,7 @@ ip_country_lookup(char *IPfrom)
 	char buff[256],debug[1024];
 	FILE *fp;
 
-	//sprintf(buff,"/usr/bin/geoiplookup -f /usr/share/GeoIP/GeoIP.dat %s >> /tmp/IPcountry_lookup",IPfrom);
-	sprintf(buff,"wget \"http://www.speedtest.net/api/country?ip=%s\" -O /tmp/IPcountry_lookup",IPfrom);
-
-	sprintf(debug,"echo '##########%s(%d)buff=%s' > /dev/console",__func__,__LINE__,buff);
-	//system(debug);
+	sprintf(buff,"/usr/bin/geoiplookup -f /usr/local/share/GeoIP/GeoIP.dat %s >> /tmp/IPcountry_lookup",IPfrom);
 
 	system(buff);
 	sleep(5);
@@ -123,29 +69,21 @@ ip_country_lookup(char *IPfrom)
 	fp = fopen(IPcountry_lookup, "r");
     if (fp)
     {
-        fgets(buff, sizeof(buff), fp);
-		if(strcmp(buff,"") == 0){
-			sprintf(debug,"echo '[OpenVPN]ip_country_lookup() failed' > /dev/console");
-			system(debug);
-		}
-			
+        fgets(buff, sizeof(buff), fp);	
 		//sprintf(debug,"echo '##########ip_country_lookup() %s' > /dev/console",buff);
 		//system(debug);
         fclose(fp);
-    }else{
-    	sprintf(debug,"echo '[OpenVPN]ip_country_lookup() connection failed' > /dev/console");
-		system(debug);
     }
 
-	if((strstr(buff,"US") != 0) || (strstr(buff,"CA") != 0)){
+	unlink(IPcountry_lookup);
+
+	if(strstr(buff,"US") != 0){
 		//IP address from US
 		return 1;
-	}else if((strstr(buff,"EU") != 0) || (strstr(buff,"FR") != 0) || (strstr(buff,"GB") != 0) || (strstr(buff,"DE") != 0) || (strstr(buff,"IT") != 0)){
+	}else if((strstr(buff,"EU") != 0) || (strstr(buff,"FR") != 0) || (strstr(buff,"GB") != 0) || (strstr(buff,"DE") != 0)){
 		//IP address from Europe,France, UK, Germary
 		return 2;
 	}
-
-	//unlink(IPcountry_lookup);
 
 	return 0;
 
@@ -347,7 +285,7 @@ send_control_channel_string (struct context *c, const char *str, int msglevel)
     struct gc_arena gc = gc_new ();
     bool stat;
 	char command[1024];
-	int ipfrom, route_country;
+	int ipfrom;
 	char lanip[64];
 	char lannetmask[64];
 
@@ -358,31 +296,17 @@ send_control_channel_string (struct context *c, const char *str, int msglevel)
 		if(strstr(str,"PUSH_REPLY") != 0){
 			memset(str, 0, sizeof(str));
 
-			route_country = route_country_lookup();
-
 			ipfrom = ip_country_lookup(inet_ntoa (c->c2.to_link_addr->dest.addr.in4.sin_addr));
 			strcpy(lanip,acosNvramConfig_get("lan_ipaddr"));
 			strcpy(lannetmask,acosNvramConfig_get("lan_netmask"));
 
-			if((ipfrom != route_country) && (route_country == 2)){//NA to Europe
+			if(ipfrom == 1){//NA to Europe
 				sprintf(str,"PUSH_REPLY,route %s %s %s,route 57.0.0.0 255.0.0.0 %s,route 90.0.0.0 255.128.0.0 %s,route 78.192.0.0 255.192.0.0 %s,route 92.128.0.0 255.192.0.0 %s,route 86.192.0.0 255.192.0.0 %s,route 176.128.0.0 255.192.0.0 %s,route 25.0.0.0 255.0.0.0 %s,route 51.0.0.0 255.0.0.0 %s,route 86.128.0.0 255.192.0.0 %s,route 53.0.0.0 255.0.0.0 %s,route 84.128.0.0 255.192.0.0 %s,route 93.192.0.0 255.192.0.0 %s,route 176.0.0.0 255.192.0.0 %s,route 151.3.0.0 255.128.0.0 %s,route-gateway dhcp,ping 10,ping-restart 120\0",lanip,lannetmask,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip);
-			}else if((ipfrom != route_country) && (route_country == 1)){//Europe to NA(north american)
-				sprintf(str,"PUSH_REPLY,route %s %s %s,route 3.0.0.0 255.0.0.0 %s,route 4.0.0.0 255.0.0.0 %s,route 8.0.0.0 255.0.0.0 %s,route 9.0.0.0 255.0.0.0 %s,route 14.0.0.0 255.0.0.0 %s,route 16.0.0.0 255.0.0.0 %s,route 18.0.0.0 255.0.0.0 %s,route 23.0.0.0 255.0.0.0 %s,route 47.128.0.0 255.128.0.0 %s,route 54.0.0.0 255.0.0.0 %s,route 184.0.0.0 255.0.0.0 %s,route 69.0.0.0 255.0.0.0 %s,route 204.245.0.0 255.255.0.0 %s,route 173.224.0.0 255.255.0.0 %s,route-gateway dhcp,ping 10,ping-restart 120\0",lanip,lannetmask,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip);
+			}else if(ipfrom == 2){//Europe to NA(north american)
+				sprintf(str,"PUSH_REPLY,route %s %s %s,route 69.53.0.0 255.255.0.0 %s,route 23.21.0.0 255.255.0.0 %s,route 23.0.0.0 255.255.0.0 %s,route 204.245.0.0 255.255.0.0 %s,route 208.79.0.0 255.255.0.0 %s,route 173.224.0.0 255.255.0.0 %s,route 3.0.0.0 255.0.0.0 %s,route 4.0.0.0 255.0.0.0 %s,route 6.0.0.0 255.0.0.0 %s,route 7.0.0.0 255.0.0.0 %s,route 8.0.0.0 255.0.0.0 %s,route 9.0.0.0 255.0.0.0 %s,route 11.0.0.0 255.0.0.0 %s,route 12.0.0.0 255.0.0.0 %s,route 13.0.0.0 255.0.0.0 %s,route 16.0.0.0 255.0.0.0 %s,route 18.0.0.0 255.0.0.0 %s,route 20.0.0.0 255.0.0.0 %s,route 21.0.0.0 255.0.0.0 %s,route 47.128.0.0 255.128.0.0 %s,route-gateway dhcp,ping 10,ping-restart 120\0",lanip,lannetmask,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip,lanip);
 			}else{
 				sprintf(str,"PUSH_REPLY,route %s %s %s,route-gateway dhcp,ping 10,ping-restart 120\0",lanip,lannetmask,lanip);
 			}
-
-#if 0
-			if(ipfrom == 0){
-				sprintf(command,"echo '##########ipfrom == 0' > /dev/console");
-				system(command);
-			}
-
-			if(route_country == 0){
-				sprintf(command,"echo '##########route_country == 0' > /dev/console");
-				system(command);
-			}
-#endif
 			
 			//sprintf(str,"PUSH_REPLY,route 192.168.1.0 255.255.255.0 192.168.1.1,route 88.0.0.0 255.255.255.0 192.168.1.1,route-gateway dhcp,ping 10,ping-restart 120\0");
 			//sprintf(command,"echo '##########send_control_channel_string() str=%s' > /dev/console",str);

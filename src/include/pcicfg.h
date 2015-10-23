@@ -414,7 +414,6 @@ typedef struct _pciconfig_cap_msi {
 	uint16	msgctrl;
 	uint32	msgaddr;
 } pciconfig_cap_msi;
-#define MSI_ENABLE	0x1		/* bit 0 of msgctrl */
 
 /* Data structure to define the Power managment facility
  * Valid for PCI and PCIE configurations

@@ -97551,6 +97551,7 @@ SQLITE_API int sqlite3_test_control(int op, ...){
 
 /* Omit this entire file if SQLITE_ENABLE_UNLOCK_NOTIFY is not defined. */
 #ifdef SQLITE_ENABLE_UNLOCK_NOTIFY
+//#if 1
 
 /*
 ** Public interfaces:

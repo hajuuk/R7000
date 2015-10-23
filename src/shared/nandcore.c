@@ -357,9 +357,6 @@ nandcore_check_id(uint8 *id)
 	case NFL_VENDOR_MXIC:
 		name = "Mxic";
 		break;
-	case NFL_VENDOR_ZENTEL:
-		name = "Zentel";
-		break;
 	default:
 		printf("No NAND flash type found\n");
 		break;

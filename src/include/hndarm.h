@@ -29,19 +29,11 @@ extern uint32 hndarm_rev;
 
 extern void si_arm_init(si_t *sih);
 
-extern void enable_arm_irq(void);
-extern void disable_arm_irq(void);
-extern void enable_arm_fiq(void);
-extern void disable_arm_fiq(void);
-extern void enable_arm_dab(void);
-extern void disable_arm_dab(void);
-extern void enable_nvic_ints(uint32 which);
-extern void disable_nvic_ints(uint32 which);
+extern void enable_arm_ints(uint32 which);
+extern void disable_arm_ints(uint32 which);
 
 extern uint32 get_arm_cyclecount(void);
 extern void set_arm_cyclecount(uint32 ticks);
-
-extern uint32 get_backplane_cyclecount(void);
 
 #ifdef	__ARM_ARCH_7R__
 extern uint32 get_arm_perfcount_enable(void);
@@ -59,12 +51,6 @@ extern void set_arm_perfcount(uint32 which);
 
 extern void enable_arm_cyclecount(void);
 extern void disable_arm_cyclecount(void);
-
-extern uint32 get_arm_data_fault_status(void);
-extern uint32 get_arm_data_fault_address(void);
-
-extern uint32 get_arm_instruction_fault_status(void);
-extern uint32 get_arm_instruction_fault_address(void);
 #endif	/* __ARM_ARCH_7R__ */
 
 extern uint32 get_arm_inttimer(void);

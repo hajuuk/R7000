@@ -180,7 +180,7 @@ static struct _coreid_entry bcm4706_coreid_table[] = {
 };
 
 static uint
-BCMATTACHFN(remap_coreid)(si_t *sih, uint coreid)
+remap_coreid(si_t *sih, uint coreid)
 {
 	struct _coreid_entry *coreid_table = NULL;
 
@@ -684,31 +684,6 @@ ai_flag(si_t *sih)
 	return (R_REG(sii->osh, &ai->oobselouta30) & 0x1f);
 }
 
-uint
-ai_flag_alt(si_t *sih)
-{
-	si_info_t *sii;
-	aidmp_t *ai;
-
-	sii = SI_INFO(sih);
-	if (BCM47162_DMP()) {
-		SI_ERROR(("%s: Attempting to read MIPS DMP registers on 47162a0", __FUNCTION__));
-		return sii->curidx;
-	}
-	if (BCM5357_DMP()) {
-		SI_ERROR(("%s: Attempting to read USB20H DMP registers on 5357b0\n", __FUNCTION__));
-		return sii->curidx;
-	}
-	if (BCM4707_DMP()) {
-		SI_ERROR(("%s: Attempting to read CHIPCOMMONB DMP registers on 4707\n",
-			__FUNCTION__));
-		return sii->curidx;
-	}
-	ai = sii->curwrap;
-
-	return ((R_REG(sii->osh, &ai->oobselouta30) >> AI_OOBSEL_1_SHIFT) & AI_OOBSEL_MASK);
-}
-
 void
 ai_setint(si_t *sih, int siflag)
 {
@@ -914,40 +889,30 @@ ai_core_reset(si_t *sih, uint32 bits, uint32 resetbits)
 	si_info_t *sii;
 	aidmp_t *ai;
 	volatile uint32 dummy;
-	uint loop_counter = 10;
 
 	sii = SI_INFO(sih);
 	ASSERT(GOODREGS(sii->curwrap));
 	ai = sii->curwrap;
 
-	/* ensure there are no pending backplane operations */
-	SPINWAIT(((dummy = R_REG(sii->osh, &ai->resetstatus)) != 0), 300);
+	/*
+	 * Must do the disable sequence first to work for arbitrary current core state.
+	 */
+	ai_core_disable(sih, (bits | resetbits));
+	if (sii->coreid[sii->curidx] == ARMCR4_CORE_ID) {
+		OSL_DELAY(10);
+	}
 
-
-	W_REG(sii->osh, &ai->ioctrl, (bits | resetbits | SICF_FGC | SICF_CLOCK_EN));
+	/*
+	 * Now do the initialization sequence.
+	 */
+	W_REG(sii->osh, &ai->ioctrl, (bits | SICF_FGC | SICF_CLOCK_EN));
 	dummy = R_REG(sii->osh, &ai->ioctrl);
 	BCM_REFERENCE(dummy);
 
-	/* ensure there are no pending backplane operations */
-	SPINWAIT(((dummy = R_REG(sii->osh, &ai->resetstatus)) != 0), 300);
-
-
-	/* put core into reset state */
-	W_REG(sii->osh, &ai->resetctrl, AIRC_RESET);
-	OSL_DELAY(10);
-
-	while (R_REG(sii->osh, &ai->resetctrl) != 0 && --loop_counter != 0) {
-		/* ensure there are no pending backplane operations */
-		SPINWAIT(((dummy = R_REG(sii->osh, &ai->resetstatus)) != 0), 300);
-
-
-		/* take core out of reset */
-		W_REG(sii->osh, &ai->resetctrl, 0);
-
-		/* ensure there are no pending backplane operations */
-		SPINWAIT((R_REG(sii->osh, &ai->resetstatus) != 0), 300);
-	}
-
+	W_REG(sii->osh, &ai->resetctrl, 0);
+	dummy = R_REG(sii->osh, &ai->resetctrl);
+	BCM_REFERENCE(dummy);
+	OSL_DELAY(1);
 
 	W_REG(sii->osh, &ai->ioctrl, (bits | SICF_CLOCK_EN));
 	dummy = R_REG(sii->osh, &ai->ioctrl);

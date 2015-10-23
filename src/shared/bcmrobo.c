@@ -403,11 +403,6 @@ spi_wreg(robo_info_t *robo, uint8 page, uint8 addr, void *val, int len)
 		uint32 val32;
 	} bytes;
 
-	if ((len != 1) && (len != 2) && (len != 4)) {
-		printf("Invalid length. For SPI mode, the length can only be 1, 2, and 4 bytes.\n");
-		return -1;
-	}
-
 	/* validate value length and buffer address */
 	ASSERT(len == 1 || (len == 2 && !((int)val & 1)) ||
 	       (len == 4 && !((int)val & 3)));
@@ -454,11 +449,6 @@ spi_rreg(robo_info_t *robo, uint8 page, uint8 addr, void *val, int len)
 		uint16 val16;
 		uint32 val32;
 	} bytes;
-
-	if ((len != 1) && (len != 2) && (len != 4)) {
-		printf("Invalid length. For SPI mode, the length can only be 1, 2, and 4 bytes.\n");
-		return -1;
-	}
 
 	/* validate value length and buffer address */
 	ASSERT(len == 1 || (len == 2 && !((int)val & 1)) ||

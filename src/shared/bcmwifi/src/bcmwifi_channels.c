@@ -1019,9 +1019,6 @@ wf_channel2chspec(uint ctl_ch, uint bw)
 		center_ch = wf_5g_160m_chans;
 		num_ch = WF_NUM_5G_160M_CHANS;
 		bw = 160;
-	} else if (bw == WL_CHANSPEC_BW_20) {
-		chspec |= ctl_ch;
-		return chspec;
 	} else {
 		return 0;
 	}

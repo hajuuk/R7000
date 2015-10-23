@@ -91,6 +91,9 @@ static int wl_phytype_get(webs_t wp, int *phytype);
 #ifdef __CONFIG_WAPI_IAS__
 static int cert_revoke(webs_t wp, char *sn_str);
 #endif
+#ifdef PLC
+static int must_plc_tab_be_present(void);
+#endif
 
 #define WAN_PREFIX(unit, prefix)	snprintf(prefix, sizeof(prefix), "wan%d_", unit)
 
@@ -1595,7 +1598,8 @@ ej_asp_list(int eid, webs_t wp, int argc, char_t **argv)
 	websWrite(wp,
 	  "  <td><a href=\"media.asp\"><img border=\"0\" src=\"media.gif\" alt=\"Media\"></a></td>\n");
 #ifdef PLC
-	websWrite(wp, "  <td><a href=\"plc.asp\"><img border=\"0\" src=\"plc.gif\" alt=\"PLC\"></a></td>\n");
+	if (must_plc_tab_be_present())
+		websWrite(wp, "  <td><a href=\"plc.asp\"><img border=\"0\" src=\"plc.gif\" alt=\"PLC\"></a></td>\n");
 #endif
 
 #if defined(__CONFIG_SAMBA__) || defined(__CONFIG_DLNA_DMS__)
@@ -2400,7 +2404,6 @@ ej_wet_tunnel_display(int eid, webs_t wp, int argc, char_t **argv)
 }
 
 #ifdef TRAFFIC_MGMT_RSSI_POLICY
-static int
 ej_trf_mgmt_rssi_policy_display(int eid, webs_t wp, int argc, char_t **argv)
 {
 	char tmp[NVRAM_BUFSIZE], prefix[] = "wlXXXXXXXXXX_";
@@ -2531,10 +2534,7 @@ static char wps_unit[32];
 static int ssid_update = 0;
 static char random_ssid[33] = {0};
 static char random_psk[65] = {0};
-#ifdef __CONFIG_NFC__
-static int wps_nfc_dm_status;
-static int wps_nfc_err_code;
-#endif
+
 static int get_wps_env();
 
 static int wps_get_lan_idx();
@@ -2605,32 +2605,6 @@ wl_wpsPincheck(char *pin_string)
 
 	return -1;
 }
-
-#ifdef __CONFIG_NFC__
-static int
-ej_wps_nfc_dm_status(int eid, webs_t wp, int argc, char_t **argv)
-{
-
-	char *status;
-
-	if (!nvram_match( "wl_wps_mode", "enabled" ))
-		return 0;
-
-	switch (wps_nfc_dm_status) {
-	case WPS_UI_NFC_STATUS_INITED:
-		websWrite(wp, "Successful Initiated");
-		break;
-	case WPS_UI_NFC_STATUS_INITING:
-		websWrite(wp, "Initiating");
-		break;
-	default:
-		websWrite(wp, "Error: code %d\n", wps_nfc_dm_status);
-		break;
-	}
-
-	return 0;
-}
-#endif /* __CONFIG_NFC__ */
 #endif /* __CONFIG_WPS__ */
 
 
@@ -2648,6 +2622,7 @@ ej_wps_display(int eid, webs_t wp, int argc, char_t **argv)
 	char *value;
 	char tmp[100] = {0};
 
+	get_wps_env();
 	if ((value = websGetVar(wp, "wl_unit", NULL))) {
 		printf("ej_wps_display: wl_unit=%s\n", value);
 		nvram_set("wl_unit", value);
@@ -2740,10 +2715,8 @@ ej_wps_display(int eid, webs_t wp, int argc, char_t **argv)
 	websWrite(wp, "</select> </td> </tr>\n");
 	
 	/* If WPS is disabled, don't show any configurations util wps_mode is enabled */
-	if (nvram_invmatch(wps_mode, "enabled")) {
-		websWrite(wp, "</table>\n");
-		goto out;
-	}
+	if (nvram_invmatch(wps_mode, "enabled"))
+		goto table_end;
 
 	/* show Device UUID */
 	websWrite(wp,"<tr>"
@@ -2769,7 +2742,7 @@ ej_wps_display(int eid, webs_t wp, int argc, char_t **argv)
 	websWrite(wp,"<td>%s",str);
 
 	/* show Generate button */
-	if (wps_config_command != WPS_UI_CMD_START)
+	if (wps_config_command != 1)
 		websWrite(wp, "&nbsp;&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"Generate\">");
 
 	websWrite(wp,"</td></tr>\n");
@@ -2813,12 +2786,12 @@ ej_wps_display(int eid, webs_t wp, int argc, char_t **argv)
 		websWrite(wp, "<select name=\"wps_ap_list\">");
 		ej_wps_enr_scan_result(eid, wp, argc, argv);
 		websWrite(wp, "</select>");
-		if (wps_config_command != WPS_UI_CMD_START)
+		if (wps_config_command != 1)
 			websWrite(wp, "&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"Rescan\">");
 		websWrite(wp, "</td></tr>\n");
 	}
 
-	if (wps_config_command == WPS_UI_CMD_NONE) {
+	if (wps_config_command == 0) {
 		/* show wps_action */
 		if (wps_sta) {
 			/* show wps-action */
@@ -2864,21 +2837,11 @@ ej_wps_display(int eid, webs_t wp, int argc, char_t **argv)
 				  "<td>&nbsp;&nbsp;</td>\n"
 				  "<td>");
 			websWrite(wp, "<select name=\"wps_method\">");
-			if (wps_action == WPS_UI_ACT_ENROLL) {
-				websWrite(wp, "<option value=\"PBC\"%s>PBC</option>",
-					(wps_method == WPS_UI_METHOD_PBC)? " selected":"");
-			}
+			websWrite(wp, "<option value=\"PBC\"%s>PBC</option>",
+				(wps_method == WPS_UI_METHOD_PBC)? " selected":"");
 			websWrite(wp, "<option value=\"PIN\" %s>PIN</option>",
 				(wps_method == WPS_UI_METHOD_PIN)? " selected":"");
-#ifdef __CONFIG_NFC__
-			/* NFC password token.  When we are WPS_UI_ACT_ENROLL */
-			websWrite(wp, "<option value=\"NFC\" %s>NFC</option>",
-				(wps_method == WPS_UI_METHOD_NFC_PW)? " selected":"");
-#endif
-			if (wps_action == WPS_UI_ACT_ENROLL) {
-				websWrite(wp, "</select>&nbsp;&nbsp;If PIN is selected, please set PIN \"%s\" to the WPS AP or registrar.</td> </tr>\n",
-					nvram_get("wps_device_pin"));
-			}
+			websWrite(wp, "</select>&nbsp;&nbsp;If PIN is selected, please set PIN \"%s\" to the WPS AP or registrar.</td> </tr>\n", nvram_get("wps_device_pin"));
 		}
 		if (wps_action == WPS_UI_ACT_ADDENROLLEE) {
 			/* show pin field */
@@ -2913,23 +2876,6 @@ ej_wps_display(int eid, webs_t wp, int argc, char_t **argv)
 				  "<td>&nbsp;&nbsp;</td>\n");
 			websWrite(wp,"<td><input name=\"wps_ap_pin\" value=\"\" size=\"9\" maxlength=\"9\">");
 			websWrite(wp, "</td> </tr>\n");
-#ifdef __CONFIG_NFC__
-			/* Show wps method */
-			websWrite(wp, "<tr>"
-				  "<th width=\"310\""
-				  "onMouseOver=\"return overlib('The grant for wps exchange data', LEFT);\""
-				  "onMouseOut=\"return nd();\">"
-				  "WPS Method:&nbsp;&nbsp;"
-				  "</th>"
-				  "<td>&nbsp;&nbsp;</td>\n"
-				  "<td>");
-			websWrite(wp, "<select name=\"wps_method\">");
-			websWrite(wp, "<option value=\"PIN\" %s>PIN</option>",
-				(wps_method == WPS_UI_METHOD_PIN)? " selected":"");
-			/* NFC password token.  When we are WPS_UI_ACT_ENROLL */
-			websWrite(wp, "<option value=\"NFC\" %s>NFC</option>",
-				(wps_method == WPS_UI_METHOD_NFC_PW)? " selected":"");
-#endif /* __CONFIG_NFC__ */
 		}
 		websWrite(wp, "&nbsp;&nbsp;");
 		/* show trigger button */
@@ -3007,139 +2953,9 @@ ej_wps_display(int eid, webs_t wp, int argc, char_t **argv)
 		ej_wps_enr_process(eid, wp, argc, argv);
 	
 	websWrite(wp, "</td> </tr>\n");
+	
+table_end:
 	websWrite(wp, "</table>\n");
-
-#ifdef __CONFIG_NFC__
-	/* Show NFC stuffs */
-	if (wps_config_command == WPS_UI_CMD_NONE) {
-		websWrite(wp, "<p>\n");
-		websWrite(wp,"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
-
-		if (wps_action == WPS_UI_ACT_ADDENROLLEE) {
-			/* show NFC write/read Configuration token */
-			websWrite(wp,"<tr>"
-				  "<th width=\"310\""
-				  "onMouseOver=\"return overlib('Write the AP security to NFC tag and use it to configure other devices. "
-				  "Read the configuration from the NFC tag and apply to AP system', LEFT);\""
-				  "onMouseOut=\"return nd();\">"
-				  "NFC Configuration Token:&nbsp;&nbsp;"
-				  "</th>"
-				  "<td>&nbsp;&nbsp;</td>\n");
-			websWrite(wp,"<td><input type=\"submit\" name=\"action\" value=\"NFC Write Configuration\">&nbsp;&nbsp");
-			websWrite(wp, "<input type=\"submit\" name=\"action\" value=\"NFC Read Configuration\">");
-			websWrite(wp, "</td></tr>\n");
-		}
-
-		if (wps_action == WPS_UI_ACT_STA_GETAPCONFIG || wps_action == WPS_UI_ACT_STA_CONFIGAP) {
-			if (wps_action == WPS_UI_ACT_STA_GETAPCONFIG) {
-				/* show NFC read Configuration token */
-				websWrite(wp,"<tr>"
-					  "<th width=\"310\""
-					  "onMouseOver=\"return overlib('Read the configuration from the NFC tag and apply to the station', LEFT);\""
-					  "onMouseOut=\"return nd();\">"
-					  "NFC Configuration Token:&nbsp;&nbsp;"
-					  "</th>"
-					  "<td>&nbsp;&nbsp;</td>\n");
-				websWrite(wp,"<td><input type=\"submit\" name=\"action\" value=\"NFC Read Configuration\">");
-			}
-			else {
-				/* show NFC write Configuration token, need take care the "new credentials" on the GUI */
-				websWrite(wp,"<tr>"
-					  "<th width=\"310\""
-					  "onMouseOver=\"return overlib('Write the station security to NFC tag and use it to configure AP or other stations.', LEFT);\""
-					  "onMouseOut=\"return nd();\">"
-					  "NFC Configuration Token:&nbsp;&nbsp;"
-					  "</th>"
-					  "<td>&nbsp;&nbsp;</td>\n");
-				websWrite(wp,"<td><input type=\"submit\" name=\"action\" value=\"NFC Write Configuration\">");
-			}
-			websWrite(wp, "</td></tr>\n");
-		}
-
-		/* Show NFC Password token */
-		if (!wps_sta) {
-			websWrite(wp,"<tr>"
-			  "<th width=\"310\""
-			  "onMouseOver=\"return overlib('Write the AP security to NFC tag and use it to configure other devices. "
-			  "Read the configuration from the NFC tag and apply to AP system', LEFT);\""
-			  "onMouseOut=\"return nd();\">"
-			  "NFC Password Token:&nbsp;&nbsp;"
-			  "</th>"
-			  "<td>&nbsp;&nbsp;</td>\n");
-			websWrite(wp,"<td><input type=\"submit\" name=\"action\" value=\"NFC Add Enrollee\">&nbsp;&nbsp");
-			websWrite(wp, "<input type=\"submit\" name=\"action\" value=\"NFC Config AP\">");
-			websWrite(wp, "</td></tr>\n");
-		}
-
-		/* Show NFC Hand Over Selector/Requester */
-		if (wps_action == WPS_UI_ACT_ADDENROLLEE) {
-			/* show NFC write/read Configuration token */
-			websWrite(wp,"<tr>"
-			  "<th width=\"310\""
-			  "onMouseOver=\"return overlib('Selector provide the Configuration to Requester. Requester get Configuration from Selector.', LEFT);\""
-			  "onMouseOut=\"return nd();\">"
-			  "NFC Hand Over:&nbsp;&nbsp;"
-			  "</th>"
-			  "<td>&nbsp;&nbsp;</td>\n");
-			websWrite(wp,"<td><input type=\"submit\" name=\"action\" value=\"NFC Hand Over As Selecotr\">&nbsp;&nbsp");
-			websWrite(wp, "<input type=\"submit\" name=\"action\" value=\"NFC Hand Over As Requester\">");
-			websWrite(wp, "</td></tr>\n");
-		}
-
-		if (wps_action == WPS_UI_ACT_STA_GETAPCONFIG || wps_action == WPS_UI_ACT_STA_CONFIGAP ||
-		    wps_action == WPS_UI_ACT_ENROLL) {
-			if (wps_action == WPS_UI_ACT_STA_GETAPCONFIG) {
-				/* show NFC Hand Over as Requester */
-				websWrite(wp,"<tr>"
-				  "<th width=\"310\""
-				  "onMouseOver=\"return overlib('As a Requester get Configuration from Selector.', LEFT);\""
-				  "onMouseOut=\"return nd();\">"
-				  "NFC Hand Over:&nbsp;&nbsp;"
-				  "</th>"
-				  "<td>&nbsp;&nbsp;</td>\n");
-				websWrite(wp,"<td><input type=\"submit\" name=\"action\" value=\"NFC Hand Over As Requester\">");
-			}
-			else if (wps_action == WPS_UI_ACT_STA_CONFIGAP) {
-				/* show NFC Hand Over as Selector, need take care the "new credentials" on the GUI */
-				websWrite(wp,"<tr>"
-				  "<th width=\"310\""
-			 	  "onMouseOver=\"return overlib('As a Selector provide the Configuration to Requester.', LEFT);\""
-				  "onMouseOut=\"return nd();\">"
-				  "NFC Hand Over:&nbsp;&nbsp;"
-				  "</th>"
-				  "<td>&nbsp;&nbsp;</td>\n");
-				websWrite(wp,"<td><input type=\"submit\" name=\"action\" value=\"NFC Hand Over As Selecotr\">");
-			}
-			else {
-				/* show NFC Hand Over as Requester/Selector */
-				websWrite(wp,"<tr>"
-				  "<th width=\"310\""
-				  "onMouseOver=\"return overlib('As a Requester get Configuration from Selector or as a Selector provide the Configuration to Requester.', LEFT);\""
-				  "onMouseOut=\"return nd();\">"
-				  "NFC Hand Over:&nbsp;&nbsp;"
-				  "</th>"
-				  "<td>&nbsp;&nbsp;</td>\n");
-				websWrite(wp,"<td><input type=\"submit\" name=\"action\" value=\"NFC Hand Over As Selecotr\">&nbsp;&nbsp");
-				websWrite(wp,"<td><input type=\"submit\" name=\"action\" value=\"NFC Hand Over As Requester\">");
-			}
-			websWrite(wp, "</td></tr>\n");
-		}
-
-
-		/* show NFC Device Manager status */
-		websWrite(wp, "<tr>"
-		          "<th width=\"310\""
-		          "onMouseOver=\"return overlib('NFC Device Management Status', LEFT);\""
-		          "onMouseOut=\"return nd();\">"
-		          "NFC Device Management Status:&nbsp;&nbsp;"
-		          "</th>"
-		          "<td>&nbsp;&nbsp;</td>\n"
-		          "<td>");
-		ej_wps_nfc_dm_status(eid, wp, argc, argv);
-
-		websWrite(wp, "</table>");
-	}
-#endif /* __CONFIG_NFC__ */
 
 #ifdef WFA_WPS_20_TESTBED
 	/* For PlugFest testing only */
@@ -3263,8 +3079,6 @@ ej_wps_display(int eid, webs_t wp, int argc, char_t **argv)
 
 	websWrite(wp, "</table>");
 #endif /* WFA_WPS_20_TESTBED */
-
-out:
 #endif /* __CONFIG_WPS__ */
 
 	return 1;
@@ -3461,49 +3275,7 @@ ej_wps_get_ap_config_submit_display(int eid, webs_t wp, int argc, char_t **argv)
 	return 1;
 }
 
-static int
-ej_wps_akm_change_display(int eid, webs_t wp, int argc, char_t **argv)
-{
-#ifdef __CONFIG_WPS__
-	if (wps_config_command == WPS_UI_CMD_NONE) {
-		websWrite(wp,"    var akm = document.forms[0].wps_akm[document.forms[0].wps_akm.selectedIndex].value;\n");
-		websWrite(wp,"    var action = document.forms[0].wps_action.value;\n");
-
-		websWrite(wp,"    if (action == \"ConfigAP\" || action == \"AddEnrollee\") {\n");
-		websWrite(wp,"        if (akm ==\"0\") {\n");
-		websWrite(wp,"            document.forms[0].wps_crypto.disabled = 1;\n");
-		websWrite(wp,"            document.forms[0].wps_crypto.value = \"0\";\n");
-		websWrite(wp,"            document.forms[0].wps_psk.disabled = 1;\n");
-		websWrite(wp,"        }\n");
-		websWrite(wp,"        else {\n");
-		websWrite(wp,"            document.forms[0].wps_crypto.disabled = 0;\n");
-		websWrite(wp,"            document.forms[0].wps_psk.disabled = 0;\n");
-		websWrite(wp,"        }\n");
-		websWrite(wp,"    }\n");
-	}
-#endif /* __CONFIG_WPS__ */
-	return 1;
-}
-
-static int
-ej_wps_refresh(int eid, webs_t wp, int argc, char_t **argv)
-{
-#ifdef __CONFIG_WPS__
-	if (wps_config_command == WPS_UI_CMD_NONE)
-		websWrite(wp, "0");
-	else {
-		int interval = 3;
-		char *value = nvram_get("wps_refresh_interval");
-
-		if (value)
-			interval = atoi(value);
-		websWrite(wp, "%d", interval);
-	}
-#endif
-	return 1;
-}
-
-static int
+static int 
 ej_wps_security_pre_submit_display(int eid, webs_t wp, int argc, char_t **argv)
 {
 #ifdef __CONFIG_WPS__
@@ -4783,6 +4555,12 @@ ej_wan_route(int eid, webs_t wp, int argc, char_t **argv)
 #endif	/* __CONFIG_NAT__ */
 
 #ifdef PLC
+static int
+must_plc_tab_be_present(void)
+{
+  return nvram_match("wl0_plc", "1") || nvram_match("wl1_plc", "1");
+}
+
 static void cgi(webs_t wp, const char * const cmd)
 {
   static char line[512];
@@ -6070,7 +5848,7 @@ ej_wps_current_mode(int eid, webs_t wp, int argc, char_t **argv, int wps_sta)
 	{
 		if (wps_sta)
 			websWrite(wp, "Station");
-		else if (wps_is_oob() && !nvram_match("wps_oob_configured", "1"))
+		else if (wps_is_oob())
 			websWrite(wp, "Unconfiged AP");
 		else if (wps_is_reg())
 			websWrite(wp, "AP with Built-in Registrar");
@@ -6104,69 +5882,30 @@ ej_wps_process(int eid, webs_t wp, int argc, char_t **argv)
 	status = nvram_safe_get("wps_proc_status");
 
 	switch (atoi(status)) {
-	case WPS_UI_ASSOCIATED:
+	case 1: /* WPS_ASSOCIATED */
 		websWrite(wp, "Processing WPS start...");
 		break;
-	case WPS_UI_OK:
-	case WPS_UI_MSGDONE:
+	case 2: /* WPS_OK */
+	case 7: /* WPS_MSGDONE */
 		websWrite(wp, "Success");
 		break;
-	case WPS_UI_MSG_ERR:
+	case 3: /* WPS_MSG_ERR */
 		websWrite(wp, "Fail due to WPS message exchange error!");
 		break;
-	case WPS_UI_TIMEOUT:
+	case 4: /* WPS_TIMEOUT */
 		websWrite(wp, "Fail due to WPS time out!");
 		break;
-	case WPS_UI_PBCOVERLAP:
+	case 8: /* WPS_PBCOVERLAP */
 		websWrite(wp, "Fail due to WPS session overlap!");
 		break;
-#ifdef __CONFIG_NFC__
-	case WPS_UI_NFC_WR_CFG:
-	case WPS_UI_NFC_WR_PW:
-	case WPS_UI_NFC_RD_CFG:
-	case WPS_UI_NFC_RD_PW:
-		websWrite(wp, "Please place your NFC token now.");
-		break;
-	case WPS_UI_NFC_WR_CPLT:
-		websWrite(wp, "NFC write token successful, please remove the tag.");
-		break;
-	case WPS_UI_NFC_RD_CPLT:
-		websWrite(wp, "NFC read token successful, please remove the tag.");
-		break;
-	case WPS_UI_NFC_HO_S:
-		websWrite(wp, "Handover as selector.");
-		break;
-	case WPS_UI_NFC_HO_R:
-		websWrite(wp, "Handover as requester.");
-		break;
-	case WPS_UI_NFC_HO_NDEF:
-		websWrite(wp, "Handover done, please remove the peer.");
-		break;
-	case WPS_UI_NFC_HO_CPLT:
-		websWrite(wp, "Handover successful.");
-		break;
-	case WPS_UI_NFC_OP_ERROR:
-		websWrite(wp, "NFC operation fail. Code %d", wps_nfc_err_code);
-		break;
-	case WPS_UI_NFC_OP_STOP:
-		websWrite(wp, "NFC operation stop.");
-		break;
-	case WPS_UI_NFC_OP_TO:
-		websWrite(wp, "NFC operation timeout.");
-		break;
-	case WPS_UI_NFC_FM:
-		websWrite(wp, "Formating NFC, please place your NFC token now!.");
-		break;
-	case WPS_UI_NFC_FM_CPLT:
-		websWrite(wp, "Format NFC successful, please remove the tag.");
-		break;
-#endif /* __CONFIG_NFC__ */
+
 	default:
 		websWrite(wp, "Init");
 	}
 
-	if (strcmp(wps_unit, nvram_safe_get("wl_unit"))== 0) {
-		if (wps_config_command == WPS_UI_CMD_START) {
+	if (wps_config_command == 1)
+	{
+		if (strcmp(wps_unit, nvram_safe_get("wl_unit"))== 0) {
 			websWrite(wp, "&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"STOPWPS\">");
 
 			/* Add in PF #3, show "PBC Again" */
@@ -6175,20 +5914,6 @@ ej_wps_process(int eid, webs_t wp, int argc, char_t **argv)
 				websWrite(wp, "&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"PBC Again\">");
 			}
 		}
-#ifdef __CONFIG_NFC__
-		else if (wps_config_command == WPS_UI_CMD_NFC_WR_CFG ||
-			 wps_config_command == WPS_UI_CMD_NFC_WR_PW) {
-			websWrite(wp, "&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"Stop NFC Write\">");
-		}
-		else if (wps_config_command == WPS_UI_CMD_NFC_RD_CFG ||
-			 wps_config_command == WPS_UI_CMD_NFC_RD_PW) {
-			websWrite(wp, "&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"Stop NFC Read\">");
-		}
-		else if (wps_config_command == WPS_UI_CMD_NFC_HO_S ||
-			 wps_config_command == WPS_UI_CMD_NFC_HO_R) {
-			websWrite(wp, "&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"Stop NFC Hand Over\">");
-		}
-#endif /* __CONFIG_NFC__ */
 	}
 	return 0;
 }
@@ -6348,15 +6073,7 @@ ej_wps_credentials(int eid, webs_t wp, int argc, char_t **argv, int wps_sta)
 			wps_gen_ssid(random_ssid, sizeof(random_ssid));
 		strcpy(ssid, random_ssid);
 		akm = 2; /* Default to WPA2 */
-
-		/* When I test with WSC 1.0 NXP NFC STA, APUT send crypto type in AES
-		 * but APUT will save in tkip+aes because in wpsap_close_session() it said
-		 * " Set AES+TKIP in OOB mode, otherwise in WPS test plan 4.2.4 the
-		 * Broadcom legacy is not able to associate in TKIP".
-		 * It results the NXP STA cannot authenticate with APUT.  So, I change
-		 * the Default to TKIP+AES, but I'm not sure is it have other side effect.
-		 */
-		crypto = 2; /* Default to TKIP + AES */
+		crypto = 1; /* Default to AES */
 
 		if ((value  = nvram_get("wps_randomkey")))
 			strcpy(random_psk, value);
@@ -6404,7 +6121,7 @@ ej_wps_credentials(int eid, webs_t wp, int argc, char_t **argv, int wps_sta)
 			psk, (configable ? "" : "disabled"));
 	websWrite(wp, "</tr>\n");
 
-	if (!wps_sta && wps_config_command == WPS_UI_CMD_NONE) {
+	if (!wps_sta && wps_config_command == 0) {
 		websWrite(wp, "<tr><th width=\"310\"></th><td>&nbsp;&nbsp;</td>\n");
 		websWrite(wp, "<td><input type=\"submit\" name=\"action\" value=\"Save Credentials\""
 				" onClick=\"return pre_submit();\">"
@@ -6415,11 +6132,10 @@ ej_wps_credentials(int eid, webs_t wp, int argc, char_t **argv, int wps_sta)
 static int
 ej_wps_start(int eid, webs_t wp, int argc, char_t **argv, int wps_sta)
 {
-	if (wps_config_command == WPS_UI_CMD_NONE) {
+	if (wps_config_command == 0) {
 		if (!wps_sta) {
 			websWrite(wp, "<tr><th width=\"310\"></th><td>&nbsp;&nbsp;</td>");
-			websWrite(wp, "<td><input type=\"submit\" name=\"action\" value=\"Add Enrollee\">");
-			websWrite(wp, "</td> </tr>\n");
+			websWrite(wp, "<td><input type=\"submit\" name=\"action\" value=\"Add Enrollee\"></td></tr>\n");
 		}
 		else {
 			websWrite(wp, "<tr><th width=\"310\"></th><td>&nbsp;&nbsp;</td>");
@@ -6708,7 +6424,7 @@ wps_enr_create_aplist()
 static int
 wl_wpsEnrScan()
 {
-	if (wps_config_command == WPS_UI_CMD_NONE)
+	if (wps_config_command == 0)
 		wps_enr_create_aplist();
 
 	return 0;
@@ -6784,75 +6500,34 @@ ej_wps_enr_process(int eid, webs_t wp, int argc, char_t **argv)
 	status = nvram_safe_get("wps_proc_status");
 
 	switch (atoi(status)) {
-	case WPS_UI_ASSOCIATED:
+	case 1: /* WPS_ASSOCIATED */
 		websWrite(wp, "Start enrolling...");
 		break;
-	case WPS_UI_OK:
+	case 2: /* WPS_OK */
 		websWrite(wp, "Succeeded...");
 		break;
-	case WPS_UI_MSG_ERR:
+	case 3: /* WPS_MSG_ERR */
 		websWrite(wp, "Failed...");
 		break;
-	case WPS_UI_TIMEOUT:
+	case 4: /* WPS_TIMEOUT */
 		websWrite(wp, "Failed (timeout)...");
 		break;
-	case WPS_UI_PBCOVERLAP:
+	case 8: /* WPS_PBCOVERLAP */
 		websWrite(wp, "Failed (pbc overlap)...");
 		break;
-	case WPS_UI_FIND_PBC_AP:
+	case 9: /* WPS_FIND_PBC_AP */
 		websWrite(wp, "Finding a pbc access point...");
 		break;
-	case WPS_UI_ASSOCIATING:
+	case 10: /* WPS_ASSOCIATING */
 		websWrite(wp, "Assciating with access point...");
 		break;
-#ifdef __CONFIG_NFC__
-	case WPS_UI_NFC_WR_CFG:
-	case WPS_UI_NFC_WR_PW:
-	case WPS_UI_NFC_RD_CFG:
-	case WPS_UI_NFC_RD_PW:
-		websWrite(wp, "Please place your NFC token now.");
-		break;
-	case WPS_UI_NFC_WR_CPLT:
-		websWrite(wp, "NFC write token successful, please remove the tag.");
-		break;
-	case WPS_UI_NFC_RD_CPLT:
-		websWrite(wp, "NFC read token successful, please remove the tag.");
-		break;
-	case WPS_UI_NFC_HO_S:
-		websWrite(wp, "Handover as selector.");
-		break;
-	case WPS_UI_NFC_HO_R:
-		websWrite(wp, "Handover as requester.");
-		break;
-	case WPS_UI_NFC_HO_NDEF:
-		websWrite(wp, "Handover done, please remove the peer.");
-		break;
-	case WPS_UI_NFC_HO_CPLT:
-		websWrite(wp, "Handover successful.");
-		break;
-	case WPS_UI_NFC_OP_ERROR:
-		websWrite(wp, "NFC operation fail. Code %d", wps_nfc_err_code);
-		break;
-	case WPS_UI_NFC_OP_STOP:
-		websWrite(wp, "NFC operation stop.");
-		break;
-	case WPS_UI_NFC_OP_TO:
-		websWrite(wp, "NFC operation timeout.");
-		break;
-	case WPS_UI_NFC_FM:
-		websWrite(wp, "Formating NFC, please place your NFC token now!");
-		break;
-	case WPS_UI_NFC_FM_CPLT:
-		websWrite(wp, "Format NFC successful, please remove the tag.");
-		break;
-#endif /* __CONFIG_NFC__ */
 	default:
 		websWrite(wp, "Init");
 		break;
 	}
 
-	if (strcmp(wps_unit, nvram_safe_get("wl_unit"))== 0) {
-		if (wps_config_command == WPS_UI_CMD_START) {
+	if (wps_config_command == 1) {
+		if (strcmp(wps_unit, nvram_safe_get("wl_unit"))== 0) {
 			websWrite(wp, "&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"STOPWPS\">");
 
 			/* WPS 2.0, test plan 5.1.7, show "STA PBC Again" */
@@ -6861,20 +6536,6 @@ ej_wps_enr_process(int eid, webs_t wp, int argc, char_t **argv)
 				websWrite(wp, "&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"PBC Again\">");
 			}
 		}
-#ifdef __CONFIG_NFC__
-		else if (wps_config_command == WPS_UI_CMD_NFC_WR_CFG ||
-			 wps_config_command == WPS_UI_CMD_NFC_WR_PW) {
-			websWrite(wp, "&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"Stop NFC Write\">");
-		}
-		else if (wps_config_command == WPS_UI_CMD_NFC_RD_CFG ||
-			 wps_config_command == WPS_UI_CMD_NFC_RD_PW) {
-			websWrite(wp, "&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"Stop NFC Read\">");
-		}
-		else if (wps_config_command == WPS_UI_CMD_NFC_HO_S ||
-			 wps_config_command == WPS_UI_CMD_NFC_HO_R) {
-			websWrite(wp, "&nbsp;&nbsp;<input type=\"submit\" name=\"action\" value=\"Stop NFC Hand Over\">");
-		}
-#endif /* __CONFIG_NFC__ */
 	}
 
 	return 0;
@@ -7311,11 +6972,7 @@ validate_dfs_window(webs_t wp, char *value, struct variable *v, char *varname)
 
 	/* A zero threshold is valid, but a zero window size is not. */
 	if (!sec) {
-		/* Only complain if  a zero value is in there and the field is not disabled. */
-		if (value) {
-			websBufferWrite(wp, "Invalid <b>%s</b>: Seconds may be not zero<br>",
-				v->longname );
-		}
+		websBufferWrite(wp, "Invalid <b>%s</b>: Seconds may be zero<br>", v->longname );
 		return FALSE;
 	}
 
@@ -7754,9 +7411,6 @@ validate_vif_ssid(webs_t wp, char *value, struct variable *v, char *varname )
 		nvram_unset(wl_radio);
 		nvram_unset(wl_mode);
 		nvram_unset("wl_bss_enabled");
-#ifdef __CONFIG_HSPOT__
-		nvram_unset("wl_bss_hs2_enabled");
-#endif  /* __CONFIG_HSPOT__ */
 	}
 
 	ret_code = 0;
@@ -10232,25 +9886,6 @@ validate_wl_crypto(webs_t wp, char *value, struct variable *v, char *varname)
 	ret_code = 0;
 }
 
-#ifdef MFP
-static void
-validate_wl_mfp(webs_t wp, char *value, struct variable *v, char *varname)
-{
-	char *ptr=NULL;
-
-	assert(v);
-
-	ptr =( (varname) ? varname : v->name );
-
-	if ('0' <= value[0] && value[0] <= '2' && value[1] == '\0')
-		nvram_set(ptr, value);
-	else
-		nvram_set(ptr, "0");
-
-	ret_code =0;
-}
-#endif
-
 #ifdef __CONFIG_NAT__
 static void
 validate_wan_ifname(webs_t wp, char *value, struct variable *v, char *varname)
@@ -11219,9 +10854,6 @@ struct variable variables[] = {
 	{ "qos_orules", "Qos rules", NULL, valid_qos_var, NULL, TRUE, 0 },
 #endif /* BCMQOS */
 	{ "igmp_enable" , "Enable IGMP proxy", NULL, validate_choice, ARGV("1", "0"), FALSE, 0},
-#ifdef __CONFIG_HSPOT__
-	{ "hspotap_enable" , "Enable Hotspot 2.0", NULL, validate_choice, ARGV("0", "1"), FALSE, 0},
-#endif /* __CONFIG_HSPOT__ */
 	{ "trf_mgmt_port", "Traffic Port", NULL, validate_trf_mgmt_port, ARGV("0", XSTR(MAX_NVPARSE - 1)), FALSE, NVRAM_GENERIC_MULTI },
 	/* LAN settings */
 	{ "lan_ifname" "LAN Interface Name", lan_prefix, NULL, NULL, FALSE, NVRAM_MI|NVRAM_IGNORE },
@@ -11310,9 +10942,6 @@ struct variable variables[] = {
 	/* ALL wl_XXXX variables are per-interface  */
 	/* This group is per ssid */
 	{ "wl_bss_enabled", "BSS Enable", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI },
-#ifdef __CONFIG_HSPOT__
-	{ "wl_bss_hs2_enabled", "BSS Hotspot Enable", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI },
-#endif  /* __CONFIG_HSPOT__ */
 	{ "wl_ssid", "Network Name (ESSID)", wl_prefix, validate_ssid, ARGV("1", "32"), FALSE, NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
 	{ "wl_bridge", "Bridge Details", wl_prefix, validate_bridge, ARGV("0", "1"), FALSE, NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
 	{ "wl_closed", "Network Type", wl_prefix, validate_wl_closed, ARGV("0", "1"), FALSE,NVRAM_MI |  EZC_FLAGS_READ | EZC_FLAGS_WRITE },
@@ -11356,7 +10985,7 @@ struct variable variables[] = {
 	{ "wl_acs_dfs", "ACS DFS Channel Selection", wl_prefix, validate_range, ARGV("0", "2"), FALSE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_acs_dfsr_immediate", "ACS DFS Immediate Reentry Window", wl_prefix, validate_dfs_window, NULL, NVRAM_MI | VIF_IGNORE },
 	{ "wl_acs_dfsr_deferred", "ACS DFS Deferred Reentry Window", wl_prefix, validate_dfs_window, NULL, NVRAM_MI | VIF_IGNORE },
-	{ "wl_acs_dfsr_activity", "ACS DFS Channel Active Window", wl_prefix, validate_dfs_window, NULL, NVRAM_MI | VIF_IGNORE },
+	{ "wl_acs_dfsr_activity", "ACS DFS Channel Active Threshold", wl_prefix, validate_dfs_window, NULL, NVRAM_MI | VIF_IGNORE },
 	{ "wl_acs_cs_scan_timer", "ACS CS Scan Interval", wl_prefix, validate_range, ARGV("60", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_acs_ci_scan_timer", "ACS CI Scan Interval", wl_prefix, validate_range, ARGV("1", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_acs_ci_scan_timeout", "ACS CI Scan Timeout", wl_prefix, validate_range, ARGV("1", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
@@ -11365,10 +10994,14 @@ struct variable variables[] = {
 	{ "wl_acs_chan_dwell_time", "ACS Scan Dwell Time", wl_prefix, validate_range, ARGV("1", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_acs_chan_flop_period", "ACS Chan Flop Period", wl_prefix, validate_range, ARGV("1", "4294967295"), FALSE, NVRAM_MI | VIF_IGNORE },
 
-	{ "wl_intfer_period", "Sample Period", wl_prefix, validate_range, ARGV("0", "65535"), FALSE, NVRAM_MI | VIF_IGNORE },
-	{ "wl_intfer_cnt", "Sample Count", wl_prefix, validate_range, ARGV("1", "4"), FALSE, NVRAM_MI | VIF_IGNORE },
-	{ "wl_intfer_txfail", "non-TCP TxFail threshold", wl_prefix, validate_range, ARGV("0", "65535"), FALSE, NVRAM_MI | VIF_IGNORE },
-	{ "wl_intfer_tcptxfail", "TCP TxFail threshold", wl_prefix, validate_range, ARGV("0", "65535"), FALSE, NVRAM_MI | VIF_IGNORE },
+	{ "wl_intfer_speriod", "Sample Period", wl_prefix, validate_range, ARGV("20", "65535"), FALSE, NVRAM_MI | VIF_IGNORE },
+	{ "wl_intfer_scount", "Sample Count", wl_prefix, validate_range, ARGV("1", "16"), FALSE, NVRAM_MI | VIF_IGNORE },
+	{ "wl_intfer_swindow", "Sample Window", wl_prefix, validate_range, ARGV("1", "16"), FALSE, NVRAM_MI | VIF_IGNORE },
+	{ "wl_intfer_dmarate", "DMA rate change threshold", wl_prefix, validate_range, ARGV("0", "65535"), FALSE, NVRAM_MI | VIF_IGNORE },
+	{ "wl_intfer_retryrate", "REtry rate change threshold", wl_prefix, validate_range, ARGV("0", "65535"), FALSE, NVRAM_MI | VIF_IGNORE },
+	{ "wl_intfer_glitch", "Glitch rate change threshold", wl_prefix, validate_range, ARGV("0", "65535"), FALSE, NVRAM_MI | VIF_IGNORE },
+	{ "wl_intfer_txbad", "TxBad rate change threshold", wl_prefix, validate_range, ARGV("0", "65535"), FALSE, NVRAM_MI | VIF_IGNORE },
+	{ "wl_intfer_txnoack", "TxNoAck threshold", wl_prefix, validate_range, ARGV("0", "65535"), FALSE, NVRAM_MI | VIF_IGNORE },
 #endif /* __CONFIG_EXTACS__ */
 	/* This group is per radio */
 	{ "wl_ure", "URE Mode",NULL, validate_ure, ARGV("0"), FALSE, NVRAM_MI | VIF_IGNORE },
@@ -11378,6 +11011,9 @@ struct variable variables[] = {
 	{ "wl_lazywds", "Bridge Restrict", wl_prefix, validate_wl_lazywds, ARGV("0", "1"), FALSE,NVRAM_MI | VIF_IGNORE },
 	{ "wl_wds", "Bridges", wl_prefix, validate_wl_wds_hwaddrs, NULL, TRUE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_wds_timeout", "Link Timeout Interval", wl_prefix, NULL, NULL, TRUE, NVRAM_MI | VIF_IGNORE},
+#ifdef PLC
+	{ "wl_plc", "PLC Support", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI | VIF_IGNORE },
+#endif /* PLC */
 	{ "wl_radio", "Radio Enable", wl_prefix, validate_choice, ARGV("0", "1"), FALSE, NVRAM_MI },
 	{ "wl_phytype", "Radio Band", wl_prefix, validate_choice, ARGV("a", "b", "g", "n", "l", "s", "h"), TRUE, NVRAM_MI | VIF_IGNORE },
 	{ "wl_antdiv", "Antenna Diversity", wl_prefix, validate_choice, ARGV("-1", "0", "1", "3"), FALSE, NVRAM_MI | VIF_IGNORE },
@@ -11447,9 +11083,6 @@ struct variable variables[] = {
 	{ "wl_radius_key", "RADIUS Shared Secret", wl_prefix, validate_name, ARGV("0", "255"), TRUE, NVRAM_MI |  NVRAM_ENCRYPT | EZC_FLAGS_WRITE},
 	{ "wl_wpa_psk", "WPA Pre-Shared Key", wl_prefix, validate_wl_wpa_psk, ARGV("64"), TRUE, NVRAM_ENCRYPT | NVRAM_MI |  EZC_FLAGS_WRITE},
 	{ "wl_wpa_gtk_rekey", "Network Key Rotation Interval", wl_prefix, NULL, NULL, TRUE, NVRAM_MI |  EZC_FLAGS_READ | EZC_FLAGS_WRITE },
-#ifdef MFP
-	{ "wl_mfp", "Management Frame Protection", wl_prefix, validate_wl_mfp, NULL, FALSE, NVRAM_MI | EZC_FLAGS_READ | EZC_FLAGS_WRITE },
-#endif
 	/* Multi SSID Guest interface flag */
 	{ "wl_guest", "Guest SSID Interface", wl_prefix, NULL, NULL, TRUE, WEB_IGNORE|NVRAM_MI  },
 	{ "wl_sta_retry_time", "STA Retry Time", wl_prefix, validate_range, ARGV("0", "3600"), FALSE, NVRAM_MI },
@@ -12239,7 +11872,7 @@ parse_wps_env(char *buf)
 
 all_found:
 	/* Parse message */
-	wps_config_command = WPS_UI_CMD_NONE;
+	wps_config_command = 0;
 	wps_method = 0; /* Add in PF #3 */
 	memset(wps_autho_sta_mac, 0, sizeof(wps_autho_sta_mac)); /* Add in PF #3 */
 
@@ -12273,13 +11906,6 @@ all_found:
 				else
 					sprintf(wps_unit, "%d", unit);
 			}
-#ifdef __CONFIG_NFC__
-			else if (!strcmp(name, "wps_nfc_dm_status"))
-				wps_nfc_dm_status = atoi(value);
-			else if (!strcmp(name, "wps_nfc_err_code"))
-				wps_nfc_err_code = atoi(value);
-#endif /* __CONFIG_NFC__ */
-
 		}
 	}
 
@@ -12450,28 +12076,10 @@ static void
 wps_enable_oob()
 {
 	char name[NVRAM_BUFSIZE];
-#ifdef __CONFIG_NFC__
-#define WPS_CONFMET_EXT_NFC_TOK     0x0010
-	char *value, tmp[16];
-	unsigned short config_method;
-#endif
 
 	if (wps_get_oob_name(name, NVRAM_BUFSIZE) == -1)
 		return;
 	nvram_set(name, "enabled");
-
-#ifdef __CONFIG_NFC__
-	/* Remove the external NFC Token bit. */
-	value = nvram_get("wps_config_method");
-	if (value) {
-		config_method = strtoul(value, NULL, 16);
-		if (config_method & WPS_CONFMET_EXT_NFC_TOK) {
-			config_method &= ~WPS_CONFMET_EXT_NFC_TOK;
-			sprintf(tmp, "0x%x", config_method);
-			nvram_set("wps_config_method", tmp);
-		}
-	}
-#endif /* __CONFIG_NFC__ */
 }
 
 /* Check current wl_unit interfave wps_reg statuc */
@@ -12767,8 +12375,6 @@ static int wps_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 	}
 	else if (!strcmp(action_mode, "Start"))
 	{
-		int wps_config_command = WPS_UI_CMD_START;
-
 		websWrite(wp, "validate variable...\n");
 
 		if (!(value = websGetVar(wp, "wps_action", NULL))) {
@@ -12801,15 +12407,6 @@ static int wps_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 				strncpy(pin, "00000000", 8);
 				uilen += sprintf(uibuf + uilen, "wps_pbc_method=\"%d\" ", WPS_UI_PBC_SW);
 			}
-#ifdef __CONFIG_NFC__
-			else if (!strcmp(value, "NFC")) {
-				wps_method = WPS_UI_METHOD_NFC_PW;
-				wps_config_command = WPS_UI_CMD_NFC_WR_PW;
-				websWrite(wp, "<br><br>Please place your NFC token now!<br>\n");
-				/* Station PIN comes from NFC Password */
-				uilen += sprintf(uibuf + uilen, "wps_sta_pin=\"NFC_PW\" ");
-			}
-#endif
 			uilen += sprintf(uibuf + uilen, "wps_method=\"%d\" ", wps_method);
 			
 		} /*  WPS_UI_ACT_ENROLL */
@@ -12821,40 +12418,18 @@ static int wps_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 		}
 		
 		if (wps_action == WPS_UI_ACT_STA_CONFIGAP ||
-		    wps_action == WPS_UI_ACT_STA_GETAPCONFIG) {
-			wps_method = WPS_UI_METHOD_PIN;
-#ifdef __CONFIG_NFC__
-			value = websGetVar(wp, "wps_method", NULL);
-
-			if (!strcmp(value, "PIN"))
-				wps_method = WPS_UI_METHOD_PIN;
-			else if (!strcmp(value, "NFC")) {
-				wps_method = WPS_UI_METHOD_NFC_PW;
-				wps_config_command = WPS_UI_CMD_NFC_RD_PW;
-				websWrite(wp, "<br><br>Please place your NFC password token now!<br>\n");
-				/* AP PIN comes from NFC Password */
-				uilen += sprintf(uibuf + uilen, "wps_stareg_ap_pin=\"NFC_PW\" ");
-			}
-#endif
-			uilen += sprintf(uibuf + uilen, "wps_method=\"%d\" ", wps_method);
-
+			wps_action == WPS_UI_ACT_STA_GETAPCONFIG) {
 			/* get AP pin */
-			if (!strcmp(value, "PIN")) {
-				if ((value = websGetVar(wp, "wps_ap_pin", NULL)))
-					if (wps_check_pin(pin, value)) {
-						websWrite(wp, "Input AP PIN is invalidated.");
-						return -1;
-				}
-				uilen += sprintf(uibuf + uilen, "wps_stareg_ap_pin=\"%s\" ", pin);
+			if ((value = websGetVar(wp, "wps_ap_pin", NULL)))
+				if (wps_check_pin(pin, value)) {
+					websWrite(wp, "Input AP PIN is invalidated.");
+					return -1;
 			}
+			uilen += sprintf(uibuf + uilen, "wps_stareg_ap_pin=\"%s\" ", pin);
+			uilen += sprintf(uibuf + uilen, "wps_method=\"%d\" ", WPS_UI_METHOD_PIN);
 		}
 
-		if ((wps_action == WPS_UI_ACT_ENROLL &&
-			(wps_method == WPS_UI_METHOD_PIN ||
-#ifdef __CONFIG_NFC__
-			wps_method == WPS_UI_METHOD_NFC_PW ||
-#endif
-			FALSE)) ||
+		if ((wps_action == WPS_UI_ACT_ENROLL && wps_method == WPS_UI_METHOD_PIN) ||
 			wps_action == WPS_UI_ACT_STA_CONFIGAP ||
 			wps_action == WPS_UI_ACT_STA_GETAPCONFIG) {
 			wps_ap_list_info_t *ap;
@@ -12883,9 +12458,9 @@ static int wps_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 	
 		nvram_set("wps_proc_status", "0");
 		strcpy(wps_unit, nvram_safe_get("wl_unit"));
-
-		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", wps_config_command);
-
+	
+		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_START);
+	
 		sprintf(nvifname, "wl%s", wps_unit);
 		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
 	
@@ -12973,165 +12548,6 @@ static int wps_cgi(webs_t wp, char_t *urlPrefix, char_t *webDir, int arg,
 		set_wps_env(uibuf);
 		websWrite(wp, "WPS process stopped");
 	}
-#ifdef __CONFIG_NFC__
-	/* NFC write configuration */
-	else if (!strcmp(action_mode, "NFC Write Configuration")) {
-		websWrite(wp, "Please place your NFC token now!");
-
-		strcpy(wps_unit, nvram_safe_get("wl_unit"));
-		sprintf(nvifname, "wl%s", wps_unit);
-		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-
-		/* Use UI credential */
-		uilen = wps_get_credentials(wp, uibuf, uilen);
-			if (uilen < 0)
-				return -1;
-
-		uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
-
-		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_NFC_WR_CFG);
-
-		set_wps_env(uibuf);
-	}
-	/* NFC read configuration */
-	else if (!strcmp(action_mode, "NFC Read Configuration")) {
-		websWrite(wp, "Please place your configured NFC token now!");
-
-		strcpy(wps_unit, nvram_safe_get("wl_unit"));
-		sprintf(nvifname, "wl%s", wps_unit);
-		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-		uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
-
-		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_NFC_RD_CFG);
-
-		set_wps_env(uibuf);
-	}
-	else if (!strcmp(action_mode, "Stop NFC Write")){
-		websWrite(wp, "Stopping NFC writing....");
-
-		strcpy(wps_unit, nvram_safe_get("wl_unit"));
-		sprintf(nvifname, "wl%s", wps_unit);
-		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-		uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
-
-		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_NFC_STOP);
-		uilen += sprintf(uibuf + uilen, "wps_action=\"%d\" ", WPS_UI_ACT_NONE);
-
-		set_wps_env(uibuf);
-	}
-	else if (!strcmp(action_mode, "Stop NFC Read")){
-		websWrite(wp, "Stopping NFC reading....");
-
-		strcpy(wps_unit, nvram_safe_get("wl_unit"));
-		sprintf(nvifname, "wl%s", wps_unit);
-		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-		uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
-
-		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_NFC_STOP);
-		uilen += sprintf(uibuf + uilen, "wps_action=\"%d\" ", WPS_UI_ACT_NONE);
-
-		set_wps_env(uibuf);
-	}
-	else if (!strcmp(action_mode, "NFC Add Enrollee")) {
-		websWrite(wp, "Please place your NFC password token now!");
-
-		/* Station PIN comes from NFC Password */
-		uilen += sprintf(uibuf + uilen, "wps_sta_pin=\"NFC_PW\" ");
-
-		wps_action = WPS_UI_ACT_ADDENROLLEE;
-		uilen += sprintf(uibuf + uilen, "wps_action=\"%d\" ", wps_action);
-
-		wps_method = WPS_UI_METHOD_NFC_PW;
-		uilen += sprintf(uibuf + uilen, "wps_method=\"%d\" ", wps_method);
-
-		uilen = wps_get_credentials(wp, uibuf, uilen);
-		if (uilen == -1)
-			return -1;
-
-		nvram_set("wps_proc_status", "0");
-
-		strcpy(wps_unit, nvram_safe_get("wl_unit"));
-		sprintf(nvifname, "wl%s", wps_unit);
-		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-		uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
-
-		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_NFC_RD_PW);
-
-		set_wps_env(uibuf);
-	}
-	else if (!strcmp(action_mode, "NFC Config AP")) {
-		websWrite(wp, "Please place your NFC token now!");
-
-		/* API PIN comes from NFC Password, leverage wps_stareg_ap_pin */
-		uilen += sprintf(uibuf + uilen, "wps_stareg_ap_pin=\"NFC_PW\" ");
-
-		wps_action = WPS_UI_ACT_CONFIGAP;
-		uilen += sprintf(uibuf + uilen, "wps_action=\"%d\" ", wps_action);
-
-		wps_method = WPS_UI_METHOD_NFC_PW;
-		uilen += sprintf(uibuf + uilen, "wps_method=\"%d\" ", wps_method);
-
-		uilen = wps_get_credentials(wp, uibuf, uilen);
-		if (uilen == -1)
-			return -1;
-
-		nvram_set("wps_proc_status", "0");
-
-		strcpy(wps_unit, nvram_safe_get("wl_unit"));
-		sprintf(nvifname, "wl%s", wps_unit);
-		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-		uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
-
-		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_NFC_WR_PW);
-
-		set_wps_env(uibuf);
-	}
-	/* NFC hand over selector */
-	else if (!strcmp(action_mode, "NFC Hand Over As Selecotr")) {
-		websWrite(wp, "Please place your NFC portable device now!");
-
-		strcpy(wps_unit, nvram_safe_get("wl_unit"));
-		sprintf(nvifname, "wl%s", wps_unit);
-		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-
-		/* Use UI credential */
-		uilen = wps_get_credentials(wp, uibuf, uilen);
-			if (uilen < 0)
-				return -1;
-
-		uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
-
-		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_NFC_HO_S);
-
-		set_wps_env(uibuf);
-	}
-	/* NFC hand over requester */
-	else if (!strcmp(action_mode, "NFC Hand Over As Requester")) {
-		websWrite(wp, "Please place your NFC device to AP now!");
-
-		strcpy(wps_unit, nvram_safe_get("wl_unit"));
-		sprintf(nvifname, "wl%s", wps_unit);
-		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-		uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
-
-		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_NFC_HO_R);
-
-		set_wps_env(uibuf);
-	}
-	else if (!strcmp(action_mode, "Stop NFC Hand Over")){
-		websWrite(wp, "Stopping NFC Hand Over....");
-
-		strcpy(wps_unit, nvram_safe_get("wl_unit"));
-		sprintf(nvifname, "wl%s", wps_unit);
-		nvifname_to_osifname(nvifname, osifname, sizeof(osifname));
-		uilen += sprintf(uibuf + uilen, "wps_ifname=\"%s\" ", osifname);
-
-		uilen += sprintf(uibuf + uilen, "wps_config_command=\"%d\" ", WPS_UI_CMD_NFC_STOP);
-		uilen += sprintf(uibuf + uilen, "wps_action=\"%d\" ", WPS_UI_ACT_NONE);
-
-		set_wps_env(uibuf);
-	}
-#endif /* __CONFIG_NFC__ */
 /*
 */
 #ifdef __CONFIG_WFI__ 
@@ -13612,10 +13028,8 @@ copy_wl_index_to_unindex(webs_t wp, char_t *urlPrefix, char_t *webDir,
 		strncpy(unit_str,value,sizeof(unit_str));
 	}
 #ifdef __CONFIG_WPS__
-	else if (!strcmp(path, "wps.asp")) {
-		get_wps_env();
+	else if (!strcmp(path, "wps.asp"))
 		return websDefaultHandler(wp, urlPrefix, webDir, arg, url, path, query);
-	}
 #endif /* __CONFIG_WPS__ */
 	else {
 		char ifnames[256];
@@ -16014,7 +15428,6 @@ struct mime_handler mime_handlers[] = {
 	{ "**.css", "text/css", NULL, NULL, do_file, do_auth },
 	{ "**.gif", "image/gif", NULL, NULL, do_file, do_auth },
 	{ "**.jpg", "image/jpeg", NULL, NULL, do_file, do_auth },
-	{ "**.ico", "image/ico", NULL, NULL, do_file, do_auth },
 	{ "**.js", "text/javascript", NULL, NULL, do_file, do_auth },
 	{ "**apply.cgi*", "text/html", no_cache, do_apply_post, do_apply_cgi, do_auth },
 	{ "upgrade.cgi*", "text/html", no_cache, do_upgrade_post, do_upgrade_cgi, do_auth },
@@ -16064,8 +15477,6 @@ struct ej_handler ej_handlers[] = {
 	{ "wps_wep_change_display", ej_wps_wep_change_display },
 	{ "wps_security_pre_submit_display", ej_wps_security_pre_submit_display },
 	{ "wps_get_ap_config_submit_display", ej_wps_get_ap_config_submit_display },
-	{ "wps_akm_change_display", ej_wps_akm_change_display },
-	{ "wps_refresh", ej_wps_refresh },
 	{ "localtime", ej_localtime },
 	{ "sysuptime", ej_sysuptime },
 	{ "dumplog", ej_dumplog },

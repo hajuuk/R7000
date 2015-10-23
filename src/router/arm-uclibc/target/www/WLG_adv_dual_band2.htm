@@ -52,12 +52,12 @@ var DisableFixedDNS = false;
 
     function showHelpIframe() {
 
+
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
-            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -66,12 +66,9 @@ var DisableFixedDNS = false;
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
-        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
-           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
-
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -120,26 +117,26 @@ function checkData()
 	var pin_attack_count = parseInt(cf.pin_attack_count.value,10);
 
 	if ((!_isNumeric(cf.frag.value)) || isNaN(frag) || frag > 2346 || frag < 256) {
-		alert("<%1415%>");
+		alert("<%1409%>");
 		return false;
 	}
 	else
 		cf.frag.value = parseInt(cf.frag.value,10);
 	if ((!_isNumeric(cf.rts.value)) || isNaN(rts) || rts > 2347 || rts < 1) {
-		alert("<%1416%>");
+		alert("<%1410%>");
 		return false;
 	}
 	else
 		cf.rts.value = parseInt(cf.rts.value,10);
 		
     if ((!_isNumeric(cf.frag_an.value)) || isNaN(frag_an) || frag_an > 2346 || frag_an < 256) {
-		alert("<%1415%>");
+		alert("<%1409%>");
 		return false;
 	}
 	else
 		cf.frag_an.value = parseInt(cf.frag_an.value,10);
 	if ((!_isNumeric(cf.rts_an.value)) || isNaN(rts_an) || rts_an > 2347 || rts_an < 1) {
-		alert("<%1416%>");
+		alert("<%1410%>");
 		return false;
 	}
 	else
@@ -149,28 +146,6 @@ function checkData()
 		alert("Failed PIN connections value is outside the range 3-10.");
 		return false;
 	}
-/*
-	if(cf.enable_band_steering.checked==true)
-	{
-      if((cf.ssid_2g.value!=cf.ssid_5g.value) ||
-              (cf.secu_type_2g.value!=cf.secu_type_5g.value))
-      {
-      		alert("<%2142%>");
-          this.location.href="WLG_wireless_dual_band_r10.htm";
-          return false;
-      }      
-
-      if(cf.secu_type_2g.value!='None' || cf.secu_type_5g.value!='None')
-      {
-          if(cf.passphrase_2g.value!=cf.passphrase_5g.value)
-          {
-      		    alert("<%2142%>");
-              this.location.href="WLG_wireless_dual_band_r10.htm";
-              return false;
-          }
-      }      
-  }
-*/
 
 	if (cf.wifi_onoff.checked == true)
 	    cf.wifi_2g_sche_onoff.value = "1";
@@ -190,14 +165,14 @@ function checkData()
         
         if (cf.device_name.value == "")
 		{
-			alert("<%984%>");
+			alert("<%978%>");
 			return false;
 		}
 
     	if (cf.device_name.value.match( /[^\x20-\x7E]/ ))
     	{
     		cf.device_name.focus();
-    		alert("<%985%>");
+    		alert("<%979%>");
 			return false;
     	}
 
@@ -219,7 +194,7 @@ function checkData()
     		}
     		if(checkIP(cf.WMask1,cf.WMask2,cf.WMask3,cf.WMask4,255))
 			{
-    			alert("<%423%>");
+    			alert("<%419%>");
 				return false;
 			}
     		else
@@ -232,7 +207,7 @@ function checkData()
     		if(checkIP(cf.WGateway1,cf.WGateway2,cf.WGateway3,cf.WGateway4,255)
     		    ||checkIPMatchWithNetmask(cf.WMask1,cf.WMask2,cf.WMask3,cf.WMask4,cf.WGateway1,cf.WGateway2,cf.WGateway3,cf.WGateway4))
 			{
-    			alert("<%424%>");
+    			alert("<%420%>");
 				return false;
 			}
     		else
@@ -248,7 +223,7 @@ function checkData()
     		var tmpgwip = cf.WGateway1.value+'.'+cf.WGateway2.value+'.'+cf.WGateway3.value+'.'+cf.WGateway4.value;
     		if((ap_ipaddr&ap_netmask) != (ap_gateway&ap_netmask))
     		{
-    			alert("<%425%>" + tmpip + "<%426%>" + tmpgwip);
+    			alert("<%421%>" + tmpip + "<%422%>" + tmpgwip);
     			return false;
     		}
     	}
@@ -256,7 +231,7 @@ function checkData()
     	{
     		if(checkIP(cf.DAddr1,cf.DAddr2,cf.DAddr3,cf.DAddr4,254)||(parseInt(cf.DAddr4.value,10)==0))
 			{
-    			alert("<%427%>");
+    			alert("<%423%>");
 				return false;
 			}
     		else
@@ -270,7 +245,7 @@ function checkData()
     		{
     			if(checkIP(cf.PDAddr1,cf.PDAddr2,cf.PDAddr3,cf.PDAddr4,254)||(parseInt(cf.PDAddr4.value,10)==0))
 				{
-    				alert("<%428%>");
+    				alert("<%424%>");
 					return false;
 				}
     			else
@@ -290,15 +265,15 @@ function checkData()
     	cf.apmode_dns1_pri.value = cf.DAddr1.value+'.'+cf.DAddr2.value+'.'+cf.DAddr3.value+'.'+cf.DAddr4.value;
     	cf.apmode_dns1_sec.value = cf.PDAddr1.value+'.'+cf.PDAddr2.value+'.'+cf.PDAddr3.value+'.'+cf.PDAddr4.value;
         
-        if(<%376%>=="0")
-            alert("<%987%>");        
+        if(<%373%>=="0")
+            alert("<%981%>");        
 	}
 	else
 	{
         ap_mode_ungrayout();
         
-        if(<%376%>=="1")
-            alert("<%987%>");        
+        if(<%373%>=="1")
+            alert("<%981%>");        
 	}
 */
 	if(cf.sta_mode.value==0 || cf.sta_mode.value==1){
@@ -309,14 +284,14 @@ function checkData()
         
 			if (cf.device_name2.value == "")
 			{
-				alert("<%984%>");
+				alert("<%978%>");
 				return false;
 			}
 
 			if (cf.device_name2.value.match( /[^\x20-\x7E]/ ))
 			{
 				cf.device_name2.focus();
-				alert("<%985%>");
+				alert("<%979%>");
 				return false;
 			}
     
@@ -337,7 +312,7 @@ function checkData()
 				}
 				if(checkIP(cf.SMask1,cf.SMask2,cf.SMask3,cf.SMask4,255))
 				{
-					alert("<%423%>");
+					alert("<%419%>");
 					return false;
 				}
 				else
@@ -350,7 +325,7 @@ function checkData()
 				if(checkIP(cf.SGateway1,cf.SGateway2,cf.SGateway3,cf.SGateway4,255)
 				||checkIPMatchWithNetmask(cf.SMask1,cf.SMask2,cf.SMask3,cf.SMask4,cf.SGateway1,cf.SGateway2,cf.SGateway3,cf.SGateway4))
 				{
-					alert("<%424%>");
+					alert("<%420%>");
 					return false;
 				}
 				else
@@ -366,7 +341,7 @@ function checkData()
 				var tmpgwip = cf.SGateway1.value+'.'+cf.SGateway2.value+'.'+cf.SGateway3.value+'.'+cf.SGateway4.value;
 				if((sta_ipaddr&sta_netmask) != (sta_gateway&sta_netmask))
 				{
-					alert("<%425%>" + tmpip + "<%426%>" + tmpgwip);
+					alert("<%421%>" + tmpip + "<%422%>" + tmpgwip);
 					return false;
 				}
 			}
@@ -374,7 +349,7 @@ function checkData()
 			{
 				if(checkIP(cf.SDAddr1,cf.SDAddr2,cf.SDAddr3,cf.SDAddr4,254)||(parseInt(cf.SDAddr4.value,10)==0))
 				{
-					alert("<%427%>");
+					alert("<%423%>");
 					return false;
 				}
 				else
@@ -388,7 +363,7 @@ function checkData()
 				{
 					if(checkIP(cf.SPDAddr1,cf.SPDAddr2,cf.SPDAddr3,cf.SPDAddr4,254)||(parseInt(cf.SPDAddr4.value,10)==0))
 					{
-						alert("<%428%>");
+						alert("<%424%>");
 						return false;
 					}
 					else
@@ -408,14 +383,14 @@ function checkData()
 			cf.stamode_dns1_pri.value = cf.SDAddr1.value+'.'+cf.SDAddr2.value+'.'+cf.SDAddr3.value+'.'+cf.SDAddr4.value;
 			cf.stamode_dns1_sec.value = cf.SPDAddr1.value+'.'+cf.SPDAddr2.value+'.'+cf.SPDAddr3.value+'.'+cf.SPDAddr4.value;
         
-			if(<%377%>=="0" && <%376%>=="0")
-				alert("<%987%>");        
+			if(<%374%>=="0" && <%373%>=="0")
+				alert("<%981%>");        
 		}
 	}
-    if(<%2143%>==1 && cf.enable_other_mode.value!=1){
-        if((<%377%>=="0" && <%376%>=="1" && cf.ap_mode.value=="1") ||
-        (<%377%>=="1" && <%376%>=="0" && cf.sta_mode.value=="1"))
-            alert("<%987%>");
+    if(<%2148%>==1 && cf.enable_other_mode.value!=1){
+        if((<%374%>=="0" && <%373%>=="1" && cf.ap_mode.value=="1") ||
+        (<%374%>=="1" && <%373%>=="0" && cf.sta_mode.value=="1"))
+            alert("<%981%>");
     }
 	if (msg.length > 1)
 	{
@@ -635,8 +610,8 @@ function displaymode(band)
 			document.getElementById("stamode_display").style.display="block";
                 }
 		
-                <%2144%>
-                <%2145%>
+                <%2149%>
+                <%2150%>
                 if (cf.ap_mode.value == 0 && cf.sta_mode.value==0){
                 	document.getElementById("apmode_display").style.display="none";
 			document.getElementById("stamode_display").style.display="none";
@@ -647,11 +622,11 @@ function displaymode(band)
 			document.getElementById("apmode_display").style.display="none";
 			document.getElementById("stamode_display").style.display="block";
 		}
-                <%2146%>
-                <%2147%>
+                <%2151%>
+                <%2152%>
 	}else{
-                <%2144%>
-                <%2145%>
+                <%2149%>
+                <%2150%>
                 if(band==0){
 			document.getElementById("apmode_display").style.display="block";
 			document.getElementById("stamode_display").style.display="none";
@@ -664,8 +639,8 @@ function displaymode(band)
         		cf.ap_mode.value="0";
 		}
         	
-                <%2146%>
-                <%2147%>
+                <%2151%>
+                <%2152%>
                 if(band==1){
         		document.getElementById("stamode_display").style.display="block";
 			cf.sta_mode.value="1";
@@ -742,37 +717,7 @@ function openBridgeWindow()
     winoptions = "width=640,height=480,status=yes,resizable=yes";
     openDataSubWin('WLG_bridge_wireless_settings.htm',winoptions);
 }
-
-<%2148%>
-
-function is_dual_ssid_same()
-{
-	var cf = document.forms[0];
-	if(cf.enable_band_steering.checked==true)
-	{
-      if((cf.ssid_2g.value!=cf.ssid_5g.value) ||
-              (cf.secu_type_2g.value!=cf.secu_type_5g.value))
-      {
-      		alert("<%2142%>");
-          this.location.href="WLG_wireless_dual_band_r10.htm";
-          return false;
-      }      
-
-      if(cf.secu_type_2g.value!='None' || cf.secu_type_5g.value!='None')
-      {
-          if(cf.passphrase_2g.value!=cf.passphrase_5g.value)
-          {
-      		    alert("<%2142%>");
-              this.location.href="WLG_wireless_dual_band_r10.htm";
-              return false;
-          }
-      }      
-  }
-}
-
-<%2149%>
-
-<%2150%>
+<%2153%>
 function boost_check_function()
 {
 	var cf = document.forms[0];
@@ -781,25 +726,25 @@ function boost_check_function()
 	else
 		cf.performance_boost_sel.value="0";
 }
-<%2151%>
+<%2154%>
 //-->
 </script>
 </head>
 <body  onload="change_size();loadSettings();highLightMenu('adv_header', 'adv_wireless_set');check_wifi_sche();check_wifi_sche();showWpsAlert();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%60%>">
-<img class="body-image" src="<%61%>">
+<img class="cover-image" src="<%59%>">
+<img class="body-image" src="<%60%>">
 <div id="full-page-container">
 
 <form id="target"  name="formname" method="POST" action="wlg_adv.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="<%62%>">
-<div class="subhead2"> <%350%></div>
+<img class="subtop-image" src="<%61%>">
+<div class="subhead2"> <%347%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%64%>"  onclick="buttonClick(this,'<%64%>');return checkData();" type="submit" name="Apply" class="button-apply" > <span class="roundleft_apply" ><%65%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%66%>" onclick="buttonClick(this,'<%66%>');reset();loadSettings();" type="button" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%67%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%63%>"  onclick="buttonClick(this,'<%63%>');return checkData();" type="submit" name="Apply" class="button-apply" > <span class="roundleft_apply" ><%64%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%65%>" onclick="buttonClick(this,'<%65%>');reset();loadSettings();" type="button" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%66%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -807,38 +752,38 @@ function boost_check_function()
 
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-  <td nowrap colspan="2"><a href="javascript:loadhelp('WLG_adv','settings')" tabindex="-1"><b><%1507%></b></a></td></tr>
+  <td nowrap colspan="2"><a href="javascript:loadhelp('WLG_adv','settings')" tabindex="-1"><b><%1501%></b></a></td></tr>
 <tr>
   <td colspan="2">
-    <input type="checkbox"  <%1508%> name="enable_ap" value="enable_ap" onclick="check_wifi_sche()"> <%1421%> </td></tr>
+    <input type="checkbox"  <%1502%> name="enable_ap" value="enable_ap" onclick="check_wifi_sche()"> <%1415%> </td></tr>
 <tr>
     <td nowrap colspan="2">
-    <input type="checkbox"  <%1509%> name="enable_coexistence" value="enable_coexistence"> <%1510%>
+    <input type="checkbox"  <%1503%> name="enable_coexistence" value="enable_coexistence"> <%1504%>
 	</td>
 </tr> 
 <tr>
-  <td align=left>&nbsp;&nbsp;<%1422%>:&nbsp;&nbsp;</td>
+  <td align=left>&nbsp;&nbsp;<%1416%>:&nbsp;&nbsp;</td>
   <td align=left>
-    <input TYPE="text" NAME="frag" size=5 maxlength=4 value="<%1511%>"></td></tr>
+    <input TYPE="text" NAME="frag" size=5 maxlength=4 value="<%1505%>"></td></tr>
 <tr>
-  <td align=left>&nbsp;&nbsp;<%1424%>:&nbsp;&nbsp;</td>
+  <td align=left>&nbsp;&nbsp;<%1418%>:&nbsp;&nbsp;</td>
   <td align=left>
-    <input TYPE="text" NAME="rts" size=5 maxlength=4 value="<%1512%>"></td></tr>
+    <input TYPE="text" NAME="rts" size=5 maxlength=4 value="<%1506%>"></td></tr>
 <tr>
-  <td align=left>&nbsp;&nbsp;<%1426%></td>
+  <td align=left>&nbsp;&nbsp;<%1420%></td>
   <td align=left>
-      <select name="enable_shortpreamble"><option value="" <%1427%>><%1428%></option><option value="enable_shortpreamble" <%1513%>><%1430%></option></select></td></tr>
+      <select name="enable_shortpreamble"><option value="" <%1421%>><%1422%></option><option value="enable_shortpreamble" <%1507%>><%1424%></option></select></td></tr>
 <tr>
   <td colspan="2">
     <div >
-    <input id="wifi_sche_div1" type="checkbox"  <%1431%> name="wifi_onoff" value="wifi_onoff"> <%883%> 
+    <input id="wifi_sche_div1" type="checkbox"  <%1425%> name="wifi_onoff" value="wifi_onoff"> <%877%> 
     </div>
   </td>
 </tr>
 <tr>
   <td colspan="2" >
     <div id="wifi_sche_div2">
-      <b><%1432%></b>
+      <b><%1426%></b>
     </div>
   </td>
 </tr>
@@ -846,52 +791,52 @@ function boost_check_function()
   <td colspan="2">
     <div >
     <table border="1" cellpadding="2" cellspacing="0" width="100%">
-	<tr><td width="10%" align="center"><span class="thead"><%1433%></b></td>
-		<td width="20%" align="center"><span class="thead"><%1434%></b></td>
-		<td width="20%" align="center"><span class="thead"><%1435%></b></td>
-		<td width="50%" align="center"><span class="thead"><%1436%></b></td>
+	<tr><td width="10%" align="center"><span class="thead"><%1427%></b></td>
+		<td width="20%" align="center"><span class="thead"><%1428%></b></td>
+		<td width="20%" align="center"><span class="thead"><%1429%></b></td>
+		<td width="50%" align="center"><span class="thead"><%1430%></b></td>
 	</tr>
-	<%1437%>
+	<%1431%>
 	</table>
 	</div>
   </td>
 </tr>
 <tr>
   <td colspan="2" align="center">
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%1417%>" id="add_sche" name="add_sche" class="button-rule" onclick="buttonClick(this,'<%1417%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%1417%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%577%>" id="edit_sche" name="edit_sche" class="button-rule" onclick="buttonClick(this,'<%577%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%577%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%578%>" id="del_sche" name="del_sche" class="button-rule" onclick="buttonClick(this,'<%578%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%578%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%1411%>" id="add_sche" name="add_sche" class="button-rule" onclick="buttonClick(this,'<%1411%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%1411%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%573%>" id="edit_sche" name="edit_sche" class="button-rule" onclick="buttonClick(this,'<%573%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%573%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%574%>" id="del_sche" name="del_sche" class="button-rule" onclick="buttonClick(this,'<%574%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%574%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
   </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-  <td nowrap colspan="2"><a href="javascript:loadhelp('WLG_adv','settings')" tabindex="-1"><b><%1514%></b></a></td></tr>
+  <td nowrap colspan="2"><a href="javascript:loadhelp('WLG_adv','settings')" tabindex="-1"><b><%1508%></b></a></td></tr>
 <tr>
   <td colspan="2">
-    <input type="checkbox"  <%1515%> name="enable_ap_an" value="w_5g_enable_ap" onclick="check_wifi_sche()"> <%1421%> </td></tr>
+    <input type="checkbox"  <%1509%> name="enable_ap_an" value="w_5g_enable_ap" onclick="check_wifi_sche()"> <%1415%> </td></tr>
 <tr>
-  <td align=left>&nbsp;&nbsp;<%1422%>:&nbsp;&nbsp;</td>
+  <td align=left>&nbsp;&nbsp;<%1416%>:&nbsp;&nbsp;</td>
   <td align=left>
-    <input TYPE="text" NAME="frag_an" size=5 maxlength=4 value="<%1517%>"></td></tr>
+    <input TYPE="text" NAME="frag_an" size=5 maxlength=4 value="<%1511%>"></td></tr>
 <tr>
-  <td align=left>&nbsp;&nbsp;<%1424%>:&nbsp;&nbsp;</td>
+  <td align=left>&nbsp;&nbsp;<%1418%>:&nbsp;&nbsp;</td>
   <td align=left>
-    <input TYPE="text" NAME="rts_an" size=5 maxlength=4 value="<%1518%>"></td></tr>
+    <input TYPE="text" NAME="rts_an" size=5 maxlength=4 value="<%1512%>"></td></tr>
 <tr>
-  <td align=left>&nbsp;&nbsp;<%1426%></td>
+  <td align=left>&nbsp;&nbsp;<%1420%></td>
   <td align=left>
-      <select name="enable_shortpreamble_an"><option value="" <%1519%>><%1428%></option><option value="w_5g_enable_shortpreamble" <%1520%>><%1430%></option></select></td></tr>
+      <select name="enable_shortpreamble_an"><option value="" <%1513%>><%1422%></option><option value="w_5g_enable_shortpreamble" <%1514%>><%1424%></option></select></td></tr>
 <tr>
   <td colspan="2">
     <div >
-    <input id="wifi_5g_sche_div1" type="checkbox"  <%1521%> name="wifi_onoff_an" value="wifi_onoff_an"> <%883%> 
+    <input id="wifi_5g_sche_div1" type="checkbox"  <%1515%> name="wifi_onoff_an" value="wifi_onoff_an"> <%877%> 
     </div>
   </td>
 </tr>
 <tr>
   <td colspan="2" >
     <div id="wifi_5g_sche_div2">
-    <b><%1432%></b>
+    <b><%1426%></b>
     </div>
   </td>
 </tr>
@@ -899,47 +844,47 @@ function boost_check_function()
   <td colspan="2">
     <div >
     <table border="1" cellpadding="2" cellspacing="0" width="100%">
-	<tr><td width="10%" align="center"><span class="thead"><%1433%></b></td>
-		<td width="20%" align="center"><span class="thead"><%1434%></b></td>
-		<td width="20%" align="center"><span class="thead"><%1435%></b></td>
-		<td width="50%" align="center"><span class="thead"><%1436%></b></td>
+	<tr><td width="10%" align="center"><span class="thead"><%1427%></b></td>
+		<td width="20%" align="center"><span class="thead"><%1428%></b></td>
+		<td width="20%" align="center"><span class="thead"><%1429%></b></td>
+		<td width="50%" align="center"><span class="thead"><%1430%></b></td>
 	</tr>
-	<%1522%>
+	<%1516%>
 	</table>
 	</div>
   </td>
 </tr>
 <tr>
   <td colspan="2" align="center">
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%1417%>" id="add_sche_an" name="add_sche_an" class="button-rule" onclick="buttonClick(this,'<%1417%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%1417%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%577%>" id="edit_sche_an" name="edit_sche_an" class="button-rule" onclick="buttonClick(this,'<%577%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%577%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%578%>" id="del_sche_an" name="del_sche_an" class="button-rule" onclick="buttonClick(this,'<%578%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%578%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%1411%>" id="add_sche_an" name="add_sche_an" class="button-rule" onclick="buttonClick(this,'<%1411%>');" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%1411%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%573%>" id="edit_sche_an" name="edit_sche_an" class="button-rule" onclick="buttonClick(this,'<%573%>');" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%573%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+    &nbsp;&nbsp;&nbsp;<button type="submit" value="<%574%>" id="del_sche_an" name="del_sche_an" class="button-rule" onclick="buttonClick(this,'<%574%>');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%574%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
   </td>
 </tr>
   <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 
  <tr>
-  <td width="60%" colspan="2" ><b><%1438%></b></td>
+  <td width="60%" colspan="2" ><b><%1432%></b></td>
  </tr>
 
  <tr>
 
-  <%1439%>
-  <td width="60%">&nbsp;&nbsp;<%1440%>:</td>
-  <td width="40%"><b><font size=4><%1441%></font></b></td>
-  <%1442%>
-  <%1443%>
-  <td width="60%"><font color=gray>&nbsp;&nbsp;<%1440%>:</font></td>
-  <td width="40%"><b><font size=4 color=gray><%1441%></font></b></td>
-  <%1444%>
+  <%1433%>
+  <td width="60%">&nbsp;&nbsp;<%1434%>:</td>
+  <td width="40%"><b><font size=4><%1435%></font></b></td>
+  <%1436%>
+  <%1437%>
+  <td width="60%"><font color=gray>&nbsp;&nbsp;<%1434%>:</font></td>
+  <td width="40%"><b><font size=4 color=gray><%1435%></font></b></td>
+  <%1438%>
   
  </tr>
 
  <tr>
   <td colspan=2>
-  <INPUT TYPE="checkbox" NAME="pin_disable" VALUE="1" <%1445%> onclick="display_wps_attack_compromise();">
-  <%1523%> <%1524%> <%1448%><%1525%>
+  <INPUT TYPE="checkbox" NAME="pin_disable" VALUE="1" <%1439%> onclick="display_wps_attack_compromise();">
+  <%1517%> <%1518%> <%1442%><%1519%>
   </td>
  </tr>
  
@@ -947,77 +892,42 @@ function boost_check_function()
   <td colspan=2>
     <div id="wps_display" style="display: none;">
     	<DD>
-    	<INPUT TYPE="checkbox" NAME="prevent_pin_compromise" VALUE="1" onclick = "javascript:setGray();" <%1526%> >
-        	<%1527%>
-        	<input TYPE="text" class="num" NAME="pin_attack_count" size=2 maxlength=2 value="<%1528%>" style="width:20px" ;">
-         	<%1529%> 
+    	<INPUT TYPE="checkbox" NAME="prevent_pin_compromise" VALUE="1" onclick = "javascript:setGray();" <%1520%> >
+        	<%1521%>
+        	<input TYPE="text" class="num" NAME="pin_attack_count" size=2 maxlength=2 value="<%1522%>" style="width:20px" ;">
+         	<%1523%> 
          	<DD>
-         	<%1530%>
+         	<%1524%>
     </div>
   </td>
  </tr>
 
  <tr>
   <td colspan=2>
-  <INPUT TYPE="checkbox" NAME="wsc_config" <%1449%> onclick="set2GState();">
-  <%1523%>  <%1531%><%1525%>
+  <INPUT TYPE="checkbox" NAME="wsc_config" <%1443%> onclick="set2GState();">
+  <%1517%>  <%1525%><%1519%>
   </td>
  </tr>
  <tr>
   <td colspan=2>
-  <INPUT TYPE="checkbox" NAME="wsc_config_an" <%1532%> onclick="set5GState();">
-  <%1523%><%1533%> <%1525%>
+  <INPUT TYPE="checkbox" NAME="wsc_config_an" <%1526%> onclick="set5GState();">
+  <%1517%><%1527%> <%1519%>
   </td>
  </tr>
-<%2152%>
+<%2155%>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
 	<td colspan=2>
-		<INPUT TYPE="checkbox" NAME="performance_boost_sel" value="<%2153%>" <%2154%> onclick="boost_check_function();">
+		<INPUT TYPE="checkbox" NAME="performance_boost_sel" value="<%2156%>" <%2157%> onclick="boost_check_function();">
 		Performance Boost
 	</td>
 </tr>
-<%2155%>
-<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
-
-<%2148%>
-<tr>
-	<td colspan=2>
-		<INPUT TYPE="checkbox"  NAME="enable_implicit_beamforming" value="enable" <%2156%>>
-    <%2157%>
-	</td>
-</tr>
-<%2149%>
 <%2158%>
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
 	<td colspan=2>
-		<INPUT TYPE="checkbox" onClick="is_dual_ssid_same();" NAME="enable_band_steering" value="enable" <%2159%>>
-    <%2160%>
-	</td>
-</tr>
-<%2161%>
-<%2162%>
-<tr>
-	<td colspan=2>
-		<INPUT TYPE="checkbox" NAME="enable_atf" value="enable" <%2163%>>
-    <%2164%>
-	</td>
-</tr>
-<%2165%>
-<%2166%>
-<tr>
-	<td colspan=2>
-		<INPUT TYPE="checkbox" NAME="enable_ccs" value="enable" <%2167%>>
-		Enable Clear Channel Selector
-	</td>
-</tr>
-<%2168%>
-
-
-<tr>
-	<td colspan=2>
-		<INPUT TYPE="checkbox" NAME="enable_other_mode" value="<%2169%>" <%2170%> onclick="display_othermode();">
-		<%2171%>
+		<INPUT TYPE="checkbox" NAME="enable_other_mode" value="<%2159%>" <%2160%> onclick="display_othermode();">
+		<%2161%>
 	</td>
 </tr>
 <tr>
@@ -1025,14 +935,14 @@ function boost_check_function()
 <div id="other_mode" style="display: none;">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <!--<tr>
-  <td width="60%" colspan="2" ><b><%1451%></b></td>
+  <td width="60%" colspan="2" ><b><%1445%></b></td>
 </tr>-->
-<%2172%>
-<%2173%>
+<%2162%>
+<%2163%>
 <tr>
   <td colspan=2>
-  <INPUT TYPE="radio" NAME="opmode" value="enable_ap_mode" <%1452%> onclick="displaymode(0);">
- <%1453%>
+  <INPUT TYPE="radio" NAME="opmode" value="enable_ap_mode" <%1446%> onclick="displaymode(0);">
+ <%1447%>
   </td>
 </tr>
 
@@ -1041,51 +951,51 @@ function boost_check_function()
     <div id="apmode_display" style="display: none;">
     <table align="left" border="0" width="100%">
     <tr>
-    	<td nowrap><%632%></td>
-        <td width="60%" align="right"><INPUT TYPE="text" MAXLENGTH="12" SIZE="24" NAME="device_name" value="<%989%>"></td>
+    	<td nowrap><%628%></td>
+        <td width="60%" align="right"><INPUT TYPE="text" MAXLENGTH="12" SIZE="24" NAME="device_name" value="<%983%>"></td>
     </tr>
     <tr>
       <td colspan=2>
-      <INPUT TYPE="checkbox" NAME="APIpAssign" value="dyn_ip" <%1454%> onclick="setIP();">
-      <%1455%>
+      <INPUT TYPE="checkbox" NAME="APIpAssign" value="dyn_ip" <%1448%> onclick="setIP();">
+      <%1449%>
       </td>
     </tr>
     <tr>
-    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%439%></td>
+    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%435%></td>
     	<td nowrap align="right" class="num"><input type="text" name="WPethr1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="WPethr2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)" >.<input type="text" name="WPethr3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="WPethr4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
     </tr>
     <tr>
-    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%440%></td>
+    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%436%></td>
     	<td align="right" class="num"><input type="text" name="WMask1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="WMask2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="WMask3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="WMask4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
     </tr>
     <tr>
-    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%441%></td>
+    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%437%></td>
     	<td align="right" class="num"><input type="text" name="WGateway1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="WGateway2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="WGateway3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="WGateway4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
     </tr>
     <tr>
       <td colspan=2>
-      <INPUT TYPE="checkbox" NAME="APDnsAssign" value="dyn_dns" <%1456%> onclick="setDNS();">
-      <%1457%>
+      <INPUT TYPE="checkbox" NAME="APDnsAssign" value="dyn_dns" <%1450%> onclick="setDNS();">
+      <%1451%>
       </td>
     </tr>
     <tr>
-    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%445%></td>
+    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%441%></td>
     	<td nowrap align="right" class="num"><input type="text" name="DAddr1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="DAddr2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="DAddr3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="DAddr4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
     </tr>
     <tr>
-    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%446%></td>
+    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%442%></td>
     	<td nowrap align="right" class="num"><input type="text" name="PDAddr1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="PDAddr2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="PDAddr3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="PDAddr4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
     </tr>
     </table>
     </div>
 </td>
 </tr>
-<%2174%>
-<%2175%>
+<%2164%>
+<%2165%>
 <tr>
   <td colspan=2>
-  <INPUT TYPE="radio" NAME="opmode" value="enable_sta_mode" <%2170%> onclick="displaymode(1);">
- <%2176%>
+  <INPUT TYPE="radio" NAME="opmode" value="enable_sta_mode" <%2160%> onclick="displaymode(1);">
+ <%2166%>
   </td>
 </tr>
 <tr>
@@ -1093,43 +1003,43 @@ function boost_check_function()
     <div id="stamode_display" style="display: none;">
     <table align="left" border="0" width="100%">
     <tr>
-    	<td nowrap><%632%></td>
-        <td width="60%" align="right"><INPUT TYPE="text" MAXLENGTH="12" SIZE="24" NAME="device_name2" value="<%989%>"></td>
+    	<td nowrap><%628%></td>
+        <td width="60%" align="right"><INPUT TYPE="text" MAXLENGTH="12" SIZE="24" NAME="device_name2" value="<%983%>"></td>
     </tr>
     <tr>
       <td colspan=2>
-      <INPUT TYPE="checkbox" NAME="StaIpAssign" value="dyn_ip" <%1454%> onclick="setIP_sta();">
-      <%1455%>
+      <INPUT TYPE="checkbox" NAME="StaIpAssign" value="dyn_ip" <%1448%> onclick="setIP_sta();">
+      <%1449%>
       </td>
     </tr>
     <tr>
-    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%439%></td>
+    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%435%></td>
     	<td nowrap align="right" class="num"><input type="text" name="SPethr1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SPethr2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)" >.<input type="text" name="SPethr3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SPethr4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
     </tr>
     <tr>
-    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%440%></td>
+    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%436%></td>
     	<td align="right" class="num"><input type="text" name="SMask1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SMask2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SMask3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SMask4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
     </tr>
     <tr>
-    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%441%></td>
+    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%437%></td>
     	<td align="right" class="num"><input type="text" name="SGateway1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SGateway2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SGateway3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SGateway4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIPSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
     </tr>
     <tr>
       <td colspan=2>
-      <INPUT TYPE="checkbox" NAME="StaDnsAssign" value="dyn_dns" <%1456%> onclick="setDNS_sta();">
-      <%1457%>
+      <INPUT TYPE="checkbox" NAME="StaDnsAssign" value="dyn_dns" <%1450%> onclick="setDNS_sta();">
+      <%1451%>
       </td>
     </tr>
     <tr>
-    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%445%></td>
+    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%441%></td>
     	<td nowrap align="right" class="num"><input type="text" name="SDAddr1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNSSta) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SDAddr2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNSSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SDAddr3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNSSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SDAddr4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNSSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
     </tr>
     <tr>
-    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%446%></td>
+    	<td nowrap><img src="spacer.gif" width="20" height="12" border="0"><%442%></td>
     	<td nowrap align="right" class="num"><input type="text" name="SPDAddr1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNSSta) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SPDAddr2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNSSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SPDAddr3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNSSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="SPDAddr4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNSSta) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
     </tr>
 	<tr>
-		<button value="bridge_page" onclick="buttonClick(this,'bridge_page');openBridgeWindow();" type="button" name="bridge_page" class="button-rule" ><span class="roundleft_button"><span class ="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%2177%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		<button value="bridge_page" onclick="buttonClick(this,'bridge_page');openBridgeWindow();" type="button" name="bridge_page" class="button-rule" ><span class="roundleft_button"><span class ="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%2167%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
     </tr>
     </table>
     </div>
@@ -1148,49 +1058,41 @@ function boost_check_function()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%231%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
       </div>
 
 
 
-<input type="hidden" name="wps_enable" value="<%1460%>">
-<input type="hidden" name="show_wps_alert" value="<%238%>">
-<input type="hidden" name="wifi_2g_state" value="<%1317%>">
-<input type="hidden" name="wifi_5g_state" value="<%1318%>">
-<input type="hidden" name="wifi_2g_sche" value="<%1461%>">
+<input type="hidden" name="wps_enable" value="<%1454%>">
+<input type="hidden" name="show_wps_alert" value="<%237%>">
+<input type="hidden" name="wifi_2g_state" value="<%1311%>">
+<input type="hidden" name="wifi_5g_state" value="<%1312%>">
+<input type="hidden" name="wifi_2g_sche" value="<%1455%>">
 <input type="hidden" name="wifi_2g_sche_onoff" value="">
-<input type="hidden" name="wifi_5g_sche" value="<%1536%>">
+<input type="hidden" name="wifi_5g_sche" value="<%1530%>">
 <input type="hidden" name="wifi_5g_sche_onoff" value="">
-<input type="hidden" name="wifi_2g_sche_num" value="<%1462%>">
-<input type="hidden" name="wifi_5g_sche_num" value="<%1537%>">
-<input type="hidden" name="ntp_synced_flag" value="<%733%>">
+<input type="hidden" name="wifi_2g_sche_num" value="<%1456%>">
+<input type="hidden" name="wifi_5g_sche_num" value="<%1531%>">
+<input type="hidden" name="ntp_synced_flag" value="<%729%>">
 <input type="hidden" name="select_2g_sche" value="-1">
 <input type="hidden" name="select_5g_sche" value="-1">
-<input type="hidden" name="ssid_2g" value="<%2178%>">
-<input type="hidden" name="ssid_5g" value="<%2179%>">
-<input type="hidden" name="secu_type_2g" value="<%239%>">
-<input type="hidden" name="secu_type_5g" value="<%240%>">
-<input type="hidden" name="passphrase_2g" value="<%2180%>">
-<input type="hidden" name="passphrase_5g" value="<%2181%>">
+<INPUT name=apmode_ipaddr type=hidden value= "<%1211%>">
+<INPUT name=apmode_netmask type=hidden value= "<%1212%>">
+<INPUT name=apmode_gateway type=hidden value= "<%1214%>">
+<INPUT name=apmode_dns_sel type=hidden value= "<%1457%>">
+<INPUT name=apmode_dns1_pri type=hidden value= "<%1219%>">
+<INPUT name=apmode_dns1_sec type=hidden value= "<%1220%>">
 
-<INPUT name=apmode_ipaddr type=hidden value= "<%1217%>">
-<INPUT name=apmode_netmask type=hidden value= "<%1218%>">
-<INPUT name=apmode_gateway type=hidden value= "<%1220%>">
-<INPUT name=apmode_dns_sel type=hidden value= "<%1463%>">
-<INPUT name=apmode_dns1_pri type=hidden value= "<%1225%>">
-<INPUT name=apmode_dns1_sec type=hidden value= "<%1226%>">
-
-<input type="hidden" name="sta_mode" value="<%377%>">
-<input type="hidden" name="ap_mode" value="<%376%>">
-<INPUT name="stamode_ipaddr" type="hidden" value= "<%1217%>">
-<INPUT name="stamode_netmask" type="hidden" value= "<%1218%>">
-<INPUT name="stamode_gateway" type="hidden" value= "<%1220%>">
-<INPUT name="stamode_dns1_pri" type="hidden" value= "<%1225%>">
-<INPUT name="stamode_dns1_sec" type="hidden" value= "<%1226%>">
-
+<input type="hidden" name="sta_mode" value="<%374%>">
+<input type="hidden" name="ap_mode" value="<%373%>">
+<INPUT name="stamode_ipaddr" type="hidden" value= "<%1211%>">
+<INPUT name="stamode_netmask" type="hidden" value= "<%1212%>">
+<INPUT name="stamode_gateway" type="hidden" value= "<%1214%>">
+<INPUT name="stamode_dns1_pri" type="hidden" value= "<%1219%>">
+<INPUT name="stamode_dns1_sec" type="hidden" value= "<%1220%>">
 <a name="helpframe-anchor"></a>
 </form>
 </div>

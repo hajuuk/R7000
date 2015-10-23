@@ -61,9 +61,6 @@
 	#endif   /* BWL_PACKED_SECTION */
 #endif   /* _MSC_VER */
 
-#if defined(__GNUC__) && defined(EFI)
-#pragma pack(pop)
-#endif
 
 /* Compiler-specific directives for structure packing are declared in
  * packed_section_start.h. This marks the end of the structure packing section,

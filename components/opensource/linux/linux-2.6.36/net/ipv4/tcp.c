@@ -2713,7 +2713,7 @@ struct sk_buff BCMFASTPATH_HOST *tcp_tso_segment(struct sk_buff *skb, int featur
 	}
 
 	/* Old method */
-	skb->tcpf_nf = 0;
+	//skb->tcpf_nf = 0;  /*there does't define skb->tcpf_nf */
 	segs = skb_segment(skb, features);
 	if (IS_ERR(segs))
 		goto out;

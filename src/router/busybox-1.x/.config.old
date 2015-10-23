@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.7.2
-# Mon Jul 16 15:14:57 2012
+# Thu Sep  6 12:04:00 2012
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -118,6 +118,10 @@ CONFIG_FEATURE_TAR_LONG_OPTIONS=y
 # CONFIG_UNLZMA is not set
 # CONFIG_FEATURE_LZMA_FAST is not set
 # CONFIG_UNZIP is not set
+
+#
+# Common options for cpio and tar
+#
 # CONFIG_FEATURE_UNARCHIVE_TAPE is not set
 # CONFIG_FEATURE_DEB_TAR_GZ is not set
 # CONFIG_FEATURE_DEB_TAR_BZ2 is not set
@@ -247,6 +251,10 @@ CONFIG_FEATURE_AUTOWIDTH=y
 # Common options for df, du, ls
 #
 CONFIG_FEATURE_HUMAN_READABLE=y
+
+#
+# Common options for md5sum, sha1sum
+#
 # CONFIG_FEATURE_MD5_SHA1_SUM_CHECK is not set
 
 #
@@ -523,6 +531,7 @@ CONFIG_FEATURE_LESS_MAXLINES=9999999
 # CONFIG_TIME is not set
 # CONFIG_TTYSIZE is not set
 # CONFIG_WATCHDOG is not set
+# CONFIG_FLASH_ERASEALL is not set
 
 #
 # Networking Utilities
@@ -622,10 +631,10 @@ CONFIG_FEATURE_TFTP_PUT=y
 # CONFIG_FEATURE_UDHCP_DEBUG is not set
 # CONFIG_FEATURE_RFC3397 is not set
 # CONFIG_VCONFIG is not set
-CONFIG_WGET=y
-CONFIG_FEATURE_WGET_STATUSBAR=y
-CONFIG_FEATURE_WGET_AUTHENTICATION=y
-CONFIG_FEATURE_WGET_LONG_OPTIONS=y
+# CONFIG_WGET is not set
+# CONFIG_FEATURE_WGET_STATUSBAR is not set
+# CONFIG_FEATURE_WGET_AUTHENTICATION is not set
+# CONFIG_FEATURE_WGET_LONG_OPTIONS is not set
 # CONFIG_ZCIP is not set
 
 #

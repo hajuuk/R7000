@@ -34,12 +34,12 @@
 
     function showHelpIframe() {
 
+
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
-            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -48,8 +48,6 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
-        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
-           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
@@ -90,7 +88,7 @@
 
 function checkSel(){
  if (document.formname.WANDetc[0].checked == true)
- //window.location.href="<%1353%>";
+ //window.location.href="<%1347%>";
  window.location.href="genie_detwan.htm";
  else
  window.location.href="BAS_basic.htm";
@@ -109,14 +107,14 @@ function caCheckSel()
 </head>
 
 <body  onload="change_size();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%60%>">
-<img class="body-image" src="<%61%>">
+<img class="cover-image" src="<%59%>">
+<img class="body-image" src="<%60%>">
 <div id="full-page-container">
 <div class=Section1>
 <form id="target"  name="formname" method="POST" action="adv_user.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
-<img class="subtop-image" src="<%62%>">
-<div class="subhead2"> <%312%></div>
+<img class="subtop-image" src="<%61%>">
+<div class="subhead2"> <%309%></div>
 <table  border=0    style="height:370px"  class="subhead2-table">
 
 
@@ -126,18 +124,18 @@ function caCheckSel()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 			<tr>
-				<td colspan="2"><b><%1354%></b></td>
+				<td colspan="2"><b><%1348%></b></td>
 			</tr>
 			<tr></tr>
 			<tr>
-				<td colspan="2"><b><%1355%></b></td>
+				<td colspan="2"><b><%1349%></b></td>
 			</tr>
 			<tr></tr>
 			<tr>
-				<td colspan="2"><input type="radio"  checked name="WANDetc" value="AutoDetc"><%1356%></td>
+				<td colspan="2"><input type="radio"  checked name="WANDetc" value="AutoDetc"><%1350%></td>
 			</tr>
 			<tr>
-				<td colspan="2" nowrap><input type="radio" name="WANDetc" value="MyDetc"><%1357%></td>
+				<td colspan="2" nowrap><input type="radio" name="WANDetc" value="MyDetc"><%1351%></td>
 			</tr>
 			
 <tr> 
@@ -146,7 +144,7 @@ function caCheckSel()
 <tr>
 	<td colspan="2" align="center">
 
-		&nbsp;&nbsp;&nbsp;<button type="Button" value="<%1358%>" name="next" class="button-rule" onClick="buttonClick(this,'<%1358%>');checkSel()"><span class="roundleft_button">&nbsp;&nbsp; <%1358%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		&nbsp;&nbsp;&nbsp;<button type="Button" value="<%1352%>" name="next" class="button-rule" onClick="buttonClick(this,'<%1352%>');checkSel()"><span class="roundleft_button">&nbsp;&nbsp; <%1352%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 
 </table></div></td></tr>
 <tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="WIZ_sel_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
@@ -154,15 +152,15 @@ function caCheckSel()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%231%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
       </div>
 
 
 
-<INPUT TYPE="hidden" NAME="wps_in_progress" VALUE="<%1359%>">
+<INPUT TYPE="hidden" NAME="wps_in_progress" VALUE="<%1353%>">
 <a name="helpframe-anchor"></a>
 </form>
 </div>

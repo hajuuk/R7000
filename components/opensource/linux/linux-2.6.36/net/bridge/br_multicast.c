@@ -229,7 +229,8 @@ static void br_multicast_group_expired(unsigned long data)
 	if (!netif_running(br->dev) || timer_pending(&mp->timer))
 		goto out;
 
-	mp->mglist = false;
+	if (!hlist_unhashed(&mp->mglist))
+		hlist_del_init(&mp->mglist);
 
 	if (mp->ports)
 		goto out;
@@ -267,7 +268,7 @@ static void br_multicast_del_pg(struct net_bridge *br,
 		del_timer(&p->query_timer);
 		call_rcu_bh(&p->rcu, br_multicast_free_pg);
 
-		if (!mp->ports && !mp->mglist &&
+		if (!mp->ports && hlist_unhashed(&mp->mglist) &&
 		    netif_running(br->dev))
 			mod_timer(&mp->timer, jiffies);
 
@@ -519,7 +520,7 @@ static void br_multicast_group_query_expired(unsigned long data)
 	struct net_bridge *br = mp->br;
 
 	spin_lock(&br->multicast_lock);
-	if (!netif_running(br->dev) || !mp->mglist ||
+	if (!netif_running(br->dev) || hlist_unhashed(&mp->mglist) ||
 	    mp->queries_sent >= br->multicast_last_member_count)
 		goto out;
 
@@ -706,7 +707,8 @@ static int br_multicast_add_group(struct net_bridge *br,
 		goto err;
 
 	if (!port) {
-		mp->mglist = true;
+			if (hlist_unhashed(&mp->mglist)) /*borg*/
+				hlist_add_head(&mp->mglist, &br->mglist);
 		mod_timer(&mp->timer, now + br->multicast_membership_interval);
 		goto out;
 	}
@@ -1150,7 +1152,7 @@ static int br_ip4_multicast_query(struct net_bridge *br,
 
 	max_delay *= br->multicast_last_member_count;
 
-	if (mp->mglist &&
+	if (!hlist_unhashed(&mp->mglist) &&
 	    (timer_pending(&mp->timer) ?
 	     time_after(mp->timer.expires, now + max_delay) :
 	     try_to_del_timer_sync(&mp->timer) >= 0))
@@ -1218,7 +1220,7 @@ static int br_ip6_multicast_query(struct net_bridge *br,
 		goto out;
 
 	max_delay *= br->multicast_last_member_count;
-	if (mp->mglist &&
+	if (!hlist_unhashed(&mp->mglist) &&
 	    (timer_pending(&mp->timer) ?
 	     time_after(mp->timer.expires, now + max_delay) :
 	     try_to_del_timer_sync(&mp->timer) >= 0))
@@ -1263,7 +1265,7 @@ static void br_multicast_leave_group(struct net_bridge *br,
 		     br->multicast_last_member_interval;
 
 	if (!port) {
-		if (mp->mglist &&
+		if (!hlist_unhashed(&mp->mglist) &&
 		    (timer_pending(&mp->timer) ?
 		     time_after(mp->timer.expires, time) :
 		     try_to_del_timer_sync(&mp->timer) >= 0)) {

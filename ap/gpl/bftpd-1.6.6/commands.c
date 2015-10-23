@@ -1146,7 +1146,6 @@ void command_retr(char *filename)
 		free(mapped);
 		return;
 	}
-
     /* Foxconn added start pling 06/07/2010 */
     /* BTS-A20102624: Chrome FTP fix: 
      * handle the case where FTP client tries to access /shares/shares

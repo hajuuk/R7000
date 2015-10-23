@@ -1444,6 +1444,7 @@ _dbus_listen_tcp_socket (const char     *host,
                       host ? host : "*", port, _dbus_strerror (errno));
         }
 
+
       if (bind (fd, (struct sockaddr*) tmp->ai_addr, tmp->ai_addrlen) < 0)
         {
           saved_errno = errno;

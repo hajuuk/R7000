@@ -40,8 +40,6 @@
 
 #define WL_DOWNLOADER_4323_VEND_ID "a5c/bd13/1"
 #define WL_DOWNLOADER_43236_VEND_ID "a5c/bd17/1"
-#define WL_DOWNLOADER_43526_VEND_ID "a5c/bd1d/1"
-#define WL_DOWNLOADER_4360_VEND_ID "a5c/bd1d/1"
 
 static int usb_start_services(void);
 static int usb_stop_services(void);
@@ -119,7 +117,7 @@ retry:
 #ifdef USB_DEBUG
         cprintf("target %s not available wait another seconds..\n", target);
 #endif
-        if (++wait_count < 20) /* wait for 20 seconds at most */
+        if (++wait_count < 30) /* wait for 30 seconds at most */
             goto retry;
     } 
     /* foxconn wklin added end, 03/16/2011 */
@@ -938,15 +936,6 @@ hotplug_block(void)
 exit:
 	close(lock_fd);
 	unlink(LOCK_FILE);
-
-#ifdef __CONFIG_SAMBA__
-#if defined(LINUX_2_6_36)
-	/* Restart samba service since USB device is plugged or unplugged */
-	if (err == 0)
-		restart_samba();
-#endif
-#endif /* __CONFIG_SAMBA__ */
-
 	return 0;
 }
 
@@ -1004,9 +993,7 @@ hotplug_usb(void)
 
 #ifdef __CONFIG_USBAP__
 	/* download the firmware and insmod wl_high for USBAP */
-	if ((!strcmp(product, WL_DOWNLOADER_43236_VEND_ID)) ||
-		(!strcmp(product, WL_DOWNLOADER_43526_VEND_ID)) ||
-		(!strcmp(product, WL_DOWNLOADER_4360_VEND_ID))) {
+	if (!strcmp(product, WL_DOWNLOADER_43236_VEND_ID)) {
 		if (!strcmp(action, "add")) {
 			eval("rc", "restart");
 		} else if (!strcmp(action, "remove")) {

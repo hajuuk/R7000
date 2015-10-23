@@ -6,16 +6,16 @@
 
 <script type="text/javascript">
 <!--
-<%1701%>
+<%1695%>
 var pchar = "||"; // progress char
-<%1702%>
-<%785%>
+<%1696%>
+<%779%>
 var maxchars = 45;
-<%786%>
-<%787%>
+<%780%>
+<%781%>
 var maxchars = 50; 
-<%788%>
-var delay_time = <%789%>; // msecs
+<%782%>
+var delay_time = <%783%>; // msecs
 var charcount = 0; 
 var barbuffer = "";
 function makeStr(strSize, fillChar)
@@ -41,18 +41,18 @@ function updateProgress()
       
 	if (charcount < maxchars)
 	{
-	<%1703%>
+	<%1697%>
 		if( charcount < 6 )
 			var pchar = "||"; // progress char
 		else
 			var pchar = "|"; // progress char
 		charcount ++;
 		cf.progress.value = makeStr1(charcount,pchar);
-	<%1704%>
-	<%1701%>
+	<%1698%>
+	<%1695%>
 		charcount ++;
 		cf.progress.value = makeStr(charcount,pchar);
-	<%1702%>
+	<%1696%>
 		setTimeout("updateProgress()",delay_time);
 	}
 	else
@@ -82,7 +82,7 @@ H1 {
 </tr>
 <tr>
 	<td align="left">
-	 <h1><%783%></h1>
+	 <h1><%777%></h1>
  </td>
  <td nowrap align="left"> &nbsp; </td>
  <td nowrap><input type="text" name="progress" style="prgbar" value=""></td>
@@ -93,7 +93,7 @@ H1 {
  <td colspan="4" height="12"><hr color="#0099CC"></td>
 </tr>
 </table>
-<input type="hidden" name="next_file" value="<%784%>">
+<input type="hidden" name="next_file" value="<%778%>">
 </form>
 </BODY>
 </html>

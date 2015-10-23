@@ -147,15 +147,8 @@ typedef volatile struct {
 
 	/* sprom "size" & "blank" info */
 	uint16 spromstatus;		/* SPROMStatus, 0x7BE, rev2 */
+	uint32 PAD[464];
 
-	uint16 PAD[32];
-	uint32 f3corectl;		/* F3(BT) Core control, 0x800, rev8 */
-	uint32 f3corestatus;		/* F3 Core Status, 0x804, rev8 */
-	uint32 f3intstatus;		/* F3 Interrupt Status, 0x808, rev8 */
-	uint32 btinten;			/* Bt interrupt enable, 0x80c, rev8 */
-	uint32 PAD[9];
-	uint32 btintrcvlazy;
-	uint32 PAD[430];
 	/* Sonics SiliconBackplane registers */
 	sbconfig_t sbconfig;		/* SbConfig Regs, 0xf00-0xfff, rev8 */
 } sdpcmd_regs_t;

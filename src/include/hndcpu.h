@@ -33,11 +33,7 @@ extern uint32 si_mem_clock(si_t *sih);
 extern void hnd_cpu_wait(si_t *sih);
 extern void hnd_cpu_jumpto(void *addr);
 extern void hnd_cpu_reset(si_t *sih);
-#if defined(BCMDBG_LOADAVG) && defined(__ARM_ARCH_7R__)
-extern void hnd_cpu_loadavg_timer(si_t *sih, uint32 val);
-#else
 extern void hnd_cpu_deadman_timer(si_t *sih, uint32 val);
-#endif
 extern void si_router_coma(si_t *sih, int reset, int delay);
 extern void si_dmc_phyctl(si_t *sih, uint32 phyctl_val);
 extern uint32 si_arm_sflags(si_t *sih);

@@ -302,7 +302,6 @@ void dirlist_one_file(char *name, FILE *client, char verbose)
         }
         free(cwd);
     }
-
     /* Foxconn added start pling 06/20/2009 */
     /* Don't let 'guest' user see "Admin-read" folders */
     if (S_ISDIR(statbuf.st_mode) || S_ISLNK(statbuf.st_mode))

@@ -32,8 +32,6 @@
 #ifdef HNDCTF
 #include <ctf/hndctf.h>
 extern int ip_conntrack_ipct_delete(struct nf_conn *ct, int ct_timeout);
-#else
-#define BCMFASTPATH_HOST
 #endif /* HNDCTF */
 
 /* "Be conservative in what you do,

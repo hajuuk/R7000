@@ -25,8 +25,6 @@
 #if defined(WLC_HIGH) && !defined(WLC_LOW)
 #include "bcm_rpc.h"
 #endif
-
-#include <bcmutils.h>
 /*
  * Data structure to export all chip specific common variables
  *   public (read-only) portion of siutils handle returned by si_attach()/si_kattach()
@@ -185,7 +183,6 @@ extern bool si_pci_war16165(si_t *sih);
 extern uint si_corelist(si_t *sih, uint coreid[]);
 extern uint si_coreid(si_t *sih);
 extern uint si_flag(si_t *sih);
-extern uint si_flag_alt(si_t *sih);
 extern uint si_intflag(si_t *sih);
 extern uint si_coreidx(si_t *sih);
 extern uint si_coreunit(si_t *sih);
@@ -210,12 +207,6 @@ extern bool si_iscoreup(si_t *sih);
 extern uint si_findcoreidx(si_t *sih, uint coreid, uint coreunit);
 extern void *si_setcoreidx(si_t *sih, uint coreidx);
 extern void *si_setcore(si_t *sih, uint coreid, uint coreunit);
-
-#ifdef WLC_LOW
-extern uint si_corereg_ifup(si_t *sih, uint core_id, uint regoff, uint mask, uint val);
-extern void si_lowpwr_opt(si_t *sih);
-#endif /* WLC_LOW */
-
 extern void *si_switch_core(si_t *sih, uint coreid, uint *origidx, uint *intr_val);
 extern void si_restore_core(si_t *sih, uint coreid, uint intr_val);
 extern int si_numaddrspaces(si_t *sih);
@@ -283,8 +274,6 @@ extern void si_pci_pmeclr(si_t *sih);
 extern void si_pci_pmeen(si_t *sih);
 extern void si_pci_pmestatclr(si_t *sih);
 extern uint si_pcie_readreg(void *sih, uint addrtype, uint offset);
-extern uint si_pcie_writereg(void *sih, uint addrtype, uint offset, uint val);
-
 
 
 extern uint16 si_d11_devid(si_t *sih);
@@ -339,7 +328,7 @@ extern int si_cis_source(si_t *sih);
 #define	SMIC_FAB4	0x3	/* SMIC Fab4 chip */
 
 extern int BCMINITFN(si_otp_fabid)(si_t *sih, uint16 *fabid, bool rw);
-extern uint16 BCMATTACHFN(si_fabid)(si_t *sih);
+extern uint16 BCMINITFN(si_fabid)(si_t *sih);
 
 /*
  * Build device path. Path size must be >= SI_DEVPATH_BUFSZ.
@@ -356,13 +345,7 @@ extern char *si_coded_devpathvar(si_t *sih, char *varname, int var_len, const ch
 extern uint8 si_pcieclkreq(si_t *sih, uint32 mask, uint32 val);
 extern uint32 si_pcielcreg(si_t *sih, uint32 mask, uint32 val);
 extern uint8 si_pcieltrenable(si_t *sih, uint32 mask, uint32 val);
-extern uint8 si_pcieobffenable(si_t *sih, uint32 mask, uint32 val);
-extern uint32 si_pcieltr_reg(si_t *sih, uint32 reg, uint32 mask, uint32 val);
-extern uint32 si_pcieltrspacing_reg(si_t *sih, uint32 mask, uint32 val);
-extern uint32 si_pcieltrhysteresiscnt_reg(si_t *sih, uint32 mask, uint32 val);
 extern void si_pcie_set_error_injection(si_t *sih, uint32 mode);
-extern void si_pcie_set_L1substate(si_t *sih, uint32 substate);
-extern uint32 si_pcie_get_L1substate(si_t *sih);
 extern void si_war42780_clkreq(si_t *sih, bool clkreq);
 extern void si_pci_down(si_t *sih);
 extern void si_pci_up(si_t *sih);
@@ -399,9 +382,6 @@ extern uint si_pll_reset(si_t *sih);
 
 extern bool si_taclear(si_t *sih, bool details);
 
-#if defined(BCMDBG_DUMP) || defined(WLTEST)
-extern int si_dump_pcieinfo(si_t *sih, struct bcmstrbuf *b);
-#endif 
 
 #if defined(BCMDBG_DUMP)
 struct bcmstrbuf;
@@ -429,7 +409,6 @@ extern void BCMATTACHFN(si_muxenab)(si_t *sih, uint32 w);
 
 #if defined(WLOFFLD)
 extern uint32 si_tcm_size(si_t *sih);
-extern bool si_has_flops(si_t *sih);
 #endif 
 
 extern uint32 si_gci_direct(si_t *sih, uint offset, uint32 mask, uint32 val);
@@ -452,48 +431,20 @@ extern uint32 si_cc_get_reg32(uint32 reg_offs);
 extern uint32 si_cc_set_reg32(uint32 reg_offs, uint32 val);
 extern uint32 si_gci_preinit_upd_indirect(uint32 regidx, uint32 setval, uint32 mask);
 
-extern uint si_chipid_override(si_t *sih);
-extern uint si_chiprev_override(si_t *sih);
-
-#define CHIPCTRLREG1 0x1
 #define CHIPCTRLREG2 0x2
 #define CHIPCTRLREG3 0x3
 #define CHIPCTRLREG4 0x4
-#define CHIPCTRLREG5 0x5
-#define REGCTRLREG4 0x4
 #define MINRESMASKREG 0x618
-#define MAXRESMASKREG 0x61c
 #define CHIPCTRLADDR 0x650
 #define CHIPCTRLDATA 0x654
 #define RSRCTABLEADDR 0x620
 #define RSRCUPDWNTIME 0x628
 #define PMUREG_RESREQ_MASK 0x68c
 
-extern void si_update_masks(si_t *sih);
+void
+si_update_masks(si_t *sih);
 
-extern void si_force_islanding(si_t *sih, bool enable);
-
-extern uint32 si_pmu_res_req_timer_clr(si_t *sih);
-extern void si_pmu_rfldo(si_t *sih, bool on);
-extern void si_survive_perst_war(si_t *sih, bool reset, uint32 sperst_mask, uint32 spert_val);
-extern void si_pcie_ltr_war(si_t *sih);
-
-/* Macro to enable clock gating changes in different cores */
-#define MEM_CLK_GATE_BIT 	5
-#define GCI_CLK_GATE_BIT 	18
-
-#define USBAPP_CLK_BIT		0
-#define PCIE_CLK_BIT		3
-#define ARMCR4_DBG_CLK_BIT	4
-#define SAMPLE_SYNC_CLK_BIT 	17
-#define PCIE_TL_CLK_BIT		18
-#define HQ_REQ_BIT		24
-#define PLL_DIV2_BIT_START	9
-#define PLL_DIV2_MASK		(0x37 << PLL_DIV2_BIT_START)
-#define PLL_DIV2_DIS_OP		(0x37 << PLL_DIV2_BIT_START)
-
-extern uint si_jtag_ureg_read(si_t *sih, uint num);
-extern void si_jtag_ureg_write(si_t *sih, uint num, uint data);
-extern uint si_bbpll_war(si_t *sih, uint state);
+void
+si_force_islanding(si_t *sih, bool enable);
 
 #endif	/* _siutils_h_ */

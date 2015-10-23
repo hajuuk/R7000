@@ -45,11 +45,6 @@ lib-$(CONFIG_LIBRESOLV) += libresolv
 lib-$(CONFIG_LIBUTIL) += libutil
 
 ifeq ($(ARCH), arm)
-
-ifeq ($(CONFIG_NFC),y)
-lib-y += librt
-endif
-
 lib-y += libgcc_s
 else ifneq ($(CONFIG_LIBOPT),y)
 lib-y += libgcc_s

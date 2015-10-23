@@ -42,12 +42,12 @@ var pgbarTimer = null;
 
     function showHelpIframe() {
 
+
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
-            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -56,10 +56,7 @@ var pgbarTimer = null;
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
-        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
-           (navigator.appVersion.indexOf("MSIE 9")==-1))
-             change_size();
-
+        change_size();
     }
   
     function loadhelp(fname,anchname)
@@ -123,7 +120,7 @@ function showAnimation()
 
 function checkData()
 {
-	var up_msg = "<%1286%>\n";
+	var up_msg = "<%1280%>\n";
 	var a;
 	var msg="";
 	var temp_win;
@@ -142,13 +139,13 @@ function checkData()
 		a = cdisplit(t_str,".");
 	if(t_str.length == 0)
 	{
-		alert("<%1287%>\n");
+		alert("<%1281%>\n");
 		return false;
 	}
 	//if((a.length<2)||(a[0]=="")||((a[a.length-1].toLowerCase()!="img") && (a[a.length-1].toLowerCase()!="chk") && (a[a.length-1].toLowerCase()!="bin")))
 	if((a.length<2)||(a[0]=="")||(a[a.length-1].toLowerCase()!="chk"))
 	{
-	 alert("<%1288%>chk\n");
+	 alert("<%1282%>chk\n");
 	 return false;
 	}
     if (!confirm(up_msg))
@@ -177,7 +174,7 @@ function enableFwCheck()
 
 var pchar = "|"; // progress char
 var maxchars = 94;
-var delay_time = <%1289%>;
+var delay_time = <%1283%>;
 var charcount = 0;
 
 function makeStr(strSize, fillChar)
@@ -239,15 +236,15 @@ function set_check_upgrade()
 </script>
 </head>
 <body  onload="change_size();stopAnimation();" class="page-body" onResize="change_size();">
-<img class="cover-image" src="<%60%>">
-<img class="body-image" src="<%61%>">
+<img class="cover-image" src="<%59%>">
+<img class="body-image" src="<%60%>">
 <div id="full-page-container">
 
 <form method="POST" action="upgrade_check.cgi" ENCTYPE="multipart/form-data" style="margin:0px"  >
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
 <input type="hidden" name="IS_check_upgrade" value="0">
-<img class="subtop-image" src="<%62%>">
-<div class="subhead2"> <%347%></div>
+<img class="subtop-image" src="<%61%>">
+<div class="subhead2"> <%344%></div>
 
 <table border="0" class="subhead2-table" >
 
@@ -255,14 +252,14 @@ function set_check_upgrade()
 <tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
 
  <TR>
- <td class="subhead2-text-menu" ><a href="javascript:loadhelp('UPG_upgrade','check')" tabindex="-1"><b><%1290%></b></a></td>
+ <td class="subhead2-text-menu" ><a href="javascript:loadhelp('UPG_upgrade','check')" tabindex="-1"><b><%1284%></b></a></td>
  <td align="left" class="subhead2-text-context" >
- <button type="button" name="Check" class="button-rule"  value="<%1291%>" onClick="buttonClick(this,'<%1291%>');set_check_upgrade();"><span class="roundleft_button">&nbsp;&nbsp;&nbsp;&nbsp; <%1291%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+ <button type="button" name="Check" class="button-rule"  value="<%1285%>" onClick="buttonClick(this,'<%1285%>');set_check_upgrade();"><span class="roundleft_button">&nbsp;&nbsp;&nbsp;&nbsp; <%1285%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
  </TD>
  </tr>
 <!--
 <tr>
-    <td colspan="2" class="table-seperate-border"><input type="checkbox" <%1292%> name="enable" value="1" onclick="enableFwCheck();submit();"><b><%1293%></b></td></tr>
+    <td colspan="2" class="table-seperate-border"><input type="checkbox" <%1286%> name="enable" value="1" onclick="enableFwCheck();submit();"><b><%1287%></b></td></tr>
 -->
 </table>
 <input type="hidden" name="ver_check_enable" value="1">
@@ -271,7 +268,7 @@ function set_check_upgrade()
 
 <tr><td colspan="2" height="12" class="" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-	<td colspan="2" align="left" class="" ><a href="javascript:loadhelp('UPG_upgrade','locate')" > <b><%1294%></b></a></td>
+	<td colspan="2" align="left" class="" ><a href="javascript:loadhelp('UPG_upgrade','locate')" > <b><%1288%></b></a></td>
 
 </tr>
 <tr>
@@ -280,7 +277,7 @@ function set_check_upgrade()
 			onchange="this.form.upfile.value=this.value.substr(this.value.lastIndexOf('\\')+1);"
 			contentEditable=false  onkeydown="return false;" onbeforeeditfocus="return false;" onpaste="return false;" onmouseover="this.style.cursor='pointer';">
 		<input type="text" name="upfile" size="20" maxlength="1024" readonly>
-      &nbsp;&nbsp;&nbsp;<button type="button" value="browse"  class="button-rule" onclick="if(!is_ie6()){this.form.file.click();}" onmouseover="this.style.cursor='default';"><span class="roundleft_button"><%384%></span><span class="roundright_button">&nbsp;</span></button>
+      &nbsp;&nbsp;&nbsp;<button type="button" value="browse"  class="button-rule" onclick="if(!is_ie6()){this.form.file.click();}" onmouseover="this.style.cursor='default';"><span class="roundleft_button"><%381%></span><span class="roundright_button">&nbsp;</span></button>
 
 	</td>
 </tr>
@@ -288,8 +285,8 @@ function set_check_upgrade()
 
 <tr>
  <td colspan="2" align="center" class="" >
-	<button  type="SUBMIT" NAME="Upgrade" VALUE=" <%1295%>" class="button-rule" onClick="buttonClick(this,'<%1295%>');return checkData();"><span class="roundleft_button">&nbsp;&nbsp;&nbsp;&nbsp; <%1295%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-	&nbsp;&nbsp;&nbsp;<button type="RESET" name="Cancel" VALUE=" <%66%>" class="button-rule" onClick="stopAnimation();"><span class="roundleft_button">&nbsp;&nbsp;&nbsp;&nbsp; <%66%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+	<button  type="SUBMIT" NAME="Upgrade" VALUE=" <%1289%>" class="button-rule" onClick="buttonClick(this,'<%1289%>');return checkData();"><span class="roundleft_button">&nbsp;&nbsp;&nbsp;&nbsp; <%1289%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+	&nbsp;&nbsp;&nbsp;<button type="RESET" name="Cancel" VALUE=" <%65%>" class="button-rule" onClick="stopAnimation();"><span class="roundleft_button">&nbsp;&nbsp;&nbsp;&nbsp; <%65%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
 
 </tr>
 <tr style="height:10px"><td colspan="2" height="12" class="">&nbsp;</td></tr>
@@ -303,7 +300,7 @@ function set_check_upgrade()
 <table border="0" style="border-collapse:collapse;" >
 
 <tr>
- <td colspan="2" ><B><BIG><%1296%>  1.5  <%1297%>
+ <td colspan="2" ><B><BIG><%1290%>  1.5  <%1291%>
  </BIG></B></td>
 </tr>
 <tr>
@@ -332,11 +329,11 @@ function set_check_upgrade()
 
   <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%231%> </span>
 
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
       </div>
 <a name="helpframe-anchor"></a>      
 </div>      

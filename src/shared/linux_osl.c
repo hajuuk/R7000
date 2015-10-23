@@ -173,17 +173,12 @@ static int16 linuxbcmerrormap[] =
 	-ENODEV,		/* BCME_NODEVICE */
 	-EINVAL,		/* BCME_NMODE_DISABLED */
 	-ENODATA,		/* BCME_NONRESIDENT */
-	-EINVAL,		/* BCME_SCANREJECT */
-	-EINVAL,		/* unused */
-	-EINVAL,		/* unused */
-	-EINVAL,		/* unused */
-	-EOPNOTSUPP,		/* BCME_DISABLED */
-
+	-EINVAL,                /* BCME_SCANREJECT */
 /* When an new error code is added to bcmutils.h, add os
  * specific error translation here as well
  */
 /* check if BCME_LAST changed since the last time this function was updated */
-#if BCME_LAST != -47
+#if BCME_LAST != -43
 #error "You need to add a OS error translation in the linuxbcmerrormap \
 	for new error code defined in bcmutils.h"
 #endif
@@ -306,27 +301,58 @@ osl_detach(osl_t *osh)
 	kfree(osh);
 }
 
-static struct sk_buff *osl_alloc_skb(unsigned int len)
+#define ARES_TRY_CHECK_ALLOC_SKB 1
+#ifdef ARES_TRY_CHECK_ALLOC_SKB
+#define MAX_CHECK_SKBP (30)
+void *ares_check_skbp[MAX_CHECK_SKBP];
+unsigned int ares_check_skbp_index = -1;
+#endif
+
+static struct sk_buff *osl_alloc_skb(osl_t *osh, unsigned int len)
 {
+	struct sk_buff *skb;
+#ifdef ARES_TRY_CHECK_ALLOC_SKB
+	int i;
+	if (ares_check_skbp_index <0) {
+
+		ares_check_skbp_index = 0;
+		memset(ares_check_skbp, 0, sizeof(ares_check_skbp));
+	}
+#endif
+
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 25)
 	gfp_t flags = GFP_ATOMIC;
-	struct sk_buff *skb;
-
 #if defined(CONFIG_SPARSEMEM) && defined(CONFIG_ZONE_DMA)
 	flags |= GFP_DMA;
 #endif
 	skb = __dev_alloc_skb(len, flags);
+#else
+	skb = dev_alloc_skb(len);
+#endif /* LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 25) */
+
 #ifdef CTFMAP
 	if (skb) {
-		skb->data = skb->head + 16;
-		skb->tail = skb->head + 16;
+#ifdef ARES_TRY_CHECK_ALLOC_SKB
+		unsigned int kaddr = (unsigned int)PKTDATA(osh, skb);
+		
+		if (!virt_addr_valid(kaddr) || !virt_addr_valid(kaddr + len - 1) ) {
+
+			printk("\n !! osl_alloc_skb: INVALID skb %p, skb %p data 0x%08x size %d \n", skb, kaddr,  len);
+			for (i = 0; i < MAX_CHECK_SKBP; i++) {
+				if (ares_check_skbp[i] == NULL){
+					ares_check_skbp[i] = skb;
+					break;
+				}
+			}
+			/* silience leak skb. */
+			return NULL;
+		}
+#endif
+		_DMA_MAP(osh, PKTDATA(osh, skb), len, DMA_RX, NULL, NULL);
 	}
 #endif
 
 	return skb;
-#else
-	return dev_alloc_skb(len);
-#endif /* LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 25) */
 }
 
 #ifdef CTFPOOL
@@ -362,7 +388,7 @@ osl_ctfpool_add(osl_t *osh)
 	}
 
 	/* Allocate a new skb and add it to the ctfpool */
-	skb = osl_alloc_skb(osh->ctfpool->obj_size);
+	skb = osl_alloc_skb(osh, osh->ctfpool->obj_size);
 	if (skb == NULL) {
 		printf("%s: skb alloc of len %d failed\n", __FUNCTION__,
 		       osh->ctfpool->obj_size);
@@ -522,9 +548,13 @@ osl_pktfastget(osl_t *osh, uint len)
 
 	/* Init skb struct */
 	skb->next = skb->prev = NULL;
+#if defined(__ARM_ARCH_7A__)
+	skb->data = skb->head + NET_SKB_PAD;
+	skb->tail = skb->head + NET_SKB_PAD;
+#else
 	skb->data = skb->head + 16;
 	skb->tail = skb->head + 16;
-
+#endif /* __ARM_ARCH_7A__ */
 	skb->len = 0;
 	skb->cloned = 0;
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 14)
@@ -534,7 +564,6 @@ osl_pktfastget(osl_t *osh, uint len)
 
 	PKTSETCLINK(skb, NULL);
 	PKTCCLRATTR(skb);
-	PKTFAST(osh, skb) &= ~(CTFBUF | SKIPCT | CHAINED);
 
 	return skb;
 }
@@ -656,9 +685,9 @@ osl_pktget(osl_t *osh, uint len)
 #ifdef CTFPOOL
 	/* Allocate from local pool */
 	skb = osl_pktfastget(osh, len);
-	if ((skb != NULL) || ((skb = osl_alloc_skb(len)) != NULL)) {
+	if ((skb != NULL) || ((skb = osl_alloc_skb(osh, len)) != NULL)) {
 #else /* CTFPOOL */
-	if ((skb = osl_alloc_skb(len))) {
+	if ((skb = osl_alloc_skb(osh, len))) {
 #endif /* CTFPOOL */
 		skb->tail += len;
 		skb->len  += len;
@@ -760,15 +789,16 @@ osl_pktfree(osl_t *osh, void *p, bool send)
 #endif /* CTFMAP */
 
 #ifdef CTFPOOL
-		if (PKTISFAST(osh, skb)) {
-			if (atomic_read(&skb->users) == 1)
-				smp_rmb();
-			else if (!atomic_dec_and_test(&skb->users))
-				goto next_skb;
+        /* foxconn wklin modified, 07/07/2011 */
+        /* add CTFPOOLPTR() check because..
+         * skb->mac_len bit 4 may be set (PKTISFAST()==true) in the stack...*/
+		if (PKTISFAST(osh, skb) && CTFPOOLPTR(osh, skb) && (atomic_read(&skb->users) == 1))
 			osl_pktfastfree(osh, skb);
-		} else
-#endif
+		else {
+#else /* CTFPOOL */
 		{
+#endif /* CTFPOOL */
+
 			if (skb->destructor)
 				/* cannot kfree_skb() on hard IRQ (net/core/skbuff.c) if
 				 * destructor exists
@@ -780,9 +810,6 @@ osl_pktfree(osl_t *osh, void *p, bool send)
 				 */
 				dev_kfree_skb(skb);
 		}
-#ifdef CTFPOOL
-next_skb:
-#endif
 		atomic_dec(&osh->pktalloced);
 		skb = nskb;
 	}
@@ -1144,10 +1171,6 @@ osl_debug_mfree(osl_t *osh, void *addr, uint size, int line, const char* file)
 
 	ASSERT(osh == NULL || osh->magic == OS_HANDLE_MAGIC);
 
-	/* Make function compliant with standard free() */
-	if (addr == NULL)
-		return;
-
 	if (p->size == 0) {
 		printk("osl_debug_mfree: double free on addr %p size %d at line %d file %s\n",
 			addr, size, line, file);
@@ -1254,7 +1277,7 @@ osl_dma_alloc_consistent(osl_t *osh, uint size, uint16 align_bits, uint *alloced
 #ifdef __ARM_ARCH_7A__
 	va = kmalloc(size, GFP_ATOMIC | __GFP_ZERO);
 	if (va)
-		*pap = (ulong)__virt_to_phys((ulong)va);
+		*pap = (ulong)__virt_to_phys(va);
 #else
 	va = pci_alloc_consistent(osh->pdev, size, (dma_addr_t*)pap);
 #endif
@@ -1479,7 +1502,11 @@ osl_pktdup(osl_t *osh, void *skb)
 	 */
 	PKTCTFMAP(osh, skb);
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 36)
+	if ((p = pskb_copy((struct sk_buff *)skb, GFP_ATOMIC)) == NULL)
+#else
 	if ((p = skb_clone((struct sk_buff *)skb, GFP_ATOMIC)) == NULL)
+#endif
 		return NULL;
 
 #ifdef CTFPOOL

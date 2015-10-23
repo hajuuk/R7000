@@ -246,12 +246,6 @@ bcmswap32(uint32 val)
 	return BCMSWAP32(val);
 }
 
-static INLINE uint64
-bcmswap64(uint64 val)
-{
-	return BCMSWAP64(val);
-}
-
 static INLINE uint32
 bcmswap32by16(uint32 val)
 {

@@ -482,18 +482,12 @@ static uint32 boot_partition_size(uint32 flash_phys) {
 #else
 #define FAILSAFE_PARTS 0
 #endif
-#if defined(CONFIG_CRASHLOG)
-#define CRASHLOG_PARTS 1
-#else
-#define CRASHLOG_PARTS 0
-#endif
 /* boot;nvram;kernel;rootfs;empty */
-#define FLASH_PARTS_NUM	(15+MTD_PARTS+PLC_PARTS+FAILSAFE_PARTS+CRASHLOG_PARTS)
+#define FLASH_PARTS_NUM	(15+MTD_PARTS+PLC_PARTS+FAILSAFE_PARTS)
 
 //static struct mtd_partition bcm947xx_flash_parts[FLASH_PARTS_NUM] = {{0}};
 
-static uint lookup_flash_rootfs_offset(struct mtd_info *mtd, int *trx_off, size_t size, 
-                                       uint32 *trx_size)
+static uint lookup_flash_rootfs_offset(struct mtd_info *mtd, int *trx_off, size_t size)
 {
 	struct romfs_super_block *romfsb;
 	struct cramfs_super *cramfsb;
@@ -526,7 +520,6 @@ static uint lookup_flash_rootfs_offset(struct mtd_info *mtd, int *trx_off, size_
 		/* Try looking at TRX header for rootfs offset */
 		if (le32_to_cpu(trx->magic) == TRX_MAGIC) {
 			*trx_off = off;
-			*trx_size = le32_to_cpu(trx->len);
 			if (trx->offsets[1] == 0)
 				continue;
 			/*
@@ -580,10 +573,6 @@ init_mtd_partitions(hndsflash_t *sfl_info, struct mtd_info *mtd, size_t size)
 	uint32 offset = 0;
 	uint rfs_off = 0;
 	uint vmlz_off=0, knl_size;
-	uint32 trx_size;
-#ifdef CONFIG_CRASHLOG
-	char create_crash_partition = 0;
-#endif
 
 #if 0
 	romfsb = (struct romfs_super_block *) buf;
@@ -622,7 +611,7 @@ init_mtd_partitions(hndsflash_t *sfl_info, struct mtd_info *mtd, size_t size)
 	/* foxconn added end, zacker, 08/19/2010 */
 	/* Size of boot */
 
-		rfs_off = lookup_flash_rootfs_offset(mtd, &vmlz_off, size, &trx_size);
+	rfs_off = lookup_flash_rootfs_offset(mtd, &vmlz_off, size);
 //	bcm947xx_parts[0].size = 256 * 1024;
 	bcm947xx_parts[0].size = vmlz_off;
 	/* Size of linux */
@@ -639,16 +628,7 @@ init_mtd_partitions(hndsflash_t *sfl_info, struct mtd_info *mtd, size_t size)
 	bcm947xx_parts[2].offset = rfs_off;
 	bcm947xx_parts[1].size -= (12*0X10000);
 	bcm947xx_parts[2].size -= (12*0X10000);
-#ifdef CONFIG_CRASHLOG
-		if ((bcm947xx_flash_parts[nparts].size - trx_size) >=
-		    ROUNDUP(0x4000, mtd->erasesize)) {
-			bcm947xx_flash_parts[nparts].size -= ROUNDUP(0x4000, mtd->erasesize);
-			create_crash_partition = 1;
-		} else {
-			create_crash_partition = 0;
 	
-  }  
-#endif
 
 	return bcm947xx_parts;
 }
@@ -1030,7 +1010,8 @@ init_nflash_mtd_partitions(hndnand_t *nfl, struct mtd_info *mtd, size_t size)
 		bcm947xx_nflash_parts[0].size = bootsz;
 		/*Foxconn modify end by Hank 10/24/2012*/
 		bcm947xx_nflash_parts[0].offset = top;
-		bcm947xx_nflash_parts[0].mask_flags = MTD_WRITEABLE; /* forces on read only */
+		//bcm947xx_nflash_parts[0].mask_flags = MTD_WRITEABLE; /* forces on read only */
+		bcm947xx_nflash_parts[0].mask_flags = 0;
 		offset = bcm947xx_nflash_parts[0].size;
 
 		/*Foxconn modify start by Hank 10/24/2012*/
@@ -1261,45 +1242,3 @@ static int __init cfenenad_parser_init(void)
 module_init(cfenenad_parser_init);
 
 #endif /* CONFIG_MTD_NFLASH */
-
-#ifdef CONFIG_CRASHLOG
-extern char *get_logbuf(void);
-extern char *get_logsize(void);
-
-void nvram_store_crash(void)
-{
-	struct mtd_info *mtd = NULL;
-	int i;
-	char *buffer;
-	unsigned char buf[16];
-	int buf_len;
-	int len;
-
-	printk("Trying to store crash\n");
-
-	mtd = get_mtd_device_nm("crash");
-
-	if (!IS_ERR(mtd)) {
-
-		buf_len = get_logsize();
-		buffer = get_logbuf();
-		if (buf_len > mtd->size)
-			buf_len = mtd->size;
-
-		memset(buf,0,sizeof(buf));
-		mtd->read(mtd, 0, sizeof(buf), &len, buf);
-		for (len=0;len<sizeof(buf);len++)
-			if (buf[len]!=0xff) {
-				printk("Could not save crash, partition not clean\n");
-				break;
-			}
-		if (len == sizeof(buf)) {
-			mtd->write(mtd, 0, buf_len, &len, buffer);
-			if (buf_len == len)
-				printk("Crash Saved\n");
-		}
-	} else {
-		printk("Could not find NVRAM partition\n");
-	}
-}
-#endif /* CONFIG_CRASHLOG */

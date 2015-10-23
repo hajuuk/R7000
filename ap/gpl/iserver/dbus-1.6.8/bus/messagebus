@@ -7,7 +7,7 @@
 #               and other messages. See http://www.freedesktop.org/software/dbus/
 #
 # processname: dbus-daemon
-# pidfile: /usr/var/run/messagebus.pid
+# pidfile: /var/messagebus.pid
 #
 ### BEGIN INIT INFO
 # Provides: messagebus
@@ -55,7 +55,7 @@ stop() {
     echo
     if [ $RETVAL -eq 0 ]; then
         rm -f /usr/var/lock/subsys/$servicename
-        rm -f /usr/var/run/messagebus.pid
+        rm -f /var/messagebus.pid
     fi
 }
 

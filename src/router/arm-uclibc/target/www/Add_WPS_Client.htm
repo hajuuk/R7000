@@ -34,12 +34,12 @@
 
     function showHelpIframe() {
 
+
         var imgSrc=document.getElementById('help-button');
 
         if(imgSrc.src.search("up")>=0)
         {
             $(".help-frame-div").show();
-            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
             imgSrc.src="img/helparrowdown-icon.gif";
         }
         else
@@ -48,12 +48,9 @@
             imgSrc.src="img/helparrowup-icon.gif";
             setTimeout(setHelpIframeVisible,500);
         }
-        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
-           (navigator.appVersion.indexOf("MSIE 9")==-1))
              change_size();
 
     }
-
     function moveToHTMLend()
     {
         window.location.href='#helpframe-anchor';
@@ -94,15 +91,15 @@
 //--></script></head>
 
 <body  onload="change_size();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%60%>">
-<img class="body-image" src="<%61%>">
+<img class="cover-image" src="<%59%>">
+<img class="body-image" src="<%60%>">
 <div id="full-page-container">
 
 <div class=Section1>
 <form id="target"  method=Get>
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="<%62%>">
-<div class="subhead2"> <st1:place w:st="on"><%1036%><o:p></o:p></div>
+<img class="subtop-image" src="<%61%>">
+<div class="subhead2"> <st1:place w:st="on"><%1030%><o:p></o:p></div>
 <table  border=0    style="height:370px"  class="subhead2-table">
 
 
@@ -113,15 +110,15 @@
 
  <tr></tr>
  <tr><p>
-  <td colspan="2" ><b><%2196%></b></td>
+  <td colspan="2" ><b><%2182%></b></td>
   <o:p></o:p></p>
  </tr>
 
  <tr>
   <p class=MsoNormal>
-  <td colspan="2" ><br><%2197%></td></tr>
- <tr><td colspan="2" ><%2198%></td></tr>
- <tr><td colspan="2" ><%2199%></td>
+  <td colspan="2" ><br><%2183%></td></tr>
+ <tr><td colspan="2" ><%2184%></td></tr>
+ <tr><td colspan="2" ><%2185%></td>
   <o:p></o:p></p>
  </tr>
  <tr></tr>
@@ -130,7 +127,7 @@
  <tr>
   <td colspan=2>
   <p class=MsoNormal align=center>
-  &nbsp;&nbsp;&nbsp;<button TYPE="RESET" value="<%1358%>" NAME="submit" class="button-rule" onClick="buttonClick(this,'<%1358%>');location.href='WPS.htm'"><span class="roundleft_button">&nbsp;&nbsp; <%1358%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+  &nbsp;&nbsp;&nbsp;<button TYPE="RESET" value="<%1352%>" NAME="submit" class="button-rule" onClick="buttonClick(this,'<%1352%>');location.href='WPS.htm'"><span class="roundleft_button">&nbsp;&nbsp; <%1352%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
   <o:p></o:p></p>
   </td>
  </tr>
@@ -140,10 +137,10 @@
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%231%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%233%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%232%> </span>
       </div>
 
 
