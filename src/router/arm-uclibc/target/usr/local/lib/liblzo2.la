@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/disk2/antony/R7000/V1.0.3.60_1.1.27/src/router/arm-uclibc/target/usr/local/lib'
+libdir='/home/builder/project/R7000/V1.0.3.68_1.1.31/src/router/arm-uclibc/target/usr/local/lib'

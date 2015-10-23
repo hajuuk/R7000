@@ -2479,6 +2479,7 @@ main_loop(void)
     /* foxconn wklin added start, 10/22/2008 */
 	sysinit();
 
+	eval("landown");
 	/* Add loopback */
 	config_loopback();
 	/* Restore defaults if necessary */

@@ -1,2 +1,2 @@
-0x00000000	FindConnByHash	/disk2/antony/R7000/V1.0.3.60_1.1.27/ap/acos/acos_nat/acos_nat	EXPORT_SYMBOL
-0x00000000	CalcUdpChecksum	/disk2/antony/R7000/V1.0.3.60_1.1.27/ap/acos/acos_nat/acos_nat	EXPORT_SYMBOL
+0x00000000	FindConnByHash	/home/builder/project/R7000/V1.0.3.68_1.1.31/ap/acos/acos_nat/acos_nat	EXPORT_SYMBOL
+0x00000000	CalcUdpChecksum	/home/builder/project/R7000/V1.0.3.68_1.1.31/ap/acos/acos_nat/acos_nat	EXPORT_SYMBOL

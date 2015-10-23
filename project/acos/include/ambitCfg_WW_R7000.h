@@ -47,9 +47,9 @@
 
 /*formal version control*/
 #define AMBIT_HARDWARE_VERSION     "U12H270T00"
-#define AMBIT_SOFTWARE_VERSION     "V1.0.3.60"
-#define AMBIT_UI_VERSION           "1.1.27"
-#define STRING_TBL_VERSION         "1.0.3.60_2.1.38.1"
+#define AMBIT_SOFTWARE_VERSION     "V1.0.3.68"
+#define AMBIT_UI_VERSION           "1.1.31"
+#define STRING_TBL_VERSION         "1.0.3.68_2.1.38.1"
 
 #define AMBIT_PRODUCT_NAME          "R7000"
 #define AMBIT_PRODUCT_DESCRIPTION   "802.11ac Dual Band Gigabit Wireless Router R7000"
