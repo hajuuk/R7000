@@ -3,13 +3,13 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" href="<%2495%>">	
+	<link rel="stylesheet" href="<%2280%>">	
 	<title>NETGEAR Genie</title>
 	
 	
 </head>
 <script >
-var mode = <%2514%>
+var mode = <%2630%>
 function submit()
 {
     document.forms["target"].submit();
@@ -17,7 +17,7 @@ function submit()
 
 function clickHere()
 {
-    var mode = <%2515%>;
+    var mode = <%2283%>;
     if(mode == "1"){
         window.open ('start.htm','_blank','fullscreen=yes,toolbar=yes,locaiton=yes');
     }else{
@@ -29,67 +29,84 @@ function clickHere()
     }
 
 }
+
+function showPassphrase()
+{
+    if(document.forms[0].wireless_2g_security.value==document.forms[0].wireless_5g_security.value)
+         document.getElementById("secuirty_2g").style.display="none";
+    else
+         document.getElementById("secuirty_2g").style.display="block";
+    	
+}
+
 </script>
-<body style="background-color:#ffffff">
+<body style="background-color:#ffffff" onload="showPassphrase();">
 <form id="target"  name="formname" method="POST" action="congratulations.cgi" target="_parent">
 	<table border="0" cellpadding="0" cellspacing="3"  width="99%">
 	<tr style="height:10px">
 		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>&nbsp;</td><td class="centerTd"><h2><%2516%></h2></td><td>&nbsp;</td>
+		<td>&nbsp;</td><td class="centerTd"><h2><%2284%></h2></td><td>&nbsp;</td>
         <tr>
 	<tr>
-		<td>&nbsp;</td><td class="textRow centerTd"><%2517%></td><td>&nbsp;</td>
+		<td>&nbsp;</td><td class="textRow centerTd"><%2285%></td><td>&nbsp;</td>
         </tr>
 	<tr style="height:10px">
 		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
 	</tr>
         <tr>
 		<td>&nbsp;</td>
-                <td class="textRow centerTd" style="<%2518%>"><span><%2519%></span><span style="text-decoration:underline;font-weight:bold;cursor:pointer;" onClick="window.open ('genie_redirect_successpage2.htm','_blank','');return false;"><%2520%></span><span><%2521%></span></td>
-                <td>&nbsp;</td>
-        <tr>
-        <tr>
-		<td>&nbsp;</td><td class="textRow centerTd" style="<%2522%>"><%2523%><span title="<%2524%>" style="text-decoration:underline;"><%2525%></span>.</td><td>&nbsp;</td>
+		<td class="textRow centerTd" style="<%2286%>"><%2287%></td>
+		<td>&nbsp;</td>
         <tr>
 	<tr>
 		<td>&nbsp;</td><td></td><td>&nbsp;</td>
         </tr>
 	<tr>
-        	<td>&nbsp;</td><td class="textRow centerTd" style="<%2522%>"><span style="display:-moz-inline-box;display:inline-block;width:300px;">2.4GHz <%2526%></span><span ><b><%1423%></span></b></td><td>&nbsp;</td>
+        	<td>&nbsp;</td><td class="textRow centerTd" style="<%2286%>"><span style="display:-moz-inline-box;display:inline-block;width:300px;"><%2288%></span><span ><b><%1436%></span></b></td><td>&nbsp;</td>
 	</tr>	
-	<%1205%>
-	<tr>
-        	<td>&nbsp;</td>
-		<td class="textRow centerTd" style="<%2527%>"><span style="display:-moz-inline-box;display:inline-block;width:300px;">5GHz <%2526%></span><span><b><%2528%></b></span>
-		</td><td>&nbsp;</td>
-	</tr>
-        <%1222%>	
+  </table>
+  <div id="secuirty_2g" style="display:none">
+	<table border="0" cellpadding="0" cellspacing="3"  width="99%">
+
 	<tr>	
 		<td>&nbsp;</td>	
-		<td class="textRow centerTd" style="<%2522%>"><span style="display:-moz-inline-box;display:inline-block;width:300px;"><%2529%><span title="<%2530%>" style="text-decoration:underline;"> 2.4G  <%2531%></span></span><span><b><%2532%></span></b></td>
+		<td class="textRow centerTd" style="<%2286%>"><span style="display:-moz-inline-box;display:inline-block;width:300px;"><%2294%><span title="<%2295%>"><%2296%></span></span><span><b><%2290%></span></b></td>
 		<td>&nbsp;</td>
 	</tr>
-	<%1205%>
+  </table>  
+  </div>
+	<%1218%>
+	<table border="0" cellpadding="0" cellspacing="3"  width="99%">
+	<tr>
+        	<td>&nbsp;</td>
+		<td class="textRow centerTd" style="<%2291%>"><span style="display:-moz-inline-box;display:inline-block;width:300px;">5GHz <%2631%></span><span><b><%2293%></b></span></td>
+		<td>&nbsp;</td>
+	</tr>
 	<tr>
                 <td>&nbsp;</td>
-                <td class="textRow centerTd" style="<%2522%>"><span style="display:-moz-inline-box;display:inline-block;width:300px;"><%2529%><span title="<%2530%>" style="text-decoration:underline;"> 5G  <%2531%></span></span><span><b><%2533%></span></b></td>
+                <td class="textRow centerTd" style="<%2286%>"><span style="display:-moz-inline-box;display:inline-block;width:300px;"><%2294%><span title="<%2295%>"><%2296%></span></span><span><b><%2297%></span></b></td>
                  <td>&nbsp;</td>
 	</tr>
-	<%1222%> 
+  </table>
+	<%1235%> 
+	<table border="0" cellpadding="0" cellspacing="3"  width="99%">
 	<tr>
 		<td>&nbsp;</td><td class="textRow centerTd" style="visibility:hidden">&nbsp;</td><td>&nbsp;</td>
 	</tr>
         <tr>
 		<td>&nbsp;</td>
         	<td class="textRow centerTd">		
-			<button class = "purpleBtn2"  onclick="window.print();return false;"><span><%2534%> &nbsp;</span></button>
-			<span style="display:-moz-inline-box;display:inline-block;width:20px;"></span>			
-			<button class = "greenBtn2" onClick="window.open ('genie_redirect_successpage.htm','_blank','');return false;"><span><%2535%>&nbsp;</span></button>
+			<button class = "purpleBtn2"  onclick="window.print();return false;"><span>Print this &nbsp;&nbsp;&nbsp;</span></button>
+			<span style="display:-moz-inline-box;display:inline-block;width:300px;"></span>
+<button class = "purpleBtn2"  onclick="window.location.href='genie_download.htm';return false;"><span><%2298%> &nbsp;&nbsp;&nbsp;</span></button>
 		</td>
 		<td>&nbsp;</td>
 	</tr>
+	</table>
+    <input type="hidden" name="wireless_2g_security" value="<%2260%>" />
+    <input type="hidden" name="wireless_5g_security" value="<%2261%>" />
 </form>
 </body>
 </html>

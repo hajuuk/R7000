@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" xmlns:intf="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="urn:com.leafnets.ds.peer" xmlns:tns2="urn:com.leafnets.ds" xmlns:tns3="urn:com.leafnets.ds.notification" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="urn:com.leafnets.ds" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="urn:com.leafnets.ds.notification"/>
+   <import namespace="urn:com.leafnets.ds.peer"/>
+   <import namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="Contact">
+    <sequence>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="fname" nillable="true" type="xsd:string"/>
+     <element name="lname" nillable="true" type="xsd:string"/>
+     <element name="userStatus" nillable="true" type="xsd:int"/>
+     <element name="username" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Network">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:long"/>
+     <element name="members" nillable="true" type="impl:ArrayOf_xsd_anyType"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="owner" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Member">
+    <sequence>
+     <element name="status" nillable="true" type="xsd:int"/>
+     <element name="username" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="User">
+    <sequence>
+     <element name="password" nillable="true" type="xsd:string"/>
+     <element name="status" nillable="true" type="xsd:int"/>
+     <element name="username" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="IPAddress">
+    <sequence>
+     <element name="ip" nillable="true" type="xsd:string"/>
+     <element name="username" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="IPAttr">
+    <sequence>
+     <element name="lvalue" nillable="true" type="xsd:long"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="value" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="SystemNotification">
+    <sequence>
+     <element name="active" nillable="true" type="xsd:int"/>
+     <element name="description" nillable="true" type="xsd:string"/>
+     <element name="enddate" nillable="true" type="xsd:dateTime"/>
+     <element name="id" nillable="true" type="xsd:long"/>
+     <element name="reminder" nillable="true" type="xsd:string"/>
+     <element name="startdate" nillable="true" type="xsd:dateTime"/>
+    </sequence>
+   </complexType>
+   <complexType name="UserAttr">
+    <sequence>
+     <element name="lvalue" nillable="true" type="xsd:long"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="value" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="UserStats">
+    <sequence>
+     <element name="numActive" nillable="true" type="xsd:long"/>
+     <element name="numSignup" nillable="true" type="xsd:long"/>
+     <element name="numTotal" nillable="true" type="xsd:long"/>
+    </sequence>
+   </complexType>
+   <complexType name="Usert">
+    <complexContent>
+     <extension base="tns2:User">
+      <sequence>
+       <element name="timestamp" nillable="true" type="xsd:dateTime"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="urn:com.leafnets.ds.notification"/>
+   <import namespace="urn:com.leafnets.ds"/>
+   <import namespace="urn:com.leafnets.ds.peer"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_xsd_anyType">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:anyType[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://xml.apache.org/xml-soap" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="urn:com.leafnets.ds.notification"/>
+   <import namespace="urn:com.leafnets.ds"/>
+   <import namespace="urn:com.leafnets.ds.peer"/>
+   <import namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="Vector">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="urn:com.leafnets.ds.notification" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="urn:com.leafnets.ds"/>
+   <import namespace="urn:com.leafnets.ds.peer"/>
+   <import namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType abstract="true" name="Notification">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:long"/>
+     <element name="type" nillable="true" type="xsd:int"/>
+     <element name="username" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType abstract="true" name="NetworkNotification">
+    <complexContent>
+     <extension base="tns3:Notification">
+      <sequence>
+       <element name="network" nillable="true" type="xsd:long"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType abstract="true" name="NetworkMemberNotification">
+    <complexContent>
+     <extension base="tns3:NetworkNotification">
+      <sequence>
+       <element name="member" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="AddNetworkMemberNotification">
+    <complexContent>
+     <extension base="tns3:NetworkMemberNotification">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="DeclineNetworkInviteNotification">
+    <complexContent>
+     <extension base="tns3:NetworkMemberNotification">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="DeleteNetworkMemberNotification">
+    <complexContent>
+     <extension base="tns3:NetworkMemberNotification">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="DeleteNetworkNotification">
+    <complexContent>
+     <extension base="tns3:NetworkNotification">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="InviteNetworkNotification">
+    <complexContent>
+     <extension base="tns3:NetworkNotification">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="NotificationIndex">
+    <complexContent>
+     <extension base="tns3:Notification">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType abstract="true" name="NotificationType">
+    <sequence/>
+   </complexType>
+   <complexType name="SignupNetworkMemberNotification">
+    <complexContent>
+     <extension base="tns3:NetworkMemberNotification">
+      <sequence>
+       <element name="prevmember" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="UpdateMemberContactNotification">
+    <complexContent>
+     <extension base="tns3:NetworkMemberNotification">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="urn:com.leafnets.ds.peer" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="urn:com.leafnets.ds.notification"/>
+   <import namespace="urn:com.leafnets.ds"/>
+   <import namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="PeerAccess">
+    <sequence>
+     <element name="access" nillable="true" type="xsd:dateTime"/>
+     <element name="updatenum" nillable="true" type="xsd:long"/>
+     <element name="username" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="PeerAssist">
+    <sequence>
+     <element name="addr" nillable="true" type="xsd:string"/>
+     <element name="id" nillable="true" type="xsd:long"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="port" nillable="true" type="xsd:int"/>
+     <element name="state" nillable="true" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="PeerAssistAttr">
+    <sequence>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="timestamp" nillable="true" type="xsd:dateTime"/>
+     <element name="value" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType abstract="true" name="PeerEvent">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:long"/>
+     <element name="timestamp" nillable="true" type="xsd:dateTime"/>
+     <element name="type" nillable="true" type="xsd:int"/>
+     <element name="username" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="PeerConnectionEvent">
+    <complexContent>
+     <extension base="tns1:PeerEvent">
+      <sequence>
+       <element name="cndir" nillable="true" type="xsd:int"/>
+       <element name="cntry" nillable="true" type="xsd:int"/>
+       <element name="connection" nillable="true" type="xsd:long"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PeerConnectBusyEvent">
+    <complexContent>
+     <extension base="tns1:PeerConnectionEvent">
+      <sequence>
+       <element name="peer" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PeerConnectErrorEvent">
+    <complexContent>
+     <extension base="tns1:PeerConnectionEvent">
+      <sequence>
+       <element name="errorstr" nillable="true" type="xsd:string"/>
+       <element name="peer" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PeerConnectEvent">
+    <complexContent>
+     <extension base="tns1:PeerConnectionEvent">
+      <sequence>
+       <element name="ip" nillable="true" type="xsd:string"/>
+       <element name="peer" nillable="true" type="xsd:string"/>
+       <element name="port" nillable="true" type="xsd:int"/>
+       <element name="role" nillable="true" type="xsd:int"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PeerConnectRejectEvent">
+    <complexContent>
+     <extension base="tns1:PeerConnectionEvent">
+      <sequence>
+       <element name="peer" nillable="true" type="xsd:string"/>
+       <element name="rejectstr" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PeerConnectRequestEvent">
+    <complexContent>
+     <extension base="tns1:PeerConnectionEvent">
+      <sequence>
+       <element name="appData" nillable="true" type="xsd:string"/>
+       <element name="cntype" nillable="true" type="xsd:int"/>
+       <element name="peer" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PeerConnectedEvent">
+    <complexContent>
+     <extension base="tns1:PeerConnectionEvent">
+      <sequence>
+       <element name="peer" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PeerConnection">
+    <sequence>
+     <element name="assistId" nillable="true" type="xsd:long"/>
+     <element name="cndir" nillable="true" type="xsd:int"/>
+     <element name="cntry" nillable="true" type="xsd:int"/>
+     <element name="cntype" nillable="true" type="xsd:int"/>
+     <element name="connectStatus" nillable="true" type="xsd:int"/>
+     <element name="id" nillable="true" type="xsd:long"/>
+     <element name="info" nillable="true" type="impl:ArrayOf_xsd_anyType"/>
+     <element name="initiator" nillable="true" type="xsd:string"/>
+     <element name="state" nillable="true" type="xsd:int"/>
+     <element name="timestamp" nillable="true" type="xsd:dateTime"/>
+    </sequence>
+   </complexType>
+   <complexType name="PeerConnectionConnectStatus">
+    <sequence/>
+   </complexType>
+   <complexType name="PeerConnectionConnectedStatus">
+    <sequence/>
+   </complexType>
+   <complexType name="PeerConnectionInfo">
+    <sequence>
+     <element name="connectedStatus" nillable="true" type="xsd:int"/>
+     <element name="inip" nillable="true" type="xsd:string"/>
+     <element name="inport" nillable="true" type="xsd:int"/>
+     <element name="ip" nillable="true" type="xsd:string"/>
+     <element name="port" nillable="true" type="xsd:int"/>
+     <element name="username" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="PeerConnectionState">
+    <sequence/>
+   </complexType>
+   <complexType name="PeerConnectionStats">
+    <sequence>
+     <element name="numFormed" nillable="true" type="xsd:long"/>
+     <element name="numOpened" nillable="true" type="xsd:long"/>
+     <element name="numTotal" nillable="true" type="xsd:long"/>
+    </sequence>
+   </complexType>
+   <complexType abstract="true" name="PeerConnectionType">
+    <sequence/>
+   </complexType>
+   <complexType name="PeerDisconnectedEvent">
+    <complexContent>
+     <extension base="tns1:PeerConnectionEvent">
+      <sequence>
+       <element name="peer" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PeerEventIndex">
+    <complexContent>
+     <extension base="tns1:PeerEvent">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType abstract="true" name="PeerEventType">
+    <sequence/>
+   </complexType>
+   <complexType name="PeerRegister">
+    <sequence>
+     <element name="timestamp" nillable="true" type="xsd:dateTime"/>
+     <element name="updatenum" nillable="true" type="xsd:long"/>
+     <element name="username" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="PeerSynPktEvent">
+    <complexContent>
+     <extension base="tns1:PeerConnectionEvent">
+      <sequence>
+       <element name="packet" nillable="true" type="xsd:base64Binary"/>
+       <element name="peer" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getSystemNotificationsRequest">
+
+   </wsdl:message>
+
+   <wsdl:message name="changePasswordResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="updateContactRequest">
+
+      <wsdl:part name="in0" type="tns2:Contact"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSystemNotificationsResponse">
+
+      <wsdl:part name="getSystemNotificationsReturn" type="impl:ArrayOf_xsd_anyType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteNetworkMemberResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="changePasswordRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="leaveNetworkResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteUserResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="inviteNetworkMemberByUserRequest">
+
+      <wsdl:part name="in0" type="xsd:long"/>
+
+      <wsdl:part name="in1" type="tns2:User"/>
+
+      <wsdl:part name="in2" type="tns2:Contact"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="inviteNetworkMemberResponse">
+
+      <wsdl:part name="inviteNetworkMemberReturn" type="tns2:Member"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNotificationsResponse">
+
+      <wsdl:part name="getNotificationsReturn" type="impl:ArrayOf_xsd_anyType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addNetworkResponse">
+
+      <wsdl:part name="addNetworkReturn" type="tns2:Network"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNetworkRequest">
+
+      <wsdl:part name="in0" type="xsd:long"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addNetworkRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+      <wsdl:part name="in2" type="impl:ArrayOf_xsd_anyType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteNetworkResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteNetworkMemberRequest">
+
+      <wsdl:part name="in0" type="xsd:long"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="vrfyLoginResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getNotificationsRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="acceptNetworkInviteRequest">
+
+      <wsdl:part name="in0" type="xsd:long"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNetworksResponse">
+
+      <wsdl:part name="getNetworksReturn" type="impl:ArrayOf_xsd_anyType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="inviteNetworkMemberByEmailRequest">
+
+      <wsdl:part name="in0" type="xsd:long"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getContactRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="lookupContactsResponse">
+
+      <wsdl:part name="lookupContactsReturn" type="impl:ArrayOf_xsd_anyType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getContactResponse">
+
+      <wsdl:part name="getContactReturn" type="tns2:Contact"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateContactResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="inviteNetworkMemberByUserResponse">
+
+      <wsdl:part name="inviteNetworkMemberByUserReturn" type="tns2:Member"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="lookupContactsRequest">
+
+      <wsdl:part name="in0" type="tns2:Contact"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="declineNetworkInviteResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getNetworkResponse">
+
+      <wsdl:part name="getNetworkReturn" type="tns2:Network"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteUserRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="inviteNetworkMemberRequest">
+
+      <wsdl:part name="in0" type="xsd:long"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="leaveNetworkRequest">
+
+      <wsdl:part name="in0" type="xsd:long"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="declineNetworkInviteRequest">
+
+      <wsdl:part name="in0" type="xsd:long"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="inviteNetworkMemberByEmailResponse">
+
+      <wsdl:part name="inviteNetworkMemberByEmailReturn" type="tns2:Member"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNetworksRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="acceptNetworkInviteResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteNetworkRequest">
+
+      <wsdl:part name="in0" type="xsd:long"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="vrfyLoginRequest">
+
+   </wsdl:message>
+
+   <wsdl:portType name="LeafNetsWebService">
+
+      <wsdl:operation name="vrfyLogin">
+
+         <wsdl:input message="impl:vrfyLoginRequest" name="vrfyLoginRequest"/>
+
+         <wsdl:output message="impl:vrfyLoginResponse" name="vrfyLoginResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteUser" parameterOrder="in0">
+
+         <wsdl:input message="impl:deleteUserRequest" name="deleteUserRequest"/>
+
+         <wsdl:output message="impl:deleteUserResponse" name="deleteUserResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changePassword" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:changePasswordRequest" name="changePasswordRequest"/>
+
+         <wsdl:output message="impl:changePasswordResponse" name="changePasswordResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="updateContact" parameterOrder="in0">
+
+         <wsdl:input message="impl:updateContactRequest" name="updateContactRequest"/>
+
+         <wsdl:output message="impl:updateContactResponse" name="updateContactResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getContact" parameterOrder="in0">
+
+         <wsdl:input message="impl:getContactRequest" name="getContactRequest"/>
+
+         <wsdl:output message="impl:getContactResponse" name="getContactResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="lookupContacts" parameterOrder="in0">
+
+         <wsdl:input message="impl:lookupContactsRequest" name="lookupContactsRequest"/>
+
+         <wsdl:output message="impl:lookupContactsResponse" name="lookupContactsResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addNetwork" parameterOrder="in0 in1 in2">
+
+         <wsdl:input message="impl:addNetworkRequest" name="addNetworkRequest"/>
+
+         <wsdl:output message="impl:addNetworkResponse" name="addNetworkResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteNetwork" parameterOrder="in0">
+
+         <wsdl:input message="impl:deleteNetworkRequest" name="deleteNetworkRequest"/>
+
+         <wsdl:output message="impl:deleteNetworkResponse" name="deleteNetworkResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inviteNetworkMember" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:inviteNetworkMemberRequest" name="inviteNetworkMemberRequest"/>
+
+         <wsdl:output message="impl:inviteNetworkMemberResponse" name="inviteNetworkMemberResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inviteNetworkMemberByEmail" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:inviteNetworkMemberByEmailRequest" name="inviteNetworkMemberByEmailRequest"/>
+
+         <wsdl:output message="impl:inviteNetworkMemberByEmailResponse" name="inviteNetworkMemberByEmailResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inviteNetworkMemberByUser" parameterOrder="in0 in1 in2">
+
+         <wsdl:input message="impl:inviteNetworkMemberByUserRequest" name="inviteNetworkMemberByUserRequest"/>
+
+         <wsdl:output message="impl:inviteNetworkMemberByUserResponse" name="inviteNetworkMemberByUserResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="acceptNetworkInvite" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:acceptNetworkInviteRequest" name="acceptNetworkInviteRequest"/>
+
+         <wsdl:output message="impl:acceptNetworkInviteResponse" name="acceptNetworkInviteResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="declineNetworkInvite" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:declineNetworkInviteRequest" name="declineNetworkInviteRequest"/>
+
+         <wsdl:output message="impl:declineNetworkInviteResponse" name="declineNetworkInviteResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteNetworkMember" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:deleteNetworkMemberRequest" name="deleteNetworkMemberRequest"/>
+
+         <wsdl:output message="impl:deleteNetworkMemberResponse" name="deleteNetworkMemberResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="leaveNetwork" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:leaveNetworkRequest" name="leaveNetworkRequest"/>
+
+         <wsdl:output message="impl:leaveNetworkResponse" name="leaveNetworkResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNetworks" parameterOrder="in0">
+
+         <wsdl:input message="impl:getNetworksRequest" name="getNetworksRequest"/>
+
+         <wsdl:output message="impl:getNetworksResponse" name="getNetworksResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNetwork" parameterOrder="in0">
+
+         <wsdl:input message="impl:getNetworkRequest" name="getNetworkRequest"/>
+
+         <wsdl:output message="impl:getNetworkResponse" name="getNetworkResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNotifications" parameterOrder="in0">
+
+         <wsdl:input message="impl:getNotificationsRequest" name="getNotificationsRequest"/>
+
+         <wsdl:output message="impl:getNotificationsResponse" name="getNotificationsResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSystemNotifications">
+
+         <wsdl:input message="impl:getSystemNotificationsRequest" name="getSystemNotificationsRequest"/>
+
+         <wsdl:output message="impl:getSystemNotificationsResponse" name="getSystemNotificationsResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="LeafNetsWebServiceSoapBinding" type="impl:LeafNetsWebService">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="vrfyLogin">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="vrfyLoginRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="vrfyLoginResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteUserRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteUserResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changePassword">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="changePasswordRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="changePasswordResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="updateContact">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateContactRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateContactResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getContact">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getContactRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getContactResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="lookupContacts">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="lookupContactsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="lookupContactsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addNetwork">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addNetworkRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addNetworkResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteNetwork">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteNetworkRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteNetworkResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inviteNetworkMember">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="inviteNetworkMemberRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="inviteNetworkMemberResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inviteNetworkMemberByEmail">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="inviteNetworkMemberByEmailRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="inviteNetworkMemberByEmailResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="inviteNetworkMemberByUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="inviteNetworkMemberByUserRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="inviteNetworkMemberByUserResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="acceptNetworkInvite">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="acceptNetworkInviteRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="acceptNetworkInviteResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="declineNetworkInvite">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="declineNetworkInviteRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="declineNetworkInviteResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteNetworkMember">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteNetworkMemberRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteNetworkMemberResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="leaveNetwork">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="leaveNetworkRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="leaveNetworkResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNetworks">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getNetworksRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getNetworksResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNetwork">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getNetworkRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getNetworkResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNotifications">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getNotificationsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getNotificationsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSystemNotifications">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSystemNotificationsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSystemNotificationsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="LeafNetsWebServiceService">
+
+      <wsdl:port binding="impl:LeafNetsWebServiceSoapBinding" name="LeafNetsWebService">
+
+         <wsdlsoap:address location="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

@@ -1,0 +1,141 @@
+Missing support for 72 types
+xmlAutomataStatePtr: 13 : xmlAutomataGetInitState xmlAutomataNewAllTrans xmlAutomataNewCountTrans xmlAutomataNewCountTrans2 xmlAutomataNewCountedTrans ...
+xmlStructuredErrorFunc: 7 : xmlRelaxNGSetParserStructuredErrors xmlRelaxNGSetValidStructuredErrors xmlSchematronSetValidStructuredErrors xmlSetStructuredErrorFunc xmlTextReaderSetStructuredErrorHandler ...
+xmlExpNodePtr: 7 : xmlExpExpDerive xmlExpNewAtom xmlExpNewOr xmlExpNewRange xmlExpNewSeq ...
+xmlSchemaValPtr: 5 : xmlSchemaCopyValue xmlSchemaNewNOTATIONValue xmlSchemaNewQNameValue xmlSchemaNewStringValue xmlSchemaValueGetNext
+xmlXPathFunction: 4 : xmlXPathFunctionLookup xmlXPathFunctionLookupNS xmlXPathRegisterFunc xmlXPathRegisterFuncNS
+xmlCharEncodingOutputFunc: 4 : xmlNewCharEncodingHandler xmlOutputBufferWriteEscape xmlSaveSetAttrEscape xmlSaveSetEscape
+xmlCatalogPtr: 3 : xmlLoadACatalog xmlLoadSGMLSuperCatalog xmlNewCatalog
+xmlSchematronParserCtxtPtr: 3 : xmlSchematronNewDocParserCtxt xmlSchematronNewMemParserCtxt xmlSchematronNewParserCtxt
+xmlURIPtr: 3 : xmlCreateURI xmlParseURI xmlParseURIRaw
+xmlCharEncodingHandlerPtr: 3 : xmlFindCharEncodingHandler xmlGetCharEncodingHandler xmlNewCharEncodingHandler
+xmlListPtr: 3 : xmlListCreate xmlListDup xmlGetRefs
+xmlHashTablePtr: 3 : xmlHashCopy xmlHashCreate xmlHashCreateDict
+xmlSaveCtxtPtr: 3 : xmlSaveToBuffer xmlSaveToFd xmlSaveToFilename
+xmlRegexpPtr: 2 : xmlAutomataCompile xmlRegexpCompile
+xmlHashScannerFull: 2 : xmlHashScanFull xmlHashScanFull3
+xmlEnumerationPtr: 2 : xmlCopyEnumeration xmlCreateEnumeration
+xmlExternalEntityLoader: 2 : xmlGetExternalEntityLoader xmlSetExternalEntityLoader
+xmlLocationSetPtr: 2 : xmlXPtrLocationSetCreate xmlXPtrLocationSetMerge
+size_t: 2 : xmlBufferCreateSize xmlBufferCreateStatic
+xmlHashScanner: 2 : xmlHashScan xmlHashScan3
+xmlRelaxNGValidityErrorFunc: 2 : xmlRelaxNGSetParserErrors xmlRelaxNGSetValidErrors
+xmlListWalker: 2 : xmlListReverseWalk xmlListWalk
+xmlLinkPtr: 2 : xmlListEnd xmlListFront
+xmlSchemaValidityErrorFunc: 2 : xmlSchemaSetParserErrors xmlSchemaSetValidErrors
+xmlXPathCompExprPtr: 2 : xmlXPathCompile xmlXPathCtxtCompile
+xmlErrorPtr: 2 : xmlCtxtGetLastError xmlGetLastError
+xmlEntitiesTablePtr: 2 : xmlCopyEntitiesTable xmlCreateEntitiesTable
+xmlSchemaValidityWarningFunc: 2 : xmlSchemaSetParserErrors xmlSchemaSetValidErrors
+char_ptr: 2 : xmlURIUnescapeString xmlParserGetDirectory
+xmlXPathContextPtr: 2 : xmlXPathNewContext xmlXPtrNewContext
+xmlNotationPtr: 2 : xmlAddNotationDecl xmlGetDtdNotationDesc
+xmlRelaxNGValidityWarningFunc: 2 : xmlRelaxNGSetParserErrors xmlRelaxNGSetValidErrors
+xmlSchemaSAXPlugPtr: 1 : xmlSchemaSAXPlug
+xmlGenericErrorFunc: 1 : xmlSetGenericErrorFunc
+xmlRegExecCallbacks: 1 : xmlRegNewExecCtxt
+xmlModulePtr: 1 : xmlModuleOpen
+xmlElementTablePtr: 1 : xmlCopyElementTable
+xmlListDeallocator: 1 : xmlListCreate
+xmlEntityReferenceFunc: 1 : xmlSetEntityReferenceFunc
+xmlTextReaderErrorFunc: 1 : xmlTextReaderSetErrorHandler
+xmlNsPtr_ptr: 1 : xmlGetNsList
+xmlXPathFuncLookupFunc: 1 : xmlXPathRegisterFuncLookup
+xmlXIncludeCtxtPtr: 1 : xmlXIncludeNewContext
+ftpListCallback: 1 : xmlNanoFTPList
+xmlSchematronValidCtxtPtr: 1 : xmlSchematronNewValidCtxt
+xmlValidCtxtPtr: 1 : xmlNewValidCtxt
+xmlAutomataPtr: 1 : xmlNewAutomata
+xmlDOMWrapCtxtPtr: 1 : xmlDOMWrapNewCtxt
+xmlNotationTablePtr: 1 : xmlCopyNotationTable
+filepath: 1 : xmlNanoHTTPRedir
+xmlSchematronPtr: 1 : xmlSchematronParse
+xmlStreamCtxtPtr: 1 : xmlPatternGetStreamCtxt
+xmlPatternPtr: 1 : xmlPatterncompile
+const_htmlElemDesc_ptr: 1 : htmlTagLookup
+xmlSchemaFacetPtr: 1 : xmlSchemaNewFacet
+xmlXPathParserContextPtr: 1 : xmlXPathNewParserContext
+xmlC14NIsVisibleCallback: 1 : xmlC14NExecute
+xmlShellReadlineFunc: 1 : xmlShell
+xmlCharEncodingInputFunc: 1 : xmlNewCharEncodingHandler
+xmlAttributeTablePtr: 1 : xmlCopyAttributeTable
+ftpDataCallback: 1 : xmlNanoFTPGet
+xmlRelaxNGValidCtxtPtr: 1 : xmlRelaxNGNewValidCtxt
+xmlListDataCompare: 1 : xmlListCreate
+xmlSchemaPtr: 1 : xmlSchemaParse
+xmlExpCtxtPtr: 1 : xmlExpNewCtxt
+xmlRegExecCtxtPtr: 1 : xmlRegNewExecCtxt
+xmlRelaxNGPtr: 1 : xmlRelaxNGParse
+xmlXPathVariableLookupFunc: 1 : xmlXPathRegisterVariableLookup
+xmlHashCopier: 1 : xmlHashCopy
+xmlRefPtr: 1 : xmlAddRef
+xmlSchemaValidCtxtPtr: 1 : xmlSchemaNewValidCtxt
+xmlIDPtr: 1 : xmlAddID
+
+
+Missing support per modulemodule xmlwriter:
+   ['xmlTextWriterWriteFormatAttribute', 'xmlTextWriterWriteFormatAttributeNS', 'xmlTextWriterWriteFormatCDATA', 'xmlTextWriterWriteFormatComment', 'xmlTextWriterWriteFormatDTD', 'xmlTextWriterWriteFormatDTDAttlist', 'xmlTextWriterWriteFormatDTDElement', 'xmlTextWriterWriteFormatDTDInternalEntity', 'xmlTextWriterWriteFormatElement', 'xmlTextWriterWriteFormatElementNS', 'xmlTextWriterWriteFormatPI', 'xmlTextWriterWriteFormatRaw', 'xmlTextWriterWriteFormatString', 'xmlTextWriterWriteVFormatAttribute', 'xmlTextWriterWriteVFormatAttributeNS', 'xmlTextWriterWriteVFormatCDATA', 'xmlTextWriterWriteVFormatComment', 'xmlTextWriterWriteVFormatDTD', 'xmlTextWriterWriteVFormatDTDAttlist', 'xmlTextWriterWriteVFormatDTDElement', 'xmlTextWriterWriteVFormatDTDInternalEntity', 'xmlTextWriterWriteVFormatElement', 'xmlTextWriterWriteVFormatElementNS', 'xmlTextWriterWriteVFormatPI', 'xmlTextWriterWriteVFormatRaw', 'xmlTextWriterWriteVFormatString']
+module debugXML:
+   ['xmlShell']
+module encoding:
+   ['xmlFindCharEncodingHandler', 'xmlGetCharEncodingHandler', 'xmlNewCharEncodingHandler']
+module tree:
+   ['xmlBufferCreateSize', 'xmlBufferCreateStatic', 'xmlDOMWrapNewCtxt', 'xmlGetNsList']
+module parser:
+   ['xmlGetExternalEntityLoader', 'xmlSetExternalEntityLoader']
+module relaxng:
+   ['xmlRelaxNGNewValidCtxt', 'xmlRelaxNGParse', 'xmlRelaxNGSetParserErrors', 'xmlRelaxNGSetParserStructuredErrors', 'xmlRelaxNGSetValidErrors', 'xmlRelaxNGSetValidStructuredErrors']
+module xmlmodule:
+   ['xmlModuleOpen']
+module pattern:
+   ['xmlPatternGetStreamCtxt', 'xmlPatterncompile']
+module nanoftp:
+   ['xmlNanoFTPGet', 'xmlNanoFTPList']
+module catalog:
+   ['xmlLoadACatalog', 'xmlLoadSGMLSuperCatalog', 'xmlNewCatalog']
+module entities:
+   ['xmlCopyEntitiesTable', 'xmlCreateEntitiesTable']
+module nanohttp:
+   ['xmlNanoHTTPRedir']
+module valid:
+   ['xmlAddID', 'xmlAddNotationDecl', 'xmlAddRef', 'xmlCopyAttributeTable', 'xmlCopyElementTable', 'xmlCopyEnumeration', 'xmlCopyNotationTable', 'xmlCreateEnumeration', 'xmlGetDtdNotationDesc', 'xmlGetRefs', 'xmlNewValidCtxt']
+module xpointer:
+   ['xmlXPtrLocationSetCreate', 'xmlXPtrLocationSetMerge', 'xmlXPtrNewContext']
+module xmlschemastypes:
+   ['xmlSchemaCopyValue', 'xmlSchemaNewFacet', 'xmlSchemaNewNOTATIONValue', 'xmlSchemaNewQNameValue', 'xmlSchemaNewStringValue', 'xmlSchemaValueGetNext']
+module xpath:
+   ['xmlXPathCompile', 'xmlXPathCtxtCompile', 'xmlXPathNewContext']
+module schematron:
+   ['xmlSchematronNewDocParserCtxt', 'xmlSchematronNewMemParserCtxt', 'xmlSchematronNewParserCtxt', 'xmlSchematronNewValidCtxt', 'xmlSchematronParse', 'xmlSchematronSetValidStructuredErrors']
+module hash:
+   ['xmlHashCopy', 'xmlHashCreate', 'xmlHashCreateDict', 'xmlHashScan', 'xmlHashScan3', 'xmlHashScanFull', 'xmlHashScanFull3']
+module xmlerror:
+   ['xmlCtxtGetLastError', 'xmlGetLastError', 'xmlParserError', 'xmlParserValidityError', 'xmlParserValidityWarning', 'xmlParserWarning', 'xmlSetGenericErrorFunc', 'xmlSetStructuredErrorFunc']
+module parserInternals:
+   ['xmlSetEntityReferenceFunc']
+module xmlsave:
+   ['xmlSaveSetAttrEscape', 'xmlSaveSetEscape', 'xmlSaveToBuffer', 'xmlSaveToFd', 'xmlSaveToFilename']
+module xmlautomata:
+   ['xmlAutomataCompile', 'xmlAutomataGetInitState', 'xmlAutomataNewAllTrans', 'xmlAutomataNewCountTrans', 'xmlAutomataNewCountTrans2', 'xmlAutomataNewCountedTrans', 'xmlAutomataNewCounterTrans', 'xmlAutomataNewEpsilon', 'xmlAutomataNewNegTrans', 'xmlAutomataNewOnceTrans', 'xmlAutomataNewOnceTrans2', 'xmlAutomataNewState', 'xmlAutomataNewTransition', 'xmlAutomataNewTransition2', 'xmlNewAutomata']
+module xinclude:
+   ['xmlXIncludeNewContext']
+module c14n:
+   ['xmlC14NExecute']
+module xmlschemas:
+   ['xmlSchemaNewValidCtxt', 'xmlSchemaParse', 'xmlSchemaSAXPlug', 'xmlSchemaSetParserErrors', 'xmlSchemaSetParserStructuredErrors', 'xmlSchemaSetValidErrors', 'xmlSchemaSetValidStructuredErrors']
+module xmlstring:
+   ['xmlStrPrintf', 'xmlStrVPrintf']
+module xpathInternals:
+   ['xmlXPathFunctionLookup', 'xmlXPathFunctionLookupNS', 'xmlXPathNewParserContext', 'xmlXPathRegisterFunc', 'xmlXPathRegisterFuncLookup', 'xmlXPathRegisterFuncNS', 'xmlXPathRegisterVariableLookup']
+module xmlIO:
+   ['xmlOutputBufferWriteEscape', 'xmlParserGetDirectory']
+module list:
+   ['xmlListCreate', 'xmlListDup', 'xmlListEnd', 'xmlListFront', 'xmlListReverseWalk', 'xmlListWalk']
+module uri:
+   ['xmlCreateURI', 'xmlParseURI', 'xmlParseURIRaw', 'xmlURIUnescapeString']
+module xmlreader:
+   ['xmlTextReaderSetErrorHandler', 'xmlTextReaderSetStructuredErrorHandler']
+module HTMLparser:
+   ['htmlTagLookup']
+module xmlregexp:
+   ['xmlExpExpDerive', 'xmlExpNewAtom', 'xmlExpNewCtxt', 'xmlExpNewOr', 'xmlExpNewRange', 'xmlExpNewSeq', 'xmlExpParse', 'xmlExpStringDerive', 'xmlRegNewExecCtxt', 'xmlRegexpCompile']

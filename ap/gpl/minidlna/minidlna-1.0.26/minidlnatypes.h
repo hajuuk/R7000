@@ -62,7 +62,8 @@ enum media_types {
 enum file_types {
 	TYPE_UNKNOWN,
 	TYPE_DIR,
-	TYPE_FILE
+	TYPE_FILE,
+	TYPE_LINK
 };
 
 enum client_types {

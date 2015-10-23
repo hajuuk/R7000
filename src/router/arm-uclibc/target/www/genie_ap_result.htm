@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<%11%>
+<title>NETGEAR   Genie</title>
+<link rel="stylesheet" href="CDL.css">
+
+<script language="javascript" type="text/javascript">
+
+function goNextPage()
+{
+
+    if (document.formname.WANDetc[1].checked == true)
+    {
+       
+	      if((document.formname.mode_select[0].checked!=true) && 
+	          (document.formname.mode_select[1].checked!=true))
+	      {
+    	      alert("<%2301%>");
+	  	      return false;
+	  	  }
+    }
+    
+    return true; 	
+}
+ 
+function chgSel(){
+ if (document.formname.WANDetc[0].checked == true){
+     document.getElementById("let_me_choose").style.display="none";
+     document.formname.mode_select[0].disabled=true;
+     document.formname.mode_select[1].disabled=true;
+ }else if (document.formname.WANDetc[1].checked == true){
+     document.getElementById("let_me_choose").style.display="block";
+     document.formname.mode_select[0].disabled=false;
+     document.formname.mode_select[1].disabled=false;
+ }
+}
+
+</script>
+<style>
+html, body 
+{
+	margin: 0;
+	padding: 0;
+	font-family:Arial; 	
+}
+
+h1{
+	padding-left:5%;
+	font-size:12px;
+	font-family:Arial;
+        font-weight:bold;
+        color:#F32A31;
+                
+}
+
+h2{
+	padding-left:0%;
+	font-size:20px;
+	font-family:Arial;
+        font-weight:bold;
+        color:#9d98ff;                
+}
+
+.topframe{
+	background-color:#2b2b2b;
+	color:#ffffff;
+	font-size:12px;
+	font-family:Arial;
+	margin:0;
+	padding: 0;	
+}
+
+
+.WNRTitle{
+	font-family:Arial;
+	padding-top:0px;
+        padding-bottom:40px;
+	margin-top: 0px;
+	padding-left:20px;
+        height: 50px;
+	line-height:80%;
+	font-weight:bold;
+	font-size:14px;
+}
+
+button 
+{
+	position: relative;
+	border: 0; 
+	padding: 0;
+	cursor: pointer;
+	overflow: visible; /* removes extra side padding in IE */
+}
+
+button::-moz-focus-inner 
+{
+	border: none;  /* overrides extra padding in Firefox */
+}
+
+button span 
+{ 
+	position: relative;
+	display: block; 
+	white-space: nowrap;	
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) 
+{
+	/* Safari and Google Chrome only - fix margins */
+	button span 
+	{
+		margin-top: -1px;
+	}
+}
+
+
+/* OPTIONAL BUTTON STYLES for applying custom look and feel: */		
+button.purpleBtn 
+{
+        font-family:Arial; 
+	margin-left:0px;
+	padding: 0 15px 0 0; 
+	margin-right:5px; 
+	font-size:12px; 
+	font-weight:bold;
+	text-align: center; 
+	background: transparent url(button_sprite.gif) no-repeat right -45px;
+}
+	
+button.purpleBtn span 
+{
+        font-family:Arial;
+	padding: 4px 0 0 17px; 
+	height:25px; 
+	background: transparent url(button_sprite.gif) no-repeat left top; 
+	color:#fff; 
+}
+	
+
+
+button.greenBtn 
+{ 
+
+        font-family:Arial;
+	padding: 0 15px 0 0; 
+	margin-right:5px; 
+	margin-left:30px;
+	font-size:12px; 
+	text-align: center;
+	font-weight:bold;	      
+	background: transparent url(g_button_sprite.gif) no-repeat right -45px;        
+}
+	
+button.greenBtn span 
+{
+        font-family:Arial;
+	padding: 4px 0 0 20px; 
+	height:25px; 
+	background: transparent url(g_button_sprite.gif) no-repeat left top; 
+	color:#fff;
+}
+	
+.inputRow
+{
+	font-family:Arial;     		 
+	font-size:16px;
+	color:#404040; 
+}
+
+.centerTd
+{
+	font-family:Arial;  
+	font-size:14px;
+	height:15px;
+        color:#404040;    
+	width:600px;
+	padding-left:20px;
+}
+
+.centerTd2
+{
+	font-family:Arial;  
+	font-size:10px;
+	height:15px;
+        color:#404040;    
+	width:600px;
+	text-align:center;
+}
+
+.textRow
+{
+	font-family:Arial;  
+	font-size:14px;
+	height:15px;
+        color:#404040;              
+}
+</style>
+</head>
+
+<body bgcolor="#ffffff">
+<form name="formname" method="POST" action="genie_ap_result.cgi"> 
+	<table border="0" cellpadding="0" cellspacing="3" width="99%">
+	<tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td height="10px" style="color:#9d98ff;"><span style="padding-left:20px"><b><%2302%></b></span></td><td>&nbsp;</td>
+	</tr>
+
+	<tr>
+		<td>&nbsp;</td><td height="10px">&nbsp;</td><td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td class="centerTd"><b><%2303%></b></td><td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td height="10px">&nbsp;</td><td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td class="centerTd"><input type="radio"  checked name="WANDetc" value="help_me" onClick="chgSel();"><span style="padding-left:10px;"><b><%2304%></b></span></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td class="centerTd"><p style="padding-left:30px"><%2305%></p></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>		
+		<td class="centerTd"><input type="radio" name="WANDetc" value="chosse" onClick="chgSel();"><span style="padding-left:10px;"><b><%2306%></b>(<%2307%>)</span></td>
+		<td>&nbsp;</td>
+	</tr>	
+  </table>
+	<tr>
+  <td></td>
+  <div id="let_me_choose" style="display:none;padding-left:20px">  
+	<table border="0" cellpadding="0" cellspacing="3" width="99%">
+    <tr>
+		<td>&nbsp;</td>		
+		<td class="centerTd" style="padding-left:45px"><input type="radio"  disabled name="mode_select" value="router_mode"><span style="padding-left:10px;"><b><%2308%>( <a href="img/genie_learn_more_router.jpg" onClick="window.open(this.href,'_blank','scrollbars=yes,toolbar=yes,locaiton=yes');return false;"><%2309%></a>)</b></span></td>
+		<td>&nbsp;</td>
+	</tr>	
+	<tr>
+		<td>&nbsp;</td>
+		<td class="centerTd" style="padding-left:75px"><%2310%></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>		
+		<td class="centerTd" style="padding-left:45px"><input type="radio" disabled name="mode_select" value="ap_mode"><span style="padding-left:10px;"><b><%2311%>( <a href="img/genie_learn_more_ap.jpg" onClick="window.open(this.href,'_blank','scrollbars=yes,toolbar=yes,locaiton=yes');return false;"><%2309%></a>)</b></span></td>
+		<td>&nbsp;</td>
+	</tr>	
+	<tr>
+		<td>&nbsp;</td>
+		<td class="centerTd" style="padding-left:75px"><%2312%></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td height="10px">&nbsp;</td><td>&nbsp;</td>
+	</tr>
+	</table>   
+	</div>
+	<table border="0" cellpadding="0" cellspacing="3" width="99%">
+
+
+	<tr>
+		<td>&nbsp;</td>	
+		<td class="centerTd" style="padding-left:30px"><a href="genie_ap_learn_more.htm" onClick="window.open(this.href,'_blank','scrollbars=yes,toolbar=yes,locaiton=yes');return false;"><%2313%></a>
+		<span style="display:-moz-inline-box;display:inline-block;width:300px;"></span>
+		<button type="submit" style="width:100px" value="submit" class="purpleBtn2" name="next" onClick="return goNextPage();" ><span><%2298%>&nbsp;&nbsp;&nbsp;</span></button>
+   </td>
+		<td>&nbsp;</td>	
+	</tr>
+	</table>
+</form>
+</body>
+
+</html>

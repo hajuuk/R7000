@@ -1,3 +1,4 @@
+﻿
 bh_internet_checking ="Проверка подключения к Интернету; подождите ...";
 bh_config_net_connection ="Настройка подключения к Интернету";
 bh_connection_further_action ="Соединение с Интернетом еще не установлено.";
@@ -157,3 +158,611 @@ bh_multi_login_info = "Вы выполнили вход с другого уст
 bh_no_mark = "НЕТ"
 DFS_radar_mark="Данный DFS-канал недопустим, поскольку до этого был обнаружен радар. Используйте другой канал или подождите ";
 RU_fixip_warn="Внимание! Вы используете фиксированный (статический) IP-адрес для вашего внутреннего интерфейса доступа к локальным ресурсам провайдера. Для того чтобы доступ к ресурсам работал корректно, вам необходимо по завершению текущей настройки указать статические маршруты. Для их настройки перейдите в меню «Статические маршруты» и следуйте соответствующим указаниям в справке. Используйте IP-адрес шлюза, который предоставил вам провайдер, в качестве шлюза назначения для каждого из добавленных маршрутов."
+bh_genie_install="Загрузить следующие приложения роутера:"
+bh_genie_mac_install="Download the following app:"
+bh_desktop_genie="приложение genie."
+bh_mac_genie="приложение genie."
+bh_genie_monitor="С помощью персональной инструментальной панели можно наблюдать за домашней сетью, управлять ею и устранять неполадки сети."
+bh_genie_readyshare_vault="Приложение ReadySHARE Vault (только для компьютеров под управлением Windows)."
+bh_genie_backup="Включает непрерывное автоматическое резервное копирование данных с компьютера под управлением Windows на USB-накопитель, подключенный к роутеру."
+bh_mac_backup="To backup your Mac Computer, please use Time Machine software."
+bh_previous_mark="Назад"
+bh_detected_network="В вашей сети обнаружен роутер или шлюз"
+bh_detected_network_info="Ваш роутер NETGEAR подключен к сети, к которой уже подключен другой роутер. Если другой роутер необходимо отставить подключенным, Genie рекомендует использовать режим точки доступа для роутера NETGEAR. В режиме точки доступа роутер NETGEAR можно использовать для подключения к сети, в то время как другой роутер продолжает выполнять те же сетевые задачи, что и раньше."
+bh_detected_network_setup="Включить режим точки доступа для этого устройства"
+bh_detected_network_yes_mark="Да (рекомендуется)"
+bh_detected_network_no_mark="Нет, использовать как роутер в режиме по умолчанию"
+bh_detected_ap_mode="Определение наличия роутера в сети. Подождите…"
+bh_ap_mode_find="Возможно, вы устанавливаете роутер NETGEAR в сети после существующего роутера или шлюза WiFi интернет-провайдера. Можно также выбрать установку роутера в различных режимах работы."
+bh_help_me_choose="Помощь в выборе"
+bh_let_me_choose="Самостоятельный выбор"
+bh_genie_ap_help="genie задаст вам несколько вопросов и предложит оптимальный для вас режим работы."
+bh_genie_change_mode="Режим можно изменить в любой момент, еще раз запустив мастер установки."
+bh_genie_router="Режим роутера"
+bh_genie_ap_mode="Режим точки доступа"
+bh_genie_illustrate="Нажмите здесь для просмотра иллюстрации."
+bh_genie_router_desc="Данный режим позволяет воспользоваться преимуществами <a href="genie_router_functions.htm" onClick="window.open(this.href,'_blank','scrollbars=yes,toolbar=yes,locaiton=yes');return false;">функций роутера</a> NETGEAR. Роутер NETGEAR настроен как обычный роутер WiFi в сети после существующего роутера или шлюза. В данном режиме требуется, чтобы все устройства были подключены к новому роутеру NETGEAR, а не к существующему шлюзу."
+bh_genie_ap_desc="Данный режим подходит для простой настройки, если устройства уже подключены к существующему роутеру или шлюзу или если вы используете новый роутер NETGEAR для расширения зоны покрытия WiFi. Некоторые <a href="genie_router_functions.htm" onClick="window.open(this.href,'_blank','scrollbars=yes,toolbar=yes,locaiton=yes');return false;">функции роутера</a> недоступны в режиме точки доступа."
+bh_learn_more="Подробнее"
+bh_learn_more_head="Сравнение роутера и точки доступа"
+bh_learn_more_msg="genie обнаружил, что вы пытаетесь установить новый роутер NETGEAR после другого шлюза, например DSL-шлюза или кабельного шлюза интернет-провайдера. Обычно шлюз обеспечивает также поддержку функции WiFi или Voice over Internet (VoIP). Можно также установить для роутера NETGEAR два разных режима работы."
+bh_router="Роутер"
+bh_access_point="Точка доступа"
+bh_learn_more_router="В данном режиме новый роутер NETGEAR работает как обычный роутер WiFi после шлюза и создает отдельную сеть WiFi после вашего шлюза. Для получения всех преимуществ расширенных функций данного роутера NETGEAR рекомендует использовать режим роутера. Если выбран режим роутера, к существующему шлюзу можно подключить только ваш новый роутер NETGEAR. Необходимо подключить все устройства к новому роутеру NETGEAR. Если существующий шлюз поддерживает функцию WiFi, отключите ее."
+bh_learn_more_router2="Некоторые <a href="genie_router_functions.htm" onClick="window.open(this.href,'_blank','scrollbars=yes,toolbar=yes,locaiton=yes');return false;">расширенные функции</a>, такие как удаленное управление, требуют конфигурирования на шлюзе. Подробнее см. в документации шлюза."
+bh_learn_more_ap="Если новый роутер используется для повышения производительности WiFi по сравнению с существующим шлюзом, проще всего использовать для этого режим точки доступа. NETGEAR рекомендует отключить функцию WiFi на существующем шлюзе (если он обеспечивает поддержку WiFi). Если выбран этот режим, можно подключать к шлюзу проводные устройства, а к новому роутеру NETGEAR — беспроводные и WiFi-устройства."
+bh_learn_more_ap2="В данном режиме по умолчанию IP-адрес нового роутера назначается шлюзом динамически, и маловероятно, что он будет иметь адрес 192.168.1.1. Однако с использованием URL-адреса <a href="www.routerlogin.net" onClick="window.open(this.href,'_blank','scrollbars=yes,toolbar=yes,locaiton=yes');return false;">http://www.routerlogin.net</a> можно по-прежнему получить доступ к графическому интерфейсу управления роутера с подключенного к роутеру устройства. Некоторые <a href="genie_router_functions.htm" onClick="window.open(this.href,'_blank','scrollbars=yes,toolbar=yes,locaiton=yes');return false;">функции роутера</a> недоступны в этом режиме. Для использования этих функций необходимо использовать режим роутера."
+bh_router_functions="Функции роутера"
+bh_ap_no_function="<p>Если выбран режим точки доступа, недоступны следующие функции роутера:</p><p><ul><li style="height:20px" class="textRow centerTd2">Гостевая сеть</li><li style="height:20px" class="textRow centerTd2">Родительский контроль</li><li style="height:20px" class="textRow centerTd2">QoS</li><li style="height:20px" class="textRow centerTd2">Контроль доступа</li><li style="height:20px" class="textRow centerTd2">Счетчик трафика</li><li style="height:20px" class="textRow centerTd2">Блокировка веб-сайтов</li><li style="height:20px" class="textRow centerTd2">Блокировка сервисов</li><li style="height:20px" class="textRow centerTd2">Статический маршрут</li></ul></p>"
+bh_ap_no_adv_function="<p>Следующие функции роутера доступны только в режиме роутера, но требуют настройки существующего шлюза:</p><p><ul><li style="height:20px" class="textRow centerTd2">Переадресация портов</li><li style="height:20px" class="textRow centerTd2">Инициирование портов</li><li style="height:20px" class="textRow centerTd2">IPv6</li><li style="height:20px" class="textRow centerTd2">UPnp/IGD</li><li style="height:20px" class="textRow centerTd2">Удаленное управление</li><li style="height:20px" class="textRow centerTd2">Прекращение действия VPN</li></ul></p>"
+bh_adv_functions="Расширенные функции"
+bh_current_network="Текущая сеть"
+bh_help_choose_1_msg="genie обнаружил, что для интернет-подключения используется шлюз. Если требуется использовать все функции нового роутера, NETGEAR рекомендует режим роутера. ответьте на несколько вопросов genie, чтобы проверить, подходит ли вам данный режим роутера."
+bh_help_choose_2_msg="Используете ли вы в настоящее время <a href="geine_router_functions.htm" onClick="window.open(this.href,'_blank','scrollbars=yes,toolbar=yes,locaiton=yes');return false;">расширенные функции</a>, такие как <a href="geine_port_forward_help.htm" onClick="window.open(this.href,'_blank','scrollbars=yes,toolbar=yes,locaiton=yes');return false;">переадресация портов</a> (иногда называется сопоставлением портов) на существующем шлюзе? Данные функции обычно используются опытными пользователями."
+bh_port_forward_help="Переадресация портов (иногда называется сопоставлением портов) предоставляет возможность доступа к домашней сети по Интернету. Если у вас дома имеется устройство (например, веб-сервер), к которому другие пользователи подключаются удаленно с помощью зарегистрированного имени хоста (обычно посредством службы динамической DNS) или IP-адреса, возможно, функция переадресации портов включена. Если вы никогда не слышали о такой функции (даже при наличии дома удаленного доступа к устройству), вероятно, вы не используете данную функцию."
+bh_suggest_ap_msg_1="NETGEAR рекомендует настроить новый роутер в режиме точки доступа, поскольку он не требует изменений конфигурации вашего шлюза."
+bh_suggest_ap_msg_2="Если вы опытный пользователь и знаете, как настроить шлюз для поддержки некоторых из этих расширенных функций, нажмите кнопку <b>Назад</b> и настройте роутер NETGEAR в режиме роутера."
+bh_help_choose_4_msg_1="Чтобы режим роутера работал правильно, нужно подключить все WiFi-устройства и проводные устройства к роутеру NETGEAR, кроме предоставленного вашим интернет-провайдером оборудования (такого как телевизионная приставка или беспроводные телефоны с подключением к вашему шлюзу)."
+bh_help_choose_4_msg_2="Можете ли вы отключить все другие устройства (проводные и беспроводные) от существующего шлюза и подключить их затем снова к роутеру NETGEAR?"
+bh_suggest_router_msg_1="NETGEAR рекомендует настроить для нового роутера режим роутера."
+bh_suggest_router_msg_2="Режим роутера позволяет использовать все расширенные функции роутера NETGEAR. Для изменения режима всегда можно снова запустить мастер настройки."
+bh_disable_wifi_router="<p>NETGEAR рекомендует отключить функцию WiFi существующего шлюза, чтобы избежать следующих проблем:</p><ul><li>Случайное подключение к существующему шлюзу вместо нового роутера NETGEAR</li><li>Помехи между новым роутером NETGEAR и сетью WiFi существующего шлюза</li></ul>"
+bh_disable_wifi_ap="Чтобы избежать помех WiFi, которые могут ухудшить производительность сети WiFi, NETGEAR рекомендует отключить функцию WiFi существующего шлюза"
+bh_disable_wifi_hint="Можете ли вы отключить функцию WiFi существующего шлюза?"
+bh_copy_wifi_setup="Скопируйте текущие настройки WiFi из существующего шлюза и введите их здесь. Затем отключите функцию WiFi существующего шлюза."
+bh_2g_ssid_input="Имя беспроводной сети (SSID) 2,4 ГГц:"
+bh_2g_pass_input="Пароль беспроводной сети (сетевой ключ) 2,4 ГГц: "
+bh_5g_ssid_input="Имя беспроводной сети (SSID) 5 ГГц: "
+bh_5g_pass_input="Пароль беспроводной сети (сетевой ключ) 5 ГГц: "
+bh_pass_input="Пароль беспроводной сети (сетевой ключ): "
+bh_no_copy_wif_setup="Чтобы предотвратить подключение устройств WiFi к существующему шлюзу, используйте следующее имя (SSID) и пароль (сетевой ключ) для подключения всех устройств WiFi к этому роутеру."
+bh_wifi_change="Настройки беспроводной сети данного роутера были изменены. С использованием следующего имени беспроводной сети (SSID) и сетевого ключа (пароля) выполните повторное подключение устройства к роутеру, затем для завершения процесса установки нажмите представленную ниже кнопку <b>Готово</b>."
+bh_finish_mark="Готово"
+bh_note_mark="Примечание"
+bh_ap_note_msg="Для нового роутера NETGEAR будет настроен режим точки доступа. Возможно кратковременное прерывание сетевого подключения, поскольку новый роутер NETGEAR и клиент должны получить новый IP-адрес от существующего роутера. Если сетевое соединение потеряно, снова подключите новый роутер NETGEAR вручную, посетив веб-сайт <a href="http://www.routerlogin.net" onClick="window.open(this.href,'_blank','scrollbars=yes,toolbar=yes,locaiton=yes');return false;"><u>www.routerlogin.net</u></a>"
+bh_connect_success_3="Имя беспроводной сети роутера (SSID) и сетевой ключ (пароль):"
+bh_or_mark="или"
+bh_no_yes_no="You must select the Yes or No radio button."
+bh_no_router_ap="If you want to choose a mode yourself, you must select the Router Mode or Access Point Mode radio button"
+bh_ap_finish_warning="WARNING: Do not click the <b>Finish</b> button until you reconnect your device to the router."
+
+
+//3G table
+3G_msg_close="Close this window. Most browsers will close when you click OK. \nIf your browser asks, follow the prompts to close and exit the browser."
+3G_assist_result="Configuration Assistant Result"
+3G_or="or"
+3G_connecting="Connecting to Network..."
+3G_wizard_help="NETGEAR Setup Wizard Help"
+
+
+//3G button related strings
+3G_button_exit="Exit"
+3G_button_reconfig="Reconfig"
+3G_button_upgrade="Upgrade"
+3G_button_continue="Continue"
+3G_click_retry="Click <strong>Retry</strong> to try again."
+3G_click_retry2="Click <strong>Retry</strong> to try to connect to the netwrok again."
+3G_click_quit="Click <strong>Quit</strong> to continue later."
+3G_click_quit2="Click <strong>Quit</strong> to contact your service provider."
+3G_click_exit="Click <strong>Exit</strong> to terminate Wizard."
+3G_click_continue="Click <strong>Continue</strong> to attempt to connect to the network."
+3G_click_continue2="Click <strong>Continue</strong> to negotiate with the router."
+3G_click_continue3="Click <strong>Continue</strong> to return to scanning for the network."
+3G_click_reconfig="Click <strong>Reconfig</strong> to run the Setup Wizard again."
+3G_click_next="Click <strong>Next</strong> to configure your WiFi."
+3G_click_back="Click <strong>Back</strong> to return to the Internet settings screen."
+
+
+//3G country list
+3G_australia="Australia"
+3G_austria="Austria"
+3G_belgium="Belgium"
+3G_brazil="Brazil"
+3G_canada="Canada"
+3G_chile="Chile"
+3G_china="China"
+3G_czech="Czech"
+3G_denmark="Denmark"
+3G_finland="Finland"
+3G_france="France"
+3G_germany="Germany"
+3G_hongkong="Hong Kong"
+3G_hungary="Hungary"
+3G_india="India"
+3G_indonesia="Indonesia"
+3G_italy="Italy"
+3G_malaysia="Malaysia"
+3G_mexico="Mexico"
+3G_netherlands="Netherlands"  
+3G_newzealand="New Zealand"
+3G_norway="Norway"
+3G_peru="Peru"
+3G_philippines="Philippines"
+3G_poland="Poland"
+3G_portugal="Portugal"
+3G_russia="Russia"
+3G_singapore="Singapore"
+3G_slovakia="Slovakia"
+3G_southafrica="South Africa"
+3G_spain="Spain"
+3G_sweden="Sweden"
+3G_switzerland="Switzerland"
+3G_taiwan="Taiwan"
+3G_thailand="Thailand"
+3G_uae="UAE"
+3G_uk="UK"
+3G_usa="USA"
+
+//Modem_cfg_fail.htm
+3G_unable_connect="Unable to Connect to Network"
+3G_check_setting="Check the <strong>APN</strong>, <strong>User Name</strong> and <strong>Password</strong> of <strong>Broadband Settings</strong> you entered for your Internet service."
+3G_sure_activated="Please make sure your modem has been activated."
+3G_problem_prompt="The problem could be one of the following"
+
+//Modem_connect_abort.htm
+3G_abort_connect="Aborting Network Connection"
+
+//Modem_connecting.htm
+
+
+//Modem_det_internet.htm
+
+
+//Modem_detect.htm
+3G_detect="Detecting"
+
+//Modem_detwan.htm
+3G_negotia_station="The USB adapter is Negotiaing with Mobile Broadband base station."
+
+//Modem_dual_fail.htm
+3G_cannot_internet="Cannot Connect to The Internet"
+3G_check_again="Check the configuration settings you entered while running Setup Wizard Again."
+3G_cannot_access="Cannot access internet."
+3G_verify_active="Please verify that the DSL cable or the USB modem has been activated and there is network coverage at your current location."
+3G_problem_dns="There is a problem with the DNS servers in the your network."
+3G_check_sp="Check with your service provider to verify that the service at your location is working properly then run the Setup Wizard Again."
+
+
+//Modem_dual_wan_welcome.htm
+3G_welcome_str1="You are now connected to the NETGEAR ADSL/Mobile Broadband Router."
+3G_welcome_str2="This Setup Wizard will guide you through:"
+3G_welcome_str3="Setting up ADSL Broadband Internet access."
+3G_welcome_str4="Setting up Mobile Broadband Internet access."
+3G_welcome_str5="Setting up a secure Wi-Fi network."
+3G_welcome_str6="Note:  Make sure your Mobile Broadband Modem adapter is plugged in to the USB port of the router."
+3G_welcome_str7="Before you begin:"
+3G_welcome_str8="1. Test your Mobile Broadband Modem adapter on your PC to ensure that you have service and access to the Internet."
+3G_welcome_str9="2. Visit the NETGEAR support site to verify that your Mobile Broadband USB Modem adapter is supported."
+3G_welcome_str10="3. Close the Mobile Broadband Connections Manager on your PC before continuing with the setup."
+3G_welcome_str11="4. Follow the instructions on the NETGEAR support site to check for the latest firmware. This firmware version is "
+3G_welcome_str12="To upgrade your device, download the firmware, then click <strong>Upgrade</strong>."
+3G_welcome_str13="To configure your router settings manually, click <strong>Exit</strong>"
+
+
+//Modem_fail.htm
+3G_check_usb="Check the configuration settings you entered for your USB device."
+3G_verify_usb="Please verify that the USB modem has been activated and there is network coverage at your current location."
+3G_umts_dns="There is a problem with the DNS servers in the Mobile Broadband network."
+
+
+//Modem_help_h.htm
+3G_help_str="After connecting the NETGEAR mobile broadband router into your network, you must configure it. You can do this using the Setup Wizard -- where the wizard will attempt to make the connection to the Internet service through your ISP -- or you can configure the router manually. It is recommended that, if you aren't used to setting up Internet connections, you let the Setup Wizard do some of the work for you."
+3G_help_str1="To configure the NETGEAR mobile broadband router, you'll use the information that you filled out earlier in the Installation Guide."
+3G_help_str2="To get started, click <b>Next</b>."
+
+
+//Modem_init.htm
+
+
+//Modem_isp.htm
+3G_pin_error="A PIN is a string of 4 digits."
+3G_confirm_pin="Please Confirm your PIN code again!"
+3G_pin2_error="A PIN2 is a string of 4 digits."
+3G_confirm_pin2="Please Confirm your PIN2 code again!"
+3G_puk_error="A PUK is a string of 8 digits."
+3G_confirm_puk="Please Confirm your PUK code again!"
+3G_puk2_error="A PUK2 is a string of 8 digits."
+3G_confirm_puk2="Please Confirm your PUK2 code again!"
+3G_already_connect="already connected"
+3G_enter_config="Please Enter Service Provider Configuration"
+3G_select_isp="Please select the <strong>Internet Service Provider</strong> and then click <strong>Next</strong>."
+3G_select_isp1="If your Mobile Broadband service provide is not in pulldown list, please select other."
+3G_enter_pin="Please enter PIN as provided by your service provider."
+3G_enter_pin2="Please enter PIN2 as provided by your service provider."
+3G_enter_puk="Please enter PUK as provided by your service provider."
+3G_enter_puk2="Please enter PUK2 as provided by your service provider."
+3G_enter_unlock="Enter Unlock code provided by your broadband service provider and click <strong>Next</strong>"
+3G_pin="Enter PIN:"
+3G_cpin="Confirm PIN:"
+3G_pin2="Enter PIN2:"
+3G_cpin2="Confirm PIN2:"
+3G_puk="Enter PUK:"
+3G_cpuk="Confirm PUK:"
+3G_puk2="Enter PUK2:"
+3G_cpuk2="Confirm PUK2:"
+3G_unlock="Enter Unlock Code:"
+
+
+
+//Modem_isp_detail.htm
+3G_detail_config="Please enter the configuration parameters. If you do not know what they are, please contact your service provider."
+3G_access_number="Access Number"
+3G_apn="APN"
+3G_pdp_type="PDP Type"
+3G_ptype_0="IP"
+3G_ptype_1="PDP-IP"
+3G_ptype_2="PPP"
+3G_ptype_3="PDP-PPP"
+
+
+//Modem_isp_fail.htm
+3G_unable_locate="Unable to Locate Network"
+3G_sure_coverage="Please make sure your modem has been activated and you are in an area that has coverage."
+
+
+//Modem_negotiaing.htm
+3G_modem_init="Modem Initializing"
+
+
+//Modem_negotiate_abort.htm
+3G_abort_init="Aborting modem Negotiation"
+
+
+
+
+//Modem_pin.htm
+3G_pin_detail0="Enter"  
+3G_pin_detail1="code provided by your broadband service provider and click <strong>Next</strong>:"
+3G_unlock_detail="And, please enter <strong>Unlock code</strong>:"
+
+
+//Modem_pin_required.htm
+3G_code_require="Code Required"
+3G_sim_block="SIM Blocked"
+3G_isp_puk="Please contact service provider for the PUK code"
+3G_isp_puk2="Please contact service provider for the PUK2 code"
+3G_pin_quit0="Click <strong>Quit</strong> to terminate this <strong>Configuration Assistant</strong> and contact your service provider to ask
+3G_pin_quit1="code"
+3G_pin_back="Click <strong>Back</strong> to return <strong>Broadband Account Settings</strong> screen"
+3G_pin_next0="Click <strong>Next</strong> to input"
+3G_pin_next1="code"
+
+
+//Modem_prewelcome.htm
+3G_dsl_finish="DSL Configuration Completed"
+3G_ethernet_finish="Ethernet WAN Configuration Completed"
+3G_next_3g="Next, we will guide you through configuring the router to use your Mobile Broadband Internet connection."
+
+
+//Modem_reboot.htm
+3G_change_setting="Changing settings..."
+
+
+//Modem_reinit.htm
+
+
+//Modem_scan_abort.htm
+3G_abort_scan="Aborting Network Scan"
+
+
+//Modem_scanning1.htm
+
+
+//Modem_scanning2.htm
+
+
+//Modem_scanning.htm
+
+
+//Modem_sim_fail.htm
+3G_sim_fail="SIM Card Not Detected"
+3G_sim_notdetect="Please check that SIM card is installed and properly seated."
+3G_sim_reject="SIM rejected."
+3G_sim_check="Please check that SIM card is valid."
+
+
+//Modem_status.htm
+3G_active_connection="Active Connection"
+3G_active_wan="Active WAN"
+3G_hsdpa="HSDPA"
+3G_evdo="EVDO"
+3G_modem_indenti="Modem Identity"
+3G_modem_sversion="Modem SW version"
+3G_modem_dversion="Modem driver version"
+3G_imsi="IMSI"
+3G_imei="IMEI"
+3G_esn="ESN"
+3G_operator="Operator"
+3G_network_mode="Network mode"
+3G_broadband_port="Wireless Broadband Port"
+3G_connect_status="Connection Status"
+3G_ppp="PPP"
+
+
+//Modem_status_h.htm
+3G_help="Help"
+3G_status_help="Router Status Help"
+3G_help_info="You can use the <i>Router Status</i> page to check the current settings and statistics for your router. This page shows you the current settings.If something needs to be changed, you'll have to change it on the relevant page."
+3G_help_info1="Firmware Version:"
+3G_help_info2="This is the current software the router is using. This will change if you upgrade your router."
+3G_help_info3="WAN Port:"
+3G_help_info4="These are the current settings that you set in the <i>Setup Wizard</i> or <i>Broadband Account Settings</i> pages.<ul><li>IP Address - current Internet IP address. If assigned dynamically, and no Internet connection exists, this will be blank or 0.0.0.0<li>IP Subnet Mask - the subnet mask associated with the Internet IP address<li>Domain Name Server - displays the address of the current DNS."
+3G_help_info5="LAN Port:"
+3G_help_info6="These are the current settings, as set in the <i>LAN IP Setup</i> page.<ul><li>MAC Address - the physical address of the Router, as seen from the local LAN.<li>IP Address - LAN IP address of the Router.<li>DHCP - indicates if the Router is acting as a DHCP Server for devices on your LAN.<li>IP Subnet Mask - subnet mask associated with the LAN IP address."
+3G_help_info7="Wireless Port:"
+3G_help_info8="These are the current settings, as set in the <i>Wireless Settings</i> page.<ul><li>Name (SSID) - SSID of the Router.<li>Region - the location (country).<li>Channel - the current channel in use.<li>Wireless AP - indicates if the Access Point feature of the Router is enabled or not. If not enabled, the Wireless LED on the front panel will be off.<li>Broadcast Name - indicates if the Router is broadcasting its SSID.</ul><p>Click <b>Show Statistics</b> to see router performance statistics such as the number of packets sent and number of packets received for each port.<p>Click <b>Connection Status</b> to see information about your current connection."
+
+
+//Modem_success.htm
+3G_success="Success"
+3G_conn_success="Connection Success"
+3G_conn_to0="Your"  
+3G_conn_to1="is now successfully connected to the 
+3G_conn_to2="Network."
+3G_conn_tonull="Your Mobile Broadband USB modem is now successfully connected to the 3G Network."
+
+
+//Modem_upgrade.htm
+3G_dsl_port="ADSL Port" 
+
+
+//Modem_usb_fail.htm
+3G_unable_detect="Unable to Detect Modem"
+3G_nodect_info="No Mobile Broadband USB Modem adapter detected."
+3G_nodect_info1="Please ensure Mobile Broadband USB Modem adapter is properly connected to the USB port of the router and click <strong>Retry</strong>."
+3G_not_support="Mobile Broadband USB Modem adapter not supported."
+3G_nosupp_info="Check supported Mobile Broadband USB Modems on <a href="http://www.netgear.com/3G">http://www.netgear.com/3G"
+3G_nosupp_info1="If your Mobile Broadband USB Modem is supported, please go to NETGEAR support site and follow instructions to download and upgrade to latest firmware."
+3G_no_respond="USB Modem not Responding."
+
+
+//Modem_usb_not_support.htm
+3G_modem_nosupp="USB Modem not Supported"
+3G_mpdem_nosuppinfo="Your Mobile Broadband USB Modem is not supported by the current SW version 
+3G_mpdem_nosuppinfo0="of the router"
+3G_mpdem_nosuppinfo1="If you find your USB modem and Mobile operator listed, please upgrade router software by following these easy steps."
+3G_mpdem_nosuppinfo2="1)  Please put the Mobile Broadband USB modem back on your PC or use dsl/cable connection to get your PC connected to the Internet."
+3G_mpdem_nosuppinfo3="2)  Please visit <a href="http://www.netgear.com/3G">http://www.netgear.com/3G</a> and follow the link and instructions to upgrade the router software at the top of the page."
+3G_mpdem_nosuppinfo4="3)  Once software upgrade is done, plug back the Mobile Broadband USB Modem to the router and return to your Installation Guide steps to connect to the Internet."
+
+//Modem_wan2eth.htm
+3G_wanether_state="WAN to Ethernet State"
+3G_en_wanether="Enable WAN to Ethernet Port"
+3G_dis_wanether="Disable WAN to Ethernet Port"
+
+//Modem_welcome.htm
+3G_welcome_str13="You are now connected to the NETGEAR Mobile Broadband Wireless Router."
+3G_welcome_str14="Click <strong>Next</strong>.   (To configure your router settings manually, click <strong>Exit</strong>.)"
+
+
+//WWAN_wan.htm
+3G_dis_3gpage="This page is disabled because the Broadband settings is using only ADSL connection.\r\nTo enable 3G mobile connection, please first go to \"Broadband Settings\" page and change the settings."
+3G_mobile_settings1="Mobile Broadband Settings"
+3G_usb_settings="USB Wireless Broadband modem settings"
+3G_auto_connect="Connect automatically at startup"
+3G_auto_reconnect="Reconnect automatically When connection is lost"
+3G_auto_roam="Roaming automatically"
+
+
+//WWAN_wan_h.htm
+3G_wwan_help="Broadband Account Settings Help"
+3G_wwan_helpstr="This page allows you to configure the broadband account access for your NETGEAR Modem"
+3G_wwan_helpstr0="Settings"
+3G_wwan_helpstr1="In order to connect to the network, an active broadband service account is Required. Please contact your ISP for username, password and the network name"
+3G_wwan_helpstr2="Username"
+3G_wwan_helpstr3="- Account login username"
+3G_wwan_helpstr4="Password"
+3G_wwan_helpstr5="- Account password for authentication"
+3G_wwan_helpstr7="- Country"
+3G_wwan_helpstr8="Internet Service Provider"
+3G_wwan_helpstr9="- Internet Service Provider of Mobile Broadband network"
+3G_wwan_helpstr10="PIN code"
+3G_wwan_helpstr11="- PIN code of SIM card"
+3G_wwan_helpstr13="- Access Point Name"
+3G_wwan_helpstr15="- This is the remote site's phone number."
+3G_wwan_helpstr17="- Type of packet data protocol"
+3G_wwan_helpstr18="Connect automatically at startup"
+3G_wwan_helpstr19="- If selected,the modem will automatically connect to the network upon powered up. This should be selected after login information is provided."
+3G_wwan_helpstr20="Reconnect automatically when connection is lost"
+3G_wwan_helpstr21="- If selected,the modem will attempt to reconnect to the network when the connection is lost. Under normal situation, this setting should be selected."
+3G_wwan_helpstr22="Connection Status"
+3G_wwan_helpstr23="- current WAN port status"
+3G_wwan_helpstr24="Click <b>Connect</b> when you want to manually connect to the network."
+3G_wwan_helpstr25="Click <b>Disconnect</b> when you want to manually disconnect from current network."
+3G_wwan_helpstr26="Click <b>Apply</b> when you finish changing the settings."
+3G_wwan_helpstr27="Click <b>Cancel</b> to discard changes."
+3G_wwan_helpstr28="Click <b>Refresh</b> to update connection status"
+
+
+//WWAN_RST_status.htm
+3G_ether_port="Ethernet Port"
+
+
+//RST_wwan_interval.htm
+
+
+//RST_wwan_statistics.htm
+
+
+//RST_st_wwan.htm
+3G_hsdpa_stat="HSDPA Status"
+3G_evdo_stat="EVDO Status"
+3G_sig_quality="Received Signal Quality(in dbm)"
+3G_byte_trans="Bytes Transmitted"
+3G_byte_recv="Bytes Received"
+3G_sys_uptime="System Uptime"
+3G_con_duration="Connection Duration"
+3G_available_network="Available Networks"
+
+
+//MNU_menu.htm
+3G_broadband_settings="Broadband Settings"
+
+//traffic_meter.htm MBRN3000
+3G_sync_ntp="Synchronizing time from NTP..."
+
+
+//Module_detect.htm
+
+
+//BSW_detwan1.htm
+3G_detect_type="Detecting Connection Type on Internet Port"
+
+
+//BSW_fail.htm
+
+
+//BAS_dual_wan.htm
+3G_retry_warning="Retry Interval contains an invalid number.\n"
+3G_failover_warning="Failover count contains an invalid number.\n"
+3G_switch_warning="Failover switch timer of hardware detection contains an invalid number.\n"
+3G_resume_warning="Failover Resume contains an invalid number.\n"
+3G_retry_outof="Retry Interval is out of range [10~600].\n"
+3G_failover_outof="Failover count is out of range [1~40]."
+3G_switch_outof="Failover switch timer of hardware detection is out of range [10~600]."
+3G_resume_outof="Failover resume value is out of range [10~600].\n"
+3G_intername_blank="Internet name can not be blank!\n"
+3G_invalid_ping="Invalid IP address for Ping.\n"
+3G_conn_mode="Internet Connection Mode"
+3G_failover_0="Always use Mobile Broadband connection"
+3G_failover_1="Always use ADSL connection"
+3G_failover_2="Use ADSL connection first and if fail use Mobile Broadband connection"
+3G_det_mode="Failover Detection Method"
+3G_dns_wanserver="DNS lookup using WAN DNS Server"
+3G_dns_hostname="DNS lookup by a hostname"
+3G_ping_address="Ping this IP address"
+3G_retry_interval="Retry Interval is"
+3G_second="Seconds"
+3G_failover="Failover after"
+3G_interval="Intervals"
+3G_resume_after="Resume after"
+3G_enable_hwdet="Enable Hardware link detection"
+3G_failover_after="Failover after"
+
+
+//WIZ_dual_wan.htm
+
+
+//WWAN_wan.htm 3300
+3G_init_script="Initialize Script"
+3G_use_interante="Use internal antenna"
+3G_wifibutton_config="Wireless Button Configuration"
+3G_wifibutton_wifionly="Control WiFi Only" 
+3G_wifibutton_both="Control Both WiFi and Wireless Broadband"
+
+
+//BSW_wireless.htm 3000
+3G_input_ssid="Please input the SSID of your AP station"
+3G_enable_wifi="Enable Your Wireless Network"
+3G_wifi_info1="You have a wired connection to the Internet. Now, we will enable your wireless network."
+3G_select_region1="Select the region where you are located :"
+3G_input_ssid1="Enter your Wireless Network Name (SSID) :"
+3G_wifi_info2="You can change the default Wireless Network Name (SSID) or leave it as NETGEAR.This setting is case sensitive. NETgear is not the same as NETGEAR.<p>Be sure to record the Wireless Network Name (SSID). You will need it later to set up the wireless connection between the router and your wireless computer."
+3G_wifi_info3="Important:"
+3G_wifi_info4="Implement wireless security options appropriate to your needs. These settings enable basic wireless connectivity that you can use to setup your wireless computers and test wireless Internet access through the router."
+3G_wifi_info5="The NETGEAR wireless router provides many wireless security options. Your wireless computer may not support all of these options. Please read the NETGEAR manual to identify the wireless security features of your router that satisfy your requirements and work with your wireless computer."
+
+
+//BLK_wireless.htm
+3G_wifi_info9="Be sure to record the Wireless Network Name (SSID). You will need to when you set up your wireless computer."
+3G_default_ssid="Default Wireless Network Name (SSID):"
+3G_wifi_info6="You can change the default Wireless Network Name but make sure that the settings on your wireless computer match this SSID."
+3G_wifi_info7="These settings enable basic wireless communications you can use to set up and test your wireless network."T
+3G_wifi_info8="They do not provide wireless security. Please read the manual to understand wireless security and implement security options appropriate to your needs."
+
+
+//BSW_region.htm
+3G_wifi_info9="For regulatory compliance, please select the geographic region where this router will be used:"
+
+
+//
+3G_bbandset_help="Broadband Settings Help"
+3G_bbandset_help1="This page allows you to configure the broadband setting for your NETGEAR Modem"
+3G_bbandset_help2="- Choose the mode you preferred"
+3G_tf_head="Show Traffice Meter options for Mobile Broadband Connection"
+3G_tf_head1="Show Traffic Meter options for ADSL Connection"
+3G_pin_alert="A PIN is a string from 4 digits up to 8 digits."
+3G_pin2_alert="A PIN2 is a string from 4 digits up to 8 digits."
+3G_unlock_alert="A Unlock code is a string of digits."
+3G_abort_nego="Aborting USB Dongle Negotiation"
+3G_no_sim="Valid SIM Card Not Detected"
+3G_curr_wan="This is the current WAN interface the router is using."
+3G_router_info="Router Information"
+3G_curr_hw="This is the current hardware the router is using."
+3G_help_info9="<b>Mobile broadband</b>: These are the current settings of mobile boardband device."
+3G_help_info10="Modem Identity - Identitity of this usb modem device"
+3G_help_info11="Modem SW version - Software/Firmware verion of this usb modem device."
+3G_help_info12="Modem driver version - Kernel driver verion."
+3G_help_info13="Modem Status - the current state of the Mobile broadband connection to your cellular ISP"
+3G_help_info14="IMSI - International Mobile Subscriber Identity."
+3G_help_info15="IMEI - International Mobile station Equipment Identity."
+3G_help_info16="ESN - Electronic Serial Number."
+3G_help_info17="Operator - The internet service provider name which has connected."
+3G_help_info18="Network mode - Current access technology"
+3G_wwan_setup="Wireless WAN Setup"
+3G_pin2_code="PIN2 Code"
+3G_puk_code="PUK Code"
+3G_puk2_code="PUK2 Code"
+3G_roam_help="<b>Roaming automatically</b> - If checked, it may roam to any available operator in range and may incur roaming charges."
+3G_inits_help="<b>Initialize Script</b> - It is a script to dial to Internet, It depends on Modem and its firmware."
+3G_mbd_status="Mobile Broadband Status"
+3G_in_sec="(In Seconds)"
+3G_in_inter="(In Intervals)"
+3G_finish="Finish"
+3G_306="Idle"
+3G_307="USB Device Not Support"
+3G_308="NO USB Device Attached"
+3G_309="NO SIM Card Detected"
+3G_310="NO APN Entered"
+3G_311="Not Connected"
+3G_312="PIN Number Error"
+3G_313="PIN Required"
+3G_314="PIN2 Number Error"
+3G_315="PIN2 Required"
+3G_316="PUK Number Error"
+3G_317="PUK and New PIN Required"
+3G_318="PUK2 Number Error"
+3G_319="PUK2 and New PIN Required"
+3G_320="Unlock Code Required"
+3G_321="Unlock Code Error"
+3G_322="SIM NOT Support"
+3G_323="No Network Coverage"
+3G_324="SIM Network Reject"
+3G_325="NO Preferred ISP"
+3G_326="Not Attached to Network"
+3G_327="Could not make the PPP connection"
+3G_328="Scanning"
+3G_329="Negotiating"
+3G_330="Detecting Modem"
+3G_331="Attaching to Network"
+3G_332="Connecting"
+3G_333="Connected"
+3G_334="Transition from ADSL to 3G"
+3G_335="Transition from 3G to ADSL"
+3G_342="<p>Your router uses the following settings. You will need the wireless settings when you set up computers to wirelessly connect to the Internet through this router.</p>"
+3G_343="<p><strong>Note:</strong> Your Mobile Broadband Service Provider may have data bandwidth usage limit per month. Periodically check with your service provider to ensure you are not over limit on data usage.</p>"
+3G_344="<p><strong>Important:</strong> Print the screen or write down the settings.</p>"
+3G_345="<p>Click <strong>Finish</strong> to Complete your Configuration.</p>"
+
+//BRIC feature
+3G_usb_feature="ReadySHARE Feature"
+3G_usb_mobile_connect="ReadySHARE Mobile Connect"
+3G_4G_conn_mode="3G/4G Connection Mode"
+3G_manual_conn="Manual connect"
+3G_conn_on_demand="Connect on demand"
+3G_country="Country"
+3G_dis3_4g="Disable 3G/4G connection"
+3G_ether_3g_4g="User Ethernet connection first and if fail use 3G/4G mobile connection"
+3G_always_3g_4g="Always use 3G/4G mobile connection"
+
+3G_dri_succ_install="Modem driver successfully installed"
+3G_no_modem="Can not detect Modem"
+3G_unable_dl_dri="Unable to download driver"
+3G_not_support_modem="Modem model not supported"
+3G_inv_dri_file="Invalid driver file"
+3G_modem_vendor="Modem vendor"
+3G_select_modem_driver="Locate and select the driver file from hard disk(Please use NETGEAR officially released drivers at www.someURL.com)"
+3G_detect_install_driver="Detect and Install"
+No_usb_broadband="No USB broadband adapter detected! Please check your USB connection."
+No_supporte_modem="The mobile broadband modem is not a supported type. You can try a different one."
+No_establish_connection="The router cannot establish internet connection. Please check the settings with your mobile broadband service provider."

@@ -423,6 +423,7 @@ function highLightMenu(title, subtitle)
 function change_size()
 {
     var sep_border_num = $(".table-seperate-border").length;
+    var sep_border2_num = $(".table-seperate-border2").length;
     var min_height = $('.scroll-pane').css("height");
     min_height = min_height.replace("px", "");
          
@@ -441,7 +442,12 @@ function change_size()
     $('.subfooter-image').css("width", width);
     $('.subfooter-image').css("height", "24px");   
     $('.subfooter-image').css("position", "relative");
-    $('.subfooter-image').css("top", -3);    
+	if(sep_border2_num==1) {
+		$('.subfooter-image').css("top", 27);  
+		$('.subhead2-bottom').css("top", 0); 
+	} else {
+		$('.subfooter-image').css("top", -3);    
+	}
     
     $('.subhead2-table').css("position", "relative");
     $('.subhead2-table').css("top", -3);
@@ -457,6 +463,10 @@ function change_size()
     } else if(sep_border_num==2) {
         $('.subhead2-table').css("height", height-120);
         $('.scroll-pane').css("height", height-120);    
+	} else if(sep_border2_num==1) {
+		//$('full-page-container').css("height", height-157);
+        $('.subhead2-table').css("height", height-187);
+        $('.scroll-pane').css("height", height-187);  
     } else {
         $('.subhead2-table').css("height", height-75);
         $('.scroll-pane').css("height", height-75);        
@@ -759,3 +769,23 @@ function detectEnter(type, e)
 		else
 		return false;
 }
+
+function detectOS() 
+{   // detect the system type of user computer
+    var sUserAgent = navigator.userAgent;  
+    var isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows");  
+    var isMac = (navigator.platform == "Mac68K") || (navigator.platform == "MacPPC") || (navigator.platform == "Macintosh") || (navigator.platform == "MacIntel");  
+    if (isMac) return "Mac";  
+    var isUnix = (navigator.platform == "X11") && !isWin && !isMac;  
+    if (isUnix) return "Unix";  
+    var isLinux = (String(navigator.platform).indexOf("Linux") > -1);  
+    if (isLinux) return "Linux";  
+    if (isWin) {
+        if(sUserAgent.indexOf("Windows Phone")!=-1){
+            return "WinPhone";  
+        }
+            return "Win";  
+    }  
+    return "None";  
+}
+

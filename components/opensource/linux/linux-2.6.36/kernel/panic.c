@@ -48,7 +48,7 @@ static long no_blink(int state)
 long (*panic_blink)(int state);
 EXPORT_SYMBOL(panic_blink);
 
-#ifdef CONFIG_CRASHLOG
+#if (defined CONFIG_CRASHLOG) || (defined KERNEL_CRASH_DUMP_TO_MTD)
 void  nvram_store_crash(void);
 #endif
 
@@ -109,10 +109,10 @@ NORET_TYPE void panic(const char * fmt, ...)
 	bust_spinlocks(0);
 	
 #ifdef KERNEL_CRASH_DUMP_TO_MTD
-        flash_write_buffer();
+        //flash_write_buffer();
 #endif
 
-#ifdef CONFIG_CRASHLOG
+#if (defined CONFIG_CRASHLOG) || (defined KERNEL_CRASH_DUMP_TO_MTD)
 	nvram_store_crash();
 #endif
 

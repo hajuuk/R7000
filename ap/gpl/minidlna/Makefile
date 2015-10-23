@@ -15,8 +15,10 @@
 #		   them.   
 #
 #############################################################################################
-SUBDIRS += zlib-1.2.3
-SUBDIRS += ffmpeg-0.5.1
+SUBDIRS += zlib-1.2.8
+
+#SUBDIRS += ffmpeg-0.5.1
+SUBDIRS += ffmpeg-2.3.4
 SUBDIRS += libogg-1.1.4
 SUBDIRS += libexif-0.6.19
 SUBDIRS += flac-1.2.1
@@ -57,10 +59,7 @@ all: zlib libogg libexif sqlite3 libvorbis flac libid3tag ffmpeg jpeg
 
 zlib:
 	# compile zlib first, bcz. libid3tag needs it for configuration.
-	(cd zlib-1.2.3 && make TOOL_CHAIN_PATH=$(TOOL_CHAIN_PATH) \
-	CROSS_COMPILE=$(CROSS_COMPILE) \
-	HOST_COMPILE=$(HOST_COMPILE) \
-	MINI_DLNA_PATH=$(MINI_DLNA_PATH))
+	cd zlib-1.2.8 &&  (./configure --sharedlibdir=../lib);
 
 libogg:
 	if [ ! -f ./libogg-1.1.4/Makefile ];then \
@@ -96,15 +95,15 @@ flac:
 libid3tag:
 	if [ ! -f ./libid3tag-0.15.0b/Makefile ];then \
 	cd libid3tag-0.15.0b && (./configure --host=$(HOST)  CC=$(CROSS_COMPILE)gcc \
-				CPPFLAGS=-I$(MINI_DLNA_PATH)/zlib-1.2.3/ \
-				LDFLAGS=-L$(MINI_DLNA_PATH)/zlib-1.2.3/ \
+				CPPFLAGS=-I$(MINI_DLNA_PATH)/zlib-1.2.8/ \
+				LDFLAGS=-L$(MINI_DLNA_PATH)/zlib-1.2.8/ \
 				); \
 	fi
 	
 ffmpeg:
-	cd ffmpeg-0.5.1 && (./configure --enable-shared --enable-gpl --arch=arm \
+	cd ffmpeg-2.3.4 && (./configure --enable-shared --enable-gpl --arch=arm \
 				--cc=arm-brcm-linux-uclibcgnueabi-gcc --enable-cross-compile \
-				--disable-muxers --disable-encoders --disable-filters --disable-vhook \
+				--disable-muxers --disable-encoders --disable-filters --arch=arm --target_os=linux \
 				--extra-cflags=-fPIC \
 				);
 				
@@ -121,24 +120,26 @@ clean:
 	rm ./lib/libFLAC.so.8
 	rm ./lib/libogg.so.0
 	rm ./lib/libexif.so.12
-	rm ./lib/libavutil.so.49
-	rm ./lib/libavdevice.so.52
-	rm ./lib/libavformat.so.52
-	rm ./lib/libavcodec.so.52
+	rm ./lib/libavutil.so.52
+	rm ./lib/libavdevice.so.55
+	rm ./lib/libavformat.so.55
+	rm ./lib/libswresample.so.0
+	rm ./lib/libavcodec.so.55
 	rm ./lib/libsqlite3.so.0
 	rm ./lib/libjpeg.so.7
 	rm ./lib/libid3tag.so.0
 	rm ./lib/minidlna.exe
 copy: 
-	cp ./zlib-1.2.3/libz.so.1.2.3				./lib/libz.so.1 && \
+	cp ./zlib-1.2.8/libz.so.1.2.8				./lib/libz.so.1 && \
 	cp ./libvorbis-1.2.3/lib/.libs/libvorbis.so.0.4.3	./lib/libvorbis.so.0 && \
 	cp ./flac-1.2.1/src/libFLAC/.libs/libFLAC.so.8.2.0	./lib/libFLAC.so.8 && \
 	cp ./libexif-0.6.19/libexif/.libs/libexif.so.12.3.1 	./lib/libexif.so.12  && \
 	cp ./libogg-1.1.4/src/.libs/libogg.so.0.6.0		./lib/libogg.so.0 && \
-	cp ./ffmpeg-0.5.1/libavutil/libavutil.so.49		./lib/libavutil.so.49 && \
-	cp ./ffmpeg-0.5.1/libavdevice/libavdevice.so.52		./lib/libavdevice.so.52 && \
-	cp ./ffmpeg-0.5.1/libavformat/libavformat.so.52		./lib/libavformat.so.52 && \
-	cp ./ffmpeg-0.5.1/libavcodec/libavcodec.so.52		./lib/libavcodec.so.52 && \
+	cp ./ffmpeg-2.3.4/libavutil/libavutil.so.52		./lib/libavutil.so.52 && \
+	cp ./ffmpeg-2.3.4/libavdevice/libavdevice.so.55		./lib/libavdevice.so.55 && \
+	cp ./ffmpeg-2.3.4/libavformat/libavformat.so.55		./lib/libavformat.so.55 && \
+	cp ./ffmpeg-2.3.4/libavcodec/libavcodec.so.55		./lib/libavcodec.so.55 && \
+	cp ./ffmpeg-2.3.4/libswresample/libswresample.so.0	./lib/libswresample.so.0 && \
 	cp ./sqlite-3.6.22/.libs/libsqlite3.so.0.8.6 		./lib/libsqlite3.so.0 && \
 	cp ./jpeg-7/.libs/libjpeg.so.7.0.0			./lib/libjpeg.so.7 && \
 	cp ./libid3tag-0.15.0b/.libs/libid3tag.so.0.2.0 	./lib/libid3tag.so.0
@@ -150,8 +151,8 @@ distclean:
 	cd ./libvorbis-1.2.3/	&& make distclean
 	cd ./libid3tag-0.15.0b/	&& make distclean
 	cd ./flac-1.2.1/	&& make distclean
-	cd ./zlib-1.2.3/	&& make clean
-	cd ./ffmpeg-0.5.1/	&& make clean
+	cd ./zlib-1.2.8/	&& make clean
+	cd ./ffmpeg-2.3.4/	&& make clean
 	cd ./jpeg-7/		&& make clean
 	cd ./minidlna-1.0.26/		&& make clean
 	rm ./lib/*.so.*
@@ -165,10 +166,11 @@ install:
 	install -m 755 lib/libFLAC.so.8 $(TARGETDIR)/lib
 	install -m 755 lib/libexif.so.12 $(TARGETDIR)/lib
 	install -m 755 lib/libogg.so.0 $(TARGETDIR)/lib
-	install -m 755 lib/libavutil.so.49 $(TARGETDIR)/lib
-	install -m 755 lib/libavdevice.so.52 $(TARGETDIR)/lib
-	install -m 755 lib/libavformat.so.52 $(TARGETDIR)/lib
-	install -m 755 lib/libavcodec.so.52 $(TARGETDIR)/lib
+	install -m 755 lib/libavutil.so.52 $(TARGETDIR)/lib
+	install -m 755 lib/libavdevice.so.55 $(TARGETDIR)/lib
+	install -m 755 lib/libavformat.so.55 $(TARGETDIR)/lib
+	install -m 755 lib/libswresample.so.0 $(TARGETDIR)/lib
+	install -m 755 lib/libavcodec.so.55 $(TARGETDIR)/lib
 	install -m 755 lib/libsqlite3.so.0 $(TARGETDIR)/lib
 	install -m 755 lib/libjpeg.so.7 $(TARGETDIR)/lib
 	install -m 755 lib/libid3tag.so.0 $(TARGETDIR)/lib

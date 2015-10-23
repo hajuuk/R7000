@@ -35,10 +35,13 @@
 
 
 function goHome(){
+
+   
 	if (top.tophideframe)
 		top.close();
-	else
-    if (document.forms[0].enable_ap_mode.value == 1 || document.forms[0].enable_sta_mode.value == 1 )
+	else if(document.forms[0].call_by_genie.value == 1 )
+             window.location.href="genie_redirect_successpage3.htm";
+    else if (document.forms[0].enable_ap_mode.value == 1 || document.forms[0].enable_sta_mode.value == 1 )
 	    window.location.href="RST_status.htm";
     else
 		window.location.href="UPG_upgrade.htm";
@@ -67,7 +70,7 @@ function preCheck(){
 
 <tr>
 <td colspan="2">
-	<h1><%1714%></H1>
+	<h1><%1728%></H1>
 </td>
 </tr>
 
@@ -76,7 +79,7 @@ function preCheck(){
 </tr>
 
 <tr>
-    <td colspan="2" align="center"><b><%1715%></b></td>
+    <td colspan="2" align="center"><b><%1729%></b></td>
 </tr>
 <tr></tr>
 
@@ -85,15 +88,16 @@ function preCheck(){
 </tr>
 <tr>
 	<td colspan="2" id="cancel_button" align="center">
-		&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="<%1395%>" name="back" class="button-rule" onClick="buttonClick(this,'<%1395%>');goHome();"><span class="roundleft_button">&nbsp;&nbsp; <%1395%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="<%1730%>" name="back" class="button-rule" onClick="buttonClick(this,'<%1730%>');goHome();"><span class="roundleft_button">&nbsp;&nbsp; <%1730%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 	</td>
 	<td colspan="2" id="quit_button" align="center">
-		&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="<%1289%>" name="quit" class="button-rule" onClick="buttonClick(this,'<%1289%>');top.location.replace('close_process.htm');"><span class="roundleft_button">&nbsp;&nbsp; <%1289%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="<%1302%>" name="quit" class="button-rule" onClick="buttonClick(this,'<%1302%>');top.location.replace('close_process.htm');"><span class="roundleft_button">&nbsp;&nbsp; <%1302%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 	</td>    
     </tr>
 </table>
-<input type="hidden" name="enable_ap_mode" value="<%382%>">
-<input type="hidden" name="enable_sta_mode" value="<%383%>">
+<input type="hidden" name="enable_ap_mode" value="<%390%>">
+<input type="hidden" name="enable_sta_mode" value="<%391%>">
+<input type="hidden" name="call_by_genie" value="<%1718%>">
 </form>
 <p></p>
 </body>

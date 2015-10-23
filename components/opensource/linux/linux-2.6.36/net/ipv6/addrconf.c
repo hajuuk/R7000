@@ -444,7 +444,7 @@ static struct inet6_dev * ipv6_add_dev(struct net_device *dev)
 	return ndev;
 }
 
-static struct inet6_dev * ipv6_find_idev(struct net_device *dev)
+/*static*/ struct inet6_dev * ipv6_find_idev(struct net_device *dev)
 {
 	struct inet6_dev *idev;
 
@@ -461,6 +461,7 @@ static struct inet6_dev * ipv6_find_idev(struct net_device *dev)
 		ipv6_mc_up(idev);
 	return idev;
 }
+EXPORT_SYMBOL(ipv6_find_idev);
 
 #ifdef CONFIG_SYSCTL
 static void dev_forward_change(struct inet6_dev *idev)
@@ -4815,3 +4816,18 @@ int restore_ipv6_forwarding(struct net_device *dev)
     return 0;
 }
 /* Foxconn added end pling 08/16/2010 */
+
+/* Foxconn added start 11/21/2014 */
+/* Export a function for IPv6 DNS hijack to use, to avoid kernel message */
+struct inet6_dev * ipv6_find_idev2(struct net_device *dev)
+{   
+    struct inet_dev *idev;
+
+    rtnl_lock();
+    idev = ipv6_find_idev(dev);
+    rtnl_unlock();
+
+    return idev;
+}
+EXPORT_SYMBOL(ipv6_find_idev2);
+/* Foxconn added end 11/21/2014 */

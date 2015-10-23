@@ -31,15 +31,16 @@
 function goHome() {
 	if (top.tophideframe)
 		top.close();
-	else
-    if (document.forms[0].enable_ap_mode.value == 1)
+	else if(document.forms[0].call_by_genie.value == 1 )
+             window.location.href="genie_redirect_successpage3.htm";
+    else if (document.forms[0].enable_ap_mode.value == 1)
 	    location.href="RST_status.htm";
     else
 		location.href="BAS_basic.htm"
 }
 function preCheck(){
 	if (top.tophideframe)
-		document.forms[0].Button.value = "<%1289%>";
+		document.forms[0].Button.value = "<%1302%>";
 }
 //-->
 </script>
@@ -51,13 +52,13 @@ function preCheck(){
 
 <tr>
 <td colspan="2" align="center">
-<h1><%1746%> </H1>
+<h1><%1761%> </H1>
 </td>
 </tr>
 
 <tr>
 <td colspan="2" align="center">
-    <%1747%>
+    <%1762%>
 </td>
 </tr>
 
@@ -66,10 +67,11 @@ function preCheck(){
 <tr></tr>
 <tr>
 <td colspan="2" align="center">
-&nbsp;&nbsp;&nbsp;<button type="Button" value="<%1748%>" name="Button" class="button-rule" onClick="buttonClick(this,'<%1748%>');goHome();"><span class="roundleft_button">&nbsp;&nbsp; <%1748%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="Button" value="<%1730%>" name="Button" class="button-rule" onClick="buttonClick(this,'<%1730%>');goHome();"><span class="roundleft_button">&nbsp;&nbsp; <%1730%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </tr>
 </table>
-<input type="hidden" name="enable_ap_mode" value="<%382%>">
+<input type="hidden" name="enable_ap_mode" value="<%390%>">
+<input type="hidden" name="call_by_genie" value="<%1718%>">
 </form>
 <p></p>
 </body>

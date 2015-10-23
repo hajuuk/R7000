@@ -778,16 +778,27 @@ init_brcmnand_mtd_partitions(struct mtd_info *mtd, size_t size)
 	struct brcmnand_mtd *brcmnand = chip->priv;
 
 	knldev = soc_knl_dev((void *)brcmnand->sih);
+#ifdef R6400
 	if (knldev == SOC_KNLDEV_NANDFLASH)
 		/*Foxconn modify by Hank for change offset in Foxconn firmware 10/24/2012*/
-		offset = 0x2600000;;
-
+		offset = 0x3400000;
+#else
+	if (knldev == SOC_KNLDEV_NANDFLASH)
+		/*Foxconn modify by Hank for change offset in Foxconn firmware 10/24/2012*/
+		offset = 0x2600000;
+#endif
 	ASSERT(size > offset);
 
+#ifdef R6400
+	brcmnand_parts[0].offset = offset;
+	brcmnand_parts[0].size = size - offset - 
+	                        (0x500000+0x80000+0x100000+0x100000+0x2c0000+0x2c0000+0x80000+0x80000+0x80000+0x80000+0x80000+0x80000+0x80000+0x80000);
+#else
 	brcmnand_parts[0].offset = offset;
 	brcmnand_parts[0].size = size - offset - 0x500000;
-	
-        brcmnand_parts[1].offset = size-0x500000;
+
+#endif	
+    brcmnand_parts[1].offset = brcmnand_parts[0].offset + brcmnand_parts[0].size;
 	brcmnand_parts[1].size = 0x500000;
 
 	return brcmnand_parts;

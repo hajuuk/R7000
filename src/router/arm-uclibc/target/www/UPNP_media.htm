@@ -168,7 +168,7 @@ function check_media(form)
         var mediaName = form.media_server_name.value;
         if(mediaName == ":")
         {
-	    alert("<%2732%>");
+	    alert("<%2864%>");
             return false;
         }else
         {
@@ -212,7 +212,7 @@ function getkey(type, e)
     {
         if((keycode==47) || (keycode==42) || (keycode==63) || (keycode==34) || (keycode==60) || (keycode==62) || (keycode==92) || (keycode==93) || (keycode==124))
         {
-		    alert("<%2732%>");
+		    alert("<%2864%>");
             return false;
 	}	
         else if(keycode == 13)
@@ -280,20 +280,22 @@ function checkRemotePin()
 </script> 
 </head>
 
-<body  onload="change_size();loadvalue();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%62%>">
-<img class="body-image" src="<%63%>">
+<body  onload="change_size();loadvalue();" class="subpage-body"  onResize="change_size();" >
+<img class="cover-image" src="<%63%>">
+<img class="body-image" src="<%64%>">
 <div id="full-page-container">
 
 <form id="target"  method="POST" action="upnp_media.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="<%64%>">
-<div class="subhead2"> <%2733%></div>
+<img class="subtop-image" src="<%65%>">
+<%2865%>
+<div class="subhead2"> <%2866%></div>
+<%2867%>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%66%>"  onClick="buttonClick(this,'<%66%>'); return check_media(document.forms[0]);" type="button" name="Apply" class="button-apply" > <span class="roundleft_apply" ><%67%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%67%>"  onClick="buttonClick(this,'<%67%>'); return check_media(document.forms[0]);" type="button" name="Apply" class="button-apply" > <span class="roundleft_apply" ><%68%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
 
 </td>
 </tr>
@@ -305,17 +307,17 @@ function checkRemotePin()
 
 <tr>
 	<td nowrap colspan=2>
-	<input type="checkbox" name="media_server" value="1" onClick="checkDLNA();"><a href="javascript:loadhelp('UPNP_media','enable')" tabindex="-1"><b><%2734%></b></a>
+	<input type="checkbox" name="media_server" value="1" onClick="checkDLNA();"><a href="javascript:loadhelp('UPNP_media','enable')" tabindex="-1"><b><%2868%></b></a>
 	</td>
 </tr>
-<tr <%2735%>>
+<tr <%2869%>>
 	<td nowrap colspan=2>
-	&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="tivo_support" value="1" onClick="checkTiVo()"><a href="javascript:loadhelp('UPNP_media','enable')" tabindex="-1"><b><%2736%></b></a>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="tivo_support" value="1" onClick="checkTiVo()"><a href="javascript:loadhelp('UPNP_media','enable')" tabindex="-1"><b><%2870%></b></a>
 	</td>
 </tr>
 <tr>
 	<td nowrap colspan=2>
-	<input type="checkbox" name="iserver" value="1" onClick="iserver_click();"><a href="javascript:loadhelp('UPNP_iserver','enable')" tabindex="-1"><b><%2737%></b></a>
+	<input type="checkbox" name="iserver" value="1" onClick="iserver_click();"><a href="javascript:loadhelp('UPNP_iserver','enable')" tabindex="-1"><b><%2871%></b></a>
 	</td>
 </tr>
 <!--
@@ -327,16 +329,16 @@ function checkRemotePin()
 </tr>
 -->
 <tr>
-	<td colspan=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%2738%>
+	<td colspan=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%2872%>
 	<input type="text" name="iserver_passcode" maxlength=4 style="width:40px" onKeyPress="return getkey('iServerPass', event)">
-  &nbsp;&nbsp;<button type="submit" value="allowcontrol" name="allowcontrol" class="button-rule" onclick="buttonClick(this,'allowcontrol');return checkRemotePin();"><span class="roundleft_button">&nbsp;&nbsp; <%2739%> </span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+  &nbsp;&nbsp;<button type="submit" value="allowcontrol" name="allowcontrol" class="button-rule" onclick="buttonClick(this,'allowcontrol');return checkRemotePin();"><span class="roundleft_button">&nbsp;&nbsp; <%2873%> </span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 
 	</td>
 
 </tr>
 <tr>
-	<td colspan=2><b><%2740%> &nbsp;&nbsp;</b>:
-<input type="text" name="media_server_name" size="32" readonly onKeyPress="return getkey('mediaServerName', event)"><a href="LAN_lan.htm"><u><%2741%></u></a>
+	<td colspan=2><b><%2874%> &nbsp;&nbsp;</b>:
+<input type="text" name="media_server_name" size="32" readonly onKeyPress="return getkey('mediaServerName', event)"><a href="LAN_lan.htm"><u><%2875%></u></a>
 	</td>
 </tr>
 
@@ -350,18 +352,18 @@ function checkRemotePin()
 <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
   <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-  <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
+  <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%239%> </span>
   <span class="button-help-arrow">
   <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-  <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%235%> </span>
+  <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%240%> </span>
 </div>
 
-<input type="hidden" name="media_server_onoff" value="<%2742%>">
-<input type="hidden" name="tivo_support_onoff" value="<%2743%>">
-<input type="hidden" name="upnp_media_name" value="<%2744%>">
-<input type="hidden" name="iserver_onoff" value="<%2745%>">
+<input type="hidden" name="media_server_onoff" value="<%2876%>">
+<input type="hidden" name="tivo_support_onoff" value="<%2877%>">
+<input type="hidden" name="upnp_media_name" value="<%2878%>">
+<input type="hidden" name="iserver_onoff" value="<%2879%>">
 <input type="hidden" name="iserver_remote_device" value="NoNeedAnymore">
-<input type="hidden" name="iserver_remote_pass" value="<%2746%>">
+<input type="hidden" name="iserver_remote_pass" value="<%2880%>">
 
 <a name="helpframe-anchor"></a>
 </FORM>

@@ -1,0 +1,828 @@
+<refentry id="setkey">
+
+<refmeta>
+<refentrytitle>setkey</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo>iputils-&snapshot;</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>setkey</refname>
+<refpurpose>manually manipulate the IPsec SA/SP database</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<cmdsynopsis>
+<command>setkey</command> 
+<arg choice="opt"><option>-dv</option></arg>
+<arg choice="req"><option/-c/</arg>
+</cmdsynopsis>
+<cmdsynopsis>
+<command>setkey</command> 
+<arg choice="opt"><option>-dv</option></arg>
+<arg choice="req"><option/-f/</arg>
+<arg choice="req"><replaceable/filename/</arg>
+</cmdsynopsis>
+<cmdsynopsis>
+<command>setkey</command> 
+<arg choice="opt"><option>-adPlv</option></arg>
+<arg choice="req"><option/-D/</arg>
+</cmdsynopsis>
+<cmdsynopsis>
+<command>setkey</command> 
+<arg choice="opt"><option>-dPv</option></arg>
+<arg choice="req"><option/-F/</arg>
+</cmdsynopsis>
+<cmdsynopsis>
+<command>setkey</command> 
+<arg choice="opt"><option>-h</option></arg>
+<arg choice="req"><option/-x/</arg>
+</cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1><title>DESCRIPTION</title>
+<para>
+<command/setkey/ adds, updates, dumps, or flushes
+Security Association Database (SAD) entries
+as well as Security Policy Database (SPD) entries in the kernel.
+</para>
+
+<para>
+<command/setkey/ takes a series of operations from the standard input
+(if invoked with <option/-c/) or the file named <replaceable/filename/
+(if invoked with <option/-f/ <replaceable/filename/).
+</para>
+
+<para>
+<variablelist>
+ <varlistentry>
+  <term><option/-D/</term>
+  <listitem><para>
+Dump the SAD entries. If with <option/-P/, the SPD entries are dumped.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term><option/-F/</term>
+  <listitem><para>
+Flush the SAD entries. If with <option/-P/, the SPD entries are flushed.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term><option/-a/</term>
+  <listitem><para>
+<command/setkey/ usually does not display dead SAD entries with
+<option/-D/. If with <option/-a/, the dead SAD entries will be displayed
+as well. A dead SAD entry means that it has been expired but remains
+because it is referenced by SPD entries.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term><option/-d/</term>
+  <listitem><para>
+Enable to print debugging messages for command parser, without talking
+to kernel. It is not used usually.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term><option/-x/</term>
+  <listitem><para>
+Loop forever and dump all the messages transmitted to
+<constant/PF_KEY/ socket. <option/-xx/ makes each timestamps unformatted.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term><option/-h/</term>
+  <listitem><para>
+Add hexadecimal dump on <option/-x/ mode.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term><option/-l/</term>
+  <listitem><para>
+Loop forever with short output on <option/-D/.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term><option/-v/</term>
+  <listitem><para>
+Be verbose. The program will dump messages exchanged on
+<constant/PF_KEY/ socket, including messages sent from other processes
+to the kernel.
+  </para></listitem>
+ </varlistentry>
+</variablelist>
+</para>
+
+<para>
+Operations have the following grammar. Note that lines starting with
+hashmarks ('#') are treated as comment lines.
+</para>
+
+<para>
+<variablelist>
+ <varlistentry>
+  <term>
+    <option/add/
+    <replaceable/src/
+    <replaceable/dst/
+    <replaceable/protocol/
+    <replaceable/spi/
+    <replaceable/extensions/
+    <replaceable/algorithm.../
+    ;
+  </term>
+  <listitem><para>
+Add an SAD entry.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <option/get/
+    <replaceable/src/
+    <replaceable/dst/
+    <replaceable/protocol/
+    <replaceable/spi/
+    ;
+  </term>
+  <listitem><para>
+Show an SAD entry.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <option/delete/
+    <replaceable/src/
+    <replaceable/dst/
+    <replaceable/protocol/
+    <replaceable/spi/
+    ;
+  </term>
+  <listitem><para>
+Remove an SAD entry.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <option/deleteall/
+    <replaceable/src/
+    <replaceable/dst/
+    <replaceable/protocol/
+    ;
+  </term>
+  <listitem><para>
+Remove all SAD entries that match the specification.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <option/flush/
+    <replaceable/protocol/
+    ;
+  </term>
+  <listitem><para>
+Clear all SAD entries matched by the options.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <option/dump/
+    <replaceable/protocol/
+    ;
+  </term>
+  <listitem><para>
+Dump all SAD entries matched by the options.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <option/spdadd/
+    <replaceable/src_range/
+    <replaceable/dst_range/
+    <replaceable/upperspec/
+    <replaceable/policy/
+    ;
+  </term>
+  <listitem><para>
+Add an SPD entry.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <option/spddelete/
+    <replaceable/src_range/
+    <replaceable/dst_range/
+    <replaceable/upperspec/
+    <option/-P/ <replaceable/direction/
+    ;
+  </term>
+  <listitem><para>
+Delete an SPD entry.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <option/spdflush/
+    ;
+  </term>
+  <listitem><para>
+Clear all SPD entries.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <option/spddump/
+    ;
+  </term>
+  <listitem><para>
+Dump all SPD entries.
+  </para></listitem>
+ </varlistentry>
+</variablelist>
+</para>
+
+<para>
+Meta-arguments are as follows:
+</para>
+
+<para>
+<variablelist>
+ <varlistentry>
+  <term>
+    <replaceable/src/,
+    <replaceable/dst/
+  </term>
+  <listitem><para>
+Source/destination of the secure communication is specified as
+IPv4/v6 address. <command/setkey/ does not consult hostname-to-address
+for arguments <replaceable/src/ and <replaceable/dst/.
+They must be in numeric form.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <replaceable/protocol/
+  </term>
+  <listitem><para>
+<replaceable/protocol/ is one of following:
+    <variablelist>
+      <varlistentry>
+        <term><constant/esp/</term>
+        <listitem><para>
+ESP based on rfc2405
+        </para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><constant/ah/</term>
+        <listitem><para>
+AH based on rfc2402
+        </para></listitem>
+      </varlistentry>
+<![IGNORE[
+      <varlistentry>
+        <term><constant/ipcomp/</term>
+        <listitem><para>
+IPCOMP
+        </para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><constant/esp-old/</term>
+        <listitem><para>
+ESP based on rfc1827
+        </para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><constant/ah-old/</term>
+        <listitem><para>
+ESP based on rfc1826
+        </para></listitem>
+      </varlistentry>
+]]>
+    </variablelist>
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <replaceable/spi/
+  </term>
+  <listitem><para>
+Security Parameter Index (SPI) for the SAD and the SPD.
+It must be decimal number or hexadecimal number
+(with <literal/0x/ attached).
+You cannot use the set of SPI values in the range 0 through 255.
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <replaceable/extensions/
+  </term>
+  <listitem><para>
+takes some of the following:
+    <variablelist>
+      <varlistentry>
+        <term><option/-m/ <replaceable/mode/</term>
+        <listitem><para>
+Specify a security protocol mode for use. <replaceable/mode/
+is one of following: <option/transport/ or <option/tunnel/.
+The default value is <option/transport/.
+        </para><para>
+NOTE: it is a difference of KAME. Our implemenation does not allow
+to use single SA both for transport and tunnel mode via IPsec
+interface. Tunneled frames still can be encapsulated in transport
+mode SA, provided you use tunnel devices and apply transport mode
+IPsec to IPIP protocol.
+        </para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option/-r/ <replaceable/size/</term>
+        <listitem><para>
+Specify window size of bytes for replay prevention.
+<replaceable/size/ must be decimal number in the range 0 ... 32.
+If <replaceable/size/ is zero, replay check doesn't take place.
+If <replaceable/size/ is not specified, replay window is 32 for
+AH and authenticated ESP, and disabled for unauthenticated ESP.
+        </para><para>
+NOTE: it is a difference of KAME. Default value must be reasonable before all.
+        </para></listitem>
+      </varlistentry>
+<![IGNORE[
+      <varlistentry>
+        <term><option/-u/ <replaceable/id/</term>
+        <listitem><para>
+Specify the identifier of the policy entry in SPD.
+See <replaceable/policy/.
+        </para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option/-f/ <replaceable/pad_option/</term>
+        <listitem><para>
+defines the content of the ESP padding.
+.Ar pad_option
+is one of following:
+.Bl -tag -width random-pad -compact
+.It Li zero-pad
+All of the padding are zero.
+.It Li random-pad
+A series of randomized values are set.
+.It Li seq-pad
+A series of sequential increasing numbers started from 1 are set.
+        </para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option/-f/ <option/nocyclic-seq/</term>
+        <listitem><para>
+Don't allow cyclic sequence number.
+        </para></listitem>
+      </varlistentry>
+]]>
+      <varlistentry>
+        <term><option/-lh/ <replaceable/time/,
+              <option/-ls/ <replaceable/time/
+        </term>
+        <listitem><para>
+Specify hard/soft life time duration of the SA.
+        </para></listitem>
+      </varlistentry>
+    </variablelist>
+  </para></listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>
+    <replaceable/algorithm/
+  </term>
+  <listitem><para>
+    <variablelist>
+      <varlistentry>
+        <term>
+          <option/-E/ <replaceable/ealgo/ <replaceable/key/
+        </term>
+        <listitem><para>
+Specify an encryption algorithm.
+        </para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <option/-A/ <replaceable/aalgo/ <replaceable/key/
+        </term>
+        <listitem><para>
+Specify an authentication algorithm.
+If <option/-A/ is used with <replaceable/protocol/ <literal/esp/,
+it will be treated as ESP payload authentication algorithm.
+        </para></listitem>
+      </varlistentry>
+
+<![IGNORE[
+      <varlistentry>
+        <term>
+          <option/-C/ <replaceable/calgo/ <option/-R/
+        </term>
+        <listitem><para>
+Specify compression algorithm.
+If
+<option/-R/
+is not specified with
+.Li ipcomp
+line, the kernel will use well-known IPComp CPI
+(compression parameter index)
+on IPComp CPI field on packets, and
+.Ar spi
+field will be ignored.
+.Ar spi
+field is only for kernel internal use in this case.
+.\"Therefore, compression protocol number will appear on IPComp CPI field.
+If
+<option/-R/
+is used,
+the value on
+.Ar spi
+field will appear on IPComp CPI field on outgoing packets.
+.Ar spi
+field needs to be smaller than
+.Li 0x10000
+in this case.
+        </para></listitem>
+      </varlistentry>
+]]>
+
+    </variablelist>
+
+<replaceable/protocol/ <literal/esp/ accepts <option/-E/ and <option/-A/.
+<![IGNORE[
+<replaceable/protocol/ <literal/esp-old/ accepts <option/-E/ only.
+]]>
+<replaceable/protocol/ <literal/ah/ 
+<![IGNORE[
+<literal/ah-old/
+]]>
+accepts <option/-A/ only.
+<![IGNORE[
+<replaceable/protocol/ <literal/ipcomp/ accepts <option/-C/ only.
+]]>
+</para>
+
+<para>
+<replaceable/key/ must be double-quoted character string or series
+of hexadecimal digits.
+</para>
+
+<para>
+Possible values for
+<replaceable/ealgo/ and <replaceable/aalgo/
+<![IGNORE[
+<replaceable/calgo/
+]]>
+are specified in separate section.
+  </para></listitem>
+ </varlistentry>
+
+ <varlistentry>
+   <term>
+      <replaceable/src_range/,  <replaceable/dst_range/
+   </term>
+   <listitem><para>
+These are selections of the secure communication specified as
+IPv4/v6 address or IPv4/v6 address range, and it may accompany
+TCP/UDP port specification. This takes the following form:
+     <itemizedlist>
+       <listitem><para><replaceable>
+         address
+       </replaceable></para></listitem>
+       <listitem><para><replaceable>
+         address/prefixlen
+       </replaceable></para></listitem>
+       <listitem><para><replaceable>
+         address[port]
+       </replaceable></para></listitem>
+       <listitem><para><replaceable>
+         address/prefixlen[port]
+       </replaceable></para></listitem>
+     </itemizedlist>
+</para>
+<para>
+<replaceable/prefixlen/ and <replaceable/port/ must be decimal numbers.
+The square bracket around <replaceable/port/ is really necessary.
+They are not manpage metacharacters.
+<command/setkey/ does not consult hostname-to-address for arguments
+<replaceable/src/ and <replaceable/dst/. They must be in numeric form.
+
+  </para></listitem>
+ </varlistentry>
+
+ <varlistentry>
+   <term>
+      <replaceable/upperspec/
+   </term>
+   <listitem><para>
+Upper-layer protocol to be used. You can use one of words in
+<literal>/etc/protocols</literal> as <replaceable/upperspec/.
+Or <literal/icmp6/, <literal/ip4/, and <literal/any/
+can be specified. <literal/any/ stands for any protocol.
+Also you can use the protocol number.
+</para>
+<para>
+NOTE: <literal/upperspec/ is not advised against forwarding case
+at this moment, as it requires extra reassembly at forwarding node
+(not implemented at this moment). We have many protocols in
+<literal>/etc/protocols</literal>, but protocols except of TCP, UDP and
+ICMP may not be suitable to use with IPSec. You have to consider and
+be careful to use them.
+  </para></listitem>
+ </varlistentry>
+
+ <varlistentry>
+   <term>
+      <replaceable/policy/
+   </term>
+   <listitem><para>
+<replaceable/policy/ is the one of following:
+     <itemizedlist>
+       <listitem><para>
+<option/-P/ <replaceable/direction/ <literal/discard/
+       </para></listitem>
+       <listitem><para>
+<option/-P/ <replaceable/direction/ <literal/none/
+       </para></listitem>
+       <listitem><para>
+<option/-P/ <replaceable/direction/ <literal/ipsec/
+  <replaceable>protocol/mode/src-dst/level</replaceable>
+       </para></listitem>
+     </itemizedlist>
+</para><para>
+You must specify the direction of its policy as <replaceable/direction/.
+Either <literal/out/ or <literal/in/ or <literal/fwd/
+are used.
+</para><para>
+<literal/discard/ means the packet matching indexes will be discarded.
+<literal/none/ means that IPsec operation will not take place onto the packet.
+<literal/ipsec/ means that IPsec operation will take place onto the packet.
+Either <literal/ah/ or <literal/esp/ 
+<![IGNORE[ or <literal/ipcomp/ ]]>
+is to be set as <replaceable/protocol/.
+</para><para>
+<replaceable/mode/ is either <literal/transport/ or <literal/tunnel/.
+If <replaceable/mode/ is <literal/tunnel/, you must specify the end-points
+addresses of the SA as <replaceable/src/ and <replaceable/dst/
+with <literal/-/ between these addresses which is used to specify
+the SA to use. If <replaceable/mode/ is <literal/transport/, both
+<replaceable/src/ and <replaceable/dst/ can be omited.
+</para><para>
+<replaceable/level/ is to be one of the following:
+<![IGNORE[
+<literal/default/, <literal/use/, <literal/require/ or <literal/unique/.
+]]>
+<literal/use/ or <literal/require/.
+If the SA is not available in every level, the kernel will request
+getting SA to the key exchange daemon.
+<![IGNORE[
+<literal/default/ means the kernel consults to the system wide default
+against protocol you specified, e.g.\&
+.Li esp_trans_deflev
+sysctl variable, when the kernel processes the packet.
+]]>
+<literal/use/ means that the kernel use a SA if it's available,
+otherwise the kernel keeps normal operation.
+<literal/require/ means SA is required whenever the kernel sends
+a packet matched with the policy.
+<![IGNORE[
+.Li unique
+is the same to require.
+In addition, it allows the policy to bind with the unique out-bound SA.
+If you use the SA by manual keying,
+you can put the decimal number as the policy identifier after
+.Li unique
+separated by colon
+.Sq \:
+like the following;
+.Li unique:number .
+.Li number
+must be between 1 and 32767.
+It corresponds to
+.Ar extensions Fl u .
+.Pp
+]]>
+Note that
+<literal/discard/ and <literal/none/ are not in the syntax described in
+ipsec_set_policy(3). There are little differences in the syntax.
+See ipsec_set_policy(3) for detail.
+  </para></listitem>
+ </varlistentry>
+</variablelist>
+</para>
+</refsect1>
+
+<refsect1><title>ALGORITHMS</title>
+
+<para>
+The following list shows the supported algorithms.
+<replaceable/protocol/ and <replaceable/algorithm/
+are almost orthogonal. Followings are the list of authentication
+algorithms that can be used as <replaceable/aalgo/
+in <option/-A/ <replaceable/aalgo/ of <replaceable/protocol/
+parameter:
+</para>
+
+<informaltable frame="none">
+<tgroup cols=3><tbody>
+<row> <entry>algorithm</entry>
+      <entry>keylen (bits)</entry>
+      <entry>comment</entry>
+</row>
+<row> <entry>hmac-md5</entry>
+      <entry>128</entry>
+      <entry>ah: rfc2403</entry>
+</row>
+<row> <entry>hmac-sha1</entry>
+      <entry>160</entry>
+      <entry>ah: rfc2401</entry>
+</row>
+</tbody></tgroup>
+</informaltable>
+
+<![IGNORE[
+algorithm	keylen (bits)	comment
+hmac-md5	128		ah: rfc2403
+		128		ah-old: rfc2085
+hmac-sha1	160		ah: rfc2404
+		160		ah-old: 128bit ICV (no document)
+keyed-md5	128		ah: 96bit ICV (no document)
+		128		ah-old: rfc1828
+keyed-sha1	160		ah: 96bit ICV (no document)
+		160		ah-old: 128bit ICV (no document)
+null		0 to 2048	for debugging
+hmac-sha2-256	256		ah: 96bit ICV (no document)
+		256		ah-old: 128bit ICV (no document)
+hmac-sha2-384	384		ah: 96bit ICV (no document)
+		384		ah-old: 128bit ICV (no document)
+hmac-sha2-512	512		ah: 96bit ICV (no document)
+		512		ah-old: 128bit ICV (no document)
+]]>
+
+<para>
+Followings are the list of encryption algorithms that can be used as
+<replaceable/ealgo/ in <option/-E/ <replaceable/ealgo/ of
+<replaceable/protocol/ parameter:
+</para>
+
+<informaltable frame="none">
+<tgroup cols=3><tbody>
+<row> <entry>algorithm</entry>
+      <entry>keylen (bits)</entry>
+      <entry>comment</entry>
+</row>
+<row> <entry>des-cbc</entry>
+      <entry>64</entry>
+      <entry>esp: rfc2405</entry>
+</row>
+<row> <entry>3des-cbc</entry>
+      <entry>192</entry>
+      <entry>esp: rfc2451</entry>
+</row>
+</tbody></tgroup>
+</informaltable>
+
+<![IGNORE[
+algorithm	keylen (bits)	comment
+des-cbc		64		esp-old: rfc1829, esp: rfc2405
+3des-cbc	192		rfc2451
+simple		0 to 2048	rfc2410
+blowfish-cbc	40 to 448	rfc2451
+cast128-cbc	40 to 128	rfc2451
+des-deriv	64		ipsec-ciph-des-derived-01 (expired)
+3des-deriv	192		no document
+rijndael-cbc	128/192/256	draft-ietf-ipsec-ciph-aes-cbc-00
+]]>
+
+<![IGNORE[
+<para>
+Followings are the list of compression algorithms that can be used as
+<replaceable/calgo/ in <option/-C/ <replaceable/calgo/ of
+<replaceable/protocol/ parameter:
+</para>
+
+algorithm	comment
+deflate		rfc2394
+lzs		rfc2395
+]]>
+
+</refsect1>
+
+<refsect1><title>EXAMPLES</title>
+
+<programlisting>
+add	10.0.11.41 10.0.11.33 esp 123457
+		-m tunnel -E des-cbc "ESP SA!!" ;
+
+add	10.0.11.41 10.0.11.33 ah 123456
+		-m transport -A hmac-sha1 "AH SA configuration!" ;
+
+add	10.0.11.41 10.0.11.34 esp 0x10001
+                -m tunnel
+		-E des-cbc "ESP with"
+		-A hmac-md5 "authentication!!" ;
+
+get	10.0.11.41 10.0.11.33 ah 123456 ;
+
+flush ;
+
+dump esp ;
+
+</programlisting>
+
+<para>
+Encapsulate output of telnetd in ESP tunnel encrypted with DES
+and authenticated with MD5.
+</para>
+
+<programlisting>
+
+spdadd	192.168.0.1/32[23] 192.168.0.2/32[any] any
+		-P out ipsec esp/tunnel/10.0.11.41-10.0.11.34/require ;
+
+</programlisting>
+
+<para>
+Or alternatively, encapsulate output of telnetd in ESP tunnel
+encrypted with DES, but with stronger authentication of whole
+encapsulated packet with MD5.
+</para>
+
+<programlisting>
+
+spdadd	192.168.0.1/32[23] 192.168.0.2/32[any] any
+		-P out ipsec
+                esp/tunnel/10.0.11.41-10.0.11.33/require
+	        ah/transport//require ;
+
+</programlisting>
+
+</refsect1>
+
+<refsect1><title>RETURN VALUES</title>
+
+<para>
+The command exits with 0 on success, and non-zero on errors.
+</para>
+
+</refsect1>
+
+<refsect1><title>SEE ALSO</title>
+
+<para>
+ipsec_set_policy(3),
+racoon(8),
+sysctl(8)
+</para>
+
+</refsect1>
+
+<refsect1><title>HISTORY</title>
+<para>
+The <command/setkey/ command first appeared in WIDE Hydrangea IPv6 protocol
+stack kit. The command was completely re-designed in June 1998.
+</para>
+<para>
+This port to Linux was made on November 2002.
+</para>
+
+</refsect1>
+
+</refentry>
+
+<![IGNORE[
+<refsect1><title>COPYING</title>
+<para>
+<literallayout>
+	$KAME: setkey.8,v 1.49 2001/05/18 05:49:51 sakane Exp $
+	$FreeBSD: src/usr.sbin/setkey/setkey.8,v 1.19 2001/08/10 13:45:35 ru Exp $
+
+ Copyright (C) 1995, 1996, 1997, 1998, and 1999 WIDE Project.
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. Neither the name of the project nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED.  IN NO EVENT SHALL THE PROJECT OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ SUCH DAMAGE.
+</literallayout>
+</para>
+</refsect1>
+]]>
+
+

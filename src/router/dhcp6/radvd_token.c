@@ -2075,6 +2075,13 @@ radvd_parse(struct dhcp6_iaidaddr *client6_iaid, int flag)
 {
 	struct stat buf;
 	char pidstr[128];
+	
+	/* Foxconn added start pling 05/27/2014 */
+	/* return here, don't signal radvd. 
+	 * our rc code will restart radvd and dhcp6s */
+	return 0;
+	/* Foxconn added end pling 05/27/2014 */
+	
 	sprintf(pidstr, "%d", getpid());
 	strcpy(radvd_dhcpv6_file, RADVD_CONF_DHCPV6_FILE);
 	strcat(radvd_dhcpv6_file, pidstr);
@@ -2170,6 +2177,13 @@ rdyywrap(void)
 	int fd;
 	char buff[8];
 	pid_t radvd_pid;
+
+	/* Foxconn added start pling 05/27/2014 */
+	/* return here, don't signal radvd. 
+	 * our rc code will restart radvd and dhcp6s */
+	return 0;
+	/* Foxconn added end pling 05/27/2014 */
+
 	(void)update_radvd();
 	if (update) {
 		if ((fd = open(PATH_RADVD_PID, O_RDONLY)) > 0) {

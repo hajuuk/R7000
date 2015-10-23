@@ -1,0 +1,10 @@
+Package: libxml2
+Version: 2.7.2-2
+Depends: libpthread, zlib
+Provides: 
+Source: package/libxml2
+Section: libs
+Priority: optional
+Maintainer: OpenWrt Developers Team <openwrt-devel@openwrt.org>
+Architecture: mips
+Description:  A library for manipulating XML and HTML resources.

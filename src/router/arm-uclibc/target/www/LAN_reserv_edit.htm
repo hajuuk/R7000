@@ -108,8 +108,8 @@ function checkData()
 	var rv_dv_name=cf.reserved_devname.value.split("|");
 	var i, conflict, reply;
 
-	var str_dhcp_start = "<%1031%>";
-	var str_dhcp_end = "<%1032%>"
+	var str_dhcp_start = "<%1042%>";
+	var str_dhcp_end = "<%1043%>"
 	var dhcp_startaddr = str_dhcp_start.split(".");
 	var dhcp_endaddr = str_dhcp_end.split(".");
 
@@ -119,9 +119,9 @@ function checkData()
 
 	if(checkMacStr(cf.rsv_mac))
 		msg+= "<%0%>\n";
-	msg+= checkBlank(cf.dv_name, "<%638%>");
+	msg+= checkBlank(cf.dv_name, "<%648%>");
 	if (cf.dv_name.value.match( /[^\x20-\x7E]/ ))
-		msg+="<%686%>\n";
+		msg+="<%696%>\n";
 	if (msg.length > 1)
 	{
 		alert(msg);
@@ -146,7 +146,7 @@ function checkData()
         i++;
     }
     if (conflict) {
-        reply = confirm("<%1041%>");
+        reply = confirm("<%1052%>");
         if (!reply)
             return false;
     }
@@ -165,7 +165,7 @@ function loadSettings()
 	cf.rsv_ip3.value = rsv_ip[2];
 	cf.rsv_ip4.value = rsv_ip[3];
 
-	cf.rsv_mac.value = "<%1047%>";
+	cf.rsv_mac.value = "<%1058%>";
     cf.orig_rsv_mac.value = cf.rsv_mac.value;
     cf.dv_name.value = cf.orig_dv_name.value;
 }
@@ -174,20 +174,20 @@ function loadSettings()
 </script> 
 </head>
 <body  onload="change_size();loadSettings();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%62%>">
-<img class="body-image" src="<%63%>">
+<img class="cover-image" src="<%63%>">
+<img class="body-image" src="<%64%>">
 <div id="full-page-container">
 
 <form id="target"  method="POST" action="reserv.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-	<img class="subtop-image" src="<%64%>">
-<div class="subhead2"> <%1025%></div>
+	<img class="subtop-image" src="<%65%>">
+<div class="subhead2"> <%1036%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%66%>"  onClick="buttonClick(this,'<%66%>');if(!checkData()) return false;" type="SUBMIT" name="apply" class="button-apply" > <span class="roundleft_apply" ><%67%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%68%>" onClick="buttonClick(this,'<%68%>');location.href='LAN_lan.htm'" type="Button" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%69%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%67%>"  onClick="buttonClick(this,'<%67%>');if(!checkData()) return false;" type="SUBMIT" name="apply" class="button-apply" > <span class="roundleft_apply" ><%68%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%69%>" onClick="buttonClick(this,'<%69%>');location.href='LAN_lan.htm'" type="Button" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%70%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -196,16 +196,16 @@ function loadSettings()
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 
 <tr>
-	<td width="50%" nowrap><%445%></td>
+	<td width="50%" nowrap><%455%></td>
 	<td width="50%" align="left" class="num">
 		<input type="text" name="rsv_ip1" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="rsv_ip2" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="rsv_ip3" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="rsv_ip4" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
 </tr>
 <tr>
-	<td width="50%" nowrap><%639%></td>
+	<td width="50%" nowrap><%649%></td>
 	<td width="50%" align="left" class="num"><input type="text" name="rsv_mac" class="num" size="17" maxlength="17"></td>
 </tr>
 <tr>
-	<td width="50%" nowrap><%638%></td>
+	<td width="50%" nowrap><%648%></td>
 	<td width="50%" align="left">
 		<input type="text" name="dv_name" size="20" maxlength="20">
 	</td>
@@ -220,22 +220,22 @@ function loadSettings()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%239%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%235%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%240%> </span>
       </div>
 
 
 
-<INPUT name=rsv_ip type=hidden value= "<%1048%>">
+<INPUT name=rsv_ip type=hidden value= "<%1059%>">
 <INPUT name=rsv_mode type=hidden value="edit">
-<input type="hidden" name="reserved_ips" value="<%1044%>">
-<input type="hidden" name="reserved_macs" value="<%1045%>">
-<input type="hidden" name="reserved_devname" value="<%1046%>">
+<input type="hidden" name="reserved_ips" value="<%1055%>">
+<input type="hidden" name="reserved_macs" value="<%1056%>">
+<input type="hidden" name="reserved_devname" value="<%1057%>">
 <input type="hidden" name="orig_rsv_ip" value="">
 <input type="hidden" name="orig_rsv_mac" value="">
-<input type="hidden" name="orig_dv_name" value="<%1049%>">
+<input type="hidden" name="orig_dv_name" value="<%1060%>">
 <a name="helpframe-anchor"></a>
 </form>
 </div>

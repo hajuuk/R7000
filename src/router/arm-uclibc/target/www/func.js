@@ -322,3 +322,104 @@ function setDisabled(OnOffFlag,formFields)
 	for (var i = 1; i < setDisabled.arguments.length; i++)
 		setDisabled.arguments[i].disabled = OnOffFlag;
 }
+
+
+function checkFiled(fieldObj)
+{
+    /*I don't know how to check the ip if invalid ...
+    if(fieldObj.value.match( /[^\x30-\x39]/ ) && fieldObj.value.match( /[^\x41-\x46]/ ) && fieldObj.value.match( /[^\x61-\x66]/ ))*/
+    var temp = fieldObj.value;
+    
+    var tmp;
+    if (fieldObj.value == "")
+    {
+        temp = "0000";
+    }
+    else
+    {
+        if (fieldObj.value.length < 4)
+        {
+            if (fieldObj.value.length == 1)
+            {
+                tmp = '000'+fieldObj.value;
+            }   
+            else if (fieldObj.value.length == 2)
+            {
+                tmp = '00'+fieldObj.value;
+            }
+            else if (fieldObj.value.length == 3)
+            {
+                tmp = '0'+fieldObj.value;
+            }
+            temp = tmp;
+        }
+        else 
+        {
+            temp = fieldObj.value;
+        }
+    }
+    
+    for(i=0; i<fieldObj.value.length;i++)
+    {
+        var c = fieldObj.value.substring(i, i+1);
+        if(("0" <= c && c <= "9") || ("a" <= c && c <= "f") || ("A" <= c && c <= "F"))
+        {
+            continue;
+        }
+        else 
+            return true;
+    }
+
+    fieldObj.value = temp.toUpperCase();
+
+    return false;
+}
+
+function checkUnicast(fieldObj)
+{    
+    var c = fieldObj.value.substring(0, 1);
+    
+    if("2" == c || c == "3")
+    {
+        return false;
+    }
+    else 
+        return true;
+}
+
+function isIPv6Equals(src,des)
+{
+    var srcArr=convert2CompleteIpV6(src).split(":");
+    var desArr=convert2CompleteIpV6(des).split(":");
+    for(var i=0;i<8;i++)
+    {
+        if(parseInt(srcArr[i],16)!=parseInt(desArr[i],16))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+function convert2CompleteIpV6(ip)
+{
+    var ipV6=ip;
+    var index=ip.indexOf("::");
+    if(index>0)
+    {
+        var size=8-(ip.split(":").length-1);
+        var tmp="";
+        for(var i=0;i<size;i++)
+        {
+            tmp+=":0";
+        }
+        tmp+=":";
+        ipV6=ip.replace("::",tmp);
+    }
+    else if(index==0)
+    {
+        ipV6=ip.replace("::","0:0:0:0:0:0:0:");
+    }
+    return ipV6;
+}
+

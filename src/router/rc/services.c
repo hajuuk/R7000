@@ -1083,6 +1083,9 @@ int
 start_acsd(void)
 {
     int ret;
+    char cmd[256];
+    char nvram[32];
+    int key_index;
 
     if(nvram_match("enable_ccs", "1"))
     {
@@ -1096,11 +1099,26 @@ start_acsd(void)
         nvram_unset("acs_2g_ch_no_restrict");
         nvram_unset("acs_no_lockout");
     }
-	//ret=eval("/usr/sbin/acsd");
+    
 	system("/usr/sbin/acsd");
 	system("acs_cli -i eth1 acs_policy 4");
-	system("acs_cli autochannel &");
-
+	
+	/* foxconn Bob modified start 04/30/2014, Wifi WEP security is not working after NTGR acsd selecting channel. Configure WEP key again after acsd selecting channel. */
+	if (acosNvramConfig_match("wla_secu_type", "WEP"))
+	{
+	    system("acs_cli autochannel");
+	    
+	    key_index = atoi(acosNvramConfig_get("wl0_key"));
+	    sprintf(nvram, "wl0_key%d", key_index);
+	    sprintf(cmd, "wl addwep %d %s", key_index-1, acosNvramConfig_get(nvram));
+	    sleep(2);
+	    system(cmd);
+	}
+	else
+	{
+	    system("acs_cli autochannel &");
+	}
+	/* foxconn Bob modified end 04/30/2014, workaround for acsd will cause WEP not working */
 	return ret;
 }
 

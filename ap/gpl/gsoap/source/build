@@ -1,0 +1,7 @@
+export ac_cv_func_malloc_0_nonnull=yes 
+export CC=/opt/toolchains/cross-sdk3.2rc1-ct-ng-1.4.1-arm-mv5sft-linux-gnueabi/bin/arm-mv5sft-linux-gnueabi-gcc
+export CXX=/opt/toolchains/cross-sdk3.2rc1-ct-ng-1.4.1-arm-mv5sft-linux-gnueabi/bin/arm-mv5sft-linux-gnueabi-g++
+#export CFLAGS="-D HAVE_SSCANF -D wchar_t=\"unsigned short\""
+./configure --host=arm-mv5sft-linux-gnueabi --prefix=/opt/toolchains/cross-sdk3.2rc1-ct-ng-1.4.1-arm-mv5sft-linux-gnueabi/arm-mv5sft-linux-gnueabi/sys-root/usr/
+make clean
+make

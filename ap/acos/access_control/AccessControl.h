@@ -55,6 +55,7 @@ typedef struct access_control_mac_list
     int status;
     char dev_name[MAX_DEVICE_NAME];
     int conn_type;
+    int order;      /* pling added 07/22/2014 */
 }T_AccessControlTable;
 
 /*Fxcn added end, dennis,02/16/2012 @access control*/

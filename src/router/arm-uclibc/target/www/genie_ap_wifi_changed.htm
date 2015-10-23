@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<%11%>
+<title>NETGEAR   Genie</title>
+<%14%>
+<link rel="stylesheet" href="CDL.css">
+<script language="javascript" type="text/javascript">
+
+function goNextPage()
+{
+    if(document.forms[0].enable_ap_mode_tmp.value=="1" && document.forms[0].enable_ap_mode.value=="0")
+        document.forms[0].submit();
+    else if(document.forms[0].enable_ap_mode_tmp.value=="1")
+        window.location.href='genie_ping_ap_mode.htm';
+    else
+        window.location.href='genie_start.htm';
+    	
+}
+
+</script> 
+</head>
+<body bgcolor="#ffffff">
+<form id="target"  name="formname" method="POST" action="genie_ap_set.cgi">
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><%2364%></td>
+	<td>&nbsp;</td>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td>
+	    <table>
+	        <tr>
+	            <td class="centerTd" style="width:45%"><%2288%></td><td class="centerTd"><b><%2258%></b></td>
+	        </tr>
+	        <tr>
+	            <td class="centerTd"><%2349%></td><td class="centerTd"><b><%2260%></b></td>
+	        </tr>
+	        <tr>
+	            <td class="centerTd" colspan="2"><%2365%></td>
+	        </tr>
+	        <tr>
+	            <td class="centerTd"><%2292%></td><td class="centerTd"><b><%2259%></b></td>
+	        </tr>
+	        <tr>
+	            <td class="centerTd"><%2349%></td><td class="centerTd"><b><%2261%></b></td>
+	        </tr>
+	    </table>
+	</td>
+	<td>&nbsp;</td>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td>
+	<td NOWRAP class="inputRow centerTd" align=center tabindex="-1" >
+		<button value="GenieSubmit" class="purpleBtn2"  name="Apply" type="button" onClick="goNextPage();"><span><%2366%> &nbsp;&nbsp;&nbsp;</span></button>
+	</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><%2367%></td>
+	<td>&nbsp;</td>
+</tr>
+
+</table>
+<INPUT name="enable_ap_mode" type=hidden value= "<%390%>">
+<INPUT name="enable_ap_mode_tmp" type=hidden value= "<%2368%>">
+</form>
+</body>
+</html>
+

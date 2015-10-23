@@ -295,7 +295,7 @@ body {
    padding:0;
    height:25px;
    color:#4e4e4e;
-   padding-top:4px;
+   padding-top:2px;
    background: url("../img/basic-white-button.gif") no-repeat;
 }
 
@@ -337,7 +337,7 @@ body {
 .advance-menu li.SubMenu{
    margin:0;
    padding:0;
-   height:18px;      
+   height:17px;      
    color:#4e4e4e;
    list-style:none;   
    border-bottom-style:solid;

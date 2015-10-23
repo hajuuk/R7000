@@ -140,7 +140,13 @@ retry:
 #endif
         system(buf);
     }
-
+/*Foxconn added start by Kathy, 08/05/2014 @ support XFS requested by Netgear Bing*/
+    else if ((rval = mount(source, target, "xfs", 0, "")) == 0)
+    {
+        //printf("Mount xfs for '%s' success!\n", target);
+        get_vol_id(source);
+    }
+/*Foxconn added end by Kathy, 08/05/2014 @ support XFS requested by Netgear Bing*/
     /* Foxconn added start pling 05/19/2010 */
     /* Try to mount HFS+ and ext2/ext3 */
     //rval = mount(source, target, "hfsplus", 0, "");
@@ -196,6 +202,19 @@ retry:
 #ifdef USE_KERNEL_NTFS        
         if (ret == 0 )        // foxconn add by ken chen, 11/13/2013, fix crash issue when mount fs failed.
 		    get_vol_id(source);
+        /* Foxconn added start pling 09/30/2014 */
+        /* Chk NTFS is mount failed */
+        else
+        {
+            sprintf(buf, "/bin/chkntfs -f -a %s", source);
+            cprintf("***[%s] %s\n", __FUNCTION__, buf);
+            system(buf);
+            sprintf(buf, "mount -t ufsd -o force %s %s", source, target);
+            ret = system(buf);
+            if (ret == 0)
+                get_vol_id(source);
+        }
+        /* Foxconn added end pling 09/30/2014 */
 #endif        
 
         /* can't judge if mount is successful*/
@@ -844,9 +863,9 @@ hotplug_block(void)
         /* foxconn wklin added end, 01/19/2011 */
         /* Foxconn modified start, Wins, 04/11/2011 */
 #if defined(R6300v2) || defined (R7000)
-		usb_mount_block(major_no, minor_no, mntdev, usb_port);
+		err = usb_mount_block(major_no, minor_no, mntdev, usb_port);
 #else /* R6300v2 */
-		usb_mount_block(major_no, minor_no, mntdev);
+		err = usb_mount_block(major_no, minor_no, mntdev);
 #endif /* R6300v2 */
         /* Foxconn modified end, Wins, 04/11/2011 */
 		USB_UNLOCK();

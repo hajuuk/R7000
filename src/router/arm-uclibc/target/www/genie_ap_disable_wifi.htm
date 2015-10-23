@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<%11%>
+<title>NETGEAR   Genie</title>
+<%14%>
+<link rel="stylesheet" href="CDL.css">
+
+<script language="javascript" type="text/javascript">
+
+function chgSel(){
+ if (document.forms[0].choose[0].checked == true)
+ {
+     document.forms[0].ssid_2g.disabled=false;
+     document.forms[0].pass_2g.disabled=false;
+     document.forms[0].ssid_5g.disabled=false;
+     document.forms[0].pass_5g.disabled=false;
+ }else{
+     document.forms[0].ssid_2g.disabled=true;
+     document.forms[0].pass_2g.disabled=true;
+     document.forms[0].ssid_5g.disabled=true;
+     document.forms[0].pass_5g.disabled=true;
+ }
+}
+
+</script> 
+</head>
+<body bgcolor="#ffffff">
+<form id="target"  name="formname" method="POST" action="genie_ap_wifi_change.cgi">
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+
+
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><h2><i><%2343%></h2></td>
+	<td>&nbsp;</td>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td style="padding-left:20px"><input type="radio"  checked name="choose" value="yes" onClick="chgSel();"><span style="padding-left:10px;"><%2344%></span></td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><b><%2345%></b></td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td><td><img src="img/genie_copy_wifi_setup.gif" style="width:600px;height:300px""></td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><%2288%><input type="text" name="ssid_2g" value="" size="20" maxlength="32"></td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><%2289%><input type="text" name="pass_2g" value="" size="20" maxlength="64"></td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><%2292%><input type="text" name="ssid_5g" value="" size="20" maxlength="32"></td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><%2346%><input type="text" name="pass_5g" value="" size="20" maxlength="64"></td>
+	<td>&nbsp;</td>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td style="padding-left:20px"><input type="radio" name="choose" value="no" onClick="chgSel();"><span style="padding-left:10px;"><%2347%></span></td><td>&nbsp;</td>
+</tr>
+<tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><b><%2348%></b></td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd">
+		<table>
+      <tr>
+	      <td class="centerTd" style="width:50%"><%2288%></td>
+	      <td><b><%2258%></b></td>
+      </tr>
+      <tr>
+	      <td class="centerTd"><%2292%></td>
+	      <td><b><%2259%></b></td>
+      </tr>
+      <tr>
+        <td class="centerTd"><%2349%></td>        
+	      <td><b><%2260%></b></td>
+      </tr>
+	  </table>
+	</td>
+	<td>&nbsp;</td>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+
+	
+<tr style="height:10px">
+	<td>&nbsp;</td>
+	<td NOWRAP class="inputRow centerTd" align=center tabindex="-1" >
+    <button class = "purpleBtn2"  onclick="window.location.href='genie_ap_result.htm';return false;"><span><%2342%> &nbsp;&nbsp;&nbsp;</span></button>
+			<span style="display:-moz-inline-box;display:inline-block;width:300px;"></span>
+		<button value="GenieSubmit" class="purpleBtn2"  name="Apply" type="submit"><span><%2298%> &nbsp;&nbsp;&nbsp;</span></button>
+		
+	</td>
+	<td>&nbsp;</td>
+</tr>
+</table>
+</form>
+</body>
+</html>
+

@@ -384,6 +384,8 @@ resolve_unknown_type(const char * path, enum media_types dir_type)
 				}
 			}
 			stat(path, &entry);
+			type = TYPE_LINK;
+			return type;
 		}
 
 		if( S_ISDIR(entry.st_mode) )

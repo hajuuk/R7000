@@ -13,10 +13,9 @@
 #CFLAGS = -Wall -O -D_GNU_SOURCE -g -DDEBUG
 #CFLAGS = -Wall -g -Os -D_GNU_SOURCE
 CFLAGS = -Wall -g -O3 -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D__sparc__\
-         -I$(MINI_DLNA_PATH)/ffmpeg-0.5.1 \
-         -I$(MINI_DLNA_PATH)/ffmpeg-0.5.1/libavutil \
-     	 -I$(MINI_DLNA_PATH)/ffmpeg-0.5.1/libavcodec \
-     	 -I$(MINI_DLNA_PATH)/ffmpeg-0.5.1/libavformat \
+         -I$(MINI_DLNA_PATH)/ffmpeg-2.3.4 \
+     	 -I$(MINI_DLNA_PATH)/ffmpeg-2.3.4/libavcodec \
+     	 -I$(MINI_DLNA_PATH)/ffmpeg-2.3.4/libavformat \
          -I$(MINI_DLNA_PATH)/sqlite-3.6.22 \
          -I$(MINI_DLNA_PATH)/libexif-0.6.19 \
          -I$(MINI_DLNA_PATH)/libid3tag-0.15.0b \

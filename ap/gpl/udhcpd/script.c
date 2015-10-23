@@ -112,6 +112,8 @@ static void fill_options(char *dest, unsigned char *option, struct dhcp_option *
         return;
     }
     /* foxconn added end by EricHuang, 03/12/2008 */
+
+    /* foxconn added start by Kent, 06/25/2014 */
 #ifdef ACOS_IPV6RD
     if ( strcmp(type_p->name, "rfc5969") == 0 )
     {
@@ -129,6 +131,7 @@ static void fill_options(char *dest, unsigned char *option, struct dhcp_option *
         return;
     }
 #endif
+    /* foxconn added end by Kent, 06/25/2014 */
     
 
 	optlen = option_lengths[type];

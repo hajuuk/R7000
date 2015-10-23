@@ -86,7 +86,13 @@ static void rc_signal(int sig);
 static int is_russia_specific_support (void);
 #endif /* CONFIG_RUSSIA_IPTV */
 /* Foxconn added end, Wins, 05/16/2011, @RU_IPTV */
-
+/*Foxconn add start, edward zhang, 2013/07/03*/
+#ifdef VLAN_SUPPORT
+static int getVlanname(char vlanname[C_MAX_VLAN_RULE][C_MAX_TOKEN_SIZE]);
+static int getVlanRule(vlan_rule vlan[C_MAX_VLAN_RULE]);
+static int getTokens(char *str, char *delimiter, char token[][C_MAX_TOKEN_SIZE], int maxNumToken);
+#endif
+/*Foxconn add end, edward zhang, 2013/07/03*/
 extern struct nvram_tuple router_defaults[];
 
 #define RESTORE_DEFAULTS() \
@@ -702,7 +708,14 @@ static void save_wlan_time(void)
 #ifdef CONFIG_RUSSIA_IPTV
 static int config_iptv_params(void)
 {
+#ifdef VLAN_SUPPORT
+    unsigned int enabled_vlan_ports = 0x00;
+#if defined(R8000)
     unsigned int iptv_bridge_intf = 0x00;
+#else
+    unsigned char iptv_bridge_intf = 0x00;
+#endif
+#endif
     char vlan1_ports[16] = "";
     char vlan_iptv_ports[16] = "";
     /*added by dennis start,05/04/2012,for guest network reconnect issue*/
@@ -712,14 +725,64 @@ static int config_iptv_params(void)
     char command[128]="";
     int i = 0;
     /*added by dennis end,05/04/2012,for guest network reconnect issue*/
-    
+
+/*Foxconn add start, edward zhang, 2013/07/03*/
+#ifdef VLAN_SUPPORT
+    char br_ifname[16] = "";
+    char br_ifnames[64] = "";
+    char clean_vlan[16] = "";
+    char clean_vlan_hw[16] = "";
+    /*clean up the nvram ,to let the new config work*/
+
+    if (nvram_match ("enable_vlan", "enable"))
+    {
+        for(i=1; i<7; i++)
+        {
+            sprintf(br_ifname,"lan%d_ifname",i);
+            sprintf(br_ifnames,"lan%d_ifnames",i);
+            nvram_set(br_ifnames, "");
+            nvram_set(br_ifname, "");
+        }
+        for(i=1; i < 4094; i++)
+        {
+            sprintf(clean_vlan,"vlan%dports",i);
+            sprintf(clean_vlan_hw,"vlan%dhwname",i);
+            if( i == 1 || i == 2)
+            {
+              nvram_set(clean_vlan,"");
+              nvram_set(clean_vlan_hw,"");
+            }
+            else
+            {
+                nvram_unset(clean_vlan);
+                nvram_unset(clean_vlan_hw);
+            }
+        }
+    }
+    else
+    {
+        for(i=3; i < 4094; i++)
+        {
+            sprintf(clean_vlan,"vlan%dports",i);
+            sprintf(clean_vlan_hw,"vlan%dhwname",i);
+            nvram_unset(clean_vlan);
+            nvram_unset(clean_vlan_hw);
+        }
+    }
+
+#endif
+/*Foxconn add end, edward zhang, 2013/07/03*/
 
     if (nvram_match(NVRAM_IPTV_ENABLED, "1"))
     {
         char iptv_intf[32];
 
         strcpy(iptv_intf, nvram_safe_get(NVRAM_IPTV_INTF));
+#if defined(R8000)
+        sscanf(iptv_intf, "0x%04X", &iptv_bridge_intf);
+#else
         sscanf(iptv_intf, "0x%02X", &iptv_bridge_intf);
+#endif        
     }
 
     /* Foxconn modified start pling 04/03/2012 */
@@ -767,25 +830,224 @@ static int config_iptv_params(void)
     /* Foxconn modified end pling 04/03/2012 */
 #endif
     strcat(vlan1_ports, "5*");
+/*Foxconn add start, edward zhang, 2013/07/03*/
+#ifdef VLAN_SUPPORT
+    char lan_interface[16]="";
+    char lan_hwname[16]="";
+    if (nvram_match ("enable_vlan", "enable"))
+    {
+        sprintf(lan_interface,"vlan%sports",nvram_safe_get("vlan_lan_id"));
+        nvram_set(lan_interface,vlan1_ports);
+        sprintf(lan_hwname,"vlan%shwname",nvram_safe_get("vlan_lan_id"));
+        nvram_set(lan_hwname,"et0");
+    }
+    else
+#endif
+/*Foxconn add end, edward zhang, 2013/07/03*/
     nvram_set("vlan1ports", vlan1_ports);
 
     /* build vlan3 for IGMP snooping on IPTV ports */
-    if (strlen(vlan_iptv_ports))
-    {
-        strcat(vlan_iptv_ports, "5");
-        nvram_set("vlan3ports", vlan_iptv_ports);
-        nvram_set("vlan3hwname", nvram_safe_get("vlan2hwname"));
-    }
+/*Foxconn add start, edward zhang, 2013/07/03*/
+#ifdef VLAN_SUPPORT
+    if (nvram_match ("enable_vlan", "enable"))
+        ;/*do nothing*/
     else
     {
-        nvram_unset("vlan3ports");
-        nvram_unset("vlan3hwname");
+#endif
+/*Foxconn add end, edward zhang, 2013/07/03*/
+        if (strlen(vlan_iptv_ports))
+        {
+            strcat(vlan_iptv_ports, "5");
+            nvram_set("vlan3ports", vlan_iptv_ports);
+            nvram_set("vlan3hwname", nvram_safe_get("vlan2hwname"));
+        }
+        else
+        {
+            nvram_unset("vlan3ports");
+            nvram_unset("vlan3hwname");
+        }
+#ifdef VLAN_SUPPORT
     }
+#endif
+/*Foxconn add start, edward zhang, 2013/07/03*/
+#ifdef VLAN_SUPPORT
+    
+    if (nvram_match ("enable_vlan", "enable"))
+    {
+        char vlan_ifname[16] = "";
+        char vlan_ifname_ports[16] = "";
+        char vlan_ports[16]  = "";
+        char vlan_prio[16] = "";
+        char vlan_hwname[16] = "";
+        char wan_vlan_ifname[16] = "";
+        char lan_vlan_hwname[16] = "";
+        vlan_rule vlan[C_MAX_VLAN_RULE];
+        int numVlanRule = getVlanRule(vlan);
+       unsigned int vlan_bridge_intf = 0x00;
+        char lan_vlan_ports[16] = "";
+        char lan_ports[16] = "";
+        int lan_vlan_port = 4;
+        int lan_vlan_br = 1;
+        char lan_vlan_ifname[16] = "";
+        char lan_vlan_ifnames[64] = "";
+        char lan_ifnames[64] = "";
+        char lan_ifname[16] = "";
+        int internet_vlan_id;
 
+        /* always set emf_enable to 0 when vlan is enable*/
+        nvram_set("emf_enable", "0");
+
+        cprintf("rule_num:%d \n",numVlanRule);
+        sprintf(lan_ifnames,"%s ",nvram_safe_get("lan_interface"));
+        for(i=0;i<numVlanRule;i++)
+        {
+            memset(lan_vlan_ifnames,0,sizeof(lan_vlan_ifnames));
+            memset(vlan_ports,0,sizeof(vlan_ports));
+            if(!strcmp(vlan[i].enable_rule,"0"))
+                continue;
+            sprintf(vlan_ifname,"vlan%s ",vlan[i].vlan_id);
+            sprintf(wan_vlan_ifname,"vlan%s",vlan[i].vlan_id);
+            sprintf(vlan_ifname_ports,"vlan%sports",vlan[i].vlan_id);
+            sprintf(vlan_hwname,"vlan%shwname",vlan[i].vlan_id);
+            nvram_set(vlan_hwname,"et0");
+            sprintf(vlan_prio,"vlan%s_prio",vlan[i].vlan_id);
+            nvram_set(vlan_prio,vlan[i].vlan_prio);
+            
+            if(!strcmp(vlan[i].vlan_name, "Internet"))
+            {
+#if defined(R7000)
+         	    nvram_set(vlan_ifname_ports,"0t 5");
+#else
+         	    nvram_set(vlan_ifname_ports,"4t 5");
+#endif
+                nvram_set("internet_prio",vlan[i].vlan_prio);
+                nvram_set("internet_vlan",vlan[i].vlan_id);
+                nvram_set("wan_ifnames", vlan_ifname);
+                nvram_set("wan_ifname", wan_vlan_ifname);
+                internet_vlan_id=atoi(vlan[i].vlan_id);
+                continue;
+            }
+            
+            if(internet_vlan_id==atoi(vlan[i].vlan_id))
+            {
+                nvram_set("wan_ifnames", "br1");
+                nvram_set("wan_ifname", "br1");
+            }
+            
+#if defined(R8000)
+            sscanf(vlan[i].vlan_ports, "0x%04X", &vlan_bridge_intf);
+#else
+            sscanf(vlan[i].vlan_ports, "0x%02X", &vlan_bridge_intf);
+#endif            
+            strcat(lan_vlan_ifnames, vlan_ifname);
+            enabled_vlan_ports |= vlan_bridge_intf ;
+#if defined(R7000)
+            if (vlan_bridge_intf & IPTV_LAN1)
+                strcat(vlan_ports, "1 ");
+
+            if (vlan_bridge_intf & IPTV_LAN2)  
+                strcat(vlan_ports, "2 ");
+
+            if (vlan_bridge_intf & IPTV_LAN3)
+                strcat(vlan_ports, "3 ");
+            
+            if (vlan_bridge_intf & IPTV_LAN4)
+                strcat(vlan_ports, "4 ");
+            
+            strcat(vlan_ports, "0t 5");
+#else
+            if (vlan_bridge_intf & IPTV_LAN1)
+                strcat(vlan_ports, "3 ");
+
+            if (vlan_bridge_intf & IPTV_LAN2)  
+                strcat(vlan_ports, "2 ");
+
+            if (vlan_bridge_intf & IPTV_LAN3)
+                strcat(vlan_ports, "1 ");
+            
+            if (vlan_bridge_intf & IPTV_LAN4)
+                strcat(vlan_ports, "0 ");
+            
+            strcat(vlan_ports, "4t 5");
+#endif
+            nvram_set(vlan_ifname_ports,vlan_ports);    /*Foxconn add, edward zhang ,set the bridge ports*/
+                
+
+            if (vlan_bridge_intf & IPTV_WLAN1)
+                strcat(lan_vlan_ifnames, "eth1 ");
+
+            if (vlan_bridge_intf & IPTV_WLAN2)
+                strcat(lan_vlan_ifnames, "eth2 ");
+
+
+            if (vlan_bridge_intf & IPTV_WLAN_GUEST1)
+                strcat(lan_vlan_ifnames, "wl0.1 ");
+
+            if (vlan_bridge_intf & IPTV_WLAN_GUEST2)
+                strcat(lan_vlan_ifnames, "wl1.1 ");
+
+            
+            sprintf(br_ifname,"lan%d_ifname",lan_vlan_br);
+            sprintf(br_ifnames,"lan%d_ifnames",lan_vlan_br);
+            sprintf(lan_vlan_ifname,"br%d",lan_vlan_br);
+            nvram_set(br_ifname,lan_vlan_ifname);
+            nvram_set(br_ifnames,lan_vlan_ifnames);
+            lan_vlan_br++;
+        }
+#if defined(R7000)
+        
+        if (!(enabled_vlan_ports & IPTV_LAN1))
+            strcat(lan_ports, "1 ");
+
+        if (!(enabled_vlan_ports & IPTV_LAN2))  
+            strcat(lan_ports, "2 ");
+
+        if (!(enabled_vlan_ports & IPTV_LAN3))
+            strcat(lan_ports, "3 ");
+            
+        if (!(enabled_vlan_ports & IPTV_LAN4))
+            strcat(lan_ports, "4 ");
+#else
+        if (!(enabled_vlan_ports & IPTV_LAN1))
+            strcat(lan_ports, "3 ");
+
+        if (!(enabled_vlan_ports & IPTV_LAN2))  
+            strcat(lan_ports, "2 ");
+
+        if (!(enabled_vlan_ports & IPTV_LAN3))
+            strcat(lan_ports, "1 ");
+            
+        if (!(enabled_vlan_ports & IPTV_LAN4))
+            strcat(lan_ports, "0 ");
+#endif
+            
+        strcat(lan_ports, "5*");
+        nvram_set(lan_interface,lan_ports);
+        
+        if (!(enabled_vlan_ports & IPTV_WLAN1))
+            strcat(lan_ifnames, "eth1 ");
+
+        if (!(enabled_vlan_ports & IPTV_WLAN2))
+            strcat(lan_ifnames, "eth2 ");
+
+        
+        strcpy(br0_ifnames,lan_ifnames);
+#ifdef __CONFIG_IGMP_SNOOPING__
+        /* always enable snooping for VLAN IPTV */
+        //nvram_set("emf_enable", "1");
+#endif
+#ifdef VLAN_SUPPORT
+            nvram_set("vlan2hwname", "et0");
+            nvram_set("vlan1hwname", "et0");
+#endif
+    }
+	else
+#endif
+/*Foxconn add end, edward zhang, 2013/07/03*/
     if (iptv_bridge_intf & IPTV_MASK)
     {
-        char lan_ifnames[32] = "vlan1 ";
-        char wan_ifnames[32] = "vlan2 ";
+        char lan_ifnames[128] = "vlan1 ";
+        char wan_ifnames[128] = "vlan2 ";
     
 #ifdef __CONFIG_IGMP_SNOOPING__
         /* always enable snooping for IPTV */
@@ -812,7 +1074,16 @@ static int config_iptv_params(void)
         else
             strcat(lan_ifnames, "eth2 ");
 
-        
+
+        if (iptv_bridge_intf & IPTV_WLAN_GUEST1)
+            strcat(wan_ifnames, "wl0.1 ");
+        else
+            strcat(lan_ifnames, "wl0.1 ");
+
+        if (iptv_bridge_intf & IPTV_WLAN_GUEST2)
+            strcat(wan_ifnames, "wl1.1 ");
+        else
+            strcat(lan_ifnames, "wl1.1 ");
 
         //nvram_set("lan_ifnames", lan_ifnames);
         strcpy(br0_ifnames,lan_ifnames);
@@ -829,9 +1100,14 @@ static int config_iptv_params(void)
         /*modified by dennis start, 05/03/2012,fixed guest network cannot reconnect issue*/
         strcpy(br0_ifnames,"vlan1 eth1 eth2");       
         /*modified by dennis end, 05/03/2012,fixed guest network cannot reconnect issue*/
+/*Foxconn add start, edward zhang, 2013/07/03*/
+#ifdef VLAN_SUPPORT
+        nvram_set("vlan2hwname", "et0");
+        nvram_set("vlan1hwname", "et0");
+#endif
         nvram_set("lan1_ifnames", "");
         nvram_set("lan1_ifname", "");
-
+/*Foxconn add end, edward zhang, 2013/07/03*/
 #ifdef __CONFIG_IGMP_SNOOPING__
         /* foxconn Bob modified start 08/26/2013, not to bridge eth0 and vlan1 in the same bridge */
         if (nvram_match("emf_enable", "1") || nvram_match("enable_ap_mode", "1") ) {
@@ -874,8 +1150,24 @@ static int config_iptv_params(void)
         sprintf(wl_param, "%s_%d", "wla_sec_profile_enable", i);     
         if(nvram_match(wl_param, "1")){
             sprintf(if_name, "wl0.%d", i-1);
-            strcat(br0_ifnames, " ");
-            strcat(br0_ifnames, if_name);
+            if(nvram_match("enable_vlan", "enable"))
+            {
+                if(!(enabled_vlan_ports & IPTV_WLAN_GUEST1))
+                {
+                    strcat(br0_ifnames, " ");
+                    strcat(br0_ifnames, if_name);
+                }
+            }
+            else if (nvram_match(NVRAM_IPTV_ENABLED, "1"))
+            {
+            	// Do nothing here
+            }
+            else
+            {
+                strcat(br0_ifnames, " ");
+                strcat(br0_ifnames, if_name);
+            }
+            	
         }
      }
 
@@ -883,8 +1175,23 @@ static int config_iptv_params(void)
          sprintf(wl_param, "%s_%d", "wlg_sec_profile_enable", i);        
          if(nvram_match(wl_param, "1")){
              sprintf(if_name, "wl1.%d", i-1);
-             strcat(br0_ifnames, " ");
-             strcat(br0_ifnames, if_name);
+            if(nvram_match("enable_vlan", "enable"))
+            {
+                if(!(enabled_vlan_ports & IPTV_WLAN_GUEST2))
+                {
+                    strcat(br0_ifnames, " ");
+                    strcat(br0_ifnames, if_name);
+                }
+            }
+            else if (nvram_match(NVRAM_IPTV_ENABLED, "1"))
+            {
+            	// Do nothing here
+            }
+            else
+            {
+                strcat(br0_ifnames, " ");
+                strcat(br0_ifnames, if_name);
+            }
          }
      }
      nvram_set("lan_ifnames", br0_ifnames);
@@ -900,6 +1207,8 @@ static int config_iptv_params(void)
     /* Foxconn added end pling 08/17/2012 */
     return 0;
 }
+#endif
+#ifdef VLAN_SUPPORT
 
 static int active_vlan(void)
 {
@@ -940,6 +1249,8 @@ static int active_vlan(void)
 /* these settings are for BCM53115S switch */
 static int config_switch_reg(void)
 {
+
+
     if (
 #if (defined __CONFIG_IGMP_SNOOPING__)
         nvram_match("emf_enable", "1") ||
@@ -947,7 +1258,8 @@ static int config_switch_reg(void)
 #if defined(CONFIG_RUSSIA_IPTV)
 		nvram_match("iptv_enabled", "1") ||
 #endif          
-        (nvram_match("qos_enable", "1") 
+		nvram_match("enable_vlan", "enable") ||
+        (nvram_match("qos_enable", "1")  
         && !nvram_match("wla_repeater", "1")
 #if (defined INCLUDE_DUAL_BAND)
         && !nvram_match("wlg_repeater", "1")
@@ -1159,6 +1471,72 @@ static int is_russia_specific_support (void)
 }
 #endif /* CONFIG_RUSSIA_IPTV */
 /* Foxconn added end, Wins, 04/20/2011 @RU_IPTV */
+
+/*Foxconn add start, edward zhang, 2013/07/03*/
+#ifdef VLAN_SUPPORT
+static int getVlanname(char vlanname[C_MAX_VLAN_RULE][C_MAX_TOKEN_SIZE])
+{
+    char *var;
+
+    if ((var = acosNvramConfig_get("vlan_name")) != NULL)
+    {
+        int num, i;
+        num = getTokens(var, " ", vlanname, C_MAX_VLAN_RULE);
+        for (i = 0; i< num; i++)
+            restore_devname(vlanname[i]);
+        
+        return num;
+    }
+
+    return 0;
+}
+
+
+
+static int getVlanRule(vlan_rule vlan[C_MAX_VLAN_RULE])
+{
+    int numVlanRule = 0 , i;
+    char *var;
+    char VlanName[C_MAX_VLAN_RULE][C_MAX_TOKEN_SIZE];
+    char VlanId[C_MAX_VLAN_RULE][C_MAX_TOKEN_SIZE];
+    char VlanPrio[C_MAX_VLAN_RULE][C_MAX_TOKEN_SIZE];
+    char VlanPorts[C_MAX_VLAN_RULE][C_MAX_TOKEN_SIZE];
+    char VlanRuleEnable[C_MAX_VLAN_RULE][C_MAX_TOKEN_SIZE];
+    if ( (var = acosNvramConfig_get("vlan_id")) != NULL )
+    {
+        getTokens(var, " ", VlanId, C_MAX_VLAN_RULE);
+    }
+    
+    if ( (var=acosNvramConfig_get("vlan_prio")) != NULL )
+    {
+        getTokens(var, " ", VlanPrio, C_MAX_VLAN_RULE);
+    }
+    
+    if ( (var=acosNvramConfig_get("vlan_ports")) != NULL )
+    {
+        getTokens(var, " ", VlanPorts, C_MAX_VLAN_RULE);
+    }
+ 
+    if ( (var=acosNvramConfig_get("vlan_rule_enable")) != NULL )
+    {
+        getTokens(var, " ", VlanRuleEnable, C_MAX_VLAN_RULE);
+    }
+    
+    numVlanRule = getVlanname(VlanName);
+    
+    for(i=0;i<numVlanRule;i++)
+    {
+        strcpy( vlan[i].vlan_name , VlanName[i]);
+        strcpy( vlan[i].vlan_id , VlanId[i]);
+        strcpy( vlan[i].vlan_prio , VlanPrio[i]);
+        //strcpy( vlan[i].vlan_ports , VlanPorts[i]);
+        sprintf( vlan[i].vlan_ports,"%s",VlanPorts[i]);
+        strcpy( vlan[i].enable_rule , VlanRuleEnable[i]);
+    }
+    
+    return numVlanRule;
+}
+#endif
 
 static int send_wps_led_cmd(int cmd, int arg)
 {
@@ -2077,9 +2455,13 @@ sysinit(void)
         /* foxconn modified end, zacker, 08/06/2010 */
 
 		/* Load ctf */
+		/* Foxconn added start pling 06/26/2014 */
+		/* Change CTF mode when access control is enabled */
 		if (nvram_match("access_control_mode", "1") &&
 			!nvram_match("ctf_disable", "1"))
 			nvram_set("ctf_disable", "1");
+		/* Foxconn added end pling 06/26/2014 */
+
     /* Foxconn added start pling 08/19/2010 */
     /* Make sure the NVRAM "ctf_disable" exist, otherwise 
      * MultiSsidCntrl will not work.
@@ -2120,6 +2502,10 @@ sysinit(void)
 		/* Foxconn added start pling 12/06/2010 */
 		/* By default ipv6_spi is inserted to system to drop all packets. */
 		/*Foxconn modify start by Hank for change ipv6_spi path in rootfs 08/27/2012*/
+    
+		if (nvram_match("enable_ap_mode","1"))
+			system("/sbin/insmod /lib/modules/2.6.36.4brcmarm+/kernel/lib/ipv6_spi.ko working_mode=\"ap\"");
+		else
 			system("/sbin/insmod /lib/modules/2.6.36.4brcmarm+/kernel/lib/ipv6_spi.ko");
 		/*Foxconn modify end by Hank for change ipv6_spi path in rootfs 08/27/2012*/
 		/* Foxconn added end pling 12/06/2010 */
@@ -2137,6 +2523,8 @@ sysinit(void)
 		 */
 #ifdef __CONFIG_IGMP_SNOOPING__
 		config_switch();
+			if (nvram_match("enable_vlan", "enable")) 
+				config_iptv_params();
 #endif
 		/* Foxconn added end pling 09/02/2010 */
 
@@ -2148,8 +2536,13 @@ sysinit(void)
         
         /* foxconn added start by Bob 03/10/2014, BRCM's workaround for bridge mode connect fail issue. */
         /* Reduce transmit power at 5G band, HT20,  OFDM MCS 0,1,2 Reduce from 21.5db to 20 db. */
+        /* Foxconn modified start pling 05/30/2014 */
+        /* BRCM ARES: this workaround is not needed for 6.37.15.13 driver */
+        //nvram_set("pci/2/1/mcsbw205ghpo", "0xBA768888"); 
+#if (defined R7000) && !(defined R6400)
         if (!nvram_match("pci/2/1/mcsbw205ghpo", "0xBA768600"))
             nvram_set("pci/2/1/mcsbw205ghpo", "0xBA768600");
+#endif
         /* foxconn added end by Bob 03/10/2014, BRCM's workaround for bridge mode connect fail issue. */
         
         
@@ -2483,7 +2876,11 @@ main_loop(void)
     /* foxconn wklin added start, 10/22/2008 */
 	sysinit();
 
+	/* Foxconn added start pling 03/20/2014 */
+	/* Router Spec Rev 12: disable/enable ethernet interface when dhcp server start */
 	eval("landown");
+	/* Foxconn added end pling 03/20/2014 */
+
 	/* Add loopback */
 	config_loopback();
 	/* Restore defaults if necessary */
@@ -2539,11 +2936,14 @@ main_loop(void)
 
     /* Foxconn added start, Wins, 04/20/2011, @RU_IPTV */
 #ifdef CONFIG_RUSSIA_IPTV
-    if (!is_russia_specific_support())
+/* Foxconn modified, Edward zhang, 09/05/2012, @add IPTV support for PR SKU*/
+#if 0
+    if ((!is_russia_specific_support()) && (!is_china_specific_support()))
     {
         nvram_set(NVRAM_IPTV_ENABLED, "0");
         nvram_set(NVRAM_IPTV_INTF, "0x00");
     }
+#endif
 #endif /* CONFIG_RUSSIA_IPTV */
     /* Foxconn added end, Wins, 04/20/2011, @RU_IPTV */
 
@@ -3093,6 +3493,8 @@ main_loop(void)
             */
             /* Foxconn add end, Tony W.Y. Wang, 03/25/2010 @Single Firmware Implementation */
             #endif
+        if(!acosNvramConfig_match("restart_all_processes","1"))
+        {
             
             save_wlan_time();
             start_bcmupnp();
@@ -3138,6 +3540,7 @@ main_loop(void)
             }
 			/* foxconn modified start, zacker, 05/20/2010, @spec_1.9 */
 			//state = IDLE;
+		 }
 			state = next_signal();
 			/* foxconn modified end, zacker, 05/20/2010, @spec_1.9 */
 		    break;

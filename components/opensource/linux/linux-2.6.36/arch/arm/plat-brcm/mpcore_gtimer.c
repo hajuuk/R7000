@@ -226,8 +226,13 @@ static int wps_ap_lockdown_blink(void)
 #if (defined WNDR4000AC)
 #define GPIO_USB1_LED       (GPIO_LED_USB)
 #elif (defined R7000)
+#if (defined R6400)
+#define GPIO_USB1_LED       12   /* USB1 LED. */
+#define GPIO_USB2_LED       13   /* USB2 LED. */
+#else
 #define GPIO_USB1_LED       17   /* USB1 LED. */
 #define GPIO_USB2_LED       18   /* USB2 LED. */
+#endif
 #else
 #define GPIO_USB1_LED       8   /* USB1 LED. */
 #define GPIO_USB2_LED       8   /* USB2 LED. */

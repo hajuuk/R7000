@@ -212,3 +212,11 @@ img {
 {
 	height:30px;
 }
+
+.checked{width:28px; height: 24px; position:relative;float:left; background: url(img/genie_download.jpg) no-repeat -50px -105px;}
+.uncheck{width:28px; height: 24px; position:relative;float:left; background: url(img/genie_download.jpg) no-repeat -20px -105px;}
+.grey_dot{width:20px; height: 20px; position:relative;float:left; background: url(img/genie_download.jpg) no-repeat -20px -70px;}
+.black_dot{width:20px; height: 20px; position:relative;float:left; background: url(img/genie_download.jpg) no-repeat 0px -70px;}
+.gren_show{width:18px; height: 18px; position:relative;float:left; background: url(img/genie_download.jpg) no-repeat 0px -50px;}
+.choice_font{margin:10px; font-size:12px; font-weight: bold;}
+.gray_choice_font{margin:10px; color:gray; font-family:Verdana;font-size:12px; font-weight: bold;}

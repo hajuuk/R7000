@@ -30,7 +30,7 @@
 #include "image_utils.h"
 #include <jpeglib.h>
 #include <setjmp.h>
-#include <avutil.h>
+#include "../ffmpeg-2.3.4/libavutil/avutil.h"
 #include <avcodec.h>
 #include <avformat.h>
 #include "tagutils/tagutils.h"

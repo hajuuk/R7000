@@ -38,7 +38,9 @@
 function goHome(){
 	if (top.tophideframe)
 		top.close();
-	else
+	else if(document.forms[0].call_by_genie.value == 1 )
+             window.location.href="genie_redirect_successpage3.htm";
+        else
 		window.location.href="ADV_home2.htm";
 }
 //-->
@@ -51,7 +53,7 @@ function goHome(){
 
 <tr>
 <td colspan="2">
-	<h1><%1703%></H1>
+	<h1><%1716%></H1>
 </td>
 </tr>
 
@@ -60,42 +62,43 @@ function goHome(){
 </tr>
 
 <tr>
-    <td colspan="2"><b><%1707%></b></td>
+    <td colspan="2"><b><%1721%></b></td>
 </tr>
 <tr></tr>
 <tr>
-	<td width="50%"><%2356%>:</td>
-        <td width="50%"><%2357%></td>
+	<td width="50%"><%2491%>:</td>
+        <td width="50%"><%2492%></td>
 </tr>
 <tr>
-	<td width="50%"><%2358%>:</td>
-        <td width="50%"><%2359%></td>
+	<td width="50%"><%2493%>:</td>
+        <td width="50%"><%2494%></td>
 </tr>
 <tr>
-	<td width="50%"><%1708%></td>
-        <td width="50%"><%1709%></td>
+	<td width="50%"><%1722%></td>
+        <td width="50%"><%1723%></td>
 </tr>
 <tr></tr>
 <tr>
-	<td width="50%"><%1710%></td>
-        <td width="50%"><%1711%></td>
+	<td width="50%"><%1724%></td>
+        <td width="50%"><%1725%></td>
 </tr>
 <tr></tr>
 <tr>
 <tr></tr>
-    <td><b><%2360%>:</b></td>
+    <td><b><%2495%>:</b></td>
 </tr>
-	<%1713%>
+	<%1727%>
 
 <tr>
  <td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td>
 </tr>
 <tr>
 	<td colspan="2" align="center">
-		&nbsp;&nbsp;&nbsp;<button type="SUBMIT" value="<%399%>" name="Yes" class="button-rule" onclick="buttonClick(this,'<%399%>');" ><span class="roundleft_button">&nbsp;&nbsp; <%399%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-		&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="<%400%>" name="No" class="button-rule" onClick="buttonClick(this,'<%400%>');goHome();"><span class="roundleft_button">&nbsp;&nbsp; <%400%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		&nbsp;&nbsp;&nbsp;<button type="SUBMIT" value="<%407%>" name="Yes" class="button-rule" onclick="buttonClick(this,'<%407%>');" ><span class="roundleft_button">&nbsp;&nbsp; <%407%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+		&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="<%408%>" name="No" class="button-rule" onClick="buttonClick(this,'<%408%>');goHome();"><span class="roundleft_button">&nbsp;&nbsp; <%408%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 	</td></tr>
 </table>
+<input type="hidden" name="call_by_genie" value="<%1718%>">
 </form>
 <p></p>
 </body>

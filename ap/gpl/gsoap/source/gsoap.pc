@@ -1,0 +1,11 @@
+prefix=/home/ivan/Dev/platforms/R7000-V1.0.2.125_1.0.18_src/src/router/arm-uclibc/target/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: GSoap
+Description: SOAP C Web Services
+Version: 2.7
+Requires:
+Libs: -L${libdir} -lgsoap
+Cflags: -DWITH_DOM -I${includedir}

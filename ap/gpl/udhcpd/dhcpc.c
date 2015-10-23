@@ -298,7 +298,7 @@ int main(int argc, char *argv[])
 	/* WNDR4500v2 Mantis 2303, per Router Spec,
 	 *  restart DHCP client retry process every 5 minutes.
 	 */
-#define DHCPC_TIMEOUT_RESTART_INTERVAL		300
+#define DHCPC_TIMEOUT_RESTART_INTERVAL		10
 	int packet_timeout = 1;
 	int accumulated_timeout = 0;
 	/* Foxconn added end pling 08/06/2012 */
@@ -535,7 +535,7 @@ int main(int argc, char *argv[])
 						/* Per Netgear Router Spec 2.0, need to resend
 						 * DHCP Discover every 4 minutes.
 						 */
-						timeout = now + 240;
+						timeout = now + 10;
 					}
 					/* Foxconn added end pling 02/24/2011 */
 				}

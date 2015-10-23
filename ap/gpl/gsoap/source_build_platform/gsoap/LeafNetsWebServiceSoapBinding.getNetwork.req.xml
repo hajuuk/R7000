@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope
+ xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+ xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:ns3="http://xml.apache.org/xml-soap"
+ xmlns:ns2="urn:com.leafnets.ds"
+ xmlns:ns5="urn:com.leafnets.ds.peer"
+ xmlns:ns4="urn:com.leafnets.ds.notification"
+ xmlns:ns1="http://peerserver.leafnetworks.net:8080/axis/services/LeafNetsWebService">
+ <SOAP-ENV:Body SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <ns1:getNetwork>
+   <in0>0</in0>
+  </ns1:getNetwork>
+ </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

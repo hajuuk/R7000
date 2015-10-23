@@ -150,6 +150,24 @@ iframe{
         border-right-color:#808080;
 }
 
+
+.table-seperate-border2{
+        padding-top:10px;
+        padding-bottom:47px;
+        background-image: url(../img/opmode_topline.gif); 
+        background-repeat: no-repeat; 
+        background-position: 50% 100%;
+
+        padding-left:10px;
+        padding-right:10px;
+        border-left-style:solid;
+        border-right-style:solid;
+        border-left-width:0px;
+        border-right-width:0px;
+        border-left-color:#808080;
+        border-right-color:#808080;
+}
+
 .scrollpane-table-seperate-border{
        padding-left:20px;
        padding-right:5px;
@@ -561,7 +579,7 @@ iframe{
         background-position:relative;
         position:relative;
         top:-28px;
-        margin-bottom:10px;
+        margin-bottom:0px;
 }
 
 .subhead2-text-menu{
@@ -670,7 +688,7 @@ iframe{
 #full-page-container
 {
     position:absolute; top:0px;left:0px;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .cover-image
@@ -687,3 +705,13 @@ iframe{
 {
 	border-right: inset 1pt;
 }
+
+.subpage-body {
+
+        margin:0px;
+
+        background-color:#FFFFFF;
+        overflow:hidden;
+}
+
+

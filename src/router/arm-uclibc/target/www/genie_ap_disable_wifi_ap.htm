@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<%11%>
+<title>NETGEAR   Genie</title>
+<%14%>
+<link rel="stylesheet" href="CDL.css">
+
+<style type="text/css">
+    ul.dash {
+        list-style: none;
+        margin-left: 0;
+        padding-left: 1em;
+    }
+    ul.dash li:before {
+        display: inline-block;
+        content: "-";
+        width: 1em;
+        margin-left: -1em;
+    }
+</style>
+
+<script language="javascript" type="text/javascript">
+
+function selChg(type)
+{
+    if(type==0)
+    {
+         document.getElementById("reserve_gw_wifi").style.display="none";
+         document.getElementById("disable_gw_wifi").style.display="block";
+    }
+    else
+    {
+         document.getElementById("reserve_gw_wifi").style.display="block";
+         document.getElementById("disable_gw_wifi").style.display="none";
+    }
+            
+}
+
+function goBackPage()
+{
+    var cf = document.forms[0];
+    if(cf.back_page.value=="1")
+    {
+        window.location.href='genie_ap_help_choose_3.htm';
+    }
+    else
+    {
+        window.location.href='genie_ap_result.htm';
+    }
+}
+
+function goNextPage()
+{
+    var cf = document.forms[0];
+
+	  if(cf.choose[0].checked!=true && cf.choose[1].checked!=true)
+	  {
+	       alert("<%2350%>");
+	      return false;
+	  }
+	  
+	  if(document.forms[0].choose[0].checked==true)
+	  {
+        if (cf.ssid_2g.value == "")
+        {
+            alert("<%43%>");
+            return false;
+        }
+    
+        if (cf.ssid_2g.value.match( /[^\x20-\x7E]/ ))
+        {
+            alert("<%44%>");
+            return false;
+        }
+
+        
+    
+        if (cf.ssid_5g.value == "")
+        {
+            alert("<%43%>");
+            return false;
+        }
+
+        if (cf.ssid_5g.value.match( /[^\x20-\x7E]/ ))
+        {
+            alert("<%44%>");
+            return false;
+        }
+
+        if(cf.pass_2g.value.length < 8)
+        {
+            alert("<%50%>");
+            return false;    
+        }
+        if(cf.pass_2g.value.length > 63)
+        {
+            if ( isHex(cf.pass_2g.value) == false)
+            {
+                alert("<%50%>");
+                cf.pass_2g.value = "";
+                return false;
+            }    
+        }
+        
+        if (cf.pass_2g.value.match( /[^\x20-\x7E]/ ))
+        {
+            alert("<%51%>");
+            cf.pass_2g.focus();
+            return false;
+        }
+        
+        
+        if(cf.pass_5g.value.length < 8)
+        {
+            alert("<%50%>");
+            return false;    
+        }
+
+        if(cf.pass_5g.value.length > 63)
+        {
+            if ( isHex(cf.pass_5g.value) == false)
+            {
+                alert("<%50%>");
+                cf.pass_5g.value = "";
+                return false;
+            }    
+        }
+        
+        if (cf.pass_5g.value.match( /[^\x20-\x7E]/ ))
+        {
+            alert("<%51%>");
+            cf.pass_5g.focus();
+            return false;
+        }
+    }
+        
+    return true;
+}
+</script> 
+</head>
+<body bgcolor="#ffffff">
+<form id="target"  name="formname" method="POST" action="genie_ap_wifi_change.cgi">
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+
+
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><%2351%></td>
+	<td>&nbsp;</td>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><b><%2343%></b></td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td><td style="padding-left:20px"  class="centerTd"><input type="radio"  name="choose" value="yes" onClick="selChg(0);"><span style="padding-left:10px;"><%2344%></span>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="choose" value="no" onClick="selChg(1);"><span style="padding-left:10px;"><%2347%></span></td><td>&nbsp;</td>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+</table>
+
+<div id="disable_gw_wifi" style="display:none">
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><b><%2345%></b></td>
+	<td>&nbsp;</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" width="99%">
+<tr>
+	<td>&nbsp;</td>
+	<td style="padding-left:40px"><img src="img/genie_copy_wifi_setup.gif" style="width:400px;height:"200px"><img src="img/genie_disable_wifi_setup.gif" style="width:400px;height:"200px"></td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><%2288%><input type="text" name="ssid_2g" value="" size="20" maxlength="32"></td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><%2289%><input type="text" name="pass_2g" value="" size="20" maxlength="64"></td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><%2292%><input type="text" name="ssid_5g" value="" size="20" maxlength="32"></td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><%2346%><input type="text" name="pass_5g" value="" size="20" maxlength="64"></td>
+	<td>&nbsp;</td>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+</table>
+</div>
+<div id="reserve_gw_wifi"  style="display:none">
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd"><b><%2348%></b></td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd">
+		<table>
+      <tr>
+	      <td class="centerTd" style="width:50%"><%2288%></td>
+	      <td class="centerTd"><b> <%2258%> </b></td>
+      </tr>
+      <tr>
+	      <td class="centerTd"><%2292%></td>
+	      <td class="centerTd"><b> <%2259%> </b></td>
+      </tr>
+      <tr>
+        <td class="centerTd"><%2349%></td>        
+	      <td class="centerTd"><b><%2260%></b></td>
+      </tr>
+      <tr style="height:10px">
+	    <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      </tr>
+	  </table>
+	</td>
+	<td>&nbsp;</td>
+</tr>
+</table>
+</div>
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+<tr style="height:10px">
+	<td>&nbsp;</td>
+	<td NOWRAP class="inputRow centerTd" align=center tabindex="-1" >
+    <button class = "purpleBtn2"  onclick="goBackPage();" type="button"><span><%2342%> &nbsp;&nbsp;&nbsp;</span></button>
+			<span style="display:-moz-inline-box;display:inline-block;width:300px;"></span>
+		<button value="GenieSubmit" class="purpleBtn2"  name="Apply" type="submit" onClick="return goNextPage();" ><span><%2298%> &nbsp;&nbsp;&nbsp;</span></button>
+		
+	</td>
+	<td>&nbsp;</td>
+</tr>
+
+</table>
+			 <input type="hidden" name="mode" value="ap">
+			 <input type="hidden" name="client" value="<%2352%>">
+			 <input type="hidden" name="back_page" value="<%2353%>">
+			 
+</form>
+</body>
+</html>
+

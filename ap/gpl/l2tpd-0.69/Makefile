@@ -26,8 +26,8 @@
 # Also look at the top of network.c for some other (eventually to 
 # become runtime options) debugging flags
 #
-include ../config.mk
 include ../config.in
+include ../config.mk
 
 #CC= /opt/brcm/hndtools-mipsel-uclibc-3.2.3/bin/mipsel-uclibc-gcc
 #DFLAGS= -g -O2 -DDEBUG_PPPD
@@ -36,7 +36,14 @@ DFLAGS= -g -O2 -DDEBUG_PPPD -DDEBUG_CONTROL -DDEBUG_ENTROPY -DDEBUG_CLOSE -DPPPO
 # Uncomment the next line for Linux
 #
 #OSFLAGS= -DLINUX -I/usr/include
+#Foxconn add start by Hank 07/30/2012
+#For Kernel 2.6.36
+ifeq ($(CONFIG_KERNEL_2_6_36),y)
+OSFLAGS= -DLINUX -I$(TOOLCHAIN)/include/ -DUSE_KERNEL
+else
 OSFLAGS= -DLINUX -I/opt/brcm/hndtools-mipsel-uclibc-3.2.3/include/
+endif
+
 
 OSFLAGS+= -I$(LINUXDIR)/include/
 
@@ -85,7 +92,7 @@ all: $(BIN)
 clean:
 	rm -f $(OBJS) $(BIN)
 
-$(BIN): $(OBJS) $(HDRS) 
+$(BIN): $(OBJS) $(HDRS)
 	$(CC) -o $(BIN) $(DFLAGS) $(OBJS) $(LIBS)
 
 install:

@@ -125,3 +125,7 @@ export ROUTERDIR
 ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
 export CFLAGS += -DLINUX26 -DCONFIG_KERNEL_2_6_36
 endif
+#Foxconn added by Kathy, 04/03/2014 @ xAgent_cloud 
+ifeq ($(CONFIG_CLOUD_XAGENT_CONF),y)
+CFLAGS += -DXAGENT_CLOUD_SUPPORT
+endif

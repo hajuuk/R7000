@@ -212,6 +212,8 @@ EXPORT_SYMBOL(wifi_5g_led_state_smp);
 /* Foxconn modified start pling 12/26/2011, for WNDR4000AC */
 #if (defined WNDR4000AC)
 #define GPIO_USB1_LED       (GPIO_LED_USB)
+#elif (defined R6700)
+#define GPIO_USB1_LED       18   /* USB1 LED. */
 #elif (defined R7000)
 #define GPIO_USB1_LED       17   /* USB1 LED. */
 #define GPIO_USB2_LED       18   /* USB2 LED. */
@@ -615,7 +617,7 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
               
             if(net_dev)
             {
-    	          stats = dev_get_stats(net_dev, &temp);
+    	        stats = dev_get_stats(net_dev, &temp);
 
                 if((wifi_2g_tx_cnt_old_smp!=stats->tx_packets) || (wifi_2g_rx_cnt_old_smp!=stats->rx_packets))
                 {
@@ -631,7 +633,8 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
             				//gpio_led_on_off(GPIO_WIFI_2G_LED, 1);
 							gpio_led_on_off(GPIO_WIFI_2G_LED, led_off);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */
             				
-            		}
+            	}
+            	dev_put(net_dev);
             }
             else
             {
@@ -660,7 +663,7 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
 
             if(net_dev)
             {
-    	          stats = dev_get_stats(net_dev, &temp);
+    	        stats = dev_get_stats(net_dev, &temp);
                 if((wifi_5g_tx_cnt_old_smp!=stats->tx_packets) || (wifi_5g_rx_cnt_old_smp!=stats->rx_packets))
                 {
             				//gpio_led_on_off(GPIO_WIFI_5G_LED, 1);
@@ -674,7 +677,8 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
                     repeat_5g++;
             		//gpio_led_on_off(GPIO_WIFI_5G_LED, 1);
 					gpio_led_on_off(GPIO_WIFI_5G_LED, led_off);  /* foxconn add ken chen, 12/13/2013, to support LED control Settings */            				
-            		}
+            	}
+            	dev_put(net_dev);
 
             }    
             else
@@ -688,7 +692,7 @@ static __u64 wifi_5g_rx_cnt_old_smp=0;
 /* Added by Foxconn Antony end */
 
 
-#if (!defined WNDR4000AC) && !defined(R6250) && !defined(R6200v2) 
+#if (!defined WNDR4000AC) && !defined(R6250) && !defined(R6200v2) && !defined(R6700)
 /*Foxconn modify start by Hank 06/21/2012*/
 /*change LED behavior, avoid blink when have traffic, plug second USB must blink,  plug first USB not blink*/
 static int usb2_normal_blink_smp(void)
@@ -941,7 +945,7 @@ static void ipi_timer(void)
         wifi_normal_blink_smp();
 #endif
 
-#if (!defined WNDR4000AC) && !defined(R6250) && !defined(R6200v2)
+#if (!defined WNDR4000AC) && !defined(R6250) && !defined(R6200v2) && !defined(R6700)
         if (usb2_led_state_smp)
         {
             usb2_normal_blink_smp();

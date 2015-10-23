@@ -70,7 +70,7 @@ else
 	# Utility not wanted: get rid of any leftover one
 	rm -f $(INSTALLDIR)/usr/sbin/nvram
 endif
-
+	cd $(INSTALLDIR)/usr/sbin && ln -sf nvram readycloud_nvram
 
 clean:
 	rm -f *.o *.a *.so nvram

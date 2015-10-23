@@ -149,14 +149,14 @@ function checkData()
         var tmp=cf.email_smtp.value.split(".");
         if(tmp.length < 3)
         {
-            alert("<%812%>");
+            alert("<%823%>");
             cf.email_smtp.focus();
             return false;
         }
         if(cf.email_addr.value.indexOf("@", 0) == -1 ||
            cf.email_addr.value.indexOf(".", 0) == -1)
         {
-            alert("<%813%>");
+            alert("<%824%>");
             cf.email_addr.focus();
             return false;
         }
@@ -377,20 +377,20 @@ function setAuthGray()
 </script>
 </head>
 <BODY bgColor=#ffffff onload="change_size();init();" class="page-body"  onResize="change_size();" >
-<img class="cover-image" src="<%62%>">
-<img class="body-image" src="<%63%>">
+<img class="cover-image" src="<%63%>">
+<img class="body-image" src="<%64%>">
 <div id="full-page-container">
 
 <form id="target"  action=fwEmail.cgi method="POST" name=formname>
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
-<img class="subtop-image" src="<%64%>">
-<div class="subhead2"> <%343%></div>
+<img class="subtop-image" src="<%65%>">
+<div class="subhead2"> <%352%></div>
 <table border="0"    style="height:370px"  class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
-&nbsp;&nbsp;&nbsp;<button value="<%66%>"  onClick="buttonClick(this,'<%66%>');return checkData()" type="SUBMIT" name="cfAlert_Apply" class="button-apply" > <span class="roundleft_apply" ><%67%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button value="<%68%>" onclick="buttonClick(this,'<%68%>');CancelAction()" type="SUBMIT" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%69%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%67%>"  onClick="buttonClick(this,'<%67%>');return checkData()" type="SUBMIT" name="cfAlert_Apply" class="button-apply" > <span class="roundleft_apply" ><%68%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%69%>" onclick="buttonClick(this,'<%69%>');CancelAction()" type="SUBMIT" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%70%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
@@ -398,63 +398,63 @@ function setAuthGray()
     
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <tr>
-        <td colspan="2"><input type="checkbox" name="email_notify" value="checkboxValue" onclick = "javascript:setGray();"><b><%814%></b></td></tr>
+        <td colspan="2"><input type="checkbox" name="email_notify" value="checkboxValue" onclick = "javascript:setGray();"><b><%825%></b></td></tr>
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <tr>
-        <td colspan="2"><a href="javascript:loadhelp('FW_email','receive')" tabindex="-1"><b><%815%></b> </a></td></tr>
+        <td colspan="2"><a href="javascript:loadhelp('FW_email','receive')" tabindex="-1"><b><%826%></b> </a></td></tr>
     <tr>
-        <td nowrap><%816%></td>
+        <td nowrap><%827%></td>
         <td width="50%" align="right">
-            <input type="text" name="email_smtp" value="<%817%>" size="24" maxlength="50"></td></tr>
+            <input type="text" name="email_smtp" value="<%828%>" size="24" maxlength="50"></td></tr>
     <tr>
-        <td nowrap><%818%></td>
+        <td nowrap><%829%></td>
         <td width="50%" align="right">
-            <input type="text" name="email_addr" value="<%819%>" size="24" maxlength="50"></td></tr>
+            <input type="text" name="email_addr" value="<%830%>" size="24" maxlength="50"></td></tr>
      <tr>
-        <td nowrap><%820%></td>
+        <td nowrap><%831%></td>
         <td width="50%" align="right">
-            <input type="text" name="smtp_port" value="<%821%>" size="4" maxlength="50"></td></tr>
+            <input type="text" name="smtp_port" value="<%832%>" size="4" maxlength="50"></td></tr>
 
     <tr>
         <td colSpan=2 colspan="2" ><input type="checkbox" name="smtp_auth" onclick = "javascript:setAuthGray();">
-        <B><%822%></B></td></tr>    
+        <B><%833%></B></td></tr>    
     <tr>
-        <td><%477%></td>
+        <td><%488%></td>
         <td align=right width="50%"><INPUT maxLength=64 name=auth_user size=24
-        value= "<%823%>"> </td></tr>
+        value= "<%834%>"> </td></tr>
     <tr>
-        <td><%491%></td>
+        <td><%502%></td>
         <td align=right width="50%"><INPUT type=password maxLength=64 name=auth_pwd size=24
-        value= "<%824%>"> </td></tr>
+        value= "<%835%>"> </td></tr>
     
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <tr>
-        <td colspan="2"><a href="javascript:loadhelp('FW_email','alert')" tabindex="-1"><input type="checkbox"  name="block_site" value="checkboxValue"><b><%825%></b></a></td></tr>
+        <td colspan="2"><a href="javascript:loadhelp('FW_email','alert')" tabindex="-1"><input type="checkbox"  name="block_site" value="checkboxValue"><b><%836%></b></a></td></tr>
     <tr>
-        <td colspan="2" nowrap><%826%></td></tr>
+        <td colspan="2" nowrap><%837%></td></tr>
     <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
     <tr>
-	    <td colspan="2" nowrap><a href="javascript:loadhelp('FW_email','schedule')" tabindex="-1"><b><%827%></b></a></td></tr>
+	    <td colspan="2" nowrap><a href="javascript:loadhelp('FW_email','schedule')" tabindex="-1"><b><%838%></b></a></td></tr>
     <tr>
 	    <td colspan="2">
 	        <select name="cfAlert_Select" size="1" onchange="OnAlertChange();">
-	            <option selected value=1><%828%></option>
-	            <option value=2><%829%></option>
-	            <option value=3><%830%></option>
-	            <option value=4><%831%></option>
-	            <option value=0><%141%></option></select></td></tr>
+	            <option selected value=1><%839%></option>
+	            <option value=2><%840%></option>
+	            <option value=3><%841%></option>
+	            <option value=4><%842%></option>
+	            <option value=0><%142%></option></select></td></tr>
     <tr>
-	    <td colspan="2"><%832%> &nbsp;
+	    <td colspan="2"><%843%> &nbsp;
 	        <select name="cfAlert_Day" size="1" onFocus="if (AlertTimeDisabled) this.blur()">
-	            <option selected value=0><%833%></option>
-	            <option value=1><%834%></option>
-	            <option value=2><%835%></option>
-	            <option value=3><%836%></option>
-	            <option value=4><%837%></option>
-	            <option value=5><%838%></option>
-	            <option value=6><%839%></option></select></td></tr>
+	            <option selected value=0><%844%></option>
+	            <option value=1><%845%></option>
+	            <option value=2><%846%></option>
+	            <option value=3><%847%></option>
+	            <option value=4><%848%></option>
+	            <option value=5><%849%></option>
+	            <option value=6><%850%></option></select></td></tr>
     <tr>
-	    <td colspan="2"><%840%>
+	    <td colspan="2"><%851%>
 		    <select name="cfAlert_Hour" size="1" onFocus="if (AlertHourDisabled) this.blur()">
 		        <option value=0>12:00</option>
 		        <option selected value=1>1:00</option>
@@ -478,21 +478,21 @@ function setAuthGray()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%239%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%235%> </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%240%> </span>
       </div>
 
 
 
-<INPUT name=email_enable type=hidden value= "<%841%>">
-<INPUT name=email_alert type=hidden value= "<%842%>">
-<INPUT name=auth_enable type=hidden value= "<%843%>">
-<INPUT name=smtp_check type=hidden value= "<%844%>">
-<INPUT name=time_type type=hidden value= "<%845%>">
-<INPUT name=time_day type=hidden value= "<%846%>">
-<INPUT name=time_hour type=hidden value= "<%847%>">
+<INPUT name=email_enable type=hidden value= "<%852%>">
+<INPUT name=email_alert type=hidden value= "<%853%>">
+<INPUT name=auth_enable type=hidden value= "<%854%>">
+<INPUT name=smtp_check type=hidden value= "<%855%>">
+<INPUT name=time_type type=hidden value= "<%856%>">
+<INPUT name=time_day type=hidden value= "<%857%>">
+<INPUT name=time_hour type=hidden value= "<%858%>">
 <INPUT name=result type=hidden value= "apply">
 <a name="helpframe-anchor"></a>
 </form>

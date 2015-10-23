@@ -55,6 +55,10 @@ function checkType(ipv6_proto) // called from basictop.htm
     	{
     		basicbuttom.location.href = "IPV6_autoconfig.htm";
     	}
+    	else if (ipv6_proto == "6rd")
+    	{
+    		basicbuttom.location.href = "IPV6_6rd.htm";
+    	}
 }
 //-->
 </script>
@@ -64,8 +68,8 @@ function checkType(ipv6_proto) // called from basictop.htm
     <frame src="IPV6_basictop.htm" name="basicbuttom" scrolling="no" noresize>
 <noframes>
 <body class="page-body"  onload="change_size();"  onResize="change_size();" >
-<img class="cover-image" src="<%62%>">
-<img class="body-image" src="<%63%>">
+<img class="cover-image" src="<%63%>">
+<img class="body-image" src="<%64%>">
 <div id="full-page-container">
 
 

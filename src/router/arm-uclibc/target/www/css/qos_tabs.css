@@ -27,13 +27,13 @@ ul.tabs li {
 
 /* link inside the tab. uses a background image */
 ul.tabs a { 
-        background: url(../img/qos-tab-nonactive.gif) no-repeat 0;
+        background: url(../img/qos-tab-nonactive.jpg) no-repeat 0;
 	font-size:15px;
 	font-weight:bold;
 	display:block;
 	height: 35px;  
 	line-height:35px;
-	width: 201px;
+	width: 152px;
 	text-align:center;	
 	text-decoration:none;
 	color:#4e4e4e;
@@ -46,14 +46,14 @@ ul.tabs a {
 
 ul.tabs a:active {
 	outline:none;		
-	background: url(../img/qos-tab-nonactive.gif) no-repeat 0;        
+	background: url(../img/qos-tab-nonactive.jpg) no-repeat 0;        
 }
 
 /* when mouse enters the tab move the background image */
         		
 
 ul.tabs a.current, ul.tabs a.current:hover, ul.tabs li.current a {
-	background: url(../img/qos-tab-active.gif) no-repeat  0;
+	background: url(../img/qos-tab-hover.jpg) no-repeat  0;
 	cursor:default !important; 
 	color:#000 !important;
 }

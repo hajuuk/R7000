@@ -216,6 +216,35 @@ config_loopback(void)
 	route_add("lo", 0, "127.0.0.0", "0.0.0.0", "255.0.0.0");
 }
 
+void update_port_priority(int vlan_id,char *vlan_interface,int priority)
+{
+    char *ports;
+    char vlanxxports[64];
+    
+    sprintf(vlanxxports,"vlan%dports",vlan_id);
+ 
+    ports=acosNvramConfig_get(vlanxxports);
+
+    if(strlen(ports))
+    {
+        char port_str[32],*next;
+        int port;
+        char priority_command[64];
+   	    foreach(port_str, ports, next) {
+   	        port=atoi(port_str);
+#if defined(R8000)
+   	        if(port==5 || port == 4) // WAN port or CPU port 
+   	            break;
+#else
+   	        if(port==5 || port == 0) // WAN port or CPU port 
+   	            break;
+#endif
+   	        sprintf(priority_command,"et robowr 0x34 %d %d",0x10+port*2,vlan_id+(priority << 13));
+   	        system(priority_command);
+   	    }
+    }
+}
+
 /* configure/start vlan interface(s) based on nvram settings */
 int
 start_vlan(void)
@@ -284,10 +313,10 @@ start_vlan(void)
 		if (!(ifr.ifr_flags & IFF_UP))
 			ifconfig(ifr.ifr_name, IFUP, 0, 0);
 		/* create the VLAN interface */
-		snprintf(vlan_id, sizeof(vlan_id), "%d", i);
+		sprintf(vlan_id,"%d", i);
 		eval("vconfig", "add", ifr.ifr_name, vlan_id);
 		/* setup ingress map (vlan->priority => skb->priority) */
-		snprintf(vlan_id, sizeof(vlan_id), "vlan%d", i);
+		sprintf(vlan_id, "vlan%d", i);
 		/* Bob added start, 09/03/2009, to avoid sending router solicitation packets */ 
 #ifdef INCLUDE_IPV6
 		sprintf(buf, "echo 0 > /proc/sys/net/ipv6/conf/%s/router_solicitations", vlan_id);
@@ -295,8 +324,33 @@ start_vlan(void)
 #endif
 		/* Bob added end, 09/03/2009, to avoid sending router solicitation packets */ 
 		for (j = 0; j < VLAN_NUMPRIS; j ++) {
-			snprintf(prio, sizeof(prio), "%d", j);
+			sprintf(prio, "%d", j);
 			eval("vconfig", "set_ingress_map", vlan_id, prio, prio);
+            
+/*Foxconn add start, edward zhang, 2013/07/03*/
+#ifdef VLAN_SUPPORT
+
+        /*setup egress vlan priority*/
+        if(nvram_match("enable_vlan","enable"))
+        {
+            char vlan_prio[16];
+            sprintf(vlan_prio,"%s_prio",vlan_id);
+            if(nvram_get(vlan_prio))
+            {
+                update_port_priority(i,vlan_id,atoi(nvram_get(vlan_prio)));
+                if(i==atoi(nvram_get("internet_vlan")))
+                {
+                    if(j==0)
+                    {
+                        eval("vconfig", "set_egress_map",vlan_id, "0", nvram_get("internet_prio"));
+                    }
+                }
+                else
+                    eval("vconfig", "set_egress_map",vlan_id, prio, nvram_get(vlan_prio));
+            }
+        }
+#endif
+/*Foxconn add end, edward zhang, 2013/07/03*/
 		}
 	}
 
@@ -305,7 +359,7 @@ start_vlan(void)
 	if (nvram_match("ipv6ready", "1"))
 	{
 	    char cmd[32];
-	    sprintf(cmd, "ifconfig vlan1 hw ether %s", nvram_get("lan_hwaddr"));
+	    sprintf(cmd, "ifconfig %s hw ether %s",nvram_get("lan_interface"), nvram_get("lan_hwaddr"));
 	    system(cmd);
 	}
 #endif

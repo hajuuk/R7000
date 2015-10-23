@@ -89,10 +89,10 @@ ifneq ($(CONFIG_ISERVER),y)
 	install -m 755 $(PKG_INSTALL_DIR)/usr/sbin/avahi-dnsconfd $(TARGETDIR)/usr/sbin/	
 endif
 ifeq ($(CONFIG_ISERVER),y)
-	install -m0644 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/afpd.service $(TARGETDIR)/usr/etc/afpd.service
-	install -m0644 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/service-http $(TARGETDIR)/usr/etc/http.service
-	install -m0644 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/smbd.service $(TARGETDIR)/usr/etc/smbd.service
-	install -m0644 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/adisk.service $(TARGETDIR)/usr/etc/adisk.service
+	install -m0644 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/afpd.service $(TARGETDIR)/usr/config/avahi/services/afpd.service
+	install -m0644 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/service-http $(TARGETDIR)/usr/config/avahi/services/http.service
+	install -m0644 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/smbd.service $(TARGETDIR)/usr/config/avahi/services/smbd.service
+	install -m0644 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/adisk.service $(TARGETDIR)/usr/config/avahi/services/adisk.service
 else
 	install -m0644 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/afpd.service $(TARGETDIR)/usr/config/avahi/services/afpd.service
 	install -m0644 $(TIMEMACHINE_PATH)/avahi-0.6.25/files/service-http $(TARGETDIR)/usr/config/avahi/services/http.service

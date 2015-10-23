@@ -364,7 +364,9 @@ int usb_dual_led(void)
     int rtn_val = 0;
 
     usb1_led();
+#if (!defined R6700)    /* No USB2 LED for R6700 */
     usb2_led();
+#endif
 
     return rtn_val;
 } /* usb_dual_led() */

@@ -215,5 +215,21 @@ extern int checkSemicolon(char *str);
 extern int getNthValueSafe(int index, char *value, char delimit, char *result, int len);
 extern int deleteNthValueMulti(int index[], int count, char *value, char delimit);
 extern char *racat(char *s, int i);
+
+/* Foxconn added start pling 12/10/2014 */
+/* NTGR IPv6 Auto Detection spec change.
+ *  The following define is moved from ap/acos/rc/ipv6.c
+ */
+#if (defined ACOS_IPV6RD)
+typedef struct {
+  char interface[32];
+  char enable;
+  unsigned int ipv4_masklen;
+  char ipv6_prefix[32];
+  char br_addr[64];    // In TR-181 spec, it supports max 4 br addrs, we reserves the space for it.
+} ipv6rd_t;
+#endif
+/* Foxconn added end pling 12/10/2014 */
+
 #endif
 

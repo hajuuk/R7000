@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" href="<%13%>">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<%14%>
+<script language="javascript" type="text/javascript">
+<!--
+
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+//-->
+</script>
+</head>
+<body style="margin:0px;background-color:#ffffff">
+<form id="target"  name="formname" action="usb_remote_invite.cgi" method="POST">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
+<table border="0"   width="100%">
+
+<tr><td colspan="2"><h1><%2189%></h1></td></tr>
+<tr><td colspan="2" background="liteblue.gif" height="12"> &nbsp;</ltd></tr>
+
+<tr>
+<td colspan="2" align="left"><b><%2190%></b></td>
+</tr>
+
+<tr>
+<td clospan="2">
+<table>
+<%2191%>
+</table>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="left"><b><%2192%></b></td>
+</tr>
+<tr><td colspan="2" background="liteblue.gif" height="12"> &nbsp;</td></tr>
+
+<tr>
+<td colspan="2" align="center">
+&nbsp;&nbsp;&nbsp;<button value="<%407%>"  onclick="buttonClick(this,'<%407%>');"  type="submit" name="yes_admin" class="button-apply" > <span class="roundleft_apply" ><%407%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%408%>"  onclick="buttonClick(this,'<%408%>');"  type="submit" name="no_admin" class="button-apply" > <span class="roundleft_apply" ><%408%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%69%>" onClick="buttonClick(this,'<%69%>');location.href='USB_adv_main.htm'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%70%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+</td>
+</tr>
+
+<input type="hidden" name="username" value="<%2193%>">
+  <input type="hidden" name="password" value="<%2194%>">
+    <input type="hidden" name="Register" value="do_register">
+</table>
+</form>
+</body>
+</html>

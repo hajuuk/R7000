@@ -134,18 +134,18 @@ function check_pin()
 		}
 		else
 		{
-			alert("<%2251%>");
+			alert("<%2387%>");
 			return false;
 		}
 	}
 	else
 	if (lpin.length != 4 && lpin.length != 8) {
-		alert("<%2251%>");
+		alert("<%2387%>");
 		return false;
 	}
 	
 	if (parseInt(cf.PIN.value, 10) != cf.PIN.value) {
-		alert("<%2251%>");
+		alert("<%2387%>");
 		return false;
 	}
 	
@@ -161,7 +161,7 @@ function check_pin()
 		accum += 1 * (parseInt(lpin / 1) % 10);
 
 		if (0 != (accum % 10)) {
-			alert("<%2252%>");
+			alert("<%2388%>");
 			return false;
 		}
 	}
@@ -177,15 +177,15 @@ function check_pin()
 </head>
 
 <body  class="page-body" onload="change_size();" style="margin:0px;background-color:#e5e5e5" onResize="change_size();" >
-<img class="cover-image" src="<%62%>">
-<img class="body-image" src="<%63%>">
+<img class="cover-image" src="<%63%>">
+<img class="body-image" src="<%64%>">
 <div id="full-page-container">
 <div class=Section1>
 <form id="target"  method=post action="wps_pin.cgi">
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
 
-<img class="subtop-image" src="<%64%>">
-<div class="subhead2"><%1058%></div>
+<img class="subtop-image" src="<%65%>">
+<div class="subhead2"><%1069%></div>
 <table  border=0    style="height:370px"  class="subhead2-table">
 
 <tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane" style="height:410px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
@@ -197,25 +197,25 @@ function check_pin()
 <tr></tr>
 <tr>
 <p class=MsoNormal>
-<td colspan=3><b><%2253%>:</b></td></p>
+<td colspan=3><b><%2389%>:</b></td></p>
 </tr>
 
 <tr>
-<td colspan="3"><input type="radio" name="WPS_type" value="Push Button" onClick="location.href='WPS.htm'"><%2248%></td></tr>
+<td colspan="3"><input type="radio" name="WPS_type" value="Push Button" onClick="location.href='WPS.htm'"><%2384%></td></tr>
 <tr>
-<td colspan="3"><input type="radio" name="WPS_type" value="PIN Number" checked><%2250%></td></tr>
+<td colspan="3"><input type="radio" name="WPS_type" value="PIN Number" checked><%2386%></td></tr>
 <tr>
-<td colspan="3"><p><%2254%></p></td></tr>
+<td colspan="3"><p><%2390%></p></td></tr>
 <TR>
-<TD><p><%2255%>:</p></TD>
-<%2256%>
+<TD><p><%2391%>:</p></TD>
+<%2392%>
 <TD nowrap><INPUT TYPE="TEXT" NAME="PIN" SIZE="8" MAXLENGTH="9" VALUE="" align="left" onkeydown="return getPressEnt(event);"></TD>
-<%2257%>
+<%2393%>
 <TD nowrap><INPUT TYPE="TEXT" NAME="PIN" SIZE="8" MAXLENGTH="8" VALUE="" align="left"></TD>
-<%2258%>
+<%2394%>
 <TD>
 <p class=MsoNormal align=center>
-&nbsp;&nbsp;&nbsp;<button TYPE="submit" value="<%1380%>" NAME="Next" class="button-rule" onclick="buttonClick(this,'<%1380%>');isNextButton=1;return check_pin();" ><span class="roundleft_button">&nbsp;&nbsp; <%1380%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<button TYPE="submit" value="<%1393%>" NAME="Next" class="button-rule" onclick="buttonClick(this,'<%1393%>');isNextButton=1;return check_pin();" ><span class="roundleft_button">&nbsp;&nbsp; <%1393%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;
 </p></TD>
 </TR>
 
@@ -232,10 +232,10 @@ function check_pin()
    <img class="subfooter-image" src="img/subhead2-bottom.gif">
 <div class="subhead2-bottom" >
     <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
-    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%234%> </span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%239%> </span>
     <span class="button-help-arrow">
       <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
-    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();">  <%235%>  </span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();">  <%240%>  </span>
 
       </div>
 

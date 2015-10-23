@@ -20,11 +20,21 @@
 #ifndef	_bcmparams_h_
 #define	_bcmparams_h_
 
+/*Foxconn add,edward,zhang,2013/07/03*/
+#ifndef VLAN_SUPPORT
 #define VLAN_MAXVID	15	/* Max. VLAN ID supported/allowed */
+#else
+#define VLAN_MAXVID	4094	/* Max. VLAN ID supported/allowed */
+#endif
 
 #define VLAN_NUMPRIS	8	/* # of prio, start from 0 */
 
+/*Foxconn add,edward,zhang,2013/07/03*/
+#ifndef VLAN_SUPPORT
 #define DEV_NUMIFS	16	/* Max. # of devices/interfaces supported */
+#else
+#define DEV_NUMIFS		4095 /* Max. # of devices/interfaces supported */
+#endif
 
 #define WL_MAXBSSCFG	16	/* maximum number of BSS Configs we can configure */
 

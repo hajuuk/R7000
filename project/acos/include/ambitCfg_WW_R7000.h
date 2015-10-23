@@ -47,9 +47,9 @@
 
 /*formal version control*/
 #define AMBIT_HARDWARE_VERSION     "U12H270T00"
-#define AMBIT_SOFTWARE_VERSION     "V1.0.3.80"
-#define AMBIT_UI_VERSION           "1.1.38"
-#define STRING_TBL_VERSION         "1.0.3.80_2.1.38.1"
+#define AMBIT_SOFTWARE_VERSION     "V1.0.4.18"
+#define AMBIT_UI_VERSION           "1.1.52"
+#define STRING_TBL_VERSION         "1.0.4.18_2.1.38.1"
 
 #define AMBIT_PRODUCT_NAME          "R7000"
 #define AMBIT_PRODUCT_DESCRIPTION   "802.11ac Dual Band Gigabit Wireless Router R7000"
@@ -193,7 +193,7 @@
 /* Foxconn Perry added end, 2011/04/13, for document URL */
 
 /* Foxconn Perry added start, 2011/08/17, for USB Support level */
-#define USB_support_level        "13"       /* pling modified 5->13, add bit 4 for Readyshare Vault */
+#define USB_support_level        "29"       /* pling modified 5->13, add bit 4 for Readyshare Vault *//*kathy modified 13->29, add bit 16 for ReadyCLOUD */
 /* Foxconn Perry added end, 2011/08/17, for USB Support level */
 
 #endif /*_AMBITCFG_H*/

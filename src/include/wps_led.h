@@ -66,7 +66,11 @@
 #if (defined WNDR4000AC)
 #define WPS_LED_GPIO           (GPIO_LED_WLAN)  /* pling modified 02/03/2012, to blink wlan LED during WPS */
 #elif (defined R7000)
+#if (defined R6400)
+#define WPS_LED_GPIO           (10)
+#else
 #define WPS_LED_GPIO           (14) /*(14)*/ /* ACR5500 */ /* modified by EricHuang, 1/11/2012 */
+#endif
 #else
 #define WPS_LED_GPIO           (11) /*(14)*/ /* ACR5500 */ /* modified by EricHuang, 1/11/2012 */
 #endif /* WNDR4000AC */

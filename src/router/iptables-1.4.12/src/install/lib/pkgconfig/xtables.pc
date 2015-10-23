@@ -1,5 +1,5 @@
 
-prefix=/home/antony/R7000/2013_04_09_alpha/src/router/iptables-1.4.12/src/install
+prefix=/mnt/old_186/home/antony/R7000/V1.0.4.12_1.1.48/src/router/iptables-1.4.12/src/install
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 xtlibdir=${exec_prefix}/lib/xtables

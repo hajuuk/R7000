@@ -281,8 +281,12 @@ export CFLAGS += -DBCM5301X
 export CFLAGS += -DACS_INTF_DETECT_PATCH
 export CFLAGS +=  -DCONFIG_RUSSIA_IPTV
 export CFLAGS += -DVIDEO_STREAMING_QOS
+export CFLAGS += -DSPEEDTEST_SUPPORT
 ifeq ($(INCLUDE_FBWIFI_FLAG),y)
 export CFLAGS += -DFBWIFI_FLAG
+endif
+ifeq ($(CONFIG_FBWIFI_DEBUG),y)
+export CFLAGS += -DCONFIG_FBWIFI_DEBUG
 endif
 ifeq ($(CONFIG_DLNA),y)
 export CFLAGS += -DDLNA
@@ -315,6 +319,8 @@ export CFLAGS += -DSUPPORT_AC_MODE
 export CFLAGS += -DSTA_MODE
 export CFLAGS += -DPPP_RU_DESIGN
 export CFLAGS += -DEXT_ACS
+export CFLAGS += -DVLAN_SUPPORT
+export CFLAGS += -DINCLUDE_DETECT_AP_MODE
 endif
 
 
@@ -421,15 +427,6 @@ obj-$(CONFIG_LIBBCM) += libbcm
 
 #obj-$(CONFIG_OPENSSL) += openssl
 
-ifeq ($(CONFIG_ACOS_MODULES),y)
-#obj-y += ../../ap/acos
-obj-y += ../../ap/gpl
-fw_cfg_file := ../../../project/acos/include/ambitCfg.h
-else
-obj-$(CONFIG_HTTPD) += httpd
-obj-$(CONFIG_WWW) += www
-endif
-
 obj-$(CONFIG_RC) += rc
 obj-$(CONFIG_GLIBC) += lib
 obj-$(CONFIG_UCLIBC) += lib
@@ -523,6 +520,16 @@ obj-y += voipd
 endif
 
 
+ifeq ($(CONFIG_ACOS_MODULES),y)
+#obj-y += ../../ap/acos
+obj-y += ../../ap/gpl
+fw_cfg_file := ../../../project/acos/include/ambitCfg.h
+else
+obj-$(CONFIG_HTTPD) += httpd
+obj-$(CONFIG_WWW) += www
+endif
+
+
 obj-clean := $(foreach obj,$(obj-y) $(obj-n),$(obj)-clean)
 obj-install := $(foreach obj,$(obj-y),$(obj)-install)
 
@@ -541,6 +548,7 @@ all: acos_link version $(LINUXDIR)/.config linux_kernel $(obj-y)
         # Also build kernel
         
 
+        
 linux_kernel:        
 ifeq ($(LINUXDIR), $(BASEDIR)/components/opensource/linux/linux-2.6.36)
 	$(MAKE) -C $(LINUXDIR) zImage
@@ -653,13 +661,33 @@ ifeq ($(PROFILE),R7000)
 	install usbprinter/KC_BONJOUR $(TARGETDIR)/usr/bin
 	install usbprinter/KC_PRINT $(TARGETDIR)/usr/bin
 	install -d $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/ufsd
-	install ufsd/jnl.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/ufsd
 	install ufsd/ufsd.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/ufsd
+	install ufsd/jnl.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/drivers/ufsd
 	install ufsd/chkntfs $(TARGETDIR)/bin
 	install utelnetd/utelnetd $(TARGETDIR)/bin
 	install arm-uclibc/netgear-streaming-db $(TARGETDIR)/etc
 	install utelnetd/ookla $(TARGETDIR)/bin
-	install fbwifi/fbwifi $(TARGETDIR)/bin
+	$(STRIP) $(TARGETDIR)/usr/bin/wsdl2h
+	$(STRIP) $(TARGETDIR)/usr/bin/xmllint
+	$(STRIP) $(TARGETDIR)/usr/bin/xmlcatalog
+	$(STRIP) $(TARGETDIR)/lib/libssl.so
+	$(STRIP) $(TARGETDIR)/lib/libcrypto.so
+	$(STRIP) $(TARGETDIR)/usr/local/sbin/openvpn
+	$(STRIP) $(TARGETDIR)/bin/wget
+	$(STRIP) $(TARGETDIR)/sbin/curl
+	$(STRIP) $(TARGETDIR)/usr/sbin/tcpdump*
+	$(STRIP) $(TARGETDIR)/usr/lib/libcurl.a
+	$(STRIP) $(TARGETDIR)/usr/lib/libcurl.so*
+	#remove uncessary file
+	rm -r -f $(TARGETDIR)/usr/share/doc
+	rm -r -f $(TARGETDIR)/usr/share/man
+	rm -r -f $(TARGETDIR)/usr/share/gtk-doc
+	rm -r -f $(TARGETDIR)/usr/local/man
+	rm -r -f $(TARGETDIR)/usr/local/share/doc
+	rm -r -f $(TARGETDIR)/usr/local/share/gtk-doc
+	rm -r -f $(TARGETDIR)/usr/local/share/man
+#	rm $(TARGETDIR)/usr/bin/soapcpp2
+	
 	install prebuilt/AccessCntl.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
 	install prebuilt/opendns.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
 	install prebuilt/acos_nat.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
@@ -669,6 +697,10 @@ ifeq ($(PROFILE),R7000)
 	install prebuilt/br_dns_hijack.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
 	install prebuilt/l7_filter.ko $(TARGETDIR)/lib/modules/2.6.36.4brcmarm+/kernel/lib
 	
+endif
+ifeq ($(CONFIG_IPERF),y)
+	install -D $(TOOLCHAIN)/usr/lib/libstdc++.so.6 $(TARGETDIR)/usr/lib/libstdc++.so.6
+	$(STRIP) $(TARGETDIR)/usr/lib/libstdc++.so.6
 endif
 
 
