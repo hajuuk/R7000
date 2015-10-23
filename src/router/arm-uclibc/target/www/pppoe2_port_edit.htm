@@ -25,20 +25,20 @@ function checkData()
 
     if(isNumeric(cf.Port_1,65535))
     {
-        msg+= "<%2299%>\n";
+        msg+= "<%2303%>\n";
         alert(msg);
         return false;
     }
 
     if(isNumeric(cf.Port_2,65535))
     {
-        msg+= "<%2299%>\n";
+        msg+= "<%2303%>\n";
         alert(msg);
         return false;
     }
 
     if(i > j)
-	    msg+= "<%2299%>\n";
+	    msg+= "<%2303%>\n";
 
 	if (msg.length > 1)
 	{
@@ -55,16 +55,16 @@ function checkData()
 <FORM action="pppoe2_port.cgi" method="post" name="formname">
   <TABLE border=0 width="100%">
     <TR>
-      <TD colspan="2" align="left"><h1><%2277%></h1></TD></TR>
+      <TD colspan="2" align="left"><h1><%2281%></h1></TD></TR>
     <tr> <!-- RULE -->
       <td colspan="2" background="liteblue.gif" height="12">&nbsp; </td></tr>
 
     <TR>
-      <TD align="left" nowrap> <%2295%></td>
+      <TD align="left" nowrap> <%2299%></td>
       <td><INPUT type="text" name="trigger" maxlength="20" value="<%570%>" onfocus="this.blur()"></TD></TR>
     <TR>
-      <TD align="left" nowrap> <%2300%></td>
-      <td align="left" ><input type="text" name="Port_1" class="num" size="5" maxlength="5" value=<%2296%>> - <input type="text" name="Port_2" class="num" size="5" maxlength="5" value=<%2298%>></TD></TR>
+      <TD align="left" nowrap> <%2304%></td>
+      <td align="left" ><input type="text" name="Port_1" class="num" size="5" maxlength="5" value=<%2300%>> - <input type="text" name="Port_2" class="num" size="5" maxlength="5" value=<%2302%>></TD></TR>
     <tr>
       <TD align="left" nowrap> <%590%></td>
       <td><select name="Protocol"><option value="TCP/UDP"><%593%></option><option value="TCP"><%591%></option><option value="UDP"><%592%></option></select></td>
@@ -75,7 +75,7 @@ function checkData()
       <td colspan="2" align="center">
         <INPUT type="submit" name="accept" value=" <%63%> " onclick="return checkData()">
         <INPUT type="button" name="cancel" value=" <%65%> " onclick="location.href='BAS_basic.htm'">
-    <input type="hidden" name="policyIndex" value=<%2297%>>
+    <input type="hidden" name="policyIndex" value=<%2301%>>
 </form>
 </body>
 </html>

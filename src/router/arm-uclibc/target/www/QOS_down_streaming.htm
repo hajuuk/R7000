@@ -21,7 +21,7 @@ classes.num.all.fontSize = "10pt" ;
 <%14%>
 <script language="javascript" type="text/javascript">
 <!--
-//<%1740%>
+//<%1741%>
   
     $(document).ready(function()
     {	
@@ -335,7 +335,7 @@ function loadSettings()
         cf.check_bw.disabled = true;
         
         var setButton=document.getElementsByName("setup_qos_rule");
-        setButton[0].outerHTML='<button type="submit" disabled value="qos_setrule_mark" name="setup_qos_rule" class="button-grey" onclick="buttonClick(this,\'qos_setrule_mark\');" ><span class="roundleft_grey">&nbsp;&nbsp; <%1742%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+        setButton[0].outerHTML='<button type="submit" disabled value="qos_setrule_mark" name="setup_qos_rule" class="button-grey" onclick="buttonClick(this,\'qos_setrule_mark\');" ><span class="roundleft_grey">&nbsp;&nbsp; <%1743%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
         setButton[0].style.cursor='default';          
 	}
     else
@@ -352,7 +352,7 @@ function loadSettings()
             //cf.check_bw.disabled = true;
             
             var checkButton=document.getElementsByName("check_bw");
-            checkButton[0].outerHTML='<button type="submit" disabled value="Check" name="check_bw" class="button-grey" onClick="buttonClick(this,\'Check\');return checkWanIp();"><span class="roundleft_grey">&nbsp;&nbsp; <%1296%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+            checkButton[0].outerHTML='<button type="submit" disabled value="Check" name="check_bw" class="button-grey" onClick="buttonClick(this,\'Check\');return checkWanIp();"><span class="roundleft_grey">&nbsp;&nbsp; <%1297%></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
             checkButton[0].style.cursor='default';        
             
 
@@ -381,7 +381,7 @@ function loadSettings()
 function checkData()
 {
 	var cf = document.forms[0];
-	var qos_up_bw_limit = "<%1743%>";
+	var qos_up_bw_limit = "<%1744%>";
 	/*
 	interval = parseFloat(cf.bandwidth.value);
 		
@@ -392,7 +392,7 @@ function checkData()
 		)
 		
 	{
-		alert("<%1744%>");
+		alert("<%1745%>");
 		return false;
 	}
 	return true;
@@ -405,7 +405,7 @@ function checkData()
 		)
 		
 	{
-		alert("<%1744%>");
+		alert("<%1745%>");
 		return false;
 	}
 	else
@@ -566,11 +566,11 @@ function ungrayout_allBtn()
 function loadAlert()
 {
     var cf = document.forms[0];
-    //var fromcgi = "<%1745%>";
+    //var fromcgi = "<%1746%>";
     
     //if (fromcgi == "AlertOk")
     //{
-    //    alert("<%1746%>");
+    //    alert("<%1747%>");
    // }
 }
 function GetXmlHttpObject()
@@ -1004,9 +1004,9 @@ function selMACTab(idx,policy,devName,mac){
 <td>
 <!-- tabs -->
 <ul class="tabs" width="100%" >
-    <li><a id="WMMTab" onFocus="this.blur()" href="#"><span><%1800%></span></a></li>
-    <li><a id="UpstreamTab" onFocus="this.blur()" href="#"><span><font size='2'><%1801%></font></span></a></li>    
-    <li><a id="DownstreamTab" onFocus="this.blur()" href="#"><span><font size='2'><%1802%></font></span></a></li>    
+    <li><a id="WMMTab" onFocus="this.blur()" href="#"><span><%1801%></span></a></li>
+    <li><a id="UpstreamTab" onFocus="this.blur()" href="#"><span><font size='2'><%1802%></font></span></a></li>    
+    <li><a id="DownstreamTab" onFocus="this.blur()" href="#"><span><font size='2'><%1803%></font></span></a></li>    
 </ul>
 <!-- tab "panes" -->
 <div class="pane" id="wmm-pane">
@@ -1016,11 +1016,11 @@ function selMACTab(idx,policy,devName,mac){
 
 <!-- content of WMM start -->
 <tr>
-<td colspan="2"><input type="checkbox" name="wmm_enable_2g" value="1"><a href="javascript:loadhelp('QOS_main','wifi')" tabindex="-1"> <b><%1803%></b></a></td>
+<td colspan="2"><input type="checkbox" name="wmm_enable_2g" value="1"><a href="javascript:loadhelp('QOS_main','wifi')" tabindex="-1"> <b><%1804%></b></a></td>
 </tr>
 
 <tr>
-<td colspan="2"><input type="checkbox" name="wmm_enable_5g" value="1"><a href="javascript:loadhelp('QOS_main','wifi')" tabindex="-1"> <b><%1804%></b></a></td>
+<td colspan="2"><input type="checkbox" name="wmm_enable_5g" value="1"><a href="javascript:loadhelp('QOS_main','wifi')" tabindex="-1"> <b><%1805%></b></a></td>
 </tr>
 <!-- content of WMM end -->
 
@@ -1034,7 +1034,7 @@ function selMACTab(idx,policy,devName,mac){
 
 <!--
 <tr>
-<td colspan="3"><input type="checkbox" name="qosEnable" value="1" checked><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1748%></b></a></td>
+<td colspan="3"><input type="checkbox" name="qosEnable" value="1" checked><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1749%></b></a></td>
 </tr>
 
 <tr><td colspan="4" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
@@ -1044,7 +1044,7 @@ function selMACTab(idx,policy,devName,mac){
 <table CELLPADDING=0 CELLSPACING=0 id="upstream-table" style="padding:0;margin:0;border:0;">
 
 <tr>
-<td colspan="3"><input type="checkbox" name="qosEnable" value="1"> <b><%1748%></b></td>
+<td colspan="3"><input type="checkbox" name="qosEnable" value="1"> <b><%1749%></b></td>
 
 <td rowspan="2">&nbsp;&nbsp;&nbsp;<img src="poweredbyookla.png" border="0"></td>
 </tr>
@@ -1052,14 +1052,14 @@ function selMACTab(idx,policy,devName,mac){
 <tr>
 <td><img src="spacer.gif" height="30" width="23" border="0"></td>
 <td> 
-<label id ="bw_sel" for="bw_sel"><b><%1750%>:&nbsp;<%1751%></b></label>
+<label id ="bw_sel" for="bw_sel"><b><%1751%>:&nbsp;<%1752%></b></label>
 <input type="text" name="bandwidth" size="6" maxlength="6" value="">
 <select name="rate" size=1>
-<option value="1000"><%1752%></option>
-<option value="1000000"><%1753%></option>
+<option value="1000"><%1753%></option>
+<option value="1000000"><%1754%></option>
 </select>
 
-&nbsp;&nbsp;&nbsp;<button type="button" id="checkBtn" value="<%1805%>" name="check_bw" class="button-rule" onclick="buttonClick(this,'<%1805%>');return checkWanIp();"><span class="roundleft_button">&nbsp;&nbsp; <%1805%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="button" id="checkBtn" value="<%1806%>" name="check_bw" class="button-rule" onclick="buttonClick(this,'<%1806%>');return checkWanIp();"><span class="roundleft_button">&nbsp;&nbsp; <%1806%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 </table>
@@ -1067,25 +1067,25 @@ function selMACTab(idx,policy,devName,mac){
 
 <tr>
 <td><img src="spacer.gif" height="12" width="23" border="0"></td>
-<td colspan="3" id="check_info" style="display: none;"><%1806%>
+<td colspan="3" id="check_info" style="display: none;"><%1807%>
 <input type="text" name="progress" class="prgbar" value="" style="color: blue" size="20"
     contentEditable="false" onkeydown="return false;" onbeforeeditfocus="return false;" onpaste="return false;">	
 </td>
 
 <td colspan="3" id="check_result" style="display: none;">
-	<%1807%>&nbsp;<font color=#ADA7D7><b id="uplink_bd"></b></font>
+	<%1808%>&nbsp;<font color=#ADA7D7><b id="uplink_bd"></b></font>
 </td>
 
-<td colspan="3" id="check_nowan" style="display: none;"><%1808%></td>
-<td colspan="3" id="check_unreach" style="display: none;"><%1809%></td>
+<td colspan="3" id="check_nowan" style="display: none;"><%1809%></td>
+<td colspan="3" id="check_unreach" style="display: none;"><%1810%></td>
 
 </tr>
 
 <!--
 <tr>
 <td colspan="2" ><img src="spacer.gif" width="40" height="12" border="0">
-<input type="radio" name="bw_sel" value="2" onclick="update_bw_sel(2)"><%1754%>  <!><%1755%><!>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1296%>" name="check_bw" class="button-rule" onclick="buttonClick(this,'<%1296%>');return checkWanIp();"><span class="roundleft_button">&nbsp;&nbsp; <%1296%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<input type="radio" name="bw_sel" value="2" onclick="update_bw_sel(2)"><%1755%>  <!><%1756%><!>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1297%>" name="check_bw" class="button-rule" onclick="buttonClick(this,'<%1297%>');return checkWanIp();"><span class="roundleft_button">&nbsp;&nbsp; <%1297%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 -->
@@ -1094,8 +1094,8 @@ function selMACTab(idx,policy,devName,mac){
 	<td colspan="3"></td>
 </tr>
 <tr>
-<td colspan="3" ><b><%1756%></b>&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;<button id="setup_qos_ruleBtn" type="submit" value="Setup QoS rule" name="setup_qos_rule" class="button-rule" onclick="buttonClick(this,'Setup QoS rule');" ><span class="roundleft_button">&nbsp;&nbsp; <%1742%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<td colspan="3" ><b><%1757%></b>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<button id="setup_qos_ruleBtn" type="submit" value="Setup QoS rule" name="setup_qos_rule" class="button-rule" onclick="buttonClick(this,'Setup QoS rule');" ><span class="roundleft_button">&nbsp;&nbsp; <%1743%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 <!--
 &nbsp;&nbsp;&nbsp;<button type="submit" value="1" name="video_streaming_qos" class="button-rule" onclick="buttonClick(this,'video_streaming_qos');" ><span class="roundleft_button">&nbsp;&nbsp; QoS Video Streaming Tunning</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 -->
@@ -1112,16 +1112,16 @@ function selMACTab(idx,policy,devName,mac){
 
 <!-- content of downstream start -->
 <tr>
-<td colspan="2"><input type="checkbox" name="qosStreamingEnable" value="1" <%1810%>><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1811%> </b></a></td>
+<td colspan="2"><input type="checkbox" name="qosStreamingEnable" value="1" <%1811%>><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1812%> </b></a></td>
 </tr>
 
 <tr>
-<td colspan="2">&nbsp;&nbsp;&nbsp;<input type="checkbox" name="AutoUpdateEnable" value="1" <%1812%>><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1813%> </b></a>
-&nbsp;&nbsp;&nbsp;<button type="button" value="<%1814%>" name="check_update" class="button-rule" onclick="check_start();"><span class="roundleft_button">&nbsp;&nbsp; <%1814%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<td colspan="2">&nbsp;&nbsp;&nbsp;<input type="checkbox" name="AutoUpdateEnable" value="1" <%1813%>><a href="javascript:loadhelp('QOS_main','qos_on')" tabindex="-1"> <b><%1814%> </b></a>
+&nbsp;&nbsp;&nbsp;<button type="button" value="<%1815%>" name="check_update" class="button-rule" onclick="check_start();"><span class="roundleft_button">&nbsp;&nbsp; <%1815%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 <tr>
-<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><%1815%><%1816%></b></td>
+<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><%1816%><%1817%></b></td>
 </tr>
 
 
@@ -1131,7 +1131,7 @@ function selMACTab(idx,policy,devName,mac){
 <table align="left" border="0" width="100%">
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
-<td colspan="2" ><b>Add Rules:</b>&nbsp;&nbsp;<input type="radio" name="ruleSelect" value="1" onClick="chgSel();" <%1817%> ><%1818%>&nbsp;&nbsp;<input type="radio" name="ruleSelect" value="2" onClick="chgSel();" <%1819%>><%1820%>
+<td colspan="2" ><b>Add Rules:</b>&nbsp;&nbsp;<input type="radio" name="ruleSelect" value="1" onClick="chgSel();" <%1818%> ><%1819%>&nbsp;&nbsp;<input type="radio" name="ruleSelect" value="2" onClick="chgSel();" <%1820%>><%1821%>
 </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
@@ -1144,7 +1144,7 @@ function selMACTab(idx,policy,devName,mac){
 <td colspan="2">
 <div id="mac_list" style="display: none;">
 <table align="left" border="0" width="100%">
-<%1821%>
+<%1822%>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 </table>
 </div>
@@ -1156,7 +1156,7 @@ function selMACTab(idx,policy,devName,mac){
 <div id="qos_name" style="display: none;">
 <table align="left" border="0" width="100%">
 <tr>
-<td width="15%" size=1><%1822%></td>
+<td width="15%" size=1><%1823%></td>
  <td width="85%"> 
  <input type="text" name="name" size="33" maxlength="32">
 </td>
@@ -1171,7 +1171,7 @@ function selMACTab(idx,policy,devName,mac){
 <div id="qos_keyword" style="display: none;">
 <table align="left" border="0" width="100%">
 <tr>
-<td width="15%" size=1><%1823%></td>
+<td width="15%" size=1><%1824%></td>
  <td width="85%"> 
  <input type="text" name="keyword" size="33" maxlength="101">
 </td>
@@ -1210,15 +1210,15 @@ function selMACTab(idx,policy,devName,mac){
 &nbsp;&nbsp;&nbsp;<button type="button" value="Reset" name="reset_qos" class="button-rule" onclick="qos_reset();" ><span class="roundleft_button">&nbsp;&nbsp;  Reset</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
-<tr><td colspan="2" ><b><%1824%></b></td></tr>
+<tr><td colspan="2" ><b><%1825%></b></td></tr>
 <tr>
 <td colspan="2">
 	<table border="1">
 		<tr><td align="middle">
-			<%1825%>
+			<%1826%>
 		</tr></td>
 		<tr><td>
-	        <select name="QosDatabaseList" size="6" onclick="selectCustomTab();" ><%1826%></select> 
+	        <select name="QosDatabaseList" size="6" onclick="selectCustomTab();" ><%1827%></select> 
 		</tr></td>
 	</table>
 </td>
@@ -1227,7 +1227,7 @@ function selMACTab(idx,policy,devName,mac){
 <td colspan="2" align="center">
 &nbsp;&nbsp;&nbsp;<button type="submit" value="Edit" name="edit_qos" class="button-rule" onclick="buttonClick(this,'Edit');return check_data_edit();" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <%574%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 &nbsp;&nbsp;&nbsp;<button type="submit" value="Delete" name="delete_qos" class="button-rule" onclick="buttonClick(this,'Delete');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%575%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-&nbsp;&nbsp;&nbsp;<button type="submit" value="Delete All" name="delete_all_qos" class="button-rule" onclick="buttonClick(this,'Delete All');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%1796%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+&nbsp;&nbsp;&nbsp;<button type="submit" value="Delete All" name="delete_all_qos" class="button-rule" onclick="buttonClick(this,'Delete All');" ><span class="roundleft_button"><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <%1797%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
 </tr>
 
 </table>
@@ -1239,7 +1239,7 @@ function selMACTab(idx,policy,devName,mac){
 <td colspan="2">
 <div id="qos_table_list" style="display: none;">
 <table align="left" border="0" width="100%">
-<%1827%>
+<%1828%>
 </table>
 </div>
 </td>
@@ -1253,24 +1253,24 @@ function selMACTab(idx,policy,devName,mac){
 <tr>
 <input type="hidden" name="select" value="-1">
 <input type="hidden" name="priority_sel" value="-1">
-<INPUT type="hidden" name="WMM_value_2g" value="<%1828%>">
-<INPUT type="hidden" name="WMM_value_5g" value="<%1829%>">
-<input type="hidden" name="qos_enable" value="<%1758%>">
-<input type="hidden" name="qos_bw_enable" value="<%1759%>">
-<input type="hidden" name="uplink_bw" value="<%1760%>">
+<INPUT type="hidden" name="WMM_value_2g" value="<%1829%>">
+<INPUT type="hidden" name="WMM_value_5g" value="<%1830%>">
+<input type="hidden" name="qos_enable" value="<%1759%>">
+<input type="hidden" name="qos_bw_enable" value="<%1760%>">
+<input type="hidden" name="uplink_bw" value="<%1761%>">
 <input type="hidden" name="repeater" value="<%371%>">
 <input type="hidden" name="repeater_an" value="<%372%>">
-<input type="hidden" name="bw_set_sel" value="<%1761%>">
+<input type="hidden" name="bw_set_sel" value="<%1762%>">
 <input type="hidden" name="enable_apmode" value="<%373%>">
 <input type="hidden" name="enable_stamode" value="<%374%>">
 
-<input type="hidden" name="qos_down_streaming_enable" value="<%1830%>">
-<input type="hidden" name="qos_update_enable" value="<%1831%>">
-<input type="hidden" name="choose_selection" value="<%1832%>">
-<input type="hidden" name="office_idx" value="<%1833%>">
-<input type="hidden" name="custom_idx" value="<%1834%>">
-<input type="hidden" name="custom_mac_idx" value="<%1835%>">
-<input type="hidden" name="apply_page" value="<%1836%>">
+<input type="hidden" name="qos_down_streaming_enable" value="<%1831%>">
+<input type="hidden" name="qos_update_enable" value="<%1832%>">
+<input type="hidden" name="choose_selection" value="<%1833%>">
+<input type="hidden" name="office_idx" value="<%1834%>">
+<input type="hidden" name="custom_idx" value="<%1835%>">
+<input type="hidden" name="custom_mac_idx" value="<%1836%>">
+<input type="hidden" name="apply_page" value="<%1837%>">
 <!--[if IE 6]>
 <input type="hidden" name="browser_ver" value="ie6">
 <![endif]-->

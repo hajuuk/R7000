@@ -715,6 +715,7 @@ function chgLang()
         var choice = form.choicelang.value;
         var auto_block = form.auto_block.value;      
         if (choice != gui_region){      
+        setTimeout(function(){
                 ret = confirm("<%276%> "+ gui_lang_local + ""+"<%277%> "+""+ choice + "?");
                 if(ret==1){
                     if($("#BasicTab").hasClass('current')){
@@ -725,6 +726,7 @@ function chgLang()
                 }
                 else
                     resetLanguageList();
+        },10);
         }
 }
 

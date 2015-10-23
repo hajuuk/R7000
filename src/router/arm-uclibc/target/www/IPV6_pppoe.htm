@@ -170,7 +170,7 @@ function checkData()
            || !(isHex(cf.IPv6_interface_id1.value) && isHex(cf.IPv6_interface_id2.value) && isHex(cf.IPv6_interface_id3.value) && isHex(cf.IPv6_interface_id4.value)))
         {
 
-            msg+= "<%2337%>";
+            msg+= "<%2341%>";
         }
         else 
             cf.ipv6_interface_id.value = cf.IPv6_interface_id1.value+":"+cf.IPv6_interface_id2.value+":"+cf.IPv6_interface_id3.value+":"+cf.IPv6_interface_id4.value;
@@ -178,7 +178,7 @@ function checkData()
 	else
 		cf.ipv6_interfaceid_enable.value = 0;	
        	 
-    if(<%1347%><1280){
+    if(<%1348%><1280){
          msg+="MTU should not less than 1280 when IPV6 enable. Please change setting in WAN Setup.";
     }
 
@@ -190,7 +190,7 @@ function checkData()
     }
 
 	if(openvpnEnable == "enable"){
-		alert("<%2338%>");
+		alert("<%2342%>");
 		return false;
 	}
 
@@ -228,47 +228,47 @@ function loadSettings()
 <form id="target"  name="formname" method="POST" action="ipv6_pppoe.cgi" >
 <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
 <img class="subtop-image" src="<%61%>">
-<div class="subhead2"> <%1043%></div>
+<div class="subhead2"> <%1044%></div>
 <table border="0"     class="subhead2-table">
 
 <tr align="left" valign="middle">
 <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
 <button type="submit" value="SUBMIT"  onClick="buttonClick(this,'<%63%>');return checkData()" name="apply" class="button-apply" style="padding-left:10px"> <span class="roundleft_apply" ><%64%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
 <button type="button" value="BUTTON"  onClick="buttonClick(this,'<%65%>');reset();loadSettings();" name="Cancel" class="button-rule" style="padding-left:10px" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%66%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
-<button type="button" value="BUTTON"  onClick="buttonClick(this,'Refresh');location.reload();" name="Refresh" class="button-rule" style="padding-left:10px" ><span class="roundleft_button"><span class ="refresh-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%2339%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+<button type="button" value="BUTTON"  onClick="buttonClick(this,'Refresh');location.reload();" name="Refresh" class="button-rule" style="padding-left:10px" ><span class="roundleft_button"><span class ="refresh-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%2343%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
 </td>
 </tr>
 
 <tr><td colspan="2" class="scrollpane-table-seperate-border"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
 
 <tr>
- <td width="50%"><a><b><%2340%></b></a></td>
+ <td width="50%"><a><b><%2344%></b></a></td>
  <td width="50%" align="right">
     <select name="login_type" onChange="setServer()">
         <option><%502%></option>
-        <option><%2341%></option>
-        <option><%2342%></option>
-        <option><%2343%></option>
-        <option><%2344%></option>
         <option><%2345%></option>
+        <option><%2346%></option>
+        <option><%2347%></option>
+        <option><%2348%></option>
+        <option><%2349%></option>
         <option selected><%475%></option>
-        <option ><%2346%></option>
+        <option ><%2350%></option>
     </select>
  </td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
 	<td><b><%480%></b></td>
-	<td align="right"><input type="text" name="pppoe_username" size="15" maxlength="63" value="<%2398%>"></td>
+	<td align="right"><input type="text" name="pppoe_username" size="15" maxlength="63" value="<%2402%>"></td>
 </tr>
 <tr>
 	<td><b><%482%></b></td>
-	<td align="right"><input type="password" name="pppoe_passwd" size="15" maxlength="63" value="<%2399%>"></td>
+	<td align="right"><input type="password" name="pppoe_passwd" size="15" maxlength="63" value="<%2403%>"></td>
 </tr>
 
 <tr>
-	<td nowrap><%2400%> &nbsp;</td>
-	<td align="right"><input type="text" name="pppoe_servicename" maxlength="63" size="15" value="<%2401%>"></td>
+	<td nowrap><%2404%> &nbsp;</td>
+	<td align="right"><input type="text" name="pppoe_servicename" maxlength="63" size="15" value="<%2405%>"></td>
 </tr>
 
 <tr>
@@ -282,10 +282,10 @@ function loadSettings()
 </tr>
 
 <tr>
-    <td colspan="2" ><b><%2348%></b></td>
+    <td colspan="2" ><b><%2352%></b></td>
 </tr>
 <tr>
-    <td colspan="2" ><img src="spacer.gif" width="20" height="12" border="0"><%2349%></td>
+    <td colspan="2" ><img src="spacer.gif" width="20" height="12" border="0"><%2353%></td>
 </tr>
 <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
 <tr>
@@ -295,26 +295,26 @@ function loadSettings()
 
 </tr>
 <tr>
-    <td colspan="2" ><b><%2350%></b></td>
+    <td colspan="2" ><b><%2354%></b></td>
 </tr>
 <tr>
-    <td colspan="2" ><img src="spacer.gif" width="20" height="12" border="0"><%2351%></td>
+    <td colspan="2" ><img src="spacer.gif" width="20" height="12" border="0"><%2355%></td>
 </tr>
 <tr>
-	<td nowrap colspan="2"><b><%2352%></b></td>
+	<td nowrap colspan="2"><b><%2356%></b></td>
 </tr>
 <tr>
-	<td colspan="2" nowrap><input type="radio" name="IpAssign" value="dhcp" <%2353%>><%2354%></td>
+	<td colspan="2" nowrap><input type="radio" name="IpAssign" value="dhcp" <%2357%>><%2358%></td>
 </tr>
 <tr>
-	<td colspan="2" nowrap><input type="radio" name="IpAssign" value="auto" <%2355%>><%2346%></td>
+	<td colspan="2" nowrap><input type="radio" name="IpAssign" value="auto" <%2359%>><%2350%></td>
 </tr>
 <tr>
     <td colspan="2" ><img src="spacer.gif" width="20" height="1" border="0">
 </tr>
 
 <tr>
-    <td nowrap colspan="2"><input  type="checkbox" <%2356%> name="useInterfaceId" value="" onclick= "checkInterfaceID();"><b><%2357%></b></td>
+    <td nowrap colspan="2"><input  type="checkbox" <%2360%> name="useInterfaceId" value="" onclick= "checkInterfaceID();"><b><%2361%></b></td>
 </tr>
 <tr>
 	<td colspan="2" ><img src="spacer.gif" width="20" height="12" border="0"><input type="text" name="IPv6_interface_id1" class="num" size="4" maxlength="4" value="" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheckv6(this,0)">:<input type="text" name="IPv6_interface_id2" class="num" size="4" maxlength="4" value="" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheckv6(this,0)">:<input type="text" name="IPv6_interface_id3" class="num" size="4" maxlength="4" value="" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheckv6(this,0)">:<input type="text" name="IPv6_interface_id4" class="num" size="4" maxlength="4" value="" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheckv6(this,1)"></td>
@@ -336,7 +336,7 @@ function loadSettings()
 
 
 <input type="hidden" name="ipv6_interfaceid_enable" value="">
-<input type="hidden" name="ipv6_interface_id" value="<%2358%>">
+<input type="hidden" name="ipv6_interface_id" value="<%2362%>">
 <INPUT type="hidden" name="ipv6_proto" value= "pppoe">
 <INPUT type="hidden" name="wan_proto" value= "<%393%>">
 <a name="helpframe-anchor"></a>
